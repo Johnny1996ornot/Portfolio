@@ -50,6 +50,20 @@
             transform-origin: center;
         }
 
+        /* Sticky Section Title Bar */
+        .sticky-title-container {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background-color: rgba(248, 249, 250, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem 0;
+            overflow: hidden;
+        }
+        html.dark .sticky-title-container {
+            background-color: rgba(15, 15, 17, 0.9);
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -97,11 +111,16 @@
         
         <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 py-12">
             
-            <!-- SCROLL 0: CORE COMPETENCIES (Stacked Rectangles with Smooth Hover Expand) -->
+            <!-- SCROLL 0: CORE COMPETENCIES -->
             <section id="skills" class="min-h-screen flex flex-col justify-center border-b border-transparent relative overflow-hidden py-16">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-8 z-20 relative text-center md:text-left">Core Competencies</h2>
+                <!-- Yellow Sticky Title Bar for Core Competencies -->
+                <div class="sticky-title-container">
+                    <h2 class="text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit transition-all duration-300" id="title-skills">
+                        Core Competencies
+                    </h2>
+                </div>
                 
-                <div class="flex flex-col space-y-4 relative w-full max-w-2xl">
+                <div class="flex flex-col space-y-4 relative w-full max-w-2xl mt-6">
                     
                     <!-- Rectangle 1 -->
                     <div class="group relative rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 shadow-xl p-6 transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black cursor-pointer overflow-hidden">
@@ -128,7 +147,7 @@
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
                             <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">
-                                Grounded in formal Environmental Impact Assessment (EIA) training from UPLB and hands-on laboratory research including trace-metal analysis (AAS extraction for Lead) and microplastic bioindicator tracking using Blattodea spp.
+                                Grounded in formal Environmental Impact Assessment (EIA) training from UPLB[cite: 3] and hands-on laboratory research including trace-metal analysis (AAS extraction for Lead)[cite: 3] and microplastic bioindicator tracking using Blattodea spp[cite: 3].
                             </p>
                         </div>
                     </div>
@@ -143,7 +162,7 @@
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
                             <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">
-                                Advanced competency in QGIS, remote sensing, spatial interpolation (IDW), vegetation index mapping (NDVI vs. EVI), Total Suspended Solids (TSS) evaluation, and landscape connectivity modeling.
+                                Advanced competency in QGIS, remote sensing, spatial interpolation (IDW), vegetation index mapping (NDVI vs. EVI), Total Suspended Solids (TSS) evaluation, and landscape connectivity modeling[cite: 3].
                             </p>
                         </div>
                     </div>
@@ -158,11 +177,11 @@
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-[500px] group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
                             <div class="mt-4 text-xs md:text-sm text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3 space-y-2">
-                                <p><strong>• International Urban Systems Project (2025):</strong> Designed spatial databases combining global datasets (GHSL, WorldPop, SCAD/ACLED conflict data), developed hierarchical zone classification models using distance and urban morphology indicators, and implemented automated Python geospatial pipelines.</p>
-                                <p><strong>• SAFER U Project - Project NOAH (2022):</strong> Processed and validated geospatial climate datasets at the UP Resilience Institute to support climate change adaptation and disaster risk reduction planning for state universities.</p>
-                                <p><strong>• Heavy Metal (Lead) Spatial Distribution Study (2024):</strong> Directed field sampling of soil and foliar dust at Arroceros Forest Park, coordinated AAS laboratory extraction, and modeled environmental drivers and interpolation hotspots.</p>
-                                <p><strong>• Microplastic Bioindicator Study (2022):</strong> Supervised undergraduate thesis investigating microplastic prevalence across 25 urban sampling sites in Manila using Blattodea spp., Nile Red staining, and spatial hotspot mapping.</p>
-                                <p><strong>• Metro Manila Landscape Connectivity Thesis (2021):</strong> Modeled urban ecological corridors and habitat fragmentation indices using the Grainscape and raster packages in R for University of Debrecen.</p>
+                                <p><strong>• International Urban Systems Project (2025):</strong> Designed spatial databases combining global datasets (GHSL, WorldPop, SCAD/ACLED conflict data), developed hierarchical zone classification models using distance and urban morphology indicators, and implemented automated Python geospatial pipelines[cite: 3].</p>
+                                <p><strong>• SAFER U Project - Project NOAH (2022):</strong> Processed and validated geospatial climate datasets at the UP Resilience Institute to support climate change adaptation and disaster risk reduction planning for state universities[cite: 3].</p>
+                                <p><strong>• Heavy Metal (Lead) Spatial Distribution Study (2024):</strong> Directed field sampling of soil and foliar dust at Arroceros Forest Park, coordinated AAS laboratory extraction, and modeled environmental drivers and interpolation hotspots[cite: 3].</p>
+                                <p><strong>• Microplastic Bioindicator Study (2022):</strong> Supervised undergraduate thesis investigating microplastic prevalence across 25 urban sampling sites in Manila using Blattodea spp., Nile Red staining, and spatial hotspot mapping[cite: 3].</p>
+                                <p><strong>• Metro Manila Landscape Connectivity Thesis (2021):</strong> Modeled urban ecological corridors and habitat fragmentation indices using the Grainscape and raster packages in R for University of Debrecen[cite: 3].</p>
                             </div>
                         </div>
                     </div>
@@ -170,12 +189,18 @@
                 </div>
             </section>
 
-            <!-- SCROLL 1: TIMELINE -->
-            <section id="timeline" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Professional History</h2>
-                <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
+            <!-- SCROLL 1: PROFESSIONAL HISTORY -->
+            <section id="timeline" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16 relative">
+                <!-- Sticky Title Bar for Professional History -->
+                <div class="sticky-title-container">
+                    <h2 class="text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit transition-all duration-300" id="title-timeline">
+                        Professional History
+                    </h2>
+                </div>
+                
+                <h3 class="text-3xl font-bold mb-4 mt-6">Experience Timeline</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">
-                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.
+                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present[cite: 3].
                 </p>
                 
                 <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
@@ -187,10 +212,16 @@
                 </a>
             </section>
 
-            <!-- SCROLL 2: STACKED VISUALIZATIONS ALBUM -->
-            <section id="visualizations" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Portfolio</h2>
-                <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
+            <!-- SCROLL 2: PORTFOLIO -->
+            <section id="visualizations" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16 relative">
+                <!-- Sticky Title Bar for Portfolio -->
+                <div class="sticky-title-container">
+                    <h2 class="text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit transition-all duration-300" id="title-visualizations">
+                        Portfolio
+                    </h2>
+                </div>
+                
+                <h3 class="text-3xl font-bold mb-4 mt-6">Spatial Visualizations Album</h3>
                 
                 <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                     
@@ -222,10 +253,16 @@
                 </div>
             </section>
 
-            <!-- SCROLL 3: INTERACTIVE MAP -->
-            <section id="map" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Web Application</h2>
-                <div class="flex justify-between items-end mb-4">
+            <!-- SCROLL 3: WEB APPLICATION -->
+            <section id="map" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16 relative">
+                <!-- Sticky Title Bar for Web Application -->
+                <div class="sticky-title-container">
+                    <h2 class="text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit transition-all duration-300" id="title-map">
+                        Web Application
+                    </h2>
+                </div>
+                
+                <div class="flex justify-between items-end mb-4 mt-6">
                     <h3 class="text-3xl font-bold">Interactive Map</h3>
                     <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-royal dark:hover:text-mellow transition">
                         <i class="fa-solid fa-external-link-alt text-2xl"></i>
@@ -233,7 +270,7 @@
                 </div>
                 
                 <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg w-full">
-                    Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.
+                    Connectivity of Metro Manila's Green Spaces loaded directly into the viewport[cite: 3].
                 </p>
 
                 <div class="w-full h-[650px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
@@ -245,10 +282,16 @@
                 </div>
             </section>
 
-            <!-- SCROLL 4: CONTACT -->
-            <section id="contact" class="min-h-screen flex flex-col justify-center py-16">
-                <div class="text-center md:text-left">
-                    <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-4">Get in Touch</h2>
+            <!-- SCROLL 4: GET IN TOUCH -->
+            <section id="contact" class="min-h-screen flex flex-col justify-center py-16 relative">
+                <!-- Sticky Title Bar for Get in Touch -->
+                <div class="sticky-title-container">
+                    <h2 class="text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit transition-all duration-300" id="title-contact">
+                        Get in Touch
+                    </h2>
+                </div>
+                
+                <div class="text-center md:text-left mt-6">
                     <h3 class="text-5xl md:text-7xl font-black tracking-tight mb-8">Let's<br>Collaborate.</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-12 w-full mx-auto md:mx-0 text-xl leading-relaxed">
                         Reach out for research partnerships, GIS consultation, or academic inquiries.
@@ -283,6 +326,44 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
+        // --- DYNAMIC TITLE SLIDING & DISSOLVING SCRIPT ---
+        // As you scroll down, titles slide horizontally to the left/right and fade away under the sticky header zone
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            const titles = [
+                { id: 'title-skills', start: 0, end: 600 },
+                { id: 'title-timeline', start: 600, end: 1300 },
+                { id: 'title-visualizations', start: 1300, end: 2000 },
+                { id: 'title-map', start: 2000, end: 2700 },
+                { id: 'title-contact', start: 2700, end: 3500 }
+            ];
+
+            titles.forEach((t, idx) => {
+                const el = document.getElementById(t.id);
+                if (!el) return;
+
+                // Calculate relative scroll inside section
+                const progress = (scrollY - t.start) / (t.end - t.start);
+                
+                if (progress >= 0 && progress <= 1) {
+                    // Sliding effect: alternating directions (even slides left, odd slides right)
+                    const direction = idx % 2 === 0 ? -1 : 1;
+                    const translateX = progress * 150 * direction;
+                    const opacity = 1 - progress * 1.2; // fades out as it moves
+                    
+                    el.style.transform = `translateX(${translateX}px)`;
+                    el.style.opacity = Math.max(opacity, 0);
+                } else if (progress < 0) {
+                    el.style.transform = 'translateX(0px)';
+                    el.style.opacity = '1';
+                } else {
+                    el.style.transform = idx % 2 === 0 ? 'translateX(-150px)' : 'translateX(150px)';
+                    el.style.opacity = '0';
+                }
+            });
+        });
+
         // --- INSTANT ALBUM CAROUSEL SWITCHER ---
         const albumData = [
             {
