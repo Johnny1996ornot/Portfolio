@@ -50,25 +50,26 @@
             transform-origin: center;
         }
 
-        /* Fixed Single-Slot Title Stage Container */
+        /* Perfectly Positioned Fixed Single-Slot Title Stage (Aligned right above content blocks) */
         .sticky-title-stage {
             position: sticky;
-            top: 0;
+            top: 1.5rem;
             z-index: 40;
-            background: linear-gradient(to bottom, #0f0f11 85%, rgba(15,15,17,0));
-            padding-top: 2rem;
-            padding-bottom: 1.5rem;
-            height: 90px;
+            background: linear-gradient(to bottom, #0f0f11 90%, rgba(15,15,17,0));
+            padding-bottom: 1rem;
+            height: 60px;
             overflow: hidden;
+            width: 100%;
+            max-width: 42rem;
         }
 
         /* Carousel Title Item */
         .stage-title {
             position: absolute;
             left: 0;
-            top: 2rem;
+            top: 0;
             white-space: nowrap;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
             will-change: transform, opacity;
         }
 
@@ -126,16 +127,16 @@
     <!-- ========================================== -->
     <div class="relative z-10 w-full min-h-screen bg-transparent pl-0 md:pl-[38%]">
         
-        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16">
+        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 py-8">
             
             <!-- GLOBAL SINGLE-SLOT STICKY TITLE STAGE -->
             <div class="sticky-title-stage">
                 <div class="relative w-full h-full overflow-hidden">
-                    <h2 id="stage-title-skills" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg">Core Competencies</h2>
-                    <h2 id="stage-title-timeline" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Professional History</h2>
-                    <h2 id="stage-title-visualizations" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Portfolio</h2>
-                    <h2 id="stage-title-map" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Web Application</h2>
-                    <h2 id="stage-title-contact" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Get in Touch</h2>
+                    <h2 id="stage-title-skills" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
+                    <h2 id="stage-title-timeline" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Professional History</h2>
+                    <h2 id="stage-title-visualizations" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Portfolio</h2>
+                    <h2 id="stage-title-map" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Web Application</h2>
+                    <h2 id="stage-title-contact" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Get in Touch</h2>
                 </div>
             </div>
 
@@ -192,86 +193,92 @@
 
             <!-- SECTION 1: PROFESSIONAL HISTORY -->
             <section id="sec-timeline" class="section-viewport">
-                <h3 class="text-3xl font-bold mb-4 mt-4">Experience Timeline</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
-                
-                <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
-                    <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
-                </div>
+                <div class="w-full max-w-2xl mt-4">
+                    <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
+                    
+                    <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
+                        <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
+                    </div>
 
-                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center justify-center w-fit gap-2 bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:opacity-80 shadow-xl text-lg">
-                    Launch Interactive Timeline <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+                    <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center justify-center w-fit gap-2 bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:opacity-80 shadow-xl text-lg">
+                        Launch Interactive Timeline <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
             </section>
 
             <!-- SECTION 2: PORTFOLIO -->
             <section id="sec-visualizations" class="section-viewport">
-                <h3 class="text-3xl font-bold mb-4 mt-4">Spatial Visualizations Album</h3>
-                
-                <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
+                <div class="w-full max-w-2xl mt-4">
+                    <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                     
-                    <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 50vh;">
-                        <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
-                        <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
-                        <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
+                    <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
-                        <!-- Clickable Navigation Triangles / Arrows inside Image Box -->
-                        <button onclick="prevAlbum(event)" class="absolute left-4 z-30 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg">
-                            <i class="fa-solid fa-caret-left text-xl"></i>
-                        </button>
-                        <button onclick="nextAlbum(event)" class="absolute right-4 z-30 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg">
-                            <i class="fa-solid fa-caret-right text-xl"></i>
-                        </button>
-                    </div>
-
-                    <!-- Title & Description -->
-                    <h4 id="album-title" class="text-3xl font-bold mb-3">Supervised Classification</h4>
-                    <p id="album-desc" class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.</p>
-
-                    <!-- Album Navigation Dots / Selectors -->
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-zinc-800">
-                        <div class="flex gap-4">
-                            <button onclick="switchAlbum(0)" id="album-dot-0" class="w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer"></button>
-                            <button onclick="switchAlbum(1)" id="album-dot-1" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
-                            <button onclick="switchAlbum(2)" id="album-dot-2" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
+                        <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 40vh;">
+                            <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
+                            <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
+                            <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
+                            
+                            <!-- Clickable Navigation Triangles / Arrows inside Image Box -->
+                            <button onclick="prevAlbum(event)" class="absolute left-3 z-30 bg-black/60 hover:bg-black/90 text-white w-9 h-9 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg cursor-pointer">
+                                <i class="fa-solid fa-caret-left text-lg"></i>
+                            </button>
+                            <button onclick="nextAlbum(event)" class="absolute right-3 z-30 bg-black/60 hover:bg-black/90 text-white w-9 h-9 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg cursor-pointer">
+                                <i class="fa-solid fa-caret-right text-lg"></i>
+                            </button>
                         </div>
 
-                        <!-- Enlarge Button -->
-                        <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-base font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-6 py-3 rounded-full transition shadow-md cursor-pointer">
-                            <i class="fa-solid fa-expand"></i> Enlarge Image
-                        </button>
+                        <!-- Title & Description -->
+                        <h4 id="album-title" class="text-2xl font-bold mb-3">Supervised Classification</h4>
+                        <p id="album-desc" class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.</p>
+
+                        <!-- Album Navigation Dots / Selectors -->
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-zinc-800">
+                            <div class="flex gap-4">
+                                <button onclick="switchAlbum(0)" id="album-dot-0" class="w-4 h-4 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer"></button>
+                                <button onclick="switchAlbum(1)" id="album-dot-1" class="w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
+                                <button onclick="switchAlbum(2)" id="album-dot-2" class="w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
+                            </div>
+
+                            <!-- Enlarge Button -->
+                            <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-sm font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-5 py-2.5 rounded-full transition shadow-md cursor-pointer">
+                                <i class="fa-solid fa-expand"></i> Enlarge Image
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- SECTION 3: WEB APPLICATION -->
             <section id="sec-map" class="section-viewport">
-                <div class="flex justify-between items-end mb-4 mt-4">
-                    <h3 class="text-3xl font-bold">Interactive Map</h3>
-                    <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-royal dark:hover:text-mellow transition">
-                        <i class="fa-solid fa-external-link-alt text-2xl"></i>
-                    </a>
-                </div>
-                
-                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg w-full">Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.</p>
+                <div class="w-full max-w-2xl mt-4">
+                    <div class="flex justify-between items-end mb-4">
+                        <h3 class="text-3xl font-bold">Interactive Map</h3>
+                        <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-royal dark:hover:text-mellow transition">
+                            <i class="fa-solid fa-external-link-alt text-2xl"></i>
+                        </a>
+                    </div>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-base">Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.</p>
 
-                <div class="w-full h-[650px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
-                    <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
-                </div>
+                    <div class="w-full h-[550px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
+                        <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
+                    </div>
 
-                <div class="mt-6 p-5 rounded-2xl bg-gray-100 dark:bg-zinc-900 text-sm text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 w-full">
-                    <p><i class="fa-solid fa-circle-info mr-2"></i> <strong>Disclaimer:</strong> This map is a model generated from limited available datasets. It is meant for analytical demonstration and may not represent exact habitat boundaries.</p>
+                    <div class="mt-6 p-4 rounded-2xl bg-gray-100 dark:bg-zinc-900 text-sm text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 w-full">
+                        <p><i class="fa-solid fa-circle-info mr-2"></i> <strong>Disclaimer:</strong> This map is a model generated from limited available datasets. It is meant for analytical demonstration and may not represent exact habitat boundaries.</p>
+                    </div>
                 </div>
             </section>
 
             <!-- SECTION 4: GET IN TOUCH -->
             <section id="sec-contact" class="section-viewport">
-                <div class="text-center md:text-left mt-4">
-                    <h3 class="text-5xl md:text-7xl font-black tracking-tight mb-8">Let's<br>Collaborate.</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-12 w-full mx-auto md:mx-0 text-xl leading-relaxed">Reach out for research partnerships, GIS consultation, or academic inquiries.</p>
+                <div class="text-center md:text-left mt-4 max-w-2xl">
+                    <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg leading-relaxed">Reach out for research partnerships, GIS consultation, or academic inquiries.</p>
                     
                     <div id="email-container" class="inline-block">
-                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-5 px-12 rounded-full transition hover:scale-105 shadow-2xl flex items-center gap-4 text-xl cursor-pointer">
+                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:scale-105 shadow-2xl flex items-center gap-3 text-lg cursor-pointer">
                             <i class="fa-solid fa-paper-plane"></i> Connect With Me
                         </button>
                     </div>
@@ -299,7 +306,7 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- SINGLE-SLOT CAROUSEL TITLE STAGE CONTROLLER ---
+        // --- PERFECT SINGLE-SLOT CAROUSEL TITLE STAGE CONTROLLER ---
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
 
@@ -311,7 +318,7 @@
                 { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            sections.forEach((item, index) => {
+            sections.forEach((item) => {
                 const sec = document.getElementById(item.id);
                 const titleEl = document.getElementById(item.titleId);
                 if (!sec || !titleEl) return;
@@ -321,11 +328,11 @@
                 const progress = -rect.top / height;
 
                 if (progress >= 0 && progress < 1) {
-                    // Active section in view: Title sits perfectly centered in the stage slot
+                    // Active section: Title sits precisely in the stage slot
                     titleEl.style.transform = `translateX(${progress * -100}%)`;
                     titleEl.style.opacity = `${Math.max(1 - progress * 1.2, 0)}`;
                 } else if (progress < 0) {
-                    // Upcoming section below: waiting on the right side to slide in from left
+                    // Coming up below: waiting on the right side
                     titleEl.style.transform = 'translateX(110%)';
                     titleEl.style.opacity = '0';
                 } else {
@@ -369,11 +376,11 @@
                 if(i === index) {
                     img.classList.remove('opacity-0', 'z-0');
                     img.classList.add('opacity-100', 'z-10');
-                    dot.className = "w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer";
+                    dot.className = "w-4 h-4 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer";
                 } else {
                     img.classList.remove('opacity-100', 'z-10');
                     img.classList.add('opacity-0', 'z-0');
-                    dot.className = "w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer";
+                    dot.className = "w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer";
                 }
             }
         }
@@ -436,9 +443,9 @@
         function revealEmail() {
             const container = document.getElementById('email-container');
             container.innerHTML = `
-                <div class="flex flex-col items-center md:items-start p-6 bg-gray-100 dark:bg-zinc-900 rounded-[2rem] border border-gray-200 dark:border-zinc-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800 transition shadow-xl" onclick="copyEmail()">
-                    <span class="text-2xl md:text-3xl font-mono font-bold text-royal dark:text-mellow tracking-tight mb-2">jpaoloramirez@gmail.com</span>
-                    <span id="copy-text" class="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2"><i class="fa-solid fa-copy"></i> Click to copy email</span>
+                <div class="flex flex-col items-center md:items-start p-5 bg-gray-100 dark:bg-zinc-900 rounded-[2rem] border border-gray-200 dark:border-zinc-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800 transition shadow-xl" onclick="copyEmail()">
+                    <span class="text-xl md:text-2xl font-mono font-bold text-royal dark:text-mellow tracking-tight mb-1">jpaoloramirez@gmail.com</span>
+                    <span id="copy-text" class="text-xs font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2"><i class="fa-solid fa-copy"></i> Click to copy email</span>
                 </div>
             `;
         }
@@ -446,7 +453,7 @@
         function copyEmail() {
             navigator.clipboard.writeText("jpaoloramirez@gmail.com");
             const copyText = document.getElementById('copy-text');
-            copyText.innerHTML = `<span class="text-green-600 dark:text-green-400"><i class="fa-solid fa-check"></i> Copied to clipboard!</span>`;
+            copyText.innerHTML = `<span class="text-green-600 dark:text-green-400\"><i class="fa-solid fa-check"></i> Copied to clipboard!</span>`;
             setTimeout(() => {
                 copyText.innerHTML = `<i class="fa-solid fa-copy"></i> Click to copy email`;
             }, 3000);
