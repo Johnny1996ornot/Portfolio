@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Paolo A. Ramirez | Spatial Ecology & GIS Portfolio</title>
+    <title>John Paolo Ramirez MSc. | Spatial Ecology & GIS Portfolio</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -23,60 +23,47 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #000000;
-            color: #f5f5f7;
-            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
             letter-spacing: -0.01em;
+            overflow-x: hidden;
         }
-        .glass-nav {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-        }
-        .glass-card {
-            background: rgba(26, 26, 28, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .apple-gradient-text {
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1d1d1f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #424245;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6e6e73;
-        }
+        
+        /* Light Theme Defaults */
+        body { background-color: #f5f5f7; color: #1d1d1f; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); border-bottom: 1px solid rgba(0,0,0,0.1); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); }
+        .glass-card { background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0,0,0,0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .apple-gradient-text { background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Dark Theme Overrides */
+        html.dark body { background-color: #000000; color: #f5f5f7; }
+        html.dark .glass-nav { background: rgba(0, 0, 0, 0.8); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        html.dark .glass-card { background: rgba(26, 26, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); box-shadow: none; }
+        html.dark .apple-gradient-text { background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #86868b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6e6e73; }
     </style>
 </head>
-<body class="bg-black text-[#f5f5f7] antialiased selection:bg-blue-500 selection:text-white">
+<body class="antialiased selection:bg-blue-500 selection:text-white">
 
     <!-- GLOBAL NAVIGATION -->
-    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 border-b border-white/10 transition-all duration-300">
-        <div class="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between text-xs font-medium text-[#86868b]">
-            <a href="#hero" class="text-white hover:text-blue-400 transition flex items-center gap-2 font-semibold">
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between text-xs font-medium text-gray-500 dark:text-[#86868b]">
+            <a href="#hero" class="text-gray-900 dark:text-white hover:text-blue-500 transition flex items-center gap-2 font-semibold">
                 <i class="fa-solid fa-earth-americas text-blue-500"></i> JP. Ramirez
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="hover:text-white transition">Overview</a>
-                <a href="#expertise" class="hover:text-white transition">Expertise</a>
-                <a href="#projects" class="hover:text-white transition">Projects</a>
-                <a href="#terminal" class="hover:text-white transition">Interactive R/GIS</a>
-                <a href="#contact" class="hover:text-white transition">Contact</a>
+                <a href="#about" class="hover:text-gray-900 dark:hover:text-white transition">Overview</a>
+                <a href="#expertise" class="hover:text-gray-900 dark:hover:text-white transition">Expertise</a>
+                <a href="#projects" class="hover:text-gray-900 dark:hover:text-white transition">Portfolio</a>
+                <a href="#interactive-app" class="hover:text-gray-900 dark:hover:text-white transition">Interactive Map</a>
+                <a href="#contact" class="hover:text-gray-900 dark:hover:text-white transition">Contact</a>
             </div>
-            <button onclick="toggleDarkMode()" class="text-[#86868b] hover:text-white transition focus:outline-none" title="Toggle Theme">
-                <i class="fa-solid fa-circle-half-stroke text-sm"></i>
+            <!-- FIXED DARK/LIGHT MODE BUTTON -->
+            <button onclick="toggleDarkMode()" class="text-gray-500 dark:text-[#86868b] hover:text-gray-900 dark:hover:text-white transition focus:outline-none" title="Toggle Theme">
+                <i class="fa-solid fa-circle-half-stroke text-lg"></i>
             </button>
         </div>
     </nav>
@@ -86,236 +73,368 @@
         <div class="absolute w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none -top-20"></div>
         <div class="absolute w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none bottom-0 right-10"></div>
 
-        <p class="text-xs uppercase tracking-[0.2em] text-blue-400 font-semibold mb-4">MSc Biology • University of Debrecen</p>
+        <!-- REVISED NAME & SINGLE-LINE TITLES -->
         <h1 class="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 apple-gradient-text">
-            John Paolo A. Ramirez
+            John Paolo Ramirez MSc.
         </h1>
-        <p class="text-xl md:text-2xl text-[#86868b] max-w-2xl font-normal mb-10 leading-relaxed">
-            Spatial Ecology, Environmental Assessment & Modelling, and GIS Specialist bridging biological sciences with advanced computational analytics.
+        <p class="text-lg md:text-xl text-gray-600 dark:text-[#86868b] max-w-2xl font-normal mb-2 leading-relaxed">
+            Skilled in Python, R Programming, QGIS, and Large Scale Data Analysis
         </p>
+        <p class="text-sm md:text-base text-gray-500 dark:text-[#86868b] max-w-2xl font-normal mb-10 leading-relaxed">
+            Spatial Ecology | Environmental Assessment and Modelling | Geospatial Analysis | Data Analytics
+        </p>
+        
         <div class="flex flex-col sm:flex-row gap-4 items-center">
-            <a href="#terminal" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-3 rounded-full text-sm transition shadow-lg shadow-blue-600/20 flex items-center gap-2">
-                <i class="fa-solid fa-terminal"></i> Launch Interactive Workspace
+            <a href="#interactive-app" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-3 rounded-full text-sm transition shadow-lg shadow-blue-600/20 flex items-center gap-2">
+                <i class="fa-solid fa-map"></i> View Connectivity Portal
             </a>
-            <a href="#projects" class="glass-card hover:bg-white/10 text-white font-medium px-6 py-3 rounded-full text-sm transition flex items-center gap-2">
+            <a href="#projects" class="glass-card text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 font-medium px-6 py-3 rounded-full text-sm transition flex items-center gap-2">
                 Explore Projects <i class="fa-solid fa-arrow-down text-xs"></i>
             </a>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 max-w-4xl w-full border-t border-white/10 pt-12">
+        <!-- UPDATED STATS GRID (Eco-Flow Removed) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 max-w-3xl w-full border-t border-gray-300 dark:border-white/10 pt-12">
             <div>
-                <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">MSc</p>
-                <p class="text-xs text-[#86868b] mt-1">Biology (Debrecen)</p>
+                <p class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">MSc</p>
+                <p class="text-xs text-gray-500 dark:text-[#86868b] mt-1">Biology</p>
             </div>
             <div>
-                <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">R & QGIS</p>
-                <p class="text-xs text-[#86868b] mt-1">Spatial Modeling Core</p>
+                <p class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">R & QGIS</p>
+                <p class="text-xs text-gray-500 dark:text-[#86868b] mt-1">Spatial Modeling Core</p>
             </div>
             <div>
-                <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">Python</p>
-                <p class="text-xs text-[#86868b] mt-1">Data Pipeline & Scripting</p>
-            </div>
-            <div>
-                <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">Eco-Flow</p>
-                <p class="text-xs text-[#86868b] mt-1">Landscape Connectivity</p>
+                <p class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">Python</p>
+                <p class="text-xs text-gray-500 dark:text-[#86868b] mt-1">Data Pipeline & Scripting</p>
             </div>
         </div>
     </header>
 
-    <!-- PROFESSIONAL OVERVIEW -->
-    <section id="about" class="py-24 px-6 max-w-5xl mx-auto border-t border-white/10">
-        <div class="max-w-3xl">
-            <h2 class="text-xs uppercase tracking-[0.2em] text-[#86868b] font-semibold mb-3">Professional Profile</h2>
-            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-6">
+    <!-- PROFESSIONAL OVERVIEW & TIMELINE -->
+    <section id="about" class="py-24 px-6 max-w-5xl mx-auto border-t border-gray-300 dark:border-white/10">
+        <div class="max-w-3xl mb-16">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-[#86868b] font-semibold mb-3">Professional Profile</h2>
+            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
                 Translating raw environmental systems into precision spatial models.
             </h3>
-            <p class="text-[#86868b] text-base md:text-lg leading-relaxed mb-6">
-                As a lecturer in biological sciences and a Geographic Information Systems (GIS) specialist, my work centers on computational ecology, landscape connectivity, and urban green spaces. I leverage robust analytical tools—including R programming, QGIS, and Python—to assess environmental chemistry, heavy metal dynamics in mangrove ecosystems, and high-resolution environmental monitoring.
+            <p class="text-gray-600 dark:text-[#86868b] text-base md:text-lg leading-relaxed mb-6">
+                As a lecturer in biological sciences and a Geographic Information Systems (GIS) specialist, my work centers on computational ecology, landscape connectivity, and urban green spaces. I leverage robust analytical tools—including R programming, QGIS, and Python—to assess environmental models, spatial distributions, and high-resolution environmental monitoring.
             </p>
+        </div>
+
+        <!-- NEW TIMELINE IMAGE SECTION -->
+        <div class="glass-card rounded-3xl p-8 md:p-10 transition hover:border-blue-500/30">
+            <h4 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Professional Experience Timeline Diagram</h4>
+            <div class="text-sm text-gray-600 dark:text-[#86868b] leading-relaxed mb-8">
+                <p class="mb-4"><strong>Overview:</strong></p>
+                <p class="mb-4">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present. This was created to move beyond the constraints of a static resume and was initially built using Python (IDE: Spyder) and was transferred to github through an HTML configuration.</p>
+                <p>
+                    <strong>Access the application here:</strong> 
+                    <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="text-blue-500 hover:text-blue-400 hover:underline break-all">
+                        https://johnny1996ornot.github.io/Experience-Timeline-Diagram/
+                    </a>
+                </p>
+            </div>
+            <!-- Enlarged Timeline Image -->
+            <div class="rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-black p-2">
+                <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto object-contain">
+            </div>
         </div>
     </section>
 
     <!-- CORE EXPERTISE GRID -->
     <section id="expertise" class="py-20 px-6 max-w-5xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-xs uppercase tracking-[0.2em] text-[#86868b] font-semibold mb-3">Capabilities</h2>
-            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Engineered for ecological precision.</h3>
+            <h2 class="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-[#86868b] font-semibold mb-3">Capabilities</h2>
+            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Engineered for ecological precision.</h3>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between transition hover:border-white/20">
+            <!-- Card 1 -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between transition hover:border-gray-400 dark:hover:border-white/20">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 text-xl">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 dark:text-blue-400 mb-6 text-xl">
                         <i class="fa-solid fa-map"></i>
                     </div>
-                    <h4 class="text-xl font-semibold text-white mb-3">Spatial Analysis & QGIS</h4>
-                    <p class="text-[#86868b] text-sm leading-relaxed">
+                    <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Spatial Analysis & QGIS</h4>
+                    <p class="text-gray-600 dark:text-[#86868b] text-sm leading-relaxed">
                         Expert handling of spatial data, raster calculations, and vector modeling to evaluate landscape connectivity and habitat fragmentation.
                     </p>
                 </div>
-                <div class="mt-8 pt-4 border-t border-white/10 text-xs text-blue-400 font-medium">
-                    QGIS • ArcGIS • Spatial Data
-                </div>
             </div>
 
-            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between transition hover:border-white/20">
+            <!-- Card 2 -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between transition hover:border-gray-400 dark:hover:border-white/20">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 text-xl">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 dark:text-indigo-400 mb-6 text-xl">
                         <i class="fa-solid fa-code"></i>
                     </div>
-                    <h4 class="text-xl font-semibold text-white mb-3">R & Python Programming</h4>
-                    <p class="text-[#86868b] text-sm leading-relaxed">
+                    <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">R & Python Programming</h4>
+                    <p class="text-gray-600 dark:text-[#86868b] text-sm leading-relaxed">
                         Advanced ecological modeling using specialized R packages and automated Python pipelines for spatial statistics.
                     </p>
                 </div>
-                <div class="mt-8 pt-4 border-t border-white/10 text-xs text-indigo-400 font-medium">
-                    R Scripts • ggplot2 • Automation
-                </div>
             </div>
 
-            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between transition hover:border-white/20">
+            <!-- Card 3 (UPDATED: Environmental Data Modelling - Clickable) -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between transition border-2 border-transparent hover:border-emerald-500/50 cursor-pointer shadow-lg" onclick="openModal()">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6 text-xl">
-                        <i class="fa-solid fa-flask"></i>
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 dark:text-emerald-400 mb-6 text-xl">
+                        <i class="fa-solid fa-database"></i>
                     </div>
-                    <h4 class="text-xl font-semibold text-white mb-3">Environmental Chemistry</h4>
-                    <p class="text-[#86868b] text-sm leading-relaxed">
-                        Investigation of heavy metal contamination and water quality parameters in wetland and mangrove ecosystems.
+                    <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                        Environmental Data Modelling 
+                        <i class="fa-solid fa-arrow-pointer text-emerald-500 text-sm animate-bounce"></i>
+                    </h4>
+                    <p class="text-gray-600 dark:text-[#86868b] text-sm leading-relaxed">
+                        Click here to view detailed project history, including spatial distribution studies, climate risk mapping, and urban system modeling.
                     </p>
                 </div>
-                <div class="mt-8 pt-4 border-t border-white/10 text-xs text-emerald-400 font-medium">
-                    Wetlands • Water Quality • Analysis
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- RESEARCH, PROJECTS & EMBEDDED IMAGES -->
-    <section id="projects" class="py-20 px-6 max-w-5xl mx-auto">
+    <!-- PORTFOLIO WITH STACKED IMAGES -->
+    <section id="projects" class="py-20 px-6 max-w-5xl mx-auto border-t border-gray-300 dark:border-white/10">
         <div class="text-center mb-16">
-            <h2 class="text-xs uppercase tracking-[0.2em] text-[#86868b] font-semibold mb-3">Portfolio</h2>
-            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Selected Research & Visualizations</h3>
+            <h2 class="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-[#86868b] font-semibold mb-3">Portfolio</h2>
+            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Selected Visualizations</h3>
         </div>
 
-        <div class="space-y-12">
-            <!-- Project 1 with Image -->
-            <div class="glass-card rounded-3xl p-8 md:p-10 transition hover:border-white/20">
-                <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Spatial Modeling</span>
-                <h4 class="text-2xl font-bold text-white mt-1 mb-3">EVI and NDVI Spatial Analysis</h4>
-                <p class="text-[#86868b] text-sm leading-relaxed mb-6">
-                    Vegetation index mapping evaluating environmental greenness, canopy cover health, and urban ecological gradients.
-                </p>
-                <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/50">
-                    <img src="EVI and NDVI.png" alt="EVI and NDVI Analysis" class="w-full h-auto object-cover">
+        <!-- STACKED IMAGES CONTAINER -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            
+            <!-- Left Side: Text/Context if needed, or we just stack them beautifully -->
+            <div class="md:col-span-2 flex flex-col space-y-10">
+                
+                <!-- Image 1: TSS -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col items-center">
+                    <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4 w-full text-left">Total Suspended Solids (TSS) Analysis</h4>
+                    <img src="TSS - LPP Wetland.png" alt="TSS Analysis" class="w-full h-auto rounded-xl border border-gray-200 dark:border-white/10 shadow-md">
                 </div>
-            </div>
 
-            <!-- Project 2 with Image -->
-            <div class="glass-card rounded-3xl p-8 md:p-10 transition hover:border-white/20">
-                <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Wetland Assessment</span>
-                <h4 class="text-2xl font-bold text-white mt-1 mb-3">TSS - Las Piñas-Parañaque Wetland</h4>
-                <p class="text-[#86868b] text-sm leading-relaxed mb-6">
-                    Total Suspended Solids evaluation and remote sensing tracking across critical protected wetland zones.
-                </p>
-                <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/50">
-                    <img src="TSS - LPP Wetland.png" alt="TSS LPP Wetland Analysis" class="w-full h-auto object-cover">
+                <!-- Image 2: EVI and NDVI -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col items-center">
+                    <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4 w-full text-left">EVI and NDVI Spatial Mapping</h4>
+                    <img src="EVI and NDVI.png" alt="EVI and NDVI" class="w-full h-auto rounded-xl border border-gray-200 dark:border-white/10 shadow-md">
                 </div>
-            </div>
 
-            <!-- Project 3 with Image & R Plot -->
-            <div class="glass-card rounded-3xl p-8 md:p-10 transition hover:border-white/20">
-                <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Statistical Modeling</span>
-                <h4 class="text-2xl font-bold text-white mt-1 mb-3">Ecological R Plot Outputs</h4>
-                <p class="text-[#86868b] text-sm leading-relaxed mb-6">
-                    Custom data visualizations generated via R script pipelines for habitat metrics and ecological trend analysis.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/50">
-                        <img src="Rplot.png" alt="R Plot Output" class="w-full h-auto object-cover">
+                <!-- Image 3: Supervised Classification with Hover Text -->
+                <div class="glass-card rounded-3xl p-6">
+                    <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Supervised Classification <span class="text-sm font-normal text-gray-500 ml-2">(Hover/Tap image for description)</span></h4>
+                    
+                    <div class="relative group rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-md">
+                        <!-- The Image -->
+                        <img src="Supervised classification.png" alt="Supervised Classification" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105">
+                        
+                        <!-- The Hover Overlay with specific text -->
+                        <div class="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-center overflow-y-auto text-white">
+                            <p class="text-sm mb-4 leading-relaxed">
+                                This map visualizes a pixel-based land cover classification, effectively categorizing the region into four distinct surface types: Green (Vegetation), Paved (Impervious Surfaces), Sparse (Mixed/Transition), and Water. The resulting map highlights the spatial distribution of urban infrastructure and ecological zones.
+                            </p>
+                            <p class="text-sm mb-4 leading-relaxed">
+                                <strong>Data Source:</strong><br>
+                                The imagery for this analysis was acquired from the European Space Agency’s (ESA) Sentinel-2 satellite program. Sentinel-2 optical remote sensing data is highly effective for land mapping due to its 13 spectral bands and high spatial resolution of up to 10 meters.
+                            </p>
+                            <p class="text-sm leading-relaxed">
+                                <strong>Methodology: Machine Learning & Artificial Intelligence</strong><br>
+                                The categorization of this landscape was achieved through supervised classification using machine learning techniques.
+                            </p>
+                        </div>
                     </div>
-                    <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/50">
-                        <img src="Picture33.png" alt="Spatial Plot" class="w-full h-auto object-cover">
-                    </div>
                 </div>
-            </div>
 
-            <!-- OPTIONAL: Embed your NCR Urban Connectivity Site via Iframe -->
-            <div class="glass-card rounded-3xl p-8 md:p-10 transition hover:border-white/20">
-                <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Interactive Web App Embed</span>
-                <h4 class="text-2xl font-bold text-white mt-1 mb-3">NCR Urban Connectivity Portal</h4>
-                <p class="text-[#86868b] text-sm leading-relaxed mb-6">
-                    Live interactive mapping tool loaded directly into your portfolio via iframe.
-                </p>
-                <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/50 h-[500px]">
-                    <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- INTERACTIVE TERMINAL -->
-    <section id="terminal" class="py-20 px-6 max-w-5xl mx-auto">
+    <!-- EMBEDDED NCR WEB APP (Replaced the Interactive Terminal) -->
+    <section id="interactive-app" class="py-20 px-6 max-w-5xl mx-auto border-t border-gray-300 dark:border-white/10">
         <div class="text-center mb-12">
-            <h2 class="text-xs uppercase tracking-[0.2em] text-[#86868b] font-semibold mb-3">Interactive Workspace</h2>
-            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Live Ecological R Script</h3>
+            <h2 class="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-[#86868b] font-semibold mb-3">Live Integration</h2>
+            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">NCR Urban Connectivity</h3>
+            <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Live interactive mapping tool loaded directly into the portfolio.</p>
         </div>
 
-        <div class="glass-card rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-            <div class="bg-[#1c1c1e] px-6 py-4 flex items-center justify-between border-b border-white/10">
-                <div class="flex items-center space-x-2">
-                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span class="text-xs text-[#86868b] ml-4 font-mono">connectivity_model.R</span>
-                </div>
-                <button onclick="runScript()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-play text-[10px]"></i> Run Simulation
-                </button>
-            </div>
-            <div class="p-6 font-mono text-xs md:text-sm overflow-x-auto bg-black/40 text-gray-300 leading-relaxed">
-                <p><span class="text-purple-400">library</span>(raster)</p>
-                <p><span class="text-purple-400">library</span>(sp)</p>
-                <p class="text-gray-500"># Load urban green space resistance surface</p>
-                <p>resistance_raster &lt;- <span class="text-blue-400">raster</span>(<span class="text-green-400">"manila_green_spaces.tif"</span>)</p>
-                <p class="text-gray-500"># Compute localized core-area network graphs</p>
-                <p>cs &lt;- <span class="text-blue-400">cellStats</span>(resistance_raster, stat=<span class="text-green-400">'mean'</span>)</p>
-                <p><span class="text-yellow-400">print</span>(<span class="text-green-400">"Landscape connectivity matrix compiled successfully."</span>)</p>
-            </div>
-            <div id="console-output" class="bg-[#0c0c0e] px-6 py-4 border-t border-white/10 font-mono text-xs text-green-400 hidden">
-                > [1] "Landscape connectivity matrix compiled successfully."<br>
-                > Mean resistance score: 0.4281 (Stable Corridor Index)
-            </div>
+        <div class="glass-card rounded-3xl overflow-hidden border border-gray-300 dark:border-white/10 shadow-2xl h-[600px] w-full p-2 bg-gray-100 dark:bg-black/50">
+            <!-- IFRAME LOADED HERE -->
+            <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full rounded-2xl border-0 bg-white dark:bg-[#111]"></iframe>
         </div>
     </section>
 
-    <!-- CONTACT & FOOTER -->
-    <footer id="contact" class="py-24 px-6 max-w-5xl mx-auto border-t border-white/10 text-center">
-        <h2 class="text-xs uppercase tracking-[0.2em] text-[#86868b] font-semibold mb-3">Get in Touch</h2>
-        <h3 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">Let's collaborate on spatial ecology.</h3>
-        <p class="text-[#86868b] max-w-lg mx-auto mb-10 text-sm md:text-base">
+    <!-- CONTACT & FOOTER WITH REVEAL EMAIL -->
+    <footer id="contact" class="py-24 px-6 max-w-5xl mx-auto border-t border-gray-300 dark:border-white/10 text-center">
+        <h2 class="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-[#86868b] font-semibold mb-3">Get in Touch</h2>
+        <h3 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">Let's collaborate on spatial ecology.</h3>
+        <p class="text-gray-600 dark:text-[#86868b] max-w-lg mx-auto mb-10 text-sm md:text-base">
             Reach out for research partnerships, GIS consultation, or academic inquiries.
         </p>
-        <a href="mailto:johnpaolo.ramirez@example.com" class="inline-flex items-center gap-2 bg-white text-black font-medium px-8 py-4 rounded-full text-sm hover:bg-gray-200 transition shadow-lg">
-            <i class="fa-solid fa-envelope"></i> Send Email
-        </a>
+        
+        <!-- SECURE EMAIL REVEAL BUTTON -->
+        <div id="email-section" class="flex flex-col items-center justify-center space-y-4">
+            <button onclick="revealEmail()" id="reveal-btn" class="inline-flex items-center gap-2 bg-blue-600 text-white font-medium px-8 py-4 rounded-full text-sm hover:bg-blue-500 transition shadow-lg">
+                <i class="fa-solid fa-envelope"></i> Show Email Address
+            </button>
+            
+            <div id="hidden-email" class="hidden flex-col items-center mt-4">
+                <p class="text-2xl font-bold text-gray-900 dark:text-white tracking-wide mb-2">johnpaolo.ramirez@example.com</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 max-w-sm text-center">
+                    <em>(Because GitHub Pages is a static site, it cannot send automatic notifications. Please copy the email above to contact me directly through your mail client.)</em>
+                </p>
+            </div>
+        </div>
 
-        <div class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-[#86868b]">
-            <p>&copy; 2026 John Paolo A. Ramirez. All rights reserved.</p>
+        <div class="mt-20 pt-8 border-t border-gray-300 dark:border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 dark:text-[#86868b]">
+            <p>&copy; 2026 John Paolo Ramirez. All rights reserved.</p>
             <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-white transition">GitHub</a>
-                <a href="#" class="hover:text-white transition">LinkedIn</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white transition">GitHub</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white transition">LinkedIn</a>
             </div>
         </div>
     </footer>
 
+    <!-- MODAL FOR ENVIRONMENTAL DATA MODELLING -->
+    <div id="experienceModal" class="fixed inset-0 z-[100] hidden flex-col items-center justify-center p-4 sm:p-6">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-3xl bg-white dark:bg-[#1a1a1c] border border-gray-300 dark:border-white/10 rounded-3xl shadow-2xl max-h-[85vh] flex flex-col">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center p-6 border-b border-gray-200 dark:border-white/10">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Environmental Data Modelling</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-2xl leading-none">&times;</button>
+            </div>
+            
+            <!-- Scrollable Body -->
+            <div class="p-6 md:p-8 overflow-y-auto text-sm text-gray-700 dark:text-gray-300 space-y-8">
+                
+                <!-- 2025 -->
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">2025</h4>
+                    
+                    <div class="mb-6">
+                        <p class="font-semibold text-gray-900 dark:text-white mb-2">International Urban Systems Project — Geospatial Research Aide (Freelance) – Data Harmonization</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Designed spatial database combining global datasets (GHSL, WorldPop, SCAD/ACLED-type conflict data).</li>
+                            <li>Developed hierarchical zone classification models using distance + urban morphology indicators.</li>
+                            <li>Implemented automated geospatial pipelines in Python for cross-continental analysis.</li>
+                            <li>Delivered reproducible datasets and documented computational workflow.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white mb-2">Heavy Metal (Lead) Spatial Distribution Study — Arroceros Forest Park (Thesis Adviser)</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Conducted field sampling of soil and foliar dust to quantify lead contamination across spatial points.</li>
+                            <li>Coordinated laboratory extraction and trace-metal analysis using atomic absorption spectroscopy (AAS).</li>
+                            <li>Modeled environmental drivers of heavy metal accumulation including plant height, species type, and distance from pollution sources.</li>
+                            <li>Integrated statistical outputs into spatial interpolation models to identify contamination hotspots.</li>
+                            <li>Generated findings supporting environmental monitoring and mitigation planning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">2024</h4>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white mb-2">Microplastic Bioindicator Study Using Blattodea spp. (Thesis Adviser)</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Supervised undergraduate thesis investigating microplastic prevalence across 25 urban sampling sites in Manila.</li>
+                            <li>Oversaw laboratory protocols for microplastic extraction, filtration, and Nile Red staining detection.</li>
+                            <li>Guided species identification using dichotomous keys and taxonomic verification.</li>
+                            <li>Directed statistical analyses (ANOVA, t-tests, Pearson correlation) assessing environmental associations.</li>
+                            <li>Supervised spatial analysis and hotspot mapping using QGIS and RStudio.</li>
+                            <li>Supported interpretation of findings identifying high contamination prevalence and spatial clustering in dense urban areas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2022 -->
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">2022</h4>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white mb-2">Climate Risk Mapping for Universities — UP Resilience Institute (Project NOAH)</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Processed geospatial climate datasets for risk assessment.</li>
+                            <li>Validated spatial data used in institutional resilience planning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2021 -->
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">2021</h4>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white mb-2">Landscape Connectivity Analysis of Metro Manila — Master’s Thesis (University of Debrecen)</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Modeled ecological corridors using R (Grainscape, raster).</li>
+                            <li>Processed spatial layers of urban land cover and fragmentation.</li>
+                            <li>Produced connectivity indices for biodiversity planning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2017 -->
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">2017</h4>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white mb-2">Embryotoxicity and Teratogenicity of Crude Aqueous and Ethanolic Extracts of <em>Volvariella volvacea</em> to <em>Danio rerio</em></p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Acclimatized <em>Danio rerio</em> and induced egg-laying via photoperiodism.</li>
+                            <li>Administered <em>Volvariella volvacea</em> extracts to evaluate baseline toxicity.</li>
+                            <li>Monitored embryonic stages for embryotoxic and teratogenic effects.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
     <script>
+        // FIXED DARK/LIGHT MODE TOGGLE
         function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
+            const htmlElement = document.documentElement;
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
         }
 
-        function runScript() {
-            const consoleOutput = document.getElementById('console-output');
-            consoleOutput.classList.remove('hidden');
+        // Initialize Theme Based on System Preference or local storage
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // EMAIL REVEAL SCRIPT
+        function revealEmail() {
+            document.getElementById('reveal-btn').classList.add('hidden');
+            document.getElementById('hidden-email').classList.remove('hidden');
+            document.getElementById('hidden-email').classList.add('flex');
+        }
+
+        // MODAL SCRIPT FOR ENVIRONMENTAL DATA MODELLING
+        function openModal() {
+            const modal = document.getElementById('experienceModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('experienceModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = ''; // Restore background scrolling
         }
     </script>
 </body>
