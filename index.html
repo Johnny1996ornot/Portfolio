@@ -50,7 +50,7 @@
             transform-origin: center;
         }
 
-        /* Fully Extended Masking Header Stage Covering Content Rolling Underneath */
+        /* Fixed Masking Header Stage Restored to Ideal Height with Extended Top Coverage */
         .right-column-header {
             position: fixed;
             top: 0;
@@ -58,8 +58,8 @@
             width: 62%;
             z-index: 50;
             background-color: #0f0f11;
-            padding-top: 3.5rem; /* Deep header box extending upward to block scrolling elements */
-            padding-bottom: 1.5rem;
+            padding-top: 2rem;       /* Tall top buffer zone extending upward to completely mask scrolling elements */
+            padding-bottom: 1rem;    /* Leaves the section title badge precisely at the correct lower baseline */
             padding-left: 4rem;
             padding-right: 4rem;
             display: flex;
@@ -101,7 +101,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 10rem 0 4rem 0; /* Lowered default element positioning */
+            padding: 7rem 0 4rem 0; /* Elements brought higher up in default view */
             border-bottom: 1px solid rgba(229, 231, 235, 0.1);
         }
 
@@ -161,7 +161,7 @@
             </div>
         </div>
 
-        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 pt-36 pb-12">
+        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 pt-24 pb-12">
             
             <!-- SECTION 0: CORE COMPETENCIES -->
             <section id="sec-skills" class="section-viewport">
@@ -339,7 +339,7 @@
                 { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            const headerOffset = 130; // Matches the exact baseline where the title stage sits on page load
+            const headerOffset = 95; // Aligned precisely with the default lower header baseline
 
             sections.forEach((item) => {
                 const sec = document.getElementById(item.id);
@@ -349,19 +349,15 @@
                 const rect = sec.getBoundingClientRect();
                 const height = sec.offsetHeight;
                 
-                // Synchronized calculation mapping section top entry directly to slot progress from scroll position 0
                 const progress = (headerOffset - rect.top) / height;
 
                 if (progress >= 0 && progress < 1) {
-                    // Active section: slides smoothly in sync with scroll progress
                     titleEl.style.transform = `translateX(${progress * -100}%)`;
                     titleEl.style.opacity = `${Math.max(1 - progress * 1.3, 0)}`;
                 } else if (progress < 0) {
-                    // Upcoming section: waiting on the right side
                     titleEl.style.transform = 'translateX(110%)';
                     titleEl.style.opacity = '0';
                 } else {
-                    // Past section: swiped out to the left
                     titleEl.style.transform = 'translateX(-110%)';
                     titleEl.style.opacity = '0';
                 }
@@ -465,7 +461,7 @@
                 icon.className = "fa-solid fa-sun mr-2";
             }
         }
-        document.getElementById('theme-text').innerText = "Light Theme";
+        document.getElementById('theme-text').innerText = "LightTheme";
 
         // --- EMAIL REVEAL & COPY SCRIPT ---
         function revealEmail() {
