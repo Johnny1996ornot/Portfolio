@@ -50,14 +50,15 @@
             transform-origin: center;
         }
 
-        /* Perfectly Positioned Fixed Single-Slot Title Stage (Aligned right above content blocks) */
+        /* Correctly Positioned Sticky Single-Slot Title Stage (Aligned directly above content cards) */
         .sticky-title-stage {
             position: sticky;
-            top: 1.5rem;
+            top: 2rem;
             z-index: 40;
-            background: linear-gradient(to bottom, #0f0f11 90%, rgba(15,15,17,0));
-            padding-bottom: 1rem;
-            height: 60px;
+            background: linear-gradient(to bottom, #0f0f11 85%, rgba(15,15,17,0));
+            padding-top: 0.5rem;
+            padding-bottom: 1.5rem;
+            height: 70px;
             overflow: hidden;
             width: 100%;
             max-width: 42rem;
@@ -67,7 +68,7 @@
         .stage-title {
             position: absolute;
             left: 0;
-            top: 0;
+            top: 0.5rem;
             white-space: nowrap;
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
             will-change: transform, opacity;
@@ -129,7 +130,7 @@
         
         <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 py-8">
             
-            <!-- GLOBAL SINGLE-SLOT STICKY TITLE STAGE -->
+            <!-- CORRECTLY POSITIONED SINGLE-SLOT STICKY TITLE STAGE -->
             <div class="sticky-title-stage">
                 <div class="relative w-full h-full overflow-hidden">
                     <h2 id="stage-title-skills" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
@@ -453,7 +454,7 @@
         function copyEmail() {
             navigator.clipboard.writeText("jpaoloramirez@gmail.com");
             const copyText = document.getElementById('copy-text');
-            copyText.innerHTML = `<span class="text-green-600 dark:text-green-400\"><i class="fa-solid fa-check"></i> Copied to clipboard!</span>`;
+            copyText.innerHTML = `<span class="text-green-600 dark:text-green-400"><i class="fa-solid fa-check"></i> Copied to clipboard!</span>`;
             setTimeout(() => {
                 copyText.innerHTML = `<i class="fa-solid fa-copy"></i> Click to copy email`;
             }, 3000);
