@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Paolo Ramirez MSc. | Spatial Ecology Dashboard</title>
+    <title>John Paolo Ramirez MSc. | Spatial Ecology</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,13 +11,15 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        panel: '#155b75', /* Deep Teal from your mock-up */
-                        panelHover: '#114a5f',
-                        panelDark: '#0e3a4b'
-                    },
                     fontFamily: {
                         sans: ['-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            850: '#202022',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
                     }
                 }
             }
@@ -26,118 +28,183 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            transition: background-color 0.3s ease;
-            background-color: #f0f2f5; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: #f4f4f5; /* Light minimalist background */
+            color: #18181b;
         }
         html.dark body {
-            background-color: #121212;
+            background-color: #09090b; /* Deep minimalist black */
+            color: #f4f4f5;
         }
+        
+        /* Modern Minimalist Bento Grid */
         .bento-grid {
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: auto;
             gap: 16px;
-        }
-        @media (min-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 250px 1fr 1fr;
-                grid-template-rows: minmax(120px, auto) minmax(200px, 400px) minmax(80px, auto);
-                height: 90vh; /* Fits screen nicely */
-            }
-            /* Specific Placements */
-            .box-name { grid-column: 1 / 2; grid-row: 1 / 2; }
-            .box-skills { grid-column: 1 / 2; grid-row: 2 / 3; display: flex; flex-direction: column; gap: 16px; }
-            .box-timeline { grid-column: 2 / 4; grid-row: 1 / 2; }
-            .box-vis { grid-column: 2 / 3; grid-row: 2 / 3; }
-            .box-map { grid-column: 3 / 4; grid-row: 2 / 3; }
-            .box-job { grid-column: 1 / 2; grid-row: 3 / 4; }
-            .box-collab { grid-column: 2 / 3; grid-row: 3 / 4; }
-            .box-theme { grid-column: 3 / 4; grid-row: 3 / 4; }
+            padding: 16px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        .panel-card {
-            background-color: #155b75; /* Matches your image */
-            border-radius: 12px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+                grid-auto-rows: minmax(140px, auto);
+            }
+            .bento-profile { grid-column: span 2; grid-row: span 1; }
+            .bento-timeline { grid-column: span 2; grid-row: span 1; }
+            .bento-visuals { grid-column: span 2; grid-row: span 3; }
+            .bento-map { grid-column: span 2; grid-row: span 3; }
+            .bento-skill { grid-column: span 1; grid-row: span 1; }
+            .bento-action { grid-column: span 2; grid-row: span 1; }
+        }
+
+        /* Minimalist Card Styling */
+        .bento-card {
+            background-color: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 20px;
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .bento-card:hover {
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
         }
         
+        /* Dark Mode Card Overrides */
+        html.dark .bento-card {
+            background-color: #121214;
+            border: 1px solid #27272a;
+        }
+        html.dark .bento-card:hover {
+            border-color: #3f3f46;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #86868b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
+        html.dark ::-webkit-scrollbar-thumb { background: #3f3f46; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen py-8">
 
-    <!-- MAIN BENTO GRID -->
-    <div class="bento-grid w-full max-w-7xl mx-auto">
+    <div class="bento-grid">
         
-        <!-- 1. NAME -->
-        <div class="panel-card box-name text-2xl font-bold">
-            John Paolo Ramirez
+        <!-- 1. PROFILE & BACKGROUND (Spans 2 columns) -->
+        <div class="bento-card bento-profile justify-center">
+            <h1 class="text-3xl lg:text-4xl font-bold tracking-tight mb-2">John Paolo Ramirez MSc.</h1>
+            <p class="text-gray-600 dark:text-gray-400 font-medium mb-3">
+                Skilled in Python, R Programming, QGIS, and Large Scale Data Analysis
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-semibold text-gray-500 dark:text-gray-500">
+                <span class="px-2 py-1 bg-gray-100 dark:bg-zinc-800/50 rounded-md">Spatial Ecology</span>
+                <span class="px-2 py-1 bg-gray-100 dark:bg-zinc-800/50 rounded-md">Environmental Assessment</span>
+                <span class="px-2 py-1 bg-gray-100 dark:bg-zinc-800/50 rounded-md">Geospatial Analysis</span>
+                <span class="px-2 py-1 bg-gray-100 dark:bg-zinc-800/50 rounded-md">Data Analytics</span>
+            </div>
         </div>
 
         <!-- 2. TIMELINE DIAGRAM -->
-        <div class="panel-card box-timeline group cursor-default">
-            <span class="text-2xl font-bold transition-opacity duration-300 group-hover:opacity-0">Timeline Diagram</span>
+        <div class="bento-card bento-timeline group cursor-pointer justify-center items-center text-center hover:bg-gray-50 dark:hover:bg-zinc-900/50">
+            <div class="absolute inset-0 opacity-10 dark:opacity-20 bg-[url('Picture33.png')] bg-cover bg-center blur-[2px] transition duration-500 group-hover:blur-sm group-hover:scale-105 group-hover:opacity-20 dark:group-hover:opacity-30"></div>
             
-            <!-- Hover Overlay -->
-            <div class="absolute inset-0 bg-panelDark flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p class="text-sm mb-4">Interactive, dynamic visualization of my professional career, academic background, and core competencies.</p>
-                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="bg-white text-panel font-bold py-2 px-6 rounded-lg hover:bg-gray-200 transition transform hover:scale-105 shadow-lg">
-                    Open Timeline
+            <div class="relative z-10">
+                <h2 class="text-2xl font-bold mb-2">Experience Timeline</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 max-w-md mx-auto">
+                    Interactive, dynamic visualization of my professional career, academic background, and core competencies.
+                </p>
+                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black font-semibold py-2 px-5 rounded-full text-sm hover:opacity-80 transition shadow-lg">
+                    Launch Timeline <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                 </a>
             </div>
         </div>
 
-        <!-- 3. SKILLS STACK -->
-        <div class="box-skills">
-            <div class="panel-card flex-1 font-semibold text-lg">R and Python <br> programming</div>
-            <div class="panel-card flex-1 font-semibold text-lg">Geospatial Analysis</div>
-            <div class="panel-card flex-1 font-semibold text-lg">Environmental data <br> modelling</div>
-        </div>
-
-        <!-- 4. VISUALIZATION (Click to open Lightbox) -->
-        <div class="panel-card box-vis group cursor-pointer" onclick="openLightbox()">
-            <!-- Background Image -->
-            <img src="Rplot.png" alt="Visualization" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500">
-            <div class="relative z-10 flex flex-col items-center">
-                <span class="text-3xl font-bold mb-2">Visualizations</span>
-                <span class="text-sm bg-black/50 px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-expand"></i> Click to enlarge photos</span>
+        <!-- 3. VISUALIZATIONS (Massive Display Panel) -->
+        <div class="bento-card bento-visuals p-0 group cursor-pointer" onclick="openLightbox()">
+            <div class="absolute top-6 left-6 z-20">
+                <h2 class="text-2xl font-bold bg-white/90 dark:bg-black/90 backdrop-blur-md px-4 py-2 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
+                    Visualizations
+                </h2>
+            </div>
+            
+            <div class="w-full h-full overflow-hidden bg-gray-100 dark:bg-zinc-900 flex items-center justify-center relative">
+                <!-- Main Preview Image -->
+                <img src="Rplot.png" alt="Supervised Classification" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                
+                <!-- Hover Hint -->
+                <div class="absolute bottom-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="bg-black text-white dark:bg-white dark:text-black font-medium text-xs px-4 py-2 rounded-full shadow-lg">
+                        <i class="fa-solid fa-expand mr-1"></i> View Gallery
+                    </span>
+                </div>
             </div>
         </div>
 
-        <!-- 5. MAP -->
-        <div class="panel-card box-map flex-col justify-center gap-6">
-            <h3 class="text-2xl font-bold">Interactive Map</h3>
-            <p class="text-sm opacity-80 mb-2">Connectivity of Metro Manila's Green Spaces</p>
-            <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="bg-white text-panel font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition transform hover:scale-105 shadow-lg flex items-center gap-2">
-                <i class="fa-solid fa-map-location-dot"></i> Open Map Portal
-            </a>
+        <!-- 4. INTERACTIVE MAP (Embedded Iframe Panel) -->
+        <div class="bento-card bento-map flex flex-col p-0 overflow-hidden">
+            <div class="p-6 pb-4 flex justify-between items-start z-10 bg-white dark:bg-[#121214] border-b border-gray-100 dark:border-zinc-800">
+                <div>
+                    <h2 class="text-2xl font-bold mb-1">Interactive Map</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Connectivity of Metro Manila's Green Spaces</p>
+                </div>
+                <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-black dark:hover:text-white transition" title="Open in new tab">
+                    <i class="fa-solid fa-external-link-alt text-xl"></i>
+                </a>
+            </div>
+            
+            <!-- Live Iframe -->
+            <div class="flex-grow w-full relative bg-gray-50 dark:bg-zinc-900">
+                <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="absolute inset-0 w-full h-full border-0"></iframe>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="p-4 bg-gray-50 dark:bg-zinc-900/50 border-t border-gray-100 dark:border-zinc-800 text-xs text-gray-400 dark:text-gray-500 flex items-start gap-2">
+                <i class="fa-solid fa-circle-info mt-0.5"></i>
+                <p><strong>Disclaimer:</strong> This map is a model generated from limited available datasets. It is meant for analytical demonstration and may not represent the exact habitat boundaries or current real-world ecological state.</p>
+            </div>
         </div>
 
-        <!-- 6. JOB EXPERIENCE (Opens Modal) -->
-        <button onclick="openJobModal()" class="panel-card box-job text-xl font-bold hover:bg-panelHover transition flex items-center gap-3">
-            <i class="fa-solid fa-briefcase"></i> Job Experience
+        <!-- 5. SKILLS & ACTIONS ROW -->
+        <div class="bento-card bento-skill items-center justify-center text-center">
+            <i class="fa-brands fa-python text-3xl mb-3 opacity-70"></i>
+            <h3 class="font-bold">R & Python</h3>
+            <p class="text-xs text-gray-500 mt-1">Programming</p>
+        </div>
+        
+        <div class="bento-card bento-skill items-center justify-center text-center">
+            <i class="fa-solid fa-earth-americas text-3xl mb-3 opacity-70"></i>
+            <h3 class="font-bold">Geospatial Analysis</h3>
+            <p class="text-xs text-gray-500 mt-1">QGIS & Remote Sensing</p>
+        </div>
+        
+        <div class="bento-card bento-skill items-center justify-center text-center">
+            <i class="fa-solid fa-database text-3xl mb-3 opacity-70"></i>
+            <h3 class="font-bold">Data Modelling</h3>
+            <p class="text-xs text-gray-500 mt-1">Environmental Systems</p>
+        </div>
+
+        <button onclick="openJobModal()" class="bento-card bento-skill items-center justify-center text-center hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition cursor-pointer border-2 border-transparent hover:border-gray-300 dark:hover:border-zinc-600">
+            <i class="fa-solid fa-briefcase text-3xl mb-3 opacity-70"></i>
+            <h3 class="font-bold">Job Experience</h3>
+            <p class="text-xs text-gray-500 mt-1 flex items-center gap-1"><i class="fa-solid fa-arrow-pointer"></i> View Resume</p>
         </button>
 
-        <!-- 7. LETS COLLABORATE (Reveals Email) -->
-        <button onclick="revealEmail()" id="collab-btn" class="panel-card box-collab text-xl font-bold hover:bg-panelHover transition flex flex-col items-center gap-2">
-            <span>Let's collaborate</span>
+        <button onclick="revealEmail()" id="collab-btn" class="bento-card bento-action items-center justify-center text-center hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition cursor-pointer">
+            <h3 class="text-xl font-bold flex items-center gap-2"><i class="fa-solid fa-handshake"></i> Let's Collaborate</h3>
+            <p class="text-sm text-gray-500 mt-1">Click to view contact email</p>
         </button>
 
-        <!-- 8. DARK THEME -->
-        <button onclick="toggleTheme()" class="panel-card box-theme text-xl font-bold hover:bg-panelHover transition flex items-center gap-3">
-            <i id="theme-icon" class="fa-solid fa-sun"></i> <span id="theme-text">Light Theme</span>
+        <button onclick="toggleTheme()" class="bento-card bento-action items-center justify-center text-center hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition cursor-pointer">
+            <h3 class="text-xl font-bold flex items-center gap-2"><i id="theme-icon" class="fa-solid fa-sun"></i> <span id="theme-text">Light Theme</span></h3>
+            <p class="text-sm text-gray-500 mt-1">Toggle appearance</p>
         </button>
 
     </div>
@@ -145,44 +212,56 @@
     <!-- ========================================== -->
     <!-- LIGHTBOX MODAL FOR IMAGES                  -->
     <!-- ========================================== -->
-    <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 hidden flex-col items-center justify-center p-4 sm:p-8" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-white text-4xl hover:text-gray-300">&times;</button>
+    <div id="lightbox" class="fixed inset-0 z-50 bg-white/95 dark:bg-black/95 hidden flex-col items-center justify-center p-4 sm:p-8 backdrop-blur-sm" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-black dark:text-white text-4xl opacity-50 hover:opacity-100 transition">&times;</button>
         
-        <img id="lightbox-img" src="Rplot.png" class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
-        
-        <!-- Description Box -->
-        <p id="lightbox-desc" class="text-white text-center mt-6 max-w-2xl text-sm font-medium">Supervised Classification</p>
+        <div class="relative w-full max-w-5xl flex flex-col items-center">
+            <img id="lightbox-img" src="Rplot.png" class="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl border border-gray-200 dark:border-zinc-800" onclick="event.stopPropagation()">
+            
+            <!-- Description Box -->
+            <div class="mt-6 text-center max-w-3xl" onclick="event.stopPropagation()">
+                <h3 id="lightbox-title" class="text-xl font-bold mb-2">Supervised Classification</h3>
+                <p id="lightbox-desc" class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    This map visualizes a pixel-based land cover classification, effectively categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2. Methodology utilizes machine learning for spatial categorization.
+                </p>
+            </div>
 
-        <!-- Thumbnails -->
-        <div class="flex gap-4 mt-6" onclick="event.stopPropagation()">
-            <img src="Rplot.png" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-white transition" onclick="setLightboxImg('Rplot.png', 'Supervised Classification')">
-            <img src="TSS - LPP Wetland.png" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-white transition" onclick="setLightboxImg('TSS - LPP Wetland.png', 'Total Suspended Solids (TSS) Analysis')">
-            <img src="EVI and NDVI.png" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-white transition" onclick="setLightboxImg('EVI and NDVI.png', 'EVI and NDVI Spatial Mapping')">
+            <!-- Thumbnails -->
+            <div class="flex gap-4 mt-8" onclick="event.stopPropagation()">
+                <img src="Rplot.png" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-black dark:hover:border-white transition shadow-sm" 
+                     onclick="setLightboxImg('Rplot.png', 'Supervised Classification', 'This map visualizes a pixel-based land cover classification, effectively categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2. Methodology utilizes machine learning for spatial categorization.')">
+                
+                <img src="TSS - LPP Wetland.png" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-black dark:hover:border-white transition shadow-sm" 
+                     onclick="setLightboxImg('TSS - LPP Wetland.png', 'Total Suspended Solids (TSS) Analysis', 'Total Suspended Solids evaluation and remote sensing tracking across critical protected wetland zones.')">
+                
+                <img src="EVI and NDVI.png" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-black dark:hover:border-white transition shadow-sm" 
+                     onclick="setLightboxImg('EVI and NDVI.png', 'EVI and NDVI Spatial Mapping', 'Vegetation index mapping evaluating environmental greenness, canopy cover health, and urban ecological gradients.')">
+            </div>
         </div>
     </div>
 
     <!-- ========================================== -->
     <!-- JOB EXPERIENCE MODAL (From CV Data)        -->
     <!-- ========================================== -->
-    <div id="job-modal" class="fixed inset-0 z-50 bg-black/80 hidden flex-col items-center justify-center p-4 backdrop-blur-sm" onclick="closeJobModal()">
-        <div class="bg-white dark:bg-[#1a1a1c] w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+    <div id="job-modal" class="fixed inset-0 z-50 bg-black/40 dark:bg-black/80 hidden flex-col items-center justify-center p-4 backdrop-blur-md" onclick="closeJobModal()">
+        <div class="bg-white dark:bg-[#121214] w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col border border-gray-200 dark:border-zinc-800" onclick="event.stopPropagation()">
             
             <!-- Header -->
-            <div class="bg-panel p-6 flex justify-between items-center text-white">
-                <h2 class="text-2xl font-bold"><i class="fa-solid fa-briefcase mr-2"></i> Work Experience</h2>
-                <button onclick="closeJobModal()" class="text-3xl leading-none hover:text-gray-300">&times;</button>
+            <div class="px-8 py-6 flex justify-between items-center border-b border-gray-100 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900/50">
+                <h2 class="text-2xl font-bold"><i class="fa-solid fa-briefcase mr-2 opacity-50"></i> Work Experience</h2>
+                <button onclick="closeJobModal()" class="text-3xl leading-none opacity-50 hover:opacity-100 transition">&times;</button>
             </div>
             
             <!-- Body -->
-            <div class="p-6 md:p-8 overflow-y-auto text-gray-800 dark:text-gray-200 space-y-8">
+            <div class="p-8 overflow-y-auto space-y-10">
                 
                 <!-- Timeline Item 1 -->
-                <div class="relative pl-6 border-l-2 border-panel">
-                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Faculty Member (Lecturer 5)</h3>
-                    <p class="text-panel font-semibold">Far Eastern University | Sampaloc, Manila</p>
-                    <p class="text-sm text-gray-500 mb-3">June 2023 – May 2026</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                <div class="relative pl-6 border-l-2 border-gray-200 dark:border-zinc-700">
+                    <div class="absolute w-3 h-3 bg-black dark:bg-white rounded-full -left-[7px] top-1.5 shadow-[0_0_0_4px_white] dark:shadow-[0_0_0_4px_#121214]"></div>
+                    <h3 class="text-xl font-bold">Faculty Member (Lecturer 5)</h3>
+                    <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Far Eastern University | Sampaloc, Manila</p>
+                    <p class="text-sm text-gray-500 mb-4 mt-1 font-mono uppercase tracking-wider">June 2023 – May 2026</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>Developed and delivered biology related classes (Ecology, microbiology, zoology, cell biology, etc).</li>
                         <li>Evaluated student learning outcomes through formal assessments.</li>
                         <li>Worked on progress reports detailing student academic status.</li>
@@ -191,24 +270,24 @@
                 </div>
 
                 <!-- Timeline Item 2 -->
-                <div class="relative pl-6 border-l-2 border-panel">
-                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Part-time Faculty Member</h3>
-                    <p class="text-panel font-semibold">Philippine Women's University | Malate, Manila</p>
-                    <p class="text-sm text-gray-500 mb-3">November 2024 – February 2026</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                <div class="relative pl-6 border-l-2 border-gray-200 dark:border-zinc-700">
+                    <div class="absolute w-3 h-3 bg-gray-400 dark:bg-zinc-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_0_4px_white] dark:shadow-[0_0_0_4px_#121214]"></div>
+                    <h3 class="text-xl font-bold">Part-time Faculty Member</h3>
+                    <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Philippine Women's University | Malate, Manila</p>
+                    <p class="text-sm text-gray-500 mb-4 mt-1 font-mono uppercase tracking-wider">Nov 2024 – Feb 2026</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>Designed and presented lectures on specialized courses including Aquatic ecosystems and Environmental economics.</li>
                         <li>Conducted training sessions on the utilization of QGIS, R, and Python for spatial analysis and mapping.</li>
                     </ul>
                 </div>
 
                 <!-- Timeline Item 3 -->
-                <div class="relative pl-6 border-l-2 border-panel">
-                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Assistant Professor 3</h3>
-                    <p class="text-panel font-semibold">Centro Escolar University | Mendiola Street, Manila City</p>
-                    <p class="text-sm text-gray-500 mb-3">February 2023 – June 2023</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                <div class="relative pl-6 border-l-2 border-gray-200 dark:border-zinc-700">
+                    <div class="absolute w-3 h-3 bg-gray-400 dark:bg-zinc-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_0_4px_white] dark:shadow-[0_0_0_4px_#121214]"></div>
+                    <h3 class="text-xl font-bold">Assistant Professor 3</h3>
+                    <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Centro Escolar University | Mendiola Street, Manila City</p>
+                    <p class="text-sm text-gray-500 mb-4 mt-1 font-mono uppercase tracking-wider">Feb 2023 – June 2023</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>Provided lectures on biology fields (Human Anatomy, Cell Biology, Microbiology, Genetics).</li>
                         <li>Facilitated hands-on technical laboratory activity.</li>
                         <li>Formulated assessment materials and evaluated student performance.</li>
@@ -216,12 +295,12 @@
                 </div>
 
                 <!-- Timeline Item 4 -->
-                <div class="relative pl-6 border-l-2 border-panel">
-                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Senior Technical Aide - SAFER U Project (Project NOAH)</h3>
-                    <p class="text-panel font-semibold">University of the Philippines Resilience Institute | Diliman, Quezon City</p>
-                    <p class="text-sm text-gray-500 mb-3">July 2022 – December 2022</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                <div class="relative pl-6 border-l-2 border-gray-200 dark:border-zinc-700">
+                    <div class="absolute w-3 h-3 bg-gray-400 dark:bg-zinc-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_0_4px_white] dark:shadow-[0_0_0_4px_#121214]"></div>
+                    <h3 class="text-xl font-bold">Senior Technical Aide - SAFER U Project (Project NOAH)</h3>
+                    <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">University of the Philippines Resilience Institute | Diliman</p>
+                    <p class="text-sm text-gray-500 mb-4 mt-1 font-mono uppercase tracking-wider">July 2022 – Dec 2022</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>Contributed to climate change adaptation and disaster risk reduction planning for state universities.</li>
                         <li>Conducted analysis and processing of spatial datasets.</li>
                         <li>Executed spatial data validation procedures and facilitated workshops.</li>
@@ -229,12 +308,12 @@
                 </div>
 
                 <!-- Timeline Item 5 -->
-                <div class="relative pl-6 border-l-2 border-panel">
-                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Faculty Member</h3>
-                    <p class="text-panel font-semibold">University of San Agustin | Iloilo, Philippines</p>
-                    <p class="text-sm text-gray-500 mb-3">September 2021 – January 2023</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                <div class="relative pl-6 border-l-2 border-gray-200 dark:border-zinc-700">
+                    <div class="absolute w-3 h-3 bg-gray-400 dark:bg-zinc-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_0_4px_white] dark:shadow-[0_0_0_4px_#121214]"></div>
+                    <h3 class="text-xl font-bold">Faculty Member</h3>
+                    <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">University of San Agustin | Iloilo, Philippines</p>
+                    <p class="text-sm text-gray-500 mb-4 mt-1 font-mono uppercase tracking-wider">Sept 2021 – Jan 2023</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>Delivered lectures primarily focusing on Biology.</li>
                         <li>Developed and administered formal examinations and assessments.</li>
                     </ul>
@@ -242,11 +321,11 @@
                 
                 <!-- Timeline Item 6 -->
                 <div class="relative pl-6 border-l-2 border-transparent">
-                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Senior High School Mentor</h3>
-                    <p class="text-panel font-semibold">AMA Online Education | Panay Ave. Quezon City</p>
-                    <p class="text-sm text-gray-500 mb-3">November 2017 – August 2019</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <div class="absolute w-3 h-3 bg-gray-400 dark:bg-zinc-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_0_4px_white] dark:shadow-[0_0_0_4px_#121214]"></div>
+                    <h3 class="text-xl font-bold">Senior High School Mentor</h3>
+                    <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">AMA Online Education | Panay Ave. Quezon City</p>
+                    <p class="text-sm text-gray-500 mb-4 mt-1 font-mono uppercase tracking-wider">Nov 2017 – Aug 2019</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>Supported delivery of lectures for Natural Science classes.</li>
                         <li>Conducted thorough reviews of online instructional materials.</li>
                     </ul>
@@ -270,8 +349,9 @@
             lightbox.classList.remove('flex');
             document.body.style.overflow = '';
         }
-        function setLightboxImg(src, desc) {
+        function setLightboxImg(src, title, desc) {
             document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-title').innerText = title;
             document.getElementById('lightbox-desc').innerText = desc;
         }
 
@@ -292,12 +372,21 @@
         // --- 3. REVEAL EMAIL SCRIPT ---
         function revealEmail() {
             const btn = document.getElementById('collab-btn');
-            btn.innerHTML = `<span class="text-lg">jpaoloramirez@gmail.com</span><span class="text-xs font-normal opacity-80 mt-1"><i class="fa-solid fa-copy"></i> Click to copy</span>`;
+            btn.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <span class="text-lg font-mono font-bold tracking-tight">jpaoloramirez@gmail.com</span>
+                    <span class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-copy"></i> Click to copy</span>
+                </div>
+            `;
             
             // Add copy-to-clipboard functionality
             btn.onclick = function() {
                 navigator.clipboard.writeText("jpaoloramirez@gmail.com");
-                btn.innerHTML = `<span class="text-lg text-green-300"><i class="fa-solid fa-check"></i> Copied!</span>`;
+                btn.innerHTML = `
+                    <div class="flex flex-col items-center text-green-600 dark:text-green-400">
+                        <span class="text-lg font-bold"><i class="fa-solid fa-check"></i> Copied!</span>
+                    </div>
+                `;
                 setTimeout(() => revealEmail(), 2000); // Reset after 2s
             };
         }
@@ -319,7 +408,7 @@
             }
         }
         
-        // Setup initial text for theme based on default (dark)
+        // Setup initial text for theme based on default HTML class (dark)
         document.getElementById('theme-text').innerText = "Light Theme";
     </script>
 </body>
