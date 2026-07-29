@@ -50,33 +50,35 @@
             transform-origin: center;
         }
 
-        /* Viewport Frame for Smooth Sliding Transitions */
+        /* Fixed Single-Slot Title Stage Container */
+        .sticky-title-stage {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: linear-gradient(to bottom, #0f0f11 85%, rgba(15,15,17,0));
+            padding-top: 2rem;
+            padding-bottom: 1.5rem;
+            height: 90px;
+            overflow: hidden;
+        }
+
+        /* Carousel Title Item */
+        .stage-title {
+            position: absolute;
+            left: 0;
+            top: 2rem;
+            white-space: nowrap;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            will-change: transform, opacity;
+        }
+
         .section-viewport {
-            position: relative;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden;
             padding: 4rem 0;
             border-bottom: 1px solid rgba(229, 231, 235, 0.1);
-        }
-
-        /* Sticky Masked Header Container */
-        .sticky-mask-header {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            background: linear-gradient(to bottom, #0f0f11 80%, rgba(15,15,17,0));
-            padding-top: 2rem;
-            padding-bottom: 1.5rem;
-            overflow: hidden;
-        }
-
-        /* Sliding Title Box */
-        .sliding-title {
-            will-change: transform, opacity;
-            transition: transform 0.1s linear, opacity 0.1s linear;
         }
 
         /* Custom Scrollbar */
@@ -126,70 +128,53 @@
         
         <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16">
             
+            <!-- GLOBAL SINGLE-SLOT STICKY TITLE STAGE -->
+            <div class="sticky-title-stage">
+                <div class="relative w-full h-full overflow-hidden">
+                    <h2 id="stage-title-skills" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg">Core Competencies</h2>
+                    <h2 id="stage-title-timeline" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Professional History</h2>
+                    <h2 id="stage-title-visualizations" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Portfolio</h2>
+                    <h2 id="stage-title-map" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Web Application</h2>
+                    <h2 id="stage-title-contact" class="stage-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Get in Touch</h2>
+                </div>
+            </div>
+
             <!-- SECTION 0: CORE COMPETENCIES -->
             <section id="sec-skills" class="section-viewport">
-                <!-- Masked Sticky Header Zone -->
-                <div class="sticky-mask-header">
-                    <div class="sliding-title-wrapper overflow-hidden py-2">
-                        <h2 id="title-skills" class="sliding-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit">
-                            Core Competencies
-                        </h2>
-                    </div>
-                </div>
-                
                 <div class="flex flex-col space-y-4 relative w-full max-w-2xl mt-4">
-                    
-                    <!-- Rectangle 1 -->
                     <div class="group relative rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 shadow-xl p-6 transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black cursor-pointer overflow-hidden">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">
-                                R, Python, & HTML Interfaces
-                            </h3>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">R, Python, & HTML Interfaces</h3>
                             <i class="fa-solid fa-chevron-down transition-transform duration-300 group-hover:rotate-180"></i>
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
-                            <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">
-                                5 years of spatial automation, script-based modeling workflows, and building responsive HTML-based analytical interfaces (such as interactive portfolio systems, custom Sankey diagrams, and Notedump Factory presentation-to-notes tools).
-                            </p>
+                            <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">5 years of spatial automation, script-based modeling workflows, and building responsive HTML-based analytical interfaces (such as interactive portfolio systems, custom Sankey diagrams, and Notedump Factory presentation-to-notes tools).</p>
                         </div>
                     </div>
 
-                    <!-- Rectangle 2 -->
                     <div class="group relative rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 shadow-xl p-6 transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black cursor-pointer overflow-hidden">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">
-                                Environmental Data Analysis & Modelling
-                            </h3>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">Environmental Data Analysis & Modelling</h3>
                             <i class="fa-solid fa-chevron-down transition-transform duration-300 group-hover:rotate-180"></i>
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
-                            <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">
-                                Grounded in formal Environmental Impact Assessment (EIA) training from UPLB and hands-on laboratory research including trace-metal analysis (AAS extraction for Lead) and microplastic bioindicator tracking using Blattodea spp.
-                            </p>
+                            <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">Grounded in formal Environmental Impact Assessment (EIA) training from UPLB and hands-on laboratory research including trace-metal analysis (AAS extraction for Lead) and microplastic bioindicator tracking using Blattodea spp.</p>
                         </div>
                     </div>
 
-                    <!-- Rectangle 3 -->
                     <div class="group relative rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 shadow-xl p-6 transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black cursor-pointer overflow-hidden">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">
-                                Geospatial Analysis
-                            </h3>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">Geospatial Analysis</h3>
                             <i class="fa-solid fa-chevron-down transition-transform duration-300 group-hover:rotate-180"></i>
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
-                            <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">
-                                Advanced competency in QGIS, remote sensing, spatial interpolation (IDW), vegetation index mapping (NDVI vs. EVI), Total Suspended Solids (TSS) evaluation, and landscape connectivity modeling.
-                            </p>
+                            <p class="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed border-t border-gray-200/40 dark:border-zinc-700/40 pt-3">Advanced competency in QGIS, remote sensing, spatial interpolation (IDW), vegetation index mapping (NDVI vs. EVI), Total Suspended Solids (TSS) evaluation, and landscape connectivity modeling.</p>
                         </div>
                     </div>
 
-                    <!-- Rectangle 4 -->
                     <div class="group relative rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 shadow-xl p-6 transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black cursor-pointer overflow-hidden">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">
-                                Key Projects Handled & Research Conducted
-                            </h3>
+                            <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">Key Projects Handled & Research Conducted</h3>
                             <i class="fa-solid fa-chevron-down transition-transform duration-300 group-hover:rotate-180"></i>
                         </div>
                         <div class="max-h-0 opacity-0 group-hover:max-h-[500px] group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
@@ -202,25 +187,13 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
             <!-- SECTION 1: PROFESSIONAL HISTORY -->
             <section id="sec-timeline" class="section-viewport">
-                <!-- Masked Sticky Header Zone -->
-                <div class="sticky-mask-header">
-                    <div class="sliding-title-wrapper overflow-hidden py-2">
-                        <h2 id="title-timeline" class="sliding-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit">
-                            Professional History
-                        </h2>
-                    </div>
-                </div>
-                
                 <h3 class="text-3xl font-bold mb-4 mt-4">Experience Timeline</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">
-                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.
-                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
                 
                 <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
                     <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
@@ -233,15 +206,6 @@
 
             <!-- SECTION 2: PORTFOLIO -->
             <section id="sec-visualizations" class="section-viewport">
-                <!-- Masked Sticky Header Zone -->
-                <div class="sticky-mask-header">
-                    <div class="sliding-title-wrapper overflow-hidden py-2">
-                        <h2 id="title-visualizations" class="sliding-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit">
-                            Portfolio
-                        </h2>
-                    </div>
-                </div>
-                
                 <h3 class="text-3xl font-bold mb-4 mt-4">Spatial Visualizations Album</h3>
                 
                 <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
@@ -250,24 +214,30 @@
                         <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
                         <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
                         <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
+                        
+                        <!-- Clickable Navigation Triangles / Arrows inside Image Box -->
+                        <button onclick="prevAlbum(event)" class="absolute left-4 z-30 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg">
+                            <i class="fa-solid fa-caret-left text-xl"></i>
+                        </button>
+                        <button onclick="nextAlbum(event)" class="absolute right-4 z-30 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg">
+                            <i class="fa-solid fa-caret-right text-xl"></i>
+                        </button>
                     </div>
 
                     <!-- Title & Description -->
                     <h4 id="album-title" class="text-3xl font-bold mb-3">Supervised Classification</h4>
-                    <p id="album-desc" class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                        This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.
-                    </p>
+                    <p id="album-desc" class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.</p>
 
                     <!-- Album Navigation Dots / Selectors -->
                     <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-zinc-800">
                         <div class="flex gap-4">
-                            <button onclick="switchAlbum(0)" id="album-dot-0" class="w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner"></button>
-                            <button onclick="switchAlbum(1)" id="album-dot-1" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner"></button>
-                            <button onclick="switchAlbum(2)" id="album-dot-2" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner"></button>
+                            <button onclick="switchAlbum(0)" id="album-dot-0" class="w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer"></button>
+                            <button onclick="switchAlbum(1)" id="album-dot-1" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
+                            <button onclick="switchAlbum(2)" id="album-dot-2" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
                         </div>
 
                         <!-- Enlarge Button -->
-                        <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-base font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-6 py-3 rounded-full transition shadow-md">
+                        <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-base font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-6 py-3 rounded-full transition shadow-md cursor-pointer">
                             <i class="fa-solid fa-expand"></i> Enlarge Image
                         </button>
                     </div>
@@ -276,15 +246,6 @@
 
             <!-- SECTION 3: WEB APPLICATION -->
             <section id="sec-map" class="section-viewport">
-                <!-- Masked Sticky Header Zone -->
-                <div class="sticky-mask-header">
-                    <div class="sliding-title-wrapper overflow-hidden py-2">
-                        <h2 id="title-map" class="sliding-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit">
-                            Web Application
-                        </h2>
-                    </div>
-                </div>
-                
                 <div class="flex justify-between items-end mb-4 mt-4">
                     <h3 class="text-3xl font-bold">Interactive Map</h3>
                     <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-royal dark:hover:text-mellow transition">
@@ -292,9 +253,7 @@
                     </a>
                 </div>
                 
-                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg w-full">
-                    Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.
-                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg w-full">Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.</p>
 
                 <div class="w-full h-[650px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
                     <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
@@ -307,23 +266,12 @@
 
             <!-- SECTION 4: GET IN TOUCH -->
             <section id="sec-contact" class="section-viewport">
-                <!-- Masked Sticky Header Zone -->
-                <div class="sticky-mask-header">
-                    <div class="sliding-title-wrapper overflow-hidden py-2">
-                        <h2 id="title-contact" class="sliding-title text-base md:text-lg uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-3 px-6 rounded-xl shadow-lg w-fit">
-                            Get in Touch
-                        </h2>
-                    </div>
-                </div>
-                
                 <div class="text-center md:text-left mt-4">
                     <h3 class="text-5xl md:text-7xl font-black tracking-tight mb-8">Let's<br>Collaborate.</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-12 w-full mx-auto md:mx-0 text-xl leading-relaxed">
-                        Reach out for research partnerships, GIS consultation, or academic inquiries.
-                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-12 w-full mx-auto md:mx-0 text-xl leading-relaxed">Reach out for research partnerships, GIS consultation, or academic inquiries.</p>
                     
                     <div id="email-container" class="inline-block">
-                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-5 px-12 rounded-full transition hover:scale-105 shadow-2xl flex items-center gap-4 text-xl">
+                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-5 px-12 rounded-full transition hover:scale-105 shadow-2xl flex items-center gap-4 text-xl cursor-pointer">
                             <i class="fa-solid fa-paper-plane"></i> Connect With Me
                         </button>
                     </div>
@@ -351,48 +299,44 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- SMOOTH TITLE SWIPE-TO-RIGHT & ENTRANCE SCRIPT ---
+        // --- SINGLE-SLOT CAROUSEL TITLE STAGE CONTROLLER ---
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
 
             const sections = [
-                { sectionId: 'sec-skills', titleId: 'title-skills' },
-                { sectionId: 'sec-timeline', titleId: 'title-timeline' },
-                { sectionId: 'sec-visualizations', titleId: 'title-visualizations' },
-                { sectionId: 'sec-map', titleId: 'title-map' },
-                { sectionId: 'sec-contact', titleId: 'title-contact' }
+                { id: 'sec-skills', titleId: 'stage-title-skills' },
+                { id: 'sec-timeline', titleId: 'stage-title-timeline' },
+                { id: 'sec-visualizations', titleId: 'stage-title-visualizations' },
+                { id: 'sec-map', titleId: 'stage-title-map' },
+                { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            sections.forEach((item) => {
-                const sec = document.getElementById(item.sectionId);
-                const title = document.getElementById(item.titleId);
-                if (!sec || !title) return;
+            sections.forEach((item, index) => {
+                const sec = document.getElementById(item.id);
+                const titleEl = document.getElementById(item.titleId);
+                if (!sec || !titleEl) return;
 
                 const rect = sec.getBoundingClientRect();
-                const secHeight = sec.offsetHeight;
+                const height = sec.offsetHeight;
+                const progress = -rect.top / height;
 
-                // When scrolling through the section
-                const progress = -rect.top / secHeight;
-
-                if (progress >= 0 && progress <= 1) {
-                    // Swipes to the right (+ translateX) and fades out as you scroll down
-                    const translateX = progress * 220; 
-                    const opacity = 1 - progress * 1.5;
-                    title.style.transform = `translateX(${translateX}px)`;
-                    title.style.opacity = Math.max(opacity, 0);
+                if (progress >= 0 && progress < 1) {
+                    // Active section in view: Title sits perfectly centered in the stage slot
+                    titleEl.style.transform = `translateX(${progress * -100}%)`;
+                    titleEl.style.opacity = `${Math.max(1 - progress * 1.2, 0)}`;
                 } else if (progress < 0) {
-                    // Entering from the left or resting at top
-                    title.style.transform = 'translateX(0px)';
-                    title.style.opacity = '1';
+                    // Upcoming section below: waiting on the right side to slide in from left
+                    titleEl.style.transform = 'translateX(110%)';
+                    titleEl.style.opacity = '0';
                 } else {
-                    // Fully scrolled past
-                    title.style.transform = 'translateX(220px)';
-                    title.style.opacity = '0';
+                    // Past section above: swiped out to the right
+                    titleEl.style.transform = 'translateX(-110%)';
+                    titleEl.style.opacity = '0';
                 }
             });
         });
 
-        // --- INSTANT ALBUM CAROUSEL SWITCHER ---
+        // --- ALBUM CAROUSEL SWITCHER & ARROW CONTROLS ---
         const albumData = [
             {
                 src: "Rplot.png",
@@ -425,13 +369,25 @@
                 if(i === index) {
                     img.classList.remove('opacity-0', 'z-0');
                     img.classList.add('opacity-100', 'z-10');
-                    dot.className = "w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner";
+                    dot.className = "w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer";
                 } else {
                     img.classList.remove('opacity-100', 'z-10');
                     img.classList.add('opacity-0', 'z-0');
-                    dot.className = "w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner";
+                    dot.className = "w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer";
                 }
             }
+        }
+
+        function nextAlbum(event) {
+            event.stopPropagation();
+            let nextIdx = (currentAlbumIndex + 1) % albumData.length;
+            switchAlbum(nextIdx);
+        }
+
+        function prevAlbum(event) {
+            event.stopPropagation();
+            let prevIdx = (currentAlbumIndex - 1 + albumData.length) % albumData.length;
+            switchAlbum(prevIdx);
         }
 
         function openCurrentLightbox() {
@@ -469,20 +425,20 @@
                 text.innerText = "Dark Theme";
                 icon.className = "fa-solid fa-moon mr-2";
             } else {
-                html.classList.0 = html.classList.add('dark');
+                html.classList.add('dark');
                 text.innerText = "Light Theme";
                 icon.className = "fa-solid fa-sun mr-2";
             }
         }
         document.getElementById('theme-text').innerText = "Light Theme";
 
-        // --- EMAIL REVEAL SCRIPT ---
+        // --- EMAIL REVEAL & COPY SCRIPT ---
         function revealEmail() {
             const container = document.getElementById('email-container');
             container.innerHTML = `
-                <div class="flex flex-col items-center md:items-start p-8 bg-gray-100 dark:bg-zinc-900 rounded-[2rem] border border-gray-200 dark:border-zinc-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800 transition shadow-xl" onclick="copyEmail()">
-                    <span class="text-2xl md:text-3xl font-mono font-bold text-royal dark:text-mellow tracking-tight mb-3">jpaoloramirez@gmail.com</span>
-                    <span id="copy-text" class="text-base font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2"><i class="fa-solid fa-copy"></i> Click to copy</span>
+                <div class="flex flex-col items-center md:items-start p-6 bg-gray-100 dark:bg-zinc-900 rounded-[2rem] border border-gray-200 dark:border-zinc-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800 transition shadow-xl" onclick="copyEmail()">
+                    <span class="text-2xl md:text-3xl font-mono font-bold text-royal dark:text-mellow tracking-tight mb-2">jpaoloramirez@gmail.com</span>
+                    <span id="copy-text" class="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2"><i class="fa-solid fa-copy"></i> Click to copy email</span>
                 </div>
             `;
         }
@@ -492,7 +448,7 @@
             const copyText = document.getElementById('copy-text');
             copyText.innerHTML = `<span class="text-green-600 dark:text-green-400"><i class="fa-solid fa-check"></i> Copied to clipboard!</span>`;
             setTimeout(() => {
-                copyText.innerHTML = `<i class="fa-solid fa-copy"></i> Click to copy`;
+                copyText.innerHTML = `<i class="fa-solid fa-copy"></i> Click to copy email`;
             }, 3000);
         }
     </script>
