@@ -36,20 +36,16 @@
             color: #f3f4f6;
         }
 
-        /* 
-         * Enhanced Geospatial Topographic Contour Animation
-         * Added rotation and larger scale variations for a much more alive, fluid interface.
-         */
+        /* Enhanced Organic Blob Animation for the Left Sidebar */
         @keyframes topoMorph {
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg) scale(1); }
-            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; transform: rotate(45deg) scale(1.02); }
-            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; transform: rotate(90deg) scale(1.05); }
-            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; transform: rotate(135deg) scale(1.02); }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(180deg) scale(1); }
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
+            33% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(120deg) scale(1.03); }
+            66% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(240deg) scale(1.02); }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg) scale(1); }
         }
         
         .animated-circle {
-            animation: topoMorph 15s linear infinite;
+            animation: topoMorph 20s linear infinite;
             transition: background-color 0.5s ease;
             transform-origin: center;
         }
@@ -60,12 +56,6 @@
             flex-direction: column;
             justify-content: center;
             padding: 4rem 0; 
-        }
-
-        /* The Islands */
-        .island-card {
-            transition: transform 0.1s ease-out, box-shadow 0.3s ease, background-color 0.3s ease;
-            will-change: transform;
         }
 
         /* Custom Scrollbar */
@@ -86,22 +76,25 @@
     <div class="flex flex-col md:flex-row w-full min-h-screen max-w-[1920px] mx-auto">
         
         <!-- ========================================== -->
-        <!-- LEFT COLUMN (STICKY PROFILE & ENHANCED BLOB) -->
+        <!-- LEFT COLUMN (FIXED STICKY PROFILE & BLOB)  -->
         <!-- ========================================== -->
-        <div class="w-full md:w-[32%] h-[50vh] md:h-screen sticky top-0 flex items-center justify-center overflow-hidden z-0 pl-4">
+        <div class="w-full md:w-[35%] h-screen sticky top-0 flex items-center justify-center overflow-hidden z-20 pl-4 bg-[#f8f9fa] dark:bg-[#0f0f11]">
             
-            <!-- Blob Background: Bigger, richer movement -->
-            <div class="animated-circle absolute w-[350px] h-[350px] md:w-[500px] md:h-[500px] bg-royal dark:bg-mellow shadow-2xl opacity-90"></div>
+            <!-- Larger, More Dynamic Blob Background -->
+            <div class="animated-circle absolute w-[420px] h-[420px] md:w-[580px] md:h-[580px] bg-royal dark:bg-mellow shadow-2xl opacity-95"></div>
             
-            <!-- Static Text Frame -->
-            <div class="relative z-10 text-center px-4 text-white dark:text-black">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-3">
-                    John Paolo<br>Ramirez <span class="text-2xl md:text-3xl font-medium">MSc.</span>
+            <!-- Static Text Frame with Resume Professional Summary Details -->
+            <div class="relative z-10 text-center px-6 text-white dark:text-black max-w-md">
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
+                    John Paolo A. Ramirez <span class="text-xl md:text-2xl font-medium">MSc</span>
                 </h1>
-                <p class="text-base md:text-lg font-bold opacity-90 max-w-xs mx-auto leading-relaxed">
-                    Translating raw environmental systems into precision spatial models.
+                <p class="text-xs md:text-sm font-bold uppercase tracking-wider opacity-90 mb-3">
+                    Spatial Ecology | Environmental Assessment & Modelling | Geospatial Analysis
                 </p>
-                <div class="mt-6 flex justify-center gap-6 text-3xl">
+                <p class="text-xs md:text-sm font-medium opacity-90 leading-relaxed mb-6">
+                    Experienced academic lecturer in biology specializing in computational ecology, spatial analysis, and GIS-based environmental monitoring with strong foundations in R and Python.
+                </p>
+                <div class="flex justify-center gap-6 text-2xl">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
@@ -111,66 +104,64 @@
         <!-- ========================================== -->
         <!-- RIGHT COLUMN (SCROLLING CONTENT)           -->
         <!-- ========================================== -->
-        <div class="w-full md:w-[68%] relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:pl-16 md:pr-16">
+        <div class="w-full md:w-[65%] relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:pl-16 md:pr-16">
             
-            <!-- SCROLL 0: SKILLS (As Floating Islands that part on scroll) -->
-            <section id="skills" class="scroll-section border-b border-transparent">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-10 z-20 relative">Core Competencies</h2>
-                <div class="space-y-8" id="island-container">
+            <!-- SCROLL 0: CORE COMPETENCIES (Overlapping Circle Islands that part sideways on scroll) -->
+            <section id="skills" class="scroll-section border-b border-transparent relative overflow-hidden">
+                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-12 z-20 relative text-center md:text-left">Core Competencies</h2>
+                
+                <div class="flex flex-col items-center space-y-8 relative w-full py-10">
                     
                     <!-- Island 1 -->
-                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl">
-                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
-                            R, Python & HTML Interfaces
+                    <div class="competency-island w-full max-w-xl md:w-[460px] h-[340px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-100 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer" data-direction="-1">
+                        <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black mb-3">
+                            R, Python, & HTML Interfaces
                         </h3>
-                        <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
-                            5 years of diving deep into programming, spatial automation, script-based modeling workflows, and building responsive HTML-based analytical interfaces.
+                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed px-4">
+                            5 years of spatial automation, script-based modeling workflows, and building responsive HTML-based analytical interfaces.
                         </p>
                     </div>
 
                     <!-- Island 2 -->
-                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl">
-                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
+                    <div class="competency-island w-full max-w-xl md:w-[460px] h-[340px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-100 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-20 md:ml-24" data-direction="1">
+                        <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black mb-3">
                             Environmental Data Analysis & Modelling
                         </h3>
-                        <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
-                            Grounded in formal Environmental Impact Assessment (EIA) training and hands-on laboratory/field research involving heavy metal and microplastic bioindicator tracking.
+                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed px-4">
+                            Grounded in formal EIA training and laboratory/field research involving heavy metal and microplastic tracking.
                         </p>
                     </div>
 
                     <!-- Island 3 -->
-                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl">
-                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
+                    <div class="competency-island w-full max-w-xl md:w-[460px] h-[340px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-100 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-20 md:-ml-24" data-direction="-1">
+                        <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black mb-3">
                             Geospatial Analysis
                         </h3>
-                        <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
-                            Advanced competency in QGIS, remote sensing, spatial interpolation, and landscape connectivity modeling for urban ecosystems.
+                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed px-4">
+                            Advanced competency in QGIS, remote sensing, spatial interpolation, and landscape connectivity modeling.
                         </p>
                     </div>
 
-                    <!-- Island 4 (With Hover Overlay for Full Project Info) -->
-                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl overflow-hidden">
-                        
-                        <!-- Default Face -->
-                        <div class="relative z-10 transition duration-300 group-hover:opacity-0">
-                            <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200">
+                    <!-- Island 4: Key Projects Handled -->
+                    <div class="competency-island w-full max-w-xl md:w-[480px] h-[360px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-100 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-20 md:ml-16 relative overflow-hidden" data-direction="1">
+                        <div class="group-hover:opacity-0 transition-opacity duration-300">
+                            <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white mb-3">
                                 Key Projects Handled
                             </h3>
-                            <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
-                                Spearheaded spatial analysis for the SAFER-U Project (Project NOAH), engineered specialized software, and modeled connectivity. <br><br><span class="font-bold text-royal dark:text-mellow"><i class="fa-solid fa-arrow-pointer"></i> Hover to view full project list</span>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed px-4">
+                                Hover to explore key projects including Project NOAH, Arroceros Park Lead Study, and Urban Connectivity Modelling.
                             </p>
                         </div>
-
-                        <!-- Hover Overlay (Pop-up inside the island) -->
-                        <div class="absolute inset-0 bg-royal dark:bg-mellow text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-8 md:p-10 flex flex-col justify-center z-20">
-                            <h4 class="text-2xl font-black mb-4"><i class="fa-solid fa-briefcase"></i> Key Research & Projects</h4>
-                            <ul class="list-disc pl-6 text-sm md:text-base space-y-2 font-medium">
-                                <li><strong>International Urban Systems Project:</strong> Data harmonization and automated hierarchical zone classification modeling.</li>
-                                <li><strong>SAFER U Project (Project NOAH):</strong> Processed geospatial climate datasets for institutional resilience planning.</li>
-                                <li><strong>Heavy Metal (Lead) Spatial Distribution:</strong> Arroceros Forest Park trace-metal analysis and IDW interpolation.</li>
-                                <li><strong>Microplastic Bioindicator Study:</strong> Blattodea spp. analysis across 25 urban sampling sites.</li>
-                                <li><strong>Landscape Connectivity Analysis:</strong> Modeled ecological corridors of Metro Manila green spaces via Grainscape (R).</li>
-                                <li><strong>HTML Portfolios & Notedump Factory:</strong> Engineered interactive document analysis software and dynamic web interfaces.</li>
+                        
+                        <!-- Hover Popup Content -->
+                        <div class="absolute inset-0 bg-royal dark:bg-mellow text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-center text-left rounded-full z-20 overflow-y-auto">
+                            <h4 class="text-lg font-black mb-2 text-center"><i class="fa-solid fa-briefcase"></i> Key Research & Projects</h4>
+                            <ul class="list-disc pl-6 text-xs md:text-sm space-y-1 font-medium">
+                                <li><strong>International Urban Systems:</strong> Harmonization and hierarchical zone models.</li>
+                                <li><strong>SAFER U Project (UPRI / Project NOAH):</strong> Climate risk & disaster mitigation data.</li>
+                                <li><strong>Arroceros Forest Park Study:</strong> Lead (Pb) spatial distribution & AAS extraction.</li>
+                                <li><strong>Microplastic Study:</strong> Blattodea spp. biological indicator mapping across Manila.</li>
+                                <li><strong>Metro Manila Connectivity:</strong> Master's thesis modeling ecological corridors using Grainscape.</li>
                             </ul>
                         </div>
                     </div>
@@ -180,33 +171,33 @@
 
             <!-- SCROLL 1: TIMELINE -->
             <section id="timeline" class="scroll-section border-b border-gray-100 dark:border-gray-900">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3 relative z-20">Professional History</h2>
-                <h3 class="text-3xl font-bold mb-4 relative z-20">Experience Timeline</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-full leading-relaxed text-base relative z-20">
-                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.
+                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Professional History</h2>
+                <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">
+                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.[cite: 2]
                 </p>
                 
-                <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full relative z-20">
+                <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
                     <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
                 </div>
 
-                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center justify-center w-fit gap-2 bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:opacity-80 shadow-xl text-lg relative z-20">
+                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center justify-center w-fit gap-2 bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:opacity-80 shadow-xl text-lg">
                     Launch Interactive Timeline <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </section>
 
-            <!-- SCROLL 2: STACKED VISUALIZATIONS ALBUM (Fixed Clunkiness) -->
+            <!-- SCROLL 2: STACKED VISUALIZATIONS ALBUM (Fixed lag/clunkiness) -->
             <section id="visualizations" class="scroll-section border-b border-gray-100 dark:border-gray-900">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Portfolio</h2>
                 <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                 
                 <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                     
-                    <!-- Preloaded Image Stack for Smooth Transitions -->
+                    <!-- Preloaded Images with Instant CSS Switch -->
                     <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 50vh;">
-                        <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-100 z-10 p-2">
-                        <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-0 z-0 p-2">
-                        <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-0 z-0 p-2">
+                        <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
+                        <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
+                        <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
                     </div>
 
                     <!-- Title & Description -->
@@ -292,22 +283,20 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- ISLAND PARALLAX SCROLL SCRIPT ---
-        // Parts the islands sideways to "give way" when scrolling down
+        // --- ISLANDS PARALLAX SCROLL SCRIPT ---
+        // Parts the circular competency islands sideways to give way on scroll
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            const islands = document.querySelectorAll('.island-card');
+            const islands = document.querySelectorAll('.competency-island');
             
-            islands.forEach((island, index) => {
-                // Alternates left and right (-1 for even, 1 for odd)
-                const direction = index % 2 === 0 ? -1 : 1;
-                // Move based on scroll, cap the movement so it doesn't leave the screen entirely
-                const moveAmount = Math.min(scrollY * 0.15, 200); 
+            islands.forEach((island) => {
+                const direction = parseInt(island.getAttribute('data-direction')) || 1;
+                const moveAmount = Math.min(scrollY * 0.2, 180); 
                 island.style.transform = `translateX(${moveAmount * direction}px)`;
             });
         });
 
-        // --- ALBUM CAROUSEL DATA & SCRIPT (Fixed for Smoothness) ---
+        // --- INSTANT ALBUM CAROUSEL SWITCHER (Fixed Lag) ---
         const albumData = [
             {
                 src: "Rplot.png",
@@ -331,28 +320,20 @@
             currentAlbumIndex = index;
             const item = albumData[index];
             
-            // Update Text
             document.getElementById('album-title').innerText = item.title;
             document.getElementById('album-desc').innerText = item.desc;
 
-            // Update Images smoothly by toggling opacity and z-index layers
+            // Instant CSS opacity toggle without DOM reload lag
             for(let i = 0; i < albumData.length; i++) {
                 const img = document.getElementById(`album-img-${i}`);
+                const dot = document.getElementById(`album-dot-${i}`);
                 if(i === index) {
                     img.classList.remove('opacity-0', 'z-0');
                     img.classList.add('opacity-100', 'z-10');
+                    dot.className = "w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner";
                 } else {
                     img.classList.remove('opacity-100', 'z-10');
                     img.classList.add('opacity-0', 'z-0');
-                }
-            }
-
-            // Update dots
-            for(let i = 0; i < albumData.length; i++) {
-                const dot = document.getElementById(`album-dot-${i}`);
-                if(i === index) {
-                    dot.className = "w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner";
-                } else {
                     dot.className = "w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner";
                 }
             }
