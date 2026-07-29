@@ -50,7 +50,7 @@
             transform-origin: center;
         }
 
-        /* Fixed Masking Header Stage with Tall Top Buffer Extension */
+        /* Fixed Masking Header Bar with Tall Upper Buffer and Unclipped Badge Baseline */
         .right-column-header {
             position: fixed;
             top: 0;
@@ -58,8 +58,8 @@
             width: 62%;
             z-index: 50;
             background-color: #0f0f11;
-            padding-top: 3.5rem;       /* Extended top buffer zone to completely hide scrolling content rolling underneath */
-            padding-bottom: 1.25rem;   /* Sits lower at the exact correct baseline matching the first section card */
+            padding-top: 4.5rem;       /* Extended upper buffer so disappearing elements roll completely under black layer */
+            padding-bottom: 1.5rem;    /* Lowered the title stage baseline so the badge is fully visible and unclipped */
             padding-left: 4rem;
             padding-right: 4rem;
             display: flex;
@@ -100,8 +100,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 8rem 0 4rem 0; /* Elements placed higher up by default so first title matches instantly */
+            justify-content: flex-start;
+            padding-top: 2rem;  /* Reduced padding to bring content higher up */
+            padding-bottom: 4rem;
             border-bottom: 1px solid rgba(229, 231, 235, 0.1);
         }
 
@@ -161,11 +162,11 @@
             </div>
         </div>
 
-        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 pt-24 pb-12">
+        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 pt-36 pb-12">
             
             <!-- SECTION 0: CORE COMPETENCIES -->
             <section id="sec-skills" class="section-viewport">
-                <div class="flex flex-col space-y-4 relative w-full max-w-2xl mt-4">
+                <div class="flex flex-col space-y-4 relative w-full max-w-2xl mt-2">
                     <div class="group relative rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 shadow-xl p-6 transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black cursor-pointer overflow-hidden">
                         <div class="flex items-center justify-between">
                             <h3 class="text-xl md:text-2xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black">R, Python, & HTML Interfaces</h3>
@@ -216,11 +217,12 @@
 
             <!-- SECTION 1: PROFESSIONAL HISTORY -->
             <section id="sec-timeline" class="section-viewport">
-                <div class="w-full max-w-2xl mt-4">
+                <div class="w-full max-w-4xl mt-2">
                     <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
                     
-                    <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
+                    <!-- Restored Full Width Container for Timeline Card -->
+                    <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-4 mb-6 hover:scale-[1.01] transition duration-300 w-full">
                         <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
                     </div>
 
@@ -232,12 +234,13 @@
 
             <!-- SECTION 2: PORTFOLIO -->
             <section id="sec-visualizations" class="section-viewport">
-                <div class="w-full max-w-2xl mt-4">
+                <div class="w-full max-w-4xl mt-2">
                     <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                     
+                    <!-- Restored Full Width Container for Portfolio Visualizations -->
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
-                        <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 40vh;">
+                        <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 50vh;">
                             <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
                             <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
                             <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
@@ -274,7 +277,7 @@
 
             <!-- SECTION 3: WEB APPLICATION -->
             <section id="sec-map" class="section-viewport">
-                <div class="w-full max-w-2xl mt-4">
+                <div class="w-full max-w-4xl mt-2">
                     <div class="flex justify-between items-end mb-4">
                         <h3 class="text-3xl font-bold">Interactive Map</h3>
                         <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-royal dark:hover:text-mellow transition">
@@ -296,7 +299,7 @@
 
             <!-- SECTION 4: GET IN TOUCH -->
             <section id="sec-contact" class="section-viewport">
-                <div class="text-center md:text-left mt-4 max-w-2xl">
+                <div class="text-center md:text-left mt-2 max-w-2xl">
                     <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg leading-relaxed">Reach out for research partnerships, GIS consultation, or academic inquiries.</p>
                     
@@ -329,8 +332,8 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- PERFECTED ZERO-OFFSET SYNCED SCROLL TRANSITION CONTROLLER ---
-        window.addEventListener('scroll', () => {
+        // --- SYNCHRONIZED SCROLL TRANSITION CONTROLLER WITH INSTANT LOAD SYNC ---
+        function updateStageTitles() {
             const sections = [
                 { id: 'sec-skills', titleId: 'stage-title-skills' },
                 { id: 'sec-timeline', titleId: 'stage-title-timeline' },
@@ -339,7 +342,7 @@
                 { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            const headerOffset = 180; // Perfectly calibrated so "Core Competencies" is immediately visible on default load at scroll position 0
+            const headerThreshold = 130; // Matches the exact visual stage baseline
 
             sections.forEach((item) => {
                 const sec = document.getElementById(item.id);
@@ -349,7 +352,8 @@
                 const rect = sec.getBoundingClientRect();
                 const height = sec.offsetHeight;
                 
-                const progress = (headerOffset - rect.top) / height;
+                // Direct linear progress mapping section top through the viewport header stage
+                const progress = (headerThreshold - rect.top) / height;
 
                 if (progress >= 0 && progress < 1) {
                     titleEl.style.transform = `translateX(${progress * -100}%)`;
@@ -362,10 +366,11 @@
                     titleEl.style.opacity = '0';
                 }
             });
-        });
+        }
 
-        // Immediately fire scroll on page load to set default states correctly
-        window.dispatchEvent(new Event('scroll'));
+        window.addEventListener('scroll', updateStageTitles);
+        window.addEventListener('DOMContentLoaded', updateStageTitles);
+        window.addEventListener('load', updateStageTitles);
 
         // --- ALBUM CAROUSEL SWITCHER & ARROW CONTROLS ---
         const albumData = [
