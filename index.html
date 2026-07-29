@@ -50,14 +50,6 @@
             transform-origin: center;
         }
 
-        .scroll-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem 0; 
-        }
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -73,44 +65,43 @@
         <i id="theme-icon" class="fa-solid fa-sun mr-2"></i><span id="theme-text">Light Theme</span>
     </button>
 
-    <div class="flex flex-col md:flex-row w-full min-h-screen max-w-[1920px] mx-auto">
+    <!-- ========================================== -->
+    <!-- FIXED LEFT SIDEBAR (BLOB NEVER SCROLLS)    -->
+    <!-- ========================================== -->
+    <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 pl-4 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
+        <!-- Blob Background -->
+        <div class="animated-circle absolute w-[450px] h-[450px] md:w-[620px] md:h-[620px] bg-royal dark:bg-mellow shadow-2xl opacity-95"></div>
         
-        <!-- ========================================== -->
-        <!-- LEFT COLUMN (FIXED STICKY PROFILE & BLOB)  -->
-        <!-- ========================================== -->
-        <div class="w-full md:w-[38%] h-screen sticky top-0 flex items-center justify-center overflow-hidden z-20 pl-4 bg-[#f8f9fa] dark:bg-[#0f0f11]">
-            
-            <!-- Blob Background -->
-            <div class="animated-circle absolute w-[450px] h-[450px] md:w-[620px] md:h-[620px] bg-royal dark:bg-mellow shadow-2xl opacity-95"></div>
-            
-            <!-- Static Text Frame with Exact Resume Details -->
-            <div class="relative z-10 text-center px-6 text-white dark:text-black max-w-lg">
-                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
-                    John Paolo A. Ramirez <span class="text-xl md:text-2xl font-medium">MSc</span>
-                </h1>
-                <p class="text-xs md:text-sm font-bold uppercase tracking-wider opacity-90 mb-3">
-                    Spatial Ecology | Environmental Assessment and Modelling | Geospatial Analysis
-                </p>
-                <p class="text-xs md:text-sm font-medium opacity-90 leading-relaxed mb-6">
-                    Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis[cite: 2].
-                </p>
-                <div class="flex justify-center gap-6 text-2xl">
-                    <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
+        <!-- Static Text Frame with Exact Resume Details -->
+        <div class="relative z-10 text-center px-6 text-white dark:text-black max-w-lg pointer-events-auto">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
+                John Paolo A. Ramirez <span class="text-xl md:text-2xl font-medium">MSc</span>
+            </h1>
+            <p class="text-xs md:text-sm font-bold uppercase tracking-wider opacity-90 mb-3">
+                Spatial Ecology | Environmental Assessment and Modelling | Geospatial Analysis
+            </p>
+            <p class="text-xs md:text-sm font-medium opacity-90 leading-relaxed mb-6">
+                Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
+            </p>
+            <div class="flex justify-center gap-6 text-2xl">
+                <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
             </div>
         </div>
+    </div>
 
-        <!-- ========================================== -->
-        <!-- RIGHT COLUMN (SCROLLING CONTENT)           -->
-        <!-- ========================================== -->
-        <div class="w-full md:w-[62%] relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:pl-16 md:pr-16">
+    <!-- ========================================== -->
+    <!-- RIGHT COLUMN (SCROLLING CONTENT)           -->
+    <!-- ========================================== -->
+    <div class="relative z-10 w-full min-h-screen bg-transparent pl-0 md:pl-[38%]">
+        
+        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 py-12">
             
-            <!-- SCROLL 0: CORE COMPETENCIES (Circular Islands that part sideways on scroll) -->
-            <section id="skills" class="scroll-section border-b border-transparent relative overflow-hidden">
+            <!-- SCROLL 0: CORE COMPETENCIES (Properly spaced circular islands that part sideways on scroll) -->
+            <section id="skills" class="min-h-screen flex flex-col justify-center border-b border-transparent relative overflow-hidden py-16">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-12 z-20 relative text-center md:text-left">Core Competencies</h2>
                 
-                <div class="flex flex-col items-center space-y-6 relative w-full py-6">
+                <div class="flex flex-col items-center space-y-12 relative w-full py-6">
                     
                     <!-- Island 1 -->
                     <div class="competency-island w-full max-w-md md:w-[420px] h-[420px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer" data-direction="-1">
@@ -123,7 +114,7 @@
                     </div>
 
                     <!-- Island 2 -->
-                    <div class="competency-island w-full max-w-md md:w-[420px] h-[420px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-24 md:ml-28" data-direction="1">
+                    <div class="competency-island w-full max-w-md md:w-[420px] h-[420px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-28 md:ml-32" data-direction="1">
                         <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black mb-3">
                             Environmental Data Analysis & Modelling
                         </h3>
@@ -133,7 +124,7 @@
                     </div>
 
                     <!-- Island 3 -->
-                    <div class="competency-island w-full max-w-md md:w-[420px] h-[420px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-24 md:-ml-28" data-direction="-1">
+                    <div class="competency-island w-full max-w-md md:w-[420px] h-[420px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-28 md:-ml-32" data-direction="-1">
                         <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black mb-3">
                             Geospatial Analysis
                         </h3>
@@ -142,28 +133,26 @@
                         </p>
                     </div>
 
-                    <!-- Island 4: Key Projects Handled (Expands into a larger blob circle on hover) -->
-                    <div class="competency-island w-full max-w-md md:w-[440px] h-[440px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-24 md:ml-20 relative overflow-hidden" data-direction="1">
-                        
-                        <!-- Default state -->
-                        <div class="group-hover:opacity-0 transition-opacity duration-300">
-                            <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white mb-3">
+                    <!-- Island 4: Key Projects Handled (Triggers Floating Pop-up Circle on Hover) -->
+                    <div class="competency-island w-full max-w-md md:w-[420px] h-[420px] rounded-full bg-white dark:bg-zinc-900 border-4 border-gray-200 dark:border-zinc-800 shadow-2xl p-8 flex flex-col justify-center text-center transition-all duration-300 hover:bg-royal dark:hover:bg-mellow hover:text-white dark:hover:text-black group cursor-pointer md:-mt-28 md:ml-24 relative" data-direction="1">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-black mb-3">
                                 Key Projects Handled
                             </h3>
-                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed px-4">
-                                Hover to explore key projects including Project NOAH, Arroceros Park Lead Study, and Urban Connectivity Modelling.
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black leading-relaxed px-4">
+                                Hover to view comprehensive project details and research experience.
                             </p>
                         </div>
                         
-                        <!-- Expanded Blob Pop-up on Hover -->
-                        <div class="absolute inset-0 bg-royal dark:bg-mellow text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-8 flex flex-col justify-center text-left rounded-full z-20 overflow-y-auto">
-                            <h4 class="text-base md:text-lg font-black mb-3 text-center"><i class="fa-solid fa-briefcase"></i> Key Research & Projects</h4>
-                            <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 font-medium">
+                        <!-- Floating Enormous Pop-up Circle Overlap on Hover -->
+                        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] h-[540px] rounded-full bg-royal dark:bg-mellow text-white dark:text-black p-10 flex flex-col justify-center text-left shadow-2xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-50 border-4 border-white dark:border-black">
+                            <h4 class="text-lg md:text-xl font-black mb-3 text-center"><i class="fa-solid fa-briefcase"></i> Key Research & Projects</h4>
+                            <ul class="list-disc pl-6 text-xs md:text-sm space-y-2 font-medium">
                                 <li><strong>International Urban Systems Project:</strong> Harmonization and hierarchical zone models.</li>
-                                <li><strong>SAFER U Project (UPRI / Project NOAH):</strong> Climate risk & disaster mitigation data[cite: 2].</li>
-                                <li><strong>Arroceros Forest Park Study:</strong> Lead (Pb) spatial distribution & AAS extraction[cite: 2].</li>
-                                <li><strong>Microplastic Study:</strong> Blattodea spp. biological indicator mapping across Manila[cite: 2].</li>
-                                <li><strong>Metro Manila Connectivity:</strong> Master's thesis modeling ecological corridors using Grainscape[cite: 2].</li>
+                                <li><strong>SAFER U Project (UPRI / Project NOAH):</strong> Climate risk & disaster mitigation data.</li>
+                                <li><strong>Arroceros Forest Park Study:</strong> Lead (Pb) spatial distribution & AAS extraction.</li>
+                                <li><strong>Microplastic Study:</strong> Blattodea spp. biological indicator mapping across Manila.</li>
+                                <li><strong>Metro Manila Connectivity:</strong> Master's thesis modeling ecological corridors using Grainscape.</li>
                             </ul>
                         </div>
                     </div>
@@ -172,11 +161,11 @@
             </section>
 
             <!-- SCROLL 1: TIMELINE -->
-            <section id="timeline" class="scroll-section border-b border-gray-100 dark:border-gray-900">
+            <section id="timeline" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Professional History</h2>
                 <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">
-                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present[cite: 2].
+                    This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.
                 </p>
                 
                 <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
@@ -189,7 +178,7 @@
             </section>
 
             <!-- SCROLL 2: STACKED VISUALIZATIONS ALBUM -->
-            <section id="visualizations" class="scroll-section border-b border-gray-100 dark:border-gray-900">
+            <section id="visualizations" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Portfolio</h2>
                 <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                 
@@ -224,7 +213,7 @@
             </section>
 
             <!-- SCROLL 3: INTERACTIVE MAP -->
-            <section id="map" class="scroll-section border-b border-gray-100 dark:border-gray-900">
+            <section id="map" class="min-h-screen flex flex-col justify-center border-b border-gray-100 dark:border-gray-900 py-16">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Web Application</h2>
                 <div class="flex justify-between items-end mb-4">
                     <h3 class="text-3xl font-bold">Interactive Map</h3>
@@ -247,7 +236,7 @@
             </section>
 
             <!-- SCROLL 4: CONTACT -->
-            <section id="contact" class="scroll-section">
+            <section id="contact" class="min-h-screen flex flex-col justify-center py-16">
                 <div class="text-center md:text-left">
                     <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-4">Get in Touch</h2>
                     <h3 class="text-5xl md:text-7xl font-black tracking-tight mb-8">Let's<br>Collaborate.</h3>
@@ -284,7 +273,7 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- ISLANDS PARALLAX SCROLL SCRIPT ---
+        // --- FIXED SIDEBAR & ISLANDS PARALLAX SCROLL SCRIPT ---
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const islands = document.querySelectorAll('.competency-island');
