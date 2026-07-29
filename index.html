@@ -59,7 +59,7 @@
             z-index: 50;
             background-color: #0f0f11;
             padding-top: 4.5rem;       /* Extended upper buffer so disappearing elements roll completely under black layer */
-            padding-bottom: 1.5rem;    /* Lowered the title stage baseline so the badge is fully visible and unclipped */
+            padding-bottom: 1.5rem;    /* Lowered the title stage baseline slightly so the badge is comfortable */
             padding-left: 4rem;
             padding-right: 4rem;
             display: flex;
@@ -92,7 +92,7 @@
             left: 0;
             top: 0;
             white-space: nowrap;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
             will-change: transform, opacity;
         }
 
@@ -101,7 +101,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            padding-top: 2rem;  /* Reduced padding to bring content higher up */
+            padding-top: 5.5rem;  /* Added balanced top padding so content is not pressed too high */
             padding-bottom: 4rem;
             border-bottom: 1px solid rgba(229, 231, 235, 0.1);
         }
@@ -221,7 +221,7 @@
                     <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
                     
-                    <!-- Restored Full Width Container for Timeline Card -->
+                    <!-- Restored Larger Full-Width Container for Timeline Card -->
                     <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-4 mb-6 hover:scale-[1.01] transition duration-300 w-full">
                         <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
                     </div>
@@ -237,10 +237,10 @@
                 <div class="w-full max-w-4xl mt-2">
                     <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                     
-                    <!-- Restored Full Width Container for Portfolio Visualizations -->
+                    <!-- Restored Larger Full-Width Container for Portfolio Visualizations -->
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
-                        <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 50vh;">
+                        <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 55vh;">
                             <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
                             <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
                             <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
@@ -287,7 +287,7 @@
                     
                     <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-base">Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.</p>
 
-                    <div class="w-full h-[550px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
+                    <div class="w-full h-[600px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
                         <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
                     </div>
 
@@ -332,7 +332,7 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- SYNCHRONIZED SCROLL TRANSITION CONTROLLER WITH INSTANT LOAD SYNC ---
+        // --- PERFECTED RESPONSIVE SCROLL TRANSITION CONTROLLER ---
         function updateStageTitles() {
             const sections = [
                 { id: 'sec-skills', titleId: 'stage-title-skills' },
@@ -342,7 +342,7 @@
                 { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            const headerThreshold = 130; // Matches the exact visual stage baseline
+            const headerThreshold = 220; // Adjusted threshold so titles transition earlier and stay visible longer
 
             sections.forEach((item) => {
                 const sec = document.getElementById(item.id);
@@ -352,15 +352,18 @@
                 const rect = sec.getBoundingClientRect();
                 const height = sec.offsetHeight;
                 
-                // Direct linear progress mapping section top through the viewport header stage
                 const progress = (headerThreshold - rect.top) / height;
 
-                if (progress >= 0 && progress < 1) {
-                    titleEl.style.transform = `translateX(${progress * -100}%)`;
-                    titleEl.style.opacity = `${Math.max(1 - progress * 1.3, 0)}`;
+                if (progress >= -0.1 && progress < 1.05) {
+                    // Active section: slides smoothly and stays locked longer in the slot
+                    let slidePos = Math.min(Math.max(progress * -100, -100), 0);
+                    if (progress < 0) slidePos = 0; // Default state holds core competencies instantly on load
+                    
+                    titleEl.style.transform = `translateX(${slidePos}%)`;
+                    titleEl.style.opacity = `${progress < 0 ? 1 : Math.max(1 - (progress - 0.7) * 3, 0)}`;
                 } else if (progress < 0) {
-                    titleEl.style.transform = 'translateX(110%)';
-                    titleEl.style.opacity = '0';
+                    titleEl.style.transform = 'translateX(0%)';
+                    titleEl.style.opacity = '1';
                 } else {
                     titleEl.style.transform = 'translateX(-110%)';
                     titleEl.style.opacity = '0';
