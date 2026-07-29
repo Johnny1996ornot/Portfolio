@@ -86,22 +86,24 @@
             max-width: 42rem;
         }
 
-        /* Carousel Title Item - Each starts hidden on the right except the first one */
+        /* Isolated Title Slot: Default all titles hidden off-screen to the right */
         .stage-title {
             position: absolute;
             left: 0;
             top: 0;
             white-space: nowrap;
-            transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
-            will-change: transform, opacity;
-            transform: translateX(110%);
             opacity: 0;
+            transform: translateX(100%);
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            will-change: transform, opacity;
         }
 
-        /* Default visible state exclusively for the first section title on load */
-        #stage-title-skills {
-            transform: translateX(0%);
+        /* Explicit active state class toggled by JS */
+        .stage-title.active {
             opacity: 1;
+            transform: translateX(0%);
+            pointer-events: auto;
         }
 
         .section-viewport {
@@ -162,8 +164,8 @@
         <!-- FIXED MASKING HEADER STAGE -->
         <div class="right-column-header shadow-md">
             <div class="sticky-title-stage">
-                <!-- Core Competencies defaults to visible, others default hidden -->
-                <h2 id="stage-title-skills" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
+                <!-- Isolated Independent Title Nodes -->
+                <h2 id="stage-title-skills" class="stage-title active text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
                 <h2 id="stage-title-timeline" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Professional History</h2>
                 <h2 id="stage-title-visualizations" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Portfolio</h2>
                 <h2 id="stage-title-map" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Web Application</h2>
@@ -339,8 +341,8 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- PERFECTED RESPONSIVE SCROLL TRANSITION CONTROLLER ---
-        function updateStageTitles() {
+        // --- CLEAN INTERSECTION OBSERVER & ACTIVE SLOT CONTROLLER ---
+        function updateActiveStageTitle() {
             const sections = [
                 { id: 'sec-skills', titleId: 'stage-title-skills' },
                 { id: 'sec-timeline', titleId: 'stage-title-timeline' },
@@ -349,37 +351,33 @@
                 { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            const headerThreshold = 220; 
+            let activeId = sections[0].titleId;
 
             sections.forEach((item) => {
                 const sec = document.getElementById(item.id);
-                const titleEl = document.getElementById(item.titleId);
-                if (!sec || !titleEl) return;
-
+                if (!sec) return;
                 const rect = sec.getBoundingClientRect();
-                const height = sec.offsetHeight;
-                
-                const progress = (headerThreshold - rect.top) / height;
+                // If the top of the section has scrolled past or near the header threshold
+                if (rect.top <= 250) {
+                    activeId = item.titleId;
+                }
+            });
 
-                if (progress >= -0.1 && progress < 1.05) {
-                    let slidePos = Math.min(Math.max(progress * -100, -100), 0);
-                    if (progress < 0) slidePos = 0; 
-                    
-                    titleEl.style.transform = `translateX(${slidePos}%)`;
-                    titleEl.style.opacity = `${progress < 0 ? 1 : Math.max(1 - (progress - 0.7) * 3, 0)}`;
-                } else if (progress < 0) {
-                    titleEl.style.transform = 'translateX(0%)';
-                    titleEl.style.opacity = '1';
+            // Toggle active state exclusively on the currently visible section title
+            sections.forEach((item) => {
+                const titleEl = document.getElementById(item.titleId);
+                if (!titleEl) return;
+                if (item.titleId === activeId) {
+                    titleEl.classList.add('active');
                 } else {
-                    titleEl.style.transform = 'translateX(-110%)';
-                    titleEl.style.opacity = '0';
+                    titleEl.classList.remove('active');
                 }
             });
         }
 
-        window.addEventListener('scroll', updateStageTitles);
-        window.addEventListener('DOMContentLoaded', updateStageTitles);
-        window.addEventListener('load', updateStageTitles);
+        window.addEventListener('scroll', updateActiveStageTitle);
+        window.addEventListener('DOMContentLoaded', updateActiveStageTitle);
+        window.addEventListener('load', updateActiveStageTitle);
 
         // --- ALBUM CAROUSEL SWITCHER & ARROW CONTROLS ---
         const albumData = [
