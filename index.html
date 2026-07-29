@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,20 +37,21 @@
         }
 
         /* 
-         * Geospatial Topographic Contour Animation
-         * Highly irregular, noticeable morphing mimicking spatial polygons
+         * Enhanced Geospatial Topographic Contour Animation
+         * Added rotation and larger scale variations for a much more alive, fluid interface.
          */
         @keyframes topoMorph {
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
-            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
-            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg) scale(1); }
+            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; transform: rotate(45deg) scale(1.02); }
+            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; transform: rotate(90deg) scale(1.05); }
+            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; transform: rotate(135deg) scale(1.02); }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(180deg) scale(1); }
         }
         
         .animated-circle {
-            animation: topoMorph 12s ease-in-out infinite;
+            animation: topoMorph 15s linear infinite;
             transition: background-color 0.5s ease;
+            transform-origin: center;
         }
 
         .scroll-section {
@@ -58,7 +59,13 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 4rem 0; /* Padding handled by grid/containers */
+            padding: 4rem 0; 
+        }
+
+        /* The Islands */
+        .island-card {
+            transition: transform 0.1s ease-out, box-shadow 0.3s ease, background-color 0.3s ease;
+            will-change: transform;
         }
 
         /* Custom Scrollbar */
@@ -69,7 +76,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
     </style>
 </head>
-<body class="relative">
+<body class="relative overflow-x-hidden">
 
     <!-- Theme Toggle (Fixed Top Right) -->
     <button onclick="toggleTheme()" class="fixed top-6 right-6 z-50 bg-white/80 dark:bg-black/80 backdrop-blur px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-800 text-sm font-semibold transition hover:scale-105">
@@ -79,22 +86,22 @@
     <div class="flex flex-col md:flex-row w-full min-h-screen max-w-[1920px] mx-auto">
         
         <!-- ========================================== -->
-        <!-- LEFT COLUMN (STICKY PROFILE & TOPO BLOB)   -->
+        <!-- LEFT COLUMN (STICKY PROFILE & ENHANCED BLOB) -->
         <!-- ========================================== -->
-        <div class="w-full md:w-[28%] h-[50vh] md:h-screen sticky top-0 flex items-center justify-center overflow-hidden z-0 pl-2">
+        <div class="w-full md:w-[32%] h-[50vh] md:h-screen sticky top-0 flex items-center justify-center overflow-hidden z-0 pl-4">
             
-            <!-- Blob Background: Royal Blue in light mode, Yellow in dark mode -->
-            <div class="animated-circle absolute w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-royal dark:bg-mellow shadow-2xl"></div>
+            <!-- Blob Background: Bigger, richer movement -->
+            <div class="animated-circle absolute w-[350px] h-[350px] md:w-[500px] md:h-[500px] bg-royal dark:bg-mellow shadow-2xl opacity-90"></div>
             
             <!-- Static Text Frame -->
             <div class="relative z-10 text-center px-4 text-white dark:text-black">
-                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
-                    John Paolo<br>Ramirez <span class="text-xl md:text-2xl font-medium">MSc.</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-3">
+                    John Paolo<br>Ramirez <span class="text-2xl md:text-3xl font-medium">MSc.</span>
                 </h1>
-                <p class="text-sm md:text-base font-medium opacity-90 max-w-xs mx-auto leading-relaxed">
+                <p class="text-base md:text-lg font-bold opacity-90 max-w-xs mx-auto leading-relaxed">
                     Translating raw environmental systems into precision spatial models.
                 </p>
-                <div class="mt-5 flex justify-center gap-5 text-2xl">
+                <div class="mt-6 flex justify-center gap-6 text-3xl">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
@@ -102,130 +109,148 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- RIGHT COLUMN (SCROLLING CONTENT - MAXIMISED) -->
+        <!-- RIGHT COLUMN (SCROLLING CONTENT)           -->
         <!-- ========================================== -->
-        <div class="w-full md:w-[72%] relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:pl-12 md:pr-12">
+        <div class="w-full md:w-[68%] relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:pl-16 md:pr-16">
             
-            <!-- SCROLL 0: SKILLS (Tight Spacing) -->
-            <section id="skills" class="scroll-section border-b border-gray-100 dark:border-gray-900">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-6">Core Competencies</h2>
-                <div class="space-y-2">
+            <!-- SCROLL 0: SKILLS (As Floating Islands that part on scroll) -->
+            <section id="skills" class="scroll-section border-b border-transparent">
+                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-10 z-20 relative">Core Competencies</h2>
+                <div class="space-y-8" id="island-container">
                     
-                    <!-- Skill 1 -->
-                    <div class="group relative cursor-pointer py-3 px-4 -ml-4 rounded-xl transition duration-300 hover:bg-gray-100/80 dark:hover:bg-zinc-900/60">
-                        <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-300 dark:text-gray-800 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
+                    <!-- Island 1 -->
+                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl">
+                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
                             R, Python & HTML Interfaces
                         </h3>
-                        <p class="mt-1 text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
                             5 years of diving deep into programming, spatial automation, script-based modeling workflows, and building responsive HTML-based analytical interfaces.
                         </p>
                     </div>
 
-                    <!-- Skill 2 -->
-                    <div class="group relative cursor-pointer py-3 px-4 -ml-4 rounded-xl transition duration-300 hover:bg-gray-100/80 dark:hover:bg-zinc-900/60">
-                        <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-300 dark:text-gray-800 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
+                    <!-- Island 2 -->
+                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl">
+                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
                             Environmental Data Analysis & Modelling
                         </h3>
-                        <p class="mt-1 text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
                             Grounded in formal Environmental Impact Assessment (EIA) training and hands-on laboratory/field research involving heavy metal and microplastic bioindicator tracking.
                         </p>
                     </div>
 
-                    <!-- Skill 3 -->
-                    <div class="group relative cursor-pointer py-3 px-4 -ml-4 rounded-xl transition duration-300 hover:bg-gray-100/80 dark:hover:bg-zinc-900/60">
-                        <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-300 dark:text-gray-800 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
+                    <!-- Island 3 -->
+                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl">
+                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
                             Geospatial Analysis
                         </h3>
-                        <p class="mt-1 text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
                             Advanced competency in QGIS, remote sensing, spatial interpolation, and landscape connectivity modeling for urban ecosystems.
                         </p>
                     </div>
 
-                    <!-- Skill 4 -->
-                    <div class="group relative cursor-pointer py-3 px-4 -ml-4 rounded-xl transition duration-300 hover:bg-gray-100/80 dark:hover:bg-zinc-900/60">
-                        <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-300 dark:text-gray-800 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
-                            Key Projects Handled
-                        </h3>
-                        <p class="mt-1 text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            Spearheaded spatial analysis for the SAFER-U Project (Project NOAH), engineered specialized software for interactive document analysis, and modeled landscape connectivity for Metro Manila's green spaces.
-                        </p>
+                    <!-- Island 4 (With Hover Overlay for Full Project Info) -->
+                    <div class="island-card group relative cursor-pointer p-8 md:p-10 rounded-[3rem] bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl overflow-hidden">
+                        
+                        <!-- Default Face -->
+                        <div class="relative z-10 transition duration-300 group-hover:opacity-0">
+                            <h3 class="text-3xl md:text-5xl font-black tracking-tighter text-gray-800 dark:text-gray-200">
+                                Key Projects Handled
+                            </h3>
+                            <p class="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-4xl leading-relaxed">
+                                Spearheaded spatial analysis for the SAFER-U Project (Project NOAH), engineered specialized software, and modeled connectivity. <br><br><span class="font-bold text-royal dark:text-mellow"><i class="fa-solid fa-arrow-pointer"></i> Hover to view full project list</span>
+                            </p>
+                        </div>
+
+                        <!-- Hover Overlay (Pop-up inside the island) -->
+                        <div class="absolute inset-0 bg-royal dark:bg-mellow text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-8 md:p-10 flex flex-col justify-center z-20">
+                            <h4 class="text-2xl font-black mb-4"><i class="fa-solid fa-briefcase"></i> Key Research & Projects</h4>
+                            <ul class="list-disc pl-6 text-sm md:text-base space-y-2 font-medium">
+                                <li><strong>International Urban Systems Project:</strong> Data harmonization and automated hierarchical zone classification modeling.</li>
+                                <li><strong>SAFER U Project (Project NOAH):</strong> Processed geospatial climate datasets for institutional resilience planning.</li>
+                                <li><strong>Heavy Metal (Lead) Spatial Distribution:</strong> Arroceros Forest Park trace-metal analysis and IDW interpolation.</li>
+                                <li><strong>Microplastic Bioindicator Study:</strong> Blattodea spp. analysis across 25 urban sampling sites.</li>
+                                <li><strong>Landscape Connectivity Analysis:</strong> Modeled ecological corridors of Metro Manila green spaces via Grainscape (R).</li>
+                                <li><strong>HTML Portfolios & Notedump Factory:</strong> Engineered interactive document analysis software and dynamic web interfaces.</li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>
             </section>
 
-            <!-- SCROLL 1: TIMELINE (Maximized) -->
+            <!-- SCROLL 1: TIMELINE -->
             <section id="timeline" class="scroll-section border-b border-gray-100 dark:border-gray-900">
-                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Professional History</h2>
-                <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">
+                <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3 relative z-20">Professional History</h2>
+                <h3 class="text-3xl font-bold mb-4 relative z-20">Experience Timeline</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-full leading-relaxed text-base relative z-20">
                     This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.
                 </p>
                 
-                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full">
-                    <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-lg">
+                <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-3 mb-6 hover:scale-[1.01] transition duration-300 w-full relative z-20">
+                    <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
                 </div>
 
-                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center justify-center w-fit gap-2 bg-royal dark:bg-mellow text-white dark:text-black font-bold py-3.5 px-9 rounded-full transition hover:opacity-80 shadow-lg text-base">
+                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="inline-flex items-center justify-center w-fit gap-2 bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:opacity-80 shadow-xl text-lg relative z-20">
                     Launch Interactive Timeline <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </section>
 
-            <!-- SCROLL 2: STACKED VISUALIZATIONS ALBUM (Maximized) -->
+            <!-- SCROLL 2: STACKED VISUALIZATIONS ALBUM (Fixed Clunkiness) -->
             <section id="visualizations" class="scroll-section border-b border-gray-100 dark:border-gray-900">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Portfolio</h2>
                 <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                 
-                <!-- Album Container - Stretched to full width -->
-                <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
+                <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                     
-                    <!-- Featured Image Screen -->
-                    <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 400px;">
-                        <img id="album-img" src="Rplot.png" alt="Visualization Preview" class="w-full h-auto max-h-[70vh] object-contain transition-all duration-500">
+                    <!-- Preloaded Image Stack for Smooth Transitions -->
+                    <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 50vh;">
+                        <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-100 z-10 p-2">
+                        <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-0 z-0 p-2">
+                        <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-0 z-0 p-2">
                     </div>
 
                     <!-- Title & Description -->
-                    <h4 id="album-title" class="text-2xl font-bold mb-2">Supervised Classification</h4>
-                    <p id="album-desc" class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    <h4 id="album-title" class="text-3xl font-bold mb-3">Supervised Classification</h4>
+                    <p id="album-desc" class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
                         This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.
                     </p>
 
                     <!-- Album Navigation Dots / Selectors -->
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-zinc-800">
-                        <div class="flex gap-3">
-                            <button onclick="switchAlbum(0)" id="album-dot-0" class="w-4 h-4 rounded-full bg-royal dark:bg-mellow transition shadow-inner"></button>
-                            <button onclick="switchAlbum(1)" id="album-dot-1" class="w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner"></button>
-                            <button onclick="switchAlbum(2)" id="album-dot-2" class="w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner"></button>
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-zinc-800">
+                        <div class="flex gap-4">
+                            <button onclick="switchAlbum(0)" id="album-dot-0" class="w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner"></button>
+                            <button onclick="switchAlbum(1)" id="album-dot-1" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner"></button>
+                            <button onclick="switchAlbum(2)" id="album-dot-2" class="w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner"></button>
                         </div>
 
                         <!-- Enlarge Button -->
-                        <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-sm font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-5 py-2.5 rounded-full transition shadow-md">
+                        <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-base font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-6 py-3 rounded-full transition shadow-md">
                             <i class="fa-solid fa-expand"></i> Enlarge Image
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- SCROLL 3: INTERACTIVE MAP (Maximized) -->
+            <!-- SCROLL 3: INTERACTIVE MAP -->
             <section id="map" class="scroll-section border-b border-gray-100 dark:border-gray-900">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-3">Web Application</h2>
                 <div class="flex justify-between items-end mb-4">
                     <h3 class="text-3xl font-bold">Interactive Map</h3>
                     <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="text-gray-400 hover:text-royal dark:hover:text-mellow transition">
-                        <i class="fa-solid fa-external-link-alt text-xl"></i>
+                        <i class="fa-solid fa-external-link-alt text-2xl"></i>
                     </a>
                 </div>
                 
-                <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed text-base w-full">
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg w-full">
                     Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.
                 </p>
 
-                <div class="w-full h-[600px] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
+                <div class="w-full h-[650px] rounded-[2rem] overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-100 dark:bg-zinc-900">
                     <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
                 </div>
 
-                <div class="mt-4 p-4 rounded-xl bg-gray-100 dark:bg-zinc-900 text-xs text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 w-full">
-                    <p><i class="fa-solid fa-circle-info mr-1"></i> <strong>Disclaimer:</strong> This map is a model generated from limited available datasets. It is meant for analytical demonstration and may not represent exact habitat boundaries.</p>
+                <div class="mt-6 p-5 rounded-2xl bg-gray-100 dark:bg-zinc-900 text-sm text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 w-full">
+                    <p><i class="fa-solid fa-circle-info mr-2"></i> <strong>Disclaimer:</strong> This map is a model generated from limited available datasets. It is meant for analytical demonstration and may not represent exact habitat boundaries.</p>
                 </div>
             </section>
 
@@ -233,13 +258,13 @@
             <section id="contact" class="scroll-section">
                 <div class="text-center md:text-left">
                     <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-4">Get in Touch</h2>
-                    <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-10 w-full mx-auto md:mx-0 text-lg leading-relaxed">
+                    <h3 class="text-5xl md:text-7xl font-black tracking-tight mb-8">Let's<br>Collaborate.</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-12 w-full mx-auto md:mx-0 text-xl leading-relaxed">
                         Reach out for research partnerships, GIS consultation, or academic inquiries.
                     </p>
                     
                     <div id="email-container" class="inline-block">
-                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:scale-105 shadow-xl flex items-center gap-3 text-lg">
+                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-5 px-12 rounded-full transition hover:scale-105 shadow-2xl flex items-center gap-4 text-xl">
                             <i class="fa-solid fa-paper-plane"></i> Connect With Me
                         </button>
                     </div>
@@ -253,13 +278,13 @@
     <!-- LIGHTBOX MODAL                             -->
     <!-- ========================================== -->
     <div id="lightbox" class="fixed inset-0 z-50 bg-white/95 dark:bg-black/95 hidden flex-col items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-3xl text-gray-500 hover:text-black dark:hover:text-white transition">&times;</button>
+        <button class="absolute top-6 right-6 text-4xl text-gray-500 hover:text-black dark:hover:text-white transition">&times;</button>
         
         <img id="lightbox-img" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl border border-gray-200 dark:border-gray-800" onclick="event.stopPropagation()">
         
-        <div class="mt-6 text-center max-w-3xl px-4" onclick="event.stopPropagation()">
-            <h3 id="lightbox-title" class="text-2xl font-bold mb-2"></h3>
-            <p id="lightbox-desc" class="text-gray-600 dark:text-gray-400 text-base leading-relaxed"></p>
+        <div class="mt-6 text-center max-w-4xl px-4" onclick="event.stopPropagation()">
+            <h3 id="lightbox-title" class="text-3xl font-bold mb-3"></h3>
+            <p id="lightbox-desc" class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed"></p>
         </div>
     </div>
 
@@ -267,7 +292,22 @@
     <!-- SCRIPTS                                    -->
     <!-- ========================================== -->
     <script>
-        // --- 1. ALBUM CAROUSEL DATA & SCRIPT ---
+        // --- ISLAND PARALLAX SCROLL SCRIPT ---
+        // Parts the islands sideways to "give way" when scrolling down
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const islands = document.querySelectorAll('.island-card');
+            
+            islands.forEach((island, index) => {
+                // Alternates left and right (-1 for even, 1 for odd)
+                const direction = index % 2 === 0 ? -1 : 1;
+                // Move based on scroll, cap the movement so it doesn't leave the screen entirely
+                const moveAmount = Math.min(scrollY * 0.15, 200); 
+                island.style.transform = `translateX(${moveAmount * direction}px)`;
+            });
+        });
+
+        // --- ALBUM CAROUSEL DATA & SCRIPT (Fixed for Smoothness) ---
         const albumData = [
             {
                 src: "Rplot.png",
@@ -290,17 +330,30 @@
         function switchAlbum(index) {
             currentAlbumIndex = index;
             const item = albumData[index];
-            document.getElementById('album-img').src = item.src;
+            
+            // Update Text
             document.getElementById('album-title').innerText = item.title;
             document.getElementById('album-desc').innerText = item.desc;
+
+            // Update Images smoothly by toggling opacity and z-index layers
+            for(let i = 0; i < albumData.length; i++) {
+                const img = document.getElementById(`album-img-${i}`);
+                if(i === index) {
+                    img.classList.remove('opacity-0', 'z-0');
+                    img.classList.add('opacity-100', 'z-10');
+                } else {
+                    img.classList.remove('opacity-100', 'z-10');
+                    img.classList.add('opacity-0', 'z-0');
+                }
+            }
 
             // Update dots
             for(let i = 0; i < albumData.length; i++) {
                 const dot = document.getElementById(`album-dot-${i}`);
                 if(i === index) {
-                    dot.className = "w-4 h-4 rounded-full bg-royal dark:bg-mellow transition shadow-inner";
+                    dot.className = "w-5 h-5 rounded-full bg-royal dark:bg-mellow transition shadow-inner";
                 } else {
-                    dot.className = "w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner";
+                    dot.className = "w-5 h-5 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner";
                 }
             }
         }
@@ -310,7 +363,7 @@
             openLightbox(item.src, item.title, item.desc);
         }
 
-        // --- 2. LIGHTBOX SCRIPT ---
+        // --- LIGHTBOX SCRIPT ---
         function openLightbox(src, title, desc) {
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox-title').innerText = title;
@@ -329,7 +382,7 @@
             document.body.style.overflow = '';
         }
 
-        // --- 3. THEME TOGGLE SCRIPT ---
+        // --- THEME TOGGLE SCRIPT ---
         function toggleTheme() {
             const html = document.documentElement;
             const text = document.getElementById('theme-text');
@@ -347,13 +400,13 @@
         }
         document.getElementById('theme-text').innerText = "Light Theme";
 
-        // --- 4. EMAIL REVEAL SCRIPT ---
+        // --- EMAIL REVEAL SCRIPT ---
         function revealEmail() {
             const container = document.getElementById('email-container');
             container.innerHTML = `
-                <div class="flex flex-col items-center md:items-start p-6 bg-gray-100 dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800 transition shadow-lg" onclick="copyEmail()">
-                    <span class="text-xl md:text-2xl font-mono font-bold text-royal dark:text-mellow tracking-tight mb-2">jpaoloramirez@gmail.com</span>
-                    <span id="copy-text" class="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2"><i class="fa-solid fa-copy"></i> Click to copy</span>
+                <div class="flex flex-col items-center md:items-start p-8 bg-gray-100 dark:bg-zinc-900 rounded-[2rem] border border-gray-200 dark:border-zinc-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800 transition shadow-xl" onclick="copyEmail()">
+                    <span class="text-2xl md:text-3xl font-mono font-bold text-royal dark:text-mellow tracking-tight mb-3">jpaoloramirez@gmail.com</span>
+                    <span id="copy-text" class="text-base font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2"><i class="fa-solid fa-copy"></i> Click to copy</span>
                 </div>
             `;
         }
