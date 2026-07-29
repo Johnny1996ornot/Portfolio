@@ -50,7 +50,7 @@
             transform-origin: center;
         }
 
-        /* Fixed Masking Header Bar with Tall Upper Buffer and Unclipped Badge Baseline */
+        /* Fixed Masking Header Bar */
         .right-column-header {
             position: fixed;
             top: 0;
@@ -58,8 +58,8 @@
             width: 62%;
             z-index: 50;
             background-color: #0f0f11;
-            padding-top: 4.5rem;       /* Extended upper buffer so disappearing elements roll completely under black layer */
-            padding-bottom: 1.5rem;    /* Lowered the title stage baseline slightly so the badge is comfortable */
+            padding-top: 4.5rem;       
+            padding-bottom: 1.5rem;    
             padding-left: 4rem;
             padding-right: 4rem;
             display: flex;
@@ -86,7 +86,7 @@
             max-width: 42rem;
         }
 
-        /* Carousel Title Item */
+        /* Carousel Title Item - Each starts hidden on the right except the first one */
         .stage-title {
             position: absolute;
             left: 0;
@@ -94,6 +94,14 @@
             white-space: nowrap;
             transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
             will-change: transform, opacity;
+            transform: translateX(110%);
+            opacity: 0;
+        }
+
+        /* Default visible state exclusively for the first section title on load */
+        #stage-title-skills {
+            transform: translateX(0%);
+            opacity: 1;
         }
 
         .section-viewport {
@@ -101,7 +109,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            padding-top: 5.5rem;  /* Added balanced top padding so content is not pressed too high */
+            padding-top: 5.5rem;  
             padding-bottom: 4rem;
             border-bottom: 1px solid rgba(229, 231, 235, 0.1);
         }
@@ -154,11 +162,12 @@
         <!-- FIXED MASKING HEADER STAGE -->
         <div class="right-column-header shadow-md">
             <div class="sticky-title-stage">
+                <!-- Core Competencies defaults to visible, others default hidden -->
                 <h2 id="stage-title-skills" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
-                <h2 id="stage-title-timeline" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Professional History</h2>
-                <h2 id="stage-title-visualizations" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Portfolio</h2>
-                <h2 id="stage-title-map" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Web Application</h2>
-                <h2 id="stage-title-contact" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Get in Touch</h2>
+                <h2 id="stage-title-timeline" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Professional History</h2>
+                <h2 id="stage-title-visualizations" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Portfolio</h2>
+                <h2 id="stage-title-map" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Web Application</h2>
+                <h2 id="stage-title-contact" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Get in Touch</h2>
             </div>
         </div>
 
@@ -221,7 +230,6 @@
                     <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
                     
-                    <!-- Restored Larger Full-Width Container for Timeline Card -->
                     <div class="rounded-[2rem] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-4 mb-6 hover:scale-[1.01] transition duration-300 w-full">
                         <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto rounded-xl">
                     </div>
@@ -237,7 +245,6 @@
                 <div class="w-full max-w-4xl mt-2">
                     <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
                     
-                    <!-- Restored Larger Full-Width Container for Portfolio Visualizations -->
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
                         <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 55vh;">
@@ -342,7 +349,7 @@
                 { id: 'sec-contact', titleId: 'stage-title-contact' }
             ];
 
-            const headerThreshold = 220; // Adjusted threshold so titles transition earlier and stay visible longer
+            const headerThreshold = 220; 
 
             sections.forEach((item) => {
                 const sec = document.getElementById(item.id);
@@ -355,9 +362,8 @@
                 const progress = (headerThreshold - rect.top) / height;
 
                 if (progress >= -0.1 && progress < 1.05) {
-                    // Active section: slides smoothly and stays locked longer in the slot
                     let slidePos = Math.min(Math.max(progress * -100, -100), 0);
-                    if (progress < 0) slidePos = 0; // Default state holds core competencies instantly on load
+                    if (progress < 0) slidePos = 0; 
                     
                     titleEl.style.transform = `translateX(${slidePos}%)`;
                     titleEl.style.opacity = `${progress < 0 ? 1 : Math.max(1 - (progress - 0.7) * 3, 0)}`;
