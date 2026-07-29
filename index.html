@@ -52,7 +52,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 4rem 2rem;
+            padding: 4rem 3rem 4rem 2rem;
         }
 
         /* Custom Scrollbar */
@@ -75,13 +75,13 @@
         <!-- ========================================== -->
         <!-- LEFT COLUMN (STICKY PROFILE & ANIMATED BLOB) -->
         <!-- ========================================== -->
-        <div class="w-full md:w-1/2 h-[50vh] md:h-screen sticky top-0 flex items-center justify-center overflow-hidden z-0 pl-0 md:pl-8">
+        <div class="w-full md:w-[42%] h-[50vh] md:h-screen sticky top-0 flex items-center justify-center overflow-hidden z-0 pl-2">
             
             <!-- Blob Background: Royal Blue in light mode, Yellow in dark mode -->
-            <div class="animated-circle absolute w-[350px] h-[350px] md:w-[480px] md:h-[480px] bg-royal dark:bg-mellow shadow-2xl"></div>
+            <div class="animated-circle absolute w-[340px] h-[340px] md:w-[460px] md:h-[460px] bg-royal dark:bg-mellow shadow-2xl"></div>
             
             <!-- Static Text Frame -->
-            <div class="relative z-10 text-center px-8 text-white dark:text-black">
+            <div class="relative z-10 text-center px-6 text-white dark:text-black">
                 <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
                     John Paolo<br>Ramirez <span class="text-2xl md:text-3xl font-medium">MSc.</span>
                 </h1>
@@ -96,9 +96,9 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- RIGHT COLUMN (SCROLLING CONTENT)           -->
+        <!-- RIGHT COLUMN (SCROLLING CONTENT - WIDER)   -->
         <!-- ========================================== -->
-        <div class="w-full md:w-1/2 relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none pr-0 md:pr-12">
+        <div class="w-full md:w-[58%] relative z-10 bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none pr-4 md:pr-16">
             
             <!-- DEFAULT / SCROLL 0: SKILLS WITH HOVER DESCRIPTIONS -->
             <section id="skills" class="scroll-section border-b border-gray-100 dark:border-gray-900">
@@ -110,7 +110,7 @@
                         <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-400 dark:text-gray-700 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
                             R and Python Programming
                         </h3>
-                        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-lg leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             5 years of diving deep into programming, spatial automation, script-based modeling workflows, and reproducible analytical pipelines.
                         </p>
                     </div>
@@ -120,7 +120,7 @@
                         <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-400 dark:text-gray-700 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
                             Environmental Data Analysis & Modelling
                         </h3>
-                        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-lg leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             Grounded in formal Environmental Impact Assessment (EIA) training and hands-on laboratory/field research involving heavy metal and microplastic bioindicator tracking.
                         </p>
                     </div>
@@ -130,7 +130,7 @@
                         <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-gray-400 dark:text-gray-700 transition duration-300 group-hover:text-royal dark:group-hover:text-mellow">
                             Geospatial Analysis
                         </h3>
-                        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-lg leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             Advanced competency in QGIS, remote sensing, spatial interpolation, and landscape connectivity modeling for urban ecosystems.
                         </p>
                     </div>
@@ -142,7 +142,7 @@
             <section id="timeline" class="scroll-section border-b border-gray-100 dark:border-gray-900">
                 <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-4">Professional History</h2>
                 <h3 class="text-3xl font-bold mb-6">Experience Timeline</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-lg leading-relaxed">
+                <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed">
                     This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.
                 </p>
                 
@@ -161,7 +161,7 @@
                 <h3 class="text-3xl font-bold mb-6">Spatial Visualizations Album</h3>
                 
                 <!-- Album Container -->
-                <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 shadow-xl">
+                <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 shadow-xl max-w-2xl">
                     
                     <!-- Featured Image Screen -->
                     <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-4 relative aspect-video flex items-center justify-center">
@@ -204,7 +204,7 @@
                     Connectivity of Metro Manila's Green Spaces loaded directly into the viewport.
                 </p>
 
-                <div class="w-full h-[450px] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl bg-gray-100 dark:bg-zinc-900">
+                <div class="w-full h-[500px] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl bg-gray-100 dark:bg-zinc-900">
                     <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
                 </div>
 
@@ -218,12 +218,12 @@
                 <div class="text-center md:text-left">
                     <h2 class="text-sm md:text-base uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 font-extrabold mb-4">Get in Touch</h2>
                     <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-md mx-auto md:mx-0 text-lg">
+                    <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-lg mx-auto md:mx-0 text-lg leading-relaxed">
                         Reach out for research partnerships, GIS consultation, or academic inquiries.
                     </p>
                     
                     <div id="email-container" class="inline-block">
-                        <button onclick="revealEmail()" id="contact-btn" class="bg-black dark:bg-white text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:scale-105 shadow-xl flex items-center gap-3 text-lg">
+                        <button onclick="revealEmail()" id="contact-btn" class="bg-royal dark:bg-mellow text-white dark:text-black font-bold py-4 px-10 rounded-full transition hover:scale-105 shadow-xl flex items-center gap-3 text-lg">
                             <i class="fa-solid fa-paper-plane"></i> Connect With Me
                         </button>
                     </div>
