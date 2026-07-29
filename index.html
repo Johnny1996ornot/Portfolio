@@ -2,15 +2,20 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>John Paolo Ramirez MSc. | Spatial Ecology & GIS Portfolio</title>
-    <!-- Tailwind CSS CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Paolo Ramirez MSc. | Spatial Ecology Dashboard</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    colors: {
+                        panel: '#155b75', /* Deep Teal from your mock-up */
+                        panelHover: '#114a5f',
+                        panelDark: '#0e3a4b'
+                    },
                     fontFamily: {
                         sans: ['-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
                     }
@@ -18,355 +23,304 @@
             }
         }
     </script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            letter-spacing: -0.01em;
+            transition: background-color 0.3s ease;
+            background-color: #f0f2f5; 
+        }
+        html.dark body {
+            background-color: #121212;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 250px 1fr 1fr;
+                grid-template-rows: minmax(120px, auto) minmax(200px, 400px) minmax(80px, auto);
+                height: 90vh; /* Fits screen nicely */
+            }
+            /* Specific Placements */
+            .box-name { grid-column: 1 / 2; grid-row: 1 / 2; }
+            .box-skills { grid-column: 1 / 2; grid-row: 2 / 3; display: flex; flex-direction: column; gap: 16px; }
+            .box-timeline { grid-column: 2 / 4; grid-row: 1 / 2; }
+            .box-vis { grid-column: 2 / 3; grid-row: 2 / 3; }
+            .box-map { grid-column: 3 / 4; grid-row: 2 / 3; }
+            .box-job { grid-column: 1 / 2; grid-row: 3 / 4; }
+            .box-collab { grid-column: 2 / 3; grid-row: 3 / 4; }
+            .box-theme { grid-column: 3 / 4; grid-row: 3 / 4; }
         }
         
-        /* Light Theme Defaults */
-        body { background-color: #f5f5f7; color: #1d1d1f; }
-        .panel-card { background: #ffffff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-
-        /* Dark Theme Overrides */
-        html.dark body { background-color: #0c0c0e; color: #f5f5f7; }
-        html.dark .panel-card { background: #151518; border: 1px solid rgba(255,255,255,0.05); box-shadow: none; }
-
-        /* Custom Scrollbar for content areas */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
-
-        /* Hide sections initially */
-        .content-section { display: none; }
-        .content-section.active { display: block; animation: fadeIn 0.4s ease-in-out; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .panel-card {
+            background-color: #155b75; /* Matches your image */
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #86868b; border-radius: 4px; }
     </style>
 </head>
-<body class="h-screen w-screen overflow-hidden flex selection:bg-blue-500 selection:text-white transition-colors duration-300">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <!-- SIDEBAR DASHBOARD NAVIGATION -->
-    <aside class="w-64 h-full panel-card flex flex-col justify-between flex-shrink-0 z-20">
-        <div class="p-8">
-            <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-1">JP. Ramirez</h1>
-            <p class="text-xs text-blue-500 font-semibold mb-8">Spatial Ecology Dashboard</p>
+    <!-- MAIN BENTO GRID -->
+    <div class="bento-grid w-full max-w-7xl mx-auto">
+        
+        <!-- 1. NAME -->
+        <div class="panel-card box-name text-2xl font-bold">
+            John Paolo Ramirez
+        </div>
+
+        <!-- 2. TIMELINE DIAGRAM -->
+        <div class="panel-card box-timeline group cursor-default">
+            <span class="text-2xl font-bold transition-opacity duration-300 group-hover:opacity-0">Timeline Diagram</span>
             
-            <nav class="flex flex-col space-y-2">
-                <button onclick="switchPanel('overview')" id="nav-overview" class="nav-btn flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 transition-colors">
-                    <i class="fa-solid fa-house w-4"></i> Overview
-                </button>
-                <button onclick="switchPanel('expertise')" id="nav-expertise" class="nav-btn flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                    <i class="fa-solid fa-microscope w-4"></i> Expertise
-                </button>
-                <button onclick="switchPanel('portfolio')" id="nav-portfolio" class="nav-btn flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                    <i class="fa-solid fa-images w-4"></i> Visualizations
-                </button>
-                <button onclick="switchPanel('map')" id="nav-map" class="nav-btn flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                    <i class="fa-solid fa-map-location-dot w-4"></i> Interactive Map
-                </button>
-            </nav>
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-panelDark flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p class="text-sm mb-4">Interactive, dynamic visualization of my professional career, academic background, and core competencies.</p>
+                <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="bg-white text-panel font-bold py-2 px-6 rounded-lg hover:bg-gray-200 transition transform hover:scale-105 shadow-lg">
+                    Open Timeline
+                </a>
+            </div>
         </div>
 
-        <div class="p-8 border-t border-gray-200 dark:border-white/5 flex flex-col space-y-4">
-            <button onclick="switchPanel('contact')" id="nav-contact" class="nav-btn flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                <i class="fa-solid fa-envelope w-4"></i> Contact
-            </button>
-            <button onclick="toggleDarkMode()" class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                <i class="fa-solid fa-circle-half-stroke w-4"></i> Toggle Theme
-            </button>
+        <!-- 3. SKILLS STACK -->
+        <div class="box-skills">
+            <div class="panel-card flex-1 font-semibold text-lg">R and Python <br> programming</div>
+            <div class="panel-card flex-1 font-semibold text-lg">Geospatial Analysis</div>
+            <div class="panel-card flex-1 font-semibold text-lg">Environmental data <br> modelling</div>
         </div>
-    </aside>
 
-    <!-- MAIN VIEWING WINDOW -->
-    <main class="flex-1 h-full relative overflow-y-auto" style="touch-action: pan-x pan-y pinch-zoom;">
-        <div class="p-8 md:p-12 max-w-6xl mx-auto h-full">
-
-            <!-- 1. OVERVIEW PANEL -->
-            <section id="panel-overview" class="content-section active">
-                <div class="mb-10">
-                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">
-                        John Paolo Ramirez MSc.
-                    </h2>
-                    <p class="text-lg text-gray-600 dark:text-[#86868b] font-normal mb-2">
-                        Skilled in Python, R Programming, QGIS, and Large Scale Data Analysis
-                    </p>
-                    <p class="text-sm text-gray-500 dark:text-[#86868b]">
-                        Spatial Ecology | Environmental Assessment and Modelling | Geospatial Analysis | Data Analytics
-                    </p>
-                </div>
-
-                <div class="panel-card rounded-3xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Professional Experience Timeline Diagram</h3>
-                    <div class="text-sm text-gray-600 dark:text-[#86868b] leading-relaxed mb-6">
-                        <p class="mb-3"><strong>Overview:</strong> This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present. This was created to move beyond the constraints of a static resume and was initially built using Python (IDE: Spyder) and was transferred to github through an HTML configuration.</p>
-                        <p>
-                            <strong>Access the application here:</strong> 
-                            <a href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/" target="_blank" class="text-blue-500 hover:underline">
-                                Experience Timeline Diagram Portal
-                            </a>
-                        </p>
-                    </div>
-                    <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-black p-2">
-                        <img src="Picture33.png" alt="Experience Timeline Diagram" class="w-full h-auto object-contain">
-                    </div>
-                </div>
-            </section>
-
-            <!-- 2. EXPERTISE PANEL -->
-            <section id="panel-expertise" class="content-section">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-8">Core Capabilities</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    <div class="panel-card rounded-3xl p-6">
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4 text-xl"><i class="fa-solid fa-map"></i></div>
-                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Spatial Analysis & QGIS</h4>
-                        <p class="text-gray-600 dark:text-[#86868b] text-sm">Expert handling of spatial data, raster calculations, and vector modeling.</p>
-                    </div>
-                    <div class="panel-card rounded-3xl p-6">
-                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4 text-xl"><i class="fa-solid fa-code"></i></div>
-                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">R & Python</h4>
-                        <p class="text-gray-600 dark:text-[#86868b] text-sm">Advanced ecological modeling using specialized R packages and Python pipelines.</p>
-                    </div>
-                    <div class="panel-card rounded-3xl p-6 border-2 border-emerald-500/30">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-4 text-xl"><i class="fa-solid fa-database"></i></div>
-                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Environmental Data Modelling</h4>
-                        <p class="text-gray-600 dark:text-[#86868b] text-sm">Review the detailed project history below for spatial distribution studies.</p>
-                    </div>
-                </div>
-
-                <!-- History Log -->
-                <div class="panel-card rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-white/10 pb-4">Project History Log</h3>
-                    
-                    <div class="space-y-6 text-sm">
-                        <!-- 2025 -->
-                        <div>
-                            <span class="text-emerald-500 font-bold block mb-2">2025</span>
-                            <p class="font-semibold text-gray-900 dark:text-white mb-1">International Urban Systems Project</p>
-                            <ul class="list-disc pl-5 text-gray-600 dark:text-gray-400 space-y-1 mb-4">
-                                <li>Designed spatial database combining global datasets (GHSL, WorldPop).</li>
-                                <li>Implemented automated geospatial pipelines in Python for cross-continental analysis.</li>
-                            </ul>
-                            <p class="font-semibold text-gray-900 dark:text-white mb-1">Heavy Metal (Lead) Spatial Distribution Study — Arroceros Forest Park</p>
-                            <ul class="list-disc pl-5 text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Conducted field sampling and coordinated trace-metal analysis (AAS).</li>
-                                <li>Integrated statistical outputs into spatial interpolation models to identify hotspots.</li>
-                            </ul>
-                        </div>
-                        <!-- 2024 -->
-                        <div>
-                            <span class="text-emerald-500 font-bold block mb-2">2024</span>
-                            <p class="font-semibold text-gray-900 dark:text-white mb-1">Microplastic Bioindicator Study Using Blattodea spp.</p>
-                            <ul class="list-disc pl-5 text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Supervised spatial analysis and hotspot mapping using QGIS and RStudio.</li>
-                                <li>Directed statistical analyses assessing environmental associations.</li>
-                            </ul>
-                        </div>
-                        <!-- 2021 -->
-                        <div>
-                            <span class="text-emerald-500 font-bold block mb-2">2021</span>
-                            <p class="font-semibold text-gray-900 dark:text-white mb-1">Landscape Connectivity Analysis of Metro Manila</p>
-                            <ul class="list-disc pl-5 text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Modeled ecological corridors using R (Grainscape, raster).</li>
-                                <li>Processed spatial layers of urban land cover and fragmentation.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 3. PORTFOLIO CAROUSEL PANEL -->
-            <section id="panel-portfolio" class="content-section">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-8">Selected Visualizations</h2>
-                
-                <div class="panel-card rounded-3xl p-6 max-w-4xl mx-auto flex flex-col items-center">
-                    
-                    <!-- CAROUSEL CONTAINER -->
-                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/5 flex items-center justify-center">
-                        
-                        <!-- Slide 1 -->
-                        <div id="slide-0" class="carousel-slide absolute inset-0 transition-opacity duration-500 opacity-100 z-10 p-2">
-                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 text-center">Total Suspended Solids (TSS)</h4>
-                            <img src="TSS - LPP Wetland.png" alt="TSS Analysis" class="w-full h-full object-contain rounded-xl">
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div id="slide-1" class="carousel-slide absolute inset-0 transition-opacity duration-500 opacity-0 z-0 p-2">
-                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 text-center">EVI and NDVI Spatial Mapping</h4>
-                            <img src="EVI and NDVI.png" alt="EVI and NDVI" class="w-full h-full object-contain rounded-xl">
-                        </div>
-                        
-                        <!-- Slide 3 -->
-                        <div id="slide-2" class="carousel-slide absolute inset-0 transition-opacity duration-500 opacity-0 z-0 p-2">
-                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 text-center">Supervised Classification</h4>
-                            <div class="group relative w-full h-full cursor-help">
-                                <img src="Rplot.png" alt="Supervised Classification" class="w-full h-full object-contain rounded-xl">
-                                <!-- Hover Description -->
-                                <div class="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-center text-white rounded-xl overflow-y-auto">
-                                    <p class="text-sm mb-3">This map visualizes a pixel-based land cover classification, effectively categorizing the region into four distinct surface types: Green (Vegetation), Paved (Impervious Surfaces), Sparse (Mixed/Transition), and Water.</p>
-                                    <p class="text-sm mb-3"><strong>Data Source:</strong> European Space Agency’s (ESA) Sentinel-2 satellite program. 13 spectral bands and high spatial resolution.</p>
-                                    <p class="text-sm"><strong>Methodology:</strong> Supervised classification using machine learning techniques.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Left/Right Controls -->
-                        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-10 h-10 rounded-full z-20 flex items-center justify-center transition">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-10 h-10 rounded-full z-20 flex items-center justify-center transition">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- DOTS -->
-                    <div class="flex justify-center gap-3 mt-6">
-                        <button onclick="goToSlide(0)" id="dot-0" class="carousel-dot w-3 h-3 rounded-full bg-blue-500 transition"></button>
-                        <button onclick="goToSlide(1)" id="dot-1" class="carousel-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 transition"></button>
-                        <button onclick="goToSlide(2)" id="dot-2" class="carousel-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 transition"></button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 4. INTERACTIVE MAP PANEL -->
-            <section id="panel-map" class="content-section">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-2">Connectivity of Metro Manila's Green Spaces</h2>
-                <p class="text-sm text-gray-500 mb-6">Live interactive mapping tool loaded directly into the dashboard.</p>
-                
-                <div class="panel-card rounded-3xl overflow-hidden h-[600px] w-full bg-gray-100 dark:bg-black/50">
-                    <iframe src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" class="w-full h-full border-0"></iframe>
-                </div>
-            </section>
-
-            <!-- 5. CONTACT PANEL -->
-            <section id="panel-contact" class="content-section">
-                <div class="h-[600px] flex flex-col items-center justify-center text-center">
-                    <div class="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-500 text-3xl mb-6">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </div>
-                    <h2 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">Let's collaborate.</h2>
-                    <p class="text-gray-600 dark:text-[#86868b] max-w-md mx-auto mb-10">
-                        Reach out for research partnerships, GIS consultation, or academic inquiries.
-                    </p>
-                    
-                    <!-- BUTTON -->
-                    <button onclick="revealEmailAndTrack()" id="contact-btn" class="bg-blue-600 text-white font-medium px-8 py-4 rounded-full shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition flex items-center gap-2">
-                        <i class="fa-solid fa-envelope"></i> Send Email
-                    </button>
-                    
-                    <!-- REVEALED EMAIL -->
-                    <div id="hidden-email" class="hidden flex-col items-center mt-6">
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white tracking-wide">johnpaolo.ramirez@example.com</p>
-                        <p class="text-xs text-emerald-500 mt-2 font-mono"><i class="fa-solid fa-check"></i> Click event tracked successfully in console.</p>
-                    </div>
-                </div>
-            </section>
-
+        <!-- 4. VISUALIZATION (Click to open Lightbox) -->
+        <div class="panel-card box-vis group cursor-pointer" onclick="openLightbox()">
+            <!-- Background Image -->
+            <img src="Rplot.png" alt="Visualization" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+            <div class="relative z-10 flex flex-col items-center">
+                <span class="text-3xl font-bold mb-2">Visualizations</span>
+                <span class="text-sm bg-black/50 px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-expand"></i> Click to enlarge photos</span>
+            </div>
         </div>
-    </main>
 
-    <!-- INTERACTIVE JAVASCRIPT -->
+        <!-- 5. MAP -->
+        <div class="panel-card box-map flex-col justify-center gap-6">
+            <h3 class="text-2xl font-bold">Interactive Map</h3>
+            <p class="text-sm opacity-80 mb-2">Connectivity of Metro Manila's Green Spaces</p>
+            <a href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" class="bg-white text-panel font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition transform hover:scale-105 shadow-lg flex items-center gap-2">
+                <i class="fa-solid fa-map-location-dot"></i> Open Map Portal
+            </a>
+        </div>
+
+        <!-- 6. JOB EXPERIENCE (Opens Modal) -->
+        <button onclick="openJobModal()" class="panel-card box-job text-xl font-bold hover:bg-panelHover transition flex items-center gap-3">
+            <i class="fa-solid fa-briefcase"></i> Job Experience
+        </button>
+
+        <!-- 7. LETS COLLABORATE (Reveals Email) -->
+        <button onclick="revealEmail()" id="collab-btn" class="panel-card box-collab text-xl font-bold hover:bg-panelHover transition flex flex-col items-center gap-2">
+            <span>Let's collaborate</span>
+        </button>
+
+        <!-- 8. DARK THEME -->
+        <button onclick="toggleTheme()" class="panel-card box-theme text-xl font-bold hover:bg-panelHover transition flex items-center gap-3">
+            <i id="theme-icon" class="fa-solid fa-sun"></i> <span id="theme-text">Light Theme</span>
+        </button>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- LIGHTBOX MODAL FOR IMAGES                  -->
+    <!-- ========================================== -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 hidden flex-col items-center justify-center p-4 sm:p-8" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-4xl hover:text-gray-300">&times;</button>
+        
+        <img id="lightbox-img" src="Rplot.png" class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+        
+        <!-- Description Box -->
+        <p id="lightbox-desc" class="text-white text-center mt-6 max-w-2xl text-sm font-medium">Supervised Classification</p>
+
+        <!-- Thumbnails -->
+        <div class="flex gap-4 mt-6" onclick="event.stopPropagation()">
+            <img src="Rplot.png" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-white transition" onclick="setLightboxImg('Rplot.png', 'Supervised Classification')">
+            <img src="TSS - LPP Wetland.png" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-white transition" onclick="setLightboxImg('TSS - LPP Wetland.png', 'Total Suspended Solids (TSS) Analysis')">
+            <img src="EVI and NDVI.png" class="w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-white transition" onclick="setLightboxImg('EVI and NDVI.png', 'EVI and NDVI Spatial Mapping')">
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JOB EXPERIENCE MODAL (From CV Data)        -->
+    <!-- ========================================== -->
+    <div id="job-modal" class="fixed inset-0 z-50 bg-black/80 hidden flex-col items-center justify-center p-4 backdrop-blur-sm" onclick="closeJobModal()">
+        <div class="bg-white dark:bg-[#1a1a1c] w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+            
+            <!-- Header -->
+            <div class="bg-panel p-6 flex justify-between items-center text-white">
+                <h2 class="text-2xl font-bold"><i class="fa-solid fa-briefcase mr-2"></i> Work Experience</h2>
+                <button onclick="closeJobModal()" class="text-3xl leading-none hover:text-gray-300">&times;</button>
+            </div>
+            
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto text-gray-800 dark:text-gray-200 space-y-8">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-6 border-l-2 border-panel">
+                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Faculty Member (Lecturer 5)</h3>
+                    <p class="text-panel font-semibold">Far Eastern University | Sampaloc, Manila</p>
+                    <p class="text-sm text-gray-500 mb-3">June 2023 – May 2026</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Developed and delivered biology related classes (Ecology, microbiology, zoology, cell biology, etc).</li>
+                        <li>Evaluated student learning outcomes through formal assessments.</li>
+                        <li>Worked on progress reports detailing student academic status.</li>
+                        <li>Managed course delivery, student engagement, and grades via Canvas LMS.</li>
+                    </ul>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-6 border-l-2 border-panel">
+                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Part-time Faculty Member</h3>
+                    <p class="text-panel font-semibold">Philippine Women's University | Malate, Manila</p>
+                    <p class="text-sm text-gray-500 mb-3">November 2024 – February 2026</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Designed and presented lectures on specialized courses including Aquatic ecosystems and Environmental economics.</li>
+                        <li>Conducted training sessions on the utilization of QGIS, R, and Python for spatial analysis and mapping.</li>
+                    </ul>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative pl-6 border-l-2 border-panel">
+                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Assistant Professor 3</h3>
+                    <p class="text-panel font-semibold">Centro Escolar University | Mendiola Street, Manila City</p>
+                    <p class="text-sm text-gray-500 mb-3">February 2023 – June 2023</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Provided lectures on biology fields (Human Anatomy, Cell Biology, Microbiology, Genetics).</li>
+                        <li>Facilitated hands-on technical laboratory activity.</li>
+                        <li>Formulated assessment materials and evaluated student performance.</li>
+                    </ul>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="relative pl-6 border-l-2 border-panel">
+                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Senior Technical Aide - SAFER U Project (Project NOAH)</h3>
+                    <p class="text-panel font-semibold">University of the Philippines Resilience Institute | Diliman, Quezon City</p>
+                    <p class="text-sm text-gray-500 mb-3">July 2022 – December 2022</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Contributed to climate change adaptation and disaster risk reduction planning for state universities.</li>
+                        <li>Conducted analysis and processing of spatial datasets.</li>
+                        <li>Executed spatial data validation procedures and facilitated workshops.</li>
+                    </ul>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="relative pl-6 border-l-2 border-panel">
+                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Faculty Member</h3>
+                    <p class="text-panel font-semibold">University of San Agustin | Iloilo, Philippines</p>
+                    <p class="text-sm text-gray-500 mb-3">September 2021 – January 2023</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Delivered lectures primarily focusing on Biology.</li>
+                        <li>Developed and administered formal examinations and assessments.</li>
+                    </ul>
+                </div>
+                
+                <!-- Timeline Item 6 -->
+                <div class="relative pl-6 border-l-2 border-transparent">
+                    <div class="absolute w-4 h-4 bg-panel rounded-full -left-[9px] top-1"></div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Senior High School Mentor</h3>
+                    <p class="text-panel font-semibold">AMA Online Education | Panay Ave. Quezon City</p>
+                    <p class="text-sm text-gray-500 mb-3">November 2017 – August 2019</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Supported delivery of lectures for Natural Science classes.</li>
+                        <li>Conducted thorough reviews of online instructional materials.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // 1. DASHBOARD NAVIGATION SCRIPT
-        function switchPanel(panelId) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            // Show target section
-            document.getElementById(`panel-${panelId}`).classList.add('active');
-            
-            // Reset nav button styles
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-500/10', 'text-blue-600', 'dark:text-blue-400');
-                btn.classList.add('text-gray-600', 'dark:text-gray-400');
-            });
-            
-            // Highlight active nav button
-            const activeBtn = document.getElementById(`nav-${panelId}`);
-            activeBtn.classList.remove('text-gray-600', 'dark:text-gray-400');
-            activeBtn.classList.add('bg-blue-500/10', 'text-blue-600', 'dark:text-blue-400');
+        // --- 1. LIGHTBOX SCRIPT ---
+        function openLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        function setLightboxImg(src, desc) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-desc').innerText = desc;
         }
 
-        // 2. THEME TOGGLE SCRIPT
-        function toggleDarkMode() {
-            const htmlElement = document.documentElement;
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
+        // --- 2. JOB MODAL SCRIPT ---
+        function openJobModal() {
+            const modal = document.getElementById('job-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeJobModal() {
+            const modal = document.getElementById('job-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // --- 3. REVEAL EMAIL SCRIPT ---
+        function revealEmail() {
+            const btn = document.getElementById('collab-btn');
+            btn.innerHTML = `<span class="text-lg">jpaoloramirez@gmail.com</span><span class="text-xs font-normal opacity-80 mt-1"><i class="fa-solid fa-copy"></i> Click to copy</span>`;
+            
+            // Add copy-to-clipboard functionality
+            btn.onclick = function() {
+                navigator.clipboard.writeText("jpaoloramirez@gmail.com");
+                btn.innerHTML = `<span class="text-lg text-green-300"><i class="fa-solid fa-check"></i> Copied!</span>`;
+                setTimeout(() => revealEmail(), 2000); // Reset after 2s
+            };
+        }
+
+        // --- 4. THEME TOGGLE SCRIPT ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const text = document.getElementById('theme-text');
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                text.innerText = "Dark Theme";
+                icon.className = "fa-solid fa-moon";
             } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+                html.classList.add('dark');
+                text.innerText = "Light Theme";
+                icon.className = "fa-solid fa-sun";
             }
         }
-        if (localStorage.getItem('theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        }
-
-        // 3. CAROUSEL SCRIPT
-        let currentSlide = 0;
-        const totalSlides = 3;
-
-        function updateCarousel(index) {
-            for (let i = 0; i < totalSlides; i++) {
-                // Update slides
-                const slide = document.getElementById(`slide-${i}`);
-                if (i === index) {
-                    slide.classList.replace('opacity-0', 'opacity-100');
-                    slide.classList.replace('z-0', 'z-10');
-                } else {
-                    slide.classList.replace('opacity-100', 'opacity-0');
-                    slide.classList.replace('z-10', 'z-0');
-                }
-                
-                // Update dots
-                const dot = document.getElementById(`dot-${i}`);
-                if (i === index) {
-                    dot.classList.replace('bg-gray-300', 'bg-blue-500');
-                    dot.classList.replace('dark:bg-gray-600', 'bg-blue-500');
-                } else {
-                    dot.classList.replace('bg-blue-500', 'bg-gray-300');
-                    if(document.documentElement.classList.contains('dark')) {
-                        dot.classList.add('dark:bg-gray-600');
-                    }
-                }
-            }
-            currentSlide = index;
-        }
-
-        function nextSlide() { updateCarousel((currentSlide + 1) % totalSlides); }
-        function prevSlide() { updateCarousel((currentSlide - 1 + totalSlides) % totalSlides); }
-        function goToSlide(index) { updateCarousel(index); }
-
-        // 4. CONTACT / CLICK TRACKING SCRIPT
-        function revealEmailAndTrack() {
-            // Reveal UI
-            document.getElementById('contact-btn').classList.add('hidden');
-            const hiddenEmail = document.getElementById('hidden-email');
-            hiddenEmail.classList.remove('hidden');
-            hiddenEmail.classList.add('flex');
-
-            // Simulate Tracking
-            trackEmailClick();
-        }
-
-        function trackEmailClick() {
-            // GitHub Pages is static. To track this in real life, you would integrate 
-            // a tool like Google Analytics here. For now, it logs to the developer console.
-            const timestamp = new Date().toISOString();
-            console.log(`[ANALYTICS EVENT]: "Send Email" button clicked at ${timestamp}`);
-            // Example GA integration code (commented out):
-            // if (typeof gtag === 'function') {
-            //     gtag('event', 'click', { 'event_category': 'Contact', 'event_label': 'Email Button' });
-            // }
-        }
+        
+        // Setup initial text for theme based on default (dark)
+        document.getElementById('theme-text').innerText = "Light Theme";
     </script>
 </body>
 </html>
