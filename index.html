@@ -50,27 +50,36 @@
             transform-origin: center;
         }
 
-        /* Perfectly Positioned Sticky Header Zone with Opaque Masking Background */
-        .sticky-header-wrapper {
-            position: sticky;
+        /* Viewport-Pinned Full-Width Fixed Header Stage for the Right Column */
+        .right-column-header {
+            position: fixed;
             top: 0;
+            right: 0;
+            width: 62%; /* Matches right column width */
             z-index: 50;
             background-color: #0f0f11;
-            padding-top: 2rem;
-            padding-bottom: 1rem;
-            width: 100%;
-            max-width: 42rem;
+            padding: 1.5rem 4rem;
+            display: flex;
+            align-items: center;
         }
-        html:not(.dark) .sticky-header-wrapper {
+        html:not(.dark) .right-column-header {
             background-color: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .right-column-header {
+                width: 100%;
+                padding: 1rem 1.5rem;
+            }
         }
 
         /* Single-Slot Title Stage */
         .sticky-title-stage {
             position: relative;
-            height: 55px;
+            height: 50px;
             overflow: hidden;
             width: 100%;
+            max-width: 42rem;
         }
 
         /* Carousel Title Item */
@@ -88,7 +97,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 4rem 0;
+            padding: 6rem 0 4rem 0;
             border-bottom: 1px solid rgba(229, 231, 235, 0.1);
         }
 
@@ -137,19 +146,19 @@
     <!-- ========================================== -->
     <div class="relative z-10 w-full min-h-screen bg-transparent pl-0 md:pl-[38%]">
         
-        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 pb-8">
-            
-            <!-- STICKY HEADER ZONE (LOCKS AT TOP, CONTENT VANISHES UNDERNEATH IT) -->
-            <div class="sticky-header-wrapper">
-                <div class="sticky-title-stage">
-                    <h2 id="stage-title-skills" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
-                    <h2 id="stage-title-timeline" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Professional History</h2>
-                    <h2 id="stage-title-visualizations" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Portfolio</h2>
-                    <h2 id="stage-title-map" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Web Application</h2>
-                    <h2 id="stage-title-contact" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Get in Touch</h2>
-                </div>
+        <!-- DETACHED FIXED HEADER STAGE (STAYS PINNED AT TOP RIGHT, CONTENT ROLLS UNDERNEATH IT) -->
+        <div class="right-column-header shadow-md">
+            <div class="sticky-title-stage">
+                <h2 id="stage-title-skills" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg">Core Competencies</h2>
+                <h2 id="stage-title-timeline" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Professional History</h2>
+                <h2 id="stage-title-visualizations" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Portfolio</h2>
+                <h2 id="stage-title-map" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Web Application</h2>
+                <h2 id="stage-title-contact" class="stage-title text-sm md:text-base uppercase tracking-[0.3em] font-extrabold bg-royal dark:bg-mellow text-white dark:text-black py-2.5 px-5 rounded-xl shadow-lg" style="transform: translateX(110%); opacity: 0;">Get in Touch</h2>
             </div>
+        </div>
 
+        <div class="w-full bg-white/95 dark:bg-[#0f0f11]/95 backdrop-blur-md border-l border-gray-100 dark:border-gray-900 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-none px-6 md:px-16 pt-20 pb-8">
+            
             <!-- SECTION 0: CORE COMPETENCIES -->
             <section id="sec-skills" class="section-viewport">
                 <div class="flex flex-col space-y-4 relative w-full max-w-2xl mt-4">
