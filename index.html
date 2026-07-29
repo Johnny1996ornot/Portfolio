@@ -177,6 +177,46 @@
             font-weight: 500;
         }
 
+        /* Editable Mode Styling */
+        .editable[contenteditable="true"] {
+            outline: 2px dashed var(--accent-blue);
+            outline-offset: 4px;
+            background-color: rgba(0, 102, 204, 0.03);
+            border-radius: 4px;
+        }
+
+        /* Admin Floating Controls (Hidden by default) */
+        #admin-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(29, 29, 31, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 2000;
+            font-size: 13px;
+            backdrop-filter: blur(10px);
+        }
+
+        #admin-bar button {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        #admin-bar button:hover {
+            background: #004499;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -215,8 +255,8 @@
 
     <!-- Hero Section -->
     <header>
-        <h1>Spatial Intelligence.</h1>
-        <p>Bridging computational ecology, GIS, and interactive digital interfaces.</p>
+        <h1 id="hero-title" data-key="hero-title">Spatial Intelligence.</h1>
+        <p id="hero-subtitle" data-key="hero-subtitle">Bridging computational ecology, GIS, and interactive digital interfaces.</p>
         <div class="cta-buttons">
             <a href="#" class="btn">Explore Work</a>
             <a href="#" class="btn btn-secondary">GitHub Profile</a>
@@ -229,8 +269,8 @@
         <!-- Card 1 -->
         <div class="card full-width">
             <div>
-                <h3>Landscape Connectivity Modeling</h3>
-                <p>Analyzing urban green spaces and ecological flow using R, QGIS, and advanced spatial algorithms.</p>
+                <h3 id="card1-title" data-key="card1-title">Landscape Connectivity Modeling</h3>
+                <p id="card1-desc" data-key="card1-desc">Analyzing urban green spaces and ecological flow using R, QGIS, and advanced spatial algorithms.</p>
             </div>
             <div class="card-visual">
                 [ Interactive Canvas / Map Preview Placeholder ]
@@ -240,8 +280,8 @@
         <!-- Card 2 -->
         <div class="card">
             <div>
-                <h3>Environmental Research</h3>
-                <p>Investigating heavy metal translocation in mangrove ecosystems with analytical instrumentation.</p>
+                <h3 id="card2-title" data-key="card2-title">Environmental Research</h3>
+                <p id="card2-desc" data-key="card2-desc">Investigating heavy metal translocation in mangrove ecosystems with analytical instrumentation.</p>
             </div>
             <div class="card-visual" style="height: 150px;">
                 [ Data Chart Placeholder ]
@@ -251,8 +291,8 @@
         <!-- Card 3 -->
         <div class="card">
             <div>
-                <h3>Interactive Tooling</h3>
-                <p>Developing streamlined node-based canvases and dynamic document analysis interfaces.</p>
+                <h3 id="card3-title" data-key="card3-title">Interactive Tooling</h3>
+                <p id="card3-desc" data-key="card3-desc">Developing streamlined node-based canvases and dynamic document analysis interfaces.</p>
             </div>
             <div class="card-visual" style="height: 150px;">
                 [ UI Wireframe Placeholder ]
@@ -261,10 +301,71 @@
 
     </main>
 
+    <!-- Admin Floating Toolbar (Appears only after successful login) -->
+    <div id="admin-bar">
+        <span>🔒 Edit Mode Active</span>
+        <button id="save-btn">Save Changes</button>
+        <button id="lock-btn" style="background: #48484a;">Lock</button>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>Designed with minimalism. Hosted via GitHub Pages.</p>
     </footer>
 
+    <script>
+        // CHANGE YOUR PASSWORD HERE:
+        const ADMIN_PASSWORD = "your_secure_password_here"; 
+
+        // Load saved text from browser localStorage on startup
+        document.querySelectorAll('[data-key]').forEach(element => {
+            const key = element.getAttribute('data-key');
+            const savedValue = localStorage.getItem(key);
+            if (savedValue !== null) {
+                element.innerHTML = savedValue;
+            }
+        });
+
+        // Secret keyboard shortcut to unlock: Press Ctrl + Shift + E
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                const pwd = prompt("Enter Admin Password to Edit Site:");
+                if (pwd === ADMIN_PASSWORD) {
+                    enableEditMode();
+                } else if (pwd !== null) {
+                    alert("Incorrect Password!");
+                }
+            }
+        });
+
+        function enableEditMode() {
+            document.getElementById('admin-bar').style.display = 'flex';
+            document.querySelectorAll('[data-key]').forEach(element => {
+                element.setAttribute('contenteditable', 'true');
+                element.classList.add('editable');
+            });
+            alert("Edit mode unlocked! You can now click on texts to change them.");
+        }
+
+        // Save modifications to browser memory
+        document.getElementById('save-btn').addEventListener('click', () => {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                localStorage.setItem(key, element.innerHTML);
+            });
+            alert("Changes saved locally to your browser!");
+        });
+
+        // Lock/Exit edit mode
+        document.getElementById('lock-btn').addEventListener('click', () => {
+            document.getElementById('admin-bar').style.display = 'none';
+            document.querySelectorAll('[data-key]').forEach(element => {
+                element.removeAttribute('contenteditable');
+                element.classList.remove('editable');
+            });
+            alert("Edit mode locked.");
+        });
+    </script>
 </body>
 </html>
