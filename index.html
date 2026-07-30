@@ -122,6 +122,65 @@
         ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
         html.dark ::-webkit-scrollbar-thumb { background: #374151; }
         ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        /* Expanding Accordion Gallery */
+        .accordion-container {
+            display: flex;
+            width: 100%;
+            height: 450px;
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .accordion-container {
+                height: 350px;
+                gap: 8px;
+            }
+        }
+        .accordion-panel {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 1.5rem;
+            cursor: pointer;
+            flex: 1;
+            position: relative;
+            transition: flex 0.6s cubic-bezier(0.15, 0.85, 0.35, 1);
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        .accordion-panel:hover {
+            opacity: 0.95;
+        }
+        .accordion-panel.active {
+            flex: 7;
+            cursor: default;
+            border-color: rgba(255,255,255,0.1);
+        }
+        .accordion-icon {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2563eb; /* royal */
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, transform 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        html.dark .accordion-icon {
+            background-color: #fbbf24; /* mellow */
+            color: black;
+        }
+        .accordion-panel.active .accordion-icon {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-50%) translateY(20px);
+        }
     </style>
 </head>
 <body class="relative overflow-x-hidden">
@@ -249,34 +308,49 @@
                     
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
-                        <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-black mb-6 relative w-full flex items-center justify-center p-2" style="min-height: 55vh;">
-                            <img id="album-img-0" src="Rplot.png" alt="Supervised Classification" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-100 z-10 p-2">
-                            <img id="album-img-1" src="EVI and NDVI.png" alt="EVI and NDVI" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
-                            <img id="album-img-2" src="TSS - LPP Wetland.png" alt="TSS" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-200 opacity-0 z-0 p-2">
+                        <!-- NEW Expanding Accordion Container -->
+                        <div class="accordion-container mb-6">
                             
-                            <!-- Clickable Navigation Triangles / Arrows inside Image Box -->
-                            <button onclick="prevAlbum(event)" class="absolute left-3 z-30 bg-black/60 hover:bg-black/90 text-white w-9 h-9 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg cursor-pointer">
-                                <i class="fa-solid fa-caret-left text-lg"></i>
-                            </button>
-                            <button onclick="nextAlbum(event)" class="absolute right-3 z-30 bg-black/60 hover:bg-black/90 text-white w-9 h-9 rounded-full flex items-center justify-center backdrop-blur transition shadow-lg cursor-pointer">
-                                <i class="fa-solid fa-caret-right text-lg"></i>
-                            </button>
+                            <!-- Panel 1 (Default Active) -->
+                            <div class="accordion-panel active" 
+                                 style="background-image: url('Rplot.png');" 
+                                 data-image="Rplot.png"
+                                 data-title="Supervised Classification" 
+                                 data-desc="This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2."
+                                 onclick="activatePanel(this)">
+                                <div class="accordion-icon"><i class="fa-solid fa-layer-group"></i></div>
+                            </div>
+
+                            <!-- Panel 2 -->
+                            <div class="accordion-panel" 
+                                 style="background-image: url('EVI and NDVI.png');" 
+                                 data-image="EVI and NDVI.png"
+                                 data-title="EVI and NDVI Spatial Mapping" 
+                                 data-desc="Vegetation index mapping evaluating environmental greenness, canopy cover health, and urban ecological gradients."
+                                 onclick="activatePanel(this)">
+                                <div class="accordion-icon"><i class="fa-solid fa-leaf"></i></div>
+                            </div>
+
+                            <!-- Panel 3 -->
+                            <div class="accordion-panel" 
+                                 style="background-image: url('TSS - LPP Wetland.png');" 
+                                 data-image="TSS - LPP Wetland.png"
+                                 data-title="Total Suspended Solids (TSS)" 
+                                 data-desc="Total Suspended Solids evaluation and remote sensing tracking across critical protected wetland zones."
+                                 onclick="activatePanel(this)">
+                                <div class="accordion-icon"><i class="fa-solid fa-water"></i></div>
+                            </div>
+
                         </div>
 
-                        <!-- Title & Description -->
+                        <!-- Dynamic Title & Description -->
                         <h4 id="album-title" class="text-2xl font-bold mb-3">Supervised Classification</h4>
                         <p id="album-desc" class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.</p>
 
-                        <!-- Album Navigation Dots / Selectors -->
+                        <!-- Actions -->
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-zinc-800">
-                            <div class="flex gap-4">
-                                <button onclick="switchAlbum(0)" id="album-dot-0" class="w-4 h-4 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer"></button>
-                                <button onclick="switchAlbum(1)" id="album-dot-1" class="w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
-                                <button onclick="switchAlbum(2)" id="album-dot-2" class="w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer"></button>
-                            </div>
-
                             <!-- Enlarge Button -->
-                            <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-sm font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-5 py-2.5 rounded-full transition shadow-md cursor-pointer">
+                            <button onclick="openCurrentLightbox()" class="inline-flex items-center gap-2 text-sm font-bold bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 px-5 py-2.5 rounded-full transition shadow-md cursor-pointer ml-auto">
                                 <i class="fa-solid fa-expand"></i> Enlarge Image
                             </button>
                         </div>
@@ -379,63 +453,43 @@
         window.addEventListener('DOMContentLoaded', updateActiveStageTitle);
         window.addEventListener('load', updateActiveStageTitle);
 
-        // --- ALBUM CAROUSEL SWITCHER & ARROW CONTROLS ---
-        const albumData = [
-            {
-                src: "Rplot.png",
-                title: "Supervised Classification",
-                desc: "This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2."
-            },
-            {
-                src: "EVI and NDVI.png",
-                title: "EVI and NDVI Spatial Mapping",
-                desc: "Vegetation index mapping evaluating environmental greenness, canopy cover health, and urban ecological gradients."
-            },
-            {
-                src: "TSS - LPP Wetland.png",
-                title: "Total Suspended Solids (TSS)",
-                desc: "Total Suspended Solids evaluation and remote sensing tracking across critical protected wetland zones."
-            }
-        ];
-        let currentAlbumIndex = 0;
 
-        function switchAlbum(index) {
-            currentAlbumIndex = index;
-            const item = albumData[index];
+        // --- ACCORDION GALLERY SCRIPT ---
+        let currentLightboxData = {
+            src: "Rplot.png",
+            title: "Supervised Classification",
+            desc: "This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2."
+        };
+
+        function activatePanel(clickedPanel) {
+            // Remove active class from all panels
+            const panels = document.querySelectorAll('.accordion-panel');
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+            });
             
-            document.getElementById('album-title').innerText = item.title;
-            document.getElementById('album-desc').innerText = item.desc;
+            // Add active class to clicked panel
+            clickedPanel.classList.add('active');
 
-            for(let i = 0; i < albumData.length; i++) {
-                const img = document.getElementById(`album-img-${i}`);
-                const dot = document.getElementById(`album-dot-${i}`);
-                if(i === index) {
-                    img.classList.remove('opacity-0', 'z-0');
-                    img.classList.add('opacity-100', 'z-10');
-                    dot.className = "w-4 h-4 rounded-full bg-royal dark:bg-mellow transition shadow-inner cursor-pointer";
-                } else {
-                    img.classList.remove('opacity-100', 'z-10');
-                    img.classList.add('opacity-0', 'z-0');
-                    dot.className = "w-4 h-4 rounded-full bg-gray-300 dark:bg-zinc-700 transition shadow-inner cursor-pointer";
-                }
-            }
-        }
+            // Extract data
+            const title = clickedPanel.getAttribute('data-title');
+            const desc = clickedPanel.getAttribute('data-desc');
+            const imageSrc = clickedPanel.getAttribute('data-image');
 
-        function nextAlbum(event) {
-            event.stopPropagation();
-            let nextIdx = (currentAlbumIndex + 1) % albumData.length;
-            switchAlbum(nextIdx);
-        }
+            // Update text below the gallery
+            document.getElementById('album-title').innerText = title;
+            document.getElementById('album-desc').innerText = desc;
 
-        function prevAlbum(event) {
-            event.stopPropagation();
-            let prevIdx = (currentAlbumIndex - 1 + albumData.length) % albumData.length;
-            switchAlbum(prevIdx);
+            // Update lightbox state data
+            currentLightboxData = {
+                src: imageSrc,
+                title: title,
+                desc: desc
+            };
         }
 
         function openCurrentLightbox() {
-            const item = albumData[currentAlbumIndex];
-            openLightbox(item.src, item.title, item.desc);
+            openLightbox(currentLightboxData.src, currentLightboxData.title, currentLightboxData.desc);
         }
 
         // --- LIGHTBOX SCRIPT ---
