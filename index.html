@@ -123,22 +123,22 @@
         html.dark ::-webkit-scrollbar-thumb { background: #374151; }
         ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
 
-        /* Expanding Accordion Gallery - Adjusted height for a thinner profile */
+        /* Expanding Accordion Gallery - Added borders and changed background-size */
         .accordion-container {
             display: flex;
             width: 100%;
-            height: 350px; /* Reduced from 450px */
+            height: 350px;
             gap: 12px;
         }
         @media (max-width: 768px) {
             .accordion-container {
-                height: 250px; /* Reduced for mobile */
+                height: 250px;
                 gap: 8px;
             }
         }
         .accordion-panel {
-            background-color: #ffffff;
-            background-size: cover;
+            background-color: #f8f9fa; /* Matches light bg */
+            background-size: contain; /* Prevents cropping */
             background-position: center;
             background-repeat: no-repeat;
             border-radius: 1.5rem;
@@ -147,18 +147,18 @@
             position: relative;
             transition: flex 0.6s cubic-bezier(0.15, 0.85, 0.35, 1);
             overflow: hidden;
-            border: 2px solid transparent;
+            border: 1px solid #d1d5db; /* Visible border for light mode */
         }
         html.dark .accordion-panel {
             background-color: #18181b; 
+            border-color: #3f3f46;
         }
         .accordion-panel:hover {
             opacity: 0.95;
         }
         .accordion-panel.active {
-            flex: 10; /* Increased flex ratio to make inactive panels thinner */
+            flex: 10; 
             cursor: default;
-            border-color: rgba(255,255,255,0.1);
         }
         .accordion-icon {
             position: absolute;
@@ -291,7 +291,7 @@
 
             <!-- SECTION 1: PROFESSIONAL HISTORY -->
             <section id="sec-timeline" class="section-viewport">
-                <div class="w-full max-w-6xl mt-2"> <!-- Increased width for wider stretch -->
+                <div class="w-full max-w-6xl mt-2">
                     <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
                     
@@ -307,12 +307,12 @@
 
             <!-- SECTION 2: PORTFOLIO -->
             <section id="sec-visualizations" class="section-viewport">
-                <div class="w-full max-w-6xl mt-2"> <!-- Increased width for wider stretch -->
+                <div class="w-full max-w-6xl mt-2">
                     <h3 class="text-3xl font-bold mb-4">Data Visualizations Album</h3>
                     
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
-                        <!-- Expanding Accordion Container -->
+                        <!-- Expanding Accordion Container with all 5 panels -->
                         <div class="accordion-container mb-6">
                             
                             <!-- Panel 1 (Default Active) -->
@@ -343,6 +343,26 @@
                                  data-desc="This force-directed network diagram models ecological connectivity across a fragmented landscape, such as urban green spaces. Each node represents a distinct habitat patch, scaled by its total area in hectares and color-coded by its ecological function (Core Forest, Corridor, Edge, or Stepping Stone). The directed edges simulate ecological flow, with varying thickness and opacity indicating the strength, viability, and directionality of species dispersal routes between patches. This type of spatial network analysis is utilized in computational ecology to identify critical habitat hubs, reveal dispersal bottlenecks, and guide structural conservation planning in highly fragmented environments."
                                  onclick="activatePanel(this)">
                                 <div class="accordion-icon"><i class="fa-solid fa-network-wired"></i></div>
+                            </div>
+
+                            <!-- Panel 4 -->
+                            <div class="accordion-panel" 
+                                 style="background-image: url('EVI and NDVI.png');" 
+                                 data-image="EVI and NDVI.png"
+                                 data-title="Comparative Green Space Detection: NDVI vs. EVI" 
+                                 data-desc="Vegetation index mapping evaluating environmental greenness, canopy cover health, and urban ecological gradients."
+                                 onclick="activatePanel(this)">
+                                <div class="accordion-icon"><i class="fa-solid fa-leaf"></i></div>
+                            </div>
+
+                            <!-- Panel 5 -->
+                            <div class="accordion-panel" 
+                                 style="background-image: url('TSS - LPP Wetland.png');" 
+                                 data-image="TSS - LPP Wetland.png"
+                                 data-title="Total Suspended Solids (TSS) LPP WETLAND" 
+                                 data-desc="Total Suspended Solids evaluation and remote sensing tracking across critical protected wetland zones."
+                                 onclick="activatePanel(this)">
+                                <div class="accordion-icon"><i class="fa-solid fa-water"></i></div>
                             </div>
 
                         </div>
@@ -384,8 +404,8 @@
                 </div>
             </section>
 
-            <!-- SECTION 4: GET IN TOUCH -->
-            <section id="sec-contact" class="section-viewport">
+            <!-- SECTION 4: GET IN TOUCH (Removed min-height to fix scroll overshoot) -->
+            <section id="sec-contact" class="flex flex-col justify-center pt-24 pb-12">
                 <div class="text-center md:text-left mt-2 max-w-2xl">
                     <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg leading-relaxed">Reach out for research partnerships, GIS consultation, or academic inquiries.</p>
@@ -402,17 +422,12 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- LIGHTBOX MODAL                             -->
+    <!-- LIGHTBOX MODAL (Removed text block)        -->
     <!-- ========================================== -->
     <div id="lightbox" class="fixed inset-0 z-50 bg-white/95 dark:bg-black/95 hidden flex-col items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
         <button class="absolute top-6 right-6 text-4xl text-gray-500 hover:text-black dark:hover:text-white transition">&times;</button>
         
-        <img id="lightbox-img" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl border border-gray-200 dark:border-gray-800" onclick="event.stopPropagation()">
-        
-        <div class="mt-6 text-center max-w-4xl px-4" onclick="event.stopPropagation()">
-            <h3 id="lightbox-title" class="text-3xl font-bold mb-3"></h3>
-            <p id="lightbox-desc" class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed"></p>
-        </div>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-gray-200 dark:border-gray-800" onclick="event.stopPropagation()">
     </div>
 
     <!-- ========================================== -->
@@ -460,9 +475,7 @@
 
         // --- ACCORDION GALLERY SCRIPT ---
         let currentLightboxData = {
-            src: "Picture2.png",
-            title: "Supervised Classification Map",
-            desc: "A supervised land cover classification map categorizing the region into four distinct surface types: dense green spaces, paved urban infrastructure, sparse vegetation, and water bodies. This spatial visualization highlights the distribution and fragmentation of ecological zones within Metro Manila."
+            src: "Picture2.png"
         };
 
         function activatePanel(clickedPanel) {
@@ -486,21 +499,17 @@
 
             // Update lightbox state data
             currentLightboxData = {
-                src: imageSrc,
-                title: title,
-                desc: desc
+                src: imageSrc
             };
         }
 
         function openCurrentLightbox() {
-            openLightbox(currentLightboxData.src, currentLightboxData.title, currentLightboxData.desc);
+            openLightbox(currentLightboxData.src);
         }
 
         // --- LIGHTBOX SCRIPT ---
-        function openLightbox(src, title, desc) {
+        function openLightbox(src) {
             document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox-title').innerText = title;
-            document.getElementById('lightbox-desc').innerText = desc;
             
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('hidden');
