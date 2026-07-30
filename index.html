@@ -15,8 +15,8 @@
                         sans: ['-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
                     },
                     colors: {
-                        royal: '#2563eb', /* Royal Blue for light mode */
-                        mellow: '#fbbf24', /* Yellow for dark mode */
+                        royal: '#2563eb',
+                        mellow: '#fbbf24',
                         bgLight: '#f8f9fa',
                         bgDark: '#0f0f11'
                     }
@@ -123,16 +123,16 @@
         html.dark ::-webkit-scrollbar-thumb { background: #374151; }
         ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
 
-        /* Expanding Accordion Gallery */
+        /* Expanding Accordion Gallery - Adjusted height for a thinner profile */
         .accordion-container {
             display: flex;
             width: 100%;
-            height: 450px;
+            height: 350px; /* Reduced from 450px */
             gap: 12px;
         }
         @media (max-width: 768px) {
             .accordion-container {
-                height: 350px;
+                height: 250px; /* Reduced for mobile */
                 gap: 8px;
             }
         }
@@ -150,13 +150,13 @@
             border: 2px solid transparent;
         }
         html.dark .accordion-panel {
-            background-color: #18181b;
+            background-color: #18181b; 
         }
         .accordion-panel:hover {
             opacity: 0.95;
         }
         .accordion-panel.active {
-            flex: 7;
+            flex: 10; /* Increased flex ratio to make inactive panels thinner */
             cursor: default;
             border-color: rgba(255,255,255,0.1);
         }
@@ -291,7 +291,7 @@
 
             <!-- SECTION 1: PROFESSIONAL HISTORY -->
             <section id="sec-timeline" class="section-viewport">
-                <div class="w-full max-w-4xl mt-2">
+                <div class="w-full max-w-6xl mt-2"> <!-- Increased width for wider stretch -->
                     <h3 class="text-3xl font-bold mb-4">Experience Timeline</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-full leading-relaxed text-base">This project presents an interactive, dynamic visualization of my professional career, academic background, and core competencies mapped across a unified timeline spanning from 2012 to the present.</p>
                     
@@ -307,8 +307,8 @@
 
             <!-- SECTION 2: PORTFOLIO -->
             <section id="sec-visualizations" class="section-viewport">
-                <div class="w-full max-w-4xl mt-2">
-                    <h3 class="text-3xl font-bold mb-4">Spatial Visualizations Album</h3>
+                <div class="w-full max-w-6xl mt-2"> <!-- Increased width for wider stretch -->
+                    <h3 class="text-3xl font-bold mb-4">Data Visualizations Album</h3>
                     
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
