@@ -137,6 +137,7 @@
             }
         }
         .accordion-panel {
+            background-color: #ffffff;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -147,6 +148,9 @@
             transition: flex 0.6s cubic-bezier(0.15, 0.85, 0.35, 1);
             overflow: hidden;
             border: 2px solid transparent;
+        }
+        html.dark .accordion-panel {
+            background-color: #18181b;
         }
         .accordion-panel:hover {
             opacity: 0.95;
@@ -161,7 +165,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #2563eb; /* royal */
+            background-color: #2563eb; 
             color: white;
             border-radius: 50%;
             width: 36px;
@@ -173,7 +177,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         html.dark .accordion-icon {
-            background-color: #fbbf24; /* mellow */
+            background-color: #fbbf24; 
             color: black;
         }
         .accordion-panel.active .accordion-icon {
@@ -308,44 +312,44 @@
                     
                     <div class="rounded-[2rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900 p-6 md:p-8 shadow-2xl w-full">
                         
-                        <!-- NEW Expanding Accordion Container -->
+                        <!-- Expanding Accordion Container -->
                         <div class="accordion-container mb-6">
                             
                             <!-- Panel 1 (Default Active) -->
                             <div class="accordion-panel active" 
-                                 style="background-image: url('Rplot.png');" 
-                                 data-image="Rplot.png"
-                                 data-title="Supervised Classification" 
-                                 data-desc="This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2."
+                                 style="background-image: url('Picture2.png');" 
+                                 data-image="Picture2.png"
+                                 data-title="Supervised Classification Map" 
+                                 data-desc="A supervised land cover classification map categorizing the region into four distinct surface types: dense green spaces, paved urban infrastructure, sparse vegetation, and water bodies. This spatial visualization highlights the distribution and fragmentation of ecological zones within Metro Manila."
                                  onclick="activatePanel(this)">
                                 <div class="accordion-icon"><i class="fa-solid fa-layer-group"></i></div>
                             </div>
 
                             <!-- Panel 2 -->
                             <div class="accordion-panel" 
-                                 style="background-image: url('EVI and NDVI.png');" 
-                                 data-image="EVI and NDVI.png"
-                                 data-title="EVI and NDVI Spatial Mapping" 
-                                 data-desc="Vegetation index mapping evaluating environmental greenness, canopy cover health, and urban ecological gradients."
+                                 style="background-image: url('Picture56.png');" 
+                                 data-image="Picture56.png"
+                                 data-title="Ecosystem Services Flow Analysis" 
+                                 data-desc="This Sankey diagram visualizes the provisioning and distribution of ecosystem services from key Urban Green Spaces (UGS) to surrounding local communities. By modeling the flow of ecological benefits, the visualization effectively bridges urban ecology with demographic data."
                                  onclick="activatePanel(this)">
-                                <div class="accordion-icon"><i class="fa-solid fa-leaf"></i></div>
+                                <div class="accordion-icon"><i class="fa-solid fa-diagram-project"></i></div>
                             </div>
 
                             <!-- Panel 3 -->
                             <div class="accordion-panel" 
-                                 style="background-image: url('TSS - LPP Wetland.png');" 
-                                 data-image="TSS - LPP Wetland.png"
-                                 data-title="Total Suspended Solids (TSS)" 
-                                 data-desc="Total Suspended Solids evaluation and remote sensing tracking across critical protected wetland zones."
+                                 style="background-image: url('Network Model Diagram.png');" 
+                                 data-image="Network Model Diagram.png"
+                                 data-title="Landscape Connectivity & Ecological Flow" 
+                                 data-desc="This force-directed network diagram models ecological connectivity across a fragmented landscape, such as urban green spaces. Each node represents a distinct habitat patch, scaled by its total area in hectares and color-coded by its ecological function (Core Forest, Corridor, Edge, or Stepping Stone). The directed edges simulate ecological flow, with varying thickness and opacity indicating the strength, viability, and directionality of species dispersal routes between patches. This type of spatial network analysis is utilized in computational ecology to identify critical habitat hubs, reveal dispersal bottlenecks, and guide structural conservation planning in highly fragmented environments."
                                  onclick="activatePanel(this)">
-                                <div class="accordion-icon"><i class="fa-solid fa-water"></i></div>
+                                <div class="accordion-icon"><i class="fa-solid fa-network-wired"></i></div>
                             </div>
 
                         </div>
 
                         <!-- Dynamic Title & Description -->
-                        <h4 id="album-title" class="text-2xl font-bold mb-3">Supervised Classification</h4>
-                        <p id="album-desc" class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2.</p>
+                        <h4 id="album-title" class="text-2xl font-bold mb-3">Supervised Classification Map</h4>
+                        <p id="album-desc" class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">A supervised land cover classification map categorizing the region into four distinct surface types: dense green spaces, paved urban infrastructure, sparse vegetation, and water bodies. This spatial visualization highlights the distribution and fragmentation of ecological zones within Metro Manila.</p>
 
                         <!-- Actions -->
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-zinc-800">
@@ -456,9 +460,9 @@
 
         // --- ACCORDION GALLERY SCRIPT ---
         let currentLightboxData = {
-            src: "Rplot.png",
-            title: "Supervised Classification",
-            desc: "This map visualizes a pixel-based land cover classification, categorizing the region into distinct surface types. Data sourced from ESA Sentinel-2."
+            src: "Picture2.png",
+            title: "Supervised Classification Map",
+            desc: "A supervised land cover classification map categorizing the region into four distinct surface types: dense green spaces, paved urban infrastructure, sparse vegetation, and water bodies. This spatial visualization highlights the distribution and fragmentation of ecological zones within Metro Manila."
         };
 
         function activatePanel(clickedPanel) {
