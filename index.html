@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Paolo A. Ramirez MSc. | Spatial Ecology</title>
+    <title>John Paolo Ramirez | Spatial Ecology</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -225,23 +225,23 @@
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper - WIDER CANVAS (800x1100) -->
-        <div class="relative w-[800px] h-[1100px] scale-[0.35] md:scale-[0.5] lg:scale-[0.6] origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper - WIDER CANVAS (850x1100) -->
+        <div class="relative w-[850px] h-[1100px] scale-[0.35] md:scale-[0.5] lg:scale-[0.6] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="800" height="1100" class="absolute inset-0 z-0 pointer-events-none">
+            <svg width="850" height="1100" class="absolute inset-0 z-0 pointer-events-none">
                 <!-- Dashed Edges exactly intersecting the new blob centers -->
                 <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
-                    <!-- Name (250, 250) to Roles (640, 280) -->
-                    <path id="edge1" d="M 250 250 L 640 280" />
-                    <!-- Roles (640, 280) to Summary (220, 780) -->
-                    <path id="edge2" d="M 640 280 L 220 780" />
-                    <!-- Name (250, 250) to Summary (220, 780) -->
-                    <path id="edge3" d="M 250 250 L 220 780" />
-                    <!-- Summary (220, 780) to Links (620, 850) -->
-                    <path id="edge4" d="M 220 780 L 620 850" />
-                    <!-- Roles (640, 280) to Links (620, 850) -->
-                    <path id="edge5" d="M 640 280 L 620 850" />
+                    <!-- Name (200, 160) to Roles (680, 280) -->
+                    <path id="edge1" d="M 200 160 L 680 280" />
+                    <!-- Roles (680, 280) to Summary (200, 780) -->
+                    <path id="edge2" d="M 680 280 L 200 780" />
+                    <!-- Name (200, 160) to Summary (200, 780) -->
+                    <path id="edge3" d="M 200 160 L 200 780" />
+                    <!-- Summary (200, 780) to Links (650, 850) -->
+                    <path id="edge4" d="M 200 780 L 650 850" />
+                    <!-- Roles (680, 280) to Links (650, 850) -->
+                    <path id="edge5" d="M 680 280 L 650 850" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
@@ -262,42 +262,44 @@
                 </circle>
             </svg>
 
-            <!-- Node 1: Name (Top Left - THE BIGGEST BLOB) -->
-            <!-- Size: 500x500. Position: 0, 0. Center: (250, 250) -->
-            <div class="absolute top-[0px] left-[0px] w-[500px] h-[500px] z-10 flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+            <!-- Node 1: Name (Top Left - Moved higher up to y: -40px, Center: 200, 160) -->
+            <!-- Size: 500x400. Position: left -50, top -40 -->
+            <div class="absolute top-[-40px] left-[-50px] w-[500px] h-[400px] z-10 flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <h1 class="text-7xl font-extrabold tracking-tight leading-none mb-1">
-                        John Paolo<br>A.<br>Ramirez <span class="text-5xl font-bold block mt-4">MSc</span>
+                    <h1 class="text-6xl font-extrabold tracking-tight leading-tight">
+                        Juan Paolo<br>Ramirez
                     </h1>
                 </div>
             </div>
 
-            <!-- Node 2: Subtitle (Top Right - PUSHED RIGHT) -->
-            <!-- Size: 320x320. Position: left 480, top 120. Center: (640, 280) -->
-            <div class="absolute top-[120px] left-[480px] w-[320px] h-[320px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+            <!-- Node 2: Subtitle (Top Right - Pushed further right to left 520, Center: 680, 280) -->
+            <!-- Size: 320x320. Position: left 520, top 120 -->
+            <div class="absolute top-[120px] left-[520px] w-[320px] h-[320px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
-                <div class="relative z-20 text-white dark:text-black">
-                    <p class="text-base font-bold uppercase tracking-widest leading-relaxed">
-                        Spatial Ecology<br><br>Environmental Assessment & Modelling<br><br>Geospatial Analysis
-                    </p>
+                <div class="relative z-20 text-white dark:text-black w-full px-2">
+                    <p class="text-sm font-bold uppercase tracking-wider pb-3">Spatial Ecology</p>
+                    <div class="w-full border-t border-white/40 dark:border-black/40 my-1"></div>
+                    <p class="text-sm font-bold uppercase tracking-wider py-3">Environmental Assessment & Modelling</p>
+                    <div class="w-full border-t border-white/40 dark:border-black/40 my-1"></div>
+                    <p class="text-sm font-bold uppercase tracking-wider pt-3">Geospatial Analysis</p>
                 </div>
             </div>
 
-            <!-- Node 3: Summary (Bottom Left - ENLARGED FOR READABILITY) -->
-            <!-- Size: 400x400. Position: left 20, top 580. Center: (220, 780) -->
-            <div class="absolute top-[580px] left-[20px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-12 transition-transform duration-300 hover:scale-105">
+            <!-- Node 3: Summary (Bottom Left - Single sentence updated) -->
+            <!-- Size: 400x400. Position: left 0, top 580. Center: (200, 780) -->
+            <div class="absolute top-[580px] left-[0px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-12 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
                     <p class="text-lg md:text-xl font-medium leading-relaxed">
-                        Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
+                        Experienced academic lecturer in biology and specializes in computational ecology, geospatial analysis, and GIS-based environmental monitoring.
                     </p>
                 </div>
             </div>
 
             <!-- Node 4: Links (Bottom Right) -->
-            <!-- Size: 200x200. Position: left 520, top 750. Center: (620, 850) -->
-            <div class="absolute top-[750px] left-[520px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+            <!-- Size: 200x200. Position: left 550, top 750. Center: (650, 850) -->
+            <div class="absolute top-[750px] left-[550px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 flex gap-6 text-5xl text-white dark:text-black">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -617,7 +619,7 @@
             document.body.style.overflow = '';
         }
 
-        // --- THEME TOGGLE SCRIPT ---
+        // --- THEME TOGGLES ---
         function toggleTheme() {
             const html = document.documentElement;
             const text = document.getElementById('theme-text');
