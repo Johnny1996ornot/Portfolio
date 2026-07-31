@@ -210,22 +210,27 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- FIXED LEFT SIDEBAR (NETWORK BLOBS)         -->
+    <!-- FIXED LEFT SIDEBAR (NETWORK BLOBS SPREAD)  -->
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper (Expanded area to fit bigger blobs) -->
-        <div class="relative w-[380px] h-[700px] scale-[0.7] md:scale-[0.85] lg:scale-100 origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper (Increased size and spread out nodes) -->
+        <div class="relative w-[460px] h-[800px] scale-[0.6] md:scale-[0.75] lg:scale-[0.9] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="380" height="700" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges between larger centers -->
+            <svg width="460" height="800" class="absolute inset-0 z-0 pointer-events-none">
+                <!-- Dashed Edges calculated exactly to center of each node -->
                 <g class="stroke-connRed dark:stroke-connYellow opacity-60" stroke-width="4" stroke-dasharray="8,8" fill="none">
-                    <path id="edge1" d="M 150 150 L 250 340" />
-                    <path id="edge2" d="M 250 340 L 150 560" />
-                    <path id="edge3" d="M 150 150 L 150 560" />
-                    <path id="edge4" d="M 150 560 L 280 620" />
-                    <path id="edge5" d="M 250 340 L 280 620" />
+                    <!-- Node 1 (140, 140) to Node 2 (340, 320) -->
+                    <path id="edge1" d="M 140 140 L 340 320" />
+                    <!-- Node 2 (340, 320) to Node 3 (160, 600) -->
+                    <path id="edge2" d="M 340 320 L 160 600" />
+                    <!-- Node 1 (140, 140) to Node 3 (160, 600) -->
+                    <path id="edge3" d="M 140 140 L 160 600" />
+                    <!-- Node 3 (160, 600) to Node 4 (350, 670) -->
+                    <path id="edge4" d="M 160 600 L 350 670" />
+                    <!-- Node 2 (340, 320) to Node 4 (350, 670) -->
+                    <path id="edge5" d="M 340 320 L 350 670" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
@@ -257,7 +262,7 @@
             </svg>
 
             <!-- Node 1: Name (Top Left) -->
-            <div class="absolute top-[10px] left-[10px] w-[280px] h-[280px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
+            <div class="absolute top-[0px] left-[0px] w-[280px] h-[280px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
                 <!-- Blob Background -->
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
                 <!-- Foreground Text -->
@@ -269,7 +274,7 @@
             </div>
 
             <!-- Node 2: Subtitle (Mid Right) -->
-            <div class="absolute top-[220px] right-[10px] w-[240px] h-[240px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+            <div class="absolute top-[200px] left-[220px] w-[240px] h-[240px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <!-- Blob Background -->
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
                 <!-- Foreground Text -->
@@ -281,7 +286,7 @@
             </div>
 
             <!-- Node 3: Summary (Bottom Left) -->
-            <div class="absolute top-[420px] left-[10px] w-[280px] h-[280px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+            <div class="absolute top-[460px] left-[20px] w-[280px] h-[280px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <!-- Blob Background -->
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
                 <!-- Foreground Text -->
@@ -293,7 +298,7 @@
             </div>
 
             <!-- Node 4: Links (Bottom Right) -->
-            <div class="absolute bottom-[10px] right-[30px] w-[140px] h-[140px] z-10 flex items-center justify-center gap-5 transition-transform duration-300 hover:scale-105">
+            <div class="absolute top-[600px] left-[280px] w-[140px] h-[140px] z-10 flex items-center justify-center gap-5 transition-transform duration-300 hover:scale-105">
                 <!-- Blob Background -->
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
                 <!-- Foreground Links -->
