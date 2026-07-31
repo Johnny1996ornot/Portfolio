@@ -246,11 +246,12 @@
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
         <!-- Spatial Connectivity Wrapper - SHIFTED LEFT & WIDER CANVAS (1000x1100) -->
-        <div class="relative w-[1000px] h-[1100px] -ml-24 scale-[0.32] md:scale-[0.46] lg:scale-[0.56] origin-center pointer-events-auto">
+        <!-- Added -ml-24 (and -ml-32 on lg) to aggressively push the layout to the left -->
+        <div class="relative w-[1000px] h-[1100px] -ml-24 lg:-ml-32 scale-[0.32] md:scale-[0.46] lg:scale-[0.56] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
             <svg width="1000" height="1100" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges exactly intersecting the new blob centers -->
+                <!-- Dashed Edges exactly intersecting the main node centers -->
                 <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
                     <!-- Name (180, 140) to Roles (640, 280) -->
                     <path id="edge1" d="M 180 140 L 640 280" />
@@ -284,15 +285,15 @@
 
             <!-- ================================================================= -->
             <!-- 7 PERMANENTLY GREEN BIOGEOGRAPHIC ISLAND PATCHES (FRAGMENTED MATRIX) -->
-            <!-- Uses permanent #22c55e green so it stays green in light and dark mode -->
+            <!-- Carefully positioned in the negative space to NEVER touch the 4 main nodes -->
             <!-- ================================================================= -->
-            <div class="absolute top-[120px] left-[380px] w-[65px] h-[65px] z-5 island-1 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[480px] left-[350px] w-[70px] h-[60px] z-5 island-2 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[280px] left-[280px] w-[55px] h-[55px] z-5 island-3 bg-[#22c55e]/80 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[700px] left-[320px] w-[75px] h-[65px] z-5 island-4 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[900px] left-[420px] w-[60px] h-[60px] z-5 island-5 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[520px] left-[780px] w-[65px] h-[65px] z-5 island-6 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[820px] left-[760px] w-[70px] h-[60px] z-5 island-7 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[380px] left-[300px] w-[65px] h-[65px] z-5 island-1 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[480px] left-[150px] w-[70px] h-[60px] z-5 island-2 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[550px] left-[420px] w-[55px] h-[55px] z-5 island-3 bg-[#22c55e]/80 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[720px] left-[420px] w-[75px] h-[65px] z-5 island-4 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[850px] left-[350px] w-[60px] h-[60px] z-5 island-5 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[560px] left-[700px] w-[65px] h-[65px] z-5 island-6 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[750px] left-[750px] w-[70px] h-[60px] z-5 island-7 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
 
             <!-- Node 1: Name (Top Left - Center: 180, 140) -->
             <!-- Size: 480x360. Position: left -60, top -40 -->
@@ -305,7 +306,7 @@
                 </div>
             </div>
 
-            <!-- Node 2: Subtitle (Top Right - Shifted further left to prevent border cutoff, Center: 640, 280) -->
+            <!-- Node 2: Subtitle (Top Right - Center: 640, 280) -->
             <!-- Size: 400x400. Position: left 440, top 80 -->
             <div class="absolute top-[80px] left-[440px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
