@@ -69,30 +69,50 @@
         .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
 
         /* ========================================================
-           Biogeographic Island Patches (Aerial Reef / Shallow Water Effect)
+           Multi-Layered Atoll Island System (Light Mode Only)
+           - Stacked offset blobs representing Land -> Sand -> Turquoise -> Ocean Transition
+           - Hidden automatically in Dark Mode (.dark class)
         ======================================================== */
         @keyframes float1 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(3px, -4px); } }
         @keyframes float2 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-4px, 3px); } }
 
+        .island-group { position: absolute; pointer-events: none; }
         .island-float-1 { animation: float1 12s ease-in-out infinite; }
         .island-float-2 { animation: float2 15s ease-in-out infinite; }
 
-        .island-shape-1 { border-radius: 63% 37% 32% 68% / 43% 54% 46% 57%; }
-        .island-shape-2 { border-radius: 41% 59% 74% 26% / 64% 39% 61% 36%; }
-        .island-shape-3 { border-radius: 79% 21% 47% 53% / 49% 69% 31% 51%; }
-        .island-shape-4 { border-radius: 30% 70% 39% 61% / 54% 30% 70% 46%; }
-        .island-shape-5 { border-radius: 54% 46% 27% 73% / 71% 56% 44% 29%; }
-        .island-shape-6 { border-radius: 20% 80% 30% 70% / 60% 30% 70% 40%; }
-        .island-shape-7 { border-radius: 80% 20% 70% 30% / 30% 60% 40% 70%; }
-
-        /* Realistic Aerial Island Atoll Look: Green core with a turquoise/cyan shallow-water reef ring blooming into the blue ocean */
-        .island-atoll {
-            background-color: #22c55e;
-            box-shadow: 0 0 0 8px rgba(6, 182, 212, 0.4), 0 0 0 16px rgba(59, 130, 246, 0.2), 0 10px 25px rgba(0, 0, 0, 0.3);
+        /* Layer Styles */
+        .island-ocean-blend {
+            position: absolute;
+            background-color: #2563eb; /* Deeper blue bridge */
+            border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%;
+            transform: scale(1.6) translate(-6px, 4px);
+            opacity: 0.8;
         }
-        /* In dark mode, turn off the cyan/blue reef ring glow so it looks clean against dark background */
-        html.dark .island-atoll {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        .island-turquoise {
+            position: absolute;
+            background-color: #06b6d4; /* Turquoise / shallow reef */
+            border-radius: 48% 52% 48% 52% / 52% 48% 52% 48%;
+            transform: scale(1.35) translate(-3px, 2px);
+        }
+        .island-sand {
+            position: absolute;
+            background-color: #d97706; /* Sandy beach ring, shifted asymmetrically */
+            border-radius: 42% 58% 55% 45% / 46% 54% 46% 54%;
+            transform: scale(1.15) translate(4px, -3px);
+        }
+        .island-core {
+            position: absolute;
+            background-color: #22c55e; /* Solid green island center */
+            border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+            inset: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Hide multi-layered rings in dark mode so smaller islands become simple green shapes */
+        html.dark .island-ocean-blend,
+        html.dark .island-turquoise,
+        html.dark .island-sand {
+            display: none;
         }
 
         /* ========================================================
@@ -251,7 +271,7 @@
     <!-- ========================================== -->
     <!-- LEFT SIDEBAR (SCROLLS ON MOBILE, FIXED ON DESKTOP) -->
     <!-- ========================================== -->
-    <!-- Ocean blue (#3b82f6) in light mode, dark (#0f0f11) in dark mode -->
+    <!-- Opens in Light Mode by default (royal ocean blue background) -->
     <div class="w-full h-[100vh] md:fixed md:top-0 md:left-0 md:w-[38%] md:h-screen flex items-center justify-center overflow-hidden z-20 bg-royal dark:bg-[#0f0f11] transition-colors duration-300">
         
         <!-- Spatial Connectivity Wrapper - Shifted slightly left -->
@@ -287,24 +307,88 @@
             </svg>
 
             <!-- ================================================================= -->
-            <!-- BIOGEOGRAPHIC ISLAND PATCHES (Atoll Style with Cyan Reef Ring)    -->
+            <!-- MULTI-LAYERED SMALL ISLANDS (Atoll Gradient Effect in Light Mode)  -->
+            <!-- Safely positioned away from the 4 major nodes and connecting lines -->
             <!-- ================================================================= -->
-            <div class="absolute top-[80px] left-[850px] w-[120px] h-[55px] z-5 island-float-1 island-shape-1 island-atoll pointer-events-none"></div>
-            <div class="absolute top-[520px] left-[840px] w-[75px] h-[85px] z-5 island-float-2 island-shape-2 island-atoll pointer-events-none"></div>
-            <div class="absolute top-[980px] left-[780px] w-[100px] h-[45px] z-5 island-float-1 island-shape-3 island-atoll pointer-events-none"></div>
-            <div class="absolute top-[450px] left-[30px] w-[55px] h-[85px] z-5 island-float-2 island-shape-4 island-atoll pointer-events-none"></div>
-            <div class="absolute top-[1010px] left-[120px] w-[70px] h-[60px] z-5 island-float-1 island-shape-5 island-atoll pointer-events-none"></div>
-            <div class="absolute top-[20px] left-[440px] w-[85px] h-[40px] z-5 island-float-2 island-shape-6 island-atoll pointer-events-none"></div>
-            <div class="absolute top-[1000px] left-[460px] w-[50px] h-[50px] z-5 island-float-1 island-shape-7 island-atoll pointer-events-none"></div>
+            
+            <!-- Island 1: Top Right Atoll -->
+            <div class="island-group island-float-1 top-[80px] left-[850px] w-[110px] h-[50px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Island 2: Mid Right Atoll -->
+            <div class="island-group island-float-2 top-[520px] left-[840px] w-[70px] h-[80px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Island 3: Bottom Right Atoll -->
+            <div class="island-group island-float-1 top-[980px] left-[780px] w-[95px] h-[45px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Island 4: Mid Left Atoll -->
+            <div class="island-group island-float-2 top-[450px] left-[30px] w-[50px] h-[80px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Island 5: Bottom Left Atoll -->
+            <div class="island-group island-float-1 top-[1010px] left-[120px] w-[65px] h-[55px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Island 6: Top Center Atoll -->
+            <div class="island-group island-float-2 top-[20px] left-[440px] w-[80px] h-[40px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Island 7: Bottom Center Atoll -->
+            <div class="island-group island-float-1 top-[1000px] left-[460px] w-[45px] h-[45px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+
+            <!-- Additional Small Islands for Fragmented Matrix -->
+            <div class="island-group island-float-2 top-[250px] left-[890px] w-[40px] h-[40px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
+            <div class="island-group island-float-1 top-[700px] left-[870px] w-[50px] h-[50px] z-5">
+                <div class="island-ocean-blend"></div>
+                <div class="island-turquoise"></div>
+                <div class="island-sand"></div>
+                <div class="island-core"></div>
+            </div>
 
             <!-- ================================================================= -->
-            <!-- 4 MAIN INTERACTIVE DATA BLOBS                                     -->
+            <!-- 4 MAJOR NODES (Untouched layout; text turns black in dark mode)   -->
             <!-- ================================================================= -->
             
             <!-- Node 1: Name (Top Left - Center: 180, 140) -->
             <div class="absolute top-[-40px] left-[-60px] w-[480px] h-[360px] z-10 flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-1 island-atoll shadow-2xl opacity-100"></div>
-                <div class="relative z-25 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                <div class="absolute inset-0 bg-themeGreen blob-1 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
+                <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
                     <h1 class="text-6xl font-extrabold tracking-tight leading-tight">
                         John Paolo<br>Ramirez
                     </h1>
@@ -313,20 +397,20 @@
 
             <!-- Node 2: Subtitle (Top Right - Center: 640, 280) -->
             <div class="absolute top-[80px] left-[440px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-2 island-atoll shadow-2xl opacity-100"></div>
-                <div class="relative z-25 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] w-full px-4">
+                <div class="absolute inset-0 bg-themeGreen blob-2 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
+                <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none w-full px-4">
                     <p class="text-base font-bold uppercase tracking-wider pb-3">Spatial Ecology</p>
-                    <div class="w-full border-t border-white/60 my-1"></div>
+                    <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
                     <p class="text-base font-bold uppercase tracking-wider py-3">Environmental Assessment & Modelling</p>
-                    <div class="w-full border-t border-white/60 my-1"></div>
+                    <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
                     <p class="text-base font-bold uppercase tracking-wider pt-3">Geospatial Analysis</p>
                 </div>
             </div>
 
             <!-- Node 3: Summary (Bottom Left - Center: 180, 780) -->
             <div class="absolute top-[580px] left-[-20px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-12 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-3 island-atoll shadow-2xl opacity-100"></div>
-                <div class="relative z-25 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                <div class="absolute inset-0 bg-themeGreen blob-3 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
+                <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
                     <p class="text-lg md:text-xl font-medium leading-relaxed">
                         Experienced academic lecturer in biology and specializes in computational ecology, geospatial analysis, and GIS-based environmental monitoring.
                     </p>
@@ -335,8 +419,8 @@
 
             <!-- Node 4: Links (Bottom Right - Center: 600, 850) -->
             <div class="absolute top-[750px] left-[500px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-4 island-atoll shadow-2xl opacity-100"></div>
-                <div class="relative z-25 flex gap-6 text-5xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                <div class="absolute inset-0 bg-themeGreen blob-4 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
+                <div class="relative z-25 flex gap-6 text-5xl text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
@@ -561,7 +645,6 @@
     <!-- ========================================== -->
     <script>
         // --- DEFAULT THEME TO LIGHT MODE ---
-        // (Ensures website opens in light mode by default)
         if (localStorage.theme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
