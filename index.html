@@ -38,44 +38,36 @@
             color: #f3f4f6;
         }
 
-        /* Organic Blob Animations */
-        @keyframes topoMorph {
-            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
-            33% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(120deg) scale(1.04); }
-            66% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(240deg) scale(1.02); }
-            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg) scale(1); }
+        /* Distinct Organic Blob Animations for Variety */
+        @keyframes morph1 {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
+            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(120deg); }
+            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; transform: rotate(240deg); }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg); }
+        }
+        @keyframes morph2 {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg); }
+            34% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(-120deg); }
+            67% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(-240deg); }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(-360deg); }
+        }
+        @keyframes morph3 {
+            0% { border-radius: 50% 50% 60% 40% / 40% 40% 60% 60%; transform: rotate(0deg); }
+            34% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(120deg); }
+            67% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(240deg); }
+            100% { border-radius: 50% 50% 60% 40% / 40% 40% 60% 60%; transform: rotate(360deg); }
+        }
+        @keyframes morph4 {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg); }
+            34% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(-120deg); }
+            67% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(-240deg); }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(-360deg); }
         }
 
-        @keyframes topoMorphReverse {
-            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg) scale(1); }
-            33% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(240deg) scale(1.02); }
-            66% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(120deg) scale(1.04); }
-            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
-        }
-        
-        /* Swaying Grass/Tree Animation */
-        @keyframes sway {
-            0%, 100% { transform: rotate(-8deg); }
-            50% { transform: rotate(8deg); }
-        }
-        
-        .animate-sway {
-            animation: sway 4s ease-in-out infinite;
-            transform-origin: bottom center;
-        }
-        .animate-sway-slow {
-            animation: sway 6s ease-in-out infinite reverse;
-            transform-origin: bottom center;
-        }
-        .animate-sway-fast {
-            animation: sway 3s ease-in-out infinite;
-            transform-origin: bottom center;
-        }
-
-        .blob-1 { animation: topoMorph 16s linear infinite; transform-origin: center; }
-        .blob-2 { animation: topoMorphReverse 19s linear infinite; transform-origin: center; }
-        .blob-3 { animation: topoMorph 22s linear infinite; transform-origin: center; }
-        .blob-4 { animation: topoMorphReverse 15s linear infinite; transform-origin: center; }
+        .blob-1 { animation: morph1 18s linear infinite; transform-origin: center; }
+        .blob-2 { animation: morph2 20s linear infinite; transform-origin: center; }
+        .blob-3 { animation: morph3 22s linear infinite; transform-origin: center; }
+        .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
 
         /* Fixed Masking Header Bar */
         .right-column-header {
@@ -233,116 +225,81 @@
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper - EXPANDED CANVAS (700x1000) -->
-        <div class="relative w-[700px] h-[1000px] scale-[0.4] md:scale-[0.55] lg:scale-[0.65] origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper - WIDER CANVAS (800x1100) -->
+        <div class="relative w-[800px] h-[1100px] scale-[0.35] md:scale-[0.5] lg:scale-[0.6] origin-center pointer-events-auto">
             
-            <!-- DECORATIVE ECOLOGY ELEMENTS (Swaying Trees & Grass) -->
-            <!-- Placed at z-0 so they float behind the connecting lines and blobs -->
-            <div class="absolute top-[310px] left-[-30px] text-green-600 dark:text-green-500 opacity-60 text-6xl animate-sway-slow z-0">
-                <i class="fa-solid fa-tree"></i>
-            </div>
-            <div class="absolute top-[40px] left-[320px] text-green-600 dark:text-green-500 opacity-70 text-5xl animate-sway z-0">
-                <i class="fa-solid fa-seedling"></i>
-            </div>
-            <div class="absolute top-[100px] left-[700px] text-green-600 dark:text-green-500 opacity-40 text-7xl animate-sway-fast z-0">
-                <i class="fa-solid fa-tree"></i>
-            </div>
-            <div class="absolute top-[500px] left-[360px] text-green-600 dark:text-green-500 opacity-50 text-5xl animate-sway z-0">
-                <i class="fa-solid fa-leaf"></i>
-            </div>
-            <div class="absolute top-[820px] left-[250px] text-green-600 dark:text-green-500 opacity-80 text-4xl animate-sway-slow z-0">
-                <i class="fa-solid fa-seedling"></i>
-            </div>
-            <div class="absolute top-[750px] left-[700px] text-green-600 dark:text-green-500 opacity-60 text-6xl animate-sway z-0">
-                <i class="fa-solid fa-tree"></i>
-            </div>
-
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="700" height="1000" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges mathematically aligned to the centers of the divs below -->
-                <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="5" stroke-dasharray="12,12" fill="none">
-                    <!-- Center 1 (170, 170) to Center 2 (550, 300) -->
-                    <path id="edge1" d="M 170 170 L 550 300" />
-                    <!-- Center 2 (550, 300) to Center 3 (180, 680) -->
-                    <path id="edge2" d="M 550 300 L 180 680" />
-                    <!-- Center 1 (170, 170) to Center 3 (180, 680) -->
-                    <path id="edge3" d="M 170 170 L 180 680" />
-                    <!-- Center 3 (180, 680) to Center 4 (550, 750) -->
-                    <path id="edge4" d="M 180 680 L 550 750" />
-                    <!-- Center 2 (550, 300) to Center 4 (550, 750) -->
-                    <path id="edge5" d="M 550 300 L 550 750" />
+            <svg width="800" height="1100" class="absolute inset-0 z-0 pointer-events-none">
+                <!-- Dashed Edges exactly intersecting the new blob centers -->
+                <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
+                    <!-- Name (220, 220) to Roles (640, 280) -->
+                    <path id="edge1" d="M 220 220 L 640 280" />
+                    <!-- Roles (640, 280) to Summary (220, 780) -->
+                    <path id="edge2" d="M 640 280 L 220 780" />
+                    <!-- Name (220, 220) to Summary (220, 780) -->
+                    <path id="edge3" d="M 220 220 L 220 780" />
+                    <!-- Summary (220, 780) to Links (620, 850) -->
+                    <path id="edge4" d="M 220 780 L 620 850" />
+                    <!-- Roles (640, 280) to Links (620, 850) -->
+                    <path id="edge5" d="M 640 280 L 620 850" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
-                <circle r="8" class="fill-connRed dark:fill-connYellow">
-                    <animateMotion dur="3s" repeatCount="indefinite">
-                        <mpath href="#edge1"/>
-                    </animateMotion>
+                <circle r="9" class="fill-connRed dark:fill-connYellow">
+                    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#edge1"/></animateMotion>
                 </circle>
-                <circle r="8" class="fill-connRed dark:fill-connYellow">
-                    <animateMotion dur="4s" repeatCount="indefinite">
-                        <mpath href="#edge2"/>
-                    </animateMotion>
+                <circle r="9" class="fill-connRed dark:fill-connYellow">
+                    <animateMotion dur="4s" repeatCount="indefinite"><mpath href="#edge2"/></animateMotion>
                 </circle>
-                <circle r="8" class="fill-connRed dark:fill-connYellow">
-                    <animateMotion dur="4.5s" repeatCount="indefinite">
-                        <mpath href="#edge3"/>
-                    </animateMotion>
+                <circle r="9" class="fill-connRed dark:fill-connYellow">
+                    <animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#edge3"/></animateMotion>
                 </circle>
-                <circle r="8" class="fill-connRed dark:fill-connYellow">
-                    <animateMotion dur="3.5s" repeatCount="indefinite">
-                        <mpath href="#edge4"/>
-                    </animateMotion>
+                <circle r="9" class="fill-connRed dark:fill-connYellow">
+                    <animateMotion dur="3.5s" repeatCount="indefinite"><mpath href="#edge4"/></animateMotion>
                 </circle>
-                <circle r="8" class="fill-connRed dark:fill-connYellow">
-                    <animateMotion dur="5s" repeatCount="indefinite">
-                        <mpath href="#edge5"/>
-                    </animateMotion>
+                <circle r="9" class="fill-connRed dark:fill-connYellow">
+                    <animateMotion dur="5s" repeatCount="indefinite"><mpath href="#edge5"/></animateMotion>
                 </circle>
             </svg>
 
-            <!-- Node 1: Name (Top Left - TEXT ENLARGED) -->
-            <!-- Size: 340x340. Position: 0, 0. Center is (170, 170) -->
-            <div class="absolute top-[0px] left-[0px] w-[340px] h-[340px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
+            <!-- Node 1: Name (Top Left - THE BIGGEST BLOB) -->
+            <!-- Size: 440x440. Position: 0, 0. Center: (220, 220) -->
+            <div class="absolute top-[0px] left-[0px] w-[440px] h-[440px] z-10 flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <h1 class="text-6xl font-extrabold tracking-tight leading-none mb-1">
-                        John Paolo<br>A.<br>Ramirez <span class="text-4xl font-bold block mt-3">MSc</span>
+                    <h1 class="text-7xl font-extrabold tracking-tight leading-none mb-1">
+                        John Paolo<br>A.<br>Ramirez <span class="text-5xl font-bold block mt-4">MSc</span>
                     </h1>
                 </div>
             </div>
 
-            <!-- Node 2: Subtitle (Top Right) -->
-            <!-- Size: 300x300. Position: left 400, top 150. Center is (550, 300) -->
-            <div class="absolute top-[150px] left-[400px] w-[300px] h-[300px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
+            <!-- Node 2: Subtitle (Top Right - PUSHED RIGHT) -->
+            <!-- Size: 320x320. Position: left 480, top 120. Center: (640, 280) -->
+            <div class="absolute top-[120px] left-[480px] w-[320px] h-[320px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <p class="text-sm md:text-base font-bold uppercase tracking-widest leading-relaxed">
+                    <p class="text-base font-bold uppercase tracking-widest leading-relaxed">
                         Spatial Ecology<br><br>Environmental Assessment & Modelling<br><br>Geospatial Analysis
                     </p>
                 </div>
             </div>
 
-            <!-- Node 3: Summary (Bottom Left) -->
-            <!-- Size: 320x360. Position: left 20, top 500. Center is (180, 680) -->
-            <div class="absolute top-[500px] left-[20px] w-[320px] h-[360px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
+            <!-- Node 3: Summary (Bottom Left - ENLARGED FOR READABILITY) -->
+            <!-- Size: 400x400. Position: left 20, top 580. Center: (220, 780) -->
+            <div class="absolute top-[580px] left-[20px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-12 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <p class="text-sm font-medium leading-relaxed">
+                    <p class="text-lg md:text-xl font-medium leading-relaxed">
                         Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
                     </p>
                 </div>
             </div>
 
             <!-- Node 4: Links (Bottom Right) -->
-            <!-- Size: 200x200. Position: left 450, top 650. Center is (550, 750) -->
-            <div class="absolute top-[650px] left-[450px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
+            <!-- Size: 200x200. Position: left 520, top 750. Center: (620, 850) -->
+            <div class="absolute top-[750px] left-[520px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
-                <div class="relative z-20 flex gap-6 text-4xl text-white dark:text-black">
+                <div class="relative z-20 flex gap-6 text-5xl text-white dark:text-black">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
