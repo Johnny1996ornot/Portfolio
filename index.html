@@ -38,6 +38,26 @@
             color: #f3f4f6;
         }
 
+        /* Organic Blob Animations */
+        @keyframes topoMorph {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
+            33% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(120deg) scale(1.04); }
+            66% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(240deg) scale(1.02); }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes topoMorphReverse {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg) scale(1); }
+            33% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(240deg) scale(1.02); }
+            66% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(120deg) scale(1.04); }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
+        }
+        
+        .blob-1 { animation: topoMorph 16s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-2 { animation: topoMorphReverse 19s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-3 { animation: topoMorph 22s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-4 { animation: topoMorphReverse 15s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+
         /* Fixed Masking Header Bar */
         .right-column-header {
             position: fixed;
@@ -194,18 +214,18 @@
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper -->
-        <div class="relative w-[360px] h-[650px] scale-[0.8] md:scale-[0.85] lg:scale-100 origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper (Expanded area to fit bigger blobs) -->
+        <div class="relative w-[380px] h-[700px] scale-[0.7] md:scale-[0.85] lg:scale-100 origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="360" height="650" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges -->
+            <svg width="380" height="700" class="absolute inset-0 z-0 pointer-events-none">
+                <!-- Dashed Edges between larger centers -->
                 <g class="stroke-connRed dark:stroke-connYellow opacity-60" stroke-width="4" stroke-dasharray="8,8" fill="none">
-                    <path id="edge1" d="M 110 130 L 270 310" />
-                    <path id="edge2" d="M 270 310 L 110 480" />
-                    <path id="edge3" d="M 110 130 L 110 480" />
-                    <path id="edge4" d="M 110 480 L 285 595" />
-                    <path id="edge5" d="M 270 310 L 285 595" />
+                    <path id="edge1" d="M 150 150 L 250 340" />
+                    <path id="edge2" d="M 250 340 L 150 560" />
+                    <path id="edge3" d="M 150 150 L 150 560" />
+                    <path id="edge4" d="M 150 560 L 280 620" />
+                    <path id="edge5" d="M 250 340 L 280 620" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
@@ -237,30 +257,50 @@
             </svg>
 
             <!-- Node 1: Name (Top Left) -->
-            <div class="absolute top-[20px] left-[0px] w-[220px] h-[220px] rounded-full bg-royal dark:bg-themeGreen z-10 flex flex-col items-center justify-center text-center p-4 shadow-xl border-4 border-white dark:border-black transition-colors duration-300 hover:scale-105">
-                <h1 class="text-2xl font-extrabold tracking-tight text-white dark:text-black leading-tight">
-                    John Paolo A.<br>Ramirez <span class="text-lg font-medium block mt-1">MSc</span>
-                </h1>
+            <div class="absolute top-[10px] left-[10px] w-[280px] h-[280px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
+                <!-- Blob Background -->
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
+                <!-- Foreground Text -->
+                <div class="relative z-20 text-white dark:text-black">
+                    <h1 class="text-3xl font-extrabold tracking-tight leading-tight">
+                        John Paolo A.<br>Ramirez <span class="text-xl font-medium block mt-1">MSc</span>
+                    </h1>
+                </div>
             </div>
 
             <!-- Node 2: Subtitle (Mid Right) -->
-            <div class="absolute top-[220px] right-[0px] w-[180px] h-[180px] rounded-full bg-royal dark:bg-themeGreen z-10 flex items-center justify-center text-center p-5 shadow-xl border-4 border-white dark:border-black transition-colors duration-300 hover:scale-105">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-white dark:text-black opacity-90 leading-relaxed">
-                    Spatial Ecology<br><br>Environmental Assessment & Modelling<br><br>Geospatial Analysis
-                </p>
+            <div class="absolute top-[220px] right-[10px] w-[240px] h-[240px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+                <!-- Blob Background -->
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
+                <!-- Foreground Text -->
+                <div class="relative z-20 text-white dark:text-black">
+                    <p class="text-xs md:text-sm font-bold uppercase tracking-widest opacity-90 leading-relaxed">
+                        Spatial Ecology<br><br>Environmental Assessment & Modelling<br><br>Geospatial Analysis
+                    </p>
+                </div>
             </div>
 
             <!-- Node 3: Summary (Bottom Left) -->
-            <div class="absolute top-[380px] left-[10px] w-[200px] h-[200px] rounded-full bg-royal dark:bg-themeGreen z-10 flex items-center justify-center text-center p-6 shadow-xl border-4 border-white dark:border-black transition-colors duration-300 hover:scale-105">
-                <p class="text-[10px] font-medium text-white dark:text-black opacity-95 leading-relaxed">
-                    Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
-                </p>
+            <div class="absolute top-[420px] left-[10px] w-[280px] h-[280px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+                <!-- Blob Background -->
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
+                <!-- Foreground Text -->
+                <div class="relative z-20 text-white dark:text-black">
+                    <p class="text-xs md:text-sm font-medium opacity-95 leading-relaxed">
+                        Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
+                    </p>
+                </div>
             </div>
 
             <!-- Node 4: Links (Bottom Right) -->
-            <div class="absolute bottom-[0px] right-[20px] w-[110px] h-[110px] rounded-full bg-royal dark:bg-themeGreen z-10 flex items-center justify-center gap-4 text-2xl shadow-xl border-4 border-white dark:border-black transition-colors duration-300 hover:scale-105 text-white dark:text-black">
-                <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <div class="absolute bottom-[10px] right-[30px] w-[140px] h-[140px] z-10 flex items-center justify-center gap-5 transition-transform duration-300 hover:scale-105">
+                <!-- Blob Background -->
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
+                <!-- Foreground Links -->
+                <div class="relative z-20 flex gap-5 text-3xl text-white dark:text-black">
+                    <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
             </div>
 
         </div>
@@ -451,7 +491,7 @@
                 </div>
             </section>
 
-            <!-- SECTION 4: GET IN TOUCH (Increased padding and min-height to push away prior section) -->
+            <!-- SECTION 4: GET IN TOUCH -->
             <section id="sec-contact" class="flex flex-col justify-center min-h-[100vh] pt-32 pb-32">
                 <div class="text-center md:text-left mt-2 max-w-2xl">
                     <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
