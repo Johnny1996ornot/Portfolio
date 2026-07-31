@@ -17,7 +17,7 @@
                     colors: {
                         royal: '#2563eb',       // Light mode blobs
                         connRed: '#ef4444',     // Light mode lines/dots
-                        themeGreen: '#22c55e',  // Dark mode blobs/text
+                        themeGreen: '#22c55e',  // Dark mode blobs/text & Island green
                         connYellow: '#eab308',  // Dark mode lines/dots
                         bgLight: '#f8f9fa',
                         bgDark: '#0f0f11'
@@ -69,7 +69,7 @@
         .blob-3 { animation: morph3 22s linear infinite; transform-origin: center; }
         .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
 
-        /* Small Isolated Island/Habitat Patch Animations (Fragmented Matrix) */
+        /* Biogeographic Island Float Animations (Isolated Matrix Patches) */
         @keyframes islandFloat1 {
             0% { border-radius: 35% 65% 60% 40% / 50% 40% 60% 50%; transform: translate(0px, 0px) rotate(0deg) scale(1); }
             50% { border-radius: 55% 45% 40% 60% / 40% 60% 40% 60%; transform: translate(4px, -5px) rotate(180deg) scale(1.05); }
@@ -283,16 +283,16 @@
             </svg>
 
             <!-- ================================================================= -->
-            <!-- 7 SEPARATED ISOLATED PATCHES (HABITAT FRAGMENTATION MATRIX)       -->
-            <!-- Placed safely away from the 4 major nodes & main connection lines -->
+            <!-- 7 PERMANENTLY GREEN BIOGEOGRAPHIC ISLAND PATCHES (FRAGMENTED MATRIX) -->
+            <!-- Uses permanent #22c55e green so it stays green in light and dark mode -->
             <!-- ================================================================= -->
-            <div class="absolute top-[120px] left-[380px] w-[65px] h-[65px] z-5 island-1 bg-royal/60 dark:bg-themeGreen/50 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[480px] left-[350px] w-[70px] h-[60px] z-5 island-2 bg-royal/50 dark:bg-themeGreen/40 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[280px] left-[280px] w-[55px] h-[55px] z-5 island-3 bg-royal/40 dark:bg-themeGreen/35 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[700px] left-[320px] w-[75px] h-[65px] z-5 island-4 bg-royal/55 dark:bg-themeGreen/45 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[900px] left-[420px] w-[60px] h-[60px] z-5 island-5 bg-royal/45 dark:bg-themeGreen/40 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[520px] left-[780px] w-[65px] h-[65px] z-5 island-6 bg-royal/50 dark:bg-themeGreen/45 border border-white/20 shadow-md pointer-events-none"></div>
-            <div class="absolute top-[820px] left-[760px] w-[70px] h-[60px] z-5 island-7 bg-royal/55 dark:bg-themeGreen/40 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[120px] left-[380px] w-[65px] h-[65px] z-5 island-1 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[480px] left-[350px] w-[70px] h-[60px] z-5 island-2 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[280px] left-[280px] w-[55px] h-[55px] z-5 island-3 bg-[#22c55e]/80 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[700px] left-[320px] w-[75px] h-[65px] z-5 island-4 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[900px] left-[420px] w-[60px] h-[60px] z-5 island-5 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[520px] left-[780px] w-[65px] h-[65px] z-5 island-6 bg-[#22c55e]/90 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[820px] left-[760px] w-[70px] h-[60px] z-5 island-7 bg-[#22c55e]/85 border border-white/20 shadow-md pointer-events-none"></div>
 
             <!-- Node 1: Name (Top Left - Center: 180, 140) -->
             <!-- Size: 480x360. Position: left -60, top -40 -->
