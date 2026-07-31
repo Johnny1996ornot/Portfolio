@@ -53,10 +53,10 @@
             100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
         }
         
-        .blob-1 { animation: topoMorph 16s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
-        .blob-2 { animation: topoMorphReverse 19s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
-        .blob-3 { animation: topoMorph 22s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
-        .blob-4 { animation: topoMorphReverse 15s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-1 { animation: topoMorph 16s linear infinite; transform-origin: center; }
+        .blob-2 { animation: topoMorphReverse 19s linear infinite; transform-origin: center; }
+        .blob-3 { animation: topoMorph 22s linear infinite; transform-origin: center; }
+        .blob-4 { animation: topoMorphReverse 15s linear infinite; transform-origin: center; }
 
         /* Fixed Masking Header Bar */
         .right-column-header {
@@ -210,62 +210,61 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- FIXED LEFT SIDEBAR (NETWORK BLOBS SPREAD)  -->
+    <!-- FIXED LEFT SIDEBAR (SEPARATED BLOBS)       -->
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper (Expanded further to spread nodes apart) -->
-        <div class="relative w-[500px] h-[820px] scale-[0.55] md:scale-[0.7] lg:scale-[0.85] origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper with large coordinate spread -->
+        <div class="relative w-[540px] h-[860px] scale-[0.5] md:scale-[0.65] lg:scale-[0.8] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="500" height="820" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges calculated exactly to center of each node -->
-                <g class="stroke-connRed dark:stroke-connYellow opacity-60" stroke-width="4" stroke-dasharray="8,8" fill="none">
-                    <!-- Node 1 (150, 140) to Node 2 (360, 310) -->
-                    <path id="edge1" d="M 150 140 L 360 310" />
-                    <!-- Node 2 (360, 310) to Node 3 (150, 620) -->
-                    <path id="edge2" d="M 360 310 L 150 620" />
-                    <!-- Node 1 (150, 140) to Node 3 (150, 620) -->
-                    <path id="edge3" d="M 150 140 L 150 620" />
-                    <!-- Node 3 (150, 620) to Node 4 (370, 700) -->
-                    <path id="edge4" d="M 150 620 L 370 700" />
-                    <!-- Node 2 (360, 310) to Node 4 (370, 700) -->
-                    <path id="edge5" d="M 360 310 L 370 700" />
+            <svg width="540" height="860" class="absolute inset-0 z-0 pointer-events-none">
+                <!-- Dashed Edges explicitly computed between node centers -->
+                <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="4" stroke-dasharray="10,10" fill="none">
+                    <!-- Node 1 (130, 150) to Node 2 (410, 270) -->
+                    <path id="edge1" d="M 130 150 L 410 270" />
+                    <!-- Node 2 (410, 270) to Node 3 (130, 710) -->
+                    <path id="edge2" d="M 410 270 L 130 710" />
+                    <!-- Node 1 (130, 150) to Node 3 (130, 710) -->
+                    <path id="edge3" d="M 130 150 L 130 710" />
+                    <!-- Node 3 (130, 710) to Node 4 (410, 740) -->
+                    <path id="edge4" d="M 130 710 L 410 740" />
+                    <!-- Node 2 (410, 270) to Node 4 (410, 740) -->
+                    <path id="edge5" d="M 410 270 L 410 740" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
-                <circle r="6" class="fill-connRed dark:fill-connYellow">
+                <circle r="7" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="3s" repeatCount="indefinite">
                         <mpath href="#edge1"/>
                     </animateMotion>
                 </circle>
-                <circle r="6" class="fill-connRed dark:fill-connYellow">
+                <circle r="7" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="4s" repeatCount="indefinite">
                         <mpath href="#edge2"/>
                     </animateMotion>
                 </circle>
-                <circle r="6" class="fill-connRed dark:fill-connYellow">
+                <circle r="7" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="4.5s" repeatCount="indefinite">
                         <mpath href="#edge3"/>
                     </animateMotion>
                 </circle>
-                <circle r="6" class="fill-connRed dark:fill-connYellow">
+                <circle r="7" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="3.5s" repeatCount="indefinite">
                         <mpath href="#edge4"/>
                     </animateMotion>
                 </circle>
-                <circle r="6" class="fill-connRed dark:fill-connYellow">
+                <circle r="7" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="5s" repeatCount="indefinite">
                         <mpath href="#edge5"/>
                     </animateMotion>
                 </circle>
             </svg>
 
-            <!-- Node 1: Name (Top Left - Made Bigger) -->
-            <div class="absolute top-[-10px] left-[-10px] w-[320px] h-[300px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
-                <!-- Blob Background -->
-                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
-                <!-- Foreground Text (Enlarged) -->
+            <!-- Node 1: Name (Top Left - Fully Opaque & Bigger) -->
+            <div class="absolute top-[0px] left-[0px] w-[300px] h-[300px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
                     <h1 class="text-4xl font-extrabold tracking-tight leading-tight">
                         John Paolo A.<br>Ramirez <span class="text-2xl font-medium block mt-1">MSc</span>
@@ -273,38 +272,35 @@
                 </div>
             </div>
 
-            <!-- Node 2: Subtitle (Mid Right - Moved Further) -->
-            <div class="absolute top-[180px] left-[240px] w-[240px] h-[240px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <!-- Blob Background -->
-                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
-                <!-- Foreground Text -->
+            <!-- Node 2: Subtitle (Top Right / Distinctly Separated) -->
+            <div class="absolute top-[120px] left-[260px] w-[300px] h-[300px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <p class="text-xs md:text-sm font-bold uppercase tracking-widest opacity-90 leading-relaxed">
+                    <p class="text-sm md:text-base font-bold uppercase tracking-widest leading-relaxed">
                         Spatial Ecology<br><br>Environmental Assessment & Modelling<br><br>Geospatial Analysis
                     </p>
                 </div>
             </div>
 
-            <!-- Node 3: Summary (Bottom Left - Moved Further Down) -->
-            <div class="absolute top-[480px] left-[-10px] w-[320px] h-[280px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <!-- Blob Background -->
-                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
-                <!-- Foreground Text -->
+            <!-- Node 3: Summary (Bottom Left / Far Apart) -->
+            <div class="absolute top-[520px] left-[0px] w-[320px] h-[320px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <p class="text-xs md:text-sm font-medium opacity-95 leading-relaxed">
+                    <p class="text-sm md:text-base font-medium leading-relaxed">
                         Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
                     </p>
                 </div>
             </div>
 
-            <!-- Node 4: Links (Bottom Right - Moved Further) -->
-            <div class="absolute top-[620px] left-[300px] w-[140px] h-[140px] z-10 flex items-center justify-center gap-5 transition-transform duration-300 hover:scale-105">
-                <!-- Blob Background -->
-                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-xl opacity-95"></div>
-                <!-- Foreground Links -->
-                <div class="relative z-20 flex gap-5 text-3xl text-white dark:text-black">
-                    <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <!-- Node 4: Links (Bottom Right / Separated with clear line visibility) -->
+            <div class="absolute top-[620px] left-[320px] w-[180px] h-[180px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+                <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
+                <div class="relative z-20 flex gap-6 text-4xl text-white dark:text-black">
+                    <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
 
@@ -622,7 +618,7 @@
         }
 
         // --- THEME TOGGLE SCRIPT ---
-        function toggleTheme() {
+        textChange = () => {
             const html = document.documentElement;
             const text = document.getElementById('theme-text');
             const icon = document.getElementById('theme-icon');
@@ -636,6 +632,9 @@
                 text.innerText = "Light Theme";
                 icon.className = "fa-solid fa-sun mr-2";
             }
+        }
+        function toggleTheme() {
+            textChange();
         }
         document.getElementById('theme-text').innerText = "Light Theme";
 
