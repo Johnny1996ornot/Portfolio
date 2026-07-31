@@ -15,7 +15,7 @@
                         sans: ['-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
                     },
                     colors: {
-                        royal: '#3b82f6',       // Ocean blue background in light mode
+                        royal: '#1e3a8a',       // Deep Ocean Blue background in light mode
                         themeGreen: '#22c55e',  // Main island green
                         connYellow: '#eab308',  // Dark mode lines/dots
                         bgLight: '#f8f9fa',
@@ -69,57 +69,59 @@
         .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
 
         /* ========================================================
-           Flat Multi-Shape Island System (Light Mode Only)
-           - Uses exact duplicated shapes stacked behind the land for a perfect fit
-           - No glowing drop-shadows or blurring
+           Organic Glowing Archipelago System (Light Mode Only)
         ======================================================== */
-        @keyframes float1 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(3px, -4px); } }
-        @keyframes float2 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-4px, 3px); } }
+        @keyframes float1 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(4px, -6px); } }
+        @keyframes float2 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-5px, 4px); } }
 
-        .island-group { position: absolute; pointer-events: none; width: 80px; height: 60px; }
-        .island-float-1 { animation: float1 12s ease-in-out infinite; }
-        .island-float-2 { animation: float2 15s ease-in-out infinite; }
+        .island-group { position: absolute; pointer-events: none; }
+        .island-float-1 { animation: float1 14s ease-in-out infinite; }
+        .island-float-2 { animation: float2 17s ease-in-out infinite; }
 
-        /* The flat water base layers (Duplicates of the land shapes) */
-        .water-layer {
+        /* The wrapper handles the unified glowing water gradient around the combined shape */
+        .small-island-wrapper {
             position: absolute;
             top: 50%; left: 50%;
             width: 100%; height: 100%;
-            background-color: #60a5fa; /* Flat light blue aura */
-        }
-        .core-water {
-            border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-            transform: translate(-50%, -50%) scale(1.45);
-        }
-        .sand-water {
-            border-radius: 35% 65% 60% 40% / 50% 40% 60% 50%;
-            /* Transform is applied inline to precisely match the sand's rotation/shift but at a larger scale */
+            transform: translate(-50%, -50%);
+            /* Layered drop-shadow creates a bright cyan core fading into deep blue water */
+            filter: drop-shadow(0 0 10px #67e8f9) drop-shadow(0 0 25px #06b6d4) drop-shadow(0 0 45px #0284c7);
         }
 
-        /* Asymmetrical Light Brown Beach Sand Ring */
+        /* Unique Organic Shapes */
+        .shape-1 { border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%; } /* Elongated */
+        .shape-2 { border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%; } /* Soft Square */
+        .shape-3 { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; } /* Irregular Bean */
+        .shape-4 { border-radius: 50% 50% 55% 45% / 45% 55% 50% 50%; } /* Roundish */
+        .shape-5 { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; } /* Diagonal Stretch */
+
+        /* Lighter, natural sand layer */
         .island-sand {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: #d97706; /* Solid light brown beach tone */
-            border-radius: 35% 65% 60% 40% / 50% 40% 60% 50%;
-            /* Transform is applied inline to vary the beach rotation per island */
+            background-color: #fde68a; /* Light natural beach sand */
         }
-
-        /* Solid Green Island Core */
+        
+        /* Solid green core */
         .island-core {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 0; left: 0;
             width: 100%; height: 100%;
             background-color: #22c55e;
-            border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-            transform: translate(-50%, -50%) scale(1);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1); /* Slight inner depth */
         }
 
-        /* STRICT DARK MODE RULE: Hide everything except the pure green core. No overrides. */
-        html.dark .water-layer,
+        /* STRICT DARK MODE RULES */
+        html.dark .small-island-wrapper {
+            filter: none !important; /* Kills the glow */
+        }
         html.dark .island-sand {
-            display: none !important;
+            display: none !important; /* Hides the beach */
+        }
+        html.dark .island-core {
+            border: 1px solid #3f3f46;
+            background-color: #18181b; 
         }
 
         /* ========================================================
@@ -278,6 +280,7 @@
     <!-- ========================================== -->
     <!-- LEFT SIDEBAR (SCROLLS ON MOBILE, FIXED ON DESKTOP) -->
     <!-- ========================================== -->
+    <!-- Updated background: royal is now deep ocean blue -->
     <div class="w-full h-[100vh] md:fixed md:top-0 md:left-0 md:w-[38%] md:h-screen flex items-center justify-center overflow-hidden z-20 bg-royal dark:bg-[#0f0f11] transition-colors duration-300">
         
         <!-- Spatial Connectivity Wrapper - Shifted slightly left -->
@@ -285,16 +288,13 @@
             
             <!-- SVG Connectivity Lines & Moving Dots -->
             <svg width="1000" height="1100" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges intersecting main node centers -->
-                <g class="stroke-white/70 dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
+                <g class="stroke-white/50 dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
                     <path id="edge1" d="M 180 140 L 640 280" />
                     <path id="edge2" d="M 640 280 L 180 780" />
                     <path id="edge3" d="M 180 140 L 180 780" />
                     <path id="edge4" d="M 180 780 L 600 850" />
                     <path id="edge5" d="M 640 280 L 600 850" />
                 </g>
-                
-                <!-- Animated Moving Dots -->
                 <circle r="9" class="fill-white dark:fill-connYellow">
                     <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#edge1"/></animateMotion>
                 </circle>
@@ -313,80 +313,79 @@
             </svg>
 
             <!-- ================================================================= -->
-            <!-- FLAT, MULTI-SHAPE ATOLL ISLANDS (Completely clear of major blobs) -->
-            <!-- Remapped coordinates deep into corners and voids to avoid sweep   -->
+            <!-- ORGANIC ISLAND ARCHIPELAGO (Strict Safe Zones away from Blobs)    -->
             <!-- ================================================================= -->
             
             <!-- Island 1: Top Right Extreme -->
-            <div class="island-group island-float-1 top-[80px] left-[880px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-65%, -35%) scale(1.5) rotate(-20deg);"></div>
-                <div class="island-sand" style="transform: translate(-65%, -35%) scale(1.2) rotate(-20deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-1 top-[80px] left-[880px] w-[75px] h-[50px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-1" style="transform: translate(15%, 20%) scale(1.15);"></div>
+                    <div class="island-core shape-1"></div>
+                </div>
             </div>
 
             <!-- Island 2: Top Center Void -->
-            <div class="island-group island-float-2 top-[20px] left-[450px] w-[50px] h-[35px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-20%, -70%) scale(1.45) rotate(45deg);"></div>
-                <div class="island-sand" style="transform: translate(-20%, -70%) scale(1.15) rotate(45deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-2 top-[50px] left-[450px] w-[60px] h-[45px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-2" style="transform: translate(-10%, -15%) scale(1.12);"></div>
+                    <div class="island-core shape-2"></div>
+                </div>
             </div>
 
             <!-- Island 3: Far Right Edge -->
-            <div class="island-group island-float-2 top-[500px] left-[900px] w-[65px] h-[65px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-50%, -20%) scale(1.5) rotate(10deg);"></div>
-                <div class="island-sand" style="transform: translate(-50%, -20%) scale(1.2) rotate(10deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-2 top-[500px] left-[920px] w-[55px] h-[75px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-3" style="transform: translate(-20%, 10%) scale(1.15);"></div>
+                    <div class="island-core shape-3"></div>
+                </div>
             </div>
 
-            <!-- Island 4: Deep Center Triangle Void (The requested island "in between larger nodes") -->
-            <div class="island-group island-float-1 top-[420px] left-[340px] w-[55px] h-[45px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-70%, -50%) scale(1.48) rotate(-40deg);"></div>
-                <div class="island-sand" style="transform: translate(-70%, -50%) scale(1.18) rotate(-40deg);"></div>
-                <div class="island-core"></div>
+            <!-- Island 4: Deep Center Void 1 (Safely between edges 1, 2, 3) -->
+            <div class="island-group island-float-1 top-[420px] left-[350px] w-[65px] h-[65px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-4" style="transform: translate(15%, -15%) scale(1.18);"></div>
+                    <div class="island-core shape-4"></div>
+                </div>
             </div>
 
-            <!-- Island 5: Right Mid-Void (Below Node 2) -->
-            <div class="island-group island-float-2 top-[450px] left-[750px] w-[45px] h-[45px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-30%, -60%) scale(1.5) rotate(30deg);"></div>
-                <div class="island-sand" style="transform: translate(-30%, -60%) scale(1.2) rotate(30deg);"></div>
-                <div class="island-core"></div>
+            <!-- Island 5: Deep Center Void 2 (Safely between edges 2, 4, 5) -->
+            <div class="island-group island-float-2 top-[620px] left-[450px] w-[50px] h-[50px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-5" style="transform: translate(-15%, 15%) scale(1.15);"></div>
+                    <div class="island-core shape-5"></div>
+                </div>
             </div>
 
             <!-- Island 6: Bottom Right Corner Extreme -->
-            <div class="island-group island-float-2 top-[950px] left-[850px] w-[75px] h-[50px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-40%, -60%) scale(1.5) rotate(50deg);"></div>
-                <div class="island-sand" style="transform: translate(-40%, -60%) scale(1.2) rotate(50deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-2 top-[950px] left-[880px] w-[80px] h-[55px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-1" style="transform: translate(-15%, -10%) scale(1.12);"></div>
+                    <div class="island-core shape-1"></div>
+                </div>
             </div>
 
             <!-- Island 7: Bottom Center Void -->
-            <div class="island-group island-float-2 top-[950px] left-[420px] w-[50px] h-[40px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-30%, -60%) scale(1.5) rotate(15deg);"></div>
-                <div class="island-sand" style="transform: translate(-30%, -60%) scale(1.2) rotate(15deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-1 top-[1000px] left-[450px] w-[55px] h-[50px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-2" style="transform: translate(10%, -20%) scale(1.15);"></div>
+                    <div class="island-core shape-2"></div>
+                </div>
             </div>
 
             <!-- Island 8: Far Left Edge Mid -->
-            <div class="island-group island-float-1 top-[450px] left-[20px] w-[60px] h-[70px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-60%, -40%) scale(1.48) rotate(-15deg);"></div>
-                <div class="island-sand" style="transform: translate(-60%, -40%) scale(1.18) rotate(-15deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-1 top-[450px] left-[40px] w-[50px] h-[65px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-3" style="transform: translate(15%, 15%) scale(1.12);"></div>
+                    <div class="island-core shape-3"></div>
+                </div>
             </div>
 
             <!-- Island 9: Bottom Left Extreme -->
-            <div class="island-group island-float-1 top-[1020px] left-[50px] w-[70px] h-[50px]">
-                <div class="water-layer core-water"></div>
-                <div class="water-layer sand-water" style="transform: translate(-70%, -30%) scale(1.48) rotate(-30deg);"></div>
-                <div class="island-sand" style="transform: translate(-70%, -30%) scale(1.18) rotate(-30deg);"></div>
-                <div class="island-core"></div>
+            <div class="island-group island-float-2 top-[1020px] left-[60px] w-[65px] h-[50px]">
+                <div class="small-island-wrapper">
+                    <div class="island-sand shape-4" style="transform: translate(-20%, -10%) scale(1.15);"></div>
+                    <div class="island-core shape-4"></div>
+                </div>
             </div>
 
             <!-- ================================================================= -->
