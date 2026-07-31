@@ -69,15 +69,15 @@
         .blob-3 { animation: morph3 22s linear infinite; transform-origin: center; }
         .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
 
-        /* Small Island/Habitat Patch Animations */
+        /* Small Isolated Island/Habitat Patch Animations (Fragmented Matrix) */
         @keyframes islandFloat1 {
             0% { border-radius: 35% 65% 60% 40% / 50% 40% 60% 50%; transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            50% { border-radius: 55% 45% 40% 60% / 40% 60% 40% 60%; transform: translate(6px, -8px) rotate(180deg) scale(1.08); }
+            50% { border-radius: 55% 45% 40% 60% / 40% 60% 40% 60%; transform: translate(4px, -5px) rotate(180deg) scale(1.05); }
             100% { border-radius: 35% 65% 60% 40% / 50% 40% 60% 50%; transform: translate(0px, 0px) rotate(360deg) scale(1); }
         }
         @keyframes islandFloat2 {
             0% { border-radius: 60% 40% 30% 70% / 40% 60% 50% 50%; transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            50% { border-radius: 40% 60% 70% 30% / 60% 40% 40% 60%; transform: translate(-8px, 6px) rotate(-180deg) scale(0.92); }
+            50% { border-radius: 40% 60% 70% 30% / 60% 40% 40% 60%; transform: translate(-5px, 4px) rotate(-180deg) scale(0.95); }
             100% { border-radius: 60% 40% 30% 70% / 40% 60% 50% 50%; transform: translate(0px, 0px) rotate(-360deg) scale(1); }
         }
 
@@ -245,23 +245,23 @@
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper - WIDER CANVAS (950x1100) -->
-        <div class="relative w-[950px] h-[1100px] scale-[0.35] md:scale-[0.5] lg:scale-[0.6] origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper - SHIFTED LEFT & WIDER CANVAS (1000x1100) -->
+        <div class="relative w-[1000px] h-[1100px] -ml-24 scale-[0.32] md:scale-[0.46] lg:scale-[0.56] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="950" height="1100" class="absolute inset-0 z-0 pointer-events-none">
+            <svg width="1000" height="1100" class="absolute inset-0 z-0 pointer-events-none">
                 <!-- Dashed Edges exactly intersecting the new blob centers -->
                 <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
-                    <!-- Name (180, 140) to Roles (760, 280) -->
-                    <path id="edge1" d="M 180 140 L 760 280" />
-                    <!-- Roles (760, 280) to Summary (180, 780) -->
-                    <path id="edge2" d="M 760 280 L 180 780" />
+                    <!-- Name (180, 140) to Roles (640, 280) -->
+                    <path id="edge1" d="M 180 140 L 640 280" />
+                    <!-- Roles (640, 280) to Summary (180, 780) -->
+                    <path id="edge2" d="M 640 280 L 180 780" />
                     <!-- Name (180, 140) to Summary (180, 780) -->
                     <path id="edge3" d="M 180 140 L 180 780" />
-                    <!-- Summary (180, 780) to Links (720, 850) -->
-                    <path id="edge4" d="M 180 780 L 720 850" />
-                    <!-- Roles (760, 280) to Links (720, 850) -->
-                    <path id="edge5" d="M 760 280 L 720 850" />
+                    <!-- Summary (180, 780) to Links (600, 850) -->
+                    <path id="edge4" d="M 180 780 L 600 850" />
+                    <!-- Roles (640, 280) to Links (600, 850) -->
+                    <path id="edge5" d="M 640 280 L 600 850" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
@@ -282,16 +282,17 @@
                 </circle>
             </svg>
 
-            <!-- ========================================== -->
-            <!-- 7 RANDOM SMALL ISLAND / HABITAT PATCHES    -->
-            <!-- ========================================== -->
-            <div class="absolute top-[80px] left-[420px] w-[80px] h-[80px] z-5 island-1 bg-royal/70 dark:bg-themeGreen/60 border border-white/20 shadow-lg pointer-events-none"></div>
-            <div class="absolute top-[480px] left-[450px] w-[90px] h-[75px] z-5 island-2 bg-royal/60 dark:bg-themeGreen/50 border border-white/20 shadow-lg pointer-events-none"></div>
-            <div class="absolute top-[220px] left-[320px] w-[70px] h-[70px] z-5 island-3 bg-royal/50 dark:bg-themeGreen/40 border border-white/20 shadow-lg pointer-events-none"></div>
-            <div class="absolute top-[650px] left-[380px] w-[85px] h-[85px] z-5 island-4 bg-royal/65 dark:bg-themeGreen/55 border border-white/20 shadow-lg pointer-events-none"></div>
-            <div class="absolute top-[900px] left-[480px] w-[75px] h-[70px] z-5 island-5 bg-royal/50 dark:bg-themeGreen/45 border border-white/20 shadow-lg pointer-events-none"></div>
-            <div class="absolute top-[380px] left-[850px] w-[80px] h-[80px] z-5 island-6 bg-royal/60 dark:bg-themeGreen/50 border border-white/20 shadow-lg pointer-events-none"></div>
-            <div class="absolute top-[720px] left-[850px] w-[85px] h-[75px] z-5 island-7 bg-royal/55 dark:bg-themeGreen/45 border border-white/20 shadow-lg pointer-events-none"></div>
+            <!-- ================================================================= -->
+            <!-- 7 SEPARATED ISOLATED PATCHES (HABITAT FRAGMENTATION MATRIX)       -->
+            <!-- Placed safely away from the 4 major nodes & main connection lines -->
+            <!-- ================================================================= -->
+            <div class="absolute top-[120px] left-[380px] w-[65px] h-[65px] z-5 island-1 bg-royal/60 dark:bg-themeGreen/50 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[480px] left-[350px] w-[70px] h-[60px] z-5 island-2 bg-royal/50 dark:bg-themeGreen/40 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[280px] left-[280px] w-[55px] h-[55px] z-5 island-3 bg-royal/40 dark:bg-themeGreen/35 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[700px] left-[320px] w-[75px] h-[65px] z-5 island-4 bg-royal/55 dark:bg-themeGreen/45 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[900px] left-[420px] w-[60px] h-[60px] z-5 island-5 bg-royal/45 dark:bg-themeGreen/40 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[520px] left-[780px] w-[65px] h-[65px] z-5 island-6 bg-royal/50 dark:bg-themeGreen/45 border border-white/20 shadow-md pointer-events-none"></div>
+            <div class="absolute top-[820px] left-[760px] w-[70px] h-[60px] z-5 island-7 bg-royal/55 dark:bg-themeGreen/40 border border-white/20 shadow-md pointer-events-none"></div>
 
             <!-- Node 1: Name (Top Left - Center: 180, 140) -->
             <!-- Size: 480x360. Position: left -60, top -40 -->
@@ -304,9 +305,9 @@
                 </div>
             </div>
 
-            <!-- Node 2: Subtitle (Top Right - Shifted further right to avoid border cropping, Center: 760, 280) -->
-            <!-- Size: 400x400. Position: left 560, top 80 -->
-            <div class="absolute top-[80px] left-[560px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+            <!-- Node 2: Subtitle (Top Right - Shifted further left to prevent border cutoff, Center: 640, 280) -->
+            <!-- Size: 400x400. Position: left 440, top 80 -->
+            <div class="absolute top-[80px] left-[440px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black w-full px-4">
                     <p class="text-base font-bold uppercase tracking-wider pb-3">Spatial Ecology</p>
@@ -328,9 +329,9 @@
                 </div>
             </div>
 
-            <!-- Node 4: Links (Bottom Right - Center: 720, 850) -->
-            <!-- Size: 200x200. Position: left 620, top 750 -->
-            <div class="absolute top-[750px] left-[620px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+            <!-- Node 4: Links (Bottom Right - Center: 600, 850) -->
+            <!-- Size: 200x200. Position: left 500, top 750 -->
+            <div class="absolute top-[750px] left-[500px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 flex gap-6 text-5xl text-white dark:text-black">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
