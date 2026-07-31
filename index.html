@@ -214,67 +214,69 @@
     <!-- ========================================== -->
     <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex items-center justify-center overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Spatial Connectivity Wrapper with wide coordinate layout -->
-        <div class="relative w-[520px] h-[820px] scale-[0.5] md:scale-[0.62] lg:scale-[0.75] origin-center pointer-events-auto">
+        <!-- Spatial Connectivity Wrapper - EXPANDED CANVAS (700x1000) -->
+        <div class="relative w-[700px] h-[1000px] scale-[0.4] md:scale-[0.55] lg:scale-[0.65] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
-            <svg width="520" height="820" class="absolute inset-0 z-0 pointer-events-none">
-                <!-- Dashed Edges matching exact node centers -->
-                <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="4" stroke-dasharray="10,10" fill="none">
-                    <!-- Node 1 (130, 130) to Node 2 (390, 240) -->
-                    <path id="edge1" d="M 130 130 L 390 240" />
-                    <!-- Node 2 (390, 240) to Node 3 (150, 680) -->
-                    <path id="edge2" d="M 390 240 L 150 680" />
-                    <!-- Node 1 (130, 130) to Node 3 (150, 680) -->
-                    <path id="edge3" d="M 130 130 L 150 680" />
-                    <!-- Node 3 (150, 680) to Node 4 (400, 710) -->
-                    <path id="edge4" d="M 150 680 L 400 710" />
-                    <!-- Node 2 (390, 240) to Node 4 (400, 710) -->
-                    <path id="edge5" d="M 390 240 L 400 710" />
+            <svg width="700" height="1000" class="absolute inset-0 z-0 pointer-events-none">
+                <!-- Dashed Edges mathematically aligned to the centers of the divs below -->
+                <g class="stroke-connRed dark:stroke-connYellow opacity-90" stroke-width="5" stroke-dasharray="12,12" fill="none">
+                    <!-- Center 1 (170, 170) to Center 2 (550, 300) -->
+                    <path id="edge1" d="M 170 170 L 550 300" />
+                    <!-- Center 2 (550, 300) to Center 3 (180, 680) -->
+                    <path id="edge2" d="M 550 300 L 180 680" />
+                    <!-- Center 1 (170, 170) to Center 3 (180, 680) -->
+                    <path id="edge3" d="M 170 170 L 180 680" />
+                    <!-- Center 3 (180, 680) to Center 4 (550, 750) -->
+                    <path id="edge4" d="M 180 680 L 550 750" />
+                    <!-- Center 2 (550, 300) to Center 4 (550, 750) -->
+                    <path id="edge5" d="M 550 300 L 550 750" />
                 </g>
                 
                 <!-- Animated Moving Dots representing Data Flow -->
-                <circle r="7" class="fill-connRed dark:fill-connYellow">
+                <circle r="8" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="3s" repeatCount="indefinite">
                         <mpath href="#edge1"/>
                     </animateMotion>
                 </circle>
-                <circle r="7" class="fill-connRed dark:fill-connYellow">
+                <circle r="8" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="4s" repeatCount="indefinite">
                         <mpath href="#edge2"/>
                     </animateMotion>
                 </circle>
-                <circle r="7" class="fill-connRed dark:fill-connYellow">
+                <circle r="8" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="4.5s" repeatCount="indefinite">
                         <mpath href="#edge3"/>
                     </animateMotion>
                 </circle>
-                <circle r="7" class="fill-connRed dark:fill-connYellow">
+                <circle r="8" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="3.5s" repeatCount="indefinite">
                         <mpath href="#edge4"/>
                     </animateMotion>
                 </circle>
-                <circle r="7" class="fill-connRed dark:fill-connYellow">
+                <circle r="8" class="fill-connRed dark:fill-connYellow">
                     <animateMotion dur="5s" repeatCount="indefinite">
                         <mpath href="#edge5"/>
                     </animateMotion>
                 </circle>
             </svg>
 
-            <!-- Node 1: Name (Top Left - Larger Blob & Larger Name Text) -->
-            <div class="absolute top-[-20px] left-[-20px] w-[300px] h-[300px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+            <!-- Node 1: Name (Top Left) -->
+            <!-- Size: 340x340. Position: 0, 0. Center is (170, 170) -->
+            <div class="absolute top-[0px] left-[0px] w-[340px] h-[340px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
-                        John Paolo A.<br>Ramirez <span class="text-2xl md:text-3xl font-medium block mt-1">MSc</span>
+                    <h1 class="text-5xl font-extrabold tracking-tight leading-tight">
+                        John Paolo A.<br>Ramirez <span class="text-3xl font-medium block mt-2">MSc</span>
                     </h1>
                 </div>
             </div>
 
-            <!-- Node 2: Subtitle (Top Right - Separated Safely) -->
-            <div class="absolute top-[80px] left-[240px] w-[300px] h-[320px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+            <!-- Node 2: Subtitle (Top Right) -->
+            <!-- Size: 300x300. Position: left 400, top 150. Center is (550, 300) -->
+            <div class="absolute top-[150px] left-[400px] w-[300px] h-[300px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-2 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
                     <p class="text-sm md:text-base font-bold uppercase tracking-widest leading-relaxed">
@@ -283,20 +285,22 @@
                 </div>
             </div>
 
-            <!-- Node 3: Summary (Bottom Left - Wide Gap from Top Node) -->
-            <div class="absolute top-[480px] left-[0px] w-[300px] h-[400px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+            <!-- Node 3: Summary (Bottom Left) -->
+            <!-- Size: 320x360. Position: left 20, top 500. Center is (180, 680) -->
+            <div class="absolute top-[500px] left-[20px] w-[320px] h-[360px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-3 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <p class="text-xs md:text-sm font-medium leading-relaxed">
+                    <p class="text-sm font-medium leading-relaxed">
                         Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
                     </p>
                 </div>
             </div>
 
             <!-- Node 4: Links (Bottom Right) -->
-            <div class="absolute top-[600px] left-[310px] w-[180px] h-[220px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-full"></div>
+            <!-- Size: 200x200. Position: left 450, top 650. Center is (550, 750) -->
+            <div class="absolute top-[650px] left-[450px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-4 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 flex gap-6 text-4xl text-white dark:text-black">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -525,7 +529,6 @@
         // --- SCROLL ARROW FADE EFFECT ---
         window.addEventListener('scroll', () => {
             const indicator = document.getElementById('scroll-indicator');
-            // Hide indicator once the user scrolls past 150px
             if (window.scrollY > 150) {
                 indicator.style.opacity = '0';
                 indicator.style.pointerEvents = 'none';
