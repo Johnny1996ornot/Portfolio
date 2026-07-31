@@ -51,10 +51,10 @@
             100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
         }
         
-        .blob-1 { animation: topoMorph 14s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
-        .blob-2 { animation: topoMorphReverse 17s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
-        .blob-3 { animation: topoMorph 21s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
-        .blob-4 { animation: topoMorphReverse 13s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-1 { animation: topoMorph 16s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-2 { animation: topoMorphReverse 19s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-3 { animation: topoMorph 22s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
+        .blob-4 { animation: topoMorphReverse 15s linear infinite; transform-origin: center; transition: background-color 0.5s ease; }
 
         /* Fixed Masking Header Bar */
         .right-column-header {
@@ -209,47 +209,52 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- FIXED LEFT SIDEBAR (4 BLOBS)               -->
+    <!-- FIXED LEFT SIDEBAR (OVERLAPPING BLOBS)     -->
     <!-- ========================================== -->
-    <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen flex flex-col items-center justify-center overflow-hidden z-20 pl-0 md:pl-4 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none gap-4 py-10">
+    <div class="fixed left-0 top-0 w-full md:w-[38%] h-screen overflow-hidden z-20 bg-[#f8f9fa] dark:bg-[#0f0f11] pointer-events-none">
         
-        <!-- Blob 1: Name -->
-        <div class="relative flex items-center justify-center w-[280px] h-[120px] md:w-[320px] md:h-[140px]">
-            <div class="absolute inset-0 bg-royal dark:bg-mellow shadow-lg opacity-95 blob-1 rounded-[40%_60%_70%_30%/40%_50%_60%_50%]"></div>
-            <div class="relative z-10 text-center px-4 text-white dark:text-black pointer-events-auto">
-                <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight">
-                    John Paolo A.<br>Ramirez <span class="text-lg md:text-xl font-medium">MSc</span>
-                </h1>
-            </div>
+        <!-- Background Blobs forming a continuous organic shape -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Name Blob (Top) -->
+            <div class="absolute top-[8%] left-[50%] -translate-x-[50%] w-[320px] h-[320px] bg-royal dark:bg-mellow opacity-95 blob-1 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] mix-blend-multiply dark:mix-blend-normal"></div>
+            <!-- Subtitle Blob (Middle Right) -->
+            <div class="absolute top-[32%] left-[58%] -translate-x-[50%] w-[260px] h-[260px] bg-royal dark:bg-mellow opacity-95 blob-2 rounded-[60%_40%_50%_50%/30%_60%_40%_70%] mix-blend-multiply dark:mix-blend-normal"></div>
+            <!-- Summary Blob (Middle Left) -->
+            <div class="absolute top-[48%] left-[45%] -translate-x-[50%] w-[360px] h-[360px] bg-royal dark:bg-mellow opacity-95 blob-3 rounded-[50%_50%_30%_70%/50%_70%_50%_30%] mix-blend-multiply dark:mix-blend-normal"></div>
+            <!-- Links Blob (Bottom) -->
+            <div class="absolute top-[75%] left-[55%] -translate-x-[50%] w-[180px] h-[180px] bg-royal dark:bg-mellow opacity-95 blob-4 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] mix-blend-multiply dark:mix-blend-normal"></div>
         </div>
 
-        <!-- Blob 2: Subtitle/Info -->
-        <div class="relative flex items-center justify-center w-[300px] h-[100px] md:w-[360px] md:h-[120px]">
-            <div class="absolute inset-0 bg-royal dark:bg-mellow shadow-lg opacity-95 blob-2 rounded-[60%_40%_50%_50%/30%_60%_40%_70%]"></div>
-            <div class="relative z-10 text-center px-6 text-white dark:text-black pointer-events-auto">
+        <!-- Foreground Content Container -->
+        <div class="absolute inset-0 flex flex-col items-center justify-start pt-[14vh] pb-10 z-10 pointer-events-auto">
+            
+            <!-- Name Block -->
+            <div class="text-center px-4 text-white dark:text-black mb-[8vh] max-w-[300px]">
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2 leading-none">
+                    John Paolo A.<br>Ramirez <span class="text-xl md:text-2xl font-medium">MSc</span>
+                </h1>
+            </div>
+
+            <!-- Subtitle Block -->
+            <div class="text-center px-6 text-white dark:text-black mb-[10vh] max-w-[280px]">
                 <p class="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-90 leading-relaxed">
                     Spatial Ecology | Environmental Assessment and Modelling | Geospatial Analysis
                 </p>
             </div>
-        </div>
 
-        <!-- Blob 3: Summary -->
-        <div class="relative flex items-center justify-center w-[320px] h-[200px] md:w-[400px] md:h-[220px]">
-            <div class="absolute inset-0 bg-royal dark:bg-mellow shadow-lg opacity-95 blob-3 rounded-[50%_50%_30%_70%/50%_70%_50%_30%]"></div>
-            <div class="relative z-10 text-center px-8 text-white dark:text-black pointer-events-auto">
+            <!-- Summary Block -->
+            <div class="text-center px-10 text-white dark:text-black mb-[10vh] max-w-[350px]">
                 <p class="text-xs md:text-sm font-medium opacity-90 leading-relaxed">
                     Experienced academic lecturer in biology and specializes in computational ecology, spatial analysis, and GIS-based environmental monitoring. Has a strong foundation in R and Python for spatial modeling and large-scale data analysis.
                 </p>
             </div>
-        </div>
 
-        <!-- Blob 4: Links -->
-        <div class="relative flex items-center justify-center w-[130px] h-[90px] md:w-[160px] md:h-[110px]">
-            <div class="absolute inset-0 bg-royal dark:bg-mellow shadow-lg opacity-95 blob-4 rounded-[40%_60%_70%_30%/40%_50%_60%_50%]"></div>
-            <div class="relative z-10 flex justify-center gap-6 text-2xl text-white dark:text-black pointer-events-auto">
+            <!-- Links Block -->
+            <div class="flex justify-center gap-6 text-2xl text-white dark:text-black">
                 <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-110 transition opacity-80 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
             </div>
+            
         </div>
     </div>
 
@@ -438,8 +443,8 @@
                 </div>
             </section>
 
-            <!-- SECTION 4: GET IN TOUCH -->
-            <section id="sec-contact" class="flex flex-col justify-center min-h-[70vh] pt-24 pb-24">
+            <!-- SECTION 4: GET IN TOUCH (Increased padding to isolate section) -->
+            <section id="sec-contact" class="flex flex-col justify-center min-h-[85vh] pt-32 pb-40">
                 <div class="text-center md:text-left mt-2 max-w-2xl">
                     <h3 class="text-4xl md:text-6xl font-black tracking-tight mb-6">Let's<br>Collaborate.</h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg leading-relaxed">Reach out for research partnerships, GIS consultation, or academic inquiries.</p>
