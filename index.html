@@ -53,6 +53,25 @@
             100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
         }
         
+        /* Swaying Grass/Tree Animation */
+        @keyframes sway {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
+        }
+        
+        .animate-sway {
+            animation: sway 4s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        .animate-sway-slow {
+            animation: sway 6s ease-in-out infinite reverse;
+            transform-origin: bottom center;
+        }
+        .animate-sway-fast {
+            animation: sway 3s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
         .blob-1 { animation: topoMorph 16s linear infinite; transform-origin: center; }
         .blob-2 { animation: topoMorphReverse 19s linear infinite; transform-origin: center; }
         .blob-3 { animation: topoMorph 22s linear infinite; transform-origin: center; }
@@ -217,6 +236,27 @@
         <!-- Spatial Connectivity Wrapper - EXPANDED CANVAS (700x1000) -->
         <div class="relative w-[700px] h-[1000px] scale-[0.4] md:scale-[0.55] lg:scale-[0.65] origin-center pointer-events-auto">
             
+            <!-- DECORATIVE ECOLOGY ELEMENTS (Swaying Trees & Grass) -->
+            <!-- Placed at z-0 so they float behind the connecting lines and blobs -->
+            <div class="absolute top-[310px] left-[-30px] text-green-600 dark:text-green-500 opacity-60 text-6xl animate-sway-slow z-0">
+                <i class="fa-solid fa-tree"></i>
+            </div>
+            <div class="absolute top-[40px] left-[320px] text-green-600 dark:text-green-500 opacity-70 text-5xl animate-sway z-0">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+            <div class="absolute top-[100px] left-[700px] text-green-600 dark:text-green-500 opacity-40 text-7xl animate-sway-fast z-0">
+                <i class="fa-solid fa-tree"></i>
+            </div>
+            <div class="absolute top-[500px] left-[360px] text-green-600 dark:text-green-500 opacity-50 text-5xl animate-sway z-0">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+            <div class="absolute top-[820px] left-[250px] text-green-600 dark:text-green-500 opacity-80 text-4xl animate-sway-slow z-0">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+            <div class="absolute top-[750px] left-[700px] text-green-600 dark:text-green-500 opacity-60 text-6xl animate-sway z-0">
+                <i class="fa-solid fa-tree"></i>
+            </div>
+
             <!-- SVG Connectivity Lines & Moving Dots -->
             <svg width="700" height="1000" class="absolute inset-0 z-0 pointer-events-none">
                 <!-- Dashed Edges mathematically aligned to the centers of the divs below -->
@@ -261,14 +301,14 @@
                 </circle>
             </svg>
 
-            <!-- Node 1: Name (Top Left) -->
+            <!-- Node 1: Name (Top Left - TEXT ENLARGED) -->
             <!-- Size: 340x340. Position: 0, 0. Center is (170, 170) -->
             <div class="absolute top-[0px] left-[0px] w-[340px] h-[340px] z-10 flex flex-col items-center justify-center text-center p-6 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-4 bg-[#f8f9fa] dark:bg-[#0f0f11] rounded-[40%] opacity-100 shadow-xl"></div>
                 <div class="absolute inset-0 bg-royal dark:bg-themeGreen blob-1 border-4 border-white dark:border-black shadow-2xl opacity-100"></div>
                 <div class="relative z-20 text-white dark:text-black">
-                    <h1 class="text-5xl font-extrabold tracking-tight leading-tight">
-                        John Paolo A.<br>Ramirez <span class="text-3xl font-medium block mt-2">MSc</span>
+                    <h1 class="text-6xl font-extrabold tracking-tight leading-none mb-1">
+                        John Paolo<br>A.<br>Ramirez <span class="text-4xl font-bold block mt-3">MSc</span>
                     </h1>
                 </div>
             </div>
