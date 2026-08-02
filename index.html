@@ -82,8 +82,8 @@
 
         .fluid-drop {
             position: absolute;
-            width: 48px; /* Slightly larger to survive the gooey filter blur */
-            height: 48px;
+            width: 96px; /* Doubled size */
+            height: 96px; /* Doubled size */
             background-color: #22c55e; /* Tailwind themeGreen */
             border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
             animation: fluidTravel 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -91,11 +91,11 @@
             pointer-events: none;
         }
 
-        /* Map each droplet to the exact SVG path lines */
-        .drop-1 { offset-path: path("M 240 160 L 180 780"); animation-duration: 4.5s; animation-delay: 0s; }
-        .drop-2 { offset-path: path("M 590 270 L 180 780"); animation-duration: 4.2s; animation-delay: 1.5s; }
-        .drop-3 { offset-path: path("M 590 270 L 600 850"); animation-duration: 3.5s; animation-delay: 0.8s; }
-        .drop-4 { offset-path: path("M 180 780 L 600 850"); animation-duration: 3.8s; animation-delay: 2.2s; }
+        /* Map each droplet to the exact SVG path lines - Duration slowed down */
+        .drop-1 { offset-path: path("M 240 160 L 180 780"); animation-duration: 6.5s; animation-delay: 0s; }
+        .drop-2 { offset-path: path("M 590 270 L 180 780"); animation-duration: 6.2s; animation-delay: 1.5s; }
+        .drop-3 { offset-path: path("M 590 270 L 600 850"); animation-duration: 5.5s; animation-delay: 0.8s; }
+        .drop-4 { offset-path: path("M 180 780 L 600 850"); animation-duration: 5.8s; animation-delay: 2.2s; }
 
         /* ========================================================
            Responsive Header & Stage 
@@ -266,6 +266,11 @@
     <!-- ========================================== -->
     <div class="w-full h-[100vh] md:fixed md:top-0 md:left-0 md:w-[38%] md:h-screen flex items-center justify-center overflow-hidden z-20 bg-royal dark:bg-[#0f0f11] transition-colors duration-300">
         
+        <!-- Concept Explanation Note -->
+        <div class="absolute bottom-6 left-6 md:left-10 md:bottom-8 z-30 max-w-[280px] md:max-w-[320px] text-white/90 dark:text-gray-300 text-xs md:text-sm font-medium leading-relaxed bg-black/20 dark:bg-black/50 p-4 rounded-xl backdrop-blur-md border border-white/10 dark:border-white/5 shadow-2xl pointer-events-auto">
+            <p><i class="fa-solid fa-circle-nodes mr-2 text-themeGreen"></i><strong>Concept Note:</strong> This structure visually models habitat connectivity, demonstrating how ecological corridors dynamically link fragmented landscapes based on dispersal capacity.</p>
+        </div>
+
         <!-- Spatial Connectivity Wrapper -->
         <div class="relative w-[1000px] h-[1100px] -ml-12 md:-ml-16 lg:-ml-20 scale-[0.35] sm:scale-[0.45] md:scale-[0.46] lg:scale-[0.56] origin-center pointer-events-auto">
             
@@ -315,7 +320,7 @@
             </div>
 
             <!-- ================================================================= -->
-            <!-- 3. CONTENT LAYER (Layer 2 - Sharp Text, completely unaffected by Goo) -->
+            <!-- 3. CONTENT LAYER (Layer 2 - Sharp Text, unaffected by Goo)        -->
             <!-- ================================================================= -->
             <div class="absolute inset-0 z-10 pointer-events-none drop-shadow-[0_20px_25px_rgba(0,0,0,0.35)] dark:drop-shadow-none">
                 
