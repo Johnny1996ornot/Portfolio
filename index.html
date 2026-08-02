@@ -37,7 +37,7 @@
             color: #f3f4f6;
         }
 
-        /* Distinct Organic Blob Animations for the 4 MAIN Nodes */
+        /* Distinct Organic Blob Animations for the MAIN Nodes */
         @keyframes morph1 {
             0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
             34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(120deg); }
@@ -67,89 +67,6 @@
         .blob-2 { animation: morph2 20s linear infinite; transform-origin: center; }
         .blob-3 { animation: morph3 22s linear infinite; transform-origin: center; }
         .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
-
-        /* ========================================================
-           Advanced Multi-Stage Water Gradient Archipelago System
-        ======================================================== */
-        @keyframes float1 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(4px, -6px); } }
-        @keyframes float2 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-5px, 4px); } }
-        @keyframes boatFloat { 0%, 100% { transform: translateY(0px) rotate(12deg); } 50% { transform: translateY(-4px) rotate(17deg); } }
-
-        .island-group { position: absolute; pointer-events: none; }
-        .island-float-1 { animation: float1 14s ease-in-out infinite; }
-        .island-float-2 { animation: float2 17s ease-in-out infinite; }
-
-        /* True Multi-Stage Water Gradient Halo encompassing the entire landmass profile */
-        .island-water-halo {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 100%; height: 100%;
-            transform: translate(-50%, -50%);
-            /* Multi-step radial gradient simulating shallow coastal shelf bleeding into deep ocean */
-            box-shadow: 
-                0 0 0 6px rgba(56, 189, 248, 0.9),  /* Stage 1: Light Coastal Turquoise */
-                0 0 0 14px rgba(14, 116, 144, 0.6), /* Stage 2: Mid Turquoise-Blue Transition */
-                0 0 0 24px rgba(30, 58, 138, 0.4);  /* Stage 3: Seamless Deep Ocean Fade */
-        }
-
-        /* Truly Diverse Organic Island Shapes (Non-uniform, non-circle profiles) */
-        .shape-arch-1 { border-radius: 25% 75% 55% 45% / 70% 30% 70% 30%; }
-        .shape-arch-2 { border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%; }
-        .shape-arch-3 { border-radius: 35% 65% 40% 60% / 50% 30% 70% 50%; }
-        .shape-arch-4 { border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%; }
-        .shape-arch-5 { border-radius: 40% 60% 75% 25% / 30% 70% 30% 70%; }
-
-        /* Natural Beach Sand Layer */
-        .island-sand {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: #fde68a;
-        }
-
-        /* Solid Green Core Layer */
-        .island-core {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: #22c55e;
-        }
-
-        /* Stylized Red Boat */
-        .ocean-boat {
-            position: absolute;
-            width: 9px;
-            height: 16px;
-            background-color: #dc2626; /* Red Hull */
-            border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-            animation: boatFloat 4s ease-in-out infinite;
-            z-index: 5;
-        }
-        .ocean-boat::after {
-            content: '';
-            position: absolute;
-            top: 3px; left: 2px;
-            width: 5px; height: 7px;
-            background-color: #ffffff; /* White Cabin */
-            border-radius: 2px;
-        }
-
-        /* STRICT DARK MODE RULES: No water halos, no sand, pure solid green core */
-        html.dark .island-water-halo {
-            box-shadow: none !important;
-            background: transparent !important;
-        }
-        html.dark .island-sand {
-            display: none !important;
-        }
-        html.dark .island-core {
-            border: 1px solid #3f3f46;
-            background-color: #22c55e !important; 
-        }
-        html.dark .ocean-boat {
-            display: none !important; /* Boat vanishes in dark mode */
-        }
 
         /* ========================================================
            Responsive Header & Stage 
@@ -315,141 +232,64 @@
             <!-- SVG Connectivity Lines & Moving Dots -->
             <svg width="1000" height="1100" class="absolute inset-0 z-0 pointer-events-none">
                 <g class="stroke-white/50 dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
-                    <path id="edge1" d="M 180 140 L 640 280" />
-                    <path id="edge2" d="M 640 280 L 180 780" />
-                    <path id="edge3" d="M 180 140 L 180 780" />
-                    <path id="edge4" d="M 180 780 L 600 850" />
-                    <path id="edge5" d="M 640 280 L 600 850" />
+                    <!-- Adjusted Paths matching the 4 connections in the sketch -->
+                    <path id="edge1" d="M 240 160 L 180 780" /> <!-- Top-Left to Bottom-Left -->
+                    <path id="edge2" d="M 590 270 L 180 780" /> <!-- Top-Right to Bottom-Left -->
+                    <path id="edge3" d="M 590 270 L 600 850" /> <!-- Top-Right to Bottom-Right -->
+                    <path id="edge4" d="M 180 780 L 600 850" /> <!-- Bottom-Left to Bottom-Right -->
                 </g>
                 <circle r="9" class="fill-white dark:fill-connYellow">
-                    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#edge1"/></animateMotion>
+                    <animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#edge1"/></animateMotion>
                 </circle>
                 <circle r="9" class="fill-white dark:fill-connYellow">
                     <animateMotion dur="4s" repeatCount="indefinite"><mpath href="#edge2"/></animateMotion>
                 </circle>
                 <circle r="9" class="fill-white dark:fill-connYellow">
-                    <animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#edge3"/></animateMotion>
+                    <animateMotion dur="3.5s" repeatCount="indefinite"><mpath href="#edge3"/></animateMotion>
                 </circle>
                 <circle r="9" class="fill-white dark:fill-connYellow">
-                    <animateMotion dur="3.5s" repeatCount="indefinite"><mpath href="#edge4"/></animateMotion>
-                </circle>
-                <circle r="9" class="fill-white dark:fill-connYellow">
-                    <animateMotion dur="5s" repeatCount="indefinite"><mpath href="#edge5"/></animateMotion>
+                    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#edge4"/></animateMotion>
                 </circle>
             </svg>
 
             <!-- ================================================================= -->
-            <!-- DIVERSE ARCHIPELAGO WITH GRADIENT WATER HALOS & RED BOAT          -->
+            <!-- MERGED TOP NODES (Seamlessly connected without outlines)          -->
+            <!-- ================================================================= -->
+            <div class="absolute inset-0 z-10 pointer-events-none drop-shadow-[0_20px_25px_rgba(0,0,0,0.35)] dark:drop-shadow-none">
+                
+                <!-- Bridge Blob to ensure thick seamless connection between Node 1 and Node 2 -->
+                <div class="absolute top-[120px] left-[280px] w-[200px] h-[200px] bg-themeGreen blob-3 pointer-events-auto"></div>
+
+                <!-- Node 1: Name (Merged Component) -->
+                <div class="absolute top-[-30px] left-[-20px] w-[520px] h-[380px] flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105 pointer-events-auto group">
+                    <!-- Removed border to allow seamless merging -->
+                    <div class="absolute inset-0 bg-themeGreen blob-1"></div>
+                    <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
+                        <h1 class="text-6xl font-extrabold tracking-tight leading-tight">
+                            John Paolo<br>Ramirez
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Node 2: Subtitle (Merged Component) -->
+                <div class="absolute top-[60px] left-[380px] w-[420px] h-[420px] flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105 pointer-events-auto group">
+                    <!-- Removed border to allow seamless merging -->
+                    <div class="absolute inset-0 bg-themeGreen blob-2"></div>
+                    <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none w-full px-4">
+                        <p class="text-base font-bold uppercase tracking-wider pb-3">Spatial Ecology</p>
+                        <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
+                        <p class="text-base font-bold uppercase tracking-wider py-3">Environmental Assessment & Modelling</p>
+                        <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
+                        <p class="text-base font-bold uppercase tracking-wider pt-3">Geospatial Analysis</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================================================================= -->
+            <!-- BOTTOM NODES (Retain outlines as requested in sketch reference)   -->
             <!-- ================================================================= -->
             
-            <!-- Small Red Boat positioned in the central open ocean void -->
-            <div class="ocean-boat top-[360px] left-[520px]"></div>
-
-            <!-- Island 1: Elongated Coastal Archipelago Profile -->
-            <div class="island-group island-float-1 top-[80px] left-[880px] w-[90px] h-[45px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-1"></div>
-                    <div class="island-sand shape-arch-1" style="transform: translate(12%, 15%) scale(1.12);"></div>
-                    <div class="island-core shape-arch-1"></div>
-                </div>
-            </div>
-
-            <!-- Island 2: Asymmetrical Soft Polygon -->
-            <div class="island-group island-float-2 top-[40px] left-[450px] w-[60px] h-[55px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-2"></div>
-                    <div class="island-sand shape-arch-2" style="transform: translate(-10%, 10%) scale(1.15);"></div>
-                    <div class="island-core shape-arch-2"></div>
-                </div>
-            </div>
-
-            <!-- Island 3: Pure Rocky Green Islet (No Sand) -->
-            <div class="island-group island-float-2 top-[520px] left-[930px] w-[45px] h-[45px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-3"></div>
-                    <div class="island-core shape-arch-3"></div>
-                </div>
-            </div>
-
-            <!-- Island 4: Compound / Merged Multi-Lobe Island -->
-            <div class="island-group island-float-1 top-[410px] left-[340px] w-[80px] h-[60px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-4"></div>
-                    <div class="island-sand shape-arch-4" style="transform: translate(-15%, 10%) scale(1.15);"></div>
-                    <div class="island-core shape-arch-4"></div>
-                </div>
-            </div>
-
-            <!-- Island 5: Irregular Coastal Islet -->
-            <div class="island-group island-float-2 top-[620px] left-[450px] w-[55px] h-[45px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-5"></div>
-                    <div class="island-sand shape-arch-5" style="transform: translate(15%, -10%) scale(1.12);"></div>
-                    <div class="island-core shape-arch-5"></div>
-                </div>
-            </div>
-
-            <!-- Island 6: Bottom Right Elongated Coastline -->
-            <div class="island-group island-float-2 top-[950px] left-[880px] w-[95px] h-[45px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-2"></div>
-                    <div class="island-sand shape-arch-2" style="transform: translate(-10%, -12%) scale(1.15);"></div>
-                    <div class="island-core shape-arch-2"></div>
-                </div>
-            </div>
-
-            <!-- Island 7: Bottom Center Irregular Atoll -->
-            <div class="island-group island-float-1 top-[1000px] left-[450px] w-[65px] h-[50px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-1"></div>
-                    <div class="island-sand shape-arch-1" style="transform: translate(10%, -15%) scale(1.15);"></div>
-                    <div class="island-core shape-arch-1"></div>
-                </div>
-            </div>
-
-            <!-- Island 8: Far Left Rocky Outcrop -->
-            <div class="island-group island-float-1 top-[450px] left-[40px] w-[50px] h-[50px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-4"></div>
-                    <div class="island-core shape-arch-4"></div>
-                </div>
-            </div>
-
-            <!-- Island 9: Bottom Left Compound Island -->
-            <div class="island-group island-float-2 top-[1020px] left-[60px] w-[75px] h-[55px]">
-                <div class="relative w-full h-full">
-                    <div class="island-water-halo shape-arch-5"></div>
-                    <div class="island-sand shape-arch-5" style="transform: translate(12%, -10%) scale(1.15);"></div>
-                    <div class="island-core shape-arch-5"></div>
-                </div>
-            </div>
-
-            <!-- ================================================================= -->
-            <!-- 4 MAJOR NODES (Untouched layout; text turns black in dark mode)   -->
-            <!-- ================================================================= -->
-            
-            <!-- Node 1: Name (Top Left - Center: 180, 140) -->
-            <div class="absolute top-[-40px] left-[-60px] w-[480px] h-[360px] z-10 flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-1 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
-                <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
-                    <h1 class="text-6xl font-extrabold tracking-tight leading-tight">
-                        John Paolo<br>Ramirez
-                    </h1>
-                </div>
-            </div>
-
-            <!-- Node 2: Subtitle (Top Right - Center: 640, 280) -->
-            <div class="absolute top-[80px] left-[440px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-2 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
-                <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none w-full px-4">
-                    <p class="text-base font-bold uppercase tracking-wider pb-3">Spatial Ecology</p>
-                    <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
-                    <p class="text-base font-bold uppercase tracking-wider py-3">Environmental Assessment & Modelling</p>
-                    <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
-                    <p class="text-base font-bold uppercase tracking-wider pt-3">Geospatial Analysis</p>
-                </div>
-            </div>
-
             <!-- Node 3: Summary (Bottom Left - Center: 180, 780) -->
             <div class="absolute top-[580px] left-[-20px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-12 transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-themeGreen blob-3 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
