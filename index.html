@@ -16,7 +16,7 @@
                     },
                     colors: {
                         royal: '#1e3a8a',       // Deep Ocean Blue background in light mode
-                        themeGreen: '#22c55e',  // Main island green
+                        themeGreen: '#22c55e',  // Main island green (fallback)
                         connYellow: '#eab308',  // Dark mode lines/dots
                         bgLight: '#f8f9fa',
                         bgDark: '#0f0f11'
@@ -37,36 +37,39 @@
             color: #f3f4f6;
         }
 
-        /* Distinct Organic Blob Animations for the MAIN Nodes */
-        @keyframes morph1 {
-            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
-            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(120deg); }
-            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; transform: rotate(240deg); }
-            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg); }
-        }
-        @keyframes morph2 {
-            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg); }
-            34% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(-120deg); }
-            67% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(-240deg); }
-            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(-360deg); }
-        }
-        @keyframes morph3 {
-            0% { border-radius: 50% 50% 60% 40% / 40% 40% 60% 60%; transform: rotate(0deg); }
-            34% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(120deg); }
-            67% { border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; transform: rotate(240deg); }
-            100% { border-radius: 50% 50% 60% 40% / 40% 40% 60% 60%; transform: rotate(360deg); }
-        }
-        @keyframes morph4 {
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg); }
-            34% { border-radius: 50% 50% 30% 70% / 50% 70% 50% 30%; transform: rotate(-120deg); }
-            67% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(-240deg); }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(-360deg); }
+        /* ========================================================
+           SVG Organic Blob Animations (Floating & Breathing)
+        ======================================================== */
+        .svg-blob-wrapper {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .blob-1 { animation: morph1 18s linear infinite; transform-origin: center; }
-        .blob-2 { animation: morph2 20s linear infinite; transform-origin: center; }
-        .blob-3 { animation: morph3 22s linear infinite; transform-origin: center; }
-        .blob-4 { animation: morph4 16s linear infinite; transform-origin: center; }
+        /* Fluid motion keyframes to make the static SVG paths feel alive */
+        @keyframes floatMorph1 {
+            0% { transform: rotate(0deg) scale(1) translate(0px, 0px); }
+            50% { transform: rotate(8deg) scale(1.04) translate(12px, -8px); }
+            100% { transform: rotate(0deg) scale(1) translate(0px, 0px); }
+        }
+        @keyframes floatMorph2 {
+            0% { transform: rotate(0deg) scale(1) translate(0px, 0px); }
+            50% { transform: rotate(-12deg) scale(1.06) translate(-10px, 15px); }
+            100% { transform: rotate(0deg) scale(1) translate(0px, 0px); }
+        }
+
+        .anim-blob-1 { animation: floatMorph1 18s ease-in-out infinite; transform-origin: center; }
+        .anim-blob-2 { animation: floatMorph2 22s ease-in-out infinite; transform-origin: center; }
+        .anim-blob-3 { animation: floatMorph1 20s ease-in-out infinite reverse; transform-origin: center; }
+        .anim-blob-4 { animation: floatMorph2 16s ease-in-out infinite reverse; transform-origin: center; }
+
+        /* Adding a subtle dark stroke in dark mode for better definition against black background */
+        html.dark .blob-path {
+            stroke: #000000;
+            stroke-width: 2px;
+        }
 
         /* ========================================================
            Responsive Header & Stage 
@@ -98,7 +101,6 @@
             }
         }
 
-        /* Single-Slot Title Stage */
         .sticky-title-stage {
             position: relative;
             height: 50px;
@@ -208,12 +210,22 @@
 </head>
 <body class="relative overflow-x-hidden block">
 
-    <!-- Theme Toggle (Fixed Top Right) -->
+    <!-- Global SVG Definitions (Your Gradient: 3ca55c to b5ac49) -->
+    <svg width="0" height="0" class="absolute hidden">
+        <defs>
+            <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3ca55c" />
+                <stop offset="100%" stop-color="#b5ac49" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Theme Toggle -->
     <button onclick="toggleTheme()" class="fixed top-6 right-6 z-50 bg-white/80 dark:bg-black/80 backdrop-blur px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-800 text-sm font-semibold transition hover:scale-105 cursor-pointer">
         <i id="theme-icon" class="fa-solid fa-moon mr-2"></i><span id="theme-text">Dark Theme</span>
     </button>
 
-    <!-- Scroll Down Indicator (Fixed Bottom Right) -->
+    <!-- Scroll Down Indicator -->
     <div id="scroll-indicator" class="fixed bottom-8 right-6 md:right-12 z-50 flex flex-col items-center pointer-events-auto transition-opacity duration-500">
         <span class="text-xs font-bold text-white dark:text-themeGreen mb-2 uppercase tracking-widest bg-black/40 dark:bg-black/80 px-2 py-1 rounded-full backdrop-blur shadow-sm">Scroll</span>
         <button onclick="window.scrollBy({top: window.innerHeight, behavior: 'smooth'})" class="w-12 h-12 bg-royal dark:bg-themeGreen text-white dark:text-black rounded-full flex items-center justify-center shadow-xl animate-bounce hover:scale-110 transition-transform cursor-pointer">
@@ -226,17 +238,15 @@
     <!-- ========================================== -->
     <div class="w-full h-[100vh] md:fixed md:top-0 md:left-0 md:w-[38%] md:h-screen flex items-center justify-center overflow-hidden z-20 bg-royal dark:bg-[#0f0f11] transition-colors duration-300">
         
-        <!-- Spatial Connectivity Wrapper - Shifted slightly left -->
         <div class="relative w-[1000px] h-[1100px] -ml-12 md:-ml-16 lg:-ml-20 scale-[0.35] sm:scale-[0.45] md:scale-[0.46] lg:scale-[0.56] origin-center pointer-events-auto">
             
             <!-- SVG Connectivity Lines & Moving Dots -->
             <svg width="1000" height="1100" class="absolute inset-0 z-0 pointer-events-none">
                 <g class="stroke-white/50 dark:stroke-connYellow opacity-90" stroke-width="6" stroke-dasharray="14,14" fill="none">
-                    <!-- Adjusted Paths matching the 4 connections in the sketch -->
-                    <path id="edge1" d="M 240 160 L 180 780" /> <!-- Top-Left to Bottom-Left -->
-                    <path id="edge2" d="M 590 270 L 180 780" /> <!-- Top-Right to Bottom-Left -->
-                    <path id="edge3" d="M 590 270 L 600 850" /> <!-- Top-Right to Bottom-Right -->
-                    <path id="edge4" d="M 180 780 L 600 850" /> <!-- Bottom-Left to Bottom-Right -->
+                    <path id="edge1" d="M 240 160 L 180 780" /> 
+                    <path id="edge2" d="M 590 270 L 180 780" /> 
+                    <path id="edge3" d="M 590 270 L 600 850" /> 
+                    <path id="edge4" d="M 180 780 L 600 850" /> 
                 </g>
                 <circle r="9" class="fill-white dark:fill-connYellow">
                     <animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#edge1"/></animateMotion>
@@ -253,17 +263,26 @@
             </svg>
 
             <!-- ================================================================= -->
-            <!-- MERGED TOP NODES (Seamlessly connected without outlines)          -->
+            <!-- MERGED TOP NODES (Generated SVG Blobs seamlessly connected)       -->
             <!-- ================================================================= -->
-            <div class="absolute inset-0 z-10 pointer-events-none drop-shadow-[0_20px_25px_rgba(0,0,0,0.35)] dark:drop-shadow-none">
+            <div class="absolute inset-0 z-10 pointer-events-none drop-shadow-[0_15px_25px_rgba(0,0,0,0.4)] dark:drop-shadow-none">
                 
-                <!-- Bridge Blob to ensure thick seamless connection between Node 1 and Node 2 -->
-                <div class="absolute top-[120px] left-[280px] w-[200px] h-[200px] bg-themeGreen blob-3 pointer-events-auto"></div>
+                <!-- Bridge Blob (Connects Node 1 and Node 2 seamlessly) -->
+                <div class="absolute top-[140px] left-[320px] w-[200px] h-[200px] pointer-events-auto">
+                    <div class="svg-blob-wrapper anim-blob-3">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <path class="blob-path" fill="url(#blobGradient)" d="M42.7,-73.4C56.6,-66.1,70,-56.3,78.2,-43.3C86.4,-30.3,89.4,-14.1,88.2,1.8C87,17.7,81.6,33.3,71.7,45.4C61.8,57.5,47.4,66,32.1,71.8C16.8,77.6,0.6,80.7,-14.8,79.5C-30.2,78.3,-44.8,72.8,-56.3,62.7C-67.8,52.6,-76.2,37.9,-81.1,22.1C-86,6.3,-87.4,-10.6,-81.9,-25.4C-76.4,-40.2,-64,-52.9,-50.2,-60.6C-36.4,-68.3,-21.2,-71,-5.6,-74.2C10,-77.4,28.8,-80.7,42.7,-73.4Z" transform="translate(100 100)" />
+                        </svg>
+                    </div>
+                </div>
 
-                <!-- Node 1: Name (Merged Component) -->
+                <!-- Node 1: Name -->
                 <div class="absolute top-[-30px] left-[-20px] w-[520px] h-[380px] flex flex-col items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105 pointer-events-auto group">
-                    <!-- Removed border to allow seamless merging -->
-                    <div class="absolute inset-0 bg-themeGreen blob-1"></div>
+                    <div class="svg-blob-wrapper anim-blob-1">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <path class="blob-path" fill="url(#blobGradient)" d="M48.1,-75.7C60.4,-67.2,67,-50.1,73.1,-33.5C79.2,-16.9,84.8,-0.8,80.7,13.2C76.6,27.2,62.8,39.1,49.2,50.7C35.6,62.3,22.2,73.6,5.8,79.9C-10.6,86.2,-30.1,87.5,-45.5,79.5C-60.9,71.5,-72.2,54.2,-78.9,36.4C-85.6,18.6,-87.7,0.3,-82.9,-16.2C-78.1,-32.7,-66.4,-47.4,-52.1,-55.2C-37.8,-63,-20.9,-63.9,-3.3,-59C14.3,-54.1,28.6,-43.4,48.1,-75.7Z" transform="translate(100 100) scale(1.1)" />
+                        </svg>
+                    </div>
                     <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
                         <h1 class="text-6xl font-extrabold tracking-tight leading-tight">
                             John Paolo<br>Ramirez
@@ -271,10 +290,13 @@
                     </div>
                 </div>
 
-                <!-- Node 2: Subtitle (Merged Component) -->
+                <!-- Node 2: Subtitle -->
                 <div class="absolute top-[60px] left-[380px] w-[420px] h-[420px] flex items-center justify-center text-center p-8 transition-transform duration-300 hover:scale-105 pointer-events-auto group">
-                    <!-- Removed border to allow seamless merging -->
-                    <div class="absolute inset-0 bg-themeGreen blob-2"></div>
+                    <div class="svg-blob-wrapper anim-blob-2">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <path class="blob-path" fill="url(#blobGradient)" d="M47,-76.6C60.2,-69,69.5,-54.8,76.5,-39.8C83.5,-24.8,88.2,-9,86.7,6.3C85.2,21.6,77.5,36.4,66.4,48.4C55.3,60.4,40.8,69.6,25.2,74.9C9.6,80.2,-7.1,81.6,-22.8,77.4C-38.5,73.2,-53.2,63.4,-64.1,50.1C-75,36.8,-82.1,20,-83.4,2.5C-84.7,-15,-80.2,-33.2,-69.8,-47.2C-59.4,-61.2,-43.1,-71,-27.1,-76.3C-11.1,-81.6,4.6,-82.4,19.9,-79.8C35.2,-77.2,50.1,-71.2,47,-76.6Z" transform="translate(100 100) scale(1.05)" />
+                        </svg>
+                    </div>
                     <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none w-full px-4">
                         <p class="text-base font-bold uppercase tracking-wider pb-3">Spatial Ecology</p>
                         <div class="w-full border-t border-white/60 dark:border-black/50 my-1"></div>
@@ -287,12 +309,16 @@
             </div>
 
             <!-- ================================================================= -->
-            <!-- BOTTOM NODES (Retain outlines as requested in sketch reference)   -->
+            <!-- BOTTOM NODES (Generated SVG Blobs)                                -->
             <!-- ================================================================= -->
             
-            <!-- Node 3: Summary (Bottom Left - Center: 180, 780) -->
+            <!-- Node 3: Summary -->
             <div class="absolute top-[580px] left-[-20px] w-[400px] h-[400px] z-10 flex items-center justify-center text-center p-12 transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-3 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
+                <div class="svg-blob-wrapper anim-blob-4 drop-shadow-[0_10px_20px_rgba(0,0,0,0.3)] dark:drop-shadow-none">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path class="blob-path" fill="url(#blobGradient)" d="M46.7,-76.4C58.8,-68.6,65.8,-51.7,72.6,-35.1C79.4,-18.5,86,-2.2,83.4,12.7C80.8,27.6,69,41.1,55.3,51C41.6,60.9,26,67.2,9.7,71.2C-6.6,75.2,-23.6,76.9,-38.5,70.5C-53.4,64.1,-66.2,49.6,-73.4,33.5C-80.6,17.4,-82.2,-0.3,-77.9,-16.1C-73.6,-31.9,-63.4,-45.8,-50.2,-53.4C-37,-61,-20.8,-62.3,-3.8,-57.6C13.2,-52.9,34.6,-84.2,46.7,-76.4Z" transform="translate(100 100) scale(1.02)" />
+                    </svg>
+                </div>
                 <div class="relative z-25 text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
                     <p class="text-lg md:text-xl font-medium leading-relaxed">
                         Experienced academic lecturer in biology and specializes in computational ecology, geospatial analysis, and GIS-based environmental monitoring.
@@ -300,9 +326,13 @@
                 </div>
             </div>
 
-            <!-- Node 4: Links (Bottom Right - Center: 600, 850) -->
+            <!-- Node 4: Links -->
             <div class="absolute top-[750px] left-[500px] w-[200px] h-[200px] z-10 flex items-center justify-center transition-transform duration-300 hover:scale-105">
-                <div class="absolute inset-0 bg-themeGreen blob-4 border-4 border-black/30 dark:border-black shadow-2xl opacity-100"></div>
+                <div class="svg-blob-wrapper anim-blob-1 drop-shadow-[0_8px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-none">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path class="blob-path" fill="url(#blobGradient)" d="M41.7,-64.6C54.7,-57.2,66.4,-46.5,74.5,-32.8C82.6,-19.1,87.1,-2.4,83.9,12.8C80.7,28,69.8,41.7,56.7,51.9C43.6,62.1,28.3,68.8,11.8,73.1C-4.7,77.4,-22.4,79.3,-37.6,73.4C-52.8,67.5,-65.5,53.8,-74.2,38.1C-82.9,22.4,-87.6,4.7,-84.7,-11.7C-81.8,-28.1,-71.3,-43.2,-57.8,-51.3C-44.3,-59.4,-27.8,-60.5,-12.8,-64C2.2,-67.5,28.7,-72,41.7,-64.6Z" transform="translate(100 100)" />
+                    </svg>
+                </div>
                 <div class="relative z-25 flex gap-6 text-5xl text-white dark:text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] dark:drop-shadow-none">
                     <a href="https://github.com/Johnny1996ornot" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="GitHub"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" class="hover:scale-125 transition opacity-90 hover:opacity-100" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
