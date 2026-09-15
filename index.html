@@ -4967,6 +4967,321 @@ img {
 }
 
 
+
+
+/* =========================================================
+   FINAL POLISH — NATURAL CASE-STUDY MEDIA, SOFT COVER-FLOW
+   FADE, AND SCATTERING PROFILE PLANETS
+========================================================= */
+
+/* -------------------------
+   Case-study media
+------------------------- */
+
+.case-grid.two {
+    align-items: start !important;
+}
+
+.case-media {
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    align-self: start !important;
+}
+
+.case-media img {
+    display: block !important;
+    height: auto !important;
+}
+
+/*
+   Tables are documentary elements, not tall visual cards.
+   Let them occupy only their real image/caption height.
+*/
+.case-media.table-media {
+    overflow: visible !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    box-shadow: none !important;
+}
+
+.case-media.table-media img {
+    width: 100% !important;
+
+    border:
+        1px solid
+        rgba(193,246,237,.12);
+
+    border-radius:
+        22px;
+
+    background: white;
+
+    box-shadow:
+        0 18px 42px
+        rgba(0,24,28,.14);
+}
+
+.case-media.table-media .media-caption {
+    margin-top: 10px;
+
+    padding:
+        14px 17px 16px;
+
+    border:
+        1px solid
+        rgba(193,246,237,.10);
+
+    border-radius:
+        16px;
+
+    background:
+        rgba(4,61,67,.76);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+}
+
+
+/* -------------------------
+   Seamless desktop fade
+------------------------- */
+
+@media (min-width: 801px) {
+
+    /*
+       The title rail no longer ends in a visible vertical line.
+       It dissolves into the carousel stage instead.
+    */
+    .expanded-header-row {
+        overflow: visible !important;
+    }
+
+    .expanded-header-row > div {
+        position: relative !important;
+        z-index: 3 !important;
+
+        overflow: hidden !important;
+    }
+
+    .expanded-header-row::after {
+        content: "" !important;
+
+        display: block !important;
+
+        position: absolute;
+
+        z-index: 2;
+
+        top: 0;
+        bottom: 0;
+
+        left: 100%;
+
+        width:
+            clamp(150px, 12vw, 250px);
+
+        pointer-events: none;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4,64,70,.96) 0%,
+                rgba(4,64,70,.82) 24%,
+                rgba(4,64,70,.52) 48%,
+                rgba(4,64,70,.20) 72%,
+                rgba(4,64,70,0) 100%
+            );
+    }
+
+    /*
+       Cards themselves fade as they approach the title rail,
+       so they never terminate against a hard clipping edge.
+    */
+    .cover-flow {
+        -webkit-mask-image:
+            linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0,0,0,.18) 3%,
+                rgba(0,0,0,.58) 8%,
+                #000 15%,
+                #000 100%
+            );
+
+        mask-image:
+            linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0,0,0,.18) 3%,
+                rgba(0,0,0,.58) 8%,
+                #000 15%,
+                #000 100%
+            );
+    }
+
+}
+
+
+/* -------------------------
+   Expanded profile planets
+------------------------- */
+
+.profile-scatter-system {
+    position: absolute !important;
+
+    z-index: 2 !important;
+
+    right: 0 !important;
+    top: 4% !important;
+
+    width: 42% !important;
+    height: 90% !important;
+
+    opacity: .72;
+
+    pointer-events: none;
+
+    transition:
+        opacity .35s ease;
+}
+
+.profile-scatter-system .orbit,
+.profile-scatter-system .planet,
+.profile-scatter-system .particle {
+    transition:
+        translate .82s
+        cubic-bezier(.18,.8,.2,1),
+        opacity .35s ease;
+
+    will-change:
+        translate;
+}
+
+
+/*
+   Every piece moves in a different direction.
+   `translate` is used instead of `transform`, so the existing
+   orbit/float/pulse animations keep running at the same time.
+*/
+
+.profile-scatter-system.scattered .orbit1 {
+    translate: -34vw 8vh;
+}
+
+.profile-scatter-system.scattered .orbit2 {
+    translate: -49vw 23vh;
+}
+
+.profile-scatter-system.scattered .orbit3 {
+    translate: -18vw -18vh;
+}
+
+
+.profile-scatter-system.scattered .planet1 {
+    translate: -7vw -8vh;
+}
+
+.profile-scatter-system.scattered .planet2 {
+    translate: -24vw 16vh;
+}
+
+.profile-scatter-system.scattered .planet3 {
+    translate: -41vw 8vh;
+}
+
+.profile-scatter-system.scattered .planet4 {
+    translate: -31vw -21vh;
+}
+
+
+.profile-scatter-system.scattered .particle1 {
+    translate: -45vw -18vh;
+}
+
+.profile-scatter-system.scattered .particle2 {
+    translate: -13vw 28vh;
+}
+
+.profile-scatter-system.scattered .particle3 {
+    translate: -36vw 27vh;
+}
+
+
+/*
+   Keep the moving pieces atmospheric and behind the contact
+   information rather than competing with it.
+*/
+.expansion-profile .expanded-content,
+.expansion-profile .flying-title {
+    z-index: 5;
+}
+
+
+/* Mobile gets the same idea at a much smaller scale. */
+@media (max-width: 800px) {
+
+    .profile-scatter-system {
+        width: 54% !important;
+        height: 54% !important;
+
+        right: -8% !important;
+        top: 28% !important;
+
+        opacity: .28;
+    }
+
+    .profile-scatter-system.scattered .orbit1 {
+        translate: -26vw -12vh;
+    }
+
+    .profile-scatter-system.scattered .orbit2 {
+        translate: -39vw 13vh;
+    }
+
+    .profile-scatter-system.scattered .orbit3 {
+        translate: -10vw 25vh;
+    }
+
+    .profile-scatter-system.scattered .planet1 {
+        translate: -8vw -12vh;
+    }
+
+    .profile-scatter-system.scattered .planet2 {
+        translate: -24vw 11vh;
+    }
+
+    .profile-scatter-system.scattered .planet3 {
+        translate: -36vw 3vh;
+    }
+
+    .profile-scatter-system.scattered .planet4 {
+        translate: -33vw -18vh;
+    }
+
+    .profile-scatter-system.scattered .particle1 {
+        translate: -34vw -11vh;
+    }
+
+    .profile-scatter-system.scattered .particle2 {
+        translate: -15vw 17vh;
+    }
+
+    .profile-scatter-system.scattered .particle3 {
+        translate: -30vw 21vh;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -7061,6 +7376,16 @@ function openPanel(panel) {
 
         <div class="expanded-blob-small"></div>
 
+        ${
+            key === "profile"
+                ? `
+                  <div class="planet-system profile-scatter-system">
+                      ${panel.querySelector(".planet-system")?.innerHTML || ""}
+                  </div>
+                  `
+                : ""
+        }
+
         <div class="expanded-title-shield"></div>
 
 
@@ -7297,6 +7622,35 @@ function openPanel(panel) {
     );
 
 
+    /*
+       Profile planets begin as the same clustered system seen
+       on the dashboard, then separate across the expanded panel.
+       Their original float/orbit animations continue while the
+       independent CSS `translate` property moves them apart.
+    */
+    if (key === "profile") {
+
+        setTimeout(
+            () => {
+
+                const scatterSystem =
+                    expansion?.querySelector(
+                        ".profile-scatter-system"
+                    );
+
+                if (scatterSystem) {
+                    scatterSystem.classList.add(
+                        "scattered"
+                    );
+                }
+
+            },
+            150
+        );
+
+    }
+
+
     /* -----------------------------------------------------
        CLOSE
     ----------------------------------------------------- */
@@ -7415,6 +7769,23 @@ function closeActivePanel() {
 
 
     /*
+       Profile-only reverse scatter:
+       bring the individual planetary pieces back into their
+       original cluster before the panel shell contracts.
+    */
+    const scatterSystem =
+        expansion.querySelector(
+            ".profile-scatter-system"
+        );
+
+    if (scatterSystem) {
+        scatterSystem.classList.remove(
+            "scattered"
+        );
+    }
+
+
+    /*
        Phase 1:
        Fade away the expanded content first. This avoids
        trying to resize a full scrolling gallery at the
@@ -7435,6 +7806,12 @@ function closeActivePanel() {
     backdrop.classList.remove(
         "open"
     );
+
+
+    const closePreparationDelay =
+        scatterSystem
+            ? 440
+            : 155;
 
 
     setTimeout(
@@ -7597,7 +7974,7 @@ function closeActivePanel() {
 
         },
 
-        155
+        closePreparationDelay
     );
 
 }
@@ -8384,7 +8761,7 @@ function getConservationCaseStudyHTML() {
 
             <div class="case-grid media-discussion">
 
-                <figure class="case-media">
+                <figure class="case-media table-media">
                     <img
                         data-src="./01_Table_Reference_Policy_Accounting.png"
                         onerror="portfolioImageFallback(this)"
@@ -8436,7 +8813,7 @@ function getConservationCaseStudyHTML() {
 
             <div class="case-grid two">
 
-                <figure class="case-media">
+                <figure class="case-media table-media">
                     <img
                         data-src="./02_Table_Strategy_Performance.png"
                         onerror="portfolioImageFallback(this)"
@@ -8520,7 +8897,7 @@ function getConservationCaseStudyHTML() {
 
             <div class="case-grid two">
 
-                <figure class="case-media">
+                <figure class="case-media table-media">
                     <img
                         data-src="./05_Table_Management_Availability.png"
                         onerror="portfolioImageFallback(this)"
@@ -8598,7 +8975,7 @@ function getConservationCaseStudyHTML() {
 
             <div class="case-grid two">
 
-                <figure class="case-media">
+                <figure class="case-media table-media">
                     <img
                         data-src="./07_Table_Spatial_Distribution_of_Reference_Budget.png"
                         onerror="portfolioImageFallback(this)"
