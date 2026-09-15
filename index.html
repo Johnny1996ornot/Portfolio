@@ -2897,7 +2897,7 @@ img {
 
         display: grid;
         grid-template-columns:
-            clamp(410px, 33vw, 620px)
+            clamp(520px, 40vw, 790px)
             minmax(0, 1fr);
 
         grid-template-rows:
@@ -3894,6 +3894,68 @@ img {
 
 
 
+
+
+/* =========================================================
+   FINAL DESKTOP HEADING SCALE
+========================================================= */
+
+@media (min-width: 801px) {
+
+    /*
+       The left rail is now deliberately wider so the title
+       behaves like a real section headline rather than a
+       small label beside the carousel.
+    */
+
+    .expanded-content {
+        grid-template-columns:
+            clamp(520px, 40vw, 790px)
+            minmax(0, 1fr) !important;
+    }
+
+
+    .expanded-description {
+        max-width:
+            620px !important;
+
+        font-size:
+            clamp(1.5rem, 1.62vw, 1.92rem) !important;
+
+        line-height:
+            1.5 !important;
+    }
+
+
+    .expanded-kicker {
+        font-size:
+            clamp(1.02rem, .95vw, 1.2rem) !important;
+    }
+
+
+    /*
+       Ensure long headings such as Environmental Assessment
+       have enough horizontal room before wrapping.
+    */
+
+    .flying-title {
+        max-width:
+            calc(min(790px, 40vw) - 84px);
+
+        letter-spacing:
+            -.07em;
+    }
+
+
+    .flying-title .title-line {
+        white-space:
+            normal;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -4286,7 +4348,7 @@ img {
         <div class="thumb">
 
             <img
-                src="/Portfolio/images/Picture2.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/Picture2.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                src="./Picture2.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture2.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                 alt=""
             >
 
@@ -4296,7 +4358,7 @@ img {
         <div class="thumb">
 
             <img
-                src="/Portfolio/images/EVI%20and%20NDVI.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/EVI%20and%20NDVI.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                src="./EVI%20and%20NDVI.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/EVI%20and%20NDVI.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                 alt=""
             >
 
@@ -4306,7 +4368,7 @@ img {
         <div class="thumb">
 
             <img
-                src="/Portfolio/images/Network%20Model%20Diagram.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/Network%20Model%20Diagram.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                src="./Network%20Model%20Diagram.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Network%20Model%20Diagram.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                 alt=""
             >
 
@@ -5154,13 +5216,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="/Portfolio/images/Picture2.png"
+                    data-image="./Picture2.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="/Portfolio/images/Picture2.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/Picture2.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                            src="./Picture2.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture2.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                             alt="Supervised land cover classification"
                         >
 
@@ -5184,13 +5246,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="/Portfolio/images/EVI%20and%20NDVI.png"
+                    data-image="./EVI%20and%20NDVI.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="/Portfolio/images/EVI%20and%20NDVI.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/EVI%20and%20NDVI.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                            src="./EVI%20and%20NDVI.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/EVI%20and%20NDVI.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                             alt="NDVI and EVI analysis"
                         >
 
@@ -5214,13 +5276,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="/Portfolio/images/Network%20Model%20Diagram.png"
+                    data-image="./Network%20Model%20Diagram.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="/Portfolio/images/Network%20Model%20Diagram.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/Network%20Model%20Diagram.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                            src="./Network%20Model%20Diagram.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Network%20Model%20Diagram.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                             alt="Spatial network modelling"
                         >
 
@@ -5244,13 +5306,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="/Portfolio/images/TSS%20-%20LPP%20Wetland.png"
+                    data-image="./TSS%20-%20LPP%20Wetland.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="/Portfolio/images/TSS%20-%20LPP%20Wetland.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/TSS%20-%20LPP%20Wetland.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                            src="./TSS%20-%20LPP%20Wetland.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/TSS%20-%20LPP%20Wetland.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                             alt="TSS environmental monitoring"
                         >
 
@@ -5274,13 +5336,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="/Portfolio/images/Picture56.png"
+                    data-image="./Picture56.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="/Portfolio/images/Picture56.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/Picture56.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                            src="./Picture56.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture56.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                             alt="Environmental systems visualisation"
                         >
 
@@ -5370,7 +5432,7 @@ mini: {
                     <div class="mini-image">
 
                         <img
-                            src="/Portfolio/images/Picture33.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/Picture33.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
+                            src="./Picture33.png" data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture33.png" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
                             alt="Interactive Experience Timeline"
                         >
 
@@ -5742,19 +5804,19 @@ function getExpandedTitleSize(
 
 
         /*
-           Desktop titles now remain intentionally large.
-           They become a left-side editorial title rail
-           instead of shrinking into a small top heading.
+           Desktop expanded titles are intentionally large.
+           The wider left rail gives them room to behave
+           like the main editorial heading of each section.
         */
 
         if (key === "profile") {
 
             return Math.min(
                 Math.max(
-                    originalSize * .76,
-                    66
+                    originalSize * .92,
+                    84
                 ),
-                84
+                106
             );
         }
 
@@ -5763,10 +5825,10 @@ function getExpandedTitleSize(
 
             return Math.min(
                 Math.max(
-                    originalSize * .88,
-                    58
+                    originalSize * 1.08,
+                    78
                 ),
-                70
+                92
             );
         }
 
@@ -5775,10 +5837,10 @@ function getExpandedTitleSize(
 
             return Math.min(
                 Math.max(
-                    originalSize * .96,
-                    40
+                    originalSize * 1.18,
+                    56
                 ),
-                49
+                66
             );
         }
 
@@ -5791,10 +5853,10 @@ function getExpandedTitleSize(
 
             return Math.min(
                 Math.max(
-                    originalSize * .92,
-                    48
+                    originalSize * 1.10,
+                    70
                 ),
-                60
+                84
             );
         }
 
@@ -7087,7 +7149,7 @@ function portfolioImageFallback(img) {
             "true";
 
         img.src =
-            `https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/images/${filename}`;
+            `https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/${filename}`;
 
     }
 
