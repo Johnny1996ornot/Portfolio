@@ -2822,6 +2822,885 @@ img {
 }
 
 
+
+/* =========================================================
+   LEFT-RAIL MICRO ANIMATIONS
+   Lightweight inline SVG/CSS only — no GIF/video assets.
+========================================================= */
+
+.left-rail-scene {
+    display: none;
+}
+
+/* =========================================================
+   DESKTOP EXPANDED LAYOUT
+   Large title rail on the left; content / Cover Flow on right.
+   Mobile remains unchanged by keeping this above 800px only.
+========================================================= */
+
+@media (min-width: 801px) {
+
+    /* -----------------------------------------------------
+       LEFT FROSTED TITLE RAIL
+    ----------------------------------------------------- */
+
+    .expanded-title-shield {
+        top: 0;
+        left: 0;
+        right: auto;
+
+        width: clamp(410px, 33vw, 620px);
+        height: 100%;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(5,65,72,.97) 0%,
+                rgba(5,65,72,.94) 62%,
+                rgba(5,65,72,.66) 84%,
+                rgba(5,65,72,0) 100%
+            );
+
+        border-right:
+            1px solid
+            rgba(193,246,237,.045);
+
+        backdrop-filter:
+            blur(26px)
+            saturate(128%);
+
+        -webkit-backdrop-filter:
+            blur(26px)
+            saturate(128%);
+    }
+
+
+    /* -----------------------------------------------------
+       KEEP OPEN TITLES LARGE AND STACKED
+    ----------------------------------------------------- */
+
+    .flying-title.compact .title-line {
+        display: block;
+    }
+
+    .flying-title {
+        line-height: .92;
+    }
+
+
+    /* -----------------------------------------------------
+       TWO-COLUMN EXPANDED PANEL
+    ----------------------------------------------------- */
+
+    .expanded-content {
+        padding: 0;
+
+        display: grid;
+        grid-template-columns:
+            clamp(410px, 33vw, 620px)
+            minmax(0, 1fr);
+
+        grid-template-rows:
+            minmax(0, 1fr);
+
+        gap: 0;
+
+        overflow: hidden;
+    }
+
+
+    /* -----------------------------------------------------
+       LEFT DESCRIPTION AREA
+    ----------------------------------------------------- */
+
+    .expanded-header-row {
+        grid-column: 1;
+        grid-row: 1;
+
+        margin: 0;
+
+        padding-left:
+            clamp(42px, 3.1vw, 60px);
+
+        padding-right:
+            clamp(34px, 2.7vw, 52px);
+
+        padding-bottom: 44px;
+
+        align-self: stretch;
+
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    .expanded-header-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .expansion-profile .expanded-header-row {
+        padding-top: clamp(240px, 31vh, 305px);
+    }
+
+    .expansion-projects .expanded-header-row {
+        padding-top: clamp(270px, 35vh, 335px);
+    }
+
+    .expansion-skills .expanded-header-row {
+        padding-top: clamp(235px, 29vh, 285px);
+    }
+
+    .expansion-gallery .expanded-header-row {
+        padding-top: clamp(245px, 30vh, 300px);
+    }
+
+    .expansion-mini .expanded-header-row {
+        padding-top: clamp(205px, 25vh, 250px);
+    }
+
+    .expanded-kicker {
+        font-size:
+            clamp(.82rem, .72vw, .94rem);
+
+        letter-spacing: .15em;
+    }
+
+    .expanded-description {
+        max-width: 470px;
+
+        margin-top: 18px;
+
+        font-size:
+            clamp(1.12rem, 1.22vw, 1.38rem);
+
+        line-height: 1.62;
+
+        color:
+            rgba(225,244,240,.91);
+    }
+
+
+    /* -----------------------------------------------------
+       RIGHT CONTENT STAGE
+    ----------------------------------------------------- */
+
+    .flow-section {
+        grid-column: 2;
+        grid-row: 1;
+
+        min-width: 0;
+        min-height: 0;
+
+        height: 100%;
+
+        padding:
+            clamp(38px, 5vh, 58px)
+            clamp(24px, 2.8vw, 52px)
+            clamp(30px, 4vh, 46px)
+            clamp(12px, 1.3vw, 24px);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .flow-help {
+        margin-bottom: 10px;
+
+        font-size:
+            clamp(.92rem, .86vw, 1.02rem);
+
+        text-align: center;
+
+        color:
+            rgba(193,246,237,.63);
+    }
+
+
+    /* -----------------------------------------------------
+       PROFILE CONTACT CARDS USE THE RIGHT SIDE
+    ----------------------------------------------------- */
+
+    .contact-grid {
+        grid-column: 2;
+        grid-row: 1;
+
+        align-self: center;
+
+        margin:
+            0
+            clamp(28px, 3.2vw, 58px)
+            0
+            clamp(18px, 1.8vw, 34px);
+
+        gap: 18px;
+    }
+
+    .contact-card {
+        min-height: 185px;
+        padding: 28px;
+    }
+
+    .contact-small {
+        font-size: .78rem;
+    }
+
+    .contact-large {
+        font-size:
+            clamp(1.2rem, 1.35vw, 1.48rem);
+    }
+
+
+    /* -----------------------------------------------------
+       BIGGER, MORE READABLE UNO CARDS ON DESKTOP
+    ----------------------------------------------------- */
+
+    .cover-flow {
+        --card-width:
+            clamp(320px, 24vw, 390px);
+
+        flex: 1;
+        min-height: 0;
+
+        align-items: center;
+
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .flow-card {
+        max-height:
+            min(66vh, 590px);
+
+        border-radius: 30px;
+
+        padding:
+            clamp(27px, 2vw, 34px);
+    }
+
+    .card-label {
+        font-size:
+            clamp(.82rem, .76vw, .94rem);
+    }
+
+    .flow-card h3 {
+        margin-top: 24px;
+
+        font-size:
+            clamp(1.85rem, 2vw, 2.28rem);
+
+        line-height: 1.10;
+    }
+
+    .flow-card p {
+        margin-top: 17px;
+
+        font-size:
+            clamp(1.08rem, 1.05vw, 1.22rem);
+
+        line-height: 1.60;
+    }
+
+    .tags span {
+        font-size:
+            clamp(.74rem, .67vw, .84rem);
+    }
+
+    .flow-dots {
+        margin-top: 8px;
+    }
+
+
+    /* -----------------------------------------------------
+       VISUAL / MINI CARDS KEEP PORTRAIT PROPORTIONS
+       BUT USE MORE OF THE AVAILABLE STAGE.
+    ----------------------------------------------------- */
+
+    .visual-card,
+    .mini-card {
+        aspect-ratio: 2 / 3;
+    }
+
+
+    /* -----------------------------------------------------
+       LEFT-RAIL BODY / DESCRIPTION
+    ----------------------------------------------------- */
+
+    .expanded-header-row > div {
+        width: 100%;
+        min-height: 100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .expanded-kicker {
+        font-size:
+            clamp(.9rem, .82vw, 1.05rem);
+    }
+
+    .expanded-description {
+        max-width: 510px;
+
+        margin-top: 20px;
+
+        font-size:
+            clamp(1.28rem, 1.38vw, 1.58rem);
+
+        line-height: 1.56;
+
+        color:
+            rgba(235,250,247,.94);
+    }
+
+
+    /* -----------------------------------------------------
+       ANIMATED SCENE SPACE
+       Projects = typing at laptop
+       Skills   = walking through moving forest
+    ----------------------------------------------------- */
+
+    .expansion-projects .left-rail-scene,
+    .expansion-skills .left-rail-scene {
+        display: block;
+
+        position: relative;
+
+        width: 100%;
+        height:
+            clamp(175px, 23vh, 245px);
+
+        min-height: 175px;
+
+        margin-top: auto;
+        padding-top: 24px;
+
+        overflow: hidden;
+
+        border-top:
+            1px solid
+            rgba(193,246,237,.10);
+    }
+
+    .left-rail-scene::after {
+        content: "";
+
+        position: absolute;
+        left: 9%;
+        right: 9%;
+        bottom: 7px;
+
+        height: 1px;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                rgba(193,246,237,.28),
+                transparent
+            );
+    }
+
+
+    /* =======================
+       RESEARCH / TYPING SCENE
+    ======================= */
+
+    .research-scene {
+        opacity: .94;
+    }
+
+    .research-scene svg {
+        width: 100%;
+        height: 100%;
+
+        overflow: visible;
+    }
+
+    .research-scene .scene-white {
+        stroke: rgba(250,255,254,.95);
+        fill: none;
+
+        stroke-width: 13;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .research-scene .scene-soft {
+        stroke: rgba(193,246,237,.24);
+        fill: none;
+
+        stroke-width: 4;
+        stroke-linecap: round;
+    }
+
+    .research-scene .person-head {
+        fill: rgba(250,255,254,.97);
+    }
+
+    .research-scene .desk-line {
+        stroke: rgba(250,255,254,.72);
+        stroke-width: 8;
+        stroke-linecap: round;
+    }
+
+    .research-scene .laptop-body {
+        fill: rgba(89,225,141,.14);
+        stroke: rgba(250,255,254,.88);
+        stroke-width: 5;
+    }
+
+    .research-scene .laptop-screen-glow {
+        fill: rgba(89,225,141,.32);
+
+        animation:
+            laptopGlow 1.8s ease-in-out infinite alternate;
+    }
+
+    .research-scene .typing-left,
+    .research-scene .typing-right {
+        transform-box: fill-box;
+        transform-origin: 0% 50%;
+    }
+
+    .research-scene .typing-left {
+        animation:
+            typingLeft .38s ease-in-out infinite alternate;
+    }
+
+    .research-scene .typing-right {
+        animation:
+            typingRight .42s ease-in-out infinite alternate-reverse;
+    }
+
+    .research-scene .screen-dot {
+        fill: var(--greenBright);
+
+        animation:
+            codeBlink 1.25s steps(2,end) infinite;
+    }
+
+    .research-scene .code-line {
+        stroke: rgba(193,246,237,.68);
+        stroke-width: 4;
+        stroke-linecap: round;
+    }
+
+    @keyframes typingLeft {
+        from {
+            transform: rotate(-4deg) translateY(0);
+        }
+
+        to {
+            transform: rotate(4deg) translateY(4px);
+        }
+    }
+
+    @keyframes typingRight {
+        from {
+            transform: rotate(3deg) translateY(3px);
+        }
+
+        to {
+            transform: rotate(-5deg) translateY(0);
+        }
+    }
+
+    @keyframes laptopGlow {
+        from {
+            opacity: .35;
+        }
+
+        to {
+            opacity: .78;
+        }
+    }
+
+    @keyframes codeBlink {
+        50% {
+            opacity: .18;
+        }
+    }
+
+
+    /* =======================
+       SKILLS / FOREST SCENE
+    ======================= */
+
+    .forest-scene {
+        isolation: isolate;
+    }
+
+    .forest-haze {
+        position: absolute;
+        inset: 18% 0 0 0;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(63,208,201,.00),
+                rgba(63,208,201,.045) 60%,
+                rgba(89,225,141,.07)
+            );
+
+        border-radius: 44% 44% 0 0;
+    }
+
+    .forest-track {
+        position: absolute;
+        left: 0;
+        bottom: 9px;
+
+        width: 100%;
+        height: 84%;
+
+        animation:
+            forestPass 11s linear infinite;
+
+        will-change: transform;
+    }
+
+    .forest-track.track-two {
+        left: 100%;
+    }
+
+    .forest-tree {
+        --tree-scale: 1;
+
+        position: absolute;
+        bottom: 11px;
+
+        width: 50px;
+        height: 145px;
+
+        transform:
+            scale(var(--tree-scale));
+
+        transform-origin:
+            bottom center;
+
+        opacity: .70;
+    }
+
+    .forest-tree::before {
+        content: "";
+
+        position: absolute;
+        left: 20px;
+        bottom: 0;
+
+        width: 10px;
+        height: 83px;
+
+        border-radius: 999px;
+
+        background:
+            rgba(238,255,250,.69);
+    }
+
+    .forest-tree::after {
+        content: "";
+
+        position: absolute;
+        left: -5px;
+        top: 0;
+
+        width: 60px;
+        height: 78px;
+
+        border-radius:
+            52% 48% 55% 45%
+            /
+            44% 56% 44% 56%;
+
+        background:
+            radial-gradient(
+                circle at 36% 30%,
+                rgba(193,246,237,.82),
+                rgba(89,225,141,.55) 48%,
+                rgba(46,175,125,.28) 100%
+            );
+    }
+
+    .forest-tree.t1 {
+        left: 2%;
+        --tree-scale: .72;
+        opacity: .43;
+    }
+
+    .forest-tree.t2 {
+        left: 19%;
+        --tree-scale: 1.04;
+    }
+
+    .forest-tree.t3 {
+        left: 43%;
+        --tree-scale: .82;
+        opacity: .52;
+    }
+
+    .forest-tree.t4 {
+        left: 68%;
+        --tree-scale: 1.18;
+    }
+
+    .forest-tree.t5 {
+        left: 91%;
+        --tree-scale: .67;
+        opacity: .42;
+    }
+
+    .walker-svg {
+        position: absolute;
+        z-index: 7;
+
+        left: 50%;
+        bottom: 14px;
+
+        width: 114px;
+        height: 175px;
+
+        transform:
+            translateX(-50%);
+
+        overflow: visible;
+
+        animation:
+            walkerBob .48s ease-in-out infinite alternate;
+    }
+
+    .walker-svg .walker-head {
+        fill: rgba(250,255,254,.98);
+    }
+
+    .walker-svg .walker-line {
+        stroke: rgba(250,255,254,.97);
+        fill: none;
+
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .walker-svg .walker-arm-left,
+    .walker-svg .walker-arm-right,
+    .walker-svg .walker-leg-left,
+    .walker-svg .walker-leg-right {
+        transform-box: fill-box;
+        transform-origin: 50% 0%;
+    }
+
+    .walker-svg .walker-arm-left,
+    .walker-svg .walker-leg-right {
+        animation:
+            limbForward .72s ease-in-out infinite alternate;
+    }
+
+    .walker-svg .walker-arm-right,
+    .walker-svg .walker-leg-left {
+        animation:
+            limbBackward .72s ease-in-out infinite alternate;
+    }
+
+    .walker-shadow {
+        position: absolute;
+        z-index: 6;
+
+        left: 50%;
+        bottom: 12px;
+
+        width: 98px;
+        height: 13px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(0,27,30,.26);
+
+        filter: blur(5px);
+
+        transform:
+            translateX(-50%);
+
+        animation:
+            shadowPulse .48s ease-in-out infinite alternate;
+    }
+
+    @keyframes forestPass {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+    @keyframes walkerBob {
+        from {
+            transform:
+                translateX(-50%)
+                translateY(0);
+        }
+
+        to {
+            transform:
+                translateX(-50%)
+                translateY(-5px);
+        }
+    }
+
+    @keyframes limbForward {
+        from {
+            transform: rotate(-22deg);
+        }
+
+        to {
+            transform: rotate(26deg);
+        }
+    }
+
+    @keyframes limbBackward {
+        from {
+            transform: rotate(25deg);
+        }
+
+        to {
+            transform: rotate(-24deg);
+        }
+    }
+
+    @keyframes shadowPulse {
+        from {
+            transform:
+                translateX(-50%)
+                scaleX(.84);
+
+            opacity: .24;
+        }
+
+        to {
+            transform:
+                translateX(-50%)
+                scaleX(1.05);
+
+            opacity: .42;
+        }
+    }
+
+}
+
+
+
+
+/* =========================================================
+   FINAL DESKTOP TITLE-RAIL REFINEMENT
+   - No decorative stick-figure/forest scenes
+   - Large title vertically centered in the left rail
+   - Description enlarged and anchored toward the bottom
+   - No punctuation dots added to heading lines
+========================================================= */
+
+.flying-title.compact .title-line::after {
+    content: none !important;
+}
+
+.left-rail-scene {
+    display: none !important;
+}
+
+@media (min-width: 801px) {
+
+    .expanded-header-row,
+    .expansion-profile .expanded-header-row,
+    .expansion-projects .expanded-header-row,
+    .expansion-skills .expanded-header-row,
+    .expansion-gallery .expanded-header-row,
+    .expansion-mini .expanded-header-row {
+
+        padding-top: 0 !important;
+
+        padding-left:
+            clamp(42px, 3.1vw, 60px);
+
+        padding-right:
+            clamp(34px, 2.7vw, 52px);
+
+        padding-bottom:
+            clamp(48px, 6vh, 78px);
+
+        display: flex;
+
+        align-items: flex-end;
+    }
+
+
+    .expanded-header-row > div {
+
+        width: 100%;
+
+        min-height: 0 !important;
+
+        display: block;
+    }
+
+
+    .expanded-kicker {
+
+        font-size:
+            clamp(.92rem, .84vw, 1.08rem);
+
+        letter-spacing: .15em;
+    }
+
+
+    .expanded-description {
+
+        max-width: 515px;
+
+        margin-top: 20px;
+
+        font-size:
+            clamp(1.34rem, 1.48vw, 1.72rem);
+
+        line-height: 1.52;
+
+        color:
+            rgba(239,252,249,.95);
+    }
+
+
+    /* Give the left rail a soft visual separation without filling it. */
+    .expanded-header-row > div::before {
+
+        content: "";
+
+        display: block;
+
+        width: 58px;
+
+        height: 3px;
+
+        margin-bottom: 19px;
+
+        border-radius: 999px;
+
+        background:
+            rgba(89,225,141,.72);
+    }
+
+}
+
+
+/* Keep the already-good phone title/description behavior untouched. */
+@media (max-width: 800px) {
+
+    .expanded-header-row > div::before {
+        display: none;
+    }
+
+}
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -3214,7 +4093,7 @@ img {
         <div class="thumb">
 
             <img
-                src="Picture2.png"
+                src="images/Picture2.png"
                 alt=""
             >
 
@@ -3224,7 +4103,7 @@ img {
         <div class="thumb">
 
             <img
-                src="EVI and NDVI.png"
+                src="images/EVI and NDVI.png"
                 alt=""
             >
 
@@ -3234,7 +4113,7 @@ img {
         <div class="thumb">
 
             <img
-                src="Network Model Diagram.png"
+                src="images/Network Model Diagram.png"
                 alt=""
             >
 
@@ -4081,13 +4960,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="Picture2.png"
+                    data-image="images/Picture2.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="Picture2.png"
+                            src="images/Picture2.png"
                             alt="Supervised land cover classification"
                         >
 
@@ -4111,13 +4990,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="EVI and NDVI.png"
+                    data-image="images/EVI and NDVI.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="EVI and NDVI.png"
+                            src="images/EVI and NDVI.png"
                             alt="NDVI and EVI analysis"
                         >
 
@@ -4141,13 +5020,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="Network Model Diagram.png"
+                    data-image="images/Network Model Diagram.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="Network Model Diagram.png"
+                            src="images/Network Model Diagram.png"
                             alt="Spatial network modelling"
                         >
 
@@ -4171,13 +5050,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="TSS - LPP Wetland.png"
+                    data-image="images/TSS - LPP Wetland.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="TSS - LPP Wetland.png"
+                            src="images/TSS - LPP Wetland.png"
                             alt="TSS environmental monitoring"
                         >
 
@@ -4201,13 +5080,13 @@ gallery: {
 
                 <article
                     class="flow-card visual-card gallery-item"
-                    data-image="Picture56.png"
+                    data-image="images/Picture56.png"
                 >
 
                     <div class="visual-image">
 
                         <img
-                            src="Picture56.png"
+                            src="images/Picture56.png"
                             alt="Environmental systems visualisation"
                         >
 
@@ -4297,7 +5176,7 @@ mini: {
                     <div class="mini-image">
 
                         <img
-                            src="Picture33.png"
+                            src="images/Picture33.png"
                             alt="Interactive Experience Timeline"
                         >
 
@@ -4668,14 +5547,20 @@ function getExpandedTitleSize(
     else {
 
 
+        /*
+           Desktop titles now remain intentionally large.
+           They become a left-side editorial title rail
+           instead of shrinking into a small top heading.
+        */
+
         if (key === "profile") {
 
             return Math.min(
                 Math.max(
-                    originalSize * .65,
-                    48
+                    originalSize * .76,
+                    66
                 ),
-                62
+                84
             );
         }
 
@@ -4684,10 +5569,10 @@ function getExpandedTitleSize(
 
             return Math.min(
                 Math.max(
-                    originalSize * .53,
-                    36
+                    originalSize * .88,
+                    58
                 ),
-                48
+                70
             );
         }
 
@@ -4696,10 +5581,10 @@ function getExpandedTitleSize(
 
             return Math.min(
                 Math.max(
-                    originalSize * .72,
-                    31
+                    originalSize * .96,
+                    40
                 ),
-                40
+                49
             );
         }
 
@@ -4712,10 +5597,10 @@ function getExpandedTitleSize(
 
             return Math.min(
                 Math.max(
-                    originalSize * .68,
-                    32
+                    originalSize * .92,
+                    48
                 ),
-                42
+                60
             );
         }
 
@@ -4723,6 +5608,18 @@ function getExpandedTitleSize(
 
 
     return 32;
+}
+
+
+/* =========================================================
+   LEFT-RAIL DECORATIVE SCENES
+   Desktop-only through CSS. Kept inline and lightweight.
+========================================================= */
+
+function getLeftRailScene(key) {
+
+    /* Decorative rail animations intentionally disabled. */
+    return "";
 }
 
 
@@ -4809,7 +5706,7 @@ function openPanel(panel) {
 
 
     expansion.className =
-        "expansion";
+        `expansion expansion-${key}`;
 
 
     expansion.style.left =
@@ -4863,6 +5760,9 @@ function openPanel(panel) {
                         ${content[key].description}
 
                     </div>
+
+
+                    ${getLeftRailScene(key)}
 
 
                 </div>
@@ -4972,16 +5872,7 @@ function openPanel(panel) {
         + (
             window.innerWidth <= 800
                 ? 18
-                : 52
-        );
-
-
-    const finalTitleTop =
-        finalTop
-        + (
-            window.innerWidth <= 800
-                ? 21
-                : 27
+                : Math.max(42, window.innerWidth * .027)
         );
 
 
@@ -4992,11 +5883,38 @@ function openPanel(panel) {
         );
 
 
+    const titleLineCount =
+        originalTitle.querySelectorAll(
+            ".title-line"
+        ).length || 1;
+
+
+    const estimatedTitleHeight =
+        finalTitleSize
+        * 1.04
+        * titleLineCount;
+
+
+    const finalTitleTop =
+        window.innerWidth <= 800
+            ? finalTop + 21
+            : finalTop
+              + Math.max(
+                    42,
+                    (finalHeight - estimatedTitleHeight) / 2
+                );
+
+
     const finalTitleWidth =
-        Math.min(
-            finalWidth * .78,
-            1100
-        );
+        window.innerWidth <= 800
+            ? Math.min(
+                finalWidth * .78,
+                1100
+            )
+            : Math.min(
+                finalWidth * .31,
+                560
+            );
 
 
     requestAnimationFrame(
