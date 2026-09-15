@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 
@@ -26,32 +27,31 @@
 
 /* =========================================================
    COLOR SYSTEM
-   Inspired by the teal / green references
 ========================================================= */
 
 :root {
 
     --bg: #02353C;
-    --bg-soft: #074249;
+    --bg2: #064149;
 
-    --panel: #0A4146;
-    --panel-hover: #105158;
-    --panel-soft: #0C4A50;
+    --panel: #0A474D;
+    --panel2: #0B5156;
+    --panel3: #0B5A5D;
 
-    --text: #F5FFFD;
+    --text: #F7FFFD;
 
-    --muted: #C1DDD8;
-    --muted-2: #8FB8B3;
+    --muted: #C0DBD7;
+    --muted2: #88B2AD;
 
     --mint: #C1F6ED;
 
     --green: #2EAF7D;
-    --green-2: #449342;
-    --green-bright: #58DE8A;
+    --green2: #449342;
+    --greenBright: #59E18D;
 
     --aqua: #3FD0C9;
 
-    --line: rgba(193,246,237,.15);
+    --line: rgba(193,246,237,.17);
 
     --radius: 29px;
 }
@@ -76,22 +76,26 @@ body {
 }
 
 body {
+
     background:
+
         radial-gradient(
-            circle at 0% 0%,
-            rgba(63,208,201,.13),
-            transparent 30%
+            circle at 3% 3%,
+            rgba(63,208,201,.12),
+            transparent 31%
         ),
+
         radial-gradient(
-            circle at 100% 100%,
-            rgba(46,175,125,.15),
-            transparent 35%
+            circle at 97% 94%,
+            rgba(46,175,125,.14),
+            transparent 34%
         ),
+
         linear-gradient(
             145deg,
             #02353C,
-            #03383E 55%,
-            #063C3F
+            #043D43 55%,
+            #063E42
         );
 
     color: var(--text);
@@ -106,6 +110,7 @@ body {
         sans-serif;
 
     -webkit-font-smoothing: antialiased;
+
     text-rendering: optimizeLegibility;
 }
 
@@ -120,26 +125,30 @@ button {
 
 img {
     display: block;
+
     max-width: 100%;
 }
 
 
 /* =========================================================
-   APP
+   MAIN APP
 ========================================================= */
 
 .app {
+
     width: 100%;
+
     height: 100svh;
 
     padding:
-        clamp(11px, 1.7vw, 25px);
+        clamp(10px, 1.6vw, 24px);
 
     display: flex;
+
     flex-direction: column;
 
     gap:
-        clamp(9px, 1.2vw, 16px);
+        clamp(8px, 1.15vw, 15px);
 }
 
 
@@ -148,32 +157,42 @@ img {
 ========================================================= */
 
 .topbar {
+
     min-height: 38px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 20px;
 }
 
 .brand {
+
     display: flex;
+
     align-items: center;
 
     gap: 9px;
 
-    color: var(--green-bright);
+    color:
+        var(--greenBright);
 
     font-size: .69rem;
+
     font-weight: 900;
 
     letter-spacing: .17em;
+
     text-transform: uppercase;
 }
 
 .hint {
-    color: var(--muted-2);
+
+    color:
+        var(--muted2);
 
     font-size: .68rem;
 }
@@ -184,6 +203,7 @@ img {
 ========================================================= */
 
 .dashboard {
+
     min-height: 0;
 
     flex: 1;
@@ -197,37 +217,46 @@ img {
         repeat(2, minmax(0,1fr));
 
     gap:
-        clamp(9px, 1.25vw, 17px);
+        clamp(8px,1.2vw,16px);
 }
 
 
 /* =========================================================
-   PANELS
+   PANEL
 ========================================================= */
 
 .panel {
+
     position: relative;
 
     min-width: 0;
+
     min-height: 0;
 
     overflow: hidden;
 
     padding:
-        clamp(19px, 2.2vw, 34px);
+        clamp(18px,2vw,32px);
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    border-radius: var(--radius);
+    border-radius:
+        var(--radius);
 
     background:
+
         linear-gradient(
             145deg,
             rgba(255,255,255,.025),
-            transparent 45%
+            transparent 46%
         ),
+
         var(--panel);
+
+    color:
+        var(--text);
 
     text-align: left;
 
@@ -236,35 +265,42 @@ img {
     isolation: isolate;
 
     box-shadow:
-        0 18px 38px
-        rgba(0,25,28,.13);
+        0 18px 40px
+        rgba(0,24,27,.14);
 
     transition:
-        transform .34s cubic-bezier(.2,.8,.2,1),
+
+        transform .32s
+        cubic-bezier(.2,.8,.2,1),
+
         border-color .3s ease,
+
         background .3s ease,
+
         box-shadow .3s ease;
 }
 
 .panel:hover {
+
     transform:
         translateY(-4px);
 
     background:
-        var(--panel-hover);
+        var(--panel2);
 
     border-color:
-        rgba(88,222,138,.32);
+        rgba(89,225,141,.30);
 
     box-shadow:
-        0 22px 48px
+        0 22px 50px
         rgba(0,20,23,.23);
 }
 
 .panel:focus-visible {
+
     outline:
         2px solid
-        var(--green-bright);
+        var(--greenBright);
 
     outline-offset:
         3px;
@@ -272,21 +308,27 @@ img {
 
 
 /* =========================================================
-   PANEL LAYOUT
+   PANEL GRID
 ========================================================= */
 
 .panel-profile {
-    grid-column: span 7;
+
+    grid-column:
+        span 7;
 }
 
 .panel-projects {
-    grid-column: span 5;
+
+    grid-column:
+        span 5;
 }
 
 .panel-skills,
 .panel-gallery,
 .panel-mini {
-    grid-column: span 4;
+
+    grid-column:
+        span 4;
 }
 
 
@@ -295,41 +337,44 @@ img {
 ========================================================= */
 
 .panel-kicker {
+
     position: relative;
 
     z-index: 5;
 
-    display: inline-flex;
-    align-items: center;
+    display:
+        inline-flex;
+
+    align-items:
+        center;
 
     gap: 7px;
 
     color:
-        var(--green-bright);
+        var(--greenBright);
 
-    font-size:
-        .64rem;
+    font-size: .63rem;
 
-    font-weight:
-        900;
+    font-weight: 900;
 
-    text-transform:
-        uppercase;
+    letter-spacing: .14em;
 
-    letter-spacing:
-        .14em;
+    text-transform: uppercase;
 }
 
 .panel-arrow {
+
     position: absolute;
 
-    z-index: 20;
+    z-index: 15;
 
-    top: 22px;
-    right: 23px;
+    top: 21px;
 
-    width: 40px;
-    height: 40px;
+    right: 22px;
+
+    width: 39px;
+
+    height: 39px;
 
     border:
         1px solid
@@ -339,47 +384,39 @@ img {
         50%;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     color:
         var(--mint);
 
     background:
-        rgba(2,53,60,.25);
+        rgba(2,53,60,.28);
 
     transition:
         transform .3s ease,
-        color .3s ease,
-        border-color .3s ease,
         background .3s ease;
 }
 
 .panel:hover
 .panel-arrow {
+
     transform:
         rotate(45deg);
 
-    color:
-        white;
-
-    border-color:
-        rgba(88,222,138,.35);
-
     background:
-        rgba(46,175,125,.16);
+        rgba(46,175,125,.18);
 }
 
 
 /* =========================================================
    SHARED TITLES
-
-   IMPORTANT:
-   No punctuation on closed panels.
-   Punctuation gets introduced once expanded.
 ========================================================= */
 
 .shared-title {
+
     position: relative;
 
     z-index: 5;
@@ -400,34 +437,39 @@ img {
 }
 
 .title-line {
+
     display: block;
 }
 
 .shared-title .accent,
 .flying-title .accent {
+
     color:
-        var(--green-bright);
+        var(--greenBright);
 }
 
 
-/* homepage title sizes */
+/* HOME SIZES */
 
 .panel-profile
 .shared-title {
+
     font-size:
-        clamp(2.8rem, 5.55vw, 6.8rem);
+        clamp(2.8rem,5.55vw,6.7rem);
 }
 
 .panel-projects
 .shared-title {
+
     font-size:
-        clamp(2.15rem, 4vw, 4.7rem);
+        clamp(2.1rem,3.95vw,4.6rem);
 }
 
 .panel-skills
 .shared-title {
+
     font-size:
-        clamp(1.38rem, 2.45vw, 2.9rem);
+        clamp(1.35rem,2.4vw,2.8rem);
 
     line-height: 1;
 }
@@ -436,8 +478,9 @@ img {
 .shared-title,
 .panel-mini
 .shared-title {
+
     font-size:
-        clamp(1.8rem, 3vw, 3.5rem);
+        clamp(1.75rem,2.9vw,3.4rem);
 }
 
 
@@ -446,32 +489,40 @@ img {
 ========================================================= */
 
 .panel-profile {
+
     display: flex;
+
     flex-direction: column;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
 
     background:
+
         radial-gradient(
-            circle at 82% 15%,
+            circle at 82% 16%,
             rgba(63,208,201,.15),
             transparent 40%
         ),
+
         linear-gradient(
-            140deg,
-            #0A4146,
-            #0B484A
+            138deg,
+            #09454B,
+            #0B4D50
         );
 }
 
 .profile-content {
+
     position: relative;
 
     z-index: 5;
 
-    max-width: 66%;
+    max-width: 68%;
 }
 
 .profile-copy {
+
     margin-top: 14px;
 
     max-width: 680px;
@@ -480,45 +531,47 @@ img {
         var(--muted);
 
     font-size:
-        clamp(.82rem, 1.1vw, 1rem);
+        clamp(.82rem,1.05vw,1rem);
 
     line-height: 1.55;
 }
 
 .bottom-note {
+
     position: relative;
 
     z-index: 5;
 
     color:
-        var(--muted-2);
+        var(--muted2);
 
-    font-size: .67rem;
+    font-size: .66rem;
 }
 
 
 /* =========================================================
-   PROFILE PLANETARY / ORGANIC VISUAL
+   PROFILE MOVING PLANETS
 ========================================================= */
 
 .planet-system {
+
     position: absolute;
 
+    right: 1%;
+
+    top: 4%;
+
+    width: 40%;
+
+    height: 91%;
+
     z-index: 1;
-
-    right: 2%;
-    top: 7%;
-
-    width: 38%;
-    height: 86%;
 
     pointer-events: none;
 }
 
-
-/* orbits */
-
 .orbit {
+
     position: absolute;
 
     border:
@@ -528,25 +581,31 @@ img {
     border-radius: 50%;
 
     animation:
-        orbitRotate linear infinite;
+        orbitSpin linear infinite;
 }
 
-.orbit-one {
-    width: 280px;
-    height: 280px;
+.orbit1 {
 
-    right: 7%;
-    top: 5%;
+    width: 285px;
+
+    height: 285px;
+
+    right: 6%;
+
+    top: 3%;
 
     animation-duration:
-        19s;
+        20s;
 }
 
-.orbit-two {
+.orbit2 {
+
     width: 205px;
+
     height: 205px;
 
-    right: 19%;
+    right: 20%;
+
     top: 18%;
 
     animation-duration:
@@ -556,45 +615,49 @@ img {
         reverse;
 }
 
-.orbit-three {
-    width: 345px;
-    height: 175px;
+.orbit3 {
 
-    right: -3%;
+    width: 350px;
+
+    height: 180px;
+
+    right: -7%;
+
     bottom: 2%;
 
     transform:
-        rotate(-22deg);
+        rotate(-21deg);
 
     animation-duration:
         24s;
 }
 
-@keyframes orbitRotate {
+@keyframes orbitSpin {
+
     to {
+
         transform:
             rotate(360deg);
     }
 }
 
 
-/* planet */
-
 .planet {
+
     position: absolute;
 
     border-radius: 50%;
 
     box-shadow:
-        inset -25px -28px 50px
-        rgba(1,63,59,.23),
-        inset 18px 18px 34px
-        rgba(255,255,255,.16),
-        0 18px 35px
-        rgba(0,30,30,.18);
 
-    filter:
-        saturate(.95);
+        inset -24px -25px 45px
+        rgba(0,69,62,.25),
+
+        inset 18px 16px 32px
+        rgba(255,255,255,.13),
+
+        0 20px 36px
+        rgba(0,28,31,.18);
 
     animation:
         planetFloat
@@ -602,122 +665,130 @@ img {
         infinite alternate;
 }
 
-.planet-large {
+.planet1 {
+
     width: 155px;
+
     height: 155px;
 
-    right: 17%;
-    top: 10%;
+    right: 16%;
+
+    top: 9%;
 
     background:
+
         radial-gradient(
-            circle at 32% 25%,
+            circle at 30% 24%,
             #C1F6ED,
-            #5DD596 42%,
+            #65DA9B 43%,
             #2EAF7D 72%,
-            #196750 100%
+            #166750
         );
 
     animation-duration:
-        7.5s;
+        7s;
 }
 
-.planet-medium {
+.planet2 {
+
     width: 108px;
+
     height: 108px;
 
-    right: 2%;
-    top: 51%;
+    right: 1%;
+
+    top: 50%;
 
     background:
+
         radial-gradient(
-            circle at 32% 25%,
-            #94DEA5,
-            #53C884 50%,
-            #257E63 100%
+            circle at 30% 23%,
+            #98DEA6,
+            #55C685 48%,
+            #267F65
         );
 
     animation-duration:
-        6.3s;
+        6.2s;
 
     animation-delay:
-        -2s;
+        -1.8s;
 }
 
-.planet-small {
-    width: 62px;
-    height: 62px;
+.planet3 {
 
-    right: 44%;
-    top: 57%;
+    width: 63px;
+
+    height: 63px;
+
+    right: 45%;
+
+    top: 59%;
 
     background:
+
         radial-gradient(
             circle at 34% 26%,
             #C1F6ED,
-            #3FD0C9 47%,
-            #18776F 100%
+            #3FD0C9 45%,
+            #18766F
         );
 
     animation-duration:
-        5s;
-
-    animation-delay:
-        -1.4s;
+        5.1s;
 }
 
-.planet-tiny {
+.planet4 {
+
     width: 29px;
+
     height: 29px;
 
-    right: 49%;
+    right: 51%;
+
     top: 18%;
 
     background:
-        #58DE8A;
-
-    box-shadow:
-        0 0 22px
-        rgba(88,222,138,.34);
+        var(--greenBright);
 
     animation-duration:
-        4.3s;
-}
+        4.2s;
 
+    box-shadow:
+        0 0 24px
+        rgba(89,225,141,.35);
+}
 
 @keyframes planetFloat {
 
     from {
+
         transform:
-            translate3d(0,-8px,0)
+            translate3d(0,-7px,0)
             scale(.98);
     }
 
     to {
+
         transform:
-            translate3d(9px,11px,0)
+            translate3d(10px,11px,0)
             scale(1.04);
     }
-
 }
 
 
-/* small moving particles */
+.particle {
 
-.planet-particle {
     position: absolute;
 
     width: 7px;
+
     height: 7px;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
         var(--mint);
-
-    opacity:
-        .5;
 
     animation:
         particlePulse
@@ -725,22 +796,28 @@ img {
         infinite;
 }
 
-.pp1 {
+.particle1 {
+
     right: 52%;
-    top: 38%;
+
+    top: 40%;
 }
 
-.pp2 {
+.particle2 {
+
     right: 5%;
-    top: 32%;
+
+    top: 31%;
 
     animation-delay:
         -1s;
 }
 
-.pp3 {
-    right: 32%;
-    bottom: 9%;
+.particle3 {
+
+    right: 33%;
+
+    bottom: 8%;
 
     animation-delay:
         -2s;
@@ -750,21 +827,20 @@ img {
 
     0%,
     100% {
+
+        opacity: .18;
+
         transform:
             scale(.7);
-
-        opacity:
-            .2;
     }
 
     50% {
+
+        opacity: .9;
+
         transform:
-            scale(1.45);
-
-        opacity:
-            .9;
+            scale(1.4);
     }
-
 }
 
 
@@ -773,70 +849,78 @@ img {
 ========================================================= */
 
 .panel-projects {
+
     display: flex;
+
     flex-direction: column;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
 }
 
 .project-preview {
+
     display: grid;
 
     gap: 7px;
 }
 
 .preview-line {
-    padding-top: 9px;
+
+    padding-top: 8px;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    gap: 12px;
 
     border-top:
         1px solid
         var(--line);
 
-    display: flex;
-    justify-content: space-between;
-
-    gap: 12px;
-
-    font-size:
-        .68rem;
+    font-size: .67rem;
 }
 
 .preview-line strong {
+
     color:
         var(--text);
 }
 
 .preview-line span {
+
     color:
-        var(--muted-2);
+        var(--muted2);
 }
 
 
 /* =========================================================
-   SKILLS PANEL
+   SKILLS
 ========================================================= */
 
 .panel-skills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
-    background:
-        radial-gradient(
-            circle at 10% 100%,
-            rgba(63,208,201,.12),
-            transparent 43%
-        ),
-        var(--panel);
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content:
+        space-between;
 }
 
 .skill-preview {
+
     display: flex;
+
     flex-wrap: wrap;
 
     gap: 6px;
 }
 
 .skill-preview span {
+
     padding:
         6px 9px;
 
@@ -850,44 +934,42 @@ img {
     color:
         var(--muted);
 
-    font-size:
-        .62rem;
+    font-size: .61rem;
 
-    font-weight:
-        720;
+    font-weight: 720;
 }
 
 
 /* =========================================================
-   SELECTED WORK PANEL
+   SELECTED WORK
 ========================================================= */
 
 .panel-gallery {
+
     display: flex;
+
     flex-direction: column;
-    justify-content: space-between;
-}
 
-.gallery-panel-copy {
-    position: relative;
-
-    z-index: 3;
+    justify-content:
+        space-between;
 }
 
 .thumb-strip {
+
     height: 38%;
 
-    min-height: 85px;
+    min-height: 82px;
 
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap: 7px;
 }
 
 .thumb {
+
     position: relative;
 
     overflow: hidden;
@@ -896,15 +978,16 @@ img {
         1px solid
         var(--line);
 
-    border-radius:
-        12px;
+    border-radius: 11px;
 
     background:
-        #07383D;
+        #07393E;
 }
 
 .thumb img {
+
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
@@ -914,59 +997,44 @@ img {
 }
 
 .panel-gallery:hover
-.thumb:nth-child(1) img {
-    transform:
-        scale(1.08)
-        translateY(-2px);
-}
+.thumb img {
 
-.panel-gallery:hover
-.thumb:nth-child(2) img {
     transform:
-        scale(1.08)
-        translateY(2px);
-}
-
-.panel-gallery:hover
-.thumb:nth-child(3) img {
-    transform:
-        scale(1.08)
-        translateX(2px);
+        scale(1.06);
 }
 
 
 /* =========================================================
-   MINI PROJECT PANEL
+   MINI PROJECTS PANEL
 ========================================================= */
 
 .panel-mini {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
-    background:
-        radial-gradient(
-            circle at 90% 8%,
-            rgba(88,222,138,.12),
-            transparent 40%
-        ),
-        var(--panel);
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content:
+        space-between;
 }
 
 .mini-preview {
+
     display: grid;
 
     gap: 7px;
 }
 
 .mini-preview-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 12px;
 
     padding-top: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
 
     border-top:
         1px solid
@@ -975,31 +1043,22 @@ img {
     color:
         var(--muted);
 
-    font-size: .64rem;
+    font-size: .63rem;
 }
 
 .mini-preview-row strong {
+
     color:
         var(--text);
-
-    font-weight:
-        760;
-}
-
-.mini-preview-row i {
-    color:
-        var(--green-bright);
-
-    font-size:
-        .58rem;
 }
 
 
 /* =========================================================
-   EXPANSION BACKDROP
+   OPENING BACKDROP
 ========================================================= */
 
 .expansion-backdrop {
+
     position: fixed;
 
     inset: 0;
@@ -1010,10 +1069,10 @@ img {
         rgba(1,29,33,.72);
 
     backdrop-filter:
-        blur(14px);
+        blur(13px);
 
     -webkit-backdrop-filter:
-        blur(14px);
+        blur(13px);
 
     opacity: 0;
 
@@ -1022,6 +1081,7 @@ img {
 }
 
 .expansion-backdrop.open {
+
     opacity: 1;
 }
 
@@ -1031,6 +1091,7 @@ img {
 ========================================================= */
 
 .expansion {
+
     position: fixed;
 
     z-index: 5000;
@@ -1039,17 +1100,25 @@ img {
 
     border:
         1px solid
-        rgba(193,246,237,.17);
+        rgba(193,246,237,.18);
 
     background:
+
+        radial-gradient(
+            circle at 85% 0%,
+            rgba(46,175,125,.16),
+            transparent 34%
+        ),
+
         linear-gradient(
             145deg,
-            #074047,
-            #07383E
+            #064149,
+            #07434A
         );
 
     box-shadow:
-        0 38px 110px
+
+        0 40px 110px
         rgba(0,20,24,.58);
 
     will-change:
@@ -1060,19 +1129,84 @@ img {
         border-radius;
 
     transition:
-        left .6s cubic-bezier(.2,.8,.2,1),
-        top .6s cubic-bezier(.2,.8,.2,1),
-        width .6s cubic-bezier(.2,.8,.2,1),
-        height .6s cubic-bezier(.2,.8,.2,1),
-        border-radius .6s cubic-bezier(.2,.8,.2,1);
+
+        left .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        top .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        width .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        height .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        border-radius .62s
+        cubic-bezier(.18,.8,.2,1);
 }
 
 
 /* =========================================================
-   FLYING / SHARED TITLE
+   BLURRED TITLE BACKGROUND
+
+   This remains fixed while the inner content scrolls
+   underneath it.
+========================================================= */
+
+.expanded-title-shield {
+
+    position: absolute;
+
+    z-index: 5050;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    height: 124px;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(5,65,72,.96) 0%,
+            rgba(5,65,72,.91) 66%,
+            rgba(5,65,72,.55) 86%,
+            rgba(5,65,72,0) 100%
+        );
+
+    backdrop-filter:
+        blur(24px)
+        saturate(125%);
+
+    -webkit-backdrop-filter:
+        blur(24px)
+        saturate(125%);
+
+    transition:
+        opacity .25s ease .32s;
+}
+
+.expansion.content-visible
+.expanded-title-shield {
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   FLYING TITLE
 ========================================================= */
 
 .flying-title {
+
     position: fixed;
 
     z-index: 5100;
@@ -1084,14 +1218,11 @@ img {
     color:
         var(--text);
 
-    font-weight:
-        900;
+    font-weight: 900;
 
-    line-height:
-        .91;
+    line-height: .91;
 
-    letter-spacing:
-        -.064em;
+    letter-spacing: -.064em;
 
     transform-origin:
         top left;
@@ -1100,91 +1231,102 @@ img {
         left,
         top,
         font-size,
-        line-height,
         width;
 
     transition:
-        left .6s cubic-bezier(.2,.8,.2,1),
-        top .6s cubic-bezier(.2,.8,.2,1),
-        font-size .6s cubic-bezier(.2,.8,.2,1),
-        line-height .6s cubic-bezier(.2,.8,.2,1),
-        width .6s cubic-bezier(.2,.8,.2,1);
+
+        left .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        top .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        font-size .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        line-height .62s
+        cubic-bezier(.18,.8,.2,1),
+
+        width .62s
+        cubic-bezier(.18,.8,.2,1);
 }
-
-
-/* reflow title when opened */
 
 .flying-title.compact
 .title-line {
+
     display: inline;
 }
 
 
-/* ---------------------------------------------------------
-   punctuation ONLY when opened
---------------------------------------------------------- */
+/* punctuation appears only open */
 
-/* Profile: no periods */
 .flying-title[data-key="profile"].compact
 .title-line:not(:last-child)::after {
+
     content: " ";
 }
 
-
-/* Projects */
 .flying-title[data-key="projects"].compact
 .title-line:not(:last-child)::after {
+
     content: " ";
 }
 
 .flying-title[data-key="projects"].compact
 .title-line:last-child::after {
+
     content: ".";
 }
 
-
-/* Skills */
 .flying-title[data-key="skills"].compact
 .title-line::after {
+
     content: ". ";
 }
 
-
-/* Gallery */
 .flying-title[data-key="gallery"].compact
 .title-line::after {
+
     content: ". ";
 }
 
-
-/* Mini */
 .flying-title[data-key="mini"].compact
 .title-line:not(:last-child)::after {
+
     content: " ";
 }
 
 .flying-title[data-key="mini"].compact
 .title-line:last-child::after {
+
     content: ".";
 }
 
 
 /* =========================================================
-   EXPANDED CONTENT
+   OPEN PANEL CONTENT
+
+   Notice the large top padding.
+   Nothing can now sit under the moving title.
 ========================================================= */
 
 .expanded-content {
+
     position: absolute;
 
     inset: 0;
 
     overflow-y: auto;
+
     overflow-x: hidden;
 
     padding:
-        130px
-        clamp(23px,4vw,60px)
-        44px;
+
+        145px
+
+        clamp(20px,3.6vw,55px)
+
+        40px;
 
     opacity: 0;
 
@@ -1192,12 +1334,15 @@ img {
         translateY(18px);
 
     transition:
-        opacity .3s ease .37s,
-        transform .42s ease .34s;
+
+        opacity .28s ease .39s,
+
+        transform .4s ease .35s;
 }
 
 .expansion.content-visible
 .expanded-content {
+
     opacity: 1;
 
     transform:
@@ -1205,14 +1350,17 @@ img {
 }
 
 .expanded-content::-webkit-scrollbar {
+
     width: 7px;
 }
 
 .expanded-content::-webkit-scrollbar-track {
+
     background: transparent;
 }
 
 .expanded-content::-webkit-scrollbar-thumb {
+
     background:
         rgba(193,246,237,.32);
 
@@ -1221,41 +1369,35 @@ img {
 
 
 /* =========================================================
-   EXPANDED HEADER
+   OPEN HEADER
 ========================================================= */
 
 .expanded-header-row {
+
     position: relative;
 
-    z-index: 4;
+    z-index: 2;
 
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-
-    gap: 25px;
-
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .expanded-kicker {
+
     color:
-        var(--green-bright);
+        var(--greenBright);
 
-    font-size: .73rem;
+    font-size: .72rem;
 
-    font-weight:
-        900;
+    font-weight: 900;
 
-    letter-spacing:
-        .15em;
+    letter-spacing: .14em;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 .expanded-description {
-    max-width: 830px;
+
+    max-width: 850px;
 
     margin-top: 9px;
 
@@ -1263,53 +1405,64 @@ img {
         var(--muted);
 
     font-size:
-        clamp(.96rem,1.2vw,1.1rem);
+        clamp(.96rem,1.15vw,1.07rem);
 
     line-height: 1.7;
 }
 
 
 /* =========================================================
-   CLOSE BUTTON
+   CLOSE
 ========================================================= */
 
 .expansion-close {
+
     position: fixed;
 
     z-index: 5200;
 
     width: 48px;
+
     height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     border:
         1px solid
-        rgba(193,246,237,.18);
+        rgba(193,246,237,.20);
 
     border-radius: 50%;
 
     background:
         rgba(2,53,60,.82);
 
-    color:
-        white;
+    color: white;
 
     cursor: pointer;
+
+    backdrop-filter:
+        blur(14px);
 
     opacity: 0;
 
     transform:
         scale(.8);
 
-    backdrop-filter:
-        blur(15px);
-
     transition:
+
         opacity .25s ease .39s,
+
         transform .35s ease .37s,
+
         background .2s ease;
 }
 
 .expansion-close.visible {
+
     opacity: 1;
 
     transform:
@@ -1317,144 +1470,143 @@ img {
 }
 
 .expansion-close:hover {
+
     background:
         var(--green);
 }
 
 
 /* =========================================================
-   MOVING BLOBS INSIDE EXPANDED PANELS
+   OPEN PANEL MOVING FORMS
 ========================================================= */
 
 .expanded-blob {
+
     position: absolute;
 
     width: 350px;
-    height: 270px;
 
-    right: -85px;
-    top: -70px;
+    height: 275px;
 
-    opacity: .16;
+    right: -90px;
+
+    top: -75px;
+
+    opacity: .14;
 
     pointer-events: none;
 
     background:
+
         radial-gradient(
             circle at 30% 25%,
             #C1F6ED,
             #58DE8A 43%,
-            #2EAF7D 68%,
-            #176B57 100%
+            #2EAF7D 69%,
+            #176B57
         );
 
     border-radius:
+
         55% 45% 60% 40%
+
         /
+
         44% 58% 42% 56%;
 
     animation:
-        expandedBlob 8s
-        ease-in-out
+        openBlob
+        8s ease-in-out
         infinite alternate;
 }
 
 .expanded-blob-small {
+
     position: absolute;
 
-    width: 78px;
-    height: 78px;
+    width: 82px;
+
+    height: 82px;
 
     right: 20%;
-    top: 100px;
 
-    opacity: .12;
+    top: 96px;
+
+    opacity: .11;
 
     background:
         var(--aqua);
 
-    border-radius:
-        57% 43% 39% 61%
-        /
-        43% 55% 45% 57%;
+    border-radius: 50%;
 
     animation:
-        expandedBlobSmall
-        6.5s ease-in-out
+        openBlobSmall
+        6.2s ease-in-out
         infinite alternate;
 }
 
-@keyframes expandedBlob {
+@keyframes openBlob {
 
-    0% {
+    from {
+
         transform:
             translate(0,0)
             rotate(-4deg)
             scale(1);
-
-        border-radius:
-            55% 45% 60% 40%
-            /
-            44% 58% 42% 56%;
-    }
-
-    50% {
-        transform:
-            translate(-30px,25px)
-            rotate(5deg)
-            scale(1.07);
-
-        border-radius:
-            39% 61% 48% 52%
-            /
-            57% 41% 59% 43%;
-    }
-
-    100% {
-        transform:
-            translate(-8px,12px)
-            rotate(-1deg)
-            scale(.97);
-
-        border-radius:
-            62% 38% 54% 46%
-            /
-            39% 61% 43% 57%;
-    }
-}
-
-@keyframes expandedBlobSmall {
-
-    from {
-        transform:
-            translate(0,0)
-            rotate(0deg);
     }
 
     to {
+
         transform:
-            translate(-45px,30px)
-            rotate(35deg)
-            scale(1.18);
+            translate(-32px,25px)
+            rotate(6deg)
+            scale(1.08);
+
+        border-radius:
+
+            40% 60% 48% 52%
+
+            /
+
+            58% 40% 60% 42%;
+    }
+}
+
+@keyframes openBlobSmall {
+
+    from {
+
+        transform:
+            translate(0,0)
+            scale(.9);
     }
 
+    to {
+
+        transform:
+            translate(-44px,30px)
+            scale(1.15);
+    }
 }
 
 
 /* =========================================================
-   GENERAL TAGS
+   TAGS
 ========================================================= */
 
 .tags {
-    margin-top: 19px;
+
+    margin-top: 18px;
 
     display: flex;
+
     flex-wrap: wrap;
 
     gap: 7px;
 }
 
 .tags span {
+
     padding:
         7px 10px;
 
@@ -1462,102 +1614,65 @@ img {
         999px;
 
     background:
-        rgba(193,246,237,.07);
+        rgba(193,246,237,.08);
 
     color:
         var(--mint);
 
-    font-size:
-        .71rem;
+    font-size: .69rem;
 
-    font-weight:
-        720;
+    font-weight: 730;
 }
 
 
 /* =========================================================
-   HORIZONTAL / ITUNES-STYLE CAROUSEL
+   COVER FLOW WRAPPER
 ========================================================= */
 
-.carousel-section {
+.flow-section {
+
     position: relative;
 
     z-index: 3;
 }
 
-.carousel-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.flow-help {
 
-    gap: 20px;
-
-    margin-bottom: 18px;
-}
-
-.carousel-hint {
-    color:
-        var(--muted-2);
-
-    font-size: .75rem;
-}
-
-.carousel-controls {
-    display: flex;
-
-    gap: 8px;
-}
-
-.carousel-arrow {
-    width: 44px;
-    height: 44px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border:
-        1px solid
-        var(--line);
-
-    border-radius:
-        50%;
+    margin-bottom: 13px;
 
     color:
-        var(--text);
+        var(--muted2);
 
-    background:
-        rgba(193,246,237,.06);
-
-    cursor: pointer;
-
-    transition:
-        transform .2s ease,
-        background .2s ease,
-        border-color .2s ease;
+    font-size: .74rem;
 }
 
-.carousel-arrow:hover {
-    transform:
-        scale(1.06);
 
-    background:
-        rgba(46,175,125,.18);
+/* =========================================================
+   COVER FLOW TRACK
+========================================================= */
 
-    border-color:
-        rgba(88,222,138,.3);
-}
+.cover-flow {
 
-.card-carousel {
+    --card-width:
+        min(720px, 65vw);
+
     display: flex;
 
-    gap: 16px;
+    gap: 18px;
 
     overflow-x: auto;
+
     overflow-y: hidden;
 
     padding:
-        2px 4px 18px 2px;
+
+        20px
+
+        calc(
+            (100% - var(--card-width)) / 2
+        )
+
+        18px;
 
     scroll-snap-type:
         x mandatory;
@@ -1570,306 +1685,616 @@ img {
 
     scrollbar-width:
         none;
+
+    perspective:
+        1300px;
+
+    touch-action:
+        pan-x;
 }
 
-.card-carousel::-webkit-scrollbar {
+.cover-flow::-webkit-scrollbar {
+
     display: none;
 }
 
 
 /* =========================================================
-   LARGE SCROLL CARDS
+   COVER FLOW CARD
+
+   Landscape proportion.
 ========================================================= */
 
-.scroll-card {
+.flow-card {
+
     position: relative;
 
     flex:
         0 0
-        min(540px, 67vw);
+        var(--card-width);
 
-    min-height: 370px;
+    min-width: 0;
+
+    min-height: 330px;
+
+    scroll-snap-align:
+        center;
+
+    overflow: hidden;
 
     padding: 29px;
 
     display: flex;
+
     flex-direction: column;
 
     border:
         1px solid
-        var(--line);
+        rgba(193,246,237,.18);
 
     border-radius:
-        24px;
+        25px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(193,246,237,.045),
-            rgba(46,175,125,.018)
-        ),
-        var(--panel);
 
-    scroll-snap-align:
-        start;
+        linear-gradient(
+            135deg,
+            rgba(193,246,237,.045),
+            rgba(46,175,125,.025)
+        ),
+
+        rgba(10,76,81,.90);
+
+    box-shadow:
+        0 22px 44px
+        rgba(0,25,28,.16);
+
+    transform-style:
+        preserve-3d;
+
+    transform-origin:
+        center;
+
+    opacity: .55;
 
     transition:
-        transform .28s ease,
-        border-color .28s ease,
-        background .28s ease;
+
+        transform .18s linear,
+
+        opacity .18s linear,
+
+        filter .18s linear,
+
+        box-shadow .18s linear,
+
+        border-color .18s linear;
+
+    will-change:
+        transform,
+        opacity;
 }
 
-.scroll-card:hover {
-    transform:
-        translateY(-4px);
+.flow-card.is-center {
 
     border-color:
-        rgba(88,222,138,.30);
+        rgba(89,225,141,.38);
 
-    background:
-        var(--panel-hover);
+    box-shadow:
+
+        0 28px 60px
+        rgba(0,25,28,.24),
+
+        0 0 0 1px
+        rgba(89,225,141,.05);
 }
 
 .card-label {
-    color:
-        var(--green-bright);
 
-    font-size: .72rem;
+    color:
+        var(--greenBright);
+
+    font-size: .71rem;
 
     font-weight: 900;
 
-    letter-spacing:
-        .11em;
+    letter-spacing: .1em;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
-.card-icon {
-    width: 48px;
-    height: 48px;
+.flow-card h3 {
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius:
-        14px;
-
-    background:
-        rgba(88,222,138,.12);
-
-    color:
-        var(--green-bright);
+    margin:
+        20px 0 0;
 
     font-size:
-        1.15rem;
+        clamp(1.4rem,2vw,1.9rem);
+
+    line-height: 1.18;
+
+    letter-spacing: -.03em;
 }
 
-.scroll-card h3 {
+.flow-card p {
+
+    max-width: 660px;
+
     margin:
-        22px 0 0;
-
-    font-size:
-        clamp(1.45rem, 2vw, 1.85rem);
-
-    line-height:
-        1.18;
-
-    letter-spacing:
-        -.03em;
-}
-
-.scroll-card p {
-    margin:
-        15px 0 0;
+        13px 0 0;
 
     color:
         var(--muted);
 
     font-size:
-        clamp(.95rem,1.1vw,1.03rem);
+        clamp(.92rem,1.05vw,1.03rem);
 
-    line-height:
-        1.72;
+    line-height: 1.68;
 }
 
-.scroll-card .tags {
+.flow-card
+.tags {
+
     margin-top: auto;
 
-    padding-top: 25px;
+    padding-top: 20px;
 }
 
 
 /* =========================================================
-   SKILL CARD SPECIAL
+   SKILL FLOW CARD
 ========================================================= */
 
-.skill-card-title {
+.skill-heading {
+
     display: flex;
+
     align-items: center;
 
-    gap: 15px;
+    gap: 14px;
+}
+
+.card-icon {
+
+    flex-shrink: 0;
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(89,225,141,.12);
+
+    color:
+        var(--greenBright);
+
+    font-size: 1.1rem;
 }
 
 
 /* =========================================================
-   GALLERY CAROUSEL CARD
+   DOT INDICATORS
 ========================================================= */
 
-.visual-card {
-    flex:
-        0 0
-        min(680px, 75vw);
+.flow-dots {
 
-    min-height:
-        500px;
+    min-height: 24px;
+
+    margin-top: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.flow-dot {
+
+    width: 7px;
+
+    height: 7px;
 
     padding: 0;
 
-    overflow: hidden;
+    border: 0;
 
-    cursor: zoom-in;
+    border-radius: 999px;
+
+    background:
+        rgba(193,246,237,.28);
+
+    cursor: pointer;
+
+    transition:
+
+        width .25s ease,
+
+        background .25s ease,
+
+        transform .25s ease;
+}
+
+.flow-dot.active {
+
+    width: 23px;
+
+    background:
+        var(--greenBright);
+
+    transform:
+        scaleY(1.08);
+}
+
+
+/* =========================================================
+   VISUAL COVER FLOW
+========================================================= */
+
+.visual-card {
+
+    min-height: 390px;
+
+    padding: 0;
 }
 
 .visual-image {
+
     position: relative;
 
-    flex: 1;
+    height: 290px;
 
-    min-height: 400px;
+    flex-shrink: 0;
 
     background:
-        rgba(0,30,34,.3);
+        rgba(0,37,42,.32);
 }
 
 .visual-image img {
+
     position: absolute;
 
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
 
-    padding: 21px;
-
-    transition:
-        transform .45s ease;
-}
-
-.visual-card:hover
-.visual-image img {
-    transform:
-        scale(1.025);
+    padding: 18px;
 }
 
 .visual-caption {
+
     padding:
         19px 23px 23px;
-
-    background:
-        rgba(5,61,65,.92);
-}
-
-.visual-caption
-.card-label {
-    margin-bottom: 6px;
 }
 
 .visual-caption h3 {
-    margin: 0;
 
-    font-size:
-        1.35rem;
+    margin-top: 6px;
 }
 
 
 /* =========================================================
-   CONTACT CARDS
+   MINI PROJECT FLOW CARD
+========================================================= */
+
+.mini-card {
+
+    padding: 0;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    min-height: 390px;
+}
+
+.mini-image {
+
+    position: relative;
+
+    height: 215px;
+
+    overflow: hidden;
+
+    background:
+        #08383D;
+}
+
+.mini-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.mini-body {
+
+    padding:
+        18px 24px 23px;
+}
+
+.mini-body h3 {
+
+    margin:
+        7px 0 0;
+}
+
+.mini-body p {
+
+    margin-top: 10px;
+}
+
+.external-project {
+
+    position: absolute;
+
+    z-index: 5;
+
+    right: 20px;
+
+    top: 20px;
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(2,53,60,.84);
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(193,246,237,.2);
+}
+
+
+/* =========================================================
+   SANKEY PREVIEW
+========================================================= */
+
+.sankey-preview {
+
+    position: relative;
+
+    height: 215px;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #07393F,
+            #0B5052
+        );
+}
+
+.sankey-preview svg {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+}
+
+.sankey-node {
+
+    position: absolute;
+
+    width: 20px;
+
+    border-radius: 5px;
+
+    background:
+        var(--greenBright);
+}
+
+.sn1 {
+
+    left: 12%;
+
+    top: 60px;
+
+    height: 94px;
+}
+
+.sn2 {
+
+    left: 45%;
+
+    top: 42px;
+
+    height: 130px;
+
+    background:
+        var(--aqua);
+}
+
+.sn3 {
+
+    right: 12%;
+
+    top: 67px;
+
+    height: 100px;
+
+    background:
+        var(--mint);
+}
+
+
+/* =========================================================
+   NOTEDUMP PREVIEW
+========================================================= */
+
+.notedump-preview {
+
+    position: relative;
+
+    height: 215px;
+
+    padding: 26px;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            140deg,
+            #064047,
+            #0E5554
+        );
+}
+
+.note-sheet {
+
+    width: 72%;
+
+    height: 158px;
+
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background:
+        var(--mint);
+
+    box-shadow:
+        18px 16px 0
+        rgba(46,175,125,.27);
+}
+
+.note-line {
+
+    height: 7px;
+
+    margin-bottom: 10px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(2,53,60,.17);
+}
+
+.note-line.short {
+
+    width: 58%;
+}
+
+.note-line.mid {
+
+    width: 79%;
+}
+
+
+/* =========================================================
+   CONTACT
 ========================================================= */
 
 .contact-grid {
-    position: relative;
-
-    z-index: 4;
 
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0,1fr));
+        repeat(2,minmax(0,1fr));
 
     gap: 14px;
 }
 
-.contact-card-link {
+.contact-card {
+
     min-height: 165px;
 
-    padding: 25px;
+    padding: 24px;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: space-between;
 
     border:
         1px solid
         var(--line);
 
-    border-radius:
-        22px;
+    border-radius: 22px;
 
     background:
-        rgba(7,66,73,.72);
+        rgba(6,69,75,.72);
 
-    color:
-        inherit;
+    color: inherit;
 
     text-decoration: none;
 
     transition:
         transform .3s ease,
-        border-color .3s ease,
         background .3s ease;
 }
 
-.contact-card-link:hover {
+.contact-card:hover {
+
     transform:
         translateY(-4px);
 
-    border-color:
-        rgba(88,222,138,.32);
-
     background:
-        var(--panel-hover);
+        var(--panel2);
 }
 
-.contact-card-link i {
-    color:
-        var(--green-bright);
+.contact-card i {
 
-    font-size: 1.3rem;
+    color:
+        var(--greenBright);
+
+    font-size: 1.28rem;
 }
 
 .contact-small {
-    color:
-        var(--muted-2);
 
-    font-size: .72rem;
+    color:
+        var(--muted2);
+
+    font-size: .7rem;
 
     font-weight: 800;
 
-    text-transform:
-        uppercase;
-
     letter-spacing: .1em;
+
+    text-transform: uppercase;
 }
 
 .contact-large {
+
     margin-top: 8px;
 
     font-size:
-        clamp(1rem,1.5vw,1.25rem);
+        clamp(1rem,1.45vw,1.25rem);
 
     font-weight: 780;
 
@@ -1879,221 +2304,11 @@ img {
 
 
 /* =========================================================
-   MINI PROJECT CARDS
-========================================================= */
-
-.mini-card {
-    flex:
-        0 0
-        min(560px, 70vw);
-
-    min-height:
-        430px;
-
-    padding: 0;
-
-    overflow: hidden;
-
-    color: inherit;
-
-    text-decoration: none;
-}
-
-.mini-card-image {
-    position: relative;
-
-    height: 230px;
-
-    overflow: hidden;
-
-    background:
-        #08373C;
-}
-
-.mini-card-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-.mini-card-body {
-    padding:
-        23px 25px 25px;
-
-    display: flex;
-    flex-direction: column;
-
-    flex: 1;
-}
-
-.mini-card-body h3 {
-    margin:
-        9px 0 0;
-}
-
-.external-project {
-    position: absolute;
-
-    right: 22px;
-    top: 22px;
-
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius:
-        50%;
-
-    background:
-        rgba(2,53,60,.82);
-
-    color:
-        white;
-
-    border:
-        1px solid
-        rgba(193,246,237,.2);
-
-    z-index: 5;
-}
-
-
-/* sankey preview */
-
-.sankey-preview {
-    position: relative;
-
-    height: 230px;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            #073940,
-            #0B4B4C
-        );
-}
-
-.sankey-node {
-    position: absolute;
-
-    width: 20px;
-
-    border-radius: 5px;
-
-    background:
-        var(--green-bright);
-
-    box-shadow:
-        0 0 18px
-        rgba(88,222,138,.18);
-}
-
-.sn1 {
-    height: 90px;
-
-    left: 12%;
-    top: 65px;
-}
-
-.sn2 {
-    height: 130px;
-
-    left: 44%;
-    top: 46px;
-
-    background:
-        var(--aqua);
-}
-
-.sn3 {
-    height: 105px;
-
-    right: 12%;
-    top: 70px;
-
-    background:
-        var(--mint);
-}
-
-.sankey-preview svg {
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-}
-
-
-/* notedump preview */
-
-.notedump-preview {
-    position: relative;
-
-    height: 230px;
-
-    padding: 28px;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            140deg,
-            #064047,
-            #0E5554
-        );
-}
-
-.note-sheet {
-    width: 72%;
-    height: 170px;
-
-    padding: 18px;
-
-    border-radius: 15px;
-
-    background:
-        var(--mint);
-
-    color:
-        #02353C;
-
-    box-shadow:
-        18px 16px 0
-        rgba(46,175,125,.26);
-}
-
-.note-line {
-    height: 8px;
-
-    margin-bottom: 11px;
-
-    border-radius: 5px;
-
-    background:
-        rgba(2,53,60,.16);
-}
-
-.note-line.short {
-    width: 60%;
-}
-
-.note-line.mid {
-    width: 78%;
-}
-
-
-/* =========================================================
    LIGHTBOX
 ========================================================= */
 
 .lightbox {
+
     position: fixed;
 
     inset: 0;
@@ -2101,24 +2316,29 @@ img {
     z-index: 10000;
 
     display: none;
+
     align-items: center;
+
     justify-content: center;
 
     padding: 22px;
 
     background:
-        rgba(0,26,29,.95);
+        rgba(0,25,29,.95);
 
     backdrop-filter:
         blur(15px);
 }
 
 .lightbox.open {
+
     display: flex;
 }
 
 .lightbox img {
+
     max-width: 95vw;
+
     max-height: 90svh;
 
     object-fit: contain;
@@ -2127,26 +2347,27 @@ img {
 }
 
 .lightbox-close {
+
     position: fixed;
 
-    top: 19px;
-    right: 19px;
+    top: 18px;
+
+    right: 18px;
 
     width: 48px;
+
     height: 48px;
 
     border:
         1px solid
         rgba(193,246,237,.22);
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
-        rgba(2,53,60,.82);
+        rgba(2,53,60,.84);
 
-    color:
-        white;
+    color: white;
 
     cursor: pointer;
 }
@@ -2159,40 +2380,47 @@ img {
 @media (max-width: 800px) {
 
     :root {
-        --radius: 20px;
+
+        --radius:
+            20px;
     }
 
     .app {
+
         padding: 9px;
 
         gap: 8px;
     }
 
     .topbar {
+
         min-height: 29px;
     }
 
     .brand {
+
         font-size: .5rem;
 
         letter-spacing: .08em;
     }
 
     .hint {
+
         display: none;
     }
 
 
     /* -----------------------------------------------------
-       MOBILE HOME LAYOUT
+       HOME LAYOUT
     ----------------------------------------------------- */
 
     .dashboard {
+
         grid-template-columns:
             1fr 1fr;
 
         grid-template-rows:
-            1fr 1fr .70fr;
+            1fr 1fr .7fr;
 
         gap: 8px;
     }
@@ -2201,294 +2429,423 @@ img {
     .panel-projects,
     .panel-skills,
     .panel-gallery {
+
         grid-column:
             span 1;
     }
 
     .panel-mini {
+
         grid-column:
             span 2;
     }
 
-
     .panel {
+
         padding: 14px;
 
-        border-radius: 19px;
+        border-radius:
+            19px;
     }
 
     .panel-kicker {
+
         font-size: .46rem;
 
         letter-spacing: .07em;
     }
 
     .panel-arrow {
+
         top: 10px;
+
         right: 10px;
 
         width: 28px;
+
         height: 28px;
 
-        font-size: .64rem;
+        font-size: .62rem;
     }
 
 
     /* -----------------------------------------------------
-       MOBILE HOME TITLES
+       HOME TITLES
     ----------------------------------------------------- */
 
     .panel-profile
     .shared-title {
+
         font-size:
-            clamp(1.75rem,9.8vw,3.1rem);
+            clamp(1.72rem,9.6vw,3rem);
     }
 
     .panel-projects
     .shared-title {
+
         font-size:
-            clamp(1.32rem,6.7vw,2.15rem);
+            clamp(1.28rem,6.6vw,2.1rem);
     }
 
     .panel-skills
     .shared-title {
+
         font-size:
-            clamp(.82rem,4.15vw,1.27rem);
+            clamp(.8rem,4vw,1.23rem);
 
         line-height: 1.03;
     }
 
     .panel-gallery
     .shared-title {
+
         font-size:
-            clamp(1.25rem,6.2vw,1.95rem);
+            clamp(1.22rem,6vw,1.9rem);
     }
 
     .panel-mini
     .shared-title {
+
         font-size:
-            clamp(1.2rem,5.8vw,1.9rem);
+            clamp(1.15rem,5.7vw,1.85rem);
     }
 
 
     .profile-content {
-        max-width: 86%;
+
+        max-width: 88%;
     }
 
     .profile-copy {
+
         margin-top: 7px;
 
-        font-size: .54rem;
+        font-size: .53rem;
 
         line-height: 1.36;
     }
 
     .bottom-note {
-        font-size: .47rem;
+
+        font-size: .46rem;
     }
 
 
-    /* mobile planets */
+    /* -----------------------------------------------------
+       MOBILE PLANETS
+    ----------------------------------------------------- */
 
     .planet-system {
+
         width: 52%;
+
         height: 60%;
 
         right: -16%;
-        top: 38%;
 
-        opacity: .6;
+        top: 37%;
+
+        opacity: .62;
     }
 
-    .planet-large {
-        width: 85px;
-        height: 85px;
+    .planet1 {
+
+        width: 84px;
+
+        height: 84px;
     }
 
-    .planet-medium {
+    .planet2 {
+
         width: 58px;
+
         height: 58px;
     }
 
-    .planet-small,
-    .planet-tiny,
-    .orbit-three,
-    .pp2,
-    .pp3 {
+    .planet3,
+    .planet4,
+    .orbit3,
+    .particle2,
+    .particle3 {
+
         display: none;
     }
 
-    .orbit-one {
+    .orbit1 {
+
         width: 145px;
+
         height: 145px;
     }
 
-    .orbit-two {
+    .orbit2 {
+
         width: 100px;
+
         height: 100px;
     }
 
 
+    /* -----------------------------------------------------
+       HOME SMALL CONTENT
+    ----------------------------------------------------- */
+
     .preview-line {
-        font-size: .45rem;
 
         padding-top: 5px;
+
+        font-size: .44rem;
     }
 
     .preview-line:nth-child(n+3) {
+
         display: none;
     }
 
-
     .skill-preview {
+
         gap: 4px;
     }
 
     .skill-preview span {
-        padding: 4px 6px;
 
-        font-size: .43rem;
+        padding:
+            4px 6px;
+
+        font-size: .42rem;
     }
 
-    .skill-preview span:nth-child(n+5) {
+    .skill-preview
+    span:nth-child(n+5) {
+
         display: none;
     }
 
-
     .thumb-strip {
-        height: 37%;
 
-        min-height: 53px;
+        min-height: 51px;
 
         gap: 4px;
     }
 
     .thumb {
+
         border-radius: 7px;
     }
 
-
     .panel-mini {
+
         display: grid;
 
         grid-template-columns:
-            minmax(0,1fr)
-            minmax(0,1fr);
+            1fr 1fr;
 
         align-items: center;
 
-        gap: 15px;
-    }
-
-    .mini-preview {
-        align-self: center;
+        gap: 14px;
     }
 
     .mini-preview-row {
+
         padding-top: 5px;
 
-        font-size: .47rem;
+        font-size: .46rem;
     }
 
 
     /* -----------------------------------------------------
-       EXPANDED
+       OPEN TITLE AREA
     ----------------------------------------------------- */
 
+    .expanded-title-shield {
+
+        height: 144px;
+    }
+
     .expanded-content {
+
         padding:
-            127px 16px 30px;
+
+            168px
+
+            15px
+
+            28px;
     }
 
     .expanded-description {
-        font-size:
-            .92rem;
+
+        font-size: .9rem;
+
+        line-height: 1.6;
     }
 
 
-    /* carousel */
+    /* -----------------------------------------------------
+       COVER FLOW
 
-    .carousel-toolbar {
-        margin-bottom: 13px;
-    }
+       Still landscape on the phone.
+    ----------------------------------------------------- */
 
-    .carousel-controls {
-        display: none;
-    }
+    .cover-flow {
 
-    .carousel-hint {
-        font-size: .67rem;
-    }
+        --card-width:
+            88vw;
 
-    .card-carousel {
         gap: 11px;
 
-        padding-bottom: 15px;
+        padding-top: 12px;
+
+        padding-bottom: 13px;
     }
 
-    .scroll-card {
-        flex-basis:
-            84vw;
+    .flow-card {
 
-        min-height:
-            360px;
+        min-height: 265px;
 
-        padding: 23px;
+        padding: 21px;
+
+        border-radius: 22px;
     }
 
-    .scroll-card h3 {
-        font-size:
-            1.42rem;
+    .flow-card h3 {
+
+        margin-top: 13px;
+
+        font-size: 1.27rem;
     }
 
-    .scroll-card p {
-        font-size:
-            .94rem;
+    .flow-card p {
+
+        margin-top: 9px;
+
+        font-size: .84rem;
+
+        line-height: 1.52;
     }
+
+    .flow-card
+    .tags {
+
+        padding-top: 13px;
+
+        margin-top: auto;
+    }
+
+    .tags {
+
+        gap: 5px;
+    }
+
+    .tags span {
+
+        padding:
+            5px 8px;
+
+        font-size: .6rem;
+    }
+
+
+    /* visual cards */
 
     .visual-card {
-        flex-basis:
-            87vw;
 
-        min-height:
-            480px;
+        min-height: 290px;
     }
 
     .visual-image {
-        min-height:
-            385px;
+
+        height: 200px;
     }
+
+    .visual-caption {
+
+        padding:
+            13px 17px 16px;
+    }
+
+    .visual-caption h3 {
+
+        font-size: 1.07rem;
+    }
+
+
+    /* mini cards */
 
     .mini-card {
-        flex-basis:
-            86vw;
 
-        min-height:
-            440px;
+        min-height: 300px;
     }
 
+    .mini-image,
+    .sankey-preview,
+    .notedump-preview {
+
+        height: 150px;
+    }
+
+    .mini-body {
+
+        padding:
+            13px 18px 17px;
+    }
+
+    .mini-body p {
+
+        font-size: .8rem;
+
+        line-height: 1.48;
+    }
+
+    .note-sheet {
+
+        height: 108px;
+
+        padding: 12px;
+    }
+
+    .note-line {
+
+        height: 5px;
+
+        margin-bottom: 7px;
+    }
+
+
+    /* contact */
+
     .contact-grid {
+
         grid-template-columns:
             1fr;
+    }
+
+    .contact-card {
+
+        min-height: 130px;
+
+        padding: 20px;
     }
 
 }
 
 
 /* =========================================================
-   VERY SMALL PHONE
+   VERY SMALL MOBILE
 ========================================================= */
 
 @media (max-width: 390px) {
 
     .panel-skills
     .shared-title {
-        font-size: .78rem;
+
+        font-size: .76rem;
     }
 
     .panel-mini
     .shared-title {
-        font-size: 1.08rem;
+
+        font-size: 1.05rem;
     }
 
 }
@@ -2503,6 +2860,7 @@ img {
     *,
     *::before,
     *::after {
+
         animation-duration:
             .001ms !important;
 
@@ -2512,7 +2870,6 @@ img {
         transition-duration:
             .001ms !important;
     }
-
 }
 
 </style>
@@ -2523,497 +2880,496 @@ img {
 
 
 <!-- =========================================================
-     MAIN APPLICATION
+     MAIN APP
 ========================================================= -->
 
 <main class="app">
 
 
-    <!-- TOP BAR -->
+<header class="topbar">
 
-    <header class="topbar">
 
-        <div class="brand">
+    <div class="brand">
 
-            <i class="fa-solid fa-chart-line"></i>
+        <i class="fa-solid fa-chart-line"></i>
 
-            Environmental · Geospatial · Data
+        Environmental · Geospatial · Data
+
+    </div>
+
+
+    <div class="hint">
+
+        Select a panel
+
+    </div>
+
+
+</header>
+
+
+
+<section class="dashboard">
+
+
+<!-- =========================================================
+     PROFILE
+========================================================= -->
+
+<button
+    class="panel panel-profile"
+    data-panel="profile"
+>
+
+
+    <div class="panel-arrow">
+
+        <i class="fa-solid fa-arrow-up-right"></i>
+
+    </div>
+
+
+    <div class="profile-content">
+
+
+        <div class="panel-kicker">
+
+            <i class="fa-solid fa-user"></i>
+
+            Profile
 
         </div>
 
 
-        <div class="hint">
+        <h1
+            class="shared-title"
+            data-title
+        >
 
-            Select a panel
+            <span class="title-line">
+                John Paolo
+            </span>
+
+            <span class="title-line accent">
+                Ramirez
+            </span>
+
+        </h1>
+
+
+        <div class="profile-copy">
+
+            Environmental & Geospatial Data Analyst
+            working across spatial analysis,
+            remote sensing, environmental research,
+            modelling and data analysis.
 
         </div>
 
-    </header>
+
+    </div>
+
+
+    <div class="bottom-note">
+
+        Contact · GitHub · LinkedIn
+
+    </div>
 
 
 
-    <!-- =====================================================
-         DASHBOARD
-    ====================================================== -->
-
-    <section class="dashboard">
+    <div class="planet-system">
 
 
-        <!-- =================================================
-             PROFILE
-        ================================================== -->
+        <div class="orbit orbit1"></div>
 
-        <button
-            class="panel panel-profile"
-            data-panel="profile"
+        <div class="orbit orbit2"></div>
+
+        <div class="orbit orbit3"></div>
+
+
+        <div class="planet planet1"></div>
+
+        <div class="planet planet2"></div>
+
+        <div class="planet planet3"></div>
+
+        <div class="planet planet4"></div>
+
+
+        <div class="particle particle1"></div>
+
+        <div class="particle particle2"></div>
+
+        <div class="particle particle3"></div>
+
+
+    </div>
+
+
+</button>
+
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<button
+    class="panel panel-projects"
+    data-panel="projects"
+>
+
+
+    <div class="panel-arrow">
+
+        <i class="fa-solid fa-arrow-up-right"></i>
+
+    </div>
+
+
+    <div>
+
+
+        <div class="panel-kicker">
+
+            <i class="fa-solid fa-diagram-project"></i>
+
+            Projects
+
+        </div>
+
+
+        <h2
+            class="shared-title"
+            data-title
         >
 
-            <div class="panel-arrow">
+            <span class="title-line">
+                Research
+            </span>
 
-                <i class="fa-solid fa-arrow-up-right"></i>
+            <span class="title-line">
+                into
+            </span>
 
-            </div>
+            <span class="title-line accent">
+                results
+            </span>
 
-
-            <div class="profile-content">
-
-                <div class="panel-kicker">
-
-                    <i class="fa-solid fa-user"></i>
-
-                    Profile
-
-                </div>
+        </h2>
 
 
-                <h1
-                    class="shared-title"
-                    data-title
-                >
-
-                    <span class="title-line">
-                        John Paolo
-                    </span>
-
-                    <span class="title-line accent">
-                        Ramirez
-                    </span>
-
-                </h1>
+    </div>
 
 
-                <div class="profile-copy">
-
-                    Environmental & Geospatial Data Analyst
-                    working across spatial analysis,
-                    remote sensing, environmental research,
-                    modelling and data analysis.
-
-                </div>
-
-            </div>
+    <div class="project-preview">
 
 
-            <div class="bottom-note">
+        <div class="preview-line">
 
-                Contact · GitHub · LinkedIn
+            <strong>
+                Urban Systems
+            </strong>
 
-            </div>
+            <span>
+                Python · Data
+            </span>
 
-
-
-            <!-- PLANETARY VISUAL -->
-
-            <div class="planet-system">
-
-
-                <div class="orbit orbit-one"></div>
-
-                <div class="orbit orbit-two"></div>
-
-                <div class="orbit orbit-three"></div>
+        </div>
 
 
-                <div class="planet planet-large"></div>
+        <div class="preview-line">
 
-                <div class="planet planet-medium"></div>
+            <strong>
+                Environmental Monitoring
+            </strong>
 
-                <div class="planet planet-small"></div>
+            <span>
+                GIS · Research
+            </span>
 
-                <div class="planet planet-tiny"></div>
-
-
-                <div class="planet-particle pp1"></div>
-
-                <div class="planet-particle pp2"></div>
-
-                <div class="planet-particle pp3"></div>
+        </div>
 
 
-            </div>
+        <div class="preview-line">
 
-        </button>
+            <strong>
+                Climate & DRR
+            </strong>
+
+            <span>
+                Spatial
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</button>
 
 
 
-        <!-- =================================================
-             PROJECTS
-        ================================================== -->
+<!-- =========================================================
+     SKILLS
+========================================================= -->
 
-        <button
-            class="panel panel-projects"
-            data-panel="projects"
+<button
+    class="panel panel-skills"
+    data-panel="skills"
+>
+
+
+    <div class="panel-arrow">
+
+        <i class="fa-solid fa-arrow-up-right"></i>
+
+    </div>
+
+
+    <div>
+
+
+        <div class="panel-kicker">
+
+            <i class="fa-solid fa-gears"></i>
+
+            Skills
+
+        </div>
+
+
+        <h2
+            class="shared-title"
+            data-title
         >
 
-            <div class="panel-arrow">
+            <span class="title-line">
+                Spatial Data
+            </span>
 
-                <i class="fa-solid fa-arrow-up-right"></i>
+            <span class="title-line">
+                Environmental Assessment
+            </span>
 
-            </div>
+            <span class="title-line accent">
+                Data Analysis
+            </span>
 
-
-            <div>
-
-                <div class="panel-kicker">
-
-                    <i class="fa-solid fa-diagram-project"></i>
-
-                    Projects
-
-                </div>
+        </h2>
 
 
-                <h2
-                    class="shared-title"
-                    data-title
-                >
-
-                    <span class="title-line">
-                        Research
-                    </span>
-
-                    <span class="title-line">
-                        into
-                    </span>
-
-                    <span class="title-line accent">
-                        results
-                    </span>
-
-                </h2>
-
-            </div>
+    </div>
 
 
-            <div class="project-preview">
+    <div class="skill-preview">
+
+        <span>QGIS</span>
+
+        <span>Google Earth Engine</span>
+
+        <span>Python</span>
+
+        <span>R</span>
+
+        <span>Remote Sensing</span>
+
+        <span>Statistics</span>
+
+    </div>
 
 
-                <div class="preview-line">
-
-                    <strong>
-                        Urban Systems
-                    </strong>
-
-                    <span>
-                        Python · Data
-                    </span>
-
-                </div>
-
-
-                <div class="preview-line">
-
-                    <strong>
-                        Environmental Monitoring
-                    </strong>
-
-                    <span>
-                        GIS · Research
-                    </span>
-
-                </div>
-
-
-                <div class="preview-line">
-
-                    <strong>
-                        Climate & DRR
-                    </strong>
-
-                    <span>
-                        Spatial
-                    </span>
-
-                </div>
-
-
-            </div>
-
-        </button>
+</button>
 
 
 
-        <!-- =================================================
-             SKILLS
-        ================================================== -->
+<!-- =========================================================
+     SELECTED WORK
+========================================================= -->
 
-        <button
-            class="panel panel-skills"
-            data-panel="skills"
+<button
+    class="panel panel-gallery"
+    data-panel="gallery"
+>
+
+
+    <div class="panel-arrow">
+
+        <i class="fa-solid fa-arrow-up-right"></i>
+
+    </div>
+
+
+    <div>
+
+
+        <div class="panel-kicker">
+
+            <i class="fa-solid fa-images"></i>
+
+            Selected Work
+
+        </div>
+
+
+        <h2
+            class="shared-title"
+            data-title
         >
 
-            <div class="panel-arrow">
+            <span class="title-line">
+                Maps
+            </span>
 
-                <i class="fa-solid fa-arrow-up-right"></i>
+            <span class="title-line">
+                Models
+            </span>
 
-            </div>
+            <span class="title-line accent">
+                Visuals
+            </span>
 
-
-            <div>
-
-                <div class="panel-kicker">
-
-                    <i class="fa-solid fa-gears"></i>
-
-                    Skills
-
-                </div>
+        </h2>
 
 
-                <h2
-                    class="shared-title"
-                    data-title
-                >
-
-                    <span class="title-line">
-                        Spatial Data
-                    </span>
-
-                    <span class="title-line">
-                        Environmental Assessment
-                    </span>
-
-                    <span class="title-line accent">
-                        Data Analysis
-                    </span>
-
-                </h2>
-
-            </div>
+    </div>
 
 
-            <div class="skill-preview">
+    <div class="thumb-strip">
 
-                <span>QGIS</span>
 
-                <span>
-                    Google Earth Engine
-                </span>
+        <div class="thumb">
 
-                <span>
-                    Python
-                </span>
+            <img
+                src="Picture2.png"
+                alt=""
+            >
 
-                <span>
-                    R
-                </span>
+        </div>
 
-                <span>
-                    Remote Sensing
-                </span>
 
-                <span>
-                    Statistics
-                </span>
+        <div class="thumb">
 
-            </div>
+            <img
+                src="EVI and NDVI.png"
+                alt=""
+            >
 
-        </button>
+        </div>
+
+
+        <div class="thumb">
+
+            <img
+                src="Network Model Diagram.png"
+                alt=""
+            >
+
+        </div>
+
+
+    </div>
+
+
+</button>
 
 
 
-        <!-- =================================================
-             SELECTED WORK
-        ================================================== -->
+<!-- =========================================================
+     MINI PROJECTS
+========================================================= -->
 
-        <button
-            class="panel panel-gallery"
-            data-panel="gallery"
+<button
+    class="panel panel-mini"
+    data-panel="mini"
+>
+
+
+    <div class="panel-arrow">
+
+        <i class="fa-solid fa-arrow-up-right"></i>
+
+    </div>
+
+
+    <div>
+
+
+        <div class="panel-kicker">
+
+            <i class="fa-solid fa-code"></i>
+
+            Mini Projects
+
+        </div>
+
+
+        <h2
+            class="shared-title"
+            data-title
         >
 
-            <div class="panel-arrow">
+            <span class="title-line">
+                Mini
+            </span>
 
-                <i class="fa-solid fa-arrow-up-right"></i>
+            <span class="title-line accent">
+                Projects
+            </span>
 
-            </div>
+        </h2>
 
 
-            <div class="gallery-panel-copy">
+    </div>
 
-                <div class="panel-kicker">
 
-                    <i class="fa-solid fa-images"></i>
+    <div class="mini-preview">
 
-                    Selected Work
 
-                </div>
+        <div class="mini-preview-row">
 
+            <strong>
+                Experience Timeline
+            </strong>
 
-                <h2
-                    class="shared-title"
-                    data-title
-                >
+        </div>
 
-                    <span class="title-line">
-                        Maps
-                    </span>
 
-                    <span class="title-line">
-                        Models
-                    </span>
+        <div class="mini-preview-row">
 
-                    <span class="title-line accent">
-                        Visuals
-                    </span>
+            <strong>
+                Sankey Resume
+            </strong>
 
-                </h2>
+        </div>
 
-            </div>
 
+        <div class="mini-preview-row">
 
-            <div class="thumb-strip">
+            <strong>
+                NoteDump Factory
+            </strong>
 
+        </div>
 
-                <div class="thumb">
 
-                    <img
-                        src="Picture2.png"
-                        alt=""
-                    >
+    </div>
 
-                </div>
 
+</button>
 
-                <div class="thumb">
 
-                    <img
-                        src="EVI and NDVI.png"
-                        alt=""
-                    >
+</section>
 
-                </div>
-
-
-                <div class="thumb">
-
-                    <img
-                        src="Network Model Diagram.png"
-                        alt=""
-                    >
-
-                </div>
-
-
-            </div>
-
-        </button>
-
-
-
-        <!-- =================================================
-             MINI PROJECTS
-        ================================================== -->
-
-        <button
-            class="panel panel-mini"
-            data-panel="mini"
-        >
-
-            <div class="panel-arrow">
-
-                <i class="fa-solid fa-arrow-up-right"></i>
-
-            </div>
-
-
-            <div>
-
-                <div class="panel-kicker">
-
-                    <i class="fa-solid fa-code"></i>
-
-                    Mini Projects
-
-                </div>
-
-
-                <h2
-                    class="shared-title"
-                    data-title
-                >
-
-                    <span class="title-line">
-                        Mini
-                    </span>
-
-                    <span class="title-line accent">
-                        Projects
-                    </span>
-
-                </h2>
-
-            </div>
-
-
-            <div class="mini-preview">
-
-
-                <div class="mini-preview-row">
-
-                    <strong>
-                        Experience Timeline
-                    </strong>
-
-                    <i class="fa-solid fa-arrow-up-right"></i>
-
-                </div>
-
-
-                <div class="mini-preview-row">
-
-                    <strong>
-                        Sankey Resume
-                    </strong>
-
-                    <i class="fa-solid fa-arrow-up-right"></i>
-
-                </div>
-
-
-                <div class="mini-preview-row">
-
-                    <strong>
-                        NoteDump Factory
-                    </strong>
-
-                    <i class="fa-solid fa-arrow-up-right"></i>
-
-                </div>
-
-
-            </div>
-
-        </button>
-
-
-    </section>
 
 </main>
 
 
 
 <!-- =========================================================
-     EXPANSION BACKDROP
+     OPENING BACKDROP
 ========================================================= -->
 
 <div
@@ -3033,10 +3389,10 @@ img {
     id="lightbox"
 >
 
+
     <button
         class="lightbox-close"
         id="lightboxClose"
-        aria-label="Close image"
     >
 
         <i class="fa-solid fa-xmark"></i>
@@ -3050,6 +3406,7 @@ img {
         alt="Expanded portfolio image"
     >
 
+
 </div>
 
 
@@ -3057,7 +3414,7 @@ img {
 <script>
 
 /* =========================================================
-   CONTENT DATA
+   CONTENT
 ========================================================= */
 
 const content = {
@@ -3084,8 +3441,9 @@ profile: {
         `
         <div class="contact-grid">
 
+
             <a
-                class="contact-card-link"
+                class="contact-card"
                 href="mailto:jpaoloramirez@gmail.com"
             >
 
@@ -3106,8 +3464,9 @@ profile: {
             </a>
 
 
+
             <a
-                class="contact-card-link"
+                class="contact-card"
                 href="tel:+639275745752"
             >
 
@@ -3128,8 +3487,9 @@ profile: {
             </a>
 
 
+
             <a
-                class="contact-card-link"
+                class="contact-card"
                 href="https://github.com/Johnny1996ornot"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -3152,8 +3512,9 @@ profile: {
             </a>
 
 
+
             <a
-                class="contact-card-link"
+                class="contact-card"
                 href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -3175,6 +3536,7 @@ profile: {
 
             </a>
 
+
         </div>
         `
 },
@@ -3182,7 +3544,7 @@ profile: {
 
 
 /* =========================================================
-   PROJECTS — HORIZONTAL CAROUSEL
+   PROJECTS
 ========================================================= */
 
 projects: {
@@ -3192,55 +3554,31 @@ projects: {
 
     description:
         `
-        Swipe or scroll through selected environmental,
-        geospatial, analytical and computational research.
+        Swipe through selected environmental,
+        geospatial, analytical and computational
+        research projects.
         `,
 
     html:
         `
-        <div class="carousel-section">
+        <div class="flow-section">
 
-            <div class="carousel-toolbar">
 
-                <div class="carousel-hint">
+            <div class="flow-help">
 
-                    Scroll sideways to explore projects
-
-                </div>
-
-                <div class="carousel-controls">
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-prev="projectsTrack"
-                        aria-label="Previous project"
-                    >
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-next="projectsTrack"
-                        aria-label="Next project"
-                    >
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-
-                </div>
+                Swipe sideways to explore
 
             </div>
 
 
             <div
-                class="card-carousel"
-                id="projectsTrack"
-                data-carousel
+                class="cover-flow"
+                id="projectsFlow"
+                data-cover-flow
             >
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
                     <div class="card-label">
                         2025 · Data & Geospatial
@@ -3271,7 +3609,7 @@ projects: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
                     <div class="card-label">
                         2025 · Environmental Analysis
@@ -3301,7 +3639,7 @@ projects: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
                     <div class="card-label">
                         2024 · Pollution Research
@@ -3331,7 +3669,7 @@ projects: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
                     <div class="card-label">
                         2022 · Climate & Risk
@@ -3362,7 +3700,7 @@ projects: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
                     <div class="card-label">
                         2021 · Spatial Modelling
@@ -3392,7 +3730,7 @@ projects: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
                     <div class="card-label">
                         2017 · Experimental Research
@@ -3405,8 +3743,8 @@ projects: {
                     <p>
                         Experimental toxicology research
                         assessing embryotoxic and
-                        teratogenic effects using zebrafish
-                        embryos.
+                        teratogenic effects using
+                        zebrafish embryos.
                     </p>
 
                     <div class="tags">
@@ -3422,6 +3760,13 @@ projects: {
 
             </div>
 
+
+            <div
+                class="flow-dots"
+                data-dots-for="projectsFlow"
+            ></div>
+
+
         </div>
         `
 },
@@ -3429,7 +3774,7 @@ projects: {
 
 
 /* =========================================================
-   SKILLS — HORIZONTAL CAROUSEL
+   SKILLS
 ========================================================= */
 
 skills: {
@@ -3439,58 +3784,37 @@ skills: {
 
     description:
         `
-        Swipe or scroll through my geospatial,
-        analytical, environmental and scientific toolkit.
+        Swipe through my geospatial, environmental,
+        analytical and scientific capabilities.
         `,
 
     html:
         `
-        <div class="carousel-section">
+        <div class="flow-section">
 
-            <div class="carousel-toolbar">
 
-                <div class="carousel-hint">
-                    Scroll sideways to explore capabilities
-                </div>
+            <div class="flow-help">
 
-                <div class="carousel-controls">
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-prev="skillsTrack"
-                        aria-label="Previous skill"
-                    >
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-next="skillsTrack"
-                        aria-label="Next skill"
-                    >
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-
-                </div>
+                Swipe sideways to explore
 
             </div>
 
 
             <div
-                class="card-carousel"
-                id="skillsTrack"
-                data-carousel
+                class="cover-flow"
+                id="skillsFlow"
+                data-cover-flow
             >
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
-                    <div class="skill-card-title">
+                    <div class="skill-heading">
 
                         <div class="card-icon">
+
                             <i class="fa-solid fa-earth-asia"></i>
+
                         </div>
 
                         <div class="card-label">
@@ -3507,7 +3831,8 @@ skills: {
                         Spatial processing, mapping,
                         geoprocessing, spatial database
                         development, interpolation,
-                        overlay analysis and spatial modelling.
+                        overlay analysis and
+                        spatial modelling.
                     </p>
 
                     <div class="tags">
@@ -3525,12 +3850,14 @@ skills: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
-                    <div class="skill-card-title">
+                    <div class="skill-heading">
 
                         <div class="card-icon">
+
                             <i class="fa-solid fa-satellite"></i>
+
                         </div>
 
                         <div class="card-label">
@@ -3546,8 +3873,8 @@ skills: {
                     <p>
                         Satellite imagery processing,
                         vegetation indices, water-quality
-                        indicators, land-cover mapping and
-                        environmental classification.
+                        indicators, land-cover mapping
+                        and environmental classification.
                     </p>
 
                     <div class="tags">
@@ -3565,12 +3892,14 @@ skills: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
-                    <div class="skill-card-title">
+                    <div class="skill-heading">
 
                         <div class="card-icon">
+
                             <i class="fa-solid fa-chart-line"></i>
+
                         </div>
 
                         <div class="card-label">
@@ -3586,8 +3915,8 @@ skills: {
                     <p>
                         Data cleaning, statistical analysis,
                         harmonisation, reproducible workflows,
-                        automated geospatial processing and
-                        computational modelling.
+                        automated geospatial processing
+                        and computational modelling.
                     </p>
 
                     <div class="tags">
@@ -3605,16 +3934,18 @@ skills: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
-                    <div class="skill-card-title">
+                    <div class="skill-heading">
 
                         <div class="card-icon">
+
                             <i class="fa-solid fa-leaf"></i>
+
                         </div>
 
                         <div class="card-label">
-                            Assessment
+                            Environmental Assessment
                         </div>
 
                     </div>
@@ -3627,8 +3958,8 @@ skills: {
                         Environmental assessment,
                         climate-change adaptation,
                         disaster-risk reduction,
-                        risk mapping and environmental
-                        monitoring.
+                        risk mapping and
+                        environmental monitoring.
                     </p>
 
                     <div class="tags">
@@ -3645,12 +3976,14 @@ skills: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
-                    <div class="skill-card-title">
+                    <div class="skill-heading">
 
                         <div class="card-icon">
+
                             <i class="fa-solid fa-flask"></i>
+
                         </div>
 
                         <div class="card-label">
@@ -3666,8 +3999,8 @@ skills: {
                     <p>
                         Environmental contamination,
                         field sampling, trace-metal analysis,
-                        microplastics, ecotoxicology and
-                        experimental research design.
+                        microplastics, ecotoxicology
+                        and research design.
                     </p>
 
                     <div class="tags">
@@ -3684,12 +4017,14 @@ skills: {
 
 
 
-                <article class="scroll-card">
+                <article class="flow-card">
 
-                    <div class="skill-card-title">
+                    <div class="skill-heading">
 
                         <div class="card-icon">
+
                             <i class="fa-solid fa-chart-simple"></i>
+
                         </div>
 
                         <div class="card-label">
@@ -3703,10 +4038,11 @@ skills: {
                     </h3>
 
                     <p>
-                        Analytical maps, interactive web tools,
-                        data visualisations, technical reports,
-                        scientific presentations and
-                        communication of complex results.
+                        Analytical maps,
+                        interactive web tools,
+                        data visualisations,
+                        technical reports and
+                        scientific communication.
                     </p>
 
                     <div class="tags">
@@ -3723,6 +4059,13 @@ skills: {
 
             </div>
 
+
+            <div
+                class="flow-dots"
+                data-dots-for="skillsFlow"
+            ></div>
+
+
         </div>
         `
 },
@@ -3730,8 +4073,8 @@ skills: {
 
 
 /* =========================================================
-   SELECTED WORK — HORIZONTAL VISUAL CAROUSEL
-   Interactive Timeline REMOVED from here.
+   SELECTED WORK
+   Timeline is NOT here.
 ========================================================= */
 
 gallery: {
@@ -3741,55 +4084,32 @@ gallery: {
 
     description:
         `
-        Swipe or scroll through selected maps,
+        Swipe through selected maps,
         models and visual outputs.
-        Click any card to enlarge the image.
+        Tap the centered card to enlarge it.
         `,
 
     html:
         `
-        <div class="carousel-section">
+        <div class="flow-section">
 
-            <div class="carousel-toolbar">
 
-                <div class="carousel-hint">
-                    Scroll sideways through visual work
-                </div>
+            <div class="flow-help">
 
-                <div class="carousel-controls">
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-prev="galleryTrack"
-                        aria-label="Previous visual"
-                    >
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-next="galleryTrack"
-                        aria-label="Next visual"
-                    >
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-
-                </div>
+                Swipe sideways to explore
 
             </div>
 
 
             <div
-                class="card-carousel"
-                id="galleryTrack"
-                data-carousel
+                class="cover-flow"
+                id="galleryFlow"
+                data-cover-flow
             >
 
 
                 <article
-                    class="scroll-card visual-card gallery-item"
+                    class="flow-card visual-card gallery-item"
                     data-image="Picture2.png"
                 >
 
@@ -3819,7 +4139,7 @@ gallery: {
 
 
                 <article
-                    class="scroll-card visual-card gallery-item"
+                    class="flow-card visual-card gallery-item"
                     data-image="EVI and NDVI.png"
                 >
 
@@ -3849,7 +4169,7 @@ gallery: {
 
 
                 <article
-                    class="scroll-card visual-card gallery-item"
+                    class="flow-card visual-card gallery-item"
                     data-image="Network Model Diagram.png"
                 >
 
@@ -3879,7 +4199,7 @@ gallery: {
 
 
                 <article
-                    class="scroll-card visual-card gallery-item"
+                    class="flow-card visual-card gallery-item"
                     data-image="TSS - LPP Wetland.png"
                 >
 
@@ -3909,7 +4229,7 @@ gallery: {
 
 
                 <article
-                    class="scroll-card visual-card gallery-item"
+                    class="flow-card visual-card gallery-item"
                     data-image="Picture56.png"
                 >
 
@@ -3939,6 +4259,13 @@ gallery: {
 
             </div>
 
+
+            <div
+                class="flow-dots"
+                data-dots-for="galleryFlow"
+            ></div>
+
+
         </div>
         `
 },
@@ -3956,63 +4283,38 @@ mini: {
 
     description:
         `
-        Interactive web experiments, visualisations and
-        smaller coding projects.
+        Interactive web experiments,
+        visualisations and smaller coding projects.
         `,
 
     html:
         `
-        <div class="carousel-section">
+        <div class="flow-section">
 
-            <div class="carousel-toolbar">
 
-                <div class="carousel-hint">
-                    Scroll sideways through mini projects
-                </div>
+            <div class="flow-help">
 
-                <div class="carousel-controls">
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-prev="miniTrack"
-                        aria-label="Previous mini project"
-                    >
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-
-                    <button
-                        class="carousel-arrow"
-                        type="button"
-                        data-carousel-next="miniTrack"
-                        aria-label="Next mini project"
-                    >
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-
-                </div>
+                Swipe sideways to explore
 
             </div>
 
 
             <div
-                class="card-carousel"
-                id="miniTrack"
-                data-carousel
+                class="cover-flow"
+                id="miniFlow"
+                data-cover-flow
             >
 
 
-                <!-- =========================================
-                     EXPERIENCE TIMELINE
-                     IMAGE IS NOW HERE
-                ========================================== -->
+                <!-- EXPERIENCE TIMELINE -->
 
                 <a
-                    class="scroll-card mini-card"
+                    class="flow-card mini-card"
                     href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
+
 
                     <div class="external-project">
 
@@ -4021,7 +4323,7 @@ mini: {
                     </div>
 
 
-                    <div class="mini-card-image">
+                    <div class="mini-image">
 
                         <img
                             src="Picture33.png"
@@ -4031,7 +4333,7 @@ mini: {
                     </div>
 
 
-                    <div class="mini-card-body">
+                    <div class="mini-body">
 
                         <div class="card-label">
                             Interactive Timeline
@@ -4042,9 +4344,10 @@ mini: {
                         </h3>
 
                         <p>
-                            Interactive HTML-based timeline
-                            visualising education, professional
-                            experience, research activity and
+                            Interactive HTML timeline
+                            visualising education,
+                            professional experience,
+                            research activity and
                             technical development.
                         </p>
 
@@ -4058,20 +4361,20 @@ mini: {
 
                     </div>
 
+
                 </a>
 
 
 
-                <!-- =========================================
-                     SANKEY RESUME
-                ========================================== -->
+                <!-- SANKEY -->
 
                 <a
-                    class="scroll-card mini-card"
+                    class="flow-card mini-card"
                     href="https://johnny1996ornot.github.io/Sankey-Diagram---Resume-/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
+
 
                     <div class="external-project">
 
@@ -4084,56 +4387,56 @@ mini: {
 
 
                         <svg
-                            viewBox="0 0 600 230"
+                            viewBox="0 0 600 215"
                             preserveAspectRatio="none"
                         >
 
                             <path
                                 d="
-                                M 80 95
-                                C 185 95,
-                                  200 55,
-                                  270 70
+                                M80 90
+                                C175 90
+                                200 48
+                                280 68
                                 "
                                 fill="none"
-                                stroke="rgba(88,222,138,.55)"
+                                stroke="rgba(89,225,141,.55)"
                                 stroke-width="22"
                             />
 
                             <path
                                 d="
-                                M 80 130
-                                C 175 130,
-                                  205 170,
-                                  270 150
+                                M80 128
+                                C180 128
+                                205 165
+                                280 145
                                 "
                                 fill="none"
-                                stroke="rgba(63,208,201,.52)"
+                                stroke="rgba(63,208,201,.50)"
                                 stroke-width="26"
                             />
 
                             <path
                                 d="
-                                M 290 70
-                                C 400 70,
-                                  410 100,
-                                  520 105
+                                M300 68
+                                C410 68
+                                420 95
+                                525 100
                                 "
                                 fill="none"
-                                stroke="rgba(193,246,237,.42)"
+                                stroke="rgba(193,246,237,.43)"
                                 stroke-width="20"
                             />
 
                             <path
                                 d="
-                                M 290 150
-                                C 395 150,
-                                  420 122,
-                                  520 130
+                                M300 145
+                                C405 145
+                                425 120
+                                525 125
                                 "
                                 fill="none"
-                                stroke="rgba(46,175,125,.54)"
-                                stroke-width="30"
+                                stroke="rgba(46,175,125,.55)"
+                                stroke-width="28"
                             />
 
                         </svg>
@@ -4149,7 +4452,7 @@ mini: {
                     </div>
 
 
-                    <div class="mini-card-body">
+                    <div class="mini-body">
 
                         <div class="card-label">
                             Interactive Data Visualisation
@@ -4160,10 +4463,10 @@ mini: {
                         </h3>
 
                         <p>
-                            Interactive Sankey-style resume
+                            Sankey-style interactive resume
                             visualising relationships among
-                            education, experience, projects
-                            and technical competencies.
+                            education, experience,
+                            projects and technical skills.
                         </p>
 
                         <div class="tags">
@@ -4176,20 +4479,20 @@ mini: {
 
                     </div>
 
+
                 </a>
 
 
 
-                <!-- =========================================
-                     NOTEDUMP
-                ========================================== -->
+                <!-- NOTEDUMP -->
 
                 <a
-                    class="scroll-card mini-card"
+                    class="flow-card mini-card"
                     href="https://notedump-factory.onrender.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
+
 
                     <div class="external-project">
 
@@ -4223,7 +4526,7 @@ mini: {
                     </div>
 
 
-                    <div class="mini-card-body">
+                    <div class="mini-body">
 
                         <div class="card-label">
                             Web Application
@@ -4235,9 +4538,10 @@ mini: {
 
                         <p>
                             Web application designed to
-                            transform presentation material
-                            into an interactive format for
-                            structured note-taking and study.
+                            turn presentation material
+                            into a more interactive format
+                            for structured note-taking
+                            and study.
                         </p>
 
                         <div class="tags">
@@ -4250,10 +4554,18 @@ mini: {
 
                     </div>
 
+
                 </a>
 
 
             </div>
+
+
+            <div
+                class="flow-dots"
+                data-dots-for="miniFlow"
+            ></div>
+
 
         </div>
         `
@@ -4314,10 +4626,6 @@ let closeButton =
 
 /* =========================================================
    EXPANDED TITLE SIZE
-
-   Profile stays large.
-   Projects ≈ half original size.
-   Skills/Gallery/Mini remain larger than before.
 ========================================================= */
 
 function getExpandedTitleSize(
@@ -4331,53 +4639,55 @@ function getExpandedTitleSize(
 
     if (mobile) {
 
+
         if (key === "profile") {
+
             return Math.min(
                 Math.max(
-                    originalSize * .70,
-                    29
+                    originalSize * .73,
+                    31
                 ),
-                40
+                38
             );
         }
+
 
         if (key === "projects") {
+
             return Math.min(
                 Math.max(
-                    originalSize * .55,
+                    originalSize * .58,
                     25
                 ),
-                34
+                32
             );
         }
 
+
         if (key === "skills") {
+
+            return Math.min(
+                Math.max(
+                    originalSize * .76,
+                    20
+                ),
+                27
+            );
+        }
+
+
+        if (
+            key === "gallery"
+            ||
+            key === "mini"
+        ) {
+
             return Math.min(
                 Math.max(
                     originalSize * .70,
-                    20
+                    23
                 ),
-                29
-            );
-        }
-
-        if (key === "gallery") {
-            return Math.min(
-                Math.max(
-                    originalSize * .63,
-                    22
-                ),
-                31
-            );
-        }
-
-        if (key === "mini") {
-            return Math.min(
-                Math.max(
-                    originalSize * .63,
-                    22
-                ),
-                31
+                30
             );
         }
 
@@ -4386,27 +4696,33 @@ function getExpandedTitleSize(
 
     else {
 
+
         if (key === "profile") {
+
             return Math.min(
                 Math.max(
-                    originalSize * .62,
-                    46
+                    originalSize * .65,
+                    48
                 ),
-                60
+                62
             );
         }
+
 
         if (key === "projects") {
+
             return Math.min(
                 Math.max(
-                    originalSize * .52,
+                    originalSize * .53,
                     36
                 ),
-                47
+                48
             );
         }
 
+
         if (key === "skills") {
+
             return Math.min(
                 Math.max(
                     originalSize * .72,
@@ -4416,23 +4732,19 @@ function getExpandedTitleSize(
             );
         }
 
-        if (key === "gallery") {
+
+        if (
+            key === "gallery"
+            ||
+            key === "mini"
+        ) {
+
             return Math.min(
                 Math.max(
-                    originalSize * .66,
+                    originalSize * .68,
                     32
                 ),
                 42
-            );
-        }
-
-        if (key === "mini") {
-            return Math.min(
-                Math.max(
-                    originalSize * .66,
-                    31
-                ),
-                40
             );
         }
 
@@ -4448,6 +4760,7 @@ function getExpandedTitleSize(
 ========================================================= */
 
 function openPanel(panel) {
+
 
     if (activePanel) {
         return;
@@ -4477,12 +4790,16 @@ function openPanel(panel) {
         .getBoundingClientRect();
 
 
-    const panelStyle =
-        getComputedStyle(panel);
-
-
     const titleStyle =
-        getComputedStyle(originalTitle);
+        getComputedStyle(
+            originalTitle
+        );
+
+
+    const panelStyle =
+        getComputedStyle(
+            panel
+        );
 
 
     const originalFontSize =
@@ -4511,7 +4828,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       CREATE EXPANSION
+       EXPANDING BOX
     ----------------------------------------------------- */
 
     expansion =
@@ -4546,15 +4863,22 @@ function openPanel(panel) {
 
     expansion.innerHTML =
         `
+
         <div class="expanded-blob"></div>
 
         <div class="expanded-blob-small"></div>
 
+        <div class="expanded-title-shield"></div>
+
+
         <div class="expanded-content">
+
 
             <div class="expanded-header-row">
 
+
                 <div>
+
 
                     <div class="expanded-kicker">
 
@@ -4562,19 +4886,25 @@ function openPanel(panel) {
 
                     </div>
 
+
                     <div class="expanded-description">
 
                         ${content[key].description}
 
                     </div>
 
+
                 </div>
+
 
             </div>
 
+
             ${content[key].html}
 
+
         </div>
+
         `;
 
 
@@ -4630,8 +4960,6 @@ function openPanel(panel) {
     );
 
 
-    /* hide source */
-
     originalTitle.style.opacity =
         "0";
 
@@ -4641,7 +4969,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       DESTINATION
+       FINAL BOX
     ----------------------------------------------------- */
 
     const margin =
@@ -4673,7 +5001,7 @@ function openPanel(panel) {
         + (
             window.innerWidth <= 800
                 ? 18
-                : 54
+                : 52
         );
 
 
@@ -4681,8 +5009,8 @@ function openPanel(panel) {
         finalTop
         + (
             window.innerWidth <= 800
-                ? 20
-                : 28
+                ? 21
+                : 27
         );
 
 
@@ -4695,17 +5023,14 @@ function openPanel(panel) {
 
     const finalTitleWidth =
         Math.min(
-            finalWidth * .80,
+            finalWidth * .78,
             1100
         );
 
 
-    /* -----------------------------------------------------
-       RUN EXPANSION
-    ----------------------------------------------------- */
-
     requestAnimationFrame(
         () => {
+
 
             expansion.style.left =
                 `${finalLeft}px`;
@@ -4753,12 +5078,13 @@ function openPanel(panel) {
                 "compact"
             );
 
+
         }
     );
 
 
     /* -----------------------------------------------------
-       CLOSE BUTTON
+       CLOSE
     ----------------------------------------------------- */
 
     closeButton =
@@ -4777,12 +5103,6 @@ function openPanel(panel) {
         `;
 
 
-    closeButton.setAttribute(
-        "aria-label",
-        "Close panel"
-    );
-
-
     document.body.appendChild(
         closeButton
     );
@@ -4798,11 +5118,12 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       REVEAL CONTENT
+       SHOW CONTENT
     ----------------------------------------------------- */
 
     setTimeout(
         () => {
+
 
             if (!expansion) {
                 return;
@@ -4819,10 +5140,11 @@ function openPanel(panel) {
             );
 
 
-            bindCarousels();
+            initialiseCoverFlows();
 
 
             bindGalleryItems();
+
 
         },
 
@@ -4838,11 +5160,15 @@ function openPanel(panel) {
 
 function closeActivePanel() {
 
+
     if (
         !activePanel
-        || !expansion
-        || !flyingTitle
+        ||
+        !expansion
+        ||
+        !flyingTitle
     ) {
+
         return;
     }
 
@@ -4865,7 +5191,7 @@ function closeActivePanel() {
         "0";
 
 
-    const destination =
+    const panelDestination =
         panel.getBoundingClientRect();
 
 
@@ -4904,24 +5230,22 @@ function closeActivePanel() {
     );
 
 
-    /* -----------------------------------------------------
-       REVERSE PANEL
-    ----------------------------------------------------- */
+    /* BOX GOES HOME */
 
     expansion.style.left =
-        `${destination.left}px`;
+        `${panelDestination.left}px`;
 
 
     expansion.style.top =
-        `${destination.top}px`;
+        `${panelDestination.top}px`;
 
 
     expansion.style.width =
-        `${destination.width}px`;
+        `${panelDestination.width}px`;
 
 
     expansion.style.height =
-        `${destination.height}px`;
+        `${panelDestination.height}px`;
 
 
     expansion.style.borderRadius =
@@ -4929,9 +5253,7 @@ function closeActivePanel() {
         .borderRadius;
 
 
-    /* -----------------------------------------------------
-       REVERSE TITLE
-    ----------------------------------------------------- */
+    /* TITLE GOES HOME */
 
     flyingTitle.style.left =
         `${titleDestination.left}px`;
@@ -4953,12 +5275,9 @@ function closeActivePanel() {
         titleStyle.lineHeight;
 
 
-    /* -----------------------------------------------------
-       CLEAN UP
-    ----------------------------------------------------- */
-
     setTimeout(
         () => {
+
 
             originalTitle.style.opacity =
                 "";
@@ -4996,19 +5315,21 @@ function closeActivePanel() {
             activePanel =
                 null;
 
+
         },
 
-        625
+        640
     );
 
 }
 
 
 /* =========================================================
-   CLOSE BUTTON POSITION
+   CLOSE POSITION
 ========================================================= */
 
 function positionCloseButton() {
+
 
     if (!closeButton) {
         return;
@@ -5018,7 +5339,7 @@ function positionCloseButton() {
     const margin =
         window.innerWidth <= 800
             ? 15
-            : 40;
+            : 39;
 
 
     closeButton.style.top =
@@ -5032,11 +5353,12 @@ function positionCloseButton() {
 
 
 /* =========================================================
-   PANEL CLICK
+   PANEL EVENTS
 ========================================================= */
 
 panels.forEach(
     panel => {
+
 
         panel.addEventListener(
             "click",
@@ -5049,12 +5371,13 @@ panels.forEach(
             }
         );
 
+
     }
 );
 
 
 /* =========================================================
-   BACKDROP CLOSE
+   BACKDROP
 ========================================================= */
 
 backdrop.addEventListener(
@@ -5064,10 +5387,11 @@ backdrop.addEventListener(
 
 
 /* =========================================================
-   CAROUSEL CONTROLS
+   COVER FLOW
 ========================================================= */
 
-function bindCarousels() {
+function initialiseCoverFlows() {
+
 
     if (!expansion) {
         return;
@@ -5076,115 +5400,366 @@ function bindCarousels() {
 
     expansion
         .querySelectorAll(
-            "[data-carousel-next]"
+            "[data-cover-flow]"
         )
         .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    event => {
-
-                        event.stopPropagation();
+            track => {
 
 
-                        const track =
-                            expansion.querySelector(
-                                `#${
-                                    button.dataset
-                                    .carouselNext
-                                }`
+                const cards =
+                    Array.from(
+                        track.querySelectorAll(
+                            ".flow-card"
+                        )
+                    );
+
+
+                if (!cards.length) {
+                    return;
+                }
+
+
+                const dotsContainer =
+                    expansion.querySelector(
+                        `[data-dots-for="${track.id}"]`
+                    );
+
+
+                let dots = [];
+
+
+                /* -----------------------------------------
+                   BUILD DOTS
+                ----------------------------------------- */
+
+                if (dotsContainer) {
+
+
+                    dotsContainer.innerHTML =
+                        "";
+
+
+                    cards.forEach(
+                        (card,index) => {
+
+
+                            const dot =
+                                document.createElement(
+                                    "button"
+                                );
+
+
+                            dot.className =
+                                "flow-dot";
+
+
+                            dot.type =
+                                "button";
+
+
+                            dot.setAttribute(
+                                "aria-label",
+                                `Go to card ${index + 1}`
                             );
 
 
-                        if (!track) {
-                            return;
+                            dot.addEventListener(
+                                "click",
+                                event => {
+
+
+                                    event.stopPropagation();
+
+
+                                    card.scrollIntoView({
+
+                                        behavior:
+                                            "smooth",
+
+                                        inline:
+                                            "center",
+
+                                        block:
+                                            "nearest"
+
+                                    });
+
+
+                                }
+                            );
+
+
+                            dotsContainer.appendChild(
+                                dot
+                            );
+
+
+                            dots.push(
+                                dot
+                            );
+
+
                         }
+                    );
 
 
-                        const card =
-                            track.querySelector(
-                                ".scroll-card"
+                }
+
+
+                let ticking =
+                    false;
+
+
+                /* -----------------------------------------
+                   COVER FLOW CALCULATION
+                ----------------------------------------- */
+
+                function updateFlow() {
+
+
+                    const trackRect =
+                        track.getBoundingClientRect();
+
+
+                    const trackCenter =
+                        trackRect.left
+                        +
+                        trackRect.width / 2;
+
+
+                    let closestIndex =
+                        0;
+
+
+                    let closestDistance =
+                        Infinity;
+
+
+                    cards.forEach(
+                        (card,index) => {
+
+
+                            const rect =
+                                card.getBoundingClientRect();
+
+
+                            const center =
+                                rect.left
+                                +
+                                rect.width / 2;
+
+
+                            const distance =
+                                center
+                                -
+                                trackCenter;
+
+
+                            const normal =
+                                distance
+                                /
+                                rect.width;
+
+
+                            const abs =
+                                Math.min(
+                                    Math.abs(normal),
+                                    1.8
+                                );
+
+
+                            const scale =
+                                1
+                                -
+                                Math.min(
+                                    abs,
+                                    1
+                                )
+                                *
+                                .14;
+
+
+                            const rotate =
+                                Math.max(
+                                    -18,
+                                    Math.min(
+                                        18,
+                                        normal * -16
+                                    )
+                                );
+
+
+                            const translateY =
+                                Math.min(
+                                    abs * 18,
+                                    22
+                                );
+
+
+                            const opacity =
+                                Math.max(
+                                    .38,
+                                    1
+                                    -
+                                    abs * .48
+                                );
+
+
+                            const blur =
+                                Math.min(
+                                    abs * .45,
+                                    .7
+                                );
+
+
+                            card.style.transform =
+                                `
+                                perspective(1200px)
+                                rotateY(${rotate}deg)
+                                translateY(${translateY}px)
+                                scale(${scale})
+                                `;
+
+
+                            card.style.opacity =
+                                opacity;
+
+
+                            card.style.filter =
+                                `blur(${blur}px)`;
+
+
+                            card.style.zIndex =
+                                `${100 - Math.round(abs * 10)}`;
+
+
+                            const absoluteDistance =
+                                Math.abs(
+                                    distance
+                                );
+
+
+                            if (
+                                absoluteDistance
+                                <
+                                closestDistance
+                            ) {
+
+
+                                closestDistance =
+                                    absoluteDistance;
+
+
+                                closestIndex =
+                                    index;
+
+
+                            }
+
+
+                        }
+                    );
+
+
+                    cards.forEach(
+                        (card,index) => {
+
+
+                            card.classList.toggle(
+                                "is-center",
+                                index === closestIndex
                             );
 
 
-                        const distance =
-                            card
-                                ? card.getBoundingClientRect().width
-                                  + 16
-                                : 500;
+                        }
+                    );
 
 
-                        track.scrollBy({
+                    dots.forEach(
+                        (dot,index) => {
 
-                            left:
-                                distance,
 
-                            behavior:
-                                "smooth"
+                            dot.classList.toggle(
+                                "active",
+                                index === closestIndex
+                            );
 
-                        });
+
+                        }
+                    );
+
+
+                    ticking =
+                        false;
+
+
+                }
+
+
+                function requestUpdate() {
+
+
+                    if (ticking) {
+                        return;
+                    }
+
+
+                    ticking =
+                        true;
+
+
+                    requestAnimationFrame(
+                        updateFlow
+                    );
+
+
+                }
+
+
+                track.addEventListener(
+                    "scroll",
+                    requestUpdate,
+                    {
+                        passive: true
+                    }
+                );
+
+
+                window.addEventListener(
+                    "resize",
+                    requestUpdate
+                );
+
+
+                /*
+                    Ensure first card begins centered.
+                */
+
+                requestAnimationFrame(
+                    () => {
+
+
+                        cards[0]
+                            .scrollIntoView({
+
+                                behavior:
+                                    "auto",
+
+                                inline:
+                                    "center",
+
+                                block:
+                                    "nearest"
+
+                            });
+
+
+                        requestUpdate();
+
 
                     }
                 );
 
-            }
-        );
-
-
-    expansion
-        .querySelectorAll(
-            "[data-carousel-prev]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    event => {
-
-                        event.stopPropagation();
-
-
-                        const track =
-                            expansion.querySelector(
-                                `#${
-                                    button.dataset
-                                    .carouselPrev
-                                }`
-                            );
-
-
-                        if (!track) {
-                            return;
-                        }
-
-
-                        const card =
-                            track.querySelector(
-                                ".scroll-card"
-                            );
-
-
-                        const distance =
-                            card
-                                ? card.getBoundingClientRect().width
-                                  + 16
-                                : 500;
-
-
-                        track.scrollBy({
-
-                            left:
-                                -distance,
-
-                            behavior:
-                                "smooth"
-
-                        });
-
-                    }
-                );
 
             }
         );
@@ -5193,10 +5768,11 @@ function bindCarousels() {
 
 
 /* =========================================================
-   GALLERY LIGHTBOX BINDING
+   GALLERY LIGHTBOX
 ========================================================= */
 
 function bindGalleryItems() {
+
 
     if (!expansion) {
         return;
@@ -5210,9 +5786,11 @@ function bindGalleryItems() {
         .forEach(
             item => {
 
+
                 if (
                     item.dataset.bound
                 ) {
+
                     return;
                 }
 
@@ -5225,6 +5803,39 @@ function bindGalleryItems() {
                     "click",
                     event => {
 
+
+                        /*
+                           Only the centered Cover Flow
+                           card opens. Side cards are
+                           primarily for navigation.
+                        */
+
+
+                        if (
+                            !item.classList.contains(
+                                "is-center"
+                            )
+                        ) {
+
+
+                            item.scrollIntoView({
+
+                                behavior:
+                                    "smooth",
+
+                                inline:
+                                    "center",
+
+                                block:
+                                    "nearest"
+
+                            });
+
+
+                            return;
+                        }
+
+
                         event.stopPropagation();
 
 
@@ -5236,8 +5847,10 @@ function bindGalleryItems() {
                             "open"
                         );
 
+
                     }
                 );
+
 
             }
         );
@@ -5250,6 +5863,7 @@ function bindGalleryItems() {
 ========================================================= */
 
 function closeLightbox() {
+
 
     lightbox.classList.remove(
         "open"
@@ -5272,13 +5886,19 @@ lightbox.addEventListener(
     "click",
     event => {
 
+
         if (
-            event.target === lightbox
+            event.target
+            ===
+            lightbox
         ) {
+
 
             closeLightbox();
 
+
         }
+
 
     }
 );
@@ -5292,19 +5912,27 @@ document.addEventListener(
     "keydown",
     event => {
 
+
         if (
-            event.key !== "Escape"
+            event.key
+            !==
+            "Escape"
         ) {
+
             return;
         }
 
 
         if (
             lightbox.classList
-            .contains("open")
+            .contains(
+                "open"
+            )
         ) {
 
+
             closeLightbox();
+
 
             return;
         }
@@ -5312,12 +5940,13 @@ document.addEventListener(
 
         closeActivePanel();
 
+
     }
 );
 
 
 /* =========================================================
-   WINDOW RESIZE
+   RESIZE
 ========================================================= */
 
 window.addEventListener(
@@ -5326,6 +5955,7 @@ window.addEventListener(
 );
 
 </script>
+
 
 </body>
 </html>
