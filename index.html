@@ -8,7 +8,9 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<title>John Paolo Ramirez | Environmental · Geospatial · Data</title>
+<title>
+    John Paolo Ramirez | Environmental · Geospatial · Data
+</title>
 
 <meta
     name="description"
@@ -28,6 +30,7 @@
 
 :root {
     --bg: #070c09;
+
     --panel: #101713;
     --panel-hover: #162019;
     --panel-2: #151e19;
@@ -241,6 +244,20 @@ img {
     outline-offset: 3px;
 }
 
+
+/* =========================================================
+   DESKTOP PANEL SIZES
+
+   TOP:
+   Profile 7/12
+   Projects 5/12
+
+   BOTTOM:
+   Skills 4/12
+   Selected Work 4/12
+   Mini Projects 4/12
+========================================================= */
+
 .panel-profile {
     grid-column: span 7;
 }
@@ -249,12 +266,10 @@ img {
     grid-column: span 5;
 }
 
-.panel-skills {
-    grid-column: span 5;
-}
-
-.panel-gallery {
-    grid-column: span 7;
+.panel-skills,
+.panel-gallery,
+.panel-mini {
+    grid-column: span 4;
 }
 
 
@@ -315,7 +330,6 @@ img {
 
 /* =========================================================
    SHARED TITLE
-   This exact element is cloned during expansion.
 ========================================================= */
 
 .shared-title {
@@ -330,26 +344,55 @@ img {
     transform-origin: top left;
 }
 
+.title-line {
+    display: block;
+}
+
+.shared-title .accent,
+.flying-title .accent {
+    color: var(--green);
+}
+
+
+/* profile */
+
 .panel-profile .shared-title {
     font-size:
         clamp(2.8rem, 5.6vw, 6.8rem);
 }
 
-.panel-projects .shared-title,
-.panel-gallery .shared-title {
+
+/* projects */
+
+.panel-projects .shared-title {
     font-size:
         clamp(2.15rem, 4vw, 4.7rem);
 }
 
+
+/* skills */
+
 .panel-skills .shared-title {
     font-size:
-        clamp(1.75rem, 3.2vw, 3.8rem);
+        clamp(1.45rem, 2.55vw, 3rem);
 
-    line-height: .96;
+    line-height: 1;
 }
 
-.shared-title .accent {
-    color: var(--green);
+
+/* selected work */
+
+.panel-gallery .shared-title {
+    font-size:
+        clamp(1.8rem, 3vw, 3.5rem);
+}
+
+
+/* mini projects */
+
+.panel-mini .shared-title {
+    font-size:
+        clamp(1.8rem, 3vw, 3.5rem);
 }
 
 
@@ -389,6 +432,9 @@ img {
 
     font-size: .67rem;
 }
+
+
+/* animated profile ring */
 
 .profile-ring {
     position: absolute;
@@ -451,7 +497,7 @@ img {
 
 
 /* =========================================================
-   PROJECTS
+   PROJECTS PANEL
 ========================================================= */
 
 .panel-projects {
@@ -489,7 +535,7 @@ img {
 
 
 /* =========================================================
-   SKILLS
+   SKILLS PANEL
 ========================================================= */
 
 .panel-skills {
@@ -524,128 +570,173 @@ img {
 
     color: var(--muted);
 
-    font-size: .64rem;
+    font-size: .62rem;
     font-weight: 720;
 }
 
 
 /* =========================================================
-   GALLERY
+   SELECTED WORK PANEL
 ========================================================= */
 
 .panel-gallery {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0,.73fr)
-        minmax(0,1.27fr);
-
-    gap: 20px;
-}
-
-.gallery-panel-copy {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.preview-stack {
+.gallery-panel-copy {
     position: relative;
-
-    min-height: 0;
-
-    overflow: hidden;
-
-    border-radius: 21px;
-
-    background: #0b110e;
+    z-index: 3;
 }
 
-.stack-img {
-    position: absolute;
+.thumb-strip {
+    height: 38%;
+
+    min-height: 85px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 7px;
+}
+
+.thumb {
+    position: relative;
 
     overflow: hidden;
 
     border:
-        1px solid
-        rgba(255,255,255,.08);
+        1px solid var(--line);
 
-    border-radius: 14px;
+    border-radius: 12px;
 
-    background: #121814;
-
-    box-shadow:
-        0 16px 32px
-        rgba(0,0,0,.3);
-
-    transition:
-        transform .4s ease;
+    background: #0b110e;
 }
 
-.stack-img img {
+.thumb img {
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+
+    transition:
+        transform .35s ease;
 }
 
-.stack-a {
-    width: 57%;
-    height: 62%;
-
-    left: 5%;
-    top: 8%;
-
-    z-index: 3;
-
-    transform: rotate(-3deg);
-}
-
-.stack-b {
-    width: 53%;
-    height: 55%;
-
-    right: 4%;
-    bottom: 8%;
-
-    z-index: 4;
-
-    transform: rotate(4deg);
-}
-
-.stack-c {
-    width: 42%;
-    height: 43%;
-
-    right: 8%;
-    top: 5%;
-
-    z-index: 2;
-
-    transform: rotate(7deg);
-}
-
-.panel-gallery:hover .stack-a {
+.panel-gallery:hover .thumb:nth-child(1) img {
     transform:
-        rotate(-6deg)
-        translate(-5px,-4px);
+        scale(1.08)
+        translateY(-2px);
 }
 
-.panel-gallery:hover .stack-b {
+.panel-gallery:hover .thumb:nth-child(2) img {
     transform:
-        rotate(7deg)
-        translate(7px,5px);
+        scale(1.08)
+        translateY(2px);
 }
 
-.panel-gallery:hover .stack-c {
+.panel-gallery:hover .thumb:nth-child(3) img {
     transform:
-        rotate(10deg)
-        translate(5px,-6px);
+        scale(1.08)
+        translateX(2px);
 }
 
 
 /* =========================================================
-   EXPANDING PANEL OVERLAY
+   MINI PROJECTS PANEL
+========================================================= */
+
+.panel-mini {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background:
+        radial-gradient(
+            circle at 88% 7%,
+            rgba(132,221,145,.095),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(24,76,143,.13),
+            transparent 42%
+        ),
+        var(--panel);
+}
+
+.mini-preview {
+    display: grid;
+
+    gap: 7px;
+}
+
+.mini-preview-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding-top: 8px;
+
+    border-top:
+        1px solid var(--line);
+
+    color: var(--muted);
+
+    font-size: .64rem;
+}
+
+.mini-preview-row strong {
+    color: var(--text);
+
+    font-weight: 760;
+}
+
+.mini-preview-row i {
+    color: var(--green);
+
+    font-size: .58rem;
+}
+
+
+/* =========================================================
+   EXPANSION BACKDROP
+========================================================= */
+
+.expansion-backdrop {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 4990;
+
+    background:
+        rgba(2,7,4,.72);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    opacity: 0;
+
+    transition:
+        opacity .4s ease;
+}
+
+.expansion-backdrop.open {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   EXPANDING PANEL
 ========================================================= */
 
 .expansion {
@@ -681,34 +772,8 @@ img {
 }
 
 
-/* dim behind */
-
-.expansion-backdrop {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 4990;
-
-    background:
-        rgba(2,7,4,.72);
-
-    backdrop-filter:
-        blur(12px);
-
-    opacity: 0;
-
-    transition:
-        opacity .4s ease;
-}
-
-.expansion-backdrop.open {
-    opacity: 1;
-}
-
-
 /* =========================================================
-   TRAVELING TITLE
+   FLYING SHARED TITLE
 ========================================================= */
 
 .flying-title {
@@ -734,17 +799,27 @@ img {
         left,
         top,
         font-size,
-        line-height;
+        line-height,
+        width;
 
     transition:
         left .58s cubic-bezier(.2,.8,.2,1),
         top .58s cubic-bezier(.2,.8,.2,1),
         font-size .58s cubic-bezier(.2,.8,.2,1),
-        line-height .58s cubic-bezier(.2,.8,.2,1);
+        line-height .58s cubic-bezier(.2,.8,.2,1),
+        width .58s cubic-bezier(.2,.8,.2,1);
 }
 
-.flying-title .accent {
-    color: var(--green);
+
+/* When the title reaches the opened panel,
+   the separate big lines become a compact header. */
+
+.flying-title.compact .title-line {
+    display: inline;
+}
+
+.flying-title.compact .title-line::after {
+    content: " ";
 }
 
 
@@ -761,7 +836,7 @@ img {
     overflow-x: hidden;
 
     padding:
-        110px
+        108px
         clamp(24px,4vw,60px)
         clamp(32px,4vw,60px);
 
@@ -779,7 +854,8 @@ img {
 .expanded-content {
     opacity: 1;
 
-    transform: translateY(0);
+    transform:
+        translateY(0);
 }
 
 .expanded-content::-webkit-scrollbar {
@@ -836,7 +912,9 @@ img {
 }
 
 
-/* close */
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
 
 .expansion-close {
     position: fixed;
@@ -883,7 +961,7 @@ img {
 
 
 /* =========================================================
-   ANIMATED BLOB INSIDE OPENED PANEL
+   MOVING ORGANIC ELEMENT INSIDE OPENED PANEL
 ========================================================= */
 
 .expanded-blob {
@@ -999,7 +1077,7 @@ img {
 
 
 /* =========================================================
-   CONTENT CARDS
+   CONTENT GRID
 ========================================================= */
 
 .content-grid {
@@ -1135,11 +1213,14 @@ img {
     background:
         var(--panel);
 
+    color: inherit;
+
     text-decoration: none;
 
     transition:
         transform .28s ease,
-        border-color .28s ease;
+        border-color .28s ease,
+        background .28s ease;
 }
 
 .contact-card-link:hover {
@@ -1148,6 +1229,9 @@ img {
 
     border-color:
         rgba(132,221,145,.25);
+
+    background:
+        var(--panel-hover);
 }
 
 .contact-card-link i {
@@ -1160,6 +1244,8 @@ img {
     color: var(--muted-2);
 
     font-size: .7rem;
+    font-weight: 800;
+
     text-transform: uppercase;
     letter-spacing: .1em;
 }
@@ -1173,6 +1259,110 @@ img {
     font-weight: 780;
 
     word-break: break-word;
+}
+
+
+/* =========================================================
+   MINI PROJECT LINK CARDS
+========================================================= */
+
+.mini-project-card {
+    position: relative;
+
+    min-height: 225px;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 20px;
+
+    background:
+        var(--panel);
+
+    color: inherit;
+
+    text-decoration: none;
+
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        background .28s ease;
+}
+
+.mini-project-card:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(132,221,145,.27);
+
+    background:
+        var(--panel-hover);
+}
+
+.mini-project-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(132,221,145,.10);
+
+    color: var(--green);
+
+    font-size: 1.05rem;
+}
+
+.mini-project-external {
+    position: absolute;
+
+    top: 24px;
+    right: 24px;
+
+    color: var(--muted-2);
+
+    font-size: .8rem;
+
+    transition:
+        color .2s ease,
+        transform .2s ease;
+}
+
+.mini-project-card:hover
+.mini-project-external {
+    color: var(--green);
+
+    transform:
+        translate(2px,-2px);
+}
+
+.mini-project-card h3 {
+    margin:
+        22px 0 0;
+
+    font-size:
+        clamp(1.2rem,1.8vw,1.55rem);
+}
+
+.mini-project-card p {
+    margin:
+        10px 0 0;
+
+    color: var(--muted);
+
+    font-size: .9rem;
+
+    line-height: 1.65;
 }
 
 
@@ -1348,12 +1538,19 @@ img {
         display: none;
     }
 
+    /*
+       Phone:
+       row 1: Profile / Projects
+       row 2: Skills / Selected Work
+       row 3: Mini Projects full width
+    */
+
     .dashboard {
         grid-template-columns:
             1fr 1fr;
 
         grid-template-rows:
-            1fr 1fr;
+            1fr 1fr .70fr;
 
         gap: 8px;
     }
@@ -1363,6 +1560,10 @@ img {
     .panel-skills,
     .panel-gallery {
         grid-column: span 1;
+    }
+
+    .panel-mini {
+        grid-column: span 2;
     }
 
     .panel {
@@ -1392,17 +1593,26 @@ img {
             clamp(1.8rem,10vw,3.2rem);
     }
 
-    .panel-projects .shared-title,
-    .panel-gallery .shared-title {
+    .panel-projects .shared-title {
         font-size:
-            clamp(1.4rem,7.7vw,2.4rem);
+            clamp(1.35rem,7vw,2.25rem);
     }
 
     .panel-skills .shared-title {
         font-size:
-            clamp(1rem,5.5vw,1.7rem);
+            clamp(.88rem,4.35vw,1.35rem);
 
-        line-height: 1;
+        line-height: 1.02;
+    }
+
+    .panel-gallery .shared-title {
+        font-size:
+            clamp(1.3rem,6.6vw,2rem);
+    }
+
+    .panel-mini .shared-title {
+        font-size:
+            clamp(1.25rem,6vw,2rem);
     }
 
     .profile-copy {
@@ -1459,25 +1669,47 @@ img {
         font-size: .44rem;
     }
 
-    .skill-preview span:nth-child(n+6) {
+    .skill-preview span:nth-child(n+5) {
         display: none;
     }
 
-    .panel-gallery {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+    .thumb-strip {
+        height: 38%;
+
+        min-height: 54px;
+
+        gap: 4px;
     }
 
-    .preview-stack {
-        height: 42%;
+    .thumb {
+        border-radius: 7px;
+    }
 
-        min-height: 68px;
+    .panel-mini {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0,1fr)
+            minmax(0,1fr);
+
+        align-items: center;
+
+        gap: 15px;
+    }
+
+    .mini-preview {
+        align-self: center;
+    }
+
+    .mini-preview-row {
+        padding-top: 5px;
+
+        font-size: .48rem;
     }
 
     .expanded-content {
         padding:
-            90px 17px 30px;
+            108px 17px 30px;
     }
 
     .content-grid,
@@ -1485,7 +1717,8 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .content-card {
+    .content-card,
+    .mini-project-card {
         min-height: auto;
     }
 
@@ -1496,6 +1729,24 @@ img {
     .expanded-description {
         font-size: .92rem;
     }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .panel-skills .shared-title {
+        font-size: .82rem;
+    }
+
+    .panel-mini .shared-title {
+        font-size: 1.15rem;
+    }
+
 }
 
 
@@ -1517,27 +1768,35 @@ img {
         transition-duration:
             .001ms !important;
     }
+
 }
 
 </style>
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     MAIN APP
+========================================================= -->
 
 <main class="app">
 
 
-    <!-- =====================================================
-         TOPBAR
-    ====================================================== -->
+    <!-- TOPBAR -->
 
     <header class="topbar">
 
         <div class="brand">
+
             <i class="fa-solid fa-chart-line"></i>
 
             Environmental · Geospatial · Data
+
         </div>
+
 
         <div class="hint">
             Select a panel
@@ -1546,14 +1805,15 @@ img {
     </header>
 
 
-    <!-- =====================================================
-         DASHBOARD
-    ====================================================== -->
+
+    <!-- DASHBOARD -->
 
     <section class="dashboard">
 
 
-        <!-- PROFILE -->
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
 
         <button
             class="panel panel-profile"
@@ -1568,8 +1828,11 @@ img {
             <div>
 
                 <div class="panel-kicker">
+
                     <i class="fa-solid fa-user"></i>
+
                     Profile
+
                 </div>
 
 
@@ -1577,11 +1840,15 @@ img {
                     class="shared-title"
                     data-title
                 >
-                    John Paolo
 
-                    <span class="accent">
+                    <span class="title-line">
+                        John Paolo
+                    </span>
+
+                    <span class="title-line accent">
                         Ramirez
                     </span>
+
                 </h1>
 
 
@@ -1598,7 +1865,9 @@ img {
 
 
             <div class="bottom-note">
+
                 Contact · GitHub · LinkedIn
+
             </div>
 
 
@@ -1608,7 +1877,9 @@ img {
 
 
 
-        <!-- PROJECTS -->
+        <!-- =================================================
+             PROJECTS
+        ================================================== -->
 
         <button
             class="panel panel-projects"
@@ -1616,15 +1887,20 @@ img {
         >
 
             <div class="panel-arrow">
+
                 <i class="fa-solid fa-arrow-up-right"></i>
+
             </div>
 
 
             <div>
 
                 <div class="panel-kicker">
+
                     <i class="fa-solid fa-diagram-project"></i>
+
                     Projects
+
                 </div>
 
 
@@ -1632,19 +1908,26 @@ img {
                     class="shared-title"
                     data-title
                 >
-                    Research
-                    <br>
-                    into
 
-                    <span class="accent">
+                    <span class="title-line">
+                        Research
+                    </span>
+
+                    <span class="title-line">
+                        into
+                    </span>
+
+                    <span class="title-line accent">
                         results.
                     </span>
+
                 </h2>
 
             </div>
 
 
             <div class="project-preview">
+
 
                 <div class="preview-line">
 
@@ -1684,13 +1967,16 @@ img {
 
                 </div>
 
+
             </div>
 
         </button>
 
 
 
-        <!-- SKILLS -->
+        <!-- =================================================
+             SKILLS
+        ================================================== -->
 
         <button
             class="panel panel-skills"
@@ -1698,15 +1984,20 @@ img {
         >
 
             <div class="panel-arrow">
+
                 <i class="fa-solid fa-arrow-up-right"></i>
+
             </div>
 
 
             <div>
 
                 <div class="panel-kicker">
+
                     <i class="fa-solid fa-gears"></i>
+
                     Skills
+
                 </div>
 
 
@@ -1714,15 +2005,19 @@ img {
                     class="shared-title"
                     data-title
                 >
-                    Spatial Data.
-                    <br>
 
-                    Environmental Assessment.
-                    <br>
+                    <span class="title-line">
+                        Spatial Data.
+                    </span>
 
-                    <span class="accent">
+                    <span class="title-line">
+                        Environmental Assessment.
+                    </span>
+
+                    <span class="title-line accent">
                         Data Analysis.
                     </span>
+
                 </h2>
 
             </div>
@@ -1731,11 +2026,26 @@ img {
             <div class="skill-preview">
 
                 <span>QGIS</span>
-                <span>Google Earth Engine</span>
-                <span>Python</span>
-                <span>R</span>
-                <span>Remote Sensing</span>
-                <span>Statistics</span>
+
+                <span>
+                    Google Earth Engine
+                </span>
+
+                <span>
+                    Python
+                </span>
+
+                <span>
+                    R
+                </span>
+
+                <span>
+                    Remote Sensing
+                </span>
+
+                <span>
+                    Statistics
+                </span>
 
             </div>
 
@@ -1743,7 +2053,9 @@ img {
 
 
 
-        <!-- SELECTED WORK -->
+        <!-- =================================================
+             SELECTED WORK
+        ================================================== -->
 
         <button
             class="panel panel-gallery"
@@ -1751,80 +2063,178 @@ img {
         >
 
             <div class="panel-arrow">
+
                 <i class="fa-solid fa-arrow-up-right"></i>
+
             </div>
 
 
             <div class="gallery-panel-copy">
 
-                <div>
+                <div class="panel-kicker">
 
-                    <div class="panel-kicker">
-                        <i class="fa-solid fa-images"></i>
-                        Selected Work
-                    </div>
+                    <i class="fa-solid fa-images"></i>
+
+                    Selected Work
+
+                </div>
 
 
-                    <h2
-                        class="shared-title"
-                        data-title
-                    >
+                <h2
+                    class="shared-title"
+                    data-title
+                >
+
+                    <span class="title-line">
                         Maps.
-                        <br>
+                    </span>
+
+                    <span class="title-line">
                         Models.
-                        <br>
+                    </span>
 
-                        <span class="accent">
-                            Visuals.
-                        </span>
-                    </h2>
+                    <span class="title-line accent">
+                        Visuals.
+                    </span>
 
-                </div>
-
-
-                <div class="bottom-note">
-                    Open visual gallery
-                </div>
+                </h2>
 
             </div>
 
 
-            <div class="preview-stack">
+            <div class="thumb-strip">
 
-                <div class="stack-img stack-a">
+
+                <div class="thumb">
+
                     <img
                         src="Picture2.png"
                         alt=""
                     >
+
                 </div>
 
 
-                <div class="stack-img stack-b">
+                <div class="thumb">
+
                     <img
                         src="EVI and NDVI.png"
                         alt=""
                     >
+
                 </div>
 
 
-                <div class="stack-img stack-c">
+                <div class="thumb">
+
                     <img
                         src="Network Model Diagram.png"
                         alt=""
                     >
+
                 </div>
+
 
             </div>
 
         </button>
+
+
+
+        <!-- =================================================
+             MINI PROJECTS
+        ================================================== -->
+
+        <button
+            class="panel panel-mini"
+            data-panel="mini"
+        >
+
+            <div class="panel-arrow">
+
+                <i class="fa-solid fa-arrow-up-right"></i>
+
+            </div>
+
+
+            <div>
+
+                <div class="panel-kicker">
+
+                    <i class="fa-solid fa-code"></i>
+
+                    Mini Projects
+
+                </div>
+
+
+                <h2
+                    class="shared-title"
+                    data-title
+                >
+
+                    <span class="title-line">
+                        Mini
+                    </span>
+
+                    <span class="title-line accent">
+                        Projects.
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="mini-preview">
+
+
+                <div class="mini-preview-row">
+
+                    <strong>
+                        Experience Timeline
+                    </strong>
+
+                    <i class="fa-solid fa-arrow-up-right"></i>
+
+                </div>
+
+
+                <div class="mini-preview-row">
+
+                    <strong>
+                        Sankey Resume
+                    </strong>
+
+                    <i class="fa-solid fa-arrow-up-right"></i>
+
+                </div>
+
+
+                <div class="mini-preview-row">
+
+                    <strong>
+                        NoteDump Factory
+                    </strong>
+
+                    <i class="fa-solid fa-arrow-up-right"></i>
+
+                </div>
+
+
+            </div>
+
+        </button>
+
 
     </section>
 
 </main>
 
 
+
 <!-- =========================================================
-     BACKDROP
+     EXPANSION BACKDROP
 ========================================================= -->
 
 <div
@@ -1834,8 +2244,9 @@ img {
 ></div>
 
 
+
 <!-- =========================================================
-     LIGHTBOX
+     IMAGE LIGHTBOX
 ========================================================= -->
 
 <div
@@ -1846,8 +2257,11 @@ img {
     <button
         class="lightbox-close"
         id="lightboxClose"
+        aria-label="Close image"
     >
+
         <i class="fa-solid fa-xmark"></i>
+
     </button>
 
 
@@ -1860,10 +2274,11 @@ img {
 </div>
 
 
+
 <script>
 
 /* =========================================================
-   CONTENT
+   PANEL CONTENT
 ========================================================= */
 
 const content = {
@@ -1894,9 +2309,11 @@ const content = {
                     class="contact-card-link"
                     href="mailto:jpaoloramirez@gmail.com"
                 >
+
                     <i class="fa-solid fa-envelope"></i>
 
                     <div>
+
                         <div class="contact-small">
                             Email
                         </div>
@@ -1904,7 +2321,9 @@ const content = {
                         <div class="contact-large">
                             jpaoloramirez@gmail.com
                         </div>
+
                     </div>
+
                 </a>
 
 
@@ -1912,9 +2331,11 @@ const content = {
                     class="contact-card-link"
                     href="tel:+639275745752"
                 >
+
                     <i class="fa-solid fa-phone"></i>
 
                     <div>
+
                         <div class="contact-small">
                             Mobile
                         </div>
@@ -1922,7 +2343,9 @@ const content = {
                         <div class="contact-large">
                             +63 927 574 5752
                         </div>
+
                     </div>
+
                 </a>
 
 
@@ -1932,9 +2355,11 @@ const content = {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
+
                     <i class="fa-brands fa-github"></i>
 
                     <div>
+
                         <div class="contact-small">
                             GitHub
                         </div>
@@ -1942,7 +2367,9 @@ const content = {
                         <div class="contact-large">
                             Johnny1996ornot
                         </div>
+
                     </div>
+
                 </a>
 
 
@@ -1952,9 +2379,11 @@ const content = {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
+
                     <i class="fa-brands fa-linkedin"></i>
 
                     <div>
+
                         <div class="contact-small">
                             LinkedIn
                         </div>
@@ -1962,7 +2391,9 @@ const content = {
                         <div class="contact-large">
                             John Paolo Ramirez
                         </div>
+
                     </div>
+
                 </a>
 
             </div>
@@ -1971,7 +2402,10 @@ const content = {
 
 
     /* =====================================================
-       PROJECTS — PROJECTS ONLY, NO EMPLOYMENT HISTORY
+       PROJECTS
+       Actual research/projects only.
+       No employment history.
+       No generic web-tools card.
     ====================================================== */
 
     projects: {
@@ -1982,7 +2416,7 @@ const content = {
         description:
             `
             Selected environmental, geospatial,
-            analytical and computational projects.
+            analytical and computational research projects.
             `,
 
         html:
@@ -2008,10 +2442,21 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>Python</span>
-                        <span>Spatial Databases</span>
-                        <span>Data Harmonisation</span>
-                        <span>Automation</span>
+
+                        <span>
+                            Spatial Databases
+                        </span>
+
+                        <span>
+                            Data Harmonisation
+                        </span>
+
+                        <span>
+                            Automation
+                        </span>
+
                     </div>
 
                 </article>
@@ -2035,10 +2480,17 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>AAS</span>
+
                         <span>Statistics</span>
+
                         <span>GIS</span>
-                        <span>Environmental Monitoring</span>
+
+                        <span>
+                            Environmental Monitoring
+                        </span>
+
                     </div>
 
                 </article>
@@ -2062,10 +2514,19 @@ const content = {
                     </p>
 
                     <div class="tags">
-                        <span>Microplastics</span>
+
+                        <span>
+                            Microplastics
+                        </span>
+
                         <span>R</span>
+
                         <span>QGIS</span>
-                        <span>Statistics</span>
+
+                        <span>
+                            Statistics
+                        </span>
+
                     </div>
 
                 </article>
@@ -2090,10 +2551,15 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>Climate</span>
+
                         <span>DRR</span>
+
                         <span>CCA</span>
+
                         <span>GIS</span>
+
                     </div>
 
                 </article>
@@ -2117,10 +2583,17 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>R</span>
+
                         <span>Grainscape</span>
-                        <span>Remote Sensing</span>
+
+                        <span>
+                            Remote Sensing
+                        </span>
+
                         <span>GIS</span>
+
                     </div>
 
                 </article>
@@ -2144,61 +2617,19 @@ const content = {
                     </p>
 
                     <div class="tags">
-                        <span>Ecotoxicology</span>
-                        <span>Laboratory</span>
-                        <span>Research Design</span>
-                    </div>
 
-                </article>
+                        <span>
+                            Ecotoxicology
+                        </span>
 
+                        <span>
+                            Laboratory
+                        </span>
 
-                <article class="content-card">
+                        <span>
+                            Research Design
+                        </span>
 
-                    <div class="card-label">
-                        Web Prototype
-                    </div>
-
-                    <h3>
-                        NoteDump Factory
-                    </h3>
-
-                    <p>
-                        Web application designed to
-                        transform presentation material
-                        into a more interactive note-taking
-                        and study format.
-                    </p>
-
-                    <div class="tags">
-                        <span>HTML</span>
-                        <span>Web Development</span>
-                        <span>Education</span>
-                    </div>
-
-                </article>
-
-
-                <article class="content-card">
-
-                    <div class="card-label">
-                        Interactive Prototypes
-                    </div>
-
-                    <h3>
-                        Web-based Analytical Tools
-                    </h3>
-
-                    <p>
-                        Interactive experience timeline,
-                        Sankey visualisation system,
-                        Scratchpad prototype and
-                        browser-based geospatial models.
-                    </p>
-
-                    <div class="tags">
-                        <span>HTML</span>
-                        <span>Interactive Design</span>
-                        <span>Data Visualisation</span>
                     </div>
 
                 </article>
@@ -2231,7 +2662,9 @@ const content = {
                 <article class="content-card">
 
                     <div class="card-icon">
+
                         <i class="fa-solid fa-earth-asia"></i>
+
                     </div>
 
                     <h3>
@@ -2246,12 +2679,25 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>QGIS</span>
+
                         <span>PyQGIS</span>
-                        <span>Spatial Databases</span>
+
+                        <span>
+                            Spatial Databases
+                        </span>
+
                         <span>IDW</span>
-                        <span>Overlay Analysis</span>
-                        <span>Network Analysis</span>
+
+                        <span>
+                            Overlay Analysis
+                        </span>
+
+                        <span>
+                            Network Analysis
+                        </span>
+
                     </div>
 
                 </article>
@@ -2260,7 +2706,9 @@ const content = {
                 <article class="content-card">
 
                     <div class="card-icon">
+
                         <i class="fa-solid fa-satellite"></i>
+
                     </div>
 
                     <h3>
@@ -2275,12 +2723,25 @@ const content = {
                     </p>
 
                     <div class="tags">
-                        <span>Google Earth Engine</span>
+
+                        <span>
+                            Google Earth Engine
+                        </span>
+
                         <span>NDVI</span>
+
                         <span>EVI</span>
+
                         <span>TSS</span>
-                        <span>Land Cover</span>
-                        <span>Supervised Classification</span>
+
+                        <span>
+                            Land Cover
+                        </span>
+
+                        <span>
+                            Supervised Classification
+                        </span>
+
                     </div>
 
                 </article>
@@ -2289,7 +2750,9 @@ const content = {
                 <article class="content-card">
 
                     <div class="card-icon">
+
                         <i class="fa-solid fa-chart-line"></i>
+
                     </div>
 
                     <h3>
@@ -2304,12 +2767,25 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>Python</span>
+
                         <span>R</span>
+
                         <span>Pandas</span>
-                        <span>Statistics</span>
-                        <span>Automation</span>
-                        <span>Computational Modelling</span>
+
+                        <span>
+                            Statistical Analysis
+                        </span>
+
+                        <span>
+                            Automation
+                        </span>
+
+                        <span>
+                            Computational Modelling
+                        </span>
+
                     </div>
 
                 </article>
@@ -2318,7 +2794,9 @@ const content = {
                 <article class="content-card">
 
                     <div class="card-icon">
+
                         <i class="fa-solid fa-leaf"></i>
+
                     </div>
 
                     <h3>
@@ -2334,11 +2812,21 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>EIA</span>
+
                         <span>CCA</span>
+
                         <span>DRR</span>
-                        <span>Environmental Monitoring</span>
-                        <span>Risk Assessment</span>
+
+                        <span>
+                            Environmental Monitoring
+                        </span>
+
+                        <span>
+                            Risk Assessment
+                        </span>
+
                     </div>
 
                 </article>
@@ -2347,7 +2835,9 @@ const content = {
                 <article class="content-card">
 
                     <div class="card-icon">
+
                         <i class="fa-solid fa-flask"></i>
+
                     </div>
 
                     <h3>
@@ -2362,11 +2852,27 @@ const content = {
                     </p>
 
                     <div class="tags">
-                        <span>Heavy Metals</span>
-                        <span>Microplastics</span>
-                        <span>Ecotoxicology</span>
-                        <span>Fieldwork</span>
-                        <span>Research Design</span>
+
+                        <span>
+                            Heavy Metals
+                        </span>
+
+                        <span>
+                            Microplastics
+                        </span>
+
+                        <span>
+                            Ecotoxicology
+                        </span>
+
+                        <span>
+                            Fieldwork
+                        </span>
+
+                        <span>
+                            Research Design
+                        </span>
+
                     </div>
 
                 </article>
@@ -2375,7 +2881,9 @@ const content = {
                 <article class="content-card">
 
                     <div class="card-icon">
+
                         <i class="fa-solid fa-chart-simple"></i>
+
                     </div>
 
                     <h3>
@@ -2390,10 +2898,19 @@ const content = {
                     </p>
 
                     <div class="tags">
+
                         <span>HTML</span>
-                        <span>Interactive Visualisation</span>
+
+                        <span>
+                            Interactive Visualisation
+                        </span>
+
                         <span>Maps</span>
-                        <span>Technical Reports</span>
+
+                        <span>
+                            Technical Reports
+                        </span>
+
                     </div>
 
                 </article>
@@ -2404,7 +2921,7 @@ const content = {
 
 
     /* =====================================================
-       GALLERY
+       SELECTED WORK
     ====================================================== */
 
     gallery: {
@@ -2426,14 +2943,18 @@ const content = {
                     class="gallery-item"
                     data-image="Picture2.png"
                 >
+
                     <img
                         src="Picture2.png"
                         alt="Supervised land cover classification"
                     >
 
                     <div class="gallery-caption">
+
                         Supervised Land Cover Classification
+
                     </div>
+
                 </div>
 
 
@@ -2441,14 +2962,18 @@ const content = {
                     class="gallery-item"
                     data-image="EVI and NDVI.png"
                 >
+
                     <img
                         src="EVI and NDVI.png"
                         alt="NDVI and EVI analysis"
                     >
 
                     <div class="gallery-caption">
+
                         NDVI & EVI Remote Sensing Analysis
+
                     </div>
+
                 </div>
 
 
@@ -2456,14 +2981,18 @@ const content = {
                     class="gallery-item"
                     data-image="Network Model Diagram.png"
                 >
+
                     <img
                         src="Network Model Diagram.png"
                         alt="Spatial network modelling"
                     >
 
                     <div class="gallery-caption">
+
                         Spatial Network Modelling
+
                     </div>
+
                 </div>
 
 
@@ -2471,14 +3000,18 @@ const content = {
                     class="gallery-item"
                     data-image="TSS - LPP Wetland.png"
                 >
+
                     <img
                         src="TSS - LPP Wetland.png"
                         alt="TSS environmental monitoring"
                     >
 
                     <div class="gallery-caption">
+
                         TSS Environmental Monitoring
+
                     </div>
+
                 </div>
 
 
@@ -2486,14 +3019,18 @@ const content = {
                     class="gallery-item"
                     data-image="Picture56.png"
                 >
+
                     <img
                         src="Picture56.png"
                         alt="Environmental systems visualisation"
                     >
 
                     <div class="gallery-caption">
+
                         Environmental Systems Visualisation
+
                     </div>
+
                 </div>
 
 
@@ -2501,15 +3038,221 @@ const content = {
                     class="gallery-item"
                     data-image="Picture33.png"
                 >
+
                     <img
                         src="Picture33.png"
                         alt="Interactive professional timeline"
                     >
 
                     <div class="gallery-caption">
+
                         Interactive Timeline Visualisation
+
                     </div>
+
                 </div>
+
+            </div>
+            `
+    },
+
+
+    /* =====================================================
+       MINI PROJECTS
+    ====================================================== */
+
+    mini: {
+
+        kicker:
+            "Mini Projects",
+
+        description:
+            `
+            Small interactive tools, visualisations and
+            coding experiments developed to explore
+            information design, communication and
+            browser-based interaction.
+            `,
+
+        html:
+            `
+            <div class="content-grid">
+
+
+                <!-- EXPERIENCE TIMELINE -->
+
+                <a
+                    class="mini-project-card"
+                    href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="mini-project-icon">
+
+                        <i class="fa-solid fa-timeline"></i>
+
+                    </div>
+
+
+                    <i
+                        class="fa-solid fa-arrow-up-right-from-square mini-project-external"
+                    ></i>
+
+
+                    <h3>
+                        Experience Timeline
+                    </h3>
+
+
+                    <p>
+                        Interactive HTML-based timeline
+                        visualising education, professional
+                        experience, research activity and
+                        technical development.
+                    </p>
+
+
+                    <div class="tags">
+
+                        <span>HTML</span>
+
+                        <span>Timeline</span>
+
+                        <span>
+                            Interactive Design
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- SANKEY RESUME -->
+
+                <a
+                    class="mini-project-card"
+                    href="https://johnny1996ornot.github.io/Sankey-Diagram---Resume-/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="mini-project-icon">
+
+                        <i class="fa-solid fa-diagram-project"></i>
+
+                    </div>
+
+
+                    <i
+                        class="fa-solid fa-arrow-up-right-from-square mini-project-external"
+                    ></i>
+
+
+                    <h3>
+                        Sankey Diagram Resume
+                    </h3>
+
+
+                    <p>
+                        Interactive Sankey-style resume
+                        designed to visualise relationships
+                        among education, experience,
+                        projects and technical skills.
+                    </p>
+
+
+                    <div class="tags">
+
+                        <span>HTML</span>
+
+                        <span>Sankey</span>
+
+                        <span>
+                            Data Visualisation
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- NOTEDUMP FACTORY -->
+
+                <a
+                    class="mini-project-card"
+                    href="https://notedump-factory.onrender.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="mini-project-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+
+                    <i
+                        class="fa-solid fa-arrow-up-right-from-square mini-project-external"
+                    ></i>
+
+
+                    <h3>
+                        NoteDump Factory
+                    </h3>
+
+
+                    <p>
+                        Web application designed to
+                        transform presentation material
+                        into a more interactive format
+                        for structured note-taking
+                        and study.
+                    </p>
+
+
+                    <div class="tags">
+
+                        <span>Web App</span>
+
+                        <span>HTML</span>
+
+                        <span>Education</span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- FUTURE SPACE -->
+
+                <article class="content-card">
+
+                    <div class="card-icon">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </div>
+
+
+                    <h3>
+                        More experiments coming.
+                    </h3>
+
+
+                    <p>
+                        This section can grow as more
+                        mini coding projects, visualisations,
+                        tools and analytical prototypes
+                        are added.
+                    </p>
+
+                </article>
+
 
             </div>
             `
@@ -2519,7 +3262,7 @@ const content = {
 
 
 /* =========================================================
-   ELEMENTS
+   REFERENCES
 ========================================================= */
 
 const panels =
@@ -2532,14 +3275,38 @@ const backdrop =
         "expansionBackdrop"
     );
 
-let activePanel = null;
-let expansion = null;
-let flyingTitle = null;
-let closeButton = null;
+const lightbox =
+    document.getElementById(
+        "lightbox"
+    );
+
+const lightboxImage =
+    document.getElementById(
+        "lightboxImage"
+    );
+
+const lightboxClose =
+    document.getElementById(
+        "lightboxClose"
+    );
+
+
+let activePanel =
+    null;
+
+let expansion =
+    null;
+
+let flyingTitle =
+    null;
+
+let closeButton =
+    null;
 
 
 /* =========================================================
-   OPEN PANEL — SHARED ELEMENT TRANSITION
+   OPEN PANEL
+   Shared-element / app-opening transition.
 ========================================================= */
 
 function openPanel(panel) {
@@ -2549,7 +3316,8 @@ function openPanel(panel) {
     }
 
 
-    activePanel = panel;
+    activePanel =
+        panel;
 
 
     const key =
@@ -2572,7 +3340,9 @@ function openPanel(panel) {
 
 
     const panelStyle =
-        getComputedStyle(panel);
+        getComputedStyle(
+            panel
+        );
 
 
     const titleStyle =
@@ -2637,6 +3407,7 @@ function openPanel(panel) {
     expansion.innerHTML =
         `
         <div class="expanded-blob"></div>
+
         <div class="expanded-blob-small"></div>
 
         <div class="expanded-content">
@@ -2646,11 +3417,15 @@ function openPanel(panel) {
                 <div>
 
                     <div class="expanded-kicker">
+
                         ${content[key].kicker}
+
                     </div>
 
                     <div class="expanded-description">
+
                         ${content[key].description}
+
                     </div>
 
                 </div>
@@ -2669,7 +3444,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       CREATE TITLE CLONE
+       CREATE FLYING TITLE
     ----------------------------------------------------- */
 
     flyingTitle =
@@ -2711,7 +3486,7 @@ function openPanel(panel) {
     );
 
 
-    /* hide original so duplicate is not visible */
+    /* hide source title/panel */
 
     originalTitle.style.opacity =
         "0";
@@ -2722,7 +3497,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       FINAL TARGET
+       EXPANDED TARGET POSITION
     ----------------------------------------------------- */
 
     const margin =
@@ -2749,8 +3524,6 @@ function openPanel(panel) {
         - margin * 2;
 
 
-    /* final title target */
-
     const finalTitleLeft =
         finalLeft
         + (
@@ -2765,18 +3538,25 @@ function openPanel(panel) {
         + (
             window.innerWidth <= 800
                 ? 22
-                : 31
+                : 30
         );
 
 
     const finalTitleSize =
         window.innerWidth <= 800
-            ? 21
+            ? 20
             : 27;
 
 
+    const finalTitleWidth =
+        Math.min(
+            finalWidth * .76,
+            900
+        );
+
+
     /* -----------------------------------------------------
-       ANIMATE
+       START ANIMATION
     ----------------------------------------------------- */
 
     requestAnimationFrame(
@@ -2821,12 +3601,17 @@ function openPanel(panel) {
 
 
             flyingTitle.style.width =
-                `${
-                    Math.min(
-                        finalWidth * .62,
-                        650
-                    )
-                }px`;
+                `${finalTitleWidth}px`;
+
+
+            /*
+               Reflow big stacked words into
+               one compact header while moving.
+            */
+
+            flyingTitle.classList.add(
+                "compact"
+            );
 
         }
     );
@@ -2847,7 +3632,9 @@ function openPanel(panel) {
 
 
     closeButton.innerHTML =
-        `<i class="fa-solid fa-xmark"></i>`;
+        `
+        <i class="fa-solid fa-xmark"></i>
+        `;
 
 
     closeButton.setAttribute(
@@ -2871,7 +3658,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       AFTER OPEN
+       CONTENT APPEARS AFTER EXPANSION
     ----------------------------------------------------- */
 
     setTimeout(
@@ -2880,6 +3667,7 @@ function openPanel(panel) {
             if (!expansion) {
                 return;
             }
+
 
             expansion.classList.add(
                 "content-visible"
@@ -2902,7 +3690,8 @@ function openPanel(panel) {
 
 
 /* =========================================================
-   CLOSE PANEL — REVERSE TO ORIGINAL TILE
+   CLOSE PANEL
+   Reverse exact path into source panel.
 ========================================================= */
 
 function closeActivePanel() {
@@ -2926,8 +3715,11 @@ function closeActivePanel() {
         );
 
 
-    /* show source panel but keep title hidden
-       while animation flies back */
+    /*
+       Source panel returns first,
+       but its title stays hidden
+       because flying title is returning.
+    */
 
     panel.style.opacity =
         "1";
@@ -2971,8 +3763,15 @@ function closeActivePanel() {
     );
 
 
+    /* Restore multi-line title layout */
+
+    flyingTitle.classList.remove(
+        "compact"
+    );
+
+
     /* -----------------------------------------------------
-       REVERSE PANEL
+       PANEL REVERSE
     ----------------------------------------------------- */
 
     expansion.style.left =
@@ -2997,7 +3796,7 @@ function closeActivePanel() {
 
 
     /* -----------------------------------------------------
-       REVERSE TITLE
+       TITLE REVERSE
     ----------------------------------------------------- */
 
     flyingTitle.style.left =
@@ -3129,37 +3928,6 @@ backdrop.addEventListener(
 
 
 /* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            if (
-                lightbox.classList
-                    .contains("open")
-            ) {
-
-                closeLightbox();
-
-                return;
-            }
-
-
-            closeActivePanel();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
    WINDOW RESIZE
 ========================================================= */
 
@@ -3174,26 +3942,8 @@ window.addEventListener(
 
 
 /* =========================================================
-   LIGHTBOX
+   GALLERY BINDING
 ========================================================= */
-
-const lightbox =
-    document.getElementById(
-        "lightbox"
-    );
-
-
-const lightboxImage =
-    document.getElementById(
-        "lightboxImage"
-    );
-
-
-const lightboxClose =
-    document.getElementById(
-        "lightboxClose"
-    );
-
 
 function bindGalleryItems() {
 
@@ -3236,6 +3986,10 @@ function bindGalleryItems() {
 }
 
 
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
 function closeLightbox() {
 
     lightbox.classList.remove(
@@ -3266,6 +4020,38 @@ lightbox.addEventListener(
             closeLightbox();
 
         }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key !== "Escape"
+        ) {
+            return;
+        }
+
+
+        if (
+            lightbox.classList
+                .contains("open")
+        ) {
+
+            closeLightbox();
+
+            return;
+        }
+
+
+        closeActivePanel();
 
     }
 );
