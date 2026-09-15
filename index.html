@@ -1,3232 +1,3230 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
+<meta charset="UTF-8">
 
-    <title>
-        John Paolo Ramirez | Environmental · Geospatial · Data
-    </title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
-    <meta
-        name="description"
-        content="Portfolio of John Paolo Ramirez — environmental, geospatial and data analyst working with GIS, remote sensing, Python, R, Google Earth Engine, environmental assessment and scientific research."
-    >
+<title>
+    John Paolo Ramirez | Environmental · Geospatial · Data
+</title>
 
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    >
+<meta
+    name="description"
+    content="Portfolio of John Paolo Ramirez — environmental, geospatial and data analyst working with GIS, remote sensing, Google Earth Engine, Python, R and environmental research."
+>
 
-    <style>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+>
 
-        /* =========================================================
-           VARIABLES
-        ========================================================= */
+<style>
 
-        :root {
-            --bg: #f4f5f2;
-            --bg-soft: #ebeee9;
+/* =========================================================
+   ROOT
+========================================================= */
 
-            --surface: #ffffff;
-            --surface-soft: #edf1ed;
+:root {
 
-            --text: #0b110e;
-            --muted: #667069;
+    --bg:
+        #070c09;
 
-            --line: rgba(15, 30, 20, .10);
+    --panel:
+        #101713;
 
-            --green: #85d88c;
-            --green-strong: #58b96c;
-            --green-dark: #1f6d42;
+    --panel-soft:
+        #151f19;
 
-            --blue: #0d315c;
-            --blue-bright: #1456a0;
+    --panel-hover:
+        #18231d;
 
-            --radius-lg: 36px;
-            --radius-md: 24px;
+    --text:
+        #f4f7f4;
 
-            --page: min(1440px, calc(100% - 64px));
-        }
+    --muted:
+        #95a199;
 
-        html.dark {
-            --bg: #080d0b;
-            --bg-soft: #0e1511;
+    --line:
+        rgba(255,255,255,.09);
 
-            --surface: #101713;
-            --surface-soft: #151e19;
+    --green:
+        #86dc91;
 
-            --text: #f3f6f3;
-            --muted: #9ba69f;
+    --green-soft:
+        #5fbf73;
 
-            --line: rgba(255, 255, 255, .09);
+    --blue:
+        #173f72;
 
-            --green: #8cdb91;
-            --green-strong: #61c375;
-            --green-dark: #276f45;
+    --modal:
+        rgba(7,12,9,.86);
 
-            --blue: #123b6c;
-            --blue-bright: #1c60a9;
-        }
+    --radius:
+        30px;
 
+}
 
-        /* =========================================================
-           RESET
-        ========================================================= */
 
-        * {
-            box-sizing: border-box;
-        }
+/* =========================================================
+   RESET
+========================================================= */
 
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+* {
+    box-sizing:
+        border-box;
+}
 
-        body {
-            margin: 0;
-            overflow-x: hidden;
+html,
+body {
+    margin:
+        0;
 
-            background: var(--bg);
-            color: var(--text);
+    width:
+        100%;
 
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
+    min-height:
+        100%;
 
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
+    overflow:
+        hidden;
+}
 
-            transition:
-                background .35s ease,
-                color .35s ease;
-        }
+body {
 
-        button,
-        a {
-            font: inherit;
-        }
+    background:
+        var(--bg);
 
-        a {
-            color: inherit;
-        }
+    color:
+        var(--text);
 
-        img {
-            max-width: 100%;
-        }
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
 
-        ::selection {
-            background: var(--green);
-            color: #071008;
-        }
+    -webkit-font-smoothing:
+        antialiased;
 
+    text-rendering:
+        optimizeLegibility;
+}
 
-        /* =========================================================
-           GLOBAL
-        ========================================================= */
+button,
+a {
+    font:
+        inherit;
+}
 
-        .page-width {
-            width: var(--page);
-            margin-inline: auto;
-        }
+button {
+    color:
+        inherit;
+}
 
-        .section {
-            position: relative;
 
-            padding-top: clamp(90px, 10vw, 170px);
-            padding-bottom: clamp(90px, 10vw, 170px);
-        }
+/* =========================================================
+   BACKGROUND
+========================================================= */
 
-        .section-kicker {
-            display: inline-flex;
-            align-items: center;
+.background-glow {
 
-            gap: 9px;
+    position:
+        fixed;
 
-            margin-bottom: 20px;
+    inset:
+        0;
 
-            color: var(--green);
+    pointer-events:
+        none;
 
-            font-size: .76rem;
-            font-weight: 800;
+    overflow:
+        hidden;
 
-            text-transform: uppercase;
-            letter-spacing: .2em;
-        }
+    z-index:
+        0;
+}
 
-        .section-title {
-            max-width: 1050px;
+.background-glow::before {
 
-            margin: 0;
+    content:
+        "";
 
-            font-size:
-                clamp(2.8rem, 6.8vw, 7rem);
+    position:
+        absolute;
 
-            line-height: .94;
+    width:
+        700px;
 
-            letter-spacing: -.065em;
+    height:
+        700px;
 
-            font-weight: 850;
-        }
+    left:
+        -220px;
 
-        .section-intro {
-            max-width: 700px;
+    top:
+        -230px;
 
-            margin-top: 28px;
+    border-radius:
+        50%;
 
-            color: var(--muted);
+    background:
+        radial-gradient(
+            circle,
+            rgba(83,190,110,.13),
+            transparent 70%
+        );
 
-            font-size:
-                clamp(1rem, 1.5vw, 1.25rem);
+    filter:
+        blur(30px);
 
-            line-height: 1.72;
-        }
+    animation:
+        bgMoveOne 16s ease-in-out infinite alternate;
+}
 
+.background-glow::after {
 
-        /* =========================================================
-           REVEAL ANIMATIONS
-        ========================================================= */
+    content:
+        "";
 
-        .reveal {
-            opacity: 0;
+    position:
+        absolute;
 
-            transform:
-                translateY(45px);
+    width:
+        650px;
 
-            transition:
-                opacity .9s cubic-bezier(.2,.7,.2,1),
-                transform .9s cubic-bezier(.2,.7,.2,1);
-        }
+    height:
+        650px;
 
-        .reveal-left {
-            opacity: 0;
+    right:
+        -230px;
 
-            transform:
-                translateX(-45px);
+    bottom:
+        -260px;
 
-            transition:
-                opacity .9s cubic-bezier(.2,.7,.2,1),
-                transform .9s cubic-bezier(.2,.7,.2,1);
-        }
+    border-radius:
+        50%;
 
-        .reveal-scale {
-            opacity: 0;
+    background:
+        radial-gradient(
+            circle,
+            rgba(33,88,150,.18),
+            transparent 70%
+        );
 
-            transform:
-                scale(.94);
+    filter:
+        blur(35px);
 
-            transition:
-                opacity 1s cubic-bezier(.2,.7,.2,1),
-                transform 1s cubic-bezier(.2,.7,.2,1);
-        }
+    animation:
+        bgMoveTwo 18s ease-in-out infinite alternate;
+}
 
-        .reveal.visible,
-        .reveal-left.visible {
-            opacity: 1;
+@keyframes bgMoveOne {
 
-            transform:
-                translate(0, 0);
-        }
+    from {
+        transform:
+            translate(0,0);
+    }
 
-        .reveal-scale.visible {
-            opacity: 1;
+    to {
+        transform:
+            translate(100px,70px);
+    }
+}
 
-            transform:
-                scale(1);
-        }
+@keyframes bgMoveTwo {
 
-        .delay-1 {
-            transition-delay: .08s;
-        }
+    from {
+        transform:
+            translate(0,0);
+    }
 
-        .delay-2 {
-            transition-delay: .16s;
-        }
+    to {
+        transform:
+            translate(-120px,-80px);
+    }
+}
 
-        .delay-3 {
-            transition-delay: .24s;
-        }
 
+/* =========================================================
+   APP SHELL
+========================================================= */
 
-        /* =========================================================
-           NAV
-        ========================================================= */
+.app {
 
-        .site-nav {
-            position: fixed;
+    position:
+        relative;
 
-            top: 0;
-            left: 0;
-            right: 0;
+    z-index:
+        2;
 
-            z-index: 1000;
+    width:
+        100%;
 
-            background:
-                color-mix(
-                    in srgb,
-                    var(--bg) 78%,
-                    transparent
-                );
+    height:
+        100svh;
 
-            border-bottom:
-                1px solid transparent;
+    padding:
+        clamp(14px,2vw,28px);
 
-            backdrop-filter:
-                blur(22px)
-                saturate(150%);
+    display:
+        flex;
 
-            -webkit-backdrop-filter:
-                blur(22px)
-                saturate(150%);
+    flex-direction:
+        column;
 
-            transition:
-                border-color .3s ease,
-                background .3s ease;
-        }
+    gap:
+        clamp(12px,1.5vw,20px);
+}
 
-        .site-nav.scrolled {
-            border-color: var(--line);
-        }
 
-        .nav-inner {
-            min-height: 70px;
+/* =========================================================
+   TOP BAR
+========================================================= */
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+.topbar {
 
-            gap: 30px;
-        }
+    min-height:
+        44px;
 
-        .nav-brand {
-            text-decoration: none;
+    display:
+        flex;
 
-            font-size: .92rem;
-            font-weight: 900;
+    align-items:
+        center;
 
-            letter-spacing: -.02em;
-        }
+    justify-content:
+        space-between;
 
-        .nav-menu {
-            display: flex;
-            align-items: center;
+    gap:
+        20px;
+}
 
-            gap: 28px;
-        }
+.topbar-left {
 
-        .nav-menu a {
-            text-decoration: none;
+    display:
+        flex;
 
-            color: var(--muted);
+    align-items:
+        center;
 
-            font-size: .82rem;
-            font-weight: 700;
+    gap:
+        10px;
 
-            transition: color .2s ease;
-        }
+    color:
+        var(--green);
 
-        .nav-menu a:hover {
-            color: var(--text);
-        }
+    font-size:
+        .72rem;
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
+    font-weight:
+        850;
 
-            gap: 10px;
-        }
+    letter-spacing:
+        .18em;
 
-        .icon-button {
-            width: 42px;
-            height: 42px;
+    text-transform:
+        uppercase;
+}
 
-            border-radius: 50%;
+.topbar-right {
 
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+    color:
+        var(--muted);
 
-            border:
-                1px solid var(--line);
+    font-size:
+        .7rem;
 
-            background:
-                color-mix(
-                    in srgb,
-                    var(--surface) 85%,
-                    transparent
-                );
+    font-weight:
+        650;
+}
 
-            color: var(--text);
 
-            cursor: pointer;
+/* =========================================================
+   GRID
+========================================================= */
 
-            transition:
-                transform .2s ease,
-                background .2s ease;
-        }
+.dashboard {
 
-        .icon-button:hover {
-            transform:
-                translateY(-2px);
+    min-height:
+        0;
 
-            background:
-                var(--surface-soft);
-        }
+    flex:
+        1;
 
+    display:
+        grid;
 
-        /* =========================================================
-           HERO
-        ========================================================= */
+    grid-template-columns:
+        repeat(12, minmax(0,1fr));
 
-        .hero {
-            position: relative;
+    grid-template-rows:
+        repeat(2, minmax(0,1fr));
 
-            min-height: 100svh;
+    gap:
+        clamp(12px,1.4vw,20px);
+}
 
-            display: flex;
-            align-items: center;
 
-            padding-top: 110px;
-            padding-bottom: 70px;
+/* =========================================================
+   PANEL BASE
+========================================================= */
 
-            overflow: hidden;
-        }
+.panel {
 
-        .hero-grid {
-            display: grid;
+    position:
+        relative;
 
-            grid-template-columns:
-                minmax(0, 1.03fr)
-                minmax(430px, .97fr);
+    overflow:
+        hidden;
 
-            align-items: center;
+    min-width:
+        0;
 
-            gap:
-                clamp(44px, 7vw, 110px);
-        }
+    min-height:
+        0;
 
-        .hero-kicker {
-            color: var(--green);
+    padding:
+        clamp(20px,2.2vw,34px);
 
-            font-size: .76rem;
-            font-weight: 850;
+    border:
+        1px solid
+        var(--line);
 
-            letter-spacing: .2em;
-            text-transform: uppercase;
-        }
+    border-radius:
+        var(--radius);
 
-        .hero-name {
-            margin: 26px 0 0;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.025),
+            rgba(255,255,255,.007)
+        ),
+        var(--panel);
 
-            max-width: 800px;
+    cursor:
+        pointer;
 
-            font-size:
-                clamp(4.4rem, 9vw, 8.6rem);
+    transition:
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        border-color .4s ease,
+        background .4s ease;
 
-            line-height: .84;
+    isolation:
+        isolate;
+}
 
-            letter-spacing: -.082em;
+.panel:hover {
 
-            font-weight: 900;
-        }
+    transform:
+        translateY(-5px);
 
-        .hero-name span {
-            display: block;
+    border-color:
+        rgba(134,220,145,.25);
 
-            color: var(--green);
-        }
+    background:
+        var(--panel-hover);
+}
 
-        .hero-role {
-            max-width: 780px;
+.panel:focus-visible {
 
-            margin-top: 36px;
+    outline:
+        2px solid
+        var(--green);
 
-            font-size:
-                clamp(1.4rem, 2.25vw, 2rem);
+    outline-offset:
+        3px;
+}
 
-            line-height: 1.42;
 
-            letter-spacing: -.02em;
+/* =========================================================
+   PANEL GRID SIZES
+========================================================= */
 
-            font-weight: 700;
-        }
+.panel-profile {
 
-        .hero-copy {
-            max-width: 700px;
+    grid-column:
+        span 7;
+}
 
-            margin-top: 22px;
+.panel-work {
 
-            color: var(--muted);
+    grid-column:
+        span 5;
+}
 
-            font-size: 1.03rem;
-            line-height: 1.8;
-        }
+.panel-skills {
 
-        .hero-actions {
-            margin-top: 32px;
+    grid-column:
+        span 5;
+}
 
-            display: flex;
-            flex-wrap: wrap;
+.panel-portfolio {
 
-            gap: 12px;
-        }
+    grid-column:
+        span 7;
+}
 
-        .primary-button,
-        .secondary-button {
-            min-height: 52px;
 
-            padding:
-                0 21px;
+/* =========================================================
+   PANEL SHARED
+========================================================= */
 
-            border-radius:
-                999px;
+.panel-kicker {
 
-            display:
-                inline-flex;
+    display:
+        flex;
 
-            align-items: center;
-            justify-content: center;
+    align-items:
+        center;
 
-            gap: 10px;
+    gap:
+        8px;
 
-            text-decoration: none;
+    color:
+        var(--green);
 
-            font-size: .89rem;
-            font-weight: 800;
+    font-size:
+        .66rem;
 
-            transition:
-                transform .25s ease,
-                background .25s ease;
-        }
+    font-weight:
+        850;
 
-        .primary-button {
-            background:
-                var(--blue);
+    text-transform:
+        uppercase;
 
-            color: white;
-        }
+    letter-spacing:
+        .15em;
+}
 
-        .primary-button:hover {
-            transform:
-                translateY(-3px);
+.panel-arrow {
 
-            background:
-                var(--blue-bright);
-        }
+    position:
+        absolute;
 
-        .secondary-button {
-            border:
-                1px solid var(--line);
+    top:
+        24px;
 
-            background:
-                var(--surface);
+    right:
+        26px;
 
-            color:
-                var(--text);
-        }
+    width:
+        42px;
 
-        .secondary-button:hover {
-            transform:
-                translateY(-3px);
+    height:
+        42px;
 
-            background:
-                var(--surface-soft);
-        }
+    display:
+        flex;
 
-        .hero-tech {
-            margin-top: 38px;
+    align-items:
+        center;
 
-            display: flex;
-            flex-wrap: wrap;
+    justify-content:
+        center;
 
-            gap: 8px;
-        }
+    border-radius:
+        50%;
 
-        .tech-pill {
-            padding:
-                9px 13px;
+    border:
+        1px solid
+        var(--line);
 
-            border-radius:
-                999px;
+    color:
+        var(--muted);
 
-            border:
-                1px solid var(--line);
+    transition:
+        transform .35s ease,
+        color .35s ease,
+        border-color .35s ease;
+}
 
-            color:
-                var(--muted);
+.panel:hover
+.panel-arrow {
 
-            background:
-                color-mix(
-                    in srgb,
-                    var(--surface) 78%,
-                    transparent
-                );
+    transform:
+        rotate(45deg);
 
-            font-size: .73rem;
-            font-weight: 750;
-        }
+    color:
+        var(--green);
 
+    border-color:
+        rgba(134,220,145,.25);
+}
 
-        /* =========================================================
-           HERO DYNAMIC PANEL
-        ========================================================= */
 
-        .hero-art-shell {
-            position: relative;
+/* =========================================================
+   PROFILE PANEL
+========================================================= */
 
-            min-width: 0;
+.panel-profile {
 
-            aspect-ratio: 1 / 1;
+    display:
+        flex;
 
-            border-radius:
-                clamp(30px, 4vw, 54px);
+    flex-direction:
+        column;
 
-            overflow: hidden;
+    justify-content:
+        space-between;
 
-            background:
-                #0a1711;
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(134,220,145,.11),
+            transparent 38%
+        ),
+        var(--panel);
+}
 
-            isolation: isolate;
+.profile-name {
 
-            border:
-                1px solid
-                rgba(255,255,255,.06);
+    margin:
+        0;
 
-            box-shadow:
-                0 55px 120px
-                rgba(0,0,0,.22);
-        }
+    max-width:
+        700px;
 
-        .hero-art-grid {
-            position: absolute;
-            inset: 0;
+    font-size:
+        clamp(3rem,6vw,7rem);
 
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,.035)
-                    1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,.035)
-                    1px,
-                    transparent 1px
-                );
+    line-height:
+        .86;
 
-            background-size:
-                58px 58px;
+    letter-spacing:
+        -.072em;
 
-            mask-image:
-                linear-gradient(
-                    to bottom,
-                    black 65%,
-                    transparent
-                );
-        }
+    font-weight:
+        900;
+}
 
-        .hero-art-glow {
-            position: absolute;
+.profile-name span {
 
-            width: 70%;
-            height: 70%;
+    color:
+        var(--green);
+}
 
-            top: -12%;
-            left: -12%;
+.profile-role {
 
-            border-radius: 50%;
+    margin-top:
+        18px;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(99, 194, 115, .20),
-                    transparent 70%
-                );
+    max-width:
+        650px;
 
-            filter:
-                blur(35px);
+    color:
+        var(--muted);
 
-            animation:
-                glowFloat 10s ease-in-out
-                infinite alternate;
-        }
+    font-size:
+        clamp(.86rem,1.25vw,1.12rem);
 
-        @keyframes glowFloat {
-            from {
-                transform:
-                    translate(-5%, -5%);
-            }
+    line-height:
+        1.55;
+}
 
-            to {
-                transform:
-                    translate(15%, 18%);
-            }
-        }
+.profile-bottom {
 
-        .blob-svg {
-            position: absolute;
+    display:
+        flex;
 
-            inset: 0;
+    align-items:
+        center;
 
-            width: 100%;
-            height: 100%;
+    justify-content:
+        space-between;
 
-            overflow: visible;
+    gap:
+        20px;
+}
 
-            transform-origin:
-                center;
+.profile-bottom-label {
 
-            transition:
-                transform .22s ease-out;
+    color:
+        var(--muted);
 
-            will-change:
-                transform;
-        }
+    font-size:
+        .72rem;
+}
 
-        .contour-group {
-            animation:
-                contourShift 12s ease-in-out
-                infinite alternate;
-        }
 
-        @keyframes contourShift {
-            from {
-                transform:
-                    translateX(-10px)
-                    translateY(4px);
-            }
+/* profile animated geometry */
 
-            to {
-                transform:
-                    translateX(14px)
-                    translateY(-7px);
-            }
-        }
+.profile-orbit {
 
-        .orbit-dot {
-            animation:
-                orbitPulse 2.6s ease-in-out
-                infinite;
-        }
+    position:
+        absolute;
 
-        .orbit-dot.second {
-            animation-delay:
-                -1.2s;
-        }
+    right:
+        -40px;
 
-        .orbit-dot.third {
-            animation-delay:
-                -.55s;
-        }
+    bottom:
+        -75px;
 
-        @keyframes orbitPulse {
-            0%,
-            100% {
-                opacity: .3;
-            }
+    width:
+        260px;
 
-            50% {
-                opacity: 1;
-            }
-        }
+    height:
+        260px;
 
-        .hero-art-label {
-            position: absolute;
+    border-radius:
+        50%;
 
-            left: 28px;
-            right: 28px;
-            bottom: 26px;
+    border:
+        1px solid
+        rgba(134,220,145,.10);
 
-            z-index: 10;
+    animation:
+        orbitRotate 18s linear infinite;
+}
 
-            display: flex;
-            align-items: center;
+.profile-orbit::before {
 
-            gap: 12px;
+    content:
+        "";
 
-            padding:
-                14px 16px;
+    position:
+        absolute;
 
-            border:
-                1px solid
-                rgba(255,255,255,.10);
+    left:
+        30px;
 
-            border-radius:
-                16px;
+    top:
+        30px;
 
-            background:
-                rgba(4, 12, 8, .47);
+    width:
+        160px;
 
-            color:
-                rgba(255,255,255,.66);
+    height:
+        160px;
 
-            backdrop-filter:
-                blur(18px);
+    border-radius:
+        50%;
 
-            font-size: .74rem;
-            line-height: 1.5;
-        }
+    border:
+        1px solid
+        rgba(134,220,145,.12);
+}
 
-        .art-floating-label {
-            position: absolute;
+.profile-orbit::after {
 
-            z-index: 7;
+    content:
+        "";
 
-            color: white;
+    position:
+        absolute;
 
-            font-weight: 800;
+    width:
+        12px;
 
-            font-size:
-                clamp(.72rem, 1.1vw, .95rem);
+    height:
+        12px;
 
-            letter-spacing:
-                -.02em;
+    left:
+        15px;
 
-            text-shadow:
-                0 4px 18px
-                rgba(0,0,0,.35);
+    top:
+        112px;
 
-            pointer-events: none;
+    border-radius:
+        50%;
 
-            animation:
-                labelFloat 7s ease-in-out
-                infinite alternate;
-        }
+    background:
+        var(--green);
 
-        .art-floating-label span {
-            display: block;
+    box-shadow:
+        0 0 22px
+        rgba(134,220,145,.45);
+}
 
-            margin-top: 4px;
+@keyframes orbitRotate {
 
-            color:
-                rgba(255,255,255,.58);
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
 
-            font-size:
-                .68em;
 
-            font-weight: 500;
-        }
+/* =========================================================
+   WORK PANEL
+========================================================= */
 
-        .label-data {
-            top: 28%;
-            left: 19%;
-        }
+.panel-work {
 
-        .label-space {
-            top: 49%;
-            right: 12%;
-        }
+    display:
+        flex;
 
-        .label-compute {
-            bottom: 24%;
-            left: 22%;
-        }
+    flex-direction:
+        column;
 
-        @keyframes labelFloat {
-            from {
-                transform:
-                    translateY(-3px);
-            }
+    justify-content:
+        space-between;
+}
 
-            to {
-                transform:
-                    translateY(7px);
-            }
-        }
+.work-heading {
 
+    max-width:
+        360px;
 
-        /* =========================================================
-           THREE DOMAINS
-        ========================================================= */
+    margin:
+        0;
 
-        .domain-section {
-            background:
-                var(--bg-soft);
-        }
+    font-size:
+        clamp(2rem,3.8vw,4.5rem);
 
-        .domain-stack {
-            margin-top:
-                clamp(60px, 8vw, 110px);
+    line-height:
+        .92;
 
-            display: grid;
+    letter-spacing:
+        -.055em;
 
-            gap: 16px;
-        }
+    font-weight:
+        850;
+}
 
-        .domain-row {
-            position: relative;
+.work-heading span {
 
-            overflow: hidden;
+    color:
+        var(--green);
+}
 
-            min-height:
-                290px;
+.work-mini-list {
 
-            display: grid;
+    display:
+        grid;
 
-            grid-template-columns:
-                minmax(0, .55fr)
-                minmax(0, 1.45fr);
+    gap:
+        8px;
+}
 
-            align-items: end;
+.work-mini {
 
-            gap: 30px;
+    display:
+        flex;
 
-            padding:
-                clamp(30px, 5vw, 70px);
+    justify-content:
+        space-between;
 
-            border-radius:
-                var(--radius-lg);
+    gap:
+        14px;
 
-            background:
-                var(--surface);
+    padding-top:
+        10px;
 
-            border:
-                1px solid var(--line);
-        }
+    border-top:
+        1px solid
+        var(--line);
 
-        .domain-number {
-            color:
-                var(--green);
+    color:
+        var(--muted);
 
-            font-size:
-                .73rem;
+    font-size:
+        .7rem;
+}
 
-            font-weight: 850;
+.work-mini strong {
 
-            letter-spacing:
-                .16em;
-        }
+    color:
+        var(--text);
 
-        .domain-row h3 {
-            margin:
-                12px 0 0;
+    font-weight:
+        750;
+}
 
-            font-size:
-                clamp(3rem, 7vw, 7rem);
 
-            line-height: .9;
+/* =========================================================
+   SKILLS PANEL
+========================================================= */
 
-            letter-spacing:
-                -.07em;
-        }
+.panel-skills {
 
-        .domain-content {
-            align-self:
-                center;
+    display:
+        flex;
 
-            max-width:
-                640px;
-        }
+    flex-direction:
+        column;
 
-        .domain-content p {
-            margin: 0;
+    justify-content:
+        space-between;
 
-            color:
-                var(--muted);
+    background:
+        radial-gradient(
+            circle at 20% 90%,
+            rgba(23,63,114,.18),
+            transparent 40%
+        ),
+        var(--panel);
+}
 
-            font-size:
-                clamp(1rem, 1.5vw, 1.18rem);
+.skills-heading {
 
-            line-height:
-                1.75;
-        }
+    margin:
+        0;
 
-        .domain-tools {
-            margin-top:
-                24px;
+    font-size:
+        clamp(2.4rem,4.7vw,5.6rem);
 
-            display:
-                flex;
+    line-height:
+        .9;
 
-            flex-wrap:
-                wrap;
+    letter-spacing:
+        -.06em;
 
-            gap:
-                8px;
-        }
+    font-weight:
+        850;
+}
 
+.skill-cloud {
 
-        /* =========================================================
-           HORIZONTAL HIGHLIGHTS
-        ========================================================= */
+    display:
+        flex;
 
-        .highlights-heading-row {
-            display: flex;
+    flex-wrap:
+        wrap;
 
-            justify-content:
-                space-between;
+    gap:
+        7px;
 
-            align-items:
-                end;
+    max-width:
+        500px;
+}
 
-            gap:
-                24px;
-        }
+.skill-cloud span {
 
-        .scroll-controls {
-            display:
-                flex;
+    padding:
+        7px 10px;
 
-            gap:
-                8px;
+    border:
+        1px solid
+        var(--line);
 
-            flex-shrink:
-                0;
-        }
+    border-radius:
+        999px;
 
-        .scroll-arrow {
-            width:
-                48px;
+    color:
+        var(--muted);
 
-            height:
-                48px;
+    font-size:
+        .68rem;
 
-            border-radius:
-                50%;
+    font-weight:
+        700;
+}
 
-            border:
-                1px solid var(--line);
 
-            color:
-                var(--text);
+/* =========================================================
+   PORTFOLIO PANEL
+========================================================= */
 
-            background:
-                var(--surface);
+.panel-portfolio {
 
-            cursor:
-                pointer;
+    display:
+        grid;
 
-            transition:
-                transform .2s ease,
-                background .2s ease;
-        }
+    grid-template-columns:
+        minmax(0,.75fr)
+        minmax(0,1.25fr);
 
-        .scroll-arrow:hover {
-            transform:
-                scale(1.05);
+    gap:
+        20px;
 
-            background:
-                var(--surface-soft);
-        }
+    padding-right:
+        18px;
+}
 
-        .horizontal-track {
-            margin-top:
-                52px;
+.portfolio-copy {
 
-            display:
-                flex;
+    display:
+        flex;
 
-            gap:
-                22px;
+    flex-direction:
+        column;
 
-            overflow-x:
-                auto;
+    justify-content:
+        space-between;
+}
 
-            overflow-y:
-                hidden;
+.portfolio-heading {
 
-            scroll-snap-type:
-                x mandatory;
+    margin:
+        14px 0 0;
 
-            scroll-behavior:
-                smooth;
+    font-size:
+        clamp(2.4rem,4.5vw,5.5rem);
 
-            overscroll-behavior-inline:
-                contain;
+    line-height:
+        .9;
 
-            scrollbar-width:
-                none;
+    letter-spacing:
+        -.06em;
 
-            padding:
-                0
-                max(
-                    32px,
-                    calc(
-                        (100vw - min(1440px, calc(100vw - 64px)))
-                        / 2
-                    )
-                )
-                30px;
+    font-weight:
+        850;
+}
 
-            cursor:
-                grab;
-        }
+.portfolio-heading span {
 
-        .horizontal-track::-webkit-scrollbar {
-            display:
-                none;
-        }
+    color:
+        var(--green);
+}
 
-        .horizontal-track.dragging {
-            cursor:
-                grabbing;
+.portfolio-caption {
 
-            scroll-snap-type:
-                none;
-        }
+    color:
+        var(--muted);
 
-        .highlight-panel {
-            position:
-                relative;
+    font-size:
+        .72rem;
 
-            flex:
-                0 0
-                min(82vw, 1080px);
+    line-height:
+        1.55;
+}
 
-            min-height:
-                min(720px, 74svh);
 
-            scroll-snap-align:
-                center;
+/* image collage */
 
-            overflow:
-                hidden;
+.portfolio-preview {
 
-            border-radius:
-                var(--radius-lg);
+    position:
+        relative;
 
-            background:
-                var(--surface);
+    min-height:
+        0;
 
-            border:
-                1px solid var(--line);
+    overflow:
+        hidden;
 
-            display:
-                grid;
+    border-radius:
+        22px;
 
-            grid-template-columns:
-                minmax(0, .78fr)
-                minmax(0, 1.22fr);
-        }
+    background:
+        #0c120f;
+}
 
-        .panel-copy {
-            position:
-                relative;
+.preview-img {
 
-            z-index:
-                3;
+    position:
+        absolute;
 
-            padding:
-                clamp(30px, 5vw, 65px);
+    overflow:
+        hidden;
 
-            display:
-                flex;
+    border-radius:
+        16px;
 
-            flex-direction:
-                column;
+    border:
+        1px solid
+        rgba(255,255,255,.09);
 
-            justify-content:
-                space-between;
-        }
+    background:
+        #121916;
 
-        .panel-number {
-            color:
-                var(--green);
+    box-shadow:
+        0 16px 30px
+        rgba(0,0,0,.28);
 
-            font-size:
-                .72rem;
+    transition:
+        transform .4s ease;
+}
 
-            font-weight:
-                850;
+.preview-img img {
 
-            letter-spacing:
-                .16em;
+    width:
+        100%;
 
-            text-transform:
-                uppercase;
-        }
+    height:
+        100%;
 
-        .panel-copy h3 {
-            max-width:
-                520px;
+    display:
+        block;
 
-            margin:
-                20px 0 0;
+    object-fit:
+        cover;
+}
 
-            font-size:
-                clamp(2.5rem, 5vw, 5rem);
+.preview-one {
 
-            line-height:
-                .95;
+    width:
+        58%;
 
-            letter-spacing:
-                -.06em;
-        }
+    height:
+        63%;
 
-        .panel-copy p {
-            max-width:
-                520px;
+    top:
+        8%;
 
-            margin:
-                25px 0 0;
+    left:
+        5%;
 
-            color:
-                var(--muted);
+    transform:
+        rotate(-3deg);
 
-            font-size:
-                1rem;
+    z-index:
+        3;
+}
 
-            line-height:
-                1.72;
-        }
+.preview-two {
 
-        .panel-tags {
-            display:
-                flex;
+    width:
+        52%;
 
-            flex-wrap:
-                wrap;
+    height:
+        56%;
 
-            gap:
-                7px;
+    top:
+        32%;
 
-            margin-top:
-                26px;
-        }
+    right:
+        4%;
 
-        .panel-tag {
-            padding:
-                7px 10px;
+    transform:
+        rotate(4deg);
 
-            border-radius:
-                999px;
+    z-index:
+        4;
+}
 
-            background:
-                var(--surface-soft);
+.preview-three {
 
-            color:
-                var(--muted);
+    width:
+        42%;
 
-            font-size:
-                .68rem;
+    height:
+        42%;
 
-            font-weight:
-                750;
-        }
+    top:
+        5%;
 
-        .panel-visual {
-            position:
-                relative;
+    right:
+        7%;
 
-            min-width:
-                0;
+    transform:
+        rotate(6deg);
 
-            overflow:
-                hidden;
+    z-index:
+        2;
+}
 
-            background:
-                var(--surface-soft);
-        }
+.panel-portfolio:hover
+.preview-one {
 
-        .panel-visual img {
-            position:
-                absolute;
+    transform:
+        rotate(-5deg)
+        translate(-6px,-5px);
+}
 
-            inset:
-                0;
+.panel-portfolio:hover
+.preview-two {
 
-            width:
-                100%;
+    transform:
+        rotate(6deg)
+        translate(8px,5px);
+}
 
-            height:
-                100%;
+.panel-portfolio:hover
+.preview-three {
 
-            object-fit:
-                contain;
+    transform:
+        rotate(9deg)
+        translate(5px,-6px);
+}
 
-            padding:
-                clamp(18px, 3vw, 44px);
 
-            transition:
-                transform .7s
-                cubic-bezier(.2,.7,.2,1);
-        }
+/* =========================================================
+   MODAL BASE
+========================================================= */
 
-        .highlight-panel:hover
-        .panel-visual img {
-            transform:
-                scale(1.035);
-        }
+.modal {
 
+    position:
+        fixed;
 
-        /* DATA HARMONISATION CUSTOM VISUAL */
+    inset:
+        0;
 
-        .data-visual {
-            position:
-                absolute;
+    z-index:
+        5000;
 
-            inset:
-                0;
+    display:
+        flex;
 
-            display:
-                flex;
+    align-items:
+        center;
 
-            align-items:
-                center;
+    justify-content:
+        center;
 
-            justify-content:
-                center;
+    padding:
+        clamp(12px,2.4vw,34px);
 
-            overflow:
-                hidden;
+    background:
+        var(--modal);
 
-            background:
-                radial-gradient(
-                    circle at 70% 30%,
-                    rgba(133,216,140,.15),
-                    transparent 40%
-                ),
-                var(--surface-soft);
-        }
+    backdrop-filter:
+        blur(24px);
 
-        .data-core {
-            position:
-                relative;
+    -webkit-backdrop-filter:
+        blur(24px);
 
-            width:
-                min(430px, 78%);
+    opacity:
+        0;
 
-            aspect-ratio:
-                1;
+    visibility:
+        hidden;
 
-            border-radius:
-                50%;
+    pointer-events:
+        none;
 
-            border:
-                1px solid
-                var(--line);
-        }
+    transition:
+        opacity .35s ease,
+        visibility .35s ease;
+}
 
-        .data-core::before,
-        .data-core::after {
-            content: "";
+.modal.open {
 
-            position:
-                absolute;
+    opacity:
+        1;
 
-            border-radius:
-                50%;
+    visibility:
+        visible;
 
-            border:
-                1px solid
-                var(--line);
-        }
+    pointer-events:
+        auto;
+}
 
-        .data-core::before {
-            inset:
-                16%;
-        }
+.modal-shell {
 
-        .data-core::after {
-            inset:
-                31%;
-        }
+    position:
+        relative;
 
-        .data-center {
-            position:
-                absolute;
+    width:
+        min(1180px,100%);
 
-            left:
-                50%;
+    max-height:
+        min(850px,94svh);
 
-            top:
-                50%;
+    overflow:
+        auto;
 
-            width:
-                94px;
+    padding:
+        clamp(28px,4vw,58px);
 
-            height:
-                94px;
+    border:
+        1px solid
+        var(--line);
 
-            transform:
-                translate(-50%,-50%);
+    border-radius:
+        clamp(24px,3vw,38px);
 
-            display:
-                flex;
+    background:
+        #0e1511;
 
-            align-items:
-                center;
+    box-shadow:
+        0 40px 100px
+        rgba(0,0,0,.55);
 
-            justify-content:
-                center;
+    transform:
+        scale(.94)
+        translateY(25px);
 
-            border-radius:
-                50%;
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1);
+}
 
-            color:
-                #071109;
+.modal.open
+.modal-shell {
 
-            background:
-                var(--green);
+    transform:
+        scale(1)
+        translateY(0);
+}
 
-            font-size:
-                .75rem;
+.modal-close {
 
-            font-weight:
-                900;
+    position:
+        sticky;
 
-            text-align:
-                center;
+    top:
+        0;
 
-            box-shadow:
-                0 0 60px
-                rgba(133,216,140,.22);
-        }
+    float:
+        right;
 
-        .data-node {
-            position:
-                absolute;
+    z-index:
+        8;
 
-            min-width:
-                70px;
+    width:
+        46px;
 
-            padding:
-                9px 13px;
+    height:
+        46px;
 
-            border-radius:
-                999px;
+    border:
+        1px solid
+        var(--line);
 
-            border:
-                1px solid
-                var(--line);
+    border-radius:
+        50%;
 
-            background:
-                var(--surface);
+    background:
+        rgba(20,30,24,.9);
 
-            color:
-                var(--text);
+    color:
+        white;
 
-            font-size:
-                .68rem;
+    cursor:
+        pointer;
 
-            font-weight:
-                800;
+    transition:
+        transform .25s ease;
+}
 
-            text-align:
-                center;
+.modal-close:hover {
 
-            animation:
-                dataNodeFloat
-                5s ease-in-out
-                infinite alternate;
-        }
+    transform:
+        rotate(90deg);
+}
 
-        .data-node.n1 {
-            top:
-                8%;
+.modal-kicker {
 
-            left:
-                42%;
-        }
+    color:
+        var(--green);
 
-        .data-node.n2 {
-            top:
-                31%;
+    font-size:
+        .68rem;
 
-            right:
-                -5%;
-        }
+    font-weight:
+        850;
 
-        .data-node.n3 {
-            bottom:
-                13%;
+    letter-spacing:
+        .16em;
 
-            right:
-                16%;
-        }
+    text-transform:
+        uppercase;
+}
 
-        .data-node.n4 {
-            bottom:
-                10%;
+.modal-title {
 
-            left:
-                9%;
-        }
+    max-width:
+        900px;
 
-        .data-node.n5 {
-            top:
-                28%;
+    margin:
+        18px 0 0;
 
-            left:
-                -5%;
-        }
+    font-size:
+        clamp(2.7rem,6vw,6.5rem);
 
-        @keyframes dataNodeFloat {
-            from {
-                transform:
-                    translateY(-4px);
-            }
+    line-height:
+        .9;
 
-            to {
-                transform:
-                    translateY(8px);
-            }
-        }
+    letter-spacing:
+        -.065em;
 
+    font-weight:
+        900;
+}
 
-        /* =========================================================
-           IMMERSIVE FEATURE SECTIONS
-        ========================================================= */
+.modal-intro {
 
-        .feature-section {
-            padding:
-                clamp(110px, 13vw, 220px)
-                0;
+    max-width:
+        760px;
 
-            overflow:
-                hidden;
-        }
+    margin-top:
+        24px;
 
-        .feature-copy {
-            max-width:
-                1020px;
-        }
+    color:
+        var(--muted);
 
-        .feature-copy h2 {
-            margin: 0;
+    line-height:
+        1.7;
 
-            font-size:
-                clamp(3.5rem, 8.5vw, 9rem);
+    font-size:
+        .95rem;
+}
 
-            line-height:
-                .87;
 
-            letter-spacing:
-                -.075em;
-        }
+/* =========================================================
+   CONTACT MODAL
+========================================================= */
 
-        .feature-copy h2 span {
-            color:
-                var(--green);
-        }
+.contact-grid {
 
-        .feature-lead {
-            max-width:
-                700px;
+    margin-top:
+        50px;
 
-            margin-top:
-                35px;
+    display:
+        grid;
 
-            color:
-                var(--muted);
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-            font-size:
-                clamp(1rem, 1.7vw, 1.28rem);
+    gap:
+        12px;
+}
 
-            line-height:
-                1.8;
-        }
+.contact-card {
 
-        .feature-image {
-            margin-top:
-                clamp(55px, 8vw, 110px);
+    min-height:
+        150px;
 
-            overflow:
-                hidden;
+    padding:
+        24px;
 
-            border-radius:
-                var(--radius-lg);
+    border:
+        1px solid
+        var(--line);
 
-            background:
-                var(--surface);
+    border-radius:
+        22px;
 
-            border:
-                1px solid var(--line);
-        }
+    background:
+        var(--panel);
 
-        .feature-image img {
-            display:
-                block;
+    text-decoration:
+        none;
 
-            width:
-                100%;
+    display:
+        flex;
 
-            height:
-                auto;
+    flex-direction:
+        column;
 
-            max-height:
-                820px;
+    justify-content:
+        space-between;
 
-            object-fit:
-                contain;
-        }
+    transition:
+        transform .3s ease,
+        border-color .3s ease;
+}
 
+.contact-card:hover {
 
-        /* =========================================================
-           EXPERIENCE
-        ========================================================= */
+    transform:
+        translateY(-4px);
 
-        .experience-section {
-            background:
-                var(--bg-soft);
-        }
+    border-color:
+        rgba(134,220,145,.28);
+}
 
-        .timeline {
-            max-width:
-                1100px;
+.contact-card i {
 
-            margin-top:
-                70px;
-        }
+    color:
+        var(--green);
 
-        .timeline-row {
-            display:
-                grid;
+    font-size:
+        1.25rem;
+}
 
-            grid-template-columns:
-                150px
-                minmax(0,1fr);
+.contact-card-label {
 
-            gap:
-                30px;
+    color:
+        var(--muted);
 
-            padding:
-                32px 0;
+    font-size:
+        .68rem;
 
-            border-top:
-                1px solid var(--line);
-        }
+    text-transform:
+        uppercase;
 
-        .timeline-date {
-            color:
-                var(--green);
+    letter-spacing:
+        .12em;
+}
 
-            font-size:
-                .74rem;
+.contact-card-value {
 
-            font-weight:
-                850;
+    margin-top:
+        8px;
 
-            letter-spacing:
-                .12em;
-        }
+    font-size:
+        clamp(.9rem,1.6vw,1.2rem);
 
-        .timeline-content h3 {
-            margin: 0;
+    font-weight:
+        750;
 
-            font-size:
-                clamp(1.35rem, 2.2vw, 2rem);
+    word-break:
+        break-word;
+}
 
-            letter-spacing:
-                -.035em;
-        }
 
-        .timeline-content strong {
-            display:
-                block;
+/* =========================================================
+   WORK MODAL
+========================================================= */
 
-            margin-top:
-                6px;
+.work-layout {
 
-            color:
-                var(--muted);
+    margin-top:
+        50px;
 
-            font-size:
-                .86rem;
-        }
+    display:
+        grid;
 
-        .timeline-content p {
-            max-width:
-                760px;
+    grid-template-columns:
+        minmax(0,.8fr)
+        minmax(0,1.2fr);
 
-            margin:
-                13px 0 0;
+    gap:
+        45px;
+}
 
-            color:
-                var(--muted);
+.timeline {
 
-            font-size:
-                .9rem;
+    display:
+        grid;
 
-            line-height:
-                1.7;
-        }
+    gap:
+        0;
+}
 
+.timeline-item {
 
-        /* =========================================================
-           WEB PROJECT STRIP
-        ========================================================= */
+    position:
+        relative;
 
-        .web-panel {
-            flex:
-                0 0 min(70vw, 720px);
+    padding:
+        0 0 28px 26px;
 
-            min-height:
-                430px;
+    border-left:
+        1px solid
+        rgba(134,220,145,.18);
+}
 
-            scroll-snap-align:
-                center;
+.timeline-item::before {
 
-            border-radius:
-                var(--radius-lg);
+    content:
+        "";
 
-            background:
-                var(--surface);
+    position:
+        absolute;
 
-            border:
-                1px solid var(--line);
+    left:
+        -5px;
 
-            padding:
-                clamp(30px, 4vw, 52px);
+    top:
+        4px;
 
-            text-decoration:
-                none;
+    width:
+        9px;
 
-            display:
-                flex;
+    height:
+        9px;
 
-            flex-direction:
-                column;
+    border-radius:
+        50%;
 
-            transition:
-                transform .35s ease,
-                background .35s ease;
-        }
+    background:
+        var(--green);
+}
 
-        .web-panel:hover {
-            transform:
-                translateY(-6px);
+.timeline-year {
 
-            background:
-                var(--surface-soft);
-        }
+    color:
+        var(--green);
 
-        .web-panel-number {
-            color:
-                var(--green);
+    font-size:
+        .66rem;
 
-            font-size:
-                .7rem;
+    font-weight:
+        850;
 
-            font-weight:
-                850;
+    letter-spacing:
+        .11em;
+}
 
-            letter-spacing:
-                .14em;
-        }
+.timeline-item h3 {
 
-        .web-panel h3 {
-            margin:
-                auto 0 0;
+    margin:
+        7px 0 0;
 
-            max-width:
-                520px;
+    font-size:
+        1rem;
+}
 
-            font-size:
-                clamp(2rem, 4vw, 4rem);
+.timeline-item strong {
 
-            line-height:
-                .98;
+    display:
+        block;
 
-            letter-spacing:
-                -.055em;
-        }
+    margin-top:
+        4px;
 
-        .web-panel p {
-            max-width:
-                520px;
+    color:
+        var(--muted);
 
-            margin:
-                20px 0 0;
+    font-size:
+        .75rem;
+}
 
-            color:
-                var(--muted);
+.timeline-item p {
 
-            line-height:
-                1.7;
+    margin:
+        10px 0 0;
 
-            font-size:
-                .9rem;
-        }
+    color:
+        var(--muted);
 
-        .web-panel-arrow {
-            align-self:
-                flex-end;
+    font-size:
+        .76rem;
 
-            font-size:
-                1.2rem;
-        }
+    line-height:
+        1.6;
+}
 
 
-        /* =========================================================
-           MAP
-        ========================================================= */
+/* project list */
 
-        .map-shell {
-            margin-top:
-                60px;
+.project-list {
 
-            height:
-                min(760px, 75svh);
+    display:
+        grid;
 
-            overflow:
-                hidden;
+    gap:
+        10px;
+}
 
-            border-radius:
-                var(--radius-lg);
+.project-item {
 
-            border:
-                1px solid var(--line);
+    padding:
+        20px;
 
-            background:
-                var(--surface);
-        }
+    border:
+        1px solid
+        var(--line);
 
-        .map-shell iframe {
-            width:
-                100%;
+    border-radius:
+        18px;
 
-            height:
-                100%;
+    background:
+        var(--panel);
 
-            border:
-                0;
-        }
+    transition:
+        border-color .25s ease;
+}
 
+.project-item:hover {
 
-        /* =========================================================
-           CONTACT
-        ========================================================= */
+    border-color:
+        rgba(134,220,145,.25);
+}
 
-        .contact {
-            background:
-                #07120c;
+.project-item-tag {
 
-            color:
-                white;
+    color:
+        var(--green);
 
-            padding:
-                clamp(110px, 14vw, 210px)
-                0
-                70px;
-        }
+    font-size:
+        .62rem;
 
-        .contact h2 {
-            max-width:
-                1100px;
+    font-weight:
+        850;
 
-            margin:
-                0;
+    letter-spacing:
+        .11em;
 
-            font-size:
-                clamp(3.7rem, 9vw, 9.5rem);
+    text-transform:
+        uppercase;
+}
 
-            line-height:
-                .86;
+.project-item h4 {
 
-            letter-spacing:
-                -.075em;
-        }
+    margin:
+        8px 0 0;
 
-        .contact h2 span {
-            color:
-                var(--green);
-        }
+    font-size:
+        .95rem;
+}
 
-        .contact-copy {
-            max-width:
-                650px;
+.project-item p {
 
-            margin-top:
-                34px;
+    margin:
+        8px 0 0;
 
-            color:
-                rgba(255,255,255,.57);
+    color:
+        var(--muted);
 
-            font-size:
-                1.05rem;
+    font-size:
+        .73rem;
 
-            line-height:
-                1.75;
-        }
+    line-height:
+        1.6;
+}
 
-        .contact-actions {
-            margin-top:
-                34px;
 
-            display:
-                flex;
+/* =========================================================
+   SKILLS MODAL
+========================================================= */
 
-            flex-wrap:
-                wrap;
+.skills-modal-grid {
 
-            gap:
-                12px;
-        }
+    margin-top:
+        50px;
 
-        .contact-button {
-            min-height:
-                50px;
+    display:
+        grid;
 
-            padding:
-                0 18px;
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-            border:
-                1px solid
-                rgba(255,255,255,.15);
+    gap:
+        14px;
+}
 
-            border-radius:
-                999px;
+.skill-category {
 
-            color:
-                white;
+    padding:
+        25px;
 
-            text-decoration:
-                none;
+    border:
+        1px solid
+        var(--line);
 
-            display:
-                inline-flex;
+    border-radius:
+        22px;
 
-            align-items:
-                center;
+    background:
+        var(--panel);
+}
 
-            gap:
-                9px;
+.skill-category-icon {
 
-            font-size:
-                .83rem;
+    width:
+        42px;
 
-            font-weight:
-                800;
+    height:
+        42px;
 
-            transition:
-                transform .2s ease,
-                background .2s ease;
-        }
+    display:
+        flex;
 
-        .contact-button:hover {
-            transform:
-                translateY(-3px);
+    align-items:
+        center;
 
-            background:
-                rgba(255,255,255,.08);
-        }
+    justify-content:
+        center;
 
-        .footer {
-            margin-top:
-                110px;
+    border-radius:
+        12px;
 
-            padding-top:
-                24px;
+    background:
+        rgba(134,220,145,.10);
 
-            border-top:
-                1px solid
-                rgba(255,255,255,.09);
+    color:
+        var(--green);
+}
 
-            display:
-                flex;
+.skill-category h3 {
 
-            justify-content:
-                space-between;
+    margin:
+        20px 0 0;
 
-            gap:
-                20px;
+    font-size:
+        1.1rem;
+}
 
-            color:
-                rgba(255,255,255,.33);
+.skill-category p {
 
-            font-size:
-                .69rem;
-        }
+    color:
+        var(--muted);
 
+    font-size:
+        .76rem;
 
-        /* =========================================================
-           RESPONSIVE
-        ========================================================= */
+    line-height:
+        1.6;
+}
 
-        @media (max-width: 1050px) {
+.skill-tags {
 
-            :root {
-                --page:
-                    min(
-                        100% - 40px,
-                        1440px
-                    );
-            }
+    margin-top:
+        16px;
 
-            .hero {
-                min-height:
-                    auto;
+    display:
+        flex;
 
-                padding-top:
-                    130px;
-            }
+    flex-wrap:
+        wrap;
 
-            .hero-grid {
-                grid-template-columns:
-                    1fr;
-            }
+    gap:
+        6px;
+}
 
-            .hero-art-shell {
-                width:
-                    min(760px, 100%);
+.skill-tags span {
 
-                margin-inline:
-                    auto;
-            }
+    padding:
+        6px 9px;
 
-            .domain-row {
-                grid-template-columns:
-                    1fr;
-            }
+    border-radius:
+        999px;
 
-            .highlight-panel {
-                grid-template-columns:
-                    1fr;
+    background:
+        var(--panel-soft);
 
-                min-height:
-                    760px;
-            }
+    color:
+        #bdc7bf;
 
-            .panel-copy {
-                min-height:
-                    360px;
-            }
+    font-size:
+        .65rem;
 
-            .panel-visual {
-                min-height:
-                    390px;
-            }
-        }
+    font-weight:
+        700;
+}
 
 
-        @media (max-width: 760px) {
+/* =========================================================
+   PORTFOLIO GALLERY
+========================================================= */
 
-            :root {
-                --page:
-                    calc(100% - 28px);
+.gallery-grid {
 
-                --radius-lg:
-                    28px;
-            }
+    margin-top:
+        45px;
 
-            .nav-menu {
-                display:
-                    none;
-            }
+    display:
+        grid;
 
-            .hero {
-                padding-top:
-                    112px;
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-                padding-bottom:
-                    55px;
-            }
+    gap:
+        16px;
+}
 
-            .hero-name {
-                font-size:
-                    clamp(
-                        4rem,
-                        22vw,
-                        6rem
-                    );
-            }
+.gallery-item {
 
-            .hero-role {
-                font-size:
-                    1.25rem;
-            }
+    position:
+        relative;
 
-            .hero-art-shell {
-                border-radius:
-                    28px;
-            }
+    overflow:
+        hidden;
 
-            .hero-art-label {
-                left:
-                    14px;
+    min-height:
+        300px;
 
-                right:
-                    14px;
+    border:
+        1px solid
+        var(--line);
 
-                bottom:
-                    14px;
+    border-radius:
+        22px;
 
-                font-size:
-                    .66rem;
-            }
+    background:
+        var(--panel);
 
-            .highlight-panel {
-                flex-basis:
-                    88vw;
+    cursor:
+        zoom-in;
+}
 
-                min-height:
-                    700px;
-            }
+.gallery-item img {
 
-            .horizontal-track {
-                padding-left:
-                    14px;
+    width:
+        100%;
 
-                padding-right:
-                    14px;
+    height:
+        100%;
 
-                gap:
-                    12px;
-            }
+    position:
+        absolute;
 
-            .scroll-controls {
-                display:
-                    none;
-            }
+    inset:
+        0;
 
-            .highlights-heading-row {
-                display:
-                    block;
-            }
+    object-fit:
+        contain;
 
-            .panel-copy {
-                padding:
-                    27px;
+    padding:
+        12px;
 
-                min-height:
-                    340px;
-            }
+    transition:
+        transform .4s ease;
+}
 
-            .panel-copy h3 {
-                font-size:
-                    2.5rem;
-            }
+.gallery-item:hover img {
 
-            .panel-visual {
-                min-height:
-                    330px;
-            }
+    transform:
+        scale(1.025);
+}
 
-            .timeline-row {
-                grid-template-columns:
-                    1fr;
+.gallery-caption {
 
-                gap:
-                    10px;
-            }
+    position:
+        absolute;
 
-            .web-panel {
-                flex-basis:
-                    86vw;
+    left:
+        14px;
 
-                min-height:
-                    390px;
-            }
+    right:
+        14px;
 
-            .map-shell {
-                height:
-                    580px;
-            }
+    bottom:
+        14px;
 
-            .footer {
-                flex-direction:
-                    column;
-            }
-        }
+    z-index:
+        3;
 
+    padding:
+        12px 14px;
 
-        @media (prefers-reduced-motion: reduce) {
+    border-radius:
+        14px;
 
-            html {
-                scroll-behavior:
-                    auto;
-            }
+    background:
+        rgba(5,12,8,.72);
 
-            *,
-            *::before,
-            *::after {
-                animation-duration:
-                    .001ms !important;
+    backdrop-filter:
+        blur(12px);
 
-                animation-iteration-count:
-                    1 !important;
+    font-size:
+        .72rem;
 
-                scroll-behavior:
-                    auto !important;
-            }
+    font-weight:
+        700;
+}
 
-            .reveal,
-            .reveal-left,
-            .reveal-scale {
-                opacity:
-                    1;
 
-                transform:
-                    none;
-            }
-        }
+/* =========================================================
+   IMAGE LIGHTBOX
+========================================================= */
 
-    </style>
+.lightbox {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        9000;
+
+    display:
+        none;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        24px;
+
+    background:
+        rgba(0,0,0,.93);
+
+    backdrop-filter:
+        blur(12px);
+}
+
+.lightbox.open {
+
+    display:
+        flex;
+}
+
+.lightbox img {
+
+    max-width:
+        94vw;
+
+    max-height:
+        90svh;
+
+    object-fit:
+        contain;
+
+    border-radius:
+        14px;
+}
+
+.lightbox-close {
+
+    position:
+        fixed;
+
+    top:
+        20px;
+
+    right:
+        20px;
+
+    z-index:
+        2;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    border-radius:
+        50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        rgba(255,255,255,.07);
+
+    color:
+        white;
+
+    cursor:
+        pointer;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    :root {
+
+        --radius:
+            22px;
+    }
+
+
+    .app {
+
+        padding:
+            10px;
+
+        gap:
+            9px;
+    }
+
+
+    .topbar {
+
+        min-height:
+            34px;
+    }
+
+
+    .topbar-left {
+
+        font-size:
+            .55rem;
+
+        letter-spacing:
+            .11em;
+    }
+
+
+    .topbar-right {
+
+        display:
+            none;
+    }
+
+
+    .dashboard {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        grid-template-rows:
+            1fr 1fr;
+
+        gap:
+            9px;
+    }
+
+
+    .panel-profile,
+    .panel-work,
+    .panel-skills,
+    .panel-portfolio {
+
+        grid-column:
+            span 1;
+
+        padding:
+            16px;
+    }
+
+
+    .panel {
+
+        border-radius:
+            20px;
+    }
+
+
+    .panel-kicker {
+
+        font-size:
+            .49rem;
+
+        letter-spacing:
+            .09em;
+    }
+
+
+    .panel-arrow {
+
+        top:
+            12px;
+
+        right:
+            12px;
+
+        width:
+            30px;
+
+        height:
+            30px;
+
+        font-size:
+            .7rem;
+    }
+
+
+    .profile-name {
+
+        font-size:
+            clamp(2rem,11vw,3.6rem);
+    }
+
+
+    .profile-role {
+
+        margin-top:
+            9px;
+
+        font-size:
+            .66rem;
+
+        line-height:
+            1.4;
+
+        max-width:
+            90%;
+    }
+
+
+    .profile-bottom-label {
+
+        font-size:
+            .55rem;
+    }
+
+
+    .profile-orbit {
+
+        width:
+            120px;
+
+        height:
+            120px;
+
+        right:
+            -45px;
+
+        bottom:
+            -50px;
+    }
+
+
+    .profile-orbit::before {
+
+        width:
+            75px;
+
+        height:
+            75px;
+
+        left:
+            16px;
+
+        top:
+            16px;
+    }
+
+
+    .profile-orbit::after {
+
+        width:
+            7px;
+
+        height:
+            7px;
+
+        top:
+            49px;
+
+        left:
+            6px;
+    }
+
+
+    .work-heading,
+    .skills-heading,
+    .portfolio-heading {
+
+        font-size:
+            clamp(1.6rem,9vw,2.8rem);
+    }
+
+
+    .work-mini {
+
+        font-size:
+            .52rem;
+
+        gap:
+            5px;
+    }
+
+
+    .work-mini:nth-child(n+3) {
+
+        display:
+            none;
+    }
+
+
+    .skill-cloud {
+
+        gap:
+            4px;
+    }
+
+
+    .skill-cloud span {
+
+        font-size:
+            .5rem;
+
+        padding:
+            5px 7px;
+    }
+
+
+    .skill-cloud span:nth-child(n+6) {
+
+        display:
+            none;
+    }
+
+
+    .panel-portfolio {
+
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        justify-content:
+            space-between;
+
+        padding:
+            16px;
+    }
+
+
+    .portfolio-preview {
+
+        height:
+            42%;
+
+        min-height:
+            80px;
+    }
+
+
+    .portfolio-caption {
+
+        font-size:
+            .52rem;
+    }
+
+
+    .contact-grid,
+    .skills-modal-grid,
+    .gallery-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .work-layout {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            35px;
+    }
+
+
+    .modal {
+
+        padding:
+            7px;
+    }
+
+
+    .modal-shell {
+
+        max-height:
+            96svh;
+
+        padding:
+            24px 18px;
+
+        border-radius:
+            24px;
+    }
+
+
+    .modal-title {
+
+        font-size:
+            3rem;
+    }
+
+
+    .gallery-item {
+
+        min-height:
+            250px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .profile-name {
+
+        font-size:
+            2rem;
+    }
+
+    .profile-role {
+
+        font-size:
+            .58rem;
+    }
+
+    .work-heading,
+    .skills-heading,
+    .portfolio-heading {
+
+        font-size:
+            1.5rem;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .001ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .001ms !important;
+    }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================================================
-     NAVIGATION
-========================================================= -->
-
-<nav
-    class="site-nav"
-    id="siteNav"
->
-    <div class="page-width nav-inner">
-
-        <a
-            href="#top"
-            class="nav-brand"
-        >
-            JOHN PAOLO RAMIREZ
-        </a>
+<div class="background-glow"></div>
 
 
-        <div class="nav-menu">
+<main class="app">
 
-            <a href="#work">
-                Work
-            </a>
 
-            <a href="#capabilities">
-                Capabilities
-            </a>
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
 
-            <a href="#experience">
-                Experience
-            </a>
+    <header class="topbar">
 
-            <a href="#tools">
-                Web Projects
-            </a>
+        <div class="topbar-left">
 
-            <a href="#contact">
-                Contact
-            </a>
+            <i class="fa-solid fa-chart-line"></i>
+
+            Environmental · Geospatial · Data
 
         </div>
 
 
-        <div class="nav-actions">
+        <div class="topbar-right">
 
-            <button
-                class="icon-button"
-                id="themeButton"
-                aria-label="Toggle theme"
-            >
-                <i
-                    id="themeIcon"
-                    class="fa-solid fa-sun"
-                ></i>
-            </button>
+            Click a panel to explore
 
         </div>
 
-    </div>
-</nav>
+    </header>
 
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
 
-<header
-    class="hero"
-    id="top"
->
-
-    <div class="page-width hero-grid">
+    <section class="dashboard">
 
 
-        <!-- HERO TEXT -->
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
 
-        <div>
-
-            <div
-                class="hero-kicker reveal"
-            >
-                <i class="fa-solid fa-chart-line"></i>
-
-                &nbsp;
-                ENVIRONMENTAL · GEOSPATIAL · DATA
-            </div>
-
-
-            <h1
-                class="hero-name reveal delay-1"
-            >
-                John Paolo
-
-                <span>
-                    Ramirez
-                </span>
-            </h1>
-
-
-            <div
-                class="hero-role reveal delay-2"
-            >
-                Environmental & Geospatial Data Analyst
-                working across research, remote sensing,
-                spatial modelling and scientific computing.
-            </div>
-
-
-            <p
-                class="hero-copy reveal delay-3"
-            >
-                I work with environmental and spatial data to
-                turn complex datasets into maps, models,
-                reproducible analytical workflows and
-                decision-support outputs.
-
-                My work combines GIS, remote sensing,
-                Google Earth Engine, Python, R, statistics,
-                environmental assessment and research.
-            </p>
-
-
-            <div
-                class="hero-actions reveal delay-3"
-            >
-
-                <a
-                    href="#work"
-                    class="primary-button"
-                >
-                    View selected work
-
-                    <i class="fa-solid fa-arrow-down"></i>
-                </a>
-
-
-                <a
-                    href="https://github.com/Johnny1996ornot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="secondary-button"
-                >
-                    <i class="fa-brands fa-github"></i>
-
-                    GitHub
-                </a>
-
-
-                <a
-                    href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="secondary-button"
-                >
-                    <i class="fa-brands fa-linkedin"></i>
-
-                    LinkedIn
-                </a>
-
-            </div>
-
-
-            <div
-                class="hero-tech reveal delay-3"
-            >
-
-                <span class="tech-pill">
-                    QGIS
-                </span>
-
-                <span class="tech-pill">
-                    Google Earth Engine
-                </span>
-
-                <span class="tech-pill">
-                    Python
-                </span>
-
-                <span class="tech-pill">
-                    R
-                </span>
-
-                <span class="tech-pill">
-                    Remote Sensing
-                </span>
-
-                <span class="tech-pill">
-                    Data Analysis
-                </span>
-
-                <span class="tech-pill">
-                    Environmental Assessment
-                </span>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- HERO ANIMATION -->
-
-        <div
-            class="hero-art-shell reveal-scale"
-            id="heroArt"
+        <button
+            class="panel panel-profile"
+            data-modal="contactModal"
         >
 
-            <div class="hero-art-grid"></div>
+            <div class="panel-arrow">
 
-            <div class="hero-art-glow"></div>
-
-
-            <svg
-                class="blob-svg"
-                id="blobSvg"
-                viewBox="0 0 760 760"
-                preserveAspectRatio="xMidYMid meet"
-            >
-
-                <defs>
-
-                    <!-- organic edge distortion -->
-
-                    <filter
-                        id="organic"
-                        x="-30%"
-                        y="-30%"
-                        width="160%"
-                        height="160%"
-                    >
-
-                        <feTurbulence
-                            type="fractalNoise"
-                            baseFrequency=".011 .017"
-                            numOctaves="2"
-                            seed="4"
-                            result="noise"
-                        >
-
-                            <animate
-                                attributeName="baseFrequency"
-                                values="
-                                    .011 .017;
-                                    .018 .010;
-                                    .013 .020;
-                                    .011 .017
-                                "
-                                dur="13s"
-                                repeatCount="indefinite"
-                            />
-
-                        </feTurbulence>
-
-
-                        <feDisplacementMap
-                            in="SourceGraphic"
-                            in2="noise"
-                            scale="42"
-                            xChannelSelector="R"
-                            yChannelSelector="G"
-                        />
-
-                    </filter>
-
-
-                    <!-- main gradients -->
-
-                    <radialGradient
-                        id="greenGradient"
-                        cx="30%"
-                        cy="20%"
-                        r="90%"
-                    >
-
-                        <stop
-                            offset="0%"
-                            stop-color="#a4e0a1"
-                        />
-
-                        <stop
-                            offset="42%"
-                            stop-color="#73c982"
-                        />
-
-                        <stop
-                            offset="100%"
-                            stop-color="#2f8959"
-                        />
-
-                    </radialGradient>
-
-
-                    <radialGradient
-                        id="greenGradient2"
-                        cx="28%"
-                        cy="20%"
-                        r="90%"
-                    >
-
-                        <stop
-                            offset="0%"
-                            stop-color="#91d997"
-                        />
-
-                        <stop
-                            offset="50%"
-                            stop-color="#64bf78"
-                        />
-
-                        <stop
-                            offset="100%"
-                            stop-color="#267047"
-                        />
-
-                    </radialGradient>
-
-
-                    <filter id="blobShadow">
-
-                        <feDropShadow
-                            dx="0"
-                            dy="22"
-                            stdDeviation="22"
-                            flood-color="#000000"
-                            flood-opacity=".26"
-                        />
-
-                    </filter>
-
-                </defs>
-
-
-
-                <!-- CONTOUR LINES -->
-
-                <g
-                    class="contour-group"
-                    fill="none"
-                    stroke="rgba(255,255,255,.10)"
-                    stroke-width="1.3"
-                >
-
-                    <path
-                        d="
-                        M -80 180
-                        C 70 115 150 130 245 188
-                        S 430 275 840 110
-                        "
-                    />
-
-                    <path
-                        d="
-                        M -85 200
-                        C 60 137 153 147 248 205
-                        S 435 292 845 130
-                        "
-                    />
-
-                    <path
-                        d="
-                        M -90 220
-                        C 55 160 155 168 252 225
-                        S 440 310 850 152
-                        "
-                    />
-
-                    <path
-                        d="
-                        M -50 515
-                        C 110 420 230 445 310 515
-                        S 500 620 825 470
-                        "
-                    />
-
-                    <path
-                        d="
-                        M -55 538
-                        C 105 447 230 470 312 538
-                        S 505 643 830 493
-                        "
-                    />
-
-                    <path
-                        d="
-                        M -60 561
-                        C 100 475 230 494 315 561
-                        S 510 666 835 516
-                        "
-                    />
-
-                </g>
-
-
-
-                <!-- CONNECTING LINES -->
-
-                <g
-                    fill="none"
-                    stroke="rgba(255,255,255,.35)"
-                    stroke-width="3"
-                    stroke-dasharray="10 14"
-                >
-
-                    <path
-                        id="routeA"
-                        d="
-                        M 230 215
-                        C 340 155
-                          385 315
-                          520 330
-                        "
-                    />
-
-                    <path
-                        id="routeB"
-                        d="
-                        M 520 330
-                        C 470 420
-                          400 525
-                          270 545
-                        "
-                    />
-
-                    <path
-                        id="routeC"
-                        d="
-                        M 230 215
-                        C 200 330
-                          200 445
-                          270 545
-                        "
-                    />
-
-                    <path
-                        id="routeD"
-                        d="
-                        M 520 330
-                        C 585 420
-                          605 500
-                          625 550
-                        "
-                    />
-
-                </g>
-
-
-
-                <!-- LARGE BLOBS -->
-
-                <g
-                    filter="url(#blobShadow)"
-                >
-
-                    <ellipse
-                        cx="225"
-                        cy="205"
-                        rx="158"
-                        ry="120"
-                        fill="url(#greenGradient)"
-                        filter="url(#organic)"
-                    >
-
-                        <animate
-                            attributeName="cx"
-                            values="
-                                225;
-                                244;
-                                214;
-                                225
-                            "
-                            dur="11s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="cy"
-                            values="
-                                205;
-                                190;
-                                220;
-                                205
-                            "
-                            dur="13s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="rx"
-                            values="
-                                158;
-                                175;
-                                150;
-                                158
-                            "
-                            dur="9s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="ry"
-                            values="
-                                120;
-                                108;
-                                132;
-                                120
-                            "
-                            dur="10s"
-                            repeatCount="indefinite"
-                        />
-
-                    </ellipse>
-
-
-
-                    <ellipse
-                        cx="532"
-                        cy="355"
-                        rx="125"
-                        ry="145"
-                        fill="url(#greenGradient2)"
-                        filter="url(#organic)"
-                    >
-
-                        <animate
-                            attributeName="cx"
-                            values="
-                                532;
-                                548;
-                                518;
-                                532
-                            "
-                            dur="12s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="cy"
-                            values="
-                                355;
-                                338;
-                                370;
-                                355
-                            "
-                            dur="9s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="rx"
-                            values="
-                                125;
-                                116;
-                                138;
-                                125
-                            "
-                            dur="10s"
-                            repeatCount="indefinite"
-                        />
-
-                    </ellipse>
-
-
-
-                    <ellipse
-                        cx="280"
-                        cy="570"
-                        rx="158"
-                        ry="115"
-                        fill="url(#greenGradient)"
-                        filter="url(#organic)"
-                    >
-
-                        <animate
-                            attributeName="cx"
-                            values="
-                                280;
-                                258;
-                                292;
-                                280
-                            "
-                            dur="10s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="cy"
-                            values="
-                                570;
-                                584;
-                                555;
-                                570
-                            "
-                            dur="12s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="rx"
-                            values="
-                                158;
-                                145;
-                                170;
-                                158
-                            "
-                            dur="11s"
-                            repeatCount="indefinite"
-                        />
-
-                    </ellipse>
-
-
-
-                    <ellipse
-                        cx="626"
-                        cy="570"
-                        rx="62"
-                        ry="67"
-                        fill="url(#greenGradient2)"
-                        filter="url(#organic)"
-                    >
-
-                        <animate
-                            attributeName="cx"
-                            values="
-                                626;
-                                638;
-                                618;
-                                626
-                            "
-                            dur="8s"
-                            repeatCount="indefinite"
-                        />
-
-                        <animate
-                            attributeName="ry"
-                            values="
-                                67;
-                                77;
-                                60;
-                                67
-                            "
-                            dur="7s"
-                            repeatCount="indefinite"
-                        />
-
-                    </ellipse>
-
-                </g>
-
-
-
-                <!-- TRAVELING DATA PARTICLES -->
-
-                <circle
-                    r="6"
-                    fill="#eaffec"
-                    class="orbit-dot"
-                >
-
-                    <animateMotion
-                        dur="6.8s"
-                        repeatCount="indefinite"
-                    >
-
-                        <mpath href="#routeA"/>
-
-                    </animateMotion>
-
-                </circle>
-
-
-                <circle
-                    r="5"
-                    fill="#eaffec"
-                    class="orbit-dot second"
-                >
-
-                    <animateMotion
-                        dur="8.5s"
-                        repeatCount="indefinite"
-                    >
-
-                        <mpath href="#routeB"/>
-
-                    </animateMotion>
-
-                </circle>
-
-
-                <circle
-                    r="4"
-                    fill="#eaffec"
-                    class="orbit-dot third"
-                >
-
-                    <animateMotion
-                        dur="7.3s"
-                        repeatCount="indefinite"
-                    >
-
-                        <mpath href="#routeC"/>
-
-                    </animateMotion>
-
-                </circle>
-
-
-                <circle
-                    r="4"
-                    fill="#eaffec"
-                    class="orbit-dot second"
-                >
-
-                    <animateMotion
-                        dur="6.2s"
-                        repeatCount="indefinite"
-                    >
-
-                        <mpath href="#routeD"/>
-
-                    </animateMotion>
-
-                </circle>
-
-            </svg>
-
-
-
-            <div
-                class="art-floating-label label-data"
-            >
-                Environmental Data
-
-                <span>
-                    Monitoring · Assessment · Research
-                </span>
-            </div>
-
-
-            <div
-                class="art-floating-label label-space"
-            >
-                Spatial Analysis
-
-                <span>
-                    GIS · Remote Sensing · Modelling
-                </span>
-            </div>
-
-
-            <div
-                class="art-floating-label label-compute"
-            >
-                Data & Computing
-
-                <span>
-                    Python · R · Automation
-                </span>
-            </div>
-
-
-
-            <div class="hero-art-label">
-
-                <i
-                    class="fa-solid fa-layer-group"
-                ></i>
-
-                <span>
-                    Environmental data, spatial systems
-                    and analytical workflows interacting
-                    through a changing landscape.
-                </span>
+                <i class="fa-solid fa-arrow-up-right"></i>
 
             </div>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-
-<!-- =========================================================
-     CAPABILITIES — LARGE PANELS
-========================================================= -->
-
-<section
-    class="section domain-section"
-    id="capabilities"
->
-
-    <div class="page-width">
-
-        <div
-            class="section-kicker reveal"
-        >
-            What I work with
-        </div>
-
-
-        <h2
-            class="section-title reveal"
-        >
-            Data.
-            Space.
-            Environment.
-        </h2>
-
-
-        <p
-            class="section-intro reveal"
-        >
-            My work sits at the intersection of
-            environmental science, spatial information
-            and computational analysis.
-        </p>
-
-
-
-        <div class="domain-stack">
-
-
-            <!-- DATA -->
-
-            <article
-                class="domain-row reveal-scale"
-            >
-
-                <div>
-
-                    <div class="domain-number">
-                        01
-                    </div>
-
-                    <h3>
-                        DATA
-                    </h3>
-
-                </div>
-
-
-                <div class="domain-content">
-
-                    <p>
-                        Cleaning, harmonising and analysing
-                        complex datasets; building reproducible
-                        workflows; integrating statistical and
-                        spatial outputs; and automating analytical
-                        processes with Python and R.
-                    </p>
-
-                    <div class="domain-tools">
-
-                        <span class="tech-pill">
-                            Python
-                        </span>
-
-                        <span class="tech-pill">
-                            R
-                        </span>
-
-                        <span class="tech-pill">
-                            Statistics
-                        </span>
-
-                        <span class="tech-pill">
-                            Data Harmonisation
-                        </span>
-
-                        <span class="tech-pill">
-                            Automation
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- SPACE -->
-
-            <article
-                class="domain-row reveal-scale"
-            >
-
-                <div>
-
-                    <div class="domain-number">
-                        02
-                    </div>
-
-                    <h3>
-                        SPACE
-                    </h3>
-
-                </div>
-
-
-                <div class="domain-content">
-
-                    <p>
-                        Geographic information systems,
-                        remote sensing, Google Earth Engine,
-                        spatial databases, classification,
-                        environmental mapping and spatial
-                        modelling.
-                    </p>
-
-                    <div class="domain-tools">
-
-                        <span class="tech-pill">
-                            QGIS
-                        </span>
-
-                        <span class="tech-pill">
-                            PyQGIS
-                        </span>
-
-                        <span class="tech-pill">
-                            Google Earth Engine
-                        </span>
-
-                        <span class="tech-pill">
-                            Remote Sensing
-                        </span>
-
-                        <span class="tech-pill">
-                            Spatial Modelling
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- ENVIRONMENT -->
-
-            <article
-                class="domain-row reveal-scale"
-            >
-
-                <div>
-
-                    <div class="domain-number">
-                        03
-                    </div>
-
-                    <h3>
-                        ENVIRONMENT
-                    </h3>
-
-                </div>
-
-
-                <div class="domain-content">
-
-                    <p>
-                        Environmental assessment,
-                        climate and disaster-risk analysis,
-                        pollution studies, environmental
-                        monitoring, ecological research
-                        and scientific communication.
-                    </p>
-
-                    <div class="domain-tools">
-
-                        <span class="tech-pill">
-                            Environmental Assessment
-                        </span>
-
-                        <span class="tech-pill">
-                            Climate Adaptation
-                        </span>
-
-                        <span class="tech-pill">
-                            DRR
-                        </span>
-
-                        <span class="tech-pill">
-                            Environmental Monitoring
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     HORIZONTAL SELECTED WORK
-========================================================= -->
-
-<section
-    class="section"
-    id="work"
->
-
-    <div class="page-width">
-
-        <div class="highlights-heading-row">
 
 
             <div>
 
-                <div
-                    class="section-kicker reveal"
-                >
-                    Selected work
+                <div class="panel-kicker">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    Profile
+
                 </div>
 
-                <h2
-                    class="section-title reveal"
-                >
-                    Get the highlights.
+
+                <h1 class="profile-name">
+
+                    John Paolo
+
+                    <span>
+                        Ramirez
+                    </span>
+
+                </h1>
+
+
+                <div class="profile-role">
+
+                    Environmental & Geospatial Data Analyst
+
+                    <br>
+
+                    GIS · Remote Sensing · Data Analysis · Research
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-bottom">
+
+                <div class="profile-bottom-label">
+
+                    Click for contact details
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-orbit"></div>
+
+        </button>
+
+
+
+        <!-- =================================================
+             WORK HISTORY
+        ================================================== -->
+
+        <button
+            class="panel panel-work"
+            data-modal="workModal"
+        >
+
+            <div class="panel-arrow">
+
+                <i class="fa-solid fa-arrow-up-right"></i>
+
+            </div>
+
+
+            <div>
+
+                <div class="panel-kicker">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    Work & Projects
+
+                </div>
+
+
+                <h2 class="work-heading">
+
+                    Research
+
+                    <br>
+
+                    meets
+
+                    <span>
+                        application.
+                    </span>
+
                 </h2>
 
             </div>
 
 
+            <div class="work-mini-list">
 
-            <div class="scroll-controls">
 
-                <button
-                    class="scroll-arrow"
-                    data-scroll-left="workTrack"
-                    aria-label="Previous project"
+                <div class="work-mini">
+
+                    <strong>
+                        Urban Systems
+                    </strong>
+
+                    <span>
+                        Data harmonisation
+                    </span>
+
+                </div>
+
+
+                <div class="work-mini">
+
+                    <strong>
+                        Project NOAH
+                    </strong>
+
+                    <span>
+                        Climate & DRR
+                    </span>
+
+                </div>
+
+
+                <div class="work-mini">
+
+                    <strong>
+                        Environmental Research
+                    </strong>
+
+                    <span>
+                        Spatial + laboratory
+                    </span>
+
+                </div>
+
+            </div>
+
+        </button>
+
+
+
+        <!-- =================================================
+             SKILLS
+        ================================================== -->
+
+        <button
+            class="panel panel-skills"
+            data-modal="skillsModal"
+        >
+
+            <div class="panel-arrow">
+
+                <i class="fa-solid fa-arrow-up-right"></i>
+
+            </div>
+
+
+            <div>
+
+                <div class="panel-kicker">
+
+                    <i class="fa-solid fa-gears"></i>
+
+                    Skills
+
+                </div>
+
+
+                <h2 class="skills-heading">
+
+                    Data.
+
+                    <br>
+
+                    Space.
+
+                    <br>
+
+                    Environment.
+
+                </h2>
+
+            </div>
+
+
+            <div class="skill-cloud">
+
+                <span>
+                    Python
+                </span>
+
+                <span>
+                    R
+                </span>
+
+                <span>
+                    QGIS
+                </span>
+
+                <span>
+                    Google Earth Engine
+                </span>
+
+                <span>
+                    Remote Sensing
+                </span>
+
+                <span>
+                    Data Analysis
+                </span>
+
+                <span>
+                    PyQGIS
+                </span>
+
+                <span>
+                    Environmental Assessment
+                </span>
+
+            </div>
+
+        </button>
+
+
+
+        <!-- =================================================
+             SELECTED WORK
+        ================================================== -->
+
+        <button
+            class="panel panel-portfolio"
+            data-modal="portfolioModal"
+        >
+
+            <div class="panel-arrow">
+
+                <i class="fa-solid fa-arrow-up-right"></i>
+
+            </div>
+
+
+            <div class="portfolio-copy">
+
+                <div>
+
+                    <div class="panel-kicker">
+
+                        <i class="fa-solid fa-images"></i>
+
+                        Selected Work
+
+                    </div>
+
+
+                    <h2 class="portfolio-heading">
+
+                        Maps.
+
+                        <br>
+
+                        Models.
+
+                        <br>
+
+                        <span>
+                            Visuals.
+                        </span>
+
+                    </h2>
+
+                </div>
+
+
+                <div class="portfolio-caption">
+
+                    Click to open the gallery.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="portfolio-preview">
+
+
+                <div class="preview-img preview-one">
+
+                    <img
+                        src="Picture2.png"
+                        alt=""
+                    >
+
+                </div>
+
+
+                <div class="preview-img preview-two">
+
+                    <img
+                        src="EVI and NDVI.png"
+                        alt=""
+                    >
+
+                </div>
+
+
+                <div class="preview-img preview-three">
+
+                    <img
+                        src="Network Model Diagram.png"
+                        alt=""
+                    >
+
+                </div>
+
+            </div>
+
+        </button>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     CONTACT MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="contactModal"
+>
+
+    <div class="modal-shell">
+
+
+        <button class="modal-close">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div class="modal-kicker">
+            Contact
+        </div>
+
+
+        <h2 class="modal-title">
+
+            John Paolo
+
+            <br>
+
+            Ramirez.
+
+        </h2>
+
+
+        <p class="modal-intro">
+
+            Environmental and geospatial data analyst
+            working across GIS, remote sensing,
+            environmental research, data analysis,
+            modelling and scientific computing.
+
+        </p>
+
+
+
+        <div class="contact-grid">
+
+
+            <a
+                class="contact-card"
+                href="mailto:jpaoloramirez@gmail.com"
+            >
+
+                <i class="fa-solid fa-envelope"></i>
+
+
+                <div>
+
+                    <div class="contact-card-label">
+                        Email
+                    </div>
+
+
+                    <div class="contact-card-value">
+
+                        jpaoloramirez@gmail.com
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <a
+                class="contact-card"
+                href="tel:+639275745752"
+            >
+
+                <i class="fa-solid fa-phone"></i>
+
+
+                <div>
+
+                    <div class="contact-card-label">
+                        Phone
+                    </div>
+
+
+                    <div class="contact-card-value">
+
+                        +63 927 574 5752
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <a
+                class="contact-card"
+                href="https://github.com/Johnny1996ornot"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <i class="fa-brands fa-github"></i>
+
+
+                <div>
+
+                    <div class="contact-card-label">
+                        GitHub
+                    </div>
+
+
+                    <div class="contact-card-value">
+
+                        Johnny1996ornot
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <a
+                class="contact-card"
+                href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <i class="fa-brands fa-linkedin"></i>
+
+
+                <div>
+
+                    <div class="contact-card-label">
+                        LinkedIn
+                    </div>
+
+
+                    <div class="contact-card-value">
+
+                        John Paolo Ramirez
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     WORK MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="workModal"
+>
+
+    <div class="modal-shell">
+
+
+        <button class="modal-close">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div class="modal-kicker">
+            Experience & Projects
+        </div>
+
+
+        <h2 class="modal-title">
+
+            Research.
+
+            <br>
+
+            Analysis.
+
+            <br>
+
+            Application.
+
+        </h2>
+
+
+
+        <div class="work-layout">
+
+
+            <!-- HISTORY -->
+
+            <div>
+
+
+                <div class="timeline">
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-year">
+                            2025
+                        </div>
+
+                        <h3>
+                            Geospatial Research Aide
+                        </h3>
+
+                        <strong>
+                            International Urban Systems Project
+                        </strong>
+
+                        <p>
+
+                            Spatial database design,
+                            global-data harmonisation,
+                            hierarchical urban-zone modelling
+                            and automated Python workflows.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-year">
+                            2023–2026
+                        </div>
+
+                        <h3>
+                            Lecturer 5
+                        </h3>
+
+                        <strong>
+                            Far Eastern University
+                        </strong>
+
+                        <p>
+
+                            Biological sciences,
+                            research mentoring,
+                            environmental and
+                            computational methods.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-year">
+                            2024–2026
+                        </div>
+
+                        <h3>
+                            Part-time Faculty
+                        </h3>
+
+                        <strong>
+                            Philippine Women's University
+                        </strong>
+
+                        <p>
+
+                            Environmental science,
+                            sustainable management,
+                            aquatic ecosystems,
+                            environmental economics,
+                            QGIS, R and Python.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-year">
+                            2022
+                        </div>
+
+                        <h3>
+                            Senior Technical Aide
+                        </h3>
+
+                        <strong>
+                            UP Resilience Institute · Project NOAH
+                        </strong>
+
+                        <p>
+
+                            Climate-change adaptation,
+                            disaster-risk reduction,
+                            spatial-data processing
+                            and validation.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROJECTS -->
+
+            <div class="project-list">
+
+
+                <div class="project-item">
+
+                    <div class="project-item-tag">
+                        Data
+                    </div>
+
+                    <h4>
+                        International Urban Systems Project
+                    </h4>
+
+                    <p>
+
+                        Combined GHSL, WorldPop and
+                        conflict-related data into
+                        reproducible spatial datasets
+                        and automated analytical pipelines.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="project-item">
+
+                    <div class="project-item-tag">
+                        Environmental Analysis
+                    </div>
+
+                    <h4>
+                        Heavy Metal Spatial Distribution
+                    </h4>
+
+                    <p>
+
+                        Field sampling, AAS laboratory analysis,
+                        statistical modelling and spatial
+                        interpolation of lead contamination.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="project-item">
+
+                    <div class="project-item-tag">
+                        Research
+                    </div>
+
+                    <h4>
+                        Microplastic Bioindicator Study
+                    </h4>
+
+                    <p>
+
+                        Microplastic extraction,
+                        environmental statistics,
+                        bioindicator analysis and
+                        spatial hotspot mapping.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="project-item">
+
+                    <div class="project-item-tag">
+                        Climate
+                    </div>
+
+                    <h4>
+                        Project NOAH / SAFER-U
+                    </h4>
+
+                    <p>
+
+                        Climate-risk spatial data processing,
+                        validation and resilience planning
+                        for Philippine universities.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="project-item">
+
+                    <div class="project-item-tag">
+                        Spatial Modelling
+                    </div>
+
+                    <h4>
+                        Metro Manila Landscape Connectivity
+                    </h4>
+
+                    <p>
+
+                        GIS and R-based landscape analysis
+                        using raster processing and
+                        Grainscape modelling.
+
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-item"
+                    style="
+                        text-decoration:none;
+                    "
                 >
-                    <i
-                        class="fa-solid fa-chevron-left"
-                    ></i>
-                </button>
 
+                    <div class="project-item-tag">
+                        Interactive
+                    </div>
 
-                <button
-                    class="scroll-arrow"
-                    data-scroll-right="workTrack"
-                    aria-label="Next project"
-                >
-                    <i
-                        class="fa-solid fa-chevron-right"
-                    ></i>
-                </button>
+                    <h4>
+
+                        Open Full Experience Timeline
+
+                        <i
+                            class="fa-solid fa-arrow-up-right-from-square"
+                            style="
+                                margin-left:6px;
+                                color:var(--green);
+                            "
+                        ></i>
+
+                    </h4>
+
+                </a>
+
 
             </div>
 
@@ -3234,1657 +3232,679 @@
 
     </div>
 
-
-
-    <div
-        class="horizontal-track"
-        id="workTrack"
-    >
-
-
-        <!-- PANEL 1 -->
-
-        <article class="highlight-panel">
-
-            <div class="panel-copy">
-
-                <div>
-
-                    <div class="panel-number">
-                        01 / DATA ANALYSIS
-                    </div>
-
-                    <h3>
-                        From global datasets
-                        to reproducible models.
-                    </h3>
-
-                    <p>
-                        Spatial database design and automated
-                        Python workflows combining GHSL,
-                        WorldPop and conflict-related datasets
-                        for international urban analysis.
-                    </p>
-
-                </div>
-
-
-                <div class="panel-tags">
-
-                    <span class="panel-tag">
-                        Python
-                    </span>
-
-                    <span class="panel-tag">
-                        Data Harmonisation
-                    </span>
-
-                    <span class="panel-tag">
-                        Spatial Databases
-                    </span>
-
-                    <span class="panel-tag">
-                        Automation
-                    </span>
-
-                </div>
-
-            </div>
+</div>
 
 
 
-            <div class="panel-visual">
+<!-- =========================================================
+     SKILLS MODAL
+========================================================= -->
 
-                <div class="data-visual">
+<div
+    class="modal"
+    id="skillsModal"
+>
 
-                    <div class="data-core">
-
-                        <div class="data-center">
-                            ANALYTICAL
-                            MODEL
-                        </div>
-
-
-                        <div class="data-node n1">
-                            GHSL
-                        </div>
+    <div class="modal-shell">
 
 
-                        <div class="data-node n2">
-                            WorldPop
-                        </div>
+        <button class="modal-close">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
 
 
-                        <div class="data-node n3">
-                            Urban
-                            morphology
-                        </div>
+        <div class="modal-kicker">
+            Technical Toolkit
+        </div>
 
 
-                        <div class="data-node n4">
-                            Conflict
-                            data
-                        </div>
+        <h2 class="modal-title">
+
+            Data.
+
+            <br>
+
+            Space.
+
+            <br>
+
+            Environment.
+
+        </h2>
 
 
-                        <div class="data-node n5">
-                            Spatial
-                            variables
-                        </div>
 
-                    </div>
+        <div class="skills-modal-grid">
+
+
+            <article class="skill-category">
+
+                <div class="skill-category-icon">
+
+                    <i class="fa-solid fa-earth-asia"></i>
 
                 </div>
 
-            </div>
+                <h3>
+                    GIS & Geospatial Analysis
+                </h3>
 
-        </article>
+                <p>
 
+                    Spatial processing, mapping,
+                    database design, geoprocessing,
+                    interpolation and spatial modelling.
 
+                </p>
 
-        <!-- PANEL 2 -->
+                <div class="skill-tags">
 
-        <article class="highlight-panel">
-
-            <div class="panel-copy">
-
-                <div>
-
-                    <div class="panel-number">
-                        02 / REMOTE SENSING
-                    </div>
-
-                    <h3>
-                        Seeing environmental
-                        patterns from above.
-                    </h3>
-
-                    <p>
-                        Supervised land-cover classification
-                        integrating satellite imagery and GIS
-                        to map urban and environmental surface
-                        patterns.
-                    </p>
+                    <span>QGIS</span>
+                    <span>PyQGIS</span>
+                    <span>Spatial Databases</span>
+                    <span>IDW</span>
+                    <span>Network Analysis</span>
 
                 </div>
 
+            </article>
 
-                <div class="panel-tags">
 
-                    <span class="panel-tag">
-                        Remote Sensing
-                    </span>
 
-                    <span class="panel-tag">
-                        Classification
-                    </span>
+            <article class="skill-category">
 
-                    <span class="panel-tag">
-                        GIS
-                    </span>
+                <div class="skill-category-icon">
+
+                    <i class="fa-solid fa-satellite"></i>
 
                 </div>
 
-            </div>
+                <h3>
+                    Remote Sensing
+                </h3>
+
+                <p>
+
+                    Satellite imagery analysis,
+                    vegetation indices,
+                    environmental classification
+                    and large-scale monitoring.
+
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>Google Earth Engine</span>
+                    <span>NDVI</span>
+                    <span>EVI</span>
+                    <span>TSS</span>
+                    <span>Supervised Classification</span>
+
+                </div>
+
+            </article>
 
 
-            <div class="panel-visual">
+
+            <article class="skill-category">
+
+                <div class="skill-category-icon">
+
+                    <i class="fa-solid fa-code"></i>
+
+                </div>
+
+                <h3>
+                    Data & Programming
+                </h3>
+
+                <p>
+
+                    Statistical analysis,
+                    data cleaning,
+                    reproducible workflows
+                    and automated geospatial analysis.
+
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>Python</span>
+                    <span>R</span>
+                    <span>Pandas</span>
+                    <span>Statistics</span>
+                    <span>Automation</span>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="skill-category">
+
+                <div class="skill-category-icon">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                </div>
+
+                <h3>
+                    Environmental Analysis
+                </h3>
+
+                <p>
+
+                    Environmental assessment,
+                    climate adaptation,
+                    risk analysis,
+                    monitoring and scientific research.
+
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>EIA</span>
+                    <span>DRR</span>
+                    <span>CCA</span>
+                    <span>Environmental Monitoring</span>
+                    <span>Ecotoxicology</span>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="skill-category">
+
+                <div class="skill-category-icon">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                </div>
+
+                <h3>
+                    Data Visualisation
+                </h3>
+
+                <p>
+
+                    Maps, network models,
+                    interactive web interfaces,
+                    dashboards and technical communication.
+
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>HTML</span>
+                    <span>Interactive Visualisation</span>
+                    <span>Scientific Communication</span>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="skill-category">
+
+                <div class="skill-category-icon">
+
+                    <i class="fa-solid fa-flask"></i>
+
+                </div>
+
+                <h3>
+                    Scientific Research
+                </h3>
+
+                <p>
+
+                    Field studies,
+                    laboratory research,
+                    environmental contamination
+                    and research project management.
+
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>Heavy Metals</span>
+                    <span>Microplastics</span>
+                    <span>Fieldwork</span>
+                    <span>Research Design</span>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PORTFOLIO MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="portfolioModal"
+>
+
+    <div class="modal-shell">
+
+
+        <button class="modal-close">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div class="modal-kicker">
+            Selected Work
+        </div>
+
+
+        <h2 class="modal-title">
+
+            Maps.
+
+            <br>
+
+            Models.
+
+            <br>
+
+            Visuals.
+
+        </h2>
+
+
+        <p class="modal-intro">
+
+            Selected environmental,
+            geospatial and analytical work.
+
+            Click an image to enlarge it.
+
+        </p>
+
+
+
+        <div class="gallery-grid">
+
+
+            <div
+                class="gallery-item"
+                data-image="Picture2.png"
+            >
 
                 <img
                     src="Picture2.png"
                     alt="Supervised land cover classification"
                 >
 
-            </div>
+                <div class="gallery-caption">
 
-        </article>
-
-
-
-        <!-- PANEL 3 -->
-
-        <article class="highlight-panel">
-
-            <div class="panel-copy">
-
-                <div>
-
-                    <div class="panel-number">
-                        03 / EARTH OBSERVATION
-                    </div>
-
-                    <h3>
-                        Measuring vegetation
-                        through satellite data.
-                    </h3>
-
-                    <p>
-                        Comparative NDVI and EVI analysis
-                        for vegetation detection,
-                        environmental monitoring and
-                        spatial interpretation.
-                    </p>
-
-                </div>
-
-
-                <div class="panel-tags">
-
-                    <span class="panel-tag">
-                        NDVI
-                    </span>
-
-                    <span class="panel-tag">
-                        EVI
-                    </span>
-
-                    <span class="panel-tag">
-                        Google Earth Engine
-                    </span>
+                    Supervised Land Cover Classification
 
                 </div>
 
             </div>
 
 
-            <div class="panel-visual">
+
+            <div
+                class="gallery-item"
+                data-image="EVI and NDVI.png"
+            >
 
                 <img
                     src="EVI and NDVI.png"
-                    alt="NDVI and EVI environmental analysis"
+                    alt="NDVI and EVI analysis"
                 >
 
-            </div>
+                <div class="gallery-caption">
 
-        </article>
-
-
-
-        <!-- PANEL 4 -->
-
-        <article class="highlight-panel">
-
-            <div class="panel-copy">
-
-                <div>
-
-                    <div class="panel-number">
-                        04 / ENVIRONMENTAL MONITORING
-                    </div>
-
-                    <h3>
-                        Turning imagery into
-                        water-quality evidence.
-                    </h3>
-
-                    <p>
-                        Remote-sensing analysis of
-                        Total Suspended Solids across
-                        wetland environments.
-                    </p>
-
-                </div>
-
-
-                <div class="panel-tags">
-
-                    <span class="panel-tag">
-                        Water Quality
-                    </span>
-
-                    <span class="panel-tag">
-                        Remote Sensing
-                    </span>
-
-                    <span class="panel-tag">
-                        Environmental Analysis
-                    </span>
+                    NDVI & EVI Remote Sensing Analysis
 
                 </div>
 
             </div>
 
 
-            <div class="panel-visual">
 
-                <img
-                    src="TSS - LPP Wetland.png"
-                    alt="Total suspended solids analysis"
-                >
-
-            </div>
-
-        </article>
-
-
-
-        <!-- PANEL 5 -->
-
-        <article class="highlight-panel">
-
-            <div class="panel-copy">
-
-                <div>
-
-                    <div class="panel-number">
-                        05 / SPATIAL MODELLING
-                    </div>
-
-                    <h3>
-                        Revealing relationships
-                        hidden in space.
-                    </h3>
-
-                    <p>
-                        Spatial network modelling
-                        representing relationships,
-                        connectivity and structural
-                        patterns among geographic units.
-                    </p>
-
-                </div>
-
-
-                <div class="panel-tags">
-
-                    <span class="panel-tag">
-                        R
-                    </span>
-
-                    <span class="panel-tag">
-                        Networks
-                    </span>
-
-                    <span class="panel-tag">
-                        Modelling
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="panel-visual">
+            <div
+                class="gallery-item"
+                data-image="Network Model Diagram.png"
+            >
 
                 <img
                     src="Network Model Diagram.png"
                     alt="Spatial network model"
                 >
 
-            </div>
+                <div class="gallery-caption">
 
-        </article>
-
-
-
-        <!-- PANEL 6 -->
-
-        <article class="highlight-panel">
-
-            <div class="panel-copy">
-
-                <div>
-
-                    <div class="panel-number">
-                        06 / VISUAL ANALYTICS
-                    </div>
-
-                    <h3>
-                        Complex systems,
-                        made readable.
-                    </h3>
-
-                    <p>
-                        Sankey-style analytical visualisation
-                        translating complex environmental
-                        relationships into an interactive
-                        visual structure.
-                    </p>
-
-                </div>
-
-
-                <div class="panel-tags">
-
-                    <span class="panel-tag">
-                        Data Visualisation
-                    </span>
-
-                    <span class="panel-tag">
-                        HTML
-                    </span>
-
-                    <span class="panel-tag">
-                        Systems Analysis
-                    </span>
+                    Spatial Network Modelling
 
                 </div>
 
             </div>
 
 
-            <div class="panel-visual">
+
+            <div
+                class="gallery-item"
+                data-image="TSS - LPP Wetland.png"
+            >
+
+                <img
+                    src="TSS - LPP Wetland.png"
+                    alt="Total suspended solids analysis"
+                >
+
+                <div class="gallery-caption">
+
+                    TSS Environmental Monitoring
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="gallery-item"
+                data-image="Picture56.png"
+            >
 
                 <img
                     src="Picture56.png"
-                    alt="Environmental data flow visualisation"
+                    alt="Environmental systems visualisation"
                 >
 
-            </div>
+                <div class="gallery-caption">
 
-        </article>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     FEATURE — GEOSPATIAL
-========================================================= -->
-
-<section class="feature-section">
-
-    <div class="page-width">
-
-        <div
-            class="section-kicker reveal"
-        >
-            Geospatial analysis
-        </div>
-
-
-        <div class="feature-copy">
-
-            <h2 class="reveal">
-
-                Where data becomes
-
-                <span>
-                    spatial evidence.
-                </span>
-
-            </h2>
-
-
-            <p
-                class="feature-lead reveal"
-            >
-                GIS allows raw measurements,
-                environmental observations and
-                statistical outputs to be understood
-                through their location, distribution
-                and spatial relationships.
-            </p>
-
-        </div>
-
-
-        <div
-            class="feature-image reveal-scale"
-        >
-
-            <img
-                src="Picture2.png"
-                alt="Geospatial analysis"
-            >
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     FEATURE — REMOTE SENSING
-========================================================= -->
-
-<section
-    class="feature-section"
-    style="background:var(--bg-soft);"
->
-
-    <div class="page-width">
-
-        <div
-            class="section-kicker reveal"
-        >
-            Remote sensing
-        </div>
-
-
-        <div class="feature-copy">
-
-            <h2 class="reveal">
-
-                Environmental change,
-
-                <span>
-                    seen at scale.
-                </span>
-
-            </h2>
-
-
-            <p
-                class="feature-lead reveal"
-            >
-                Satellite imagery and environmental
-                indices can transform large geographic
-                areas into measurable patterns that
-                support monitoring, assessment and
-                decision-making.
-            </p>
-
-        </div>
-
-
-        <div
-            class="feature-image reveal-scale"
-        >
-
-            <img
-                src="EVI and NDVI.png"
-                alt="Remote sensing vegetation analysis"
-            >
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     EXPERIENCE
-========================================================= -->
-
-<section
-    class="section experience-section"
-    id="experience"
->
-
-    <div class="page-width">
-
-        <div
-            class="section-kicker reveal"
-        >
-            Experience
-        </div>
-
-
-        <h2
-            class="section-title reveal"
-        >
-            Research meets
-            application.
-        </h2>
-
-
-
-        <div class="timeline">
-
-
-            <article
-                class="timeline-row reveal"
-            >
-
-                <div class="timeline-date">
-                    2025
-                </div>
-
-
-                <div class="timeline-content">
-
-                    <h3>
-                        Geospatial Research Aide
-                    </h3>
-
-                    <strong>
-                        International Urban Systems Project
-                    </strong>
-
-                    <p>
-                        Designed spatial databases,
-                        harmonised global datasets and
-                        implemented automated Python
-                        workflows for cross-continental
-                        urban analysis.
-                    </p>
+                    Environmental Systems Visualisation
 
                 </div>
-
-            </article>
-
-
-
-            <article
-                class="timeline-row reveal"
-            >
-
-                <div class="timeline-date">
-                    2023–2026
-                </div>
-
-
-                <div class="timeline-content">
-
-                    <h3>
-                        Lecturer 5
-                    </h3>
-
-                    <strong>
-                        Far Eastern University
-                    </strong>
-
-                    <p>
-                        University teaching and academic
-                        work across biological sciences,
-                        environmental research and
-                        computational methods.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <article
-                class="timeline-row reveal"
-            >
-
-                <div class="timeline-date">
-                    2024–2026
-                </div>
-
-
-                <div class="timeline-content">
-
-                    <h3>
-                        Part-time Faculty
-                    </h3>
-
-                    <strong>
-                        Philippine Women's University
-                    </strong>
-
-                    <p>
-                        Environmental science,
-                        sustainable management,
-                        aquatic ecosystems,
-                        environmental economics,
-                        QGIS, R and Python.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <article
-                class="timeline-row reveal"
-            >
-
-                <div class="timeline-date">
-                    2022
-                </div>
-
-
-                <div class="timeline-content">
-
-                    <h3>
-                        Senior Technical Aide
-                    </h3>
-
-                    <strong>
-                        UP Resilience Institute · Project NOAH
-                    </strong>
-
-                    <p>
-                        Spatial-data processing and
-                        validation supporting climate
-                        adaptation, disaster-risk reduction
-                        and resilience planning.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <article
-                class="timeline-row reveal"
-            >
-
-                <div class="timeline-date">
-                    Research
-                </div>
-
-
-                <div class="timeline-content">
-
-                    <h3>
-                        Applied Environmental Research
-                    </h3>
-
-                    <strong>
-                        Spatial · Laboratory · Analytical
-                    </strong>
-
-                    <p>
-                        Environmental contamination,
-                        heavy metals, microplastics,
-                        remote sensing, statistics,
-                        biodiversity and spatial modelling.
-                    </p>
-
-                </div>
-
-            </article>
-
-        </div>
-
-
-        <a
-            href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="primary-button reveal"
-            style="margin-top:45px;"
-        >
-
-            Explore full timeline
-
-            <i
-                class="fa-solid fa-arrow-up-right-from-square"
-            ></i>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     WEB PROJECTS HORIZONTAL
-========================================================= -->
-
-<section
-    class="section"
-    id="tools"
->
-
-    <div class="page-width">
-
-        <div class="highlights-heading-row">
-
-
-            <div>
-
-                <div
-                    class="section-kicker reveal"
-                >
-                    Interactive work
-                </div>
-
-
-                <h2
-                    class="section-title reveal"
-                >
-                    Analysis people
-                    can explore.
-                </h2>
 
             </div>
 
 
 
-            <div class="scroll-controls">
+            <div
+                class="gallery-item"
+                data-image="Picture33.png"
+            >
 
-                <button
-                    class="scroll-arrow"
-                    data-scroll-left="webTrack"
-                    aria-label="Previous web project"
+                <img
+                    src="Picture33.png"
+                    alt="Professional experience timeline"
                 >
-                    <i
-                        class="fa-solid fa-chevron-left"
-                    ></i>
-                </button>
 
+                <div class="gallery-caption">
 
-                <button
-                    class="scroll-arrow"
-                    data-scroll-right="webTrack"
-                    aria-label="Next web project"
-                >
-                    <i
-                        class="fa-solid fa-chevron-right"
-                    ></i>
-                </button>
+                    Interactive Professional Timeline
+
+                </div>
 
             </div>
+
 
         </div>
 
     </div>
 
+</div>
 
 
-    <div
-        class="horizontal-track"
-        id="webTrack"
+
+<!-- =========================================================
+     LIGHTBOX
+========================================================= -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+>
+
+    <button
+        class="lightbox-close"
+        id="lightboxClose"
     >
 
+        <i class="fa-solid fa-xmark"></i>
 
-        <a
-            href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="web-panel"
-        >
+    </button>
 
-            <div class="web-panel-arrow">
 
-                <i
-                    class="fa-solid fa-arrow-up-right-from-square"
-                ></i>
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Expanded portfolio image"
+    >
 
-            </div>
-
-
-            <div class="web-panel-number">
-                01 / INTERACTIVE MODEL
-            </div>
-
-
-            <h3>
-                Metro Manila
-                Connectivity Model
-            </h3>
-
-
-            <p>
-                Browser-based spatial modelling and
-                environmental visualisation.
-            </p>
-
-        </a>
-
-
-
-        <a
-            href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="web-panel"
-        >
-
-            <div class="web-panel-arrow">
-
-                <i
-                    class="fa-solid fa-arrow-up-right-from-square"
-                ></i>
-
-            </div>
-
-
-            <div class="web-panel-number">
-                02 / INTERACTIVE VISUALISATION
-            </div>
-
-
-            <h3>
-                Experience
-                Timeline
-            </h3>
-
-
-            <p>
-                Interactive visual representation
-                of education, research and
-                professional experience.
-            </p>
-
-        </a>
-
-
-
-        <a
-            href="https://notedump-factory.onrender.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="web-panel"
-        >
-
-            <div class="web-panel-arrow">
-
-                <i
-                    class="fa-solid fa-arrow-up-right-from-square"
-                ></i>
-
-            </div>
-
-
-            <div class="web-panel-number">
-                03 / WEB TOOL
-            </div>
-
-
-            <h3>
-                NoteDump
-                Factory
-            </h3>
-
-
-            <p>
-                Presentation-to-interactive-notes
-                workflow for students and educators.
-            </p>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     INTERACTIVE MAP
-========================================================= -->
-
-<section
-    class="section"
-    style="background:var(--bg-soft);"
->
-
-    <div class="page-width">
-
-        <div
-            class="section-kicker reveal"
-        >
-            Browser-based GIS
-        </div>
-
-
-        <h2
-            class="section-title reveal"
-        >
-            Spatial work,
-            beyond static maps.
-        </h2>
-
-
-        <p
-            class="section-intro reveal"
-        >
-            An interactive example showing how
-            spatial-analysis outputs can be made
-            explorable directly in the browser.
-        </p>
-
-
-        <div
-            class="map-shell reveal-scale"
-        >
-
-            <iframe
-                src="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/"
-                title="Interactive Metro Manila connectivity model"
-                loading="lazy"
-            ></iframe>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     CONTACT
-========================================================= -->
-
-<footer
-    class="contact"
-    id="contact"
->
-
-    <div class="page-width">
-
-        <div
-            class="section-kicker reveal"
-        >
-            Let's work together
-        </div>
-
-
-        <h2 class="reveal">
-
-            Environmental.
-
-            <br>
-
-            Geospatial.
-
-            <br>
-
-            <span>
-                Data-driven.
-            </span>
-
-        </h2>
-
-
-        <p
-            class="contact-copy reveal"
-        >
-            I am interested in opportunities involving
-            environmental analysis, GIS, remote sensing,
-            sustainability, research, scientific computing,
-            modelling and applied data analytics.
-        </p>
-
-
-        <div
-            class="contact-actions reveal"
-        >
-
-            <a
-                href="mailto:jpaoloramirez@gmail.com"
-                class="contact-button"
-            >
-                <i
-                    class="fa-solid fa-envelope"
-                ></i>
-
-                Email
-            </a>
-
-
-            <a
-                href="https://github.com/Johnny1996ornot"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact-button"
-            >
-                <i
-                    class="fa-brands fa-github"
-                ></i>
-
-                GitHub
-            </a>
-
-
-            <a
-                href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact-button"
-            >
-                <i
-                    class="fa-brands fa-linkedin"
-                ></i>
-
-                LinkedIn
-            </a>
-
-        </div>
-
-
-
-        <div class="footer">
-
-            <span>
-                John Paolo A. Ramirez, MSc
-            </span>
-
-            <span>
-                Environmental · Geospatial · Data Analysis
-            </span>
-
-        </div>
-
-    </div>
-
-</footer>
+</div>
 
 
 
 <script>
 
-    /* =========================================================
-       THEME
-    ========================================================= */
+/* =========================================================
+   PANEL → MODAL
+========================================================= */
 
-    const root =
-        document.documentElement;
-
-    const themeButton =
-        document.getElementById(
-            "themeButton"
-        );
-
-    const themeIcon =
-        document.getElementById(
-            "themeIcon"
-        );
-
-
-    const storedTheme =
-        localStorage.getItem(
-            "portfolio-theme"
-        );
-
-
-    if (
-        storedTheme === "light"
-    ) {
-        root.classList.remove(
-            "dark"
-        );
-    }
-
-
-    function updateThemeIcon() {
-
-        const isDark =
-            root.classList.contains(
-                "dark"
-            );
-
-        themeIcon.className =
-            isDark
-                ? "fa-solid fa-sun"
-                : "fa-solid fa-moon";
-    }
-
-
-    updateThemeIcon();
-
-
-    themeButton.addEventListener(
-        "click",
-        () => {
-
-            root.classList.toggle(
-                "dark"
-            );
-
-            localStorage.setItem(
-                "portfolio-theme",
-                root.classList.contains(
-                    "dark"
-                )
-                    ? "dark"
-                    : "light"
-            );
-
-            updateThemeIcon();
-
-        }
+const modalTriggers =
+    document.querySelectorAll(
+        "[data-modal]"
     );
 
 
-
-    /* =========================================================
-       NAV SCROLL STATE
-    ========================================================= */
-
-    const siteNav =
-        document.getElementById(
-            "siteNav"
-        );
-
-
-    function updateNavigation() {
-
-        siteNav.classList.toggle(
-            "scrolled",
-            window.scrollY > 20
-        );
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        updateNavigation,
-        {
-            passive: true
-        }
-    );
-
-
-    updateNavigation();
-
-
-
-    /* =========================================================
-       SCROLL REVEALS
-    ========================================================= */
-
-    const reducedMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal, .reveal-left, .reveal-scale"
-        );
-
-
-    if (reducedMotion) {
-
-        revealElements.forEach(
-            element => {
-
-                element.classList.add(
-                    "visible"
-                );
-
-            }
-        );
-
-    }
-
-    else {
-
-        const observer =
-            new IntersectionObserver(
-
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target
-                                    .classList
-                                    .add(
-                                        "visible"
-                                    );
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-
-                {
-                    threshold: .12,
-
-                    rootMargin:
-                        "0px 0px -7% 0px"
-                }
-
-            );
-
-
-        revealElements.forEach(
-            element => {
-
-                observer.observe(
-                    element
-                );
-
-            }
-        );
-
-    }
-
-
-
-    /* =========================================================
-       HORIZONTAL PANEL ARROWS
-    ========================================================= */
-
-    document
-        .querySelectorAll(
-            "[data-scroll-right]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        const track =
-                            document.getElementById(
-                                button.dataset
-                                    .scrollRight
-                            );
-
-                        if (!track) return;
-
-                        track.scrollBy({
-
-                            left:
-                                Math.min(
-                                    window.innerWidth
-                                        * .78,
-                                    950
-                                ),
-
-                            behavior:
-                                "smooth"
-
-                        });
-
-                    }
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            "[data-scroll-left]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        const track =
-                            document.getElementById(
-                                button.dataset
-                                    .scrollLeft
-                            );
-
-                        if (!track) return;
-
-                        track.scrollBy({
-
-                            left:
-                                -Math.min(
-                                    window.innerWidth
-                                        * .78,
-                                    950
-                                ),
-
-                            behavior:
-                                "smooth"
-
-                        });
-
-                    }
-                );
-
-            }
-        );
-
-
-
-    /* =========================================================
-       CLICK + DRAG HORIZONTAL GALLERY
-    ========================================================= */
-
-    document
-        .querySelectorAll(
-            ".horizontal-track"
-        )
-        .forEach(
-            track => {
-
-                let dragging =
-                    false;
-
-                let startX =
-                    0;
-
-                let startScroll =
-                    0;
-
-
-                track.addEventListener(
-                    "pointerdown",
-                    event => {
-
-                        if (
-                            event.pointerType === "touch"
-                        ) {
-                            return;
-                        }
-
-                        dragging =
-                            true;
-
-                        startX =
-                            event.clientX;
-
-                        startScroll =
-                            track.scrollLeft;
-
-                        track.classList.add(
-                            "dragging"
-                        );
-
-                        track.setPointerCapture(
-                            event.pointerId
-                        );
-
-                    }
-                );
-
-
-                track.addEventListener(
-                    "pointermove",
-                    event => {
-
-                        if (!dragging) return;
-
-                        const difference =
-                            event.clientX
-                            - startX;
-
-                        track.scrollLeft =
-                            startScroll
-                            - difference;
-
-                    }
-                );
-
-
-                function stopDragging() {
-
-                    dragging =
-                        false;
-
-                    track.classList.remove(
-                        "dragging"
-                    );
-
-                }
-
-
-                track.addEventListener(
-                    "pointerup",
-                    stopDragging
-                );
-
-
-                track.addEventListener(
-                    "pointercancel",
-                    stopDragging
-                );
-
-            }
-        );
-
-
-
-    /* =========================================================
-       HERO PARALLAX
-    ========================================================= */
-
-    const heroArt =
-        document.getElementById(
-            "heroArt"
-        );
-
-    const blobSvg =
-        document.getElementById(
-            "blobSvg"
-        );
-
-
-    if (
-        heroArt
-        && blobSvg
-        && !reducedMotion
-    ) {
-
-        heroArt.addEventListener(
-            "pointermove",
-            event => {
-
-                const rect =
-                    heroArt
-                        .getBoundingClientRect();
-
-                const x =
-                    (
-                        event.clientX
-                        - rect.left
-                    )
-                    / rect.width
-                    - .5;
-
-                const y =
-                    (
-                        event.clientY
-                        - rect.top
-                    )
-                    / rect.height
-                    - .5;
-
-
-                blobSvg.style.transform =
-                    `
-                    translate(
-                        ${x * 13}px,
-                        ${y * 13}px
-                    )
-                    scale(1.025)
-                    `;
-
-            }
-        );
-
-
-        heroArt.addEventListener(
-            "pointerleave",
+modalTriggers.forEach(
+    trigger => {
+
+        trigger.addEventListener(
+            "click",
             () => {
 
-                blobSvg.style.transform =
-                    "translate(0,0) scale(1)";
+                const modal =
+                    document.getElementById(
+                        trigger.dataset.modal
+                    );
+
+                if (!modal) return;
+
+                modal.classList.add(
+                    "open"
+                );
 
             }
         );
 
     }
+);
 
 
 
-    /* =========================================================
-       SCROLL PARALLAX FOR HERO ART
-    ========================================================= */
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
 
-    let ticking =
-        false;
-
-
-    function updateParallax() {
-
-        if (
-            !heroArt
-            || reducedMotion
-        ) {
-
-            ticking =
-                false;
-
-            return;
-
-        }
-
-
-        const rect =
-            heroArt
-                .getBoundingClientRect();
-
-
-        if (
-            rect.bottom > 0
-            && rect.top
-                < window.innerHeight
-        ) {
-
-            const progress =
-                (
-                    rect.top
-                    - window.innerHeight / 2
-                )
-                / window.innerHeight;
-
-
-            heroArt.style
-                .translate =
-                    `0 ${progress * -14}px`;
-
-        }
-
-
-        ticking =
-            false;
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            if (!ticking) {
-
-                requestAnimationFrame(
-                    updateParallax
-                );
-
-                ticking =
-                    true;
-
-            }
-
-        },
-        {
-            passive: true
-        }
+const modals =
+    document.querySelectorAll(
+        ".modal"
     );
 
 
+modals.forEach(
+    modal => {
 
-    /* =========================================================
-       HORIZONTAL WHEEL ASSIST
-       Shift + wheel scrolls the galleries horizontally.
-       Normal wheel continues normal page scrolling.
-    ========================================================= */
+        const closeButton =
+            modal.querySelector(
+                ".modal-close"
+            );
 
-    document
-        .querySelectorAll(
-            ".horizontal-track"
-        )
-        .forEach(
-            track => {
 
-                track.addEventListener(
-                    "wheel",
-                    event => {
+        closeButton.addEventListener(
+            "click",
+            () => {
 
-                        if (
-                            !event.shiftKey
-                        ) {
-                            return;
-                        }
-
-                        event.preventDefault();
-
-                        track.scrollLeft +=
-                            event.deltaY;
-
-                    },
-                    {
-                        passive: false
-                    }
+                modal.classList.remove(
+                    "open"
                 );
 
             }
         );
+
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    modal.classList.remove(
+                        "open"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key !== "Escape"
+        ) {
+            return;
+        }
+
+
+        modals.forEach(
+            modal => {
+
+                modal.classList.remove(
+                    "open"
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "lightbox"
+            )
+            .classList
+            .remove(
+                "open"
+            );
+
+    }
+);
+
+
+
+/* =========================================================
+   PORTFOLIO IMAGE LIGHTBOX
+========================================================= */
+
+const galleryItems =
+    document.querySelectorAll(
+        ".gallery-item"
+    );
+
+const lightbox =
+    document.getElementById(
+        "lightbox"
+    );
+
+const lightboxImage =
+    document.getElementById(
+        "lightboxImage"
+    );
+
+const lightboxClose =
+    document.getElementById(
+        "lightboxClose"
+    );
+
+
+galleryItems.forEach(
+    item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                lightboxImage.src =
+                    item.dataset.image;
+
+                lightbox.classList.add(
+                    "open"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+lightboxClose.addEventListener(
+    "click",
+    () => {
+
+        lightbox.classList.remove(
+            "open"
+        );
+
+    }
+);
+
+
+lightbox.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === lightbox
+        ) {
+
+            lightbox.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
 
 </script>
 
