@@ -25,27 +25,33 @@
 <style>
 
 /* =========================================================
-   THEME
+   COLOR SYSTEM
+   Inspired by the teal / green references
 ========================================================= */
 
 :root {
-    --bg: #070c09;
 
-    --panel: #101713;
-    --panel-hover: #162019;
-    --panel-2: #151e19;
+    --bg: #02353C;
+    --bg-soft: #074249;
 
-    --text: #f3f6f3;
-    --muted: #a5b0a8;
-    --muted-2: #75827a;
+    --panel: #0A4146;
+    --panel-hover: #105158;
+    --panel-soft: #0C4A50;
 
-    --green: #84dd91;
-    --green-2: #53ba69;
-    --green-dark: #21643e;
+    --text: #F5FFFD;
 
-    --blue: #123e72;
+    --muted: #C1DDD8;
+    --muted-2: #8FB8B3;
 
-    --line: rgba(255,255,255,.095);
+    --mint: #C1F6ED;
+
+    --green: #2EAF7D;
+    --green-2: #449342;
+    --green-bright: #58DE8A;
+
+    --aqua: #3FD0C9;
+
+    --line: rgba(193,246,237,.15);
 
     --radius: 29px;
 }
@@ -73,15 +79,20 @@ body {
     background:
         radial-gradient(
             circle at 0% 0%,
-            rgba(80,190,104,.055),
-            transparent 32%
+            rgba(63,208,201,.13),
+            transparent 30%
         ),
         radial-gradient(
             circle at 100% 100%,
-            rgba(30,80,145,.065),
-            transparent 32%
+            rgba(46,175,125,.15),
+            transparent 35%
         ),
-        var(--bg);
+        linear-gradient(
+            145deg,
+            #02353C,
+            #03383E 55%,
+            #063C3F
+        );
 
     color: var(--text);
 
@@ -152,7 +163,7 @@ img {
 
     gap: 9px;
 
-    color: var(--green);
+    color: var(--green-bright);
 
     font-size: .69rem;
     font-weight: 900;
@@ -174,6 +185,7 @@ img {
 
 .dashboard {
     min-height: 0;
+
     flex: 1;
 
     display: grid;
@@ -190,7 +202,7 @@ img {
 
 
 /* =========================================================
-   PANEL
+   PANELS
 ========================================================= */
 
 .panel {
@@ -212,8 +224,8 @@ img {
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.018),
-            transparent 50%
+            rgba(255,255,255,.025),
+            transparent 45%
         ),
         var(--panel);
 
@@ -223,39 +235,44 @@ img {
 
     isolation: isolate;
 
+    box-shadow:
+        0 18px 38px
+        rgba(0,25,28,.13);
+
     transition:
         transform .34s cubic-bezier(.2,.8,.2,1),
         border-color .3s ease,
-        background .3s ease;
+        background .3s ease,
+        box-shadow .3s ease;
 }
 
 .panel:hover {
-    transform: translateY(-4px);
-
-    border-color:
-        rgba(132,221,145,.22);
+    transform:
+        translateY(-4px);
 
     background:
         var(--panel-hover);
+
+    border-color:
+        rgba(88,222,138,.32);
+
+    box-shadow:
+        0 22px 48px
+        rgba(0,20,23,.23);
 }
 
 .panel:focus-visible {
-    outline: 2px solid var(--green);
-    outline-offset: 3px;
+    outline:
+        2px solid
+        var(--green-bright);
+
+    outline-offset:
+        3px;
 }
 
 
 /* =========================================================
-   DESKTOP PANEL SIZES
-
-   TOP:
-   Profile 7/12
-   Projects 5/12
-
-   BOTTOM:
-   Skills 4/12
-   Selected Work 4/12
-   Mini Projects 4/12
+   PANEL LAYOUT
 ========================================================= */
 
 .panel-profile {
@@ -278,22 +295,35 @@ img {
 ========================================================= */
 
 .panel-kicker {
+    position: relative;
+
+    z-index: 5;
+
     display: inline-flex;
     align-items: center;
 
     gap: 7px;
 
-    color: var(--green);
+    color:
+        var(--green-bright);
 
-    font-size: .64rem;
-    font-weight: 900;
+    font-size:
+        .64rem;
 
-    text-transform: uppercase;
-    letter-spacing: .14em;
+    font-weight:
+        900;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .14em;
 }
 
 .panel-arrow {
     position: absolute;
+
+    z-index: 20;
 
     top: 22px;
     right: 23px;
@@ -302,38 +332,62 @@ img {
     height: 40px;
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: var(--muted-2);
+    color:
+        var(--mint);
+
+    background:
+        rgba(2,53,60,.25);
 
     transition:
         transform .3s ease,
         color .3s ease,
-        border-color .3s ease;
+        border-color .3s ease,
+        background .3s ease;
 }
 
-.panel:hover .panel-arrow {
-    transform: rotate(45deg);
+.panel:hover
+.panel-arrow {
+    transform:
+        rotate(45deg);
 
-    color: var(--green);
+    color:
+        white;
 
     border-color:
-        rgba(132,221,145,.24);
+        rgba(88,222,138,.35);
+
+    background:
+        rgba(46,175,125,.16);
 }
 
 
 /* =========================================================
-   SHARED TITLE
+   SHARED TITLES
+
+   IMPORTANT:
+   No punctuation on closed panels.
+   Punctuation gets introduced once expanded.
 ========================================================= */
 
 .shared-title {
+    position: relative;
+
+    z-index: 5;
+
     margin: 0;
+
+    color:
+        var(--text);
 
     font-weight: 900;
 
@@ -341,7 +395,8 @@ img {
 
     line-height: .91;
 
-    transform-origin: top left;
+    transform-origin:
+        top left;
 }
 
 .title-line {
@@ -350,54 +405,44 @@ img {
 
 .shared-title .accent,
 .flying-title .accent {
-    color: var(--green);
+    color:
+        var(--green-bright);
 }
 
 
-/* profile */
+/* homepage title sizes */
 
-.panel-profile .shared-title {
+.panel-profile
+.shared-title {
     font-size:
-        clamp(2.8rem, 5.6vw, 6.8rem);
+        clamp(2.8rem, 5.55vw, 6.8rem);
 }
 
-
-/* projects */
-
-.panel-projects .shared-title {
+.panel-projects
+.shared-title {
     font-size:
         clamp(2.15rem, 4vw, 4.7rem);
 }
 
-
-/* skills */
-
-.panel-skills .shared-title {
+.panel-skills
+.shared-title {
     font-size:
-        clamp(1.45rem, 2.55vw, 3rem);
+        clamp(1.38rem, 2.45vw, 2.9rem);
 
     line-height: 1;
 }
 
-
-/* selected work */
-
-.panel-gallery .shared-title {
-    font-size:
-        clamp(1.8rem, 3vw, 3.5rem);
-}
-
-
-/* mini projects */
-
-.panel-mini .shared-title {
+.panel-gallery
+.shared-title,
+.panel-mini
+.shared-title {
     font-size:
         clamp(1.8rem, 3vw, 3.5rem);
 }
 
 
 /* =========================================================
-   PROFILE
+   PROFILE PANEL
 ========================================================= */
 
 .panel-profile {
@@ -407,11 +452,23 @@ img {
 
     background:
         radial-gradient(
-            circle at 83% 15%,
-            rgba(132,221,145,.10),
-            transparent 41%
+            circle at 82% 15%,
+            rgba(63,208,201,.15),
+            transparent 40%
         ),
-        var(--panel);
+        linear-gradient(
+            140deg,
+            #0A4146,
+            #0B484A
+        );
+}
+
+.profile-content {
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 66%;
 }
 
 .profile-copy {
@@ -419,7 +476,8 @@ img {
 
     max-width: 680px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size:
         clamp(.82rem, 1.1vw, 1rem);
@@ -428,76 +486,290 @@ img {
 }
 
 .bottom-note {
-    color: var(--muted-2);
+    position: relative;
+
+    z-index: 5;
+
+    color:
+        var(--muted-2);
 
     font-size: .67rem;
 }
 
 
-/* animated profile ring */
+/* =========================================================
+   PROFILE PLANETARY / ORGANIC VISUAL
+========================================================= */
 
-.profile-ring {
+.planet-system {
     position: absolute;
 
-    width: 270px;
-    height: 270px;
+    z-index: 1;
 
-    right: -62px;
-    bottom: -90px;
+    right: 2%;
+    top: 7%;
+
+    width: 38%;
+    height: 86%;
+
+    pointer-events: none;
+}
+
+
+/* orbits */
+
+.orbit {
+    position: absolute;
 
     border:
         1px solid
-        rgba(132,221,145,.10);
+        rgba(193,246,237,.12);
 
     border-radius: 50%;
 
     animation:
-        spinRing 18s linear infinite;
+        orbitRotate linear infinite;
 }
 
-.profile-ring::before {
-    content: "";
+.orbit-one {
+    width: 280px;
+    height: 280px;
 
-    position: absolute;
+    right: 7%;
+    top: 5%;
 
-    inset: 48px;
-
-    border:
-        1px solid
-        rgba(132,221,145,.13);
-
-    border-radius: 50%;
+    animation-duration:
+        19s;
 }
 
-.profile-ring::after {
-    content: "";
+.orbit-two {
+    width: 205px;
+    height: 205px;
 
-    position: absolute;
+    right: 19%;
+    top: 18%;
 
-    width: 11px;
-    height: 11px;
+    animation-duration:
+        14s;
 
-    left: 11px;
-    top: 128px;
-
-    border-radius: 50%;
-
-    background: var(--green);
-
-    box-shadow:
-        0 0 20px
-        rgba(132,221,145,.45);
+    animation-direction:
+        reverse;
 }
 
-@keyframes spinRing {
+.orbit-three {
+    width: 345px;
+    height: 175px;
+
+    right: -3%;
+    bottom: 2%;
+
+    transform:
+        rotate(-22deg);
+
+    animation-duration:
+        24s;
+}
+
+@keyframes orbitRotate {
     to {
-        transform: rotate(360deg);
+        transform:
+            rotate(360deg);
     }
 }
 
 
+/* planet */
+
+.planet {
+    position: absolute;
+
+    border-radius: 50%;
+
+    box-shadow:
+        inset -25px -28px 50px
+        rgba(1,63,59,.23),
+        inset 18px 18px 34px
+        rgba(255,255,255,.16),
+        0 18px 35px
+        rgba(0,30,30,.18);
+
+    filter:
+        saturate(.95);
+
+    animation:
+        planetFloat
+        ease-in-out
+        infinite alternate;
+}
+
+.planet-large {
+    width: 155px;
+    height: 155px;
+
+    right: 17%;
+    top: 10%;
+
+    background:
+        radial-gradient(
+            circle at 32% 25%,
+            #C1F6ED,
+            #5DD596 42%,
+            #2EAF7D 72%,
+            #196750 100%
+        );
+
+    animation-duration:
+        7.5s;
+}
+
+.planet-medium {
+    width: 108px;
+    height: 108px;
+
+    right: 2%;
+    top: 51%;
+
+    background:
+        radial-gradient(
+            circle at 32% 25%,
+            #94DEA5,
+            #53C884 50%,
+            #257E63 100%
+        );
+
+    animation-duration:
+        6.3s;
+
+    animation-delay:
+        -2s;
+}
+
+.planet-small {
+    width: 62px;
+    height: 62px;
+
+    right: 44%;
+    top: 57%;
+
+    background:
+        radial-gradient(
+            circle at 34% 26%,
+            #C1F6ED,
+            #3FD0C9 47%,
+            #18776F 100%
+        );
+
+    animation-duration:
+        5s;
+
+    animation-delay:
+        -1.4s;
+}
+
+.planet-tiny {
+    width: 29px;
+    height: 29px;
+
+    right: 49%;
+    top: 18%;
+
+    background:
+        #58DE8A;
+
+    box-shadow:
+        0 0 22px
+        rgba(88,222,138,.34);
+
+    animation-duration:
+        4.3s;
+}
+
+
+@keyframes planetFloat {
+
+    from {
+        transform:
+            translate3d(0,-8px,0)
+            scale(.98);
+    }
+
+    to {
+        transform:
+            translate3d(9px,11px,0)
+            scale(1.04);
+    }
+
+}
+
+
+/* small moving particles */
+
+.planet-particle {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--mint);
+
+    opacity:
+        .5;
+
+    animation:
+        particlePulse
+        3s ease-in-out
+        infinite;
+}
+
+.pp1 {
+    right: 52%;
+    top: 38%;
+}
+
+.pp2 {
+    right: 5%;
+    top: 32%;
+
+    animation-delay:
+        -1s;
+}
+
+.pp3 {
+    right: 32%;
+    bottom: 9%;
+
+    animation-delay:
+        -2s;
+}
+
+@keyframes particlePulse {
+
+    0%,
+    100% {
+        transform:
+            scale(.7);
+
+        opacity:
+            .2;
+    }
+
+    50% {
+        transform:
+            scale(1.45);
+
+        opacity:
+            .9;
+    }
+
+}
+
+
 /* =========================================================
-   PROJECTS PANEL
+   PROJECT PANEL
 ========================================================= */
 
 .panel-projects {
@@ -508,6 +780,7 @@ img {
 
 .project-preview {
     display: grid;
+
     gap: 7px;
 }
 
@@ -515,22 +788,26 @@ img {
     padding-top: 9px;
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
     display: flex;
     justify-content: space-between;
 
     gap: 12px;
 
-    font-size: .68rem;
+    font-size:
+        .68rem;
 }
 
 .preview-line strong {
-    color: var(--text);
+    color:
+        var(--text);
 }
 
 .preview-line span {
-    color: var(--muted-2);
+    color:
+        var(--muted-2);
 }
 
 
@@ -546,8 +823,8 @@ img {
     background:
         radial-gradient(
             circle at 10% 100%,
-            rgba(20,68,125,.16),
-            transparent 42%
+            rgba(63,208,201,.12),
+            transparent 43%
         ),
         var(--panel);
 }
@@ -564,14 +841,20 @@ img {
         6px 9px;
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    border-radius: 999px;
+    border-radius:
+        999px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: .62rem;
-    font-weight: 720;
+    font-size:
+        .62rem;
+
+    font-weight:
+        720;
 }
 
 
@@ -587,6 +870,7 @@ img {
 
 .gallery-panel-copy {
     position: relative;
+
     z-index: 3;
 }
 
@@ -609,11 +893,14 @@ img {
     overflow: hidden;
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    border-radius: 12px;
+    border-radius:
+        12px;
 
-    background: #0b110e;
+    background:
+        #07383D;
 }
 
 .thumb img {
@@ -626,19 +913,22 @@ img {
         transform .35s ease;
 }
 
-.panel-gallery:hover .thumb:nth-child(1) img {
+.panel-gallery:hover
+.thumb:nth-child(1) img {
     transform:
         scale(1.08)
         translateY(-2px);
 }
 
-.panel-gallery:hover .thumb:nth-child(2) img {
+.panel-gallery:hover
+.thumb:nth-child(2) img {
     transform:
         scale(1.08)
         translateY(2px);
 }
 
-.panel-gallery:hover .thumb:nth-child(3) img {
+.panel-gallery:hover
+.thumb:nth-child(3) img {
     transform:
         scale(1.08)
         translateX(2px);
@@ -646,7 +936,7 @@ img {
 
 
 /* =========================================================
-   MINI PROJECTS PANEL
+   MINI PROJECT PANEL
 ========================================================= */
 
 .panel-mini {
@@ -656,14 +946,9 @@ img {
 
     background:
         radial-gradient(
-            circle at 88% 7%,
-            rgba(132,221,145,.095),
-            transparent 38%
-        ),
-        radial-gradient(
-            circle at 0% 100%,
-            rgba(24,76,143,.13),
-            transparent 42%
+            circle at 90% 8%,
+            rgba(88,222,138,.12),
+            transparent 40%
         ),
         var(--panel);
 }
@@ -684,23 +969,29 @@ img {
     padding-top: 8px;
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size: .64rem;
 }
 
 .mini-preview-row strong {
-    color: var(--text);
+    color:
+        var(--text);
 
-    font-weight: 760;
+    font-weight:
+        760;
 }
 
 .mini-preview-row i {
-    color: var(--green);
+    color:
+        var(--green-bright);
 
-    font-size: .58rem;
+    font-size:
+        .58rem;
 }
 
 
@@ -716,13 +1007,13 @@ img {
     z-index: 4990;
 
     background:
-        rgba(2,7,4,.72);
+        rgba(1,29,33,.72);
 
     backdrop-filter:
-        blur(12px);
+        blur(14px);
 
     -webkit-backdrop-filter:
-        blur(12px);
+        blur(14px);
 
     opacity: 0;
 
@@ -747,14 +1038,19 @@ img {
     overflow: hidden;
 
     border:
-        1px solid var(--line);
+        1px solid
+        rgba(193,246,237,.17);
 
     background:
-        #0d1510;
+        linear-gradient(
+            145deg,
+            #074047,
+            #07383E
+        );
 
     box-shadow:
-        0 35px 100px
-        rgba(0,0,0,.60);
+        0 38px 110px
+        rgba(0,20,24,.58);
 
     will-change:
         left,
@@ -764,16 +1060,16 @@ img {
         border-radius;
 
     transition:
-        left .58s cubic-bezier(.2,.8,.2,1),
-        top .58s cubic-bezier(.2,.8,.2,1),
-        width .58s cubic-bezier(.2,.8,.2,1),
-        height .58s cubic-bezier(.2,.8,.2,1),
-        border-radius .58s cubic-bezier(.2,.8,.2,1);
+        left .6s cubic-bezier(.2,.8,.2,1),
+        top .6s cubic-bezier(.2,.8,.2,1),
+        width .6s cubic-bezier(.2,.8,.2,1),
+        height .6s cubic-bezier(.2,.8,.2,1),
+        border-radius .6s cubic-bezier(.2,.8,.2,1);
 }
 
 
 /* =========================================================
-   FLYING SHARED TITLE
+   FLYING / SHARED TITLE
 ========================================================= */
 
 .flying-title {
@@ -785,15 +1081,20 @@ img {
 
     pointer-events: none;
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    font-weight: 900;
+    font-weight:
+        900;
 
-    line-height: .91;
+    line-height:
+        .91;
 
-    letter-spacing: -.064em;
+    letter-spacing:
+        -.064em;
 
-    transform-origin: top left;
+    transform-origin:
+        top left;
 
     will-change:
         left,
@@ -803,23 +1104,68 @@ img {
         width;
 
     transition:
-        left .58s cubic-bezier(.2,.8,.2,1),
-        top .58s cubic-bezier(.2,.8,.2,1),
-        font-size .58s cubic-bezier(.2,.8,.2,1),
-        line-height .58s cubic-bezier(.2,.8,.2,1),
-        width .58s cubic-bezier(.2,.8,.2,1);
+        left .6s cubic-bezier(.2,.8,.2,1),
+        top .6s cubic-bezier(.2,.8,.2,1),
+        font-size .6s cubic-bezier(.2,.8,.2,1),
+        line-height .6s cubic-bezier(.2,.8,.2,1),
+        width .6s cubic-bezier(.2,.8,.2,1);
 }
 
 
-/* When the title reaches the opened panel,
-   the separate big lines become a compact header. */
+/* reflow title when opened */
 
-.flying-title.compact .title-line {
+.flying-title.compact
+.title-line {
     display: inline;
 }
 
-.flying-title.compact .title-line::after {
+
+/* ---------------------------------------------------------
+   punctuation ONLY when opened
+--------------------------------------------------------- */
+
+/* Profile: no periods */
+.flying-title[data-key="profile"].compact
+.title-line:not(:last-child)::after {
     content: " ";
+}
+
+
+/* Projects */
+.flying-title[data-key="projects"].compact
+.title-line:not(:last-child)::after {
+    content: " ";
+}
+
+.flying-title[data-key="projects"].compact
+.title-line:last-child::after {
+    content: ".";
+}
+
+
+/* Skills */
+.flying-title[data-key="skills"].compact
+.title-line::after {
+    content: ". ";
+}
+
+
+/* Gallery */
+.flying-title[data-key="gallery"].compact
+.title-line::after {
+    content: ". ";
+}
+
+
+/* Mini */
+.flying-title[data-key="mini"].compact
+.title-line:not(:last-child)::after {
+    content: " ";
+}
+
+.flying-title[data-key="mini"].compact
+.title-line:last-child::after {
+    content: ".";
 }
 
 
@@ -836,18 +1182,18 @@ img {
     overflow-x: hidden;
 
     padding:
-        108px
-        clamp(24px,4vw,60px)
-        clamp(32px,4vw,60px);
+        130px
+        clamp(23px,4vw,60px)
+        44px;
 
     opacity: 0;
 
     transform:
-        translateY(16px);
+        translateY(18px);
 
     transition:
-        opacity .28s ease .34s,
-        transform .4s ease .30s;
+        opacity .3s ease .37s,
+        transform .42s ease .34s;
 }
 
 .expansion.content-visible
@@ -868,7 +1214,7 @@ img {
 
 .expanded-content::-webkit-scrollbar-thumb {
     background:
-        #3b4940;
+        rgba(193,246,237,.32);
 
     border-radius: 10px;
 }
@@ -879,34 +1225,45 @@ img {
 ========================================================= */
 
 .expanded-header-row {
+    position: relative;
+
+    z-index: 4;
+
     display: flex;
+    align-items: end;
     justify-content: space-between;
-    align-items: start;
 
-    gap: 20px;
+    gap: 25px;
 
-    margin-bottom: 36px;
+    margin-bottom: 30px;
 }
 
 .expanded-kicker {
-    color: var(--green);
+    color:
+        var(--green-bright);
 
     font-size: .73rem;
-    font-weight: 900;
 
-    letter-spacing: .15em;
-    text-transform: uppercase;
+    font-weight:
+        900;
+
+    letter-spacing:
+        .15em;
+
+    text-transform:
+        uppercase;
 }
 
 .expanded-description {
-    max-width: 800px;
+    max-width: 830px;
 
-    margin-top: 10px;
+    margin-top: 9px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size:
-        clamp(.96rem,1.15vw,1.08rem);
+        clamp(.96rem,1.2vw,1.1rem);
 
     line-height: 1.7;
 }
@@ -921,18 +1278,20 @@ img {
 
     z-index: 5200;
 
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
 
     border:
-        1px solid var(--line);
+        1px solid
+        rgba(193,246,237,.18);
 
     border-radius: 50%;
 
     background:
-        rgba(15,24,18,.92);
+        rgba(2,53,60,.82);
 
-    color: white;
+    color:
+        white;
 
     cursor: pointer;
 
@@ -941,9 +1300,12 @@ img {
     transform:
         scale(.8);
 
+    backdrop-filter:
+        blur(15px);
+
     transition:
-        opacity .25s ease .38s,
-        transform .35s ease .36s,
+        opacity .25s ease .39s,
+        transform .35s ease .37s,
         background .2s ease;
 }
 
@@ -956,33 +1318,34 @@ img {
 
 .expansion-close:hover {
     background:
-        var(--panel-hover);
+        var(--green);
 }
 
 
 /* =========================================================
-   MOVING ORGANIC ELEMENT INSIDE OPENED PANEL
+   MOVING BLOBS INSIDE EXPANDED PANELS
 ========================================================= */
 
 .expanded-blob {
     position: absolute;
 
-    width: 330px;
-    height: 250px;
+    width: 350px;
+    height: 270px;
 
-    right: -90px;
-    top: -60px;
+    right: -85px;
+    top: -70px;
 
-    opacity: .14;
+    opacity: .16;
 
     pointer-events: none;
 
     background:
         radial-gradient(
             circle at 30% 25%,
-            #a8e7ab,
-            #68c77c 46%,
-            #286d46 100%
+            #C1F6ED,
+            #58DE8A 43%,
+            #2EAF7D 68%,
+            #176B57 100%
         );
 
     border-radius:
@@ -1005,9 +1368,10 @@ img {
     right: 20%;
     top: 100px;
 
-    opacity: .08;
+    opacity: .12;
 
-    background: var(--green);
+    background:
+        var(--aqua);
 
     border-radius:
         57% 43% 39% 61%
@@ -1015,8 +1379,8 @@ img {
         43% 55% 45% 57%;
 
     animation:
-        expandedBlobSmall 6.5s
-        ease-in-out
+        expandedBlobSmall
+        6.5s ease-in-out
         infinite alternate;
 }
 
@@ -1073,343 +1437,313 @@ img {
             rotate(35deg)
             scale(1.18);
     }
+
 }
 
 
 /* =========================================================
-   CONTENT GRID
+   GENERAL TAGS
 ========================================================= */
 
-.content-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap: 14px;
-}
-
-.content-card {
-    min-height: 200px;
-
-    padding: 24px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius: 20px;
-
-    background:
-        var(--panel);
-
-    transition:
-        transform .28s ease,
-        border-color .28s ease,
-        background .28s ease;
-}
-
-.content-card:hover {
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(132,221,145,.23);
-
-    background:
-        var(--panel-hover);
-}
-
-.content-card h3 {
-    margin:
-        13px 0 0;
-
-    font-size:
-        clamp(1.15rem,1.65vw,1.45rem);
-
-    line-height: 1.25;
-}
-
-.content-card p {
-    margin:
-        10px 0 0;
-
-    color: var(--muted);
-
-    font-size: .9rem;
-
-    line-height: 1.65;
-}
-
-.card-icon {
-    width: 43px;
-    height: 43px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 12px;
-
-    background:
-        rgba(132,221,145,.10);
-
-    color: var(--green);
-}
-
-.card-label {
-    color: var(--green);
-
-    font-size: .7rem;
-    font-weight: 900;
-
-    letter-spacing: .11em;
-    text-transform: uppercase;
-}
-
 .tags {
-    margin-top: 17px;
+    margin-top: 19px;
 
     display: flex;
     flex-wrap: wrap;
 
-    gap: 6px;
+    gap: 7px;
 }
 
 .tags span {
     padding:
-        6px 9px;
+        7px 10px;
 
-    border-radius: 999px;
+    border-radius:
+        999px;
 
     background:
-        var(--panel-2);
+        rgba(193,246,237,.07);
 
     color:
-        #c1cac4;
-
-    font-size: .69rem;
-    font-weight: 720;
-}
-
-
-/* =========================================================
-   CONTACT CARDS
-========================================================= */
-
-.contact-card-link {
-    min-height: 160px;
-
-    padding: 24px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    border:
-        1px solid var(--line);
-
-    border-radius: 20px;
-
-    background:
-        var(--panel);
-
-    color: inherit;
-
-    text-decoration: none;
-
-    transition:
-        transform .28s ease,
-        border-color .28s ease,
-        background .28s ease;
-}
-
-.contact-card-link:hover {
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(132,221,145,.25);
-
-    background:
-        var(--panel-hover);
-}
-
-.contact-card-link i {
-    color: var(--green);
-
-    font-size: 1.25rem;
-}
-
-.contact-small {
-    color: var(--muted-2);
-
-    font-size: .7rem;
-    font-weight: 800;
-
-    text-transform: uppercase;
-    letter-spacing: .1em;
-}
-
-.contact-large {
-    margin-top: 8px;
+        var(--mint);
 
     font-size:
-        clamp(.95rem,1.4vw,1.2rem);
+        .71rem;
 
-    font-weight: 780;
-
-    word-break: break-word;
+    font-weight:
+        720;
 }
 
 
 /* =========================================================
-   MINI PROJECT LINK CARDS
+   HORIZONTAL / ITUNES-STYLE CAROUSEL
 ========================================================= */
 
-.mini-project-card {
+.carousel-section {
     position: relative;
 
-    min-height: 225px;
+    z-index: 3;
+}
 
-    padding: 25px;
-
+.carousel-toolbar {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 
-    border:
-        1px solid var(--line);
+    gap: 20px;
 
-    border-radius: 20px;
-
-    background:
-        var(--panel);
-
-    color: inherit;
-
-    text-decoration: none;
-
-    transition:
-        transform .28s ease,
-        border-color .28s ease,
-        background .28s ease;
+    margin-bottom: 18px;
 }
 
-.mini-project-card:hover {
-    transform:
-        translateY(-4px);
+.carousel-hint {
+    color:
+        var(--muted-2);
 
-    border-color:
-        rgba(132,221,145,.27);
-
-    background:
-        var(--panel-hover);
+    font-size: .75rem;
 }
 
-.mini-project-icon {
-    width: 45px;
-    height: 45px;
+.carousel-controls {
+    display: flex;
+
+    gap: 8px;
+}
+
+.carousel-arrow {
+    width: 44px;
+    height: 44px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 13px;
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        50%;
+
+    color:
+        var(--text);
 
     background:
-        rgba(132,221,145,.10);
+        rgba(193,246,237,.06);
 
-    color: var(--green);
-
-    font-size: 1.05rem;
-}
-
-.mini-project-external {
-    position: absolute;
-
-    top: 24px;
-    right: 24px;
-
-    color: var(--muted-2);
-
-    font-size: .8rem;
+    cursor: pointer;
 
     transition:
-        color .2s ease,
-        transform .2s ease;
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
 }
 
-.mini-project-card:hover
-.mini-project-external {
-    color: var(--green);
-
+.carousel-arrow:hover {
     transform:
-        translate(2px,-2px);
+        scale(1.06);
+
+    background:
+        rgba(46,175,125,.18);
+
+    border-color:
+        rgba(88,222,138,.3);
 }
 
-.mini-project-card h3 {
-    margin:
-        22px 0 0;
+.card-carousel {
+    display: flex;
 
-    font-size:
-        clamp(1.2rem,1.8vw,1.55rem);
+    gap: 16px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding:
+        2px 4px 18px 2px;
+
+    scroll-snap-type:
+        x mandatory;
+
+    scroll-behavior:
+        smooth;
+
+    overscroll-behavior-x:
+        contain;
+
+    scrollbar-width:
+        none;
 }
 
-.mini-project-card p {
-    margin:
-        10px 0 0;
-
-    color: var(--muted);
-
-    font-size: .9rem;
-
-    line-height: 1.65;
+.card-carousel::-webkit-scrollbar {
+    display: none;
 }
 
 
 /* =========================================================
-   GALLERY
+   LARGE SCROLL CARDS
 ========================================================= */
 
-.gallery-grid {
-    display: grid;
+.scroll-card {
+    position: relative;
 
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
+    flex:
+        0 0
+        min(540px, 67vw);
+
+    min-height: 370px;
+
+    padding: 29px;
+
+    display: flex;
+    flex-direction: column;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(193,246,237,.045),
+            rgba(46,175,125,.018)
+        ),
+        var(--panel);
+
+    scroll-snap-align:
+        start;
+
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        background .28s ease;
+}
+
+.scroll-card:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(88,222,138,.30);
+
+    background:
+        var(--panel-hover);
+}
+
+.card-label {
+    color:
+        var(--green-bright);
+
+    font-size: .72rem;
+
+    font-weight: 900;
+
+    letter-spacing:
+        .11em;
+
+    text-transform:
+        uppercase;
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius:
+        14px;
+
+    background:
+        rgba(88,222,138,.12);
+
+    color:
+        var(--green-bright);
+
+    font-size:
+        1.15rem;
+}
+
+.scroll-card h3 {
+    margin:
+        22px 0 0;
+
+    font-size:
+        clamp(1.45rem, 2vw, 1.85rem);
+
+    line-height:
+        1.18;
+
+    letter-spacing:
+        -.03em;
+}
+
+.scroll-card p {
+    margin:
+        15px 0 0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        clamp(.95rem,1.1vw,1.03rem);
+
+    line-height:
+        1.72;
+}
+
+.scroll-card .tags {
+    margin-top: auto;
+
+    padding-top: 25px;
+}
+
+
+/* =========================================================
+   SKILL CARD SPECIAL
+========================================================= */
+
+.skill-card-title {
+    display: flex;
+    align-items: center;
 
     gap: 15px;
 }
 
-.gallery-item {
-    position: relative;
 
-    min-height: 300px;
+/* =========================================================
+   GALLERY CAROUSEL CARD
+========================================================= */
+
+.visual-card {
+    flex:
+        0 0
+        min(680px, 75vw);
+
+    min-height:
+        500px;
+
+    padding: 0;
 
     overflow: hidden;
 
-    border:
-        1px solid var(--line);
+    cursor: zoom-in;
+}
 
-    border-radius: 20px;
+.visual-image {
+    position: relative;
+
+    flex: 1;
+
+    min-height: 400px;
 
     background:
-        #101613;
-
-    cursor: zoom-in;
-
-    transition:
-        transform .28s ease,
-        border-color .28s ease;
+        rgba(0,30,34,.3);
 }
 
-.gallery-item:hover {
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(132,221,145,.25);
-}
-
-.gallery-item img {
+.visual-image img {
     position: absolute;
 
     inset: 0;
@@ -1419,31 +1753,339 @@ img {
 
     object-fit: contain;
 
-    padding: 13px;
+    padding: 21px;
+
+    transition:
+        transform .45s ease;
 }
 
-.gallery-caption {
-    position: absolute;
+.visual-card:hover
+.visual-image img {
+    transform:
+        scale(1.025);
+}
 
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-
-    z-index: 3;
-
+.visual-caption {
     padding:
-        12px 14px;
-
-    border-radius: 13px;
+        19px 23px 23px;
 
     background:
-        rgba(4,10,6,.78);
+        rgba(5,61,65,.92);
+}
 
-    backdrop-filter:
-        blur(12px);
+.visual-caption
+.card-label {
+    margin-bottom: 6px;
+}
 
-    font-size: .79rem;
-    font-weight: 760;
+.visual-caption h3 {
+    margin: 0;
+
+    font-size:
+        1.35rem;
+}
+
+
+/* =========================================================
+   CONTACT CARDS
+========================================================= */
+
+.contact-grid {
+    position: relative;
+
+    z-index: 4;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 14px;
+}
+
+.contact-card-link {
+    min-height: 165px;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(7,66,73,.72);
+
+    color:
+        inherit;
+
+    text-decoration: none;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+}
+
+.contact-card-link:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(88,222,138,.32);
+
+    background:
+        var(--panel-hover);
+}
+
+.contact-card-link i {
+    color:
+        var(--green-bright);
+
+    font-size: 1.3rem;
+}
+
+.contact-small {
+    color:
+        var(--muted-2);
+
+    font-size: .72rem;
+
+    font-weight: 800;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing: .1em;
+}
+
+.contact-large {
+    margin-top: 8px;
+
+    font-size:
+        clamp(1rem,1.5vw,1.25rem);
+
+    font-weight: 780;
+
+    word-break:
+        break-word;
+}
+
+
+/* =========================================================
+   MINI PROJECT CARDS
+========================================================= */
+
+.mini-card {
+    flex:
+        0 0
+        min(560px, 70vw);
+
+    min-height:
+        430px;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+.mini-card-image {
+    position: relative;
+
+    height: 230px;
+
+    overflow: hidden;
+
+    background:
+        #08373C;
+}
+
+.mini-card-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.mini-card-body {
+    padding:
+        23px 25px 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.mini-card-body h3 {
+    margin:
+        9px 0 0;
+}
+
+.external-project {
+    position: absolute;
+
+    right: 22px;
+    top: 22px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(2,53,60,.82);
+
+    color:
+        white;
+
+    border:
+        1px solid
+        rgba(193,246,237,.2);
+
+    z-index: 5;
+}
+
+
+/* sankey preview */
+
+.sankey-preview {
+    position: relative;
+
+    height: 230px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #073940,
+            #0B4B4C
+        );
+}
+
+.sankey-node {
+    position: absolute;
+
+    width: 20px;
+
+    border-radius: 5px;
+
+    background:
+        var(--green-bright);
+
+    box-shadow:
+        0 0 18px
+        rgba(88,222,138,.18);
+}
+
+.sn1 {
+    height: 90px;
+
+    left: 12%;
+    top: 65px;
+}
+
+.sn2 {
+    height: 130px;
+
+    left: 44%;
+    top: 46px;
+
+    background:
+        var(--aqua);
+}
+
+.sn3 {
+    height: 105px;
+
+    right: 12%;
+    top: 70px;
+
+    background:
+        var(--mint);
+}
+
+.sankey-preview svg {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/* notedump preview */
+
+.notedump-preview {
+    position: relative;
+
+    height: 230px;
+
+    padding: 28px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            140deg,
+            #064047,
+            #0E5554
+        );
+}
+
+.note-sheet {
+    width: 72%;
+    height: 170px;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background:
+        var(--mint);
+
+    color:
+        #02353C;
+
+    box-shadow:
+        18px 16px 0
+        rgba(46,175,125,.26);
+}
+
+.note-line {
+    height: 8px;
+
+    margin-bottom: 11px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(2,53,60,.16);
+}
+
+.note-line.short {
+    width: 60%;
+}
+
+.note-line.mid {
+    width: 78%;
 }
 
 
@@ -1465,10 +2107,10 @@ img {
     padding: 22px;
 
     background:
-        rgba(0,0,0,.94);
+        rgba(0,26,29,.95);
 
     backdrop-filter:
-        blur(14px);
+        blur(15px);
 }
 
 .lightbox.open {
@@ -1481,7 +2123,7 @@ img {
 
     object-fit: contain;
 
-    border-radius: 13px;
+    border-radius: 14px;
 }
 
 .lightbox-close {
@@ -1490,19 +2132,21 @@ img {
     top: 19px;
     right: 19px;
 
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
 
     border:
         1px solid
-        rgba(255,255,255,.16);
+        rgba(193,246,237,.22);
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
     background:
-        rgba(255,255,255,.07);
+        rgba(2,53,60,.82);
 
-    color: white;
+    color:
+        white;
 
     cursor: pointer;
 }
@@ -1538,12 +2182,10 @@ img {
         display: none;
     }
 
-    /*
-       Phone:
-       row 1: Profile / Projects
-       row 2: Skills / Selected Work
-       row 3: Mini Projects full width
-    */
+
+    /* -----------------------------------------------------
+       MOBILE HOME LAYOUT
+    ----------------------------------------------------- */
 
     .dashboard {
         grid-template-columns:
@@ -1559,12 +2201,15 @@ img {
     .panel-projects,
     .panel-skills,
     .panel-gallery {
-        grid-column: span 1;
+        grid-column:
+            span 1;
     }
 
     .panel-mini {
-        grid-column: span 2;
+        grid-column:
+            span 2;
     }
+
 
     .panel {
         padding: 14px;
@@ -1588,69 +2233,104 @@ img {
         font-size: .64rem;
     }
 
-    .panel-profile .shared-title {
+
+    /* -----------------------------------------------------
+       MOBILE HOME TITLES
+    ----------------------------------------------------- */
+
+    .panel-profile
+    .shared-title {
         font-size:
-            clamp(1.8rem,10vw,3.2rem);
+            clamp(1.75rem,9.8vw,3.1rem);
     }
 
-    .panel-projects .shared-title {
+    .panel-projects
+    .shared-title {
         font-size:
-            clamp(1.35rem,7vw,2.25rem);
+            clamp(1.32rem,6.7vw,2.15rem);
     }
 
-    .panel-skills .shared-title {
+    .panel-skills
+    .shared-title {
         font-size:
-            clamp(.88rem,4.35vw,1.35rem);
+            clamp(.82rem,4.15vw,1.27rem);
 
-        line-height: 1.02;
+        line-height: 1.03;
     }
 
-    .panel-gallery .shared-title {
+    .panel-gallery
+    .shared-title {
         font-size:
-            clamp(1.3rem,6.6vw,2rem);
+            clamp(1.25rem,6.2vw,1.95rem);
     }
 
-    .panel-mini .shared-title {
+    .panel-mini
+    .shared-title {
         font-size:
-            clamp(1.25rem,6vw,2rem);
+            clamp(1.2rem,5.8vw,1.9rem);
+    }
+
+
+    .profile-content {
+        max-width: 86%;
     }
 
     .profile-copy {
         margin-top: 7px;
 
-        max-width: 90%;
+        font-size: .54rem;
 
-        font-size: .55rem;
-
-        line-height: 1.35;
+        line-height: 1.36;
     }
 
     .bottom-note {
-        font-size: .48rem;
+        font-size: .47rem;
     }
 
-    .profile-ring {
-        width: 110px;
-        height: 110px;
 
-        right: -42px;
-        bottom: -42px;
+    /* mobile planets */
+
+    .planet-system {
+        width: 52%;
+        height: 60%;
+
+        right: -16%;
+        top: 38%;
+
+        opacity: .6;
     }
 
-    .profile-ring::before {
-        inset: 20px;
+    .planet-large {
+        width: 85px;
+        height: 85px;
     }
 
-    .profile-ring::after {
-        width: 6px;
-        height: 6px;
-
-        left: 2px;
-        top: 51px;
+    .planet-medium {
+        width: 58px;
+        height: 58px;
     }
+
+    .planet-small,
+    .planet-tiny,
+    .orbit-three,
+    .pp2,
+    .pp3 {
+        display: none;
+    }
+
+    .orbit-one {
+        width: 145px;
+        height: 145px;
+    }
+
+    .orbit-two {
+        width: 100px;
+        height: 100px;
+    }
+
 
     .preview-line {
-        font-size: .46rem;
+        font-size: .45rem;
 
         padding-top: 5px;
     }
@@ -1659,6 +2339,7 @@ img {
         display: none;
     }
 
+
     .skill-preview {
         gap: 4px;
     }
@@ -1666,17 +2347,18 @@ img {
     .skill-preview span {
         padding: 4px 6px;
 
-        font-size: .44rem;
+        font-size: .43rem;
     }
 
     .skill-preview span:nth-child(n+5) {
         display: none;
     }
 
-    .thumb-strip {
-        height: 38%;
 
-        min-height: 54px;
+    .thumb-strip {
+        height: 37%;
+
+        min-height: 53px;
 
         gap: 4px;
     }
@@ -1684,6 +2366,7 @@ img {
     .thumb {
         border-radius: 7px;
     }
+
 
     .panel-mini {
         display: grid;
@@ -1704,47 +2387,108 @@ img {
     .mini-preview-row {
         padding-top: 5px;
 
-        font-size: .48rem;
+        font-size: .47rem;
     }
+
+
+    /* -----------------------------------------------------
+       EXPANDED
+    ----------------------------------------------------- */
 
     .expanded-content {
         padding:
-            108px 17px 30px;
-    }
-
-    .content-grid,
-    .gallery-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .content-card,
-    .mini-project-card {
-        min-height: auto;
-    }
-
-    .gallery-item {
-        min-height: 245px;
+            127px 16px 30px;
     }
 
     .expanded-description {
-        font-size: .92rem;
+        font-size:
+            .92rem;
+    }
+
+
+    /* carousel */
+
+    .carousel-toolbar {
+        margin-bottom: 13px;
+    }
+
+    .carousel-controls {
+        display: none;
+    }
+
+    .carousel-hint {
+        font-size: .67rem;
+    }
+
+    .card-carousel {
+        gap: 11px;
+
+        padding-bottom: 15px;
+    }
+
+    .scroll-card {
+        flex-basis:
+            84vw;
+
+        min-height:
+            360px;
+
+        padding: 23px;
+    }
+
+    .scroll-card h3 {
+        font-size:
+            1.42rem;
+    }
+
+    .scroll-card p {
+        font-size:
+            .94rem;
+    }
+
+    .visual-card {
+        flex-basis:
+            87vw;
+
+        min-height:
+            480px;
+    }
+
+    .visual-image {
+        min-height:
+            385px;
+    }
+
+    .mini-card {
+        flex-basis:
+            86vw;
+
+        min-height:
+            440px;
+    }
+
+    .contact-grid {
+        grid-template-columns:
+            1fr;
     }
 
 }
 
 
 /* =========================================================
-   VERY SMALL MOBILE
+   VERY SMALL PHONE
 ========================================================= */
 
 @media (max-width: 390px) {
 
-    .panel-skills .shared-title {
-        font-size: .82rem;
+    .panel-skills
+    .shared-title {
+        font-size: .78rem;
     }
 
-    .panel-mini .shared-title {
-        font-size: 1.15rem;
+    .panel-mini
+    .shared-title {
+        font-size: 1.08rem;
     }
 
 }
@@ -1779,13 +2523,13 @@ img {
 
 
 <!-- =========================================================
-     MAIN APP
+     MAIN APPLICATION
 ========================================================= -->
 
 <main class="app">
 
 
-    <!-- TOPBAR -->
+    <!-- TOP BAR -->
 
     <header class="topbar">
 
@@ -1799,14 +2543,18 @@ img {
 
 
         <div class="hint">
+
             Select a panel
+
         </div>
 
     </header>
 
 
 
-    <!-- DASHBOARD -->
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
 
     <section class="dashboard">
 
@@ -1821,11 +2569,13 @@ img {
         >
 
             <div class="panel-arrow">
+
                 <i class="fa-solid fa-arrow-up-right"></i>
+
             </div>
 
 
-            <div>
+            <div class="profile-content">
 
                 <div class="panel-kicker">
 
@@ -1871,7 +2621,36 @@ img {
             </div>
 
 
-            <div class="profile-ring"></div>
+
+            <!-- PLANETARY VISUAL -->
+
+            <div class="planet-system">
+
+
+                <div class="orbit orbit-one"></div>
+
+                <div class="orbit orbit-two"></div>
+
+                <div class="orbit orbit-three"></div>
+
+
+                <div class="planet planet-large"></div>
+
+                <div class="planet planet-medium"></div>
+
+                <div class="planet planet-small"></div>
+
+                <div class="planet planet-tiny"></div>
+
+
+                <div class="planet-particle pp1"></div>
+
+                <div class="planet-particle pp2"></div>
+
+                <div class="planet-particle pp3"></div>
+
+
+            </div>
 
         </button>
 
@@ -1918,7 +2697,7 @@ img {
                     </span>
 
                     <span class="title-line accent">
-                        results.
+                        results
                     </span>
 
                 </h2>
@@ -2007,15 +2786,15 @@ img {
                 >
 
                     <span class="title-line">
-                        Spatial Data.
+                        Spatial Data
                     </span>
 
                     <span class="title-line">
-                        Environmental Assessment.
+                        Environmental Assessment
                     </span>
 
                     <span class="title-line accent">
-                        Data Analysis.
+                        Data Analysis
                     </span>
 
                 </h2>
@@ -2086,15 +2865,15 @@ img {
                 >
 
                     <span class="title-line">
-                        Maps.
+                        Maps
                     </span>
 
                     <span class="title-line">
-                        Models.
+                        Models
                     </span>
 
                     <span class="title-line accent">
-                        Visuals.
+                        Visuals
                     </span>
 
                 </h2>
@@ -2178,7 +2957,7 @@ img {
                     </span>
 
                     <span class="title-line accent">
-                        Projects.
+                        Projects
                     </span>
 
                 </h2>
@@ -2246,7 +3025,7 @@ img {
 
 
 <!-- =========================================================
-     IMAGE LIGHTBOX
+     LIGHTBOX
 ========================================================= -->
 
 <div
@@ -2278,152 +3057,190 @@ img {
 <script>
 
 /* =========================================================
-   PANEL CONTENT
+   CONTENT DATA
 ========================================================= */
 
 const content = {
 
 
-    /* =====================================================
-       PROFILE
-    ====================================================== */
+/* =========================================================
+   PROFILE
+========================================================= */
 
-    profile: {
+profile: {
 
-        kicker:
-            "Contact",
+    kicker:
+        "Contact",
 
-        description:
-            `
-            Environmental and geospatial data analyst
-            working across GIS, remote sensing,
-            environmental research, scientific computing,
-            modelling and applied data analysis.
-            `,
+    description:
+        `
+        Environmental and geospatial data analyst
+        working across GIS, remote sensing,
+        environmental research, scientific computing,
+        modelling and applied data analysis.
+        `,
 
-        html:
-            `
-            <div class="content-grid">
+    html:
+        `
+        <div class="contact-grid">
 
-                <a
-                    class="contact-card-link"
-                    href="mailto:jpaoloramirez@gmail.com"
-                >
+            <a
+                class="contact-card-link"
+                href="mailto:jpaoloramirez@gmail.com"
+            >
 
-                    <i class="fa-solid fa-envelope"></i>
+                <i class="fa-solid fa-envelope"></i>
 
-                    <div>
+                <div>
 
-                        <div class="contact-small">
-                            Email
-                        </div>
-
-                        <div class="contact-large">
-                            jpaoloramirez@gmail.com
-                        </div>
-
+                    <div class="contact-small">
+                        Email
                     </div>
 
-                </a>
-
-
-                <a
-                    class="contact-card-link"
-                    href="tel:+639275745752"
-                >
-
-                    <i class="fa-solid fa-phone"></i>
-
-                    <div>
-
-                        <div class="contact-small">
-                            Mobile
-                        </div>
-
-                        <div class="contact-large">
-                            +63 927 574 5752
-                        </div>
-
+                    <div class="contact-large">
+                        jpaoloramirez@gmail.com
                     </div>
 
-                </a>
+                </div>
+
+            </a>
 
 
-                <a
-                    class="contact-card-link"
-                    href="https://github.com/Johnny1996ornot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+            <a
+                class="contact-card-link"
+                href="tel:+639275745752"
+            >
 
-                    <i class="fa-brands fa-github"></i>
+                <i class="fa-solid fa-phone"></i>
 
-                    <div>
+                <div>
 
-                        <div class="contact-small">
-                            GitHub
-                        </div>
-
-                        <div class="contact-large">
-                            Johnny1996ornot
-                        </div>
-
+                    <div class="contact-small">
+                        Mobile
                     </div>
 
-                </a>
-
-
-                <a
-                    class="contact-card-link"
-                    href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <i class="fa-brands fa-linkedin"></i>
-
-                    <div>
-
-                        <div class="contact-small">
-                            LinkedIn
-                        </div>
-
-                        <div class="contact-large">
-                            John Paolo Ramirez
-                        </div>
-
+                    <div class="contact-large">
+                        +63 927 574 5752
                     </div>
 
-                </a>
+                </div>
+
+            </a>
+
+
+            <a
+                class="contact-card-link"
+                href="https://github.com/Johnny1996ornot"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <i class="fa-brands fa-github"></i>
+
+                <div>
+
+                    <div class="contact-small">
+                        GitHub
+                    </div>
+
+                    <div class="contact-large">
+                        Johnny1996ornot
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <a
+                class="contact-card-link"
+                href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <i class="fa-brands fa-linkedin"></i>
+
+                <div>
+
+                    <div class="contact-small">
+                        LinkedIn
+                    </div>
+
+                    <div class="contact-large">
+                        John Paolo Ramirez
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+        `
+},
+
+
+
+/* =========================================================
+   PROJECTS — HORIZONTAL CAROUSEL
+========================================================= */
+
+projects: {
+
+    kicker:
+        "Selected Projects",
+
+    description:
+        `
+        Swipe or scroll through selected environmental,
+        geospatial, analytical and computational research.
+        `,
+
+    html:
+        `
+        <div class="carousel-section">
+
+            <div class="carousel-toolbar">
+
+                <div class="carousel-hint">
+
+                    Scroll sideways to explore projects
+
+                </div>
+
+                <div class="carousel-controls">
+
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-prev="projectsTrack"
+                        aria-label="Previous project"
+                    >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-next="projectsTrack"
+                        aria-label="Next project"
+                    >
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
 
             </div>
-            `
-    },
 
 
-    /* =====================================================
-       PROJECTS
-       Actual research/projects only.
-       No employment history.
-       No generic web-tools card.
-    ====================================================== */
+            <div
+                class="card-carousel"
+                id="projectsTrack"
+                data-carousel
+            >
 
-    projects: {
 
-        kicker:
-            "Selected Projects",
-
-        description:
-            `
-            Selected environmental, geospatial,
-            analytical and computational research projects.
-            `,
-
-        html:
-            `
-            <div class="content-grid">
-
-                <article class="content-card">
+                <article class="scroll-card">
 
                     <div class="card-label">
                         2025 · Data & Geospatial
@@ -2444,25 +3261,17 @@ const content = {
                     <div class="tags">
 
                         <span>Python</span>
-
-                        <span>
-                            Spatial Databases
-                        </span>
-
-                        <span>
-                            Data Harmonisation
-                        </span>
-
-                        <span>
-                            Automation
-                        </span>
+                        <span>Spatial Databases</span>
+                        <span>Data Harmonisation</span>
+                        <span>Automation</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
+
+                <article class="scroll-card">
 
                     <div class="card-label">
                         2025 · Environmental Analysis
@@ -2482,21 +3291,17 @@ const content = {
                     <div class="tags">
 
                         <span>AAS</span>
-
                         <span>Statistics</span>
-
                         <span>GIS</span>
-
-                        <span>
-                            Environmental Monitoring
-                        </span>
+                        <span>Environmental Monitoring</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
+
+                <article class="scroll-card">
 
                     <div class="card-label">
                         2024 · Pollution Research
@@ -2515,24 +3320,18 @@ const content = {
 
                     <div class="tags">
 
-                        <span>
-                            Microplastics
-                        </span>
-
+                        <span>Microplastics</span>
                         <span>R</span>
-
                         <span>QGIS</span>
-
-                        <span>
-                            Statistics
-                        </span>
+                        <span>Statistics</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
+
+                <article class="scroll-card">
 
                     <div class="card-label">
                         2022 · Climate & Risk
@@ -2553,11 +3352,8 @@ const content = {
                     <div class="tags">
 
                         <span>Climate</span>
-
                         <span>DRR</span>
-
                         <span>CCA</span>
-
                         <span>GIS</span>
 
                     </div>
@@ -2565,7 +3361,8 @@ const content = {
                 </article>
 
 
-                <article class="content-card">
+
+                <article class="scroll-card">
 
                     <div class="card-label">
                         2021 · Spatial Modelling
@@ -2585,13 +3382,8 @@ const content = {
                     <div class="tags">
 
                         <span>R</span>
-
                         <span>Grainscape</span>
-
-                        <span>
-                            Remote Sensing
-                        </span>
-
+                        <span>Remote Sensing</span>
                         <span>GIS</span>
 
                     </div>
@@ -2599,7 +3391,8 @@ const content = {
                 </article>
 
 
-                <article class="content-card">
+
+                <article class="scroll-card">
 
                     <div class="card-label">
                         2017 · Experimental Research
@@ -2618,101 +3411,136 @@ const content = {
 
                     <div class="tags">
 
-                        <span>
-                            Ecotoxicology
-                        </span>
-
-                        <span>
-                            Laboratory
-                        </span>
-
-                        <span>
-                            Research Design
-                        </span>
+                        <span>Ecotoxicology</span>
+                        <span>Laboratory</span>
+                        <span>Research Design</span>
 
                     </div>
 
                 </article>
 
+
             </div>
-            `
-    },
+
+        </div>
+        `
+},
 
 
-    /* =====================================================
-       SKILLS
-    ====================================================== */
 
-    skills: {
+/* =========================================================
+   SKILLS — HORIZONTAL CAROUSEL
+========================================================= */
 
-        kicker:
-            "Technical Toolkit",
+skills: {
 
-        description:
-            `
-            Geospatial analysis, remote sensing,
-            programming, environmental assessment,
-            scientific research and data communication.
-            `,
+    kicker:
+        "Technical Toolkit",
 
-        html:
-            `
-            <div class="content-grid">
+    description:
+        `
+        Swipe or scroll through my geospatial,
+        analytical, environmental and scientific toolkit.
+        `,
 
-                <article class="content-card">
+    html:
+        `
+        <div class="carousel-section">
 
-                    <div class="card-icon">
+            <div class="carousel-toolbar">
 
-                        <i class="fa-solid fa-earth-asia"></i>
+                <div class="carousel-hint">
+                    Scroll sideways to explore capabilities
+                </div>
+
+                <div class="carousel-controls">
+
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-prev="skillsTrack"
+                        aria-label="Previous skill"
+                    >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-next="skillsTrack"
+                        aria-label="Next skill"
+                    >
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="card-carousel"
+                id="skillsTrack"
+                data-carousel
+            >
+
+
+                <article class="scroll-card">
+
+                    <div class="skill-card-title">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-earth-asia"></i>
+                        </div>
+
+                        <div class="card-label">
+                            Spatial Data
+                        </div>
 
                     </div>
 
                     <h3>
-                        Spatial Data & GIS
+                        GIS & Geospatial Analysis
                     </h3>
 
                     <p>
                         Spatial processing, mapping,
-                        database design, geoprocessing,
-                        interpolation, overlay analysis
-                        and network-based modelling.
+                        geoprocessing, spatial database
+                        development, interpolation,
+                        overlay analysis and spatial modelling.
                     </p>
 
                     <div class="tags">
 
                         <span>QGIS</span>
-
                         <span>PyQGIS</span>
-
-                        <span>
-                            Spatial Databases
-                        </span>
-
+                        <span>Spatial Databases</span>
                         <span>IDW</span>
-
-                        <span>
-                            Overlay Analysis
-                        </span>
-
-                        <span>
-                            Network Analysis
-                        </span>
+                        <span>Overlay Analysis</span>
+                        <span>Network Analysis</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
 
-                    <div class="card-icon">
+                <article class="scroll-card">
 
-                        <i class="fa-solid fa-satellite"></i>
+                    <div class="skill-card-title">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-satellite"></i>
+                        </div>
+
+                        <div class="card-label">
+                            Earth Observation
+                        </div>
 
                     </div>
 
                     <h3>
-                        Remote Sensing & Earth Observation
+                        Remote Sensing
                     </h3>
 
                     <p>
@@ -2724,78 +3552,70 @@ const content = {
 
                     <div class="tags">
 
-                        <span>
-                            Google Earth Engine
-                        </span>
-
+                        <span>Google Earth Engine</span>
                         <span>NDVI</span>
-
                         <span>EVI</span>
-
                         <span>TSS</span>
-
-                        <span>
-                            Land Cover
-                        </span>
-
-                        <span>
-                            Supervised Classification
-                        </span>
+                        <span>Land Cover</span>
+                        <span>Supervised Classification</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
 
-                    <div class="card-icon">
+                <article class="scroll-card">
 
-                        <i class="fa-solid fa-chart-line"></i>
+                    <div class="skill-card-title">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div class="card-label">
+                            Analysis
+                        </div>
 
                     </div>
 
                     <h3>
-                        Data Analysis
+                        Data Analysis & Programming
                     </h3>
 
                     <p>
                         Data cleaning, statistical analysis,
-                        data harmonisation, modelling,
-                        reproducible workflows and
-                        automated geospatial processing.
+                        harmonisation, reproducible workflows,
+                        automated geospatial processing and
+                        computational modelling.
                     </p>
 
                     <div class="tags">
 
                         <span>Python</span>
-
                         <span>R</span>
-
                         <span>Pandas</span>
-
-                        <span>
-                            Statistical Analysis
-                        </span>
-
-                        <span>
-                            Automation
-                        </span>
-
-                        <span>
-                            Computational Modelling
-                        </span>
+                        <span>Statistics</span>
+                        <span>Automation</span>
+                        <span>Computational Modelling</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
 
-                    <div class="card-icon">
+                <article class="scroll-card">
 
-                        <i class="fa-solid fa-leaf"></i>
+                    <div class="skill-card-title">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+
+                        <div class="card-label">
+                            Assessment
+                        </div>
 
                     </div>
 
@@ -2814,314 +3634,427 @@ const content = {
                     <div class="tags">
 
                         <span>EIA</span>
-
                         <span>CCA</span>
-
                         <span>DRR</span>
-
-                        <span>
-                            Environmental Monitoring
-                        </span>
-
-                        <span>
-                            Risk Assessment
-                        </span>
+                        <span>Environmental Monitoring</span>
+                        <span>Risk Assessment</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
 
-                    <div class="card-icon">
+                <article class="scroll-card">
 
-                        <i class="fa-solid fa-flask"></i>
+                    <div class="skill-card-title">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+
+                        <div class="card-label">
+                            Scientific Research
+                        </div>
 
                     </div>
 
                     <h3>
-                        Laboratory & Scientific Research
+                        Laboratory & Field Research
                     </h3>
 
                     <p>
                         Environmental contamination,
                         field sampling, trace-metal analysis,
                         microplastics, ecotoxicology and
-                        research design.
+                        experimental research design.
                     </p>
 
                     <div class="tags">
 
-                        <span>
-                            Heavy Metals
-                        </span>
-
-                        <span>
-                            Microplastics
-                        </span>
-
-                        <span>
-                            Ecotoxicology
-                        </span>
-
-                        <span>
-                            Fieldwork
-                        </span>
-
-                        <span>
-                            Research Design
-                        </span>
+                        <span>Heavy Metals</span>
+                        <span>Microplastics</span>
+                        <span>Ecotoxicology</span>
+                        <span>Fieldwork</span>
+                        <span>Research Design</span>
 
                     </div>
 
                 </article>
 
 
-                <article class="content-card">
 
-                    <div class="card-icon">
+                <article class="scroll-card">
 
-                        <i class="fa-solid fa-chart-simple"></i>
+                    <div class="skill-card-title">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+
+                        <div class="card-label">
+                            Communication
+                        </div>
 
                     </div>
 
                     <h3>
-                        Visualisation & Communication
+                        Visualisation & Technical Communication
                     </h3>
 
                     <p>
-                        Maps, analytical graphics,
-                        interactive web tools,
-                        technical reports and
-                        scientific communication.
+                        Analytical maps, interactive web tools,
+                        data visualisations, technical reports,
+                        scientific presentations and
+                        communication of complex results.
                     </p>
 
                     <div class="tags">
 
                         <span>HTML</span>
-
-                        <span>
-                            Interactive Visualisation
-                        </span>
-
+                        <span>Interactive Visualisation</span>
                         <span>Maps</span>
-
-                        <span>
-                            Technical Reports
-                        </span>
+                        <span>Technical Reports</span>
 
                     </div>
 
                 </article>
 
+
             </div>
-            `
-    },
+
+        </div>
+        `
+},
 
 
-    /* =====================================================
-       SELECTED WORK
-    ====================================================== */
 
-    gallery: {
+/* =========================================================
+   SELECTED WORK — HORIZONTAL VISUAL CAROUSEL
+   Interactive Timeline REMOVED from here.
+========================================================= */
 
-        kicker:
-            "Selected Work",
+gallery: {
 
-        description:
-            `
-            Selected maps, models and visual outputs.
-            Click any image for a full-size view.
-            `,
+    kicker:
+        "Selected Work",
 
-        html:
-            `
-            <div class="gallery-grid">
+    description:
+        `
+        Swipe or scroll through selected maps,
+        models and visual outputs.
+        Click any card to enlarge the image.
+        `,
 
-                <div
-                    class="gallery-item"
+    html:
+        `
+        <div class="carousel-section">
+
+            <div class="carousel-toolbar">
+
+                <div class="carousel-hint">
+                    Scroll sideways through visual work
+                </div>
+
+                <div class="carousel-controls">
+
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-prev="galleryTrack"
+                        aria-label="Previous visual"
+                    >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-next="galleryTrack"
+                        aria-label="Next visual"
+                    >
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="card-carousel"
+                id="galleryTrack"
+                data-carousel
+            >
+
+
+                <article
+                    class="scroll-card visual-card gallery-item"
                     data-image="Picture2.png"
                 >
 
-                    <img
-                        src="Picture2.png"
-                        alt="Supervised land cover classification"
-                    >
+                    <div class="visual-image">
 
-                    <div class="gallery-caption">
-
-                        Supervised Land Cover Classification
+                        <img
+                            src="Picture2.png"
+                            alt="Supervised land cover classification"
+                        >
 
                     </div>
 
-                </div>
+                    <div class="visual-caption">
+
+                        <div class="card-label">
+                            Remote Sensing
+                        </div>
+
+                        <h3>
+                            Supervised Land Cover Classification
+                        </h3>
+
+                    </div>
+
+                </article>
 
 
-                <div
-                    class="gallery-item"
+
+                <article
+                    class="scroll-card visual-card gallery-item"
                     data-image="EVI and NDVI.png"
                 >
 
-                    <img
-                        src="EVI and NDVI.png"
-                        alt="NDVI and EVI analysis"
-                    >
+                    <div class="visual-image">
 
-                    <div class="gallery-caption">
-
-                        NDVI & EVI Remote Sensing Analysis
+                        <img
+                            src="EVI and NDVI.png"
+                            alt="NDVI and EVI analysis"
+                        >
 
                     </div>
 
-                </div>
+                    <div class="visual-caption">
+
+                        <div class="card-label">
+                            Earth Observation
+                        </div>
+
+                        <h3>
+                            NDVI & EVI Remote Sensing Analysis
+                        </h3>
+
+                    </div>
+
+                </article>
 
 
-                <div
-                    class="gallery-item"
+
+                <article
+                    class="scroll-card visual-card gallery-item"
                     data-image="Network Model Diagram.png"
                 >
 
-                    <img
-                        src="Network Model Diagram.png"
-                        alt="Spatial network modelling"
-                    >
+                    <div class="visual-image">
 
-                    <div class="gallery-caption">
-
-                        Spatial Network Modelling
+                        <img
+                            src="Network Model Diagram.png"
+                            alt="Spatial network modelling"
+                        >
 
                     </div>
 
-                </div>
+                    <div class="visual-caption">
+
+                        <div class="card-label">
+                            Modelling
+                        </div>
+
+                        <h3>
+                            Spatial Network Modelling
+                        </h3>
+
+                    </div>
+
+                </article>
 
 
-                <div
-                    class="gallery-item"
+
+                <article
+                    class="scroll-card visual-card gallery-item"
                     data-image="TSS - LPP Wetland.png"
                 >
 
-                    <img
-                        src="TSS - LPP Wetland.png"
-                        alt="TSS environmental monitoring"
-                    >
+                    <div class="visual-image">
 
-                    <div class="gallery-caption">
-
-                        TSS Environmental Monitoring
+                        <img
+                            src="TSS - LPP Wetland.png"
+                            alt="TSS environmental monitoring"
+                        >
 
                     </div>
 
-                </div>
+                    <div class="visual-caption">
+
+                        <div class="card-label">
+                            Environmental Monitoring
+                        </div>
+
+                        <h3>
+                            TSS Environmental Monitoring
+                        </h3>
+
+                    </div>
+
+                </article>
 
 
-                <div
-                    class="gallery-item"
+
+                <article
+                    class="scroll-card visual-card gallery-item"
                     data-image="Picture56.png"
                 >
 
-                    <img
-                        src="Picture56.png"
-                        alt="Environmental systems visualisation"
-                    >
+                    <div class="visual-image">
 
-                    <div class="gallery-caption">
-
-                        Environmental Systems Visualisation
+                        <img
+                            src="Picture56.png"
+                            alt="Environmental systems visualisation"
+                        >
 
                     </div>
 
+                    <div class="visual-caption">
+
+                        <div class="card-label">
+                            Data Visualisation
+                        </div>
+
+                        <h3>
+                            Environmental Systems Visualisation
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </div>
+        `
+},
+
+
+
+/* =========================================================
+   MINI PROJECTS
+========================================================= */
+
+mini: {
+
+    kicker:
+        "Mini Projects",
+
+    description:
+        `
+        Interactive web experiments, visualisations and
+        smaller coding projects.
+        `,
+
+    html:
+        `
+        <div class="carousel-section">
+
+            <div class="carousel-toolbar">
+
+                <div class="carousel-hint">
+                    Scroll sideways through mini projects
                 </div>
 
+                <div class="carousel-controls">
 
-                <div
-                    class="gallery-item"
-                    data-image="Picture33.png"
-                >
-
-                    <img
-                        src="Picture33.png"
-                        alt="Interactive professional timeline"
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-prev="miniTrack"
+                        aria-label="Previous mini project"
                     >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
 
-                    <div class="gallery-caption">
-
-                        Interactive Timeline Visualisation
-
-                    </div>
+                    <button
+                        class="carousel-arrow"
+                        type="button"
+                        data-carousel-next="miniTrack"
+                        aria-label="Next mini project"
+                    >
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
 
                 </div>
 
             </div>
-            `
-    },
 
 
-    /* =====================================================
-       MINI PROJECTS
-    ====================================================== */
-
-    mini: {
-
-        kicker:
-            "Mini Projects",
-
-        description:
-            `
-            Small interactive tools, visualisations and
-            coding experiments developed to explore
-            information design, communication and
-            browser-based interaction.
-            `,
-
-        html:
-            `
-            <div class="content-grid">
+            <div
+                class="card-carousel"
+                id="miniTrack"
+                data-carousel
+            >
 
 
-                <!-- EXPERIENCE TIMELINE -->
+                <!-- =========================================
+                     EXPERIENCE TIMELINE
+                     IMAGE IS NOW HERE
+                ========================================== -->
 
                 <a
-                    class="mini-project-card"
+                    class="scroll-card mini-card"
                     href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
 
-                    <div class="mini-project-icon">
+                    <div class="external-project">
 
-                        <i class="fa-solid fa-timeline"></i>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-arrow-up-right-from-square mini-project-external"
-                    ></i>
+                    <div class="mini-card-image">
+
+                        <img
+                            src="Picture33.png"
+                            alt="Interactive Experience Timeline"
+                        >
+
+                    </div>
 
 
-                    <h3>
-                        Experience Timeline
-                    </h3>
+                    <div class="mini-card-body">
 
+                        <div class="card-label">
+                            Interactive Timeline
+                        </div>
 
-                    <p>
-                        Interactive HTML-based timeline
-                        visualising education, professional
-                        experience, research activity and
-                        technical development.
-                    </p>
+                        <h3>
+                            Experience Timeline
+                        </h3>
 
+                        <p>
+                            Interactive HTML-based timeline
+                            visualising education, professional
+                            experience, research activity and
+                            technical development.
+                        </p>
 
-                    <div class="tags">
+                        <div class="tags">
 
-                        <span>HTML</span>
+                            <span>HTML</span>
+                            <span>Timeline</span>
+                            <span>Interactive Design</span>
 
-                        <span>Timeline</span>
-
-                        <span>
-                            Interactive Design
-                        </span>
+                        </div>
 
                     </div>
 
@@ -3129,49 +4062,117 @@ const content = {
 
 
 
-                <!-- SANKEY RESUME -->
+                <!-- =========================================
+                     SANKEY RESUME
+                ========================================== -->
 
                 <a
-                    class="mini-project-card"
+                    class="scroll-card mini-card"
                     href="https://johnny1996ornot.github.io/Sankey-Diagram---Resume-/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
 
-                    <div class="mini-project-icon">
+                    <div class="external-project">
 
-                        <i class="fa-solid fa-diagram-project"></i>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-arrow-up-right-from-square mini-project-external"
-                    ></i>
+                    <div class="sankey-preview">
 
 
-                    <h3>
-                        Sankey Diagram Resume
-                    </h3>
+                        <svg
+                            viewBox="0 0 600 230"
+                            preserveAspectRatio="none"
+                        >
+
+                            <path
+                                d="
+                                M 80 95
+                                C 185 95,
+                                  200 55,
+                                  270 70
+                                "
+                                fill="none"
+                                stroke="rgba(88,222,138,.55)"
+                                stroke-width="22"
+                            />
+
+                            <path
+                                d="
+                                M 80 130
+                                C 175 130,
+                                  205 170,
+                                  270 150
+                                "
+                                fill="none"
+                                stroke="rgba(63,208,201,.52)"
+                                stroke-width="26"
+                            />
+
+                            <path
+                                d="
+                                M 290 70
+                                C 400 70,
+                                  410 100,
+                                  520 105
+                                "
+                                fill="none"
+                                stroke="rgba(193,246,237,.42)"
+                                stroke-width="20"
+                            />
+
+                            <path
+                                d="
+                                M 290 150
+                                C 395 150,
+                                  420 122,
+                                  520 130
+                                "
+                                fill="none"
+                                stroke="rgba(46,175,125,.54)"
+                                stroke-width="30"
+                            />
+
+                        </svg>
 
 
-                    <p>
-                        Interactive Sankey-style resume
-                        designed to visualise relationships
-                        among education, experience,
-                        projects and technical skills.
-                    </p>
+                        <div class="sankey-node sn1"></div>
+
+                        <div class="sankey-node sn2"></div>
+
+                        <div class="sankey-node sn3"></div>
 
 
-                    <div class="tags">
+                    </div>
 
-                        <span>HTML</span>
 
-                        <span>Sankey</span>
+                    <div class="mini-card-body">
 
-                        <span>
-                            Data Visualisation
-                        </span>
+                        <div class="card-label">
+                            Interactive Data Visualisation
+                        </div>
+
+                        <h3>
+                            Sankey Diagram Resume
+                        </h3>
+
+                        <p>
+                            Interactive Sankey-style resume
+                            visualising relationships among
+                            education, experience, projects
+                            and technical competencies.
+                        </p>
+
+                        <div class="tags">
+
+                            <span>HTML</span>
+                            <span>Sankey</span>
+                            <span>Data Visualisation</span>
+
+                        </div>
 
                     </div>
 
@@ -3179,84 +4180,84 @@ const content = {
 
 
 
-                <!-- NOTEDUMP FACTORY -->
+                <!-- =========================================
+                     NOTEDUMP
+                ========================================== -->
 
                 <a
-                    class="mini-project-card"
+                    class="scroll-card mini-card"
                     href="https://notedump-factory.onrender.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
 
-                    <div class="mini-project-icon">
+                    <div class="external-project">
 
-                        <i class="fa-solid fa-file-lines"></i>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-arrow-up-right-from-square mini-project-external"
-                    ></i>
+                    <div class="notedump-preview">
 
 
-                    <h3>
-                        NoteDump Factory
-                    </h3>
+                        <div class="note-sheet">
 
 
-                    <p>
-                        Web application designed to
-                        transform presentation material
-                        into a more interactive format
-                        for structured note-taking
-                        and study.
-                    </p>
+                            <div class="note-line"></div>
+
+                            <div class="note-line short"></div>
+
+                            <div class="note-line"></div>
+
+                            <div class="note-line mid"></div>
+
+                            <div class="note-line"></div>
+
+                            <div class="note-line short"></div>
 
 
-                    <div class="tags">
+                        </div>
 
-                        <span>Web App</span>
 
-                        <span>HTML</span>
+                    </div>
 
-                        <span>Education</span>
+
+                    <div class="mini-card-body">
+
+                        <div class="card-label">
+                            Web Application
+                        </div>
+
+                        <h3>
+                            NoteDump Factory
+                        </h3>
+
+                        <p>
+                            Web application designed to
+                            transform presentation material
+                            into an interactive format for
+                            structured note-taking and study.
+                        </p>
+
+                        <div class="tags">
+
+                            <span>Web App</span>
+                            <span>HTML</span>
+                            <span>Education</span>
+
+                        </div>
 
                     </div>
 
                 </a>
 
 
-
-                <!-- FUTURE SPACE -->
-
-                <article class="content-card">
-
-                    <div class="card-icon">
-
-                        <i class="fa-solid fa-plus"></i>
-
-                    </div>
-
-
-                    <h3>
-                        More experiments coming.
-                    </h3>
-
-
-                    <p>
-                        This section can grow as more
-                        mini coding projects, visualisations,
-                        tools and analytical prototypes
-                        are added.
-                    </p>
-
-                </article>
-
-
             </div>
-            `
-    }
+
+        </div>
+        `
+}
 
 };
 
@@ -3270,20 +4271,24 @@ const panels =
         "[data-panel]"
     );
 
+
 const backdrop =
     document.getElementById(
         "expansionBackdrop"
     );
+
 
 const lightbox =
     document.getElementById(
         "lightbox"
     );
 
+
 const lightboxImage =
     document.getElementById(
         "lightboxImage"
     );
+
 
 const lightboxClose =
     document.getElementById(
@@ -3294,19 +4299,152 @@ const lightboxClose =
 let activePanel =
     null;
 
+
 let expansion =
     null;
 
+
 let flyingTitle =
     null;
+
 
 let closeButton =
     null;
 
 
 /* =========================================================
+   EXPANDED TITLE SIZE
+
+   Profile stays large.
+   Projects ≈ half original size.
+   Skills/Gallery/Mini remain larger than before.
+========================================================= */
+
+function getExpandedTitleSize(
+    key,
+    originalSize
+) {
+
+    const mobile =
+        window.innerWidth <= 800;
+
+
+    if (mobile) {
+
+        if (key === "profile") {
+            return Math.min(
+                Math.max(
+                    originalSize * .70,
+                    29
+                ),
+                40
+            );
+        }
+
+        if (key === "projects") {
+            return Math.min(
+                Math.max(
+                    originalSize * .55,
+                    25
+                ),
+                34
+            );
+        }
+
+        if (key === "skills") {
+            return Math.min(
+                Math.max(
+                    originalSize * .70,
+                    20
+                ),
+                29
+            );
+        }
+
+        if (key === "gallery") {
+            return Math.min(
+                Math.max(
+                    originalSize * .63,
+                    22
+                ),
+                31
+            );
+        }
+
+        if (key === "mini") {
+            return Math.min(
+                Math.max(
+                    originalSize * .63,
+                    22
+                ),
+                31
+            );
+        }
+
+    }
+
+
+    else {
+
+        if (key === "profile") {
+            return Math.min(
+                Math.max(
+                    originalSize * .62,
+                    46
+                ),
+                60
+            );
+        }
+
+        if (key === "projects") {
+            return Math.min(
+                Math.max(
+                    originalSize * .52,
+                    36
+                ),
+                47
+            );
+        }
+
+        if (key === "skills") {
+            return Math.min(
+                Math.max(
+                    originalSize * .72,
+                    31
+                ),
+                40
+            );
+        }
+
+        if (key === "gallery") {
+            return Math.min(
+                Math.max(
+                    originalSize * .66,
+                    32
+                ),
+                42
+            );
+        }
+
+        if (key === "mini") {
+            return Math.min(
+                Math.max(
+                    originalSize * .66,
+                    31
+                ),
+                40
+            );
+        }
+
+    }
+
+
+    return 32;
+}
+
+
+/* =========================================================
    OPEN PANEL
-   Shared-element / app-opening transition.
 ========================================================= */
 
 function openPanel(panel) {
@@ -3336,18 +4474,20 @@ function openPanel(panel) {
 
     const titleRect =
         originalTitle
-            .getBoundingClientRect();
+        .getBoundingClientRect();
 
 
     const panelStyle =
-        getComputedStyle(
-            panel
-        );
+        getComputedStyle(panel);
 
 
     const titleStyle =
-        getComputedStyle(
-            originalTitle
+        getComputedStyle(originalTitle);
+
+
+    const originalFontSize =
+        parseFloat(
+            titleStyle.fontSize
         );
 
 
@@ -3371,7 +4511,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       CREATE EXPANDING PANEL
+       CREATE EXPANSION
     ----------------------------------------------------- */
 
     expansion =
@@ -3444,7 +4584,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       CREATE FLYING TITLE
+       FLYING TITLE
     ----------------------------------------------------- */
 
     flyingTitle =
@@ -3455,6 +4595,10 @@ function openPanel(panel) {
 
     flyingTitle.className =
         "flying-title";
+
+
+    flyingTitle.dataset.key =
+        key;
 
 
     flyingTitle.innerHTML =
@@ -3486,7 +4630,7 @@ function openPanel(panel) {
     );
 
 
-    /* hide source title/panel */
+    /* hide source */
 
     originalTitle.style.opacity =
         "0";
@@ -3497,13 +4641,13 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       EXPANDED TARGET POSITION
+       DESTINATION
     ----------------------------------------------------- */
 
     const margin =
         window.innerWidth <= 800
             ? 6
-            : 24;
+            : 22;
 
 
     const finalLeft =
@@ -3529,7 +4673,7 @@ function openPanel(panel) {
         + (
             window.innerWidth <= 800
                 ? 18
-                : 58
+                : 54
         );
 
 
@@ -3537,26 +4681,27 @@ function openPanel(panel) {
         finalTop
         + (
             window.innerWidth <= 800
-                ? 22
-                : 30
+                ? 20
+                : 28
         );
 
 
     const finalTitleSize =
-        window.innerWidth <= 800
-            ? 20
-            : 27;
+        getExpandedTitleSize(
+            key,
+            originalFontSize
+        );
 
 
     const finalTitleWidth =
         Math.min(
-            finalWidth * .76,
-            900
+            finalWidth * .80,
+            1100
         );
 
 
     /* -----------------------------------------------------
-       START ANIMATION
+       RUN EXPANSION
     ----------------------------------------------------- */
 
     requestAnimationFrame(
@@ -3603,11 +4748,6 @@ function openPanel(panel) {
             flyingTitle.style.width =
                 `${finalTitleWidth}px`;
 
-
-            /*
-               Reflow big stacked words into
-               one compact header while moving.
-            */
 
             flyingTitle.classList.add(
                 "compact"
@@ -3658,7 +4798,7 @@ function openPanel(panel) {
 
 
     /* -----------------------------------------------------
-       CONTENT APPEARS AFTER EXPANSION
+       REVEAL CONTENT
     ----------------------------------------------------- */
 
     setTimeout(
@@ -3679,11 +4819,14 @@ function openPanel(panel) {
             );
 
 
+            bindCarousels();
+
+
             bindGalleryItems();
 
         },
 
-        410
+        430
     );
 
 }
@@ -3691,7 +4834,6 @@ function openPanel(panel) {
 
 /* =========================================================
    CLOSE PANEL
-   Reverse exact path into source panel.
 ========================================================= */
 
 function closeActivePanel() {
@@ -3715,12 +4857,6 @@ function closeActivePanel() {
         );
 
 
-    /*
-       Source panel returns first,
-       but its title stays hidden
-       because flying title is returning.
-    */
-
     panel.style.opacity =
         "1";
 
@@ -3735,7 +4871,7 @@ function closeActivePanel() {
 
     const titleDestination =
         originalTitle
-            .getBoundingClientRect();
+        .getBoundingClientRect();
 
 
     const titleStyle =
@@ -3763,15 +4899,13 @@ function closeActivePanel() {
     );
 
 
-    /* Restore multi-line title layout */
-
     flyingTitle.classList.remove(
         "compact"
     );
 
 
     /* -----------------------------------------------------
-       PANEL REVERSE
+       REVERSE PANEL
     ----------------------------------------------------- */
 
     expansion.style.left =
@@ -3792,11 +4926,11 @@ function closeActivePanel() {
 
     expansion.style.borderRadius =
         getComputedStyle(panel)
-            .borderRadius;
+        .borderRadius;
 
 
     /* -----------------------------------------------------
-       TITLE REVERSE
+       REVERSE TITLE
     ----------------------------------------------------- */
 
     flyingTitle.style.left =
@@ -3837,7 +4971,9 @@ function closeActivePanel() {
 
 
             if (closeButton) {
+
                 closeButton.remove();
+
             }
 
 
@@ -3862,7 +4998,7 @@ function closeActivePanel() {
 
         },
 
-        610
+        625
     );
 
 }
@@ -3881,8 +5017,8 @@ function positionCloseButton() {
 
     const margin =
         window.innerWidth <= 800
-            ? 16
-            : 43;
+            ? 15
+            : 40;
 
 
     closeButton.style.top =
@@ -3896,7 +5032,7 @@ function positionCloseButton() {
 
 
 /* =========================================================
-   PANEL EVENTS
+   PANEL CLICK
 ========================================================= */
 
 panels.forEach(
@@ -3928,28 +5064,148 @@ backdrop.addEventListener(
 
 
 /* =========================================================
-   WINDOW RESIZE
+   CAROUSEL CONTROLS
 ========================================================= */
 
-window.addEventListener(
-    "resize",
-    () => {
+function bindCarousels() {
 
-        positionCloseButton();
-
+    if (!expansion) {
+        return;
     }
-);
+
+
+    expansion
+        .querySelectorAll(
+            "[data-carousel-next]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    event => {
+
+                        event.stopPropagation();
+
+
+                        const track =
+                            expansion.querySelector(
+                                `#${
+                                    button.dataset
+                                    .carouselNext
+                                }`
+                            );
+
+
+                        if (!track) {
+                            return;
+                        }
+
+
+                        const card =
+                            track.querySelector(
+                                ".scroll-card"
+                            );
+
+
+                        const distance =
+                            card
+                                ? card.getBoundingClientRect().width
+                                  + 16
+                                : 500;
+
+
+                        track.scrollBy({
+
+                            left:
+                                distance,
+
+                            behavior:
+                                "smooth"
+
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+
+    expansion
+        .querySelectorAll(
+            "[data-carousel-prev]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    event => {
+
+                        event.stopPropagation();
+
+
+                        const track =
+                            expansion.querySelector(
+                                `#${
+                                    button.dataset
+                                    .carouselPrev
+                                }`
+                            );
+
+
+                        if (!track) {
+                            return;
+                        }
+
+
+                        const card =
+                            track.querySelector(
+                                ".scroll-card"
+                            );
+
+
+                        const distance =
+                            card
+                                ? card.getBoundingClientRect().width
+                                  + 16
+                                : 500;
+
+
+                        track.scrollBy({
+
+                            left:
+                                -distance,
+
+                            behavior:
+                                "smooth"
+
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+}
 
 
 /* =========================================================
-   GALLERY BINDING
+   GALLERY LIGHTBOX BINDING
 ========================================================= */
 
 function bindGalleryItems() {
 
-    document
+    if (!expansion) {
+        return;
+    }
+
+
+    expansion
         .querySelectorAll(
-            ".expansion .gallery-item"
+            ".gallery-item"
         )
         .forEach(
             item => {
@@ -3967,7 +5223,10 @@ function bindGalleryItems() {
 
                 item.addEventListener(
                     "click",
-                    () => {
+                    event => {
+
+                        event.stopPropagation();
+
 
                         lightboxImage.src =
                             item.dataset.image;
@@ -4026,7 +5285,7 @@ lightbox.addEventListener(
 
 
 /* =========================================================
-   ESCAPE KEY
+   ESCAPE
 ========================================================= */
 
 document.addEventListener(
@@ -4042,7 +5301,7 @@ document.addEventListener(
 
         if (
             lightbox.classList
-                .contains("open")
+            .contains("open")
         ) {
 
             closeLightbox();
@@ -4054,6 +5313,16 @@ document.addEventListener(
         closeActivePanel();
 
     }
+);
+
+
+/* =========================================================
+   WINDOW RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    positionCloseButton
 );
 
 </script>
