@@ -1368,6 +1368,57 @@ img {
 }
 
 
+
+/* =========================================================
+   CLEAN REVERSE / CLOSE ANIMATION
+========================================================= */
+
+.expansion.is-closing .expanded-content {
+    opacity: 0;
+    transform: translateY(8px);
+
+    transition:
+        opacity .15s ease,
+        transform .15s ease;
+
+    pointer-events: none;
+}
+
+.expansion.is-closing .expanded-title-shield {
+    opacity: 0;
+
+    transition:
+        opacity .14s ease;
+}
+
+.expansion.is-closing .expanded-blob,
+.expansion.is-closing .expanded-blob-small {
+    opacity: 0;
+
+    transition:
+        opacity .14s ease;
+}
+
+/*
+   Once the content has faded, the returning object is just
+   the clean panel shell and the traveling title.
+*/
+.expansion.geometry-closing .expanded-content,
+.expansion.geometry-closing .expanded-title-shield,
+.expansion.geometry-closing .expanded-blob,
+.expansion.geometry-closing .expanded-blob-small {
+    visibility: hidden;
+}
+
+/*
+   Keep the dashboard destination invisible until the
+   animated shell has actually reached it.
+*/
+.panel.panel-return-target {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
 /* =========================================================
    OPEN HEADER
 ========================================================= */
@@ -1625,218 +1676,196 @@ img {
 }
 
 
+
 /* =========================================================
    COVER FLOW WRAPPER
 ========================================================= */
 
 .flow-section {
-
     position: relative;
-
     z-index: 3;
 }
 
 .flow-help {
-
-    margin-bottom: 13px;
-
-    color:
-        var(--muted2);
-
-    font-size: .74rem;
+    margin-bottom: 10px;
+    color: var(--muted2);
+    font-size: .78rem;
+    text-align: center;
 }
 
 
 /* =========================================================
    COVER FLOW TRACK
+   Portrait / UNO-card proportions.
 ========================================================= */
 
 .cover-flow {
-
-    --card-width:
-        min(720px, 65vw);
+    --card-width: clamp(300px, 27vw, 360px);
 
     display: flex;
-
-    gap: 18px;
+    align-items: center;
+    gap: clamp(12px, 1.5vw, 20px);
 
     overflow-x: auto;
-
-    overflow-y: hidden;
+    overflow-y: visible;
 
     padding:
+        22px
+        calc((100% - var(--card-width)) / 2)
+        20px;
 
-        20px
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline:
+        calc((100% - var(--card-width)) / 2);
 
-        calc(
-            (100% - var(--card-width)) / 2
-        )
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 
-        18px;
+    perspective: 1450px;
+    touch-action: pan-x;
 
-    scroll-snap-type:
-        x mandatory;
-
-    scroll-behavior:
-        smooth;
-
-    overscroll-behavior-x:
-        contain;
-
-    scrollbar-width:
-        none;
-
-    perspective:
-        1300px;
-
-    touch-action:
-        pan-x;
+    /*
+       Prevent the carousel from nudging the surrounding
+       expanded panel while it is being scrolled.
+    */
+    contain: layout style;
 }
 
 .cover-flow::-webkit-scrollbar {
-
     display: none;
 }
 
 
 /* =========================================================
    COVER FLOW CARD
-
-   Landscape proportion.
+   Vertical 2:3 gaming / UNO-card shape.
 ========================================================= */
 
 .flow-card {
-
     position: relative;
 
-    flex:
-        0 0
-        var(--card-width);
+    flex: 0 0 var(--card-width);
+    width: var(--card-width);
+    aspect-ratio: 2 / 3;
 
     min-width: 0;
 
-    min-height: 330px;
-
-    scroll-snap-align:
-        center;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
 
     overflow: hidden;
 
-    padding: 29px;
+    padding: clamp(24px, 2vw, 31px);
 
     display: flex;
-
     flex-direction: column;
 
     border:
         1px solid
         rgba(193,246,237,.18);
 
-    border-radius:
-        25px;
+    border-radius: 28px;
 
     background:
-
+        radial-gradient(
+            circle at 85% 8%,
+            rgba(89,225,141,.08),
+            transparent 36%
+        ),
         linear-gradient(
-            135deg,
-            rgba(193,246,237,.045),
+            145deg,
+            rgba(193,246,237,.05),
             rgba(46,175,125,.025)
         ),
-
-        rgba(10,76,81,.90);
+        rgba(10,76,81,.96);
 
     box-shadow:
-        0 22px 44px
-        rgba(0,25,28,.16);
+        0 20px 45px
+        rgba(0,25,28,.20);
 
-    transform-style:
-        preserve-3d;
+    transform-style: preserve-3d;
+    transform-origin: center center;
 
-    transform-origin:
-        center;
+    opacity: .58;
 
-    opacity: .55;
-
+    /*
+       Transform intentionally has NO CSS transition.
+       It follows the finger / scroll position frame by frame.
+       This removes the previous left-shift-then-correct motion.
+    */
     transition:
-
-        transform .18s linear,
-
-        opacity .18s linear,
-
-        filter .18s linear,
-
-        box-shadow .18s linear,
-
-        border-color .18s linear;
+        opacity .10s linear,
+        filter .10s linear,
+        border-color .20s ease,
+        box-shadow .20s ease;
 
     will-change:
         transform,
-        opacity;
+        opacity,
+        filter;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .flow-card.is-center {
-
     border-color:
-        rgba(89,225,141,.38);
+        rgba(89,225,141,.48);
 
     box-shadow:
-
-        0 28px 60px
-        rgba(0,25,28,.24),
-
+        0 30px 72px
+        rgba(0,24,27,.32),
         0 0 0 1px
-        rgba(89,225,141,.05);
+        rgba(89,225,141,.07);
 }
 
 .card-label {
+    color: var(--greenBright);
 
-    color:
-        var(--greenBright);
-
-    font-size: .71rem;
-
+    font-size: .79rem;
     font-weight: 900;
 
-    letter-spacing: .1em;
+    letter-spacing: .095em;
+    line-height: 1.35;
 
     text-transform: uppercase;
 }
 
 .flow-card h3 {
-
-    margin:
-        20px 0 0;
+    margin: 22px 0 0;
 
     font-size:
-        clamp(1.4rem,2vw,1.9rem);
+        clamp(1.65rem, 2.15vw, 2.05rem);
 
-    line-height: 1.18;
+    line-height: 1.12;
 
-    letter-spacing: -.03em;
+    letter-spacing: -.035em;
 }
 
 .flow-card p {
+    margin: 16px 0 0;
 
-    max-width: 660px;
-
-    margin:
-        13px 0 0;
-
-    color:
-        var(--muted);
+    color: var(--muted);
 
     font-size:
-        clamp(.92rem,1.05vw,1.03rem);
+        clamp(1rem, 1.08vw, 1.10rem);
 
-    line-height: 1.68;
+    line-height: 1.62;
 }
 
-.flow-card
-.tags {
-
+.flow-card .tags {
     margin-top: auto;
+    padding-top: 22px;
+}
 
-    padding-top: 20px;
+.tags {
+    gap: 7px;
+}
+
+.tags span {
+    font-size: .73rem;
 }
 
 
@@ -1845,37 +1874,29 @@ img {
 ========================================================= */
 
 .skill-heading {
-
     display: flex;
-
     align-items: center;
-
     gap: 14px;
 }
 
 .card-icon {
-
     flex-shrink: 0;
 
-    width: 46px;
-
-    height: 46px;
+    width: 50px;
+    height: 50px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    border-radius: 13px;
+    border-radius: 15px;
 
     background:
         rgba(89,225,141,.12);
 
-    color:
-        var(--greenBright);
+    color: var(--greenBright);
 
-    font-size: 1.1rem;
+    font-size: 1.15rem;
 }
 
 
@@ -1884,49 +1905,39 @@ img {
 ========================================================= */
 
 .flow-dots {
+    min-height: 26px;
 
-    min-height: 24px;
-
-    margin-top: 6px;
+    margin-top: 5px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    gap: 8px;
+    gap: 9px;
 }
 
 .flow-dot {
-
-    width: 7px;
-
-    height: 7px;
+    width: 8px;
+    height: 8px;
 
     padding: 0;
-
     border: 0;
 
     border-radius: 999px;
 
     background:
-        rgba(193,246,237,.28);
+        rgba(193,246,237,.30);
 
     cursor: pointer;
 
     transition:
-
-        width .25s ease,
-
-        background .25s ease,
-
-        transform .25s ease;
+        width .24s ease,
+        background .24s ease,
+        transform .24s ease;
 }
 
 .flow-dot.active {
-
-    width: 23px;
+    width: 25px;
 
     background:
         var(--greenBright);
@@ -1938,21 +1949,17 @@ img {
 
 /* =========================================================
    VISUAL COVER FLOW
+   Same portrait card silhouette.
 ========================================================= */
 
 .visual-card {
-
-    min-height: 390px;
-
     padding: 0;
 }
 
 .visual-image {
-
     position: relative;
 
-    height: 290px;
-
+    height: 58%;
     flex-shrink: 0;
 
     background:
@@ -1960,13 +1967,10 @@ img {
 }
 
 .visual-image img {
-
     position: absolute;
-
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
@@ -1975,37 +1979,43 @@ img {
 }
 
 .visual-caption {
+    flex: 1;
 
     padding:
-        19px 23px 23px;
+        22px 24px 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .visual-caption h3 {
+    margin-top: 8px;
 
-    margin-top: 6px;
+    font-size:
+        clamp(1.55rem, 2vw, 1.9rem);
 }
 
 
 /* =========================================================
    MINI PROJECT FLOW CARD
+   Same portrait card silhouette.
 ========================================================= */
 
 .mini-card {
-
     padding: 0;
 
     color: inherit;
-
     text-decoration: none;
-
-    min-height: 390px;
 }
 
-.mini-image {
-
+.mini-image,
+.sankey-preview,
+.notedump-preview {
     position: relative;
 
-    height: 215px;
+    height: 43%;
+    flex-shrink: 0;
 
     overflow: hidden;
 
@@ -2014,49 +2024,56 @@ img {
 }
 
 .mini-image img {
-
     width: 100%;
-
     height: 100%;
 
     object-fit: cover;
 }
 
 .mini-body {
+    flex: 1;
 
     padding:
-        18px 24px 23px;
+        20px 25px 26px;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .mini-body h3 {
+    margin: 8px 0 0;
 
-    margin:
-        7px 0 0;
+    font-size:
+        clamp(1.55rem, 2vw, 1.9rem);
 }
 
 .mini-body p {
+    margin-top: 12px;
 
-    margin-top: 10px;
+    font-size:
+        clamp(.97rem, 1.04vw, 1.06rem);
+
+    line-height: 1.58;
+}
+
+.mini-body .tags {
+    margin-top: auto;
+    padding-top: 17px;
 }
 
 .external-project {
-
     position: absolute;
 
     z-index: 5;
 
-    right: 20px;
-
-    top: 20px;
+    right: 18px;
+    top: 18px;
 
     width: 42px;
-
     height: 42px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     border-radius: 50%;
@@ -2077,15 +2094,7 @@ img {
 ========================================================= */
 
 .sankey-preview {
-
-    position: relative;
-
-    height: 215px;
-
-    overflow: hidden;
-
     background:
-
         linear-gradient(
             145deg,
             #07393F,
@@ -2094,18 +2103,15 @@ img {
 }
 
 .sankey-preview svg {
-
     position: absolute;
 
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 }
 
 .sankey-node {
-
     position: absolute;
 
     width: 20px;
@@ -2117,33 +2123,27 @@ img {
 }
 
 .sn1 {
-
     left: 12%;
+    top: 28%;
 
-    top: 60px;
-
-    height: 94px;
+    height: 44%;
 }
 
 .sn2 {
-
     left: 45%;
+    top: 20%;
 
-    top: 42px;
-
-    height: 130px;
+    height: 60%;
 
     background:
         var(--aqua);
 }
 
 .sn3 {
-
     right: 12%;
+    top: 31%;
 
-    top: 67px;
-
-    height: 100px;
+    height: 47%;
 
     background:
         var(--mint);
@@ -2155,17 +2155,9 @@ img {
 ========================================================= */
 
 .notedump-preview {
-
-    position: relative;
-
-    height: 215px;
-
-    padding: 26px;
-
-    overflow: hidden;
+    padding: 25px;
 
     background:
-
         linear-gradient(
             140deg,
             #064047,
@@ -2174,10 +2166,8 @@ img {
 }
 
 .note-sheet {
-
-    width: 72%;
-
-    height: 158px;
+    width: 76%;
+    height: 78%;
 
     padding: 17px;
 
@@ -2192,7 +2182,6 @@ img {
 }
 
 .note-line {
-
     height: 7px;
 
     margin-bottom: 10px;
@@ -2204,12 +2193,10 @@ img {
 }
 
 .note-line.short {
-
     width: 58%;
 }
 
 .note-line.mid {
-
     width: 79%;
 }
 
@@ -2681,136 +2668,120 @@ img {
     }
 
 
+
     /* -----------------------------------------------------
        COVER FLOW
-
-       Still landscape on the phone.
+       Portrait UNO / gaming-card shape on phone too.
     ----------------------------------------------------- */
 
     .cover-flow {
-
         --card-width:
-            88vw;
+            min(74vw, 310px);
 
-        gap: 11px;
+        gap: 12px;
 
-        padding-top: 12px;
+        padding-top: 10px;
+        padding-bottom: 12px;
 
-        padding-bottom: 13px;
+        scroll-padding-inline:
+            calc((100% - var(--card-width)) / 2);
     }
 
     .flow-card {
+        aspect-ratio: 2 / 3;
 
-        min-height: 265px;
+        padding: 22px;
 
-        padding: 21px;
+        border-radius: 24px;
+    }
 
-        border-radius: 22px;
+    .card-label {
+        font-size: .68rem;
     }
 
     .flow-card h3 {
+        margin-top: 16px;
 
-        margin-top: 13px;
+        font-size:
+            clamp(1.38rem, 6vw, 1.65rem);
 
-        font-size: 1.27rem;
+        line-height: 1.13;
     }
 
     .flow-card p {
+        margin-top: 12px;
 
-        margin-top: 9px;
+        font-size: .92rem;
 
-        font-size: .84rem;
-
-        line-height: 1.52;
+        line-height: 1.56;
     }
 
-    .flow-card
-    .tags {
-
-        padding-top: 13px;
-
-        margin-top: auto;
+    .flow-card .tags {
+        padding-top: 15px;
     }
 
     .tags {
-
         gap: 5px;
     }
 
     .tags span {
-
         padding:
-            5px 8px;
+            6px 8px;
 
-        font-size: .6rem;
+        font-size: .62rem;
     }
 
 
     /* visual cards */
 
-    .visual-card {
-
-        min-height: 290px;
-    }
-
     .visual-image {
-
-        height: 200px;
+        height: 58%;
     }
 
     .visual-caption {
-
         padding:
-            13px 17px 16px;
+            16px 18px 19px;
     }
 
     .visual-caption h3 {
-
-        font-size: 1.07rem;
+        font-size: 1.22rem;
     }
 
 
     /* mini cards */
 
-    .mini-card {
-
-        min-height: 300px;
-    }
-
     .mini-image,
     .sankey-preview,
     .notedump-preview {
-
-        height: 150px;
+        height: 42%;
     }
 
     .mini-body {
-
         padding:
-            13px 18px 17px;
+            16px 19px 20px;
+    }
+
+    .mini-body h3 {
+        font-size: 1.26rem;
     }
 
     .mini-body p {
+        font-size: .88rem;
 
-        font-size: .8rem;
-
-        line-height: 1.48;
+        line-height: 1.5;
     }
 
     .note-sheet {
-
-        height: 108px;
+        height: 78%;
 
         padding: 12px;
     }
 
     .note-line {
-
         height: 5px;
 
         margin-bottom: 7px;
     }
-
 
     /* contact */
 
@@ -5160,7 +5131,6 @@ function openPanel(panel) {
 
 function closeActivePanel() {
 
-
     if (
         !activePanel
         ||
@@ -5168,7 +5138,6 @@ function closeActivePanel() {
         ||
         !flyingTitle
     ) {
-
         return;
     }
 
@@ -5183,40 +5152,37 @@ function closeActivePanel() {
         );
 
 
-    panel.style.opacity =
-        "1";
+    /*
+       The real dashboard tile stays in its grid position,
+       but remains invisible until the animated shell gets
+       all the way back to it.
+    */
+    panel.classList.add(
+        "panel-return-target"
+    );
 
+    panel.style.opacity =
+        "0";
 
     originalTitle.style.opacity =
         "0";
 
 
-    const panelDestination =
-        panel.getBoundingClientRect();
-
-
-    const titleDestination =
-        originalTitle
-        .getBoundingClientRect();
-
-
-    const titleStyle =
-        getComputedStyle(
-            originalTitle
-        );
-
-
-    expansion.classList.remove(
-        "content-visible"
+    /*
+       Phase 1:
+       Fade away the expanded content first. This avoids
+       trying to resize a full scrolling gallery at the
+       same time the panel is traveling home.
+    */
+    expansion.classList.add(
+        "is-closing"
     );
 
 
     if (closeButton) {
-
         closeButton.classList.remove(
             "visible"
         );
-
     }
 
 
@@ -5225,100 +5191,159 @@ function closeActivePanel() {
     );
 
 
-    flyingTitle.classList.remove(
-        "compact"
-    );
-
-
-    /* BOX GOES HOME */
-
-    expansion.style.left =
-        `${panelDestination.left}px`;
-
-
-    expansion.style.top =
-        `${panelDestination.top}px`;
-
-
-    expansion.style.width =
-        `${panelDestination.width}px`;
-
-
-    expansion.style.height =
-        `${panelDestination.height}px`;
-
-
-    expansion.style.borderRadius =
-        getComputedStyle(panel)
-        .borderRadius;
-
-
-    /* TITLE GOES HOME */
-
-    flyingTitle.style.left =
-        `${titleDestination.left}px`;
-
-
-    flyingTitle.style.top =
-        `${titleDestination.top}px`;
-
-
-    flyingTitle.style.width =
-        `${titleDestination.width}px`;
-
-
-    flyingTitle.style.fontSize =
-        titleStyle.fontSize;
-
-
-    flyingTitle.style.lineHeight =
-        titleStyle.lineHeight;
-
-
     setTimeout(
         () => {
 
-
-            originalTitle.style.opacity =
-                "";
-
-
-            expansion.remove();
-
-
-            flyingTitle.remove();
-
-
-            if (closeButton) {
-
-                closeButton.remove();
-
+            if (
+                !expansion
+                ||
+                !flyingTitle
+                ||
+                !activePanel
+            ) {
+                return;
             }
 
 
-            backdrop.hidden =
-                true;
+            expansion.classList.add(
+                "geometry-closing"
+            );
 
 
-            expansion =
-                null;
+            const panelDestination =
+                panel.getBoundingClientRect();
 
 
-            flyingTitle =
-                null;
+            const titleDestination =
+                originalTitle
+                .getBoundingClientRect();
 
 
-            closeButton =
-                null;
+            const titleStyle =
+                getComputedStyle(
+                    originalTitle
+                );
 
 
-            activePanel =
-                null;
+            const panelStyle =
+                getComputedStyle(
+                    panel
+                );
 
+
+            /*
+               Put the title back into its original stacked
+               layout before it starts the return trip.
+            */
+            flyingTitle.classList.remove(
+                "compact"
+            );
+
+
+            /*
+               Commit the faded state before changing the
+               geometry. This prevents the browser from
+               merging both phases into one jerky frame.
+            */
+            void expansion.offsetWidth;
+
+
+            /* PANEL SHELL RETURNS HOME */
+
+            expansion.style.left =
+                `${panelDestination.left}px`;
+
+            expansion.style.top =
+                `${panelDestination.top}px`;
+
+            expansion.style.width =
+                `${panelDestination.width}px`;
+
+            expansion.style.height =
+                `${panelDestination.height}px`;
+
+            expansion.style.borderRadius =
+                panelStyle.borderRadius;
+
+
+            /* TITLE RETURNS HOME */
+
+            flyingTitle.style.left =
+                `${titleDestination.left}px`;
+
+            flyingTitle.style.top =
+                `${titleDestination.top}px`;
+
+            flyingTitle.style.width =
+                `${titleDestination.width}px`;
+
+            flyingTitle.style.fontSize =
+                titleStyle.fontSize;
+
+            flyingTitle.style.lineHeight =
+                titleStyle.lineHeight;
+
+
+            /*
+               Match the .62s geometry transition.
+            */
+            setTimeout(
+                () => {
+
+                    /*
+                       Reveal the original tile on the same
+                       frame that the animated copy disappears.
+                    */
+                    panel.classList.remove(
+                        "panel-return-target"
+                    );
+
+                    panel.style.opacity =
+                        "";
+
+                    originalTitle.style.opacity =
+                        "";
+
+
+                    if (expansion) {
+                        expansion.remove();
+                    }
+
+
+                    if (flyingTitle) {
+                        flyingTitle.remove();
+                    }
+
+
+                    if (closeButton) {
+                        closeButton.remove();
+                    }
+
+
+                    backdrop.hidden =
+                        true;
+
+
+                    expansion =
+                        null;
+
+                    flyingTitle =
+                        null;
+
+                    closeButton =
+                        null;
+
+                    activePanel =
+                        null;
+
+                },
+
+                625
+            );
 
         },
 
-        640
+        155
     );
 
 }
@@ -5392,7 +5417,6 @@ backdrop.addEventListener(
 
 function initialiseCoverFlows() {
 
-
     if (!expansion) {
         return;
     }
@@ -5404,7 +5428,6 @@ function initialiseCoverFlows() {
         )
         .forEach(
             track => {
-
 
                 const cards =
                     Array.from(
@@ -5426,6 +5449,51 @@ function initialiseCoverFlows() {
 
 
                 let dots = [];
+                let ticking = false;
+
+
+                /* -----------------------------------------
+                   CENTER ONE CARD WITHOUT scrollIntoView()
+                ----------------------------------------- */
+
+                function centerCard(
+                    card,
+                    smooth = true
+                ) {
+
+                    const target =
+                        card.offsetLeft
+                        -
+                        (
+                            track.clientWidth
+                            -
+                            card.offsetWidth
+                        ) / 2;
+
+
+                    track.scrollTo({
+
+                        left:
+                            Math.max(
+                                0,
+                                target
+                            ),
+
+                        behavior:
+                            smooth
+                                ? "smooth"
+                                : "auto"
+
+                    });
+
+                }
+
+
+                /*
+                   Expose the helper to gallery click handling.
+                */
+                track._centerCard =
+                    centerCard;
 
 
                 /* -----------------------------------------
@@ -5434,14 +5502,12 @@ function initialiseCoverFlows() {
 
                 if (dotsContainer) {
 
-
                     dotsContainer.innerHTML =
                         "";
 
 
                     cards.forEach(
                         (card,index) => {
-
 
                             const dot =
                                 document.createElement(
@@ -5467,23 +5533,12 @@ function initialiseCoverFlows() {
                                 "click",
                                 event => {
 
-
                                     event.stopPropagation();
 
-
-                                    card.scrollIntoView({
-
-                                        behavior:
-                                            "smooth",
-
-                                        inline:
-                                            "center",
-
-                                        block:
-                                            "nearest"
-
-                                    });
-
+                                    centerCard(
+                                        card,
+                                        true
+                                    );
 
                                 }
                             );
@@ -5498,33 +5553,28 @@ function initialiseCoverFlows() {
                                 dot
                             );
 
-
                         }
                     );
-
 
                 }
 
 
-                let ticking =
-                    false;
-
-
                 /* -----------------------------------------
                    COVER FLOW CALCULATION
+
+                   IMPORTANT:
+                   offsetLeft / offsetWidth are untransformed
+                   layout geometry. This prevents the visual
+                   transform from feeding back into the next
+                   frame's position calculation.
                 ----------------------------------------- */
 
                 function updateFlow() {
 
-
-                    const trackRect =
-                        track.getBoundingClientRect();
-
-
-                    const trackCenter =
-                        trackRect.left
+                    const viewportCenter =
+                        track.scrollLeft
                         +
-                        trackRect.width / 2;
+                        track.clientWidth / 2;
 
 
                     let closestIndex =
@@ -5538,27 +5588,22 @@ function initialiseCoverFlows() {
                     cards.forEach(
                         (card,index) => {
 
-
-                            const rect =
-                                card.getBoundingClientRect();
-
-
-                            const center =
-                                rect.left
+                            const cardCenter =
+                                card.offsetLeft
                                 +
-                                rect.width / 2;
+                                card.offsetWidth / 2;
 
 
                             const distance =
-                                center
+                                cardCenter
                                 -
-                                trackCenter;
+                                viewportCenter;
 
 
                             const normal =
                                 distance
                                 /
-                                rect.width;
+                                card.offsetWidth;
 
 
                             const abs =
@@ -5575,48 +5620,65 @@ function initialiseCoverFlows() {
                                     abs,
                                     1
                                 )
-                                *
-                                .14;
+                                * .13;
 
 
                             const rotate =
                                 Math.max(
-                                    -18,
+                                    -20,
                                     Math.min(
-                                        18,
-                                        normal * -16
+                                        20,
+                                        normal * -18
                                     )
                                 );
 
 
                             const translateY =
                                 Math.min(
-                                    abs * 18,
-                                    22
+                                    abs * 16,
+                                    20
+                                );
+
+
+                            /*
+                               Slight inward shift creates the
+                               iTunes / Cover Flow stacking
+                               without changing actual layout.
+                            */
+                            const translateX =
+                                Math.max(
+                                    -24,
+                                    Math.min(
+                                        24,
+                                        normal * -20
+                                    )
                                 );
 
 
                             const opacity =
                                 Math.max(
-                                    .38,
+                                    .40,
                                     1
                                     -
-                                    abs * .48
+                                    abs * .44
                                 );
 
 
                             const blur =
                                 Math.min(
-                                    abs * .45,
-                                    .7
+                                    abs * .30,
+                                    .45
                                 );
 
 
                             card.style.transform =
                                 `
-                                perspective(1200px)
+                                translate3d(
+                                    ${translateX}px,
+                                    ${translateY}px,
+                                    0
+                                )
                                 rotateY(${rotate}deg)
-                                translateY(${translateY}px)
                                 scale(${scale})
                                 `;
 
@@ -5630,7 +5692,13 @@ function initialiseCoverFlows() {
 
 
                             card.style.zIndex =
-                                `${100 - Math.round(abs * 10)}`;
+                                `${
+                                    100
+                                    -
+                                    Math.round(
+                                        abs * 10
+                                    )
+                                }`;
 
 
                             const absoluteDistance =
@@ -5645,17 +5713,13 @@ function initialiseCoverFlows() {
                                 closestDistance
                             ) {
 
-
                                 closestDistance =
                                     absoluteDistance;
-
 
                                 closestIndex =
                                     index;
 
-
                             }
-
 
                         }
                     );
@@ -5664,12 +5728,10 @@ function initialiseCoverFlows() {
                     cards.forEach(
                         (card,index) => {
 
-
                             card.classList.toggle(
                                 "is-center",
                                 index === closestIndex
                             );
-
 
                         }
                     );
@@ -5678,12 +5740,10 @@ function initialiseCoverFlows() {
                     dots.forEach(
                         (dot,index) => {
 
-
                             dot.classList.toggle(
                                 "active",
                                 index === closestIndex
                             );
-
 
                         }
                     );
@@ -5692,12 +5752,10 @@ function initialiseCoverFlows() {
                     ticking =
                         false;
 
-
                 }
 
 
                 function requestUpdate() {
-
 
                     if (ticking) {
                         return;
@@ -5712,7 +5770,6 @@ function initialiseCoverFlows() {
                         updateFlow
                     );
 
-
                 }
 
 
@@ -5725,41 +5782,63 @@ function initialiseCoverFlows() {
                 );
 
 
-                window.addEventListener(
-                    "resize",
-                    requestUpdate
-                );
-
-
                 /*
-                    Ensure first card begins centered.
+                   Tapping a side card centers it first.
+                   Center-card links still open normally.
                 */
+                cards.forEach(
+                    card => {
 
-                requestAnimationFrame(
-                    () => {
+                        card.addEventListener(
+                            "click",
+                            event => {
 
-
-                        cards[0]
-                            .scrollIntoView({
-
-                                behavior:
-                                    "auto",
-
-                                inline:
-                                    "center",
-
-                                block:
-                                    "nearest"
-
-                            });
+                                if (
+                                    card.classList.contains(
+                                        "is-center"
+                                    )
+                                ) {
+                                    return;
+                                }
 
 
-                        requestUpdate();
+                                event.preventDefault();
 
+                                event.stopPropagation();
+
+
+                                centerCard(
+                                    card,
+                                    true
+                                );
+
+                            }
+                        );
 
                     }
                 );
 
+
+                /*
+                   Start with the first card centered without
+                   scrollIntoView(), so no ancestor or popup
+                   can jump sideways.
+                */
+                requestAnimationFrame(
+                    () => {
+
+                        centerCard(
+                            cards[0],
+                            false
+                        );
+
+
+                        requestAnimationFrame(
+                            updateFlow
+                        );
+
+                    }
+                );
 
             }
         );
@@ -5817,19 +5896,25 @@ function bindGalleryItems() {
                             )
                         ) {
 
+                            const track =
+                                item.closest(
+                                    "[data-cover-flow]"
+                                );
 
-                            item.scrollIntoView({
 
-                                behavior:
-                                    "smooth",
+                            if (
+                                track
+                                &&
+                                typeof track._centerCard
+                                === "function"
+                            ) {
 
-                                inline:
-                                    "center",
+                                track._centerCard(
+                                    item,
+                                    true
+                                );
 
-                                block:
-                                    "nearest"
-
-                            });
+                            }
 
 
                             return;
