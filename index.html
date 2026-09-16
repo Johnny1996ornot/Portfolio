@@ -6640,6 +6640,156 @@ img {
 
 
 /* =========================================================
+   CASE-STUDY BIOLOGY + VALUE EXPLAINERS
+   Added to clarify where bees and butterflies enter the model
+   and to expose exact values without altering the source figures.
+========================================================= */
+
+.case-biology-bridge {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 14px;
+    margin: 20px 0 22px;
+}
+
+.case-biology-card {
+    padding: clamp(20px,2vw,28px);
+    border: 1px solid rgba(193,246,237,.14);
+    border-radius: 22px;
+    background:
+        linear-gradient(145deg,rgba(193,246,237,.05),rgba(46,175,125,.025)),
+        rgba(6,73,78,.56);
+}
+
+.case-biology-card h3 {
+    margin: 0;
+    font-size: clamp(1.16rem,1.45vw,1.48rem);
+    letter-spacing: -.025em;
+}
+
+.case-biology-card p {
+    margin: 11px 0 0;
+    color: rgba(226,245,241,.91);
+    font-size: clamp(.94rem,1vw,1.06rem);
+    line-height: 1.65;
+}
+
+.case-biology-card strong {
+    color: var(--text);
+}
+
+.case-formula {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--greenBright);
+    border-radius: 12px;
+    background: rgba(89,225,141,.075);
+    color: var(--mint);
+    font-size: .92rem;
+    line-height: 1.55;
+}
+
+.case-basic-facts {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 10px;
+    margin: 16px 0 2px;
+}
+
+.case-basic-fact {
+    padding: 13px 14px;
+    border: 1px solid rgba(193,246,237,.11);
+    border-radius: 14px;
+    background: rgba(193,246,237,.035);
+}
+
+.case-basic-fact strong {
+    display: block;
+    color: var(--greenBright);
+    font-size: .74rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.case-basic-fact span {
+    display: block;
+    margin-top: 5px;
+    color: rgba(236,250,247,.95);
+    font-size: .91rem;
+    line-height: 1.48;
+}
+
+.case-value-table {
+    margin: 0;
+    padding: 14px 18px 18px;
+    background: rgba(4,61,67,.98);
+    border-top: 1px solid rgba(193,246,237,.10);
+}
+
+.case-value-table-title {
+    margin-bottom: 9px;
+    color: var(--greenBright);
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+
+.case-value-row {
+    display: grid;
+    grid-template-columns: minmax(150px,1.35fr) .82fr .92fr;
+    gap: 9px;
+    align-items: center;
+    padding: 7px 0;
+    border-top: 1px solid rgba(193,246,237,.10);
+    color: rgba(235,249,246,.93);
+    font-size: .78rem;
+}
+
+.case-value-row:first-of-type {
+    border-top: 0;
+}
+
+.case-value-row.head {
+    color: var(--mint);
+    font-weight: 800;
+    font-size: .72rem;
+}
+
+.case-value-row span:nth-child(2),
+.case-value-row span:nth-child(3) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.case-logic-chain {
+    margin-top: 15px;
+    padding: 15px 17px;
+    border: 1px solid rgba(89,225,141,.18);
+    border-radius: 16px;
+    background: rgba(46,175,125,.065);
+    color: rgba(239,252,249,.96);
+    font-size: .94rem;
+    line-height: 1.58;
+}
+
+.case-logic-chain b {
+    color: var(--greenBright);
+}
+
+@media (max-width: 800px) {
+    .case-biology-bridge,
+    .case-basic-facts {
+        grid-template-columns: 1fr;
+    }
+
+    .case-value-row {
+        grid-template-columns: 1fr .72fr .82fr;
+        font-size: .72rem;
+    }
+}
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
@@ -10066,15 +10216,16 @@ function getConservationCaseStudyHTML() {
 
                 <p class="case-lead">
                     This case study asks a practical conservation question: if a government
-                    has a fixed amount of money to improve agricultural landscapes, where
-                    should that money be spent? The model divides the landscape into 5-km
-                    cells and compares several ways of choosing cells. Some strategies give
-                    more importance to improving habitat conditions inside a cell, while
-                    others give more importance to structural connectivity &mdash; keeping
-                    useful habitat areas linked across the wider landscape. Mixed strategies
-                    try to achieve both at the same time. The model also tests a real-world
-                    limitation: even a high-priority place cannot receive an intervention if
-                    the relevant land managers are not available to participate.
+                    has a fixed amount of money to improve agricultural landscapes for pollinators,
+                    where should that money be spent? Bee and butterfly occurrence records are first
+                    translated into species-level ecological profiles describing the landscape
+                    conditions with which each species is associated. Those profiles are then compared
+                    with the habitat composition of every 5-km landscape cell. The result is a
+                    pollinator-informed estimate of local habitat suitability and, by linking suitable
+                    neighbouring cells, structural connectivity. The policy model then compares several
+                    ways of allocating the same intervention budget across eligible agricultural cells.
+                    It also tests a real-world limitation: even a high-priority place cannot receive an
+                    intervention if the relevant representative land-management unit is unavailable.
                 </p>
 
                 <div class="case-tags">
@@ -10132,17 +10283,47 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">01 · Methods</div>
                 <h2>From policy assumptions to spatial allocation</h2>
                 <p class="case-section-intro">
-                    Think of the model as a controlled experiment carried out on a map.
-                    First, the total budget and the amount of land that can receive support
-                    are fixed. Next, every eligible 5-km landscape cell is evaluated using
-                    two ecological ideas: local habitat response and structural connectivity.
-                    The model then asks how the funding map changes when policy gives more
-                    weight to one objective or the other. A random allocation is kept as a
-                    baseline, so the targeted strategies can be compared against what might
-                    happen without ecological spatial prioritisation. Finally, participation
-                    scenarios test whether the preferred map can still be implemented when
-                    only some management units are available.
+                    Think of the model as a controlled conservation experiment carried out on a map.
+                    The bees and butterflies provide the ecological evidence: their occurrence records,
+                    habitat associations and trait-based mobility information are used to describe how
+                    species relate to different landscape conditions. The 5-km grid provides the spatial
+                    environment. The policy layer then asks where a fixed amount of intervention should
+                    be placed so that the resulting landscape better matches pollinator habitat needs and/or
+                    forms a more continuous network of suitable neighbouring cells. Representative
+                    land-management units determine where the intervention can actually be implemented.
                 </p>
+            </div>
+
+            <div class="case-biology-bridge">
+
+                <article class="case-biology-card">
+                    <h3>What role do bees and butterflies play?</h3>
+                    <p>
+                        They are the <strong>ecological response layer</strong>, not the policy agents.
+                        The model contains 554 ABM-ready bee species and 217 ABM-ready butterfly species.
+                        For each species, observed occurrence patterns are summarised into a landscape-association
+                        profile. Butterfly morphology and functional movement groups, and bee body-size / ITD
+                        mobility information, remain part of the ecological profile and interpretation.
+                    </p>
+                    <div class="case-formula">
+                        Pollinator records + traits &rarr; species ecological profiles &rarr; habitat suitability across 5-km cells
+                    </div>
+                </article>
+
+                <article class="case-biology-card">
+                    <h3>How do habitat and connectivity scores come from them?</h3>
+                    <p>
+                        <strong>Local habitat response</strong> asks how closely the habitat composition of a cell
+                        matches the empirical landscape associations of the modeled bee and butterfly species.
+                        <strong>Structural connectivity</strong> then asks whether suitable neighbouring cells form
+                        a stronger continuous landscape network. Improving one cell can therefore help locally,
+                        help connectivity, or contribute to both.
+                    </p>
+                    <div class="case-formula">
+                        Better species&ndash;habitat match = stronger local response; suitable neighbouring cells = stronger structural connectivity
+                    </div>
+                </article>
+
             </div>
 
             <div class="case-method-grid">
@@ -10151,10 +10332,11 @@ function getConservationCaseStudyHTML() {
                     <span>1</span>
                     <h3>Define the policy envelope</h3>
                     <p>
-                        Establish one common policy budget before comparing strategies.
-                        This includes the payment per hectare, the eligible cropland, the
-                        programme size, total intervention area and the maximum amount that
-                        can be assigned inside any single cell.
+                        Define what is actually being funded: hectares of beneficial-strip
+                        intervention on eligible cropland, not entire 5-km cells. The payment
+                        is CHF 3,300 per intervention hectare per year. The reference programme
+                        funds 2,793.77 ha in total, with a modelling cap of 3% of cropland in
+                        any one eligible cell.
                     </p>
                 </article>
 
@@ -10162,10 +10344,10 @@ function getConservationCaseStudyHTML() {
                     <span>2</span>
                     <h3>Score ecological objectives</h3>
                     <p>
-                        Give each eligible cell information about two objectives. Local
-                        habitat response describes the expected benefit within the cell,
-                        while structural connectivity represents how strongly the cell can
-                        contribute to a more connected landscape pattern.
+                        Use bee and butterfly ecological profiles to score every eligible
+                        cell. Local habitat response represents the improvement in species&ndash;habitat
+                        matching within that cell. Structural connectivity represents how the
+                        cell contributes to continuity among suitable neighbouring cells.
                     </p>
                 </article>
 
@@ -10173,10 +10355,10 @@ function getConservationCaseStudyHTML() {
                     <span>3</span>
                     <h3>Allocate the same budget</h3>
                     <p>
-                        Spend exactly the same reference budget using six allocation rules:
+                        Spend exactly the same CHF 9.22M reference budget using six rules:
                         one random baseline plus habitat-only, connectivity-only and three
-                        mixed habitat/connectivity weightings. Holding money constant makes
-                        the comparison about location and priorities rather than spending.
+                        mixed habitat/connectivity weightings. This isolates the effect of
+                        <em>where</em> intervention is placed rather than simply spending more.
                     </p>
                 </article>
 
@@ -10184,10 +10366,10 @@ function getConservationCaseStudyHTML() {
                     <span>4</span>
                     <h3>Stress-test implementation</h3>
                     <p>
-                        Reduce or increase the management units that are available, identify
-                        cells repeatedly selected under different ecological weightings, and
-                        test whether the advantage of targeted allocation survives less
-                        favourable assumptions.
+                        Treat eligible agricultural cells as representative land-management
+                        units and vary how many are available to participate. Then test whether
+                        ecologically targeted allocation still outperforms random placement when
+                        implementation opportunities are limited.
                     </p>
                 </article>
 
@@ -10212,12 +10394,12 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">02 · Reference policy scenario</div>
                 <h2>Holding the budget constant</h2>
                 <p class="case-section-intro">
-                    Before comparing ecological strategies, the model creates one common
-                    financial starting point. This makes the comparison fair: every strategy
-                    receives the same total intervention area and the same annual budget.
-                    Any difference in performance therefore comes from where the model places
-                    the intervention and which ecological objective guides that placement, not
-                    from one strategy simply receiving more money.
+                    The payment is <strong>not CHF 3,300 per 5-km cell</strong>. A 5-km cell is only
+                    the spatial accounting and decision unit. The model first measures how much
+                    eligible cropland occurs inside each cell, then assigns a limited number of
+                    hectares of beneficial-strip intervention within that cropland. Each funded
+                    intervention hectare costs CHF 3,300 per year. The whole 5-km cell is never
+                    assumed to become conserved or converted.
                 </p>
             </div>
 
@@ -10237,26 +10419,57 @@ function getConservationCaseStudyHTML() {
                 </figure>
 
                 <div class="case-discussion">
-                    <h3>What the reference scenario fixes</h3>
+                    <h3>What is actually being paid for?</h3>
                     <p>
-                        The model uses a payment of CHF 3,300 per hectare per year and
-                        identifies 279,376.63 ha of modelled eligible cropland. The reference
-                        programme is set to 1% of that eligible area, which equals 2,793.77 ha.
-                        Multiplying the intervention area by the payment rate gives an annual
-                        reference budget of CHF 9,219,428.79. In simple terms, this is the
-                        fixed pot of money that every allocation strategy must work with.
+                        The modeled intervention is a <strong>beneficial strip established on open
+                        cropland</strong>. The policy parameter is CHF 3,300 per hectare per year.
+                        Funding is therefore calculated from the number of intervention hectares
+                        assigned inside a cell &mdash; not from the total size of the 5-km square.
                     </p>
+
+                    <div class="case-logic-chain">
+                        <b>Funding in one cell</b> = intervention hectares assigned in that cell
+                        &times; CHF 3,300 per hectare per year.
+                    </div>
+
+                    <div class="case-basic-facts">
+                        <div class="case-basic-fact">
+                            <strong>5-km cell</strong>
+                            <span>A spatial decision unit. The whole cell is not conserved.</span>
+                        </div>
+                        <div class="case-basic-fact">
+                            <strong>Paid unit</strong>
+                            <span>One hectare of modeled beneficial-strip intervention.</span>
+                        </div>
+                        <div class="case-basic-fact">
+                            <strong>Cell capacity</strong>
+                            <span>Maximum modeled intervention = 3% of cropland inside that cell.</span>
+                        </div>
+                        <div class="case-basic-fact">
+                            <strong>Reference programme</strong>
+                            <span>2,793.77 ha total intervention = about CHF 9.22M per year.</span>
+                        </div>
+                    </div>
+
                     <p>
-                        The model also limits intervention to a maximum of 3% of the cropland
-                        inside an eligible cell. Without this cap, an optimisation routine could
-                        unrealistically pour a very large share of the programme into only a few
-                        cells. The limit forces the model to distribute intervention across the
-                        landscape while still allowing high-priority cells to receive more support.
+                        For example, if a cell contains 1,000 ha of cropland, the 3% modelling cap
+                        allows at most 30 ha of intervention there. At CHF 3,300/ha/year, that cell
+                        could absorb at most CHF 99,000 of the programme. The remaining cropland
+                        is not assumed to change.
                     </p>
+
+                    <p>
+                        Across the modeled Swiss landscape there are 279,376.63 ha of eligible cropland.
+                        The reference experiment sets the programme scale to 1% of that eligible area:
+                        2,793.77 ha. Multiplying by CHF 3,300/ha gives the annual reference budget of
+                        CHF 9,219,428.79. Every main strategy receives this same intervention area and
+                        budget; only the spatial placement changes.
+                    </p>
+
                     <div class="case-callout">
-                        The reference budget is kept constant across the main strategy
-                        comparison, allowing ecological targeting rather than spending
-                        differences to drive the results.
+                        The central experiment is therefore: with the same CHF 9.22M and the same
+                        2,793.77 intervention hectares, where should funding be placed to create the
+                        strongest modeled pollinator habitat and/or connectivity benefit?
                     </div>
                 </div>
 
@@ -10271,13 +10484,13 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">03 · Strategy performance</div>
                 <h2>Trading local habitat response for structural connectivity</h2>
                 <p class="case-section-intro">
-                    Five targeted strategies gradually change the ecological objective from
-                    habitat-only to connectivity-only. The scatter plot can be read like a
-                    coordinate map: moving to the right means a larger local-habitat advantage
-                    over random funding, while moving upward means a larger structural-
-                    connectivity advantage. A strategy in the upper-right performs strongly
-                    on both objectives. The table and figures use the same reference budget,
-                    so the differences reflect spatial targeting rather than additional spending.
+                    These are not generic land-cover scores. They are calculated from the ecological
+                    profiles of the modeled bees and butterflies. For each species, its observed
+                    landscape association is compared with the habitat composition of each 5-km cell.
+                    The resulting species&ndash;cell habitat match is the basis of local habitat response.
+                    The same cell-level suitability information is then linked across neighbouring
+                    cells to measure structural connectivity. The policy strategies simply change how
+                    much weight is given to those two pollinator-informed objectives.
                 </p>
             </div>
 
@@ -10324,28 +10537,52 @@ function getConservationCaseStudyHTML() {
                         <span class="media-kicker">Figure</span>
                         <strong>Targeting advantage relative to random allocation</strong>
                     </figcaption>
+                    <div class="case-value-table" aria-label="Exact targeting advantages">
+                        <div class="case-value-table-title">Exact values shown in the bars</div>
+                        <div class="case-value-row head"><span>Strategy</span><span>Habitat</span><span>Connectivity</span></div>
+                        <div class="case-value-row"><span>Habitat only</span><span>+53.0%</span><span>+51.1%</span></div>
+                        <div class="case-value-row"><span>75% Habitat / 25% Connectivity</span><span>+51.9%</span><span>+68.1%</span></div>
+                        <div class="case-value-row"><span>50% Habitat / 50% Connectivity</span><span>+49.3%</span><span>+76.4%</span></div>
+                        <div class="case-value-row"><span>25% Habitat / 75% Connectivity</span><span>+45.9%</span><span>+81.3%</span></div>
+                        <div class="case-value-row"><span>Connectivity only</span><span>+41.7%</span><span>+83.0%</span></div>
+                    </div>
                 </figure>
 
                 <div class="case-discussion">
-                    <h3>The trade-off is gradual rather than absolute</h3>
+                    <h3>What do these bars mean biologically?</h3>
                     <p>
-                        Habitat-only targeting produces the largest local habitat advantage over
-                        random allocation at 53.0%, while still providing a 51.1% connectivity
-                        advantage. As the policy gives more weight to connectivity, the model
-                        accepts a gradual reduction in the local habitat gain in exchange for a
-                        much stronger connectivity gain. This is why the points form a trade-off
-                        rather than showing one strategy that is best at everything.
+                        Bees and butterflies are the ecological basis of both bars. The blue
+                        <strong>local habitat response</strong> bar asks whether the modeled intervention
+                        makes funded cells better matches for the habitat associations of the pollinator
+                        species in the dataset. The green <strong>structural connectivity</strong> bar asks
+                        whether those suitable cells become better connected to suitable neighbouring
+                        cells across the 5-km landscape graph.
+                    </p>
+
+                    <div class="case-logic-chain">
+                        Bee + butterfly landscape associations &rarr; species&ndash;cell habitat suitability
+                        &rarr; local habitat response &rarr; neighbouring-cell continuity &rarr; structural connectivity.
+                    </div>
+
+                    <p>
+                        Habitat-only targeting produces the largest local habitat advantage over random
+                        allocation at 53.0%. Connectivity-only targeting gives the largest structural-
+                        connectivity advantage at 83.0%. The mixed strategies deliberately trade a small
+                        amount of one objective for more of the other. The 50/50 strategy retains 97.6%
+                        of the maximum habitat response and 96.4% of the maximum connectivity response,
+                        making it a strong compromise under equal weighting.
                     </p>
                     <p>
-                        The 50/50 strategy is useful for understanding compromise. It retains
-                        97.6% of the maximum habitat response and 96.4% of the maximum
-                        connectivity response found among the tested strategies. In other words,
-                        it gives up only a small amount of the best possible score for either
-                        single objective while preserving strong performance in both.
+                        This should not be read as &ldquo;53% more bees&rdquo; or &ldquo;83% more species&rdquo;. The model
+                        does not simulate future abundance, reproduction or richness. It estimates how
+                        intervention changes habitat compatibility and structural continuity for the
+                        modeled pollinator community.
                     </p>
                     <div class="case-callout">
-                        These outputs represent modelled habitat and structural-connectivity
-                        responses. They do not directly predict future species richness.
+                        More or greener land is not automatically scored as better. A cell improves when
+                        the intervention moves its habitat composition toward conditions associated with
+                        the modeled bee and butterfly species, and connectivity improves when suitable
+                        neighbouring cells form stronger continuous links.
                     </div>
                 </div>
 
@@ -10515,11 +10752,13 @@ function getConservationCaseStudyHTML() {
                     </p>
                     <p>
                         The animated allocation shows the funded cells shifting as the policy
-                        changes its ecological weighting. Habitat-oriented strategies concentrate
-                        in one pattern, while connectivity-oriented strategies emphasise another.
+                        changes its ecological weighting. Habitat-oriented strategies favour cells
+                        where beneficial-strip intervention most improves the modeled bee-and-butterfly
+                        habitat match. Connectivity-oriented strategies favour cells whose improvement
+                        contributes more strongly to continuity among suitable neighbouring cells.
                         Because the budget and total intervention area remain fixed, the ecological
-                        gains should be interpreted as gains from better spatial targeting under
-                        equal resources rather than gains from a larger programme.
+                        gains come from better spatial targeting of pollinator-informed priorities,
+                        not from a larger programme.
                     </p>
                 </div>
 
@@ -10710,9 +10949,10 @@ function getConservationCaseStudyHTML() {
                 <h2>Where funding goes can matter as much as how much funding is available.</h2>
                 <p>
                     Across the tested scenarios, the model shows that spatial decisions can change
-                    what the same amount of conservation funding achieves. Habitat-focused strategies
-                    favour stronger local habitat response, connectivity-focused strategies favour a
-                    more connected landscape structure, and mixed strategies preserve much of both.
+                    what the same amount of conservation funding achieves for the modeled pollinator
+                    community. Habitat-focused strategies favour stronger bee-and-butterfly habitat
+                    matching within funded cells, connectivity-focused strategies favour a more continuous
+                    network of suitable neighbouring cells, and mixed strategies preserve much of both.
                     The participation experiment adds an important practical lesson: a mathematically
                     high-priority location is not automatically implementable if the people or
                     management units needed to act there are unavailable. The consensus analysis then
