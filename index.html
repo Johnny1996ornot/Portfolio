@@ -5282,6 +5282,309 @@ img {
 
 
 
+
+
+/* =========================================================
+   FINAL SEAMLESS DESKTOP BLEND + FAST REVERSE ANIMATION
+========================================================= */
+
+@media (min-width: 801px) {
+
+    /*
+       The carousel is no longer physically forced to begin after
+       the entire title rail. It can extend farther left behind the
+       title zone, which recovers the unused space visible in the
+       screenshots.
+    */
+    .expansion:not(.case-study-active) .expanded-content {
+        position: relative !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            1fr !important;
+
+        grid-template-rows:
+            1fr !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /*
+       Title/description occupy a narrower overlay rail.
+       The visual fade extends beyond it, but the structural rail
+       itself no longer blocks nearly half the carousel.
+    */
+    .expansion:not(.case-study-active) .expanded-header-row {
+        grid-column:
+            1 !important;
+
+        grid-row:
+            1 !important;
+
+        justify-self:
+            start;
+
+        width:
+            clamp(390px, 31vw, 575px) !important;
+
+        height:
+            100%;
+
+        z-index:
+            8 !important;
+
+        overflow:
+            visible !important;
+
+        padding-left:
+            clamp(46px, 3.6vw, 72px) !important;
+
+        padding-right:
+            clamp(30px, 2.5vw, 48px) !important;
+
+        background:
+            transparent !important;
+
+        pointer-events:
+            none;
+    }
+
+
+    .expansion:not(.case-study-active)
+    .expanded-header-row > div {
+        width:
+            100% !important;
+
+        max-width:
+            100% !important;
+
+        overflow:
+            hidden !important;
+
+        position:
+            relative !important;
+
+        z-index:
+            3 !important;
+    }
+
+
+    /*
+       This is the new transition zone.
+       It starts INSIDE the rail instead of on its right edge and
+       dissolves gradually over a wide distance. There is no
+       vertical "line" for the eye to catch.
+    */
+    .expansion:not(.case-study-active)
+    .expanded-header-row::after {
+        content:
+            "" !important;
+
+        display:
+            block !important;
+
+        position:
+            absolute;
+
+        z-index:
+            1;
+
+        top:
+            0;
+
+        bottom:
+            0;
+
+        left:
+            0;
+
+        width:
+            calc(
+                100%
+                + clamp(190px, 16vw, 330px)
+            );
+
+        pointer-events:
+            none;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4,64,70,1) 0%,
+                rgba(4,64,70,1) 56%,
+                rgba(4,64,70,.96) 63%,
+                rgba(4,64,70,.84) 69%,
+                rgba(4,64,70,.64) 75%,
+                rgba(4,64,70,.42) 81%,
+                rgba(4,64,70,.22) 87%,
+                rgba(4,64,70,.08) 93%,
+                rgba(4,64,70,0) 100%
+            );
+    }
+
+
+    /*
+       Flow stage fills the popup. Its usable center is nudged right
+       just enough to respect the title, but cards may travel behind
+       the gradient instead of disappearing at a hard boundary.
+    */
+    .expansion:not(.case-study-active)
+    .flow-section {
+        grid-column:
+            1 !important;
+
+        grid-row:
+            1 !important;
+
+        z-index:
+            2 !important;
+
+        width:
+            100% !important;
+
+        height:
+            100% !important;
+
+        padding-left:
+            clamp(270px, 23vw, 430px) !important;
+
+        border-left:
+            0 !important;
+
+        box-shadow:
+            none !important;
+    }
+
+
+    /*
+       Fade the WHOLE carousel progressively on the left.
+       This is intentionally long and soft; no 1px boundary.
+    */
+    .expansion:not(.case-study-active)
+    .cover-flow {
+        -webkit-mask-image:
+            linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0,0,0,.04) 5%,
+                rgba(0,0,0,.13) 10%,
+                rgba(0,0,0,.28) 15%,
+                rgba(0,0,0,.48) 20%,
+                rgba(0,0,0,.70) 25%,
+                rgba(0,0,0,.88) 30%,
+                #000 36%,
+                #000 100%
+            ) !important;
+
+        mask-image:
+            linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0,0,0,.04) 5%,
+                rgba(0,0,0,.13) 10%,
+                rgba(0,0,0,.28) 15%,
+                rgba(0,0,0,.48) 20%,
+                rgba(0,0,0,.70) 25%,
+                rgba(0,0,0,.88) 30%,
+                #000 36%,
+                #000 100%
+            ) !important;
+    }
+
+
+    /*
+       Contact cards also move left slightly now that the title rail
+       is narrower. They remain behind the title gradient.
+    */
+    .expansion-profile:not(.case-study-active)
+    .contact-grid {
+        grid-column:
+            1 !important;
+
+        grid-row:
+            1 !important;
+
+        z-index:
+            2 !important;
+
+        width:
+            auto !important;
+
+        align-self:
+            center !important;
+
+        margin:
+            0
+            clamp(24px, 2.7vw, 48px)
+            0
+            clamp(370px, 36vw, 650px) !important;
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE: FADE AND GEOMETRY MOVE AT THE SAME TIME
+========================================================= */
+
+.expansion.is-closing .expanded-content {
+    opacity:
+        0 !important;
+
+    transform:
+        translateY(3px) scale(.995) !important;
+
+    transition:
+        opacity .11s ease-out,
+        transform .16s ease-out !important;
+}
+
+
+/*
+   Do NOT switch the popup contents to visibility:hidden the instant
+   the return starts. That old rule created a perceptible "beat"
+   between fade and movement. Overflow on .expansion already clips
+   the fading content as the shell contracts.
+*/
+.expansion.geometry-closing .expanded-content,
+.expansion.geometry-closing .expanded-title-shield,
+.expansion.geometry-closing .expanded-blob,
+.expansion.geometry-closing .expanded-blob-small {
+    visibility:
+        visible !important;
+}
+
+
+/*
+   Decorative elements fade quickly while movement is underway.
+*/
+.expansion.is-closing .expanded-blob,
+.expansion.is-closing .expanded-blob-small {
+    opacity:
+        0 !important;
+
+    transition:
+        opacity .10s ease-out !important;
+}
+
+
+/*
+   Profile planets fold back more quickly so their collapse tracks
+   the returning panel instead of finishing noticeably earlier/later.
+*/
+.profile-scatter-system .orbit,
+.profile-scatter-system .planet,
+.profile-scatter-system .particle {
+    transition:
+        translate .56s
+        cubic-bezier(.18,.8,.2,1),
+        opacity .22s ease !important;
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -7753,9 +8056,8 @@ function closeActivePanel() {
 
 
     /*
-       The real dashboard tile stays in its grid position,
-       but remains invisible until the animated shell gets
-       all the way back to it.
+       Keep the real dashboard tile in place but invisible until
+       the animated shell has physically reached it.
     */
     panel.classList.add(
         "panel-return-target"
@@ -7769,9 +8071,8 @@ function closeActivePanel() {
 
 
     /*
-       Profile-only reverse scatter:
-       bring the individual planetary pieces back into their
-       original cluster before the panel shell contracts.
+       Profile planets collapse at the SAME TIME as the popup
+       starts travelling home. No separate half-second pause.
     */
     const scatterSystem =
         expansion.querySelector(
@@ -7786,10 +8087,7 @@ function closeActivePanel() {
 
 
     /*
-       Phase 1:
-       Fade away the expanded content first. This avoids
-       trying to resize a full scrolling gallery at the
-       same time the panel is traveling home.
+       Fade content immediately.
     */
     expansion.classList.add(
         "is-closing"
@@ -7808,177 +8106,232 @@ function closeActivePanel() {
     );
 
 
-    const closePreparationDelay =
-        scatterSystem
-            ? 440
-            : 155;
+    let closeFinished =
+        false;
 
 
-    setTimeout(
-        () => {
+    function finishClose() {
 
-            if (
-                !expansion
-                ||
-                !flyingTitle
-                ||
-                !activePanel
-            ) {
-                return;
-            }
+        if (closeFinished) {
+            return;
+        }
+
+        closeFinished =
+            true;
 
 
-            expansion.classList.add(
-                "geometry-closing"
-            );
+        panel.classList.remove(
+            "panel-return-target"
+        );
+
+        panel.style.opacity =
+            "";
+
+        originalTitle.style.opacity =
+            "";
 
 
-            const panelDestination =
-                panel.getBoundingClientRect();
+        if (expansion) {
+            expansion.remove();
+        }
+
+        if (flyingTitle) {
+            flyingTitle.remove();
+        }
+
+        if (closeButton) {
+            closeButton.remove();
+        }
 
 
-            const titleDestination =
+        backdrop.hidden =
+            true;
+
+
+        expansion =
+            null;
+
+        flyingTitle =
+            null;
+
+        closeButton =
+            null;
+
+        activePanel =
+            null;
+
+        activeCaseStudy =
+            null;
+
+
+        if (caseStudyObserver) {
+            caseStudyObserver.disconnect();
+            caseStudyObserver = null;
+        }
+
+    }
+
+
+    function startReturnAnimation() {
+
+        if (
+            !expansion
+            ||
+            !flyingTitle
+            ||
+            !activePanel
+        ) {
+            return;
+        }
+
+
+        const panelDestination =
+            panel.getBoundingClientRect();
+
+
+        const titleDestination =
+            originalTitle.getBoundingClientRect();
+
+
+        const titleStyle =
+            getComputedStyle(
                 originalTitle
-                .getBoundingClientRect();
-
-
-            const titleStyle =
-                getComputedStyle(
-                    originalTitle
-                );
-
-
-            const panelStyle =
-                getComputedStyle(
-                    panel
-                );
-
-
-            /*
-               Put the title back into its original stacked
-               layout before it starts the return trip.
-            */
-            flyingTitle.classList.remove(
-                "compact"
             );
 
 
-            /*
-               Commit the faded state before changing the
-               geometry. This prevents the browser from
-               merging both phases into one jerky frame.
-            */
-            void expansion.offsetWidth;
+        const panelStyle =
+            getComputedStyle(
+                panel
+            );
 
 
-            /* PANEL SHELL RETURNS HOME */
-
-            expansion.style.left =
-                `${panelDestination.left}px`;
-
-            expansion.style.top =
-                `${panelDestination.top}px`;
-
-            expansion.style.width =
-                `${panelDestination.width}px`;
-
-            expansion.style.height =
-                `${panelDestination.height}px`;
-
-            expansion.style.borderRadius =
-                panelStyle.borderRadius;
+        /*
+           Return the title to its dashboard line arrangement.
+        */
+        flyingTitle.classList.remove(
+            "compact"
+        );
 
 
-            /* TITLE RETURNS HOME */
-
-            flyingTitle.style.left =
-                `${titleDestination.left}px`;
-
-            flyingTitle.style.top =
-                `${titleDestination.top}px`;
-
-            flyingTitle.style.width =
-                `${titleDestination.width}px`;
-
-            flyingTitle.style.fontSize =
-                titleStyle.fontSize;
-
-            flyingTitle.style.lineHeight =
-                titleStyle.lineHeight;
+        /*
+           Geometry-closing no longer instantly hides the contents;
+           they are already fading with .is-closing while the shell
+           starts moving. That removes the stop-start feeling.
+        */
+        expansion.classList.add(
+            "geometry-closing"
+        );
 
 
-            /*
-               Match the .62s geometry transition.
-            */
-            setTimeout(
-                () => {
+        /*
+           Commit the closing state, then change geometry on the
+           next animation frame so the browser has one clean
+           interpolation from popup -> dashboard tile.
+        */
+        void expansion.offsetWidth;
 
-                    /*
-                       Reveal the original tile on the same
-                       frame that the animated copy disappears.
-                    */
-                    panel.classList.remove(
-                        "panel-return-target"
+
+        requestAnimationFrame(
+            () => {
+
+                if (!expansion || !flyingTitle) {
+                    return;
+                }
+
+
+                expansion.style.left =
+                    `${panelDestination.left}px`;
+
+                expansion.style.top =
+                    `${panelDestination.top}px`;
+
+                expansion.style.width =
+                    `${panelDestination.width}px`;
+
+                expansion.style.height =
+                    `${panelDestination.height}px`;
+
+                expansion.style.borderRadius =
+                    panelStyle.borderRadius;
+
+
+                flyingTitle.style.left =
+                    `${titleDestination.left}px`;
+
+                flyingTitle.style.top =
+                    `${titleDestination.top}px`;
+
+                flyingTitle.style.width =
+                    `${titleDestination.width}px`;
+
+                flyingTitle.style.fontSize =
+                    titleStyle.fontSize;
+
+                flyingTitle.style.lineHeight =
+                    titleStyle.lineHeight;
+
+            }
+        );
+
+
+        /*
+           Finish based on the actual CSS transition rather than a
+           fixed timeout. This prevents the final-frame hitch.
+        */
+        const onTransitionEnd =
+            event => {
+
+                if (
+                    event.target === expansion
+                    &&
+                    (
+                        event.propertyName === "width"
+                        ||
+                        event.propertyName === "height"
+                    )
+                ) {
+
+                    expansion.removeEventListener(
+                        "transitionend",
+                        onTransitionEnd
                     );
 
-                    panel.style.opacity =
-                        "";
+                    finishClose();
 
-                    originalTitle.style.opacity =
-                        "";
+                }
 
-
-                    if (expansion) {
-                        expansion.remove();
-                    }
+            };
 
 
-                    if (flyingTitle) {
-                        flyingTitle.remove();
-                    }
+        expansion.addEventListener(
+            "transitionend",
+            onTransitionEnd
+        );
 
 
-                    if (closeButton) {
-                        closeButton.remove();
-                    }
+        /*
+           Safety fallback only; normally transitionend wins.
+        */
+        setTimeout(
+            finishClose,
+            760
+        );
+
+    }
 
 
-                    backdrop.hidden =
-                        true;
-
-
-                    expansion =
-                        null;
-
-                    flyingTitle =
-                        null;
-
-                    closeButton =
-                        null;
-
-                    activePanel =
-                        null;
-
-                    activeCaseStudy =
-                        null;
-
-                    if (caseStudyObserver) {
-                        caseStudyObserver.disconnect();
-                        caseStudyObserver = null;
-                    }
-
-                },
-
-                625
-            );
-
-        },
-
-        closePreparationDelay
+    /*
+       A tiny overlap lets the text begin fading before movement,
+       but there is no perceptible pause. Profile gets a few extra
+       milliseconds so the scattered planets visibly start folding
+       inward while the panel begins its return.
+    */
+    setTimeout(
+        startReturnAnimation,
+        scatterSystem ? 65 : 24
     );
 
 }
-
 
 /* =========================================================
    CLOSE POSITION
