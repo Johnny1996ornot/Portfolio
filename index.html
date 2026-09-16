@@ -6016,6 +6016,71 @@ img {
 
 
 
+
+
+/* =========================================================
+   CRITICAL FIX — RESTORE EXPANDED PANEL STAGE DIMENSIONS
+
+   The previous repair changed .expanded-content from absolute
+   to relative positioning. Because the title rail and carousel
+   are themselves absolutely positioned, that left the parent
+   with effectively no layout height and the cards disappeared.
+
+   Keep the overlay architecture, but restore the content stage
+   to the full size of the expanded popup.
+========================================================= */
+
+@media (min-width: 801px) {
+
+    .expansion:not(.case-study-active) .expanded-content {
+        position: absolute !important;
+
+        inset: 0 !important;
+
+        width: 100% !important;
+
+        height: 100% !important;
+
+        min-width: 0 !important;
+
+        min-height: 0 !important;
+
+        display: block !important;
+
+        padding: 0 !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /*
+       Keep the carousel stage centered in the now-restored
+       full-height popup.
+    */
+    .expansion:not(.case-study-active) .flow-section {
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+
+        width: 100% !important;
+        height: 100% !important;
+
+        visibility: visible !important;
+        opacity: 1;
+    }
+
+
+    .expansion:not(.case-study-active) .cover-flow {
+        width: 100% !important;
+
+        visibility: visible !important;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
