@@ -5585,6 +5585,437 @@ img {
 
 
 
+
+
+/* =========================================================
+   DESKTOP POPUP LAYOUT REPAIR
+   This is the authoritative non-case-study desktop layout.
+========================================================= */
+
+@media (min-width: 801px) {
+
+    /*
+       One stable coordinate system. Earlier rules alternated
+       between a 2-column grid and a 1-column overlay grid, which
+       is why some sections jumped upward after the last change.
+    */
+    .expansion:not(.case-study-active) .expanded-content {
+        position: relative !important;
+
+        display: block !important;
+
+        padding: 0 !important;
+
+        overflow: hidden !important;
+
+        background: transparent !important;
+    }
+
+
+    /*
+       LEFT TITLE / DESCRIPTION RAIL
+       It is an overlay, not a grid column, so it cannot push the
+       cards upward or sideways.
+    */
+    .expansion:not(.case-study-active) .expanded-header-row {
+        position: absolute !important;
+
+        z-index: 8 !important;
+
+        inset:
+            0 auto 0 0 !important;
+
+        width:
+            clamp(440px, 34vw, 635px) !important;
+
+        height:
+            100% !important;
+
+        margin:
+            0 !important;
+
+        padding:
+            0 !important;
+
+        overflow:
+            visible !important;
+
+        border:
+            0 !important;
+
+        box-shadow:
+            none !important;
+
+        background:
+            transparent !important;
+
+        pointer-events:
+            none !important;
+
+        align-self:
+            auto !important;
+    }
+
+
+    /*
+       Remove EVERY old panel-specific padding offset.
+       These were the main cause of the overlap in the screenshots.
+    */
+    .expansion-profile .expanded-header-row,
+    .expansion-projects .expanded-header-row,
+    .expansion-skills .expanded-header-row,
+    .expansion-gallery .expanded-header-row,
+    .expansion-mini .expanded-header-row {
+        padding-top:
+            0 !important;
+
+        padding-bottom:
+            0 !important;
+
+        padding-left:
+            0 !important;
+
+        padding-right:
+            0 !important;
+    }
+
+
+    /*
+       The rail itself softly dissolves into the card stage.
+       There is no border or card mask, so nothing looks sliced.
+    */
+    .expansion:not(.case-study-active)
+    .expanded-header-row::before {
+        content:
+            "" !important;
+
+        display:
+            block !important;
+
+        position:
+            absolute;
+
+        z-index:
+            1;
+
+        inset:
+            0 auto 0 0;
+
+        width:
+            calc(
+                100%
+                + clamp(145px, 11vw, 230px)
+            );
+
+        pointer-events:
+            none;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4,64,70,1) 0%,
+                rgba(4,64,70,1) 68%,
+                rgba(4,64,70,.94) 75%,
+                rgba(4,64,70,.76) 82%,
+                rgba(4,64,70,.48) 89%,
+                rgba(4,64,70,.20) 95%,
+                rgba(4,64,70,0) 100%
+            );
+    }
+
+
+    .expansion:not(.case-study-active)
+    .expanded-header-row::after {
+        content:
+            none !important;
+
+        display:
+            none !important;
+    }
+
+
+    /*
+       Normal sections put the explanatory copy BELOW the large
+       travelling title. It no longer sits inside the title.
+    */
+    .expansion:not(.case-study-active)
+    .expanded-header-row > div {
+        position:
+            absolute !important;
+
+        z-index:
+            3 !important;
+
+        left:
+            clamp(50px, 3.9vw, 76px) !important;
+
+        right:
+            clamp(34px, 2.6vw, 52px) !important;
+
+        bottom:
+            clamp(48px, 7vh, 76px) !important;
+
+        width:
+            auto !important;
+
+        min-height:
+            0 !important;
+
+        max-width:
+            none !important;
+
+        display:
+            block !important;
+
+        overflow:
+            visible !important;
+    }
+
+
+    /*
+       Profile is intentionally different: its short intro remains
+       near the top-left while the large name occupies the middle.
+    */
+    .expansion-profile:not(.case-study-active)
+    .expanded-header-row > div {
+        top:
+            clamp(54px, 7vh, 82px) !important;
+
+        bottom:
+            auto !important;
+    }
+
+
+    .expansion:not(.case-study-active)
+    .expanded-kicker {
+        margin:
+            0 !important;
+
+        font-size:
+            clamp(.95rem, .90vw, 1.13rem) !important;
+
+        line-height:
+            1.2 !important;
+
+        letter-spacing:
+            .15em !important;
+    }
+
+
+    .expansion:not(.case-study-active)
+    .expanded-description {
+        width:
+            auto !important;
+
+        max-width:
+            515px !important;
+
+        margin:
+            16px 0 0 !important;
+
+        font-size:
+            clamp(1.28rem, 1.34vw, 1.58rem) !important;
+
+        line-height:
+            1.52 !important;
+
+        color:
+            rgba(241,253,250,.95) !important;
+
+        overflow-wrap:
+            normal !important;
+    }
+
+
+    /*
+       FLOW STAGE
+       The carousel gets the full popup height. Its contents are
+       centered as one unit instead of being pulled toward the top.
+    */
+    .expansion:not(.case-study-active) .flow-section {
+        position:
+            absolute !important;
+
+        z-index:
+            2 !important;
+
+        inset:
+            0 !important;
+
+        width:
+            100% !important;
+
+        height:
+            100% !important;
+
+        margin:
+            0 !important;
+
+        padding:
+            clamp(46px, 5vh, 64px)
+            clamp(30px, 2.6vw, 48px)
+            clamp(42px, 5vh, 62px)
+            clamp(400px, 31vw, 570px) !important;
+
+        display:
+            flex !important;
+
+        flex-direction:
+            column !important;
+
+        justify-content:
+            center !important;
+
+        transform:
+            translateY(14px);
+
+        border:
+            0 !important;
+
+        box-shadow:
+            none !important;
+
+        overflow:
+            visible !important;
+    }
+
+
+    .expansion:not(.case-study-active)
+    .flow-help {
+        flex:
+            0 0 auto;
+
+        margin:
+            0 0 10px !important;
+
+        font-size:
+            clamp(.94rem, .86vw, 1.04rem) !important;
+
+        text-align:
+            center !important;
+
+        color:
+            rgba(193,246,237,.67) !important;
+    }
+
+
+    .expansion:not(.case-study-active)
+    .cover-flow {
+        flex:
+            0 1 auto !important;
+
+        min-height:
+            0 !important;
+
+        max-height:
+            min(68vh, 620px);
+
+        overflow-x:
+            auto !important;
+
+        overflow-y:
+            visible !important;
+
+        /*
+           Remove the mask introduced in the last iteration.
+           The soft rail overlay above now performs the fade without
+           clipping or dimming the center card.
+        */
+        -webkit-mask-image:
+            none !important;
+
+        mask-image:
+            none !important;
+    }
+
+
+    .expansion:not(.case-study-active)
+    .flow-dots {
+        flex:
+            0 0 auto;
+
+        margin-top:
+            8px !important;
+    }
+
+
+    /*
+       PROFILE CONTACT STAGE
+    */
+    .expansion-profile:not(.case-study-active)
+    .contact-grid {
+        position:
+            absolute !important;
+
+        z-index:
+            4 !important;
+
+        top:
+            50% !important;
+
+        left:
+            clamp(525px, 37vw, 690px) !important;
+
+        right:
+            clamp(34px, 3vw, 58px) !important;
+
+        width:
+            auto !important;
+
+        margin:
+            0 !important;
+
+        transform:
+            translateY(-50%) !important;
+
+        align-self:
+            auto !important;
+    }
+
+
+    /*
+       The moving large title remains above the fade and cards.
+    */
+    .flying-title {
+        z-index:
+            5105 !important;
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE ANIMATION MICRO-POLISH
+========================================================= */
+
+/*
+   The shell starts moving almost immediately. Content fades during
+   that same movement rather than completing a separate animation
+   first.
+*/
+.expansion.is-closing .expanded-content {
+    opacity:
+        0 !important;
+
+    transform:
+        scale(.997) !important;
+
+    transition:
+        opacity .095s linear,
+        transform .14s ease-out !important;
+}
+
+
+.expansion.is-closing .profile-scatter-system {
+    opacity:
+        .38 !important;
+
+    transition:
+        opacity .16s ease-out !important;
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -7851,11 +8282,15 @@ function openPanel(panel) {
     const finalTitleTop =
         window.innerWidth <= 800
             ? finalTop + 21
-            : finalTop
-              + Math.max(
-                    42,
-                    (finalHeight - estimatedTitleHeight) / 2
-                );
+            : (
+                key === "profile"
+                    ? finalTop
+                      + finalHeight * .49
+                      - estimatedTitleHeight / 2
+                    : finalTop
+                      + finalHeight * .42
+                      - estimatedTitleHeight / 2
+              );
 
 
     const finalTitleWidth =
@@ -7865,8 +8300,8 @@ function openPanel(panel) {
                 1100
             )
             : Math.min(
-                finalWidth * .40,
-                760
+                finalWidth * .335,
+                625
             );
 
 
