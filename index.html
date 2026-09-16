@@ -6265,6 +6265,110 @@ img {
 }
 
 
+
+
+/* =========================================================
+   FINAL SPACING REFINEMENT
+========================================================= */
+
+@media (min-width: 801px) {
+
+    /*
+       PROFILE CONTACT CARDS
+       Slightly smaller and shifted right so the left-side fade
+       no longer washes over the first column.
+    */
+    .expansion-profile:not(.case-study-active)
+    .contact-grid {
+        left:
+            clamp(610px, 44vw, 760px) !important;
+
+        right:
+            clamp(48px, 4vw, 82px) !important;
+
+        gap:
+            14px !important;
+
+        max-width:
+            900px;
+
+        margin-left:
+            auto !important;
+    }
+
+
+    .expansion-profile:not(.case-study-active)
+    .contact-card {
+        min-height:
+            142px !important;
+
+        padding:
+            20px 22px !important;
+
+        border-radius:
+            20px !important;
+    }
+
+
+    .expansion-profile:not(.case-study-active)
+    .contact-card i {
+        font-size:
+            1.14rem !important;
+    }
+
+
+    .expansion-profile:not(.case-study-active)
+    .contact-main {
+        font-size:
+            clamp(1.08rem, 1.08vw, 1.28rem) !important;
+    }
+
+
+    /*
+       SKILLS
+       The four-line heading needs more breathing room than the
+       shorter Research / Maps / Mini Projects titles.
+    */
+    .expansion-skills:not(.case-study-active)
+    .expanded-header-row > div {
+        top:
+            calc(var(--rail-copy-top, 60%) + 10px) !important;
+    }
+
+
+    .expansion-skills:not(.case-study-active)
+    .expanded-kicker {
+        margin-bottom:
+            12px !important;
+    }
+
+
+    .expansion-skills:not(.case-study-active)
+    .expanded-description {
+        margin-top:
+            0 !important;
+
+        max-width:
+            485px !important;
+    }
+
+}
+
+
+/*
+   Preserve the current phone layout.
+*/
+@media (max-width: 800px) {
+
+    .expansion-profile .contact-card {
+        min-height:
+            0;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -8562,6 +8666,14 @@ function openPanel(panel) {
     */
     if (window.innerWidth > 800) {
 
+        const titleToCopyGap =
+            key === "skills"
+                ? 78
+                : key === "profile"
+                    ? 42
+                    : 38;
+
+
         const railCopyTop =
             Math.min(
                 finalHeight - 185,
@@ -8569,7 +8681,7 @@ function openPanel(panel) {
                     112,
                     (finalTitleTop - finalTop)
                     + estimatedTitleHeight
-                    + 28
+                    + titleToCopyGap
                 )
             );
 
