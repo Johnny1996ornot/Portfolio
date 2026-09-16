@@ -6369,6 +6369,276 @@ img {
 
 
 
+
+
+/* =========================================================
+   CASE-STUDY PAIRED SECTION REFINEMENT
+   Desktop reading order:
+   title + explanation -> table
+   while the main graph / interpretation card sits high on the right.
+========================================================= */
+
+@media (min-width: 1000px) {
+
+    #case-reference,
+    #case-tradeoff,
+    #case-participation,
+    #case-spatial {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, .92fr)
+            minmax(0, 1.08fr);
+
+        column-gap:
+            clamp(28px, 3vw, 48px);
+
+        row-gap:
+            clamp(20px, 2.2vw, 30px);
+
+        align-items: start;
+    }
+
+
+    /*
+       Put the explanatory paragraph directly below its own title.
+       This overrides the previous "heading left / paragraph right"
+       experiment.
+    */
+    #case-reference > .case-section-head,
+    #case-tradeoff > .case-section-head,
+    #case-participation > .case-section-head,
+    #case-spatial > .case-section-head {
+        grid-column: 1;
+        grid-row: 1;
+
+        display: block !important;
+
+        width: 100%;
+        max-width: none !important;
+
+        margin:
+            0 !important;
+
+        padding:
+            0 !important;
+    }
+
+
+    #case-reference > .case-section-head .case-section-number,
+    #case-tradeoff > .case-section-head .case-section-number,
+    #case-participation > .case-section-head .case-section-number,
+    #case-spatial > .case-section-head .case-section-number {
+        display: block;
+
+        margin: 0;
+    }
+
+
+    #case-reference > .case-section-head h2,
+    #case-tradeoff > .case-section-head h2,
+    #case-participation > .case-section-head h2,
+    #case-spatial > .case-section-head h2 {
+        display: block !important;
+
+        width: 100%;
+
+        margin:
+            10px 0 0 !important;
+
+        font-size:
+            clamp(2.45rem, 3.6vw, 4.15rem) !important;
+
+        line-height:
+            .98 !important;
+    }
+
+
+    #case-reference > .case-section-head .case-section-intro,
+    #case-tradeoff > .case-section-head .case-section-intro,
+    #case-participation > .case-section-head .case-section-intro,
+    #case-spatial > .case-section-head .case-section-intro {
+        display: block !important;
+
+        width: 100%;
+        max-width: 680px !important;
+
+        margin:
+            22px 0 0 !important;
+
+        font-size:
+            clamp(1.04rem, 1.08vw, 1.18rem) !important;
+
+        line-height:
+            1.66 !important;
+    }
+
+
+    /*
+       Turn the first two-item media row into direct children of the
+       section grid. This lets the right graph move upward beside the
+       text while the table stays below the text.
+    */
+    #case-tradeoff > .case-grid.two,
+    #case-participation > .case-grid.two,
+    #case-spatial > .case-grid.two,
+    #case-reference > .case-grid.media-discussion {
+        display:
+            contents !important;
+    }
+
+
+    /* LEFT: table sits below the title + explanation. */
+    #case-reference > .case-grid.media-discussion > :first-child,
+    #case-tradeoff > .case-grid.two > :first-child,
+    #case-participation > .case-grid.two > :first-child,
+    #case-spatial > .case-grid.two > :first-child {
+        grid-column:
+            1;
+
+        grid-row:
+            2;
+
+        width:
+            100%;
+
+        margin:
+            0 !important;
+
+        align-self:
+            start !important;
+    }
+
+
+    /*
+       RIGHT: the main graph / interpretation card starts high,
+       aligned with the upper part of the title block rather than
+       waiting for the left-hand text and table.
+    */
+    #case-reference > .case-grid.media-discussion > :nth-child(2),
+    #case-tradeoff > .case-grid.two > :nth-child(2),
+    #case-participation > .case-grid.two > :nth-child(2),
+    #case-spatial > .case-grid.two > :nth-child(2) {
+        grid-column:
+            2;
+
+        grid-row:
+            1 / span 2;
+
+        width:
+            100%;
+
+        margin:
+            34px 0 0 !important;
+
+        align-self:
+            start !important;
+    }
+
+
+    /*
+       Reference section has a text discussion card rather than a
+       graph. Keep it compact and readable at the top-right.
+    */
+    #case-reference > .case-grid.media-discussion > .case-discussion {
+        padding:
+            clamp(24px, 2.2vw, 32px);
+
+        border:
+            1px solid
+            rgba(193,246,237,.14);
+
+        border-radius:
+            24px;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(193,246,237,.055),
+                rgba(46,175,125,.025)
+            ),
+            rgba(6,73,78,.62);
+    }
+
+
+    /*
+       Later content returns to full width beneath the paired opening
+       composition.
+    */
+    #case-tradeoff > .case-figure-wide,
+    #case-participation > .case-gif-grid,
+    #case-spatial > .case-gif-grid {
+        grid-column:
+            1 / -1;
+
+        grid-row:
+            3;
+
+        margin-top:
+            clamp(12px, 1.4vw, 22px);
+    }
+
+
+    /*
+       The right graphs are allowed to be a little larger without
+       pushing their top edge downward.
+    */
+    #case-tradeoff > .case-grid.two > :nth-child(2) img,
+    #case-participation > .case-grid.two > :nth-child(2) img,
+    #case-spatial > .case-grid.two > :nth-child(2) img {
+        width:
+            100% !important;
+
+        height:
+            auto !important;
+    }
+
+}
+
+
+/* =========================================================
+   CASE-STUDY METRIC EXPLANATIONS
+========================================================= */
+
+.case-hero-metrics {
+    align-content:
+        start;
+}
+
+.case-metric {
+    min-height:
+        170px;
+}
+
+.case-metric span {
+    margin-top:
+        11px;
+
+    font-size:
+        clamp(.84rem, .84vw, .96rem);
+
+    line-height:
+        1.48;
+}
+
+
+/*
+   On narrower screens, return to the simple stacked reading order.
+*/
+@media (max-width: 999px) {
+
+    #case-reference,
+    #case-tradeoff,
+    #case-participation,
+    #case-spatial {
+        display:
+            block;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -9822,22 +10092,22 @@ function getConservationCaseStudyHTML() {
 
                 <div class="case-metric">
                     <strong>CHF 3,300</strong>
-                    <span>Reference payment per hectare per year</span>
+                    <span>Annual payment assigned to each hectare of intervention. The model uses this rate to convert funded area into programme cost.</span>
                 </div>
 
                 <div class="case-metric">
                     <strong>2,793.77 ha</strong>
-                    <span>Reference intervention area</span>
+                    <span>The fixed amount of land funded in the reference scenario. It equals 1% of the modelled eligible cropland and stays constant in the main strategy comparison.</span>
                 </div>
 
                 <div class="case-metric">
                     <strong>CHF 9.22M</strong>
-                    <span>Approximate annual reference budget</span>
+                    <span>The approximate yearly cost of funding 2,793.77 ha at CHF 3,300 per hectare. Every main allocation strategy works with this same budget.</span>
                 </div>
 
                 <div class="case-metric">
                     <strong>75 cells</strong>
-                    <span>Core priorities selected by all five targeted strategies</span>
+                    <span>Landscape cells selected by every targeted ecological strategy. These 75 cells form the strongest consensus-priority core.</span>
                 </div>
 
             </div>
