@@ -6081,6 +6081,190 @@ img {
 
 
 
+
+
+/* =========================================================
+   FINAL POSITIONING + SCIENCE-CASE-STUDY READABILITY
+========================================================= */
+
+@media (min-width: 801px) {
+
+    /*
+       Kicker and description now follow the travelling title instead
+       of being anchored to the bottom or top of the panel. The value
+       is calculated in JavaScript for each heading length.
+    */
+    .expansion:not(.case-study-active)
+    .expanded-header-row > div,
+    .expansion-profile:not(.case-study-active)
+    .expanded-header-row > div {
+        top: var(--rail-copy-top, 60%) !important;
+        bottom: auto !important;
+
+        left: clamp(50px, 3.9vw, 76px) !important;
+        right: clamp(34px, 2.6vw, 52px) !important;
+
+        transform: none !important;
+    }
+
+    .expansion:not(.case-study-active)
+    .expanded-description {
+        max-width: 500px !important;
+
+        margin-top: 13px !important;
+
+        font-size: clamp(1.20rem, 1.26vw, 1.48rem) !important;
+        line-height: 1.5 !important;
+    }
+
+    .expansion:not(.case-study-active)
+    .expanded-kicker {
+        font-size: clamp(.92rem, .86vw, 1.06rem) !important;
+    }
+
+    /*
+       Raise the carousel slightly so its visual center aligns better
+       with the title block, without returning to the top-heavy layout.
+    */
+    .expansion:not(.case-study-active) .flow-section {
+        transform: translateY(-8px) !important;
+    }
+
+    /* Contact cards rise slightly with the profile name/copy. */
+    .expansion-profile:not(.case-study-active) .contact-grid {
+        top: 47% !important;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   Case-study vertical rhythm: more explanation, less dead space
+--------------------------------------------------------- */
+
+.case-section {
+    padding: clamp(46px, 6.5vh, 78px) 0 !important;
+}
+
+.case-section-head {
+    max-width: 1120px !important;
+    margin-bottom: clamp(20px, 2.4vw, 30px) !important;
+}
+
+.case-section h2 {
+    font-size: clamp(2.15rem, 3.5vw, 4rem) !important;
+    line-height: 1.0 !important;
+}
+
+.case-section-intro {
+    max-width: 1080px !important;
+
+    margin-top: 15px !important;
+
+    font-size: clamp(1.08rem, 1.24vw, 1.28rem) !important;
+    line-height: 1.68 !important;
+}
+
+.case-grid.two {
+    align-items: start !important;
+}
+
+.case-grid.two > .case-media {
+    align-self: start !important;
+}
+
+/* Keep a paired graph visually aligned with the top of its table. */
+.case-grid.two > .case-media:not(.table-media) {
+    margin-top: 0 !important;
+}
+
+.case-discussion p {
+    font-size: clamp(1rem, 1.06vw, 1.13rem) !important;
+    line-height: 1.72 !important;
+}
+
+.method-step p {
+    font-size: clamp(.94rem, .92vw, 1.02rem) !important;
+    line-height: 1.62 !important;
+}
+
+/*
+   Tables and paired figures start together and are not stretched to
+   one another's height.
+*/
+.case-media,
+.case-media.table-media {
+    align-self: start !important;
+}
+
+.case-media img {
+    vertical-align: top;
+}
+
+@media (max-width: 800px) {
+    .case-section {
+        padding: 52px 4px !important;
+    }
+
+    .case-section-head {
+        margin-bottom: 22px !important;
+    }
+
+    .case-section-intro {
+        font-size: 1rem !important;
+        line-height: 1.64 !important;
+    }
+}
+
+
+
+
+/* =========================================================
+   DESKTOP CASE-STUDY HEADER COMPRESSION
+   Put the explanatory paragraph beside the section heading so
+   richer context does not push the figures far down the page.
+========================================================= */
+
+@media (min-width: 1000px) {
+
+    .case-section-head {
+        max-width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns:
+            minmax(360px, .88fr)
+            minmax(460px, 1.12fr);
+
+        column-gap: clamp(34px, 4vw, 68px);
+        row-gap: 10px;
+
+        align-items: start;
+    }
+
+    .case-section-number {
+        grid-column: 1 / -1;
+    }
+
+    .case-section-head h2 {
+        grid-column: 1;
+        grid-row: 2;
+
+        margin-top: 5px !important;
+    }
+
+    .case-section-head .case-section-intro {
+        grid-column: 2;
+        grid-row: 2;
+
+        align-self: start;
+
+        margin: 7px 0 0 !important;
+        max-width: 760px !important;
+    }
+
+}
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -8370,6 +8554,33 @@ function openPanel(panel) {
             );
 
 
+    /*
+       Keep the section label and description directly below the
+       large travelling title. This is calculated from the title
+       position instead of using a fixed top/bottom offset, so
+       short and long headings do not collide with their copy.
+    */
+    if (window.innerWidth > 800) {
+
+        const railCopyTop =
+            Math.min(
+                finalHeight - 185,
+                Math.max(
+                    112,
+                    (finalTitleTop - finalTop)
+                    + estimatedTitleHeight
+                    + 28
+                )
+            );
+
+        expansion.style.setProperty(
+            "--rail-copy-top",
+            `${railCopyTop}px`
+        );
+
+    }
+
+
     requestAnimationFrame(
         () => {
 
@@ -9472,12 +9683,16 @@ function getConservationCaseStudyHTML() {
                 </h1>
 
                 <p class="case-lead">
-                    This modelling case study explores how the same conservation
-                    budget can produce different ecological and spatial outcomes
-                    when funding is targeted toward local habitat response,
-                    structural connectivity, or a weighted combination of both.
-                    It also tests how land-manager participation changes the
-                    ability of a policy to implement its intended spatial target.
+                    This case study asks a practical conservation question: if a government
+                    has a fixed amount of money to improve agricultural landscapes, where
+                    should that money be spent? The model divides the landscape into 5-km
+                    cells and compares several ways of choosing cells. Some strategies give
+                    more importance to improving habitat conditions inside a cell, while
+                    others give more importance to structural connectivity &mdash; keeping
+                    useful habitat areas linked across the wider landscape. Mixed strategies
+                    try to achieve both at the same time. The model also tests a real-world
+                    limitation: even a high-priority place cannot receive an intervention if
+                    the relevant land managers are not available to participate.
                 </p>
 
                 <div class="case-tags">
@@ -9535,14 +9750,16 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">01 · Methods</div>
                 <h2>From policy assumptions to spatial allocation</h2>
                 <p class="case-section-intro">
-                    The workflow begins with a reference conservation payment and
-                    a fixed funding envelope. Eligible agricultural landscape cells
-                    are then evaluated under alternative ecological objectives.
-                    The allocation procedure compares random funding with strategies
-                    that progressively shift weight from local habitat response toward
-                    structural connectivity. Participation scenarios are used to test
-                    whether the desired allocation can still be implemented when only
-                    part of the management landscape is available.
+                    Think of the model as a controlled experiment carried out on a map.
+                    First, the total budget and the amount of land that can receive support
+                    are fixed. Next, every eligible 5-km landscape cell is evaluated using
+                    two ecological ideas: local habitat response and structural connectivity.
+                    The model then asks how the funding map changes when policy gives more
+                    weight to one objective or the other. A random allocation is kept as a
+                    baseline, so the targeted strategies can be compared against what might
+                    happen without ecological spatial prioritisation. Finally, participation
+                    scenarios test whether the preferred map can still be implemented when
+                    only some management units are available.
                 </p>
             </div>
 
@@ -9552,8 +9769,10 @@ function getConservationCaseStudyHTML() {
                     <span>1</span>
                     <h3>Define the policy envelope</h3>
                     <p>
-                        Set the payment rate, eligible cropland, programme scale,
-                        intervention area, annual budget and per-cell allocation limit.
+                        Establish one common policy budget before comparing strategies.
+                        This includes the payment per hectare, the eligible cropland, the
+                        programme size, total intervention area and the maximum amount that
+                        can be assigned inside any single cell.
                     </p>
                 </article>
 
@@ -9561,8 +9780,10 @@ function getConservationCaseStudyHTML() {
                     <span>2</span>
                     <h3>Score ecological objectives</h3>
                     <p>
-                        Represent local habitat response and structural connectivity
-                        as alternative spatial targeting objectives.
+                        Give each eligible cell information about two objectives. Local
+                        habitat response describes the expected benefit within the cell,
+                        while structural connectivity represents how strongly the cell can
+                        contribute to a more connected landscape pattern.
                     </p>
                 </article>
 
@@ -9570,8 +9791,10 @@ function getConservationCaseStudyHTML() {
                     <span>3</span>
                     <h3>Allocate the same budget</h3>
                     <p>
-                        Compare random allocation with habitat-only, connectivity-only
-                        and mixed weighting strategies under the same funding envelope.
+                        Spend exactly the same reference budget using six allocation rules:
+                        one random baseline plus habitat-only, connectivity-only and three
+                        mixed habitat/connectivity weightings. Holding money constant makes
+                        the comparison about location and priorities rather than spending.
                     </p>
                 </article>
 
@@ -9579,8 +9802,10 @@ function getConservationCaseStudyHTML() {
                     <span>4</span>
                     <h3>Stress-test implementation</h3>
                     <p>
-                        Vary land-manager availability, examine spatial consensus and
-                        test whether targeting advantages persist under alternative scenarios.
+                        Reduce or increase the management units that are available, identify
+                        cells repeatedly selected under different ecological weightings, and
+                        test whether the advantage of targeted allocation survives less
+                        favourable assumptions.
                     </p>
                 </article>
 
@@ -9605,10 +9830,12 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">02 · Reference policy scenario</div>
                 <h2>Holding the budget constant</h2>
                 <p class="case-section-intro">
-                    The reference scenario fixes the financial scale before ecological
-                    strategies are compared. This is important because subsequent
-                    differences are produced by where and how the budget is allocated,
-                    rather than by giving one strategy more money than another.
+                    Before comparing ecological strategies, the model creates one common
+                    financial starting point. This makes the comparison fair: every strategy
+                    receives the same total intervention area and the same annual budget.
+                    Any difference in performance therefore comes from where the model places
+                    the intervention and which ecological objective guides that placement, not
+                    from one strategy simply receiving more money.
                 </p>
             </div>
 
@@ -9631,14 +9858,18 @@ function getConservationCaseStudyHTML() {
                     <h3>What the reference scenario fixes</h3>
                     <p>
                         The model uses a payment of CHF 3,300 per hectare per year and
-                        identifies 279,376.63 ha of modelled eligible cropland. A 1%
-                        reference programme therefore corresponds to 2,793.77 ha of
-                        intervention and an annual budget of CHF 9,219,428.79.
+                        identifies 279,376.63 ha of modelled eligible cropland. The reference
+                        programme is set to 1% of that eligible area, which equals 2,793.77 ha.
+                        Multiplying the intervention area by the payment rate gives an annual
+                        reference budget of CHF 9,219,428.79. In simple terms, this is the
+                        fixed pot of money that every allocation strategy must work with.
                     </p>
                     <p>
-                        A maximum of 3% of cropland within an eligible cell can be
-                        assigned to the intervention. That cap prevents the optimisation
-                        from concentrating the entire programme inside only a handful of cells.
+                        The model also limits intervention to a maximum of 3% of the cropland
+                        inside an eligible cell. Without this cap, an optimisation routine could
+                        unrealistically pour a very large share of the programme into only a few
+                        cells. The limit forces the model to distribute intervention across the
+                        landscape while still allowing high-priority cells to receive more support.
                     </p>
                     <div class="case-callout">
                         The reference budget is kept constant across the main strategy
@@ -9658,9 +9889,13 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">03 · Strategy performance</div>
                 <h2>Trading local habitat response for structural connectivity</h2>
                 <p class="case-section-intro">
-                    Five targeted strategies move progressively from habitat-only to
-                    connectivity-only allocation. Their performance is compared with
-                    random allocation using the same reference budget.
+                    Five targeted strategies gradually change the ecological objective from
+                    habitat-only to connectivity-only. The scatter plot can be read like a
+                    coordinate map: moving to the right means a larger local-habitat advantage
+                    over random funding, while moving upward means a larger structural-
+                    connectivity advantage. A strategy in the upper-right performs strongly
+                    on both objectives. The table and figures use the same reference budget,
+                    so the differences reflect spatial targeting rather than additional spending.
                 </p>
             </div>
 
@@ -9712,17 +9947,19 @@ function getConservationCaseStudyHTML() {
                 <div class="case-discussion">
                     <h3>The trade-off is gradual rather than absolute</h3>
                     <p>
-                        Habitat-only targeting produces the largest local habitat
-                        advantage over random allocation at 53.0%, while still delivering
-                        a 51.1% structural-connectivity advantage. As more weight is moved
-                        toward connectivity, local habitat advantage decreases gradually,
-                        but connectivity performance rises substantially.
+                        Habitat-only targeting produces the largest local habitat advantage over
+                        random allocation at 53.0%, while still providing a 51.1% connectivity
+                        advantage. As the policy gives more weight to connectivity, the model
+                        accepts a gradual reduction in the local habitat gain in exchange for a
+                        much stronger connectivity gain. This is why the points form a trade-off
+                        rather than showing one strategy that is best at everything.
                     </p>
                     <p>
-                        The 50/50 strategy retains 97.6% of the maximum habitat response
-                        and 96.4% of the maximum connectivity response among the tested
-                        strategies. This makes the balanced strategy especially useful
-                        when policy is expected to pursue both objectives simultaneously.
+                        The 50/50 strategy is useful for understanding compromise. It retains
+                        97.6% of the maximum habitat response and 96.4% of the maximum
+                        connectivity response found among the tested strategies. In other words,
+                        it gives up only a small amount of the best possible score for either
+                        single objective while preserving strong performance in both.
                     </p>
                     <div class="case-callout">
                         These outputs represent modelled habitat and structural-connectivity
@@ -9741,10 +9978,13 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">04 · Management participation</div>
                 <h2>Good targeting still depends on who can participate</h2>
                 <p class="case-section-intro">
-                    Spatial priority alone is not enough if the management units required
-                    to implement the intervention are unavailable. The participation
-                    scenarios test how ecological targeting changes as more eligible
-                    management units become available.
+                    A map can identify an ecologically valuable place, but a policy cannot act
+                    there unless the relevant land managers can actually participate. This section
+                    treats participation as an implementation constraint. The model progressively
+                    increases the share of eligible management units that are available and asks
+                    how much of the ecological targeting advantage can still be achieved. The
+                    animated map helps show the difference between an ecological priority and a
+                    priority that is also practically available for funding.
                 </p>
             </div>
 
@@ -9796,17 +10036,21 @@ function getConservationCaseStudyHTML() {
                 <div class="case-discussion">
                     <h3>Participation acts as an implementation constraint</h3>
                     <p>
-                        At 25% management availability, the reported targeting advantage
-                        relative to random is zero in the summary comparison. As availability
-                        rises to 50%, 75% and 100%, the benefit of ecological targeting
-                        increases sharply, particularly for connectivity.
+                        At 25% management availability, the summary comparison reports no
+                        targeting advantage over random. The reason is intuitive: when only a
+                        small fraction of management units can participate, the model has little
+                        freedom to choose the places it considers ecologically best. At 50%, 75%
+                        and 100% availability, that choice set becomes larger and the ecological
+                        value of spatial targeting rises sharply, especially for connectivity.
                     </p>
                     <p>
-                        At full management availability, the 50/50 targeting scenario
-                        reaches a 59.5% habitat advantage and a 101.6% connectivity
-                        advantage over random allocation. The animation makes the mechanism
-                        visible: ecological priorities can only be funded where participating
-                        management capacity is actually available.
+                        At full management availability, the 50/50 targeting scenario reaches a
+                        59.5% habitat advantage and a 101.6% connectivity advantage over random
+                        allocation. A value above 100% here means that the improvement relative to
+                        the random baseline is slightly more than twice the baseline improvement
+                        used for comparison; it does not mean that connectivity itself is "101.6%".
+                        The animation makes the mechanism visible: the ecological ranking may stay
+                        the same, but funding can only be placed where management capacity exists.
                     </p>
                 </div>
 
@@ -9821,8 +10065,13 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">05 · Spatial allocation</div>
                 <h2>The same budget can be dispersed or concentrated</h2>
                 <p class="case-section-intro">
-                    All main strategies allocate the same total intervention area and annual
-                    expenditure. What changes is the spatial concentration of that funding.
+                    The main strategies spend the same annual budget and fund the same total
+                    intervention area, but they distribute that intervention very differently.
+                    Random allocation spreads funding across many cells. Ecological targeting
+                    concentrates the same total area into fewer cells that score more highly for
+                    habitat, connectivity or both. This section therefore separates programme
+                    size from programme geography: the amount of funding is fixed, while its
+                    spatial concentration changes.
                 </p>
             </div>
 
@@ -9874,16 +10123,21 @@ function getConservationCaseStudyHTML() {
                 <div class="case-discussion">
                     <h3>Targeting concentrates rather than enlarges the programme</h3>
                     <p>
-                        Random allocation spreads 2,793.77 ha across 390 selected 5-km
-                        cells, averaging about 7.16 ha per selected cell. The targeted
-                        strategies use the same total intervention area but concentrate it
-                        into only 119 to 128 cells, with roughly 21.83 to 23.48 ha per cell.
+                        Random allocation spreads 2,793.77 ha across 390 selected 5-km cells,
+                        averaging about 7.16 ha per selected cell. The targeted strategies use
+                        exactly the same total intervention area but concentrate it into only
+                        119 to 128 cells, with roughly 21.83 to 23.48 ha in each selected cell.
+                        A useful analogy is pouring the same amount of water into many shallow
+                        cups versus fewer deeper cups: the quantity is unchanged, but the spatial
+                        concentration is very different.
                     </p>
                     <p>
-                        The animated allocation shows that changing ecological weights
-                        changes where the budget lands, not the overall programme size.
-                        This distinction is important when interpreting the ecological gains:
-                        the model is comparing spatial targeting efficiency under an equal budget.
+                        The animated allocation shows the funded cells shifting as the policy
+                        changes its ecological weighting. Habitat-oriented strategies concentrate
+                        in one pattern, while connectivity-oriented strategies emphasise another.
+                        Because the budget and total intervention area remain fixed, the ecological
+                        gains should be interpreted as gains from better spatial targeting under
+                        equal resources rather than gains from a larger programme.
                     </p>
                 </div>
 
@@ -9898,10 +10152,13 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">06 · Interactive consensus priorities</div>
                 <h2>Click a bar to see where that level of agreement occurs</h2>
                 <p class="case-section-intro">
-                    A cell receives a higher consensus score when it remains a conservation
-                    priority under more ecological weighting strategies. The strongest core
-                    contains cells selected by all five targeted strategies. Use the bars
-                    below to switch the map between consensus classes.
+                    Some cells remain important even when the policy changes the balance between
+                    habitat and connectivity. The consensus score counts how many of the five
+                    targeted strategies select the same 5-km cell. A 5-of-5 cell is selected
+                    under every ecological weighting and is therefore a particularly robust
+                    spatial priority. Lower scores identify locations whose importance depends
+                    more strongly on the chosen objective. Click the bars below to switch the map
+                    and see where each level of agreement occurs.
                 </p>
             </div>
 
@@ -9999,7 +10256,8 @@ function getConservationCaseStudyHTML() {
                         <h3 id="consensusMapTitle">Core consensus priority · 5 of 5 strategies</h3>
                         <p id="consensusMapDescription">
                             75 cells remain priorities under every tested ecological weighting strategy.
-                            These form the strongest consensus-priority core.
+                            Because these locations survive all five weighting choices, they form the
+                            strongest consensus-priority core in the model.
                         </p>
                     </div>
                 </div>
@@ -10015,10 +10273,12 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">07 · Robustness</div>
                 <h2>Do the targeting gains survive alternative assumptions?</h2>
                 <p class="case-section-intro">
-                    The robustness comparison reports the worst-case advantage over random
-                    allocation across the tested budget and intervention-effect scenarios.
-                    Positive minima indicate that the targeted strategies still outperform
-                    random allocation even under less favourable tested conditions.
+                    A model result is more convincing when it does not disappear after a small
+                    change in assumptions. The robustness analysis therefore looks across the
+                    tested budget and intervention-effect scenarios and records the lowest
+                    advantage each focal strategy achieves over random allocation. This is a
+                    conservative test: instead of highlighting the best run, it asks what remains
+                    true under the least favourable tested condition.
                 </p>
             </div>
 
@@ -10040,16 +10300,20 @@ function getConservationCaseStudyHTML() {
                 <div class="case-discussion">
                     <h3>All three tested focal strategies retain positive advantages</h3>
                     <p>
-                        Connectivity-only targeting retains a minimum habitat advantage of
-                        34.3% and minimum connectivity advantage of 49.2%. The 50/50 strategy
-                        retains 37.9% and 48.6%, while habitat-only targeting retains 42.1%
-                        and 42.3%, respectively.
+                        Connectivity-only targeting retains a minimum habitat advantage of 34.3%
+                        and a minimum connectivity advantage of 49.2%. The 50/50 strategy retains
+                        37.9% and 48.6%, while habitat-only targeting retains 42.1% and 42.3%,
+                        respectively. All of these minimum values remain above zero, meaning that
+                        each focal targeted strategy still performs better than the random baseline
+                        even in its weakest tested scenario.
                     </p>
                     <p>
-                        The result suggests that the benefit of spatial targeting is not
-                        dependent on a single exact parameter setting. The preferred strategy
-                        still depends on policy objectives, but targeted allocation remains
-                        advantageous relative to the random baseline across the tested scenarios.
+                        This does not prove that the same numerical advantage would occur under
+                        every possible real-world condition. It does show that the observed benefit
+                        is not created by only one exact model setting. The preferred strategy still
+                        depends on whether policy values local habitat, connectivity or a balance of
+                        both, but the general advantage of targeted allocation persists across the
+                        scenarios that were tested.
                     </p>
                 </div>
 
@@ -10063,16 +10327,19 @@ function getConservationCaseStudyHTML() {
                 <div class="case-section-number">Takeaway</div>
                 <h2>Where funding goes can matter as much as how much funding is available.</h2>
                 <p>
-                    Across the tested scenarios, ecological targeting consistently changes the
-                    spatial efficiency of the same conservation budget. Habitat-focused strategies
-                    maximise local habitat response, connectivity-focused strategies maximise
-                    structural connectivity, and mixed strategies preserve a large share of both.
-                    Management participation determines how much of that spatial plan can actually
-                    be implemented, while the consensus analysis identifies cells that remain
-                    priorities despite changes in ecological weighting. Together, the results show
-                    how spatial modelling can connect ecological objectives, implementation
-                    constraints and policy design without treating the allocation map as a direct
-                    forecast of future biodiversity.
+                    Across the tested scenarios, the model shows that spatial decisions can change
+                    what the same amount of conservation funding achieves. Habitat-focused strategies
+                    favour stronger local habitat response, connectivity-focused strategies favour a
+                    more connected landscape structure, and mixed strategies preserve much of both.
+                    The participation experiment adds an important practical lesson: a mathematically
+                    high-priority location is not automatically implementable if the people or
+                    management units needed to act there are unavailable. The consensus analysis then
+                    highlights places that remain priorities even when ecological goals change, while
+                    the robustness analysis checks whether the targeting advantage survives alternative
+                    assumptions. These maps are therefore decision-support outputs, not predictions of
+                    exactly where future species will occur. They show how ecological goals, limited
+                    budgets and implementation constraints can be examined together before real policy
+                    decisions are made.
                 </p>
             </div>
         </section>
