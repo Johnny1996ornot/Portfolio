@@ -6810,6 +6810,661 @@ img {
     }
 }
 
+
+
+/* =========================================================
+   FINAL RESEARCH CASE-STUDY REDESIGN
+   Lightweight vertical scrollytelling + performance pass
+========================================================= */
+
+/* ---------- Faster panel opening / closing ---------- */
+.expansion-backdrop {
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    transition: opacity .22s ease !important;
+}
+
+.expansion {
+    transition:
+        left .34s cubic-bezier(.2,.8,.2,1),
+        top .34s cubic-bezier(.2,.8,.2,1),
+        width .34s cubic-bezier(.2,.8,.2,1),
+        height .34s cubic-bezier(.2,.8,.2,1),
+        border-radius .34s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.expanded-title-shield {
+    backdrop-filter: blur(10px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(110%) !important;
+}
+
+.expansion-close {
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+}
+
+/* The research view itself fades instead of performing a heavy slide. */
+.case-study-view {
+    transform: none !important;
+    transition: opacity .22s ease !important;
+    contain: layout paint style;
+    overscroll-behavior: contain;
+    scroll-behavior: auto;
+}
+
+.case-study-view.open {
+    transform: none !important;
+}
+
+.expansion.case-study-active .expanded-content {
+    transform: none !important;
+    transition: opacity .16s ease !important;
+}
+
+.expansion.case-study-active .expanded-blob,
+.expansion.case-study-active .expanded-blob-small,
+.expansion.case-study-active .profile-scatter-system {
+    animation-play-state: paused !important;
+    opacity: 0 !important;
+}
+
+.case-study-topbar {
+    min-height: 56px !important;
+    padding: 7px 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(4,62,69,.98) !important;
+    border-bottom: 1px solid rgba(193,246,237,.08);
+}
+
+.case-back {
+    min-height: 38px !important;
+}
+
+.case-study-shell {
+    width: min(1600px, calc(100% - 36px)) !important;
+    padding: 10px 0 76px !important;
+}
+
+/* ---------- Full-width project hero ---------- */
+.case-hero {
+    min-height: auto !important;
+    display: block !important;
+    padding: clamp(42px,6vh,74px) 0 clamp(44px,6vh,72px) !important;
+}
+
+.case-hero-heading {
+    width: 100%;
+}
+
+.case-title {
+    max-width: 1480px !important;
+    font-size: clamp(4.15rem, 7.35vw, 8.6rem) !important;
+    line-height: .88 !important;
+}
+
+.case-hero-lower {
+    margin-top: clamp(30px,4vw,54px);
+    display: grid;
+    grid-template-columns: minmax(0,1.15fr) minmax(440px,.85fr);
+    gap: clamp(32px,5vw,74px);
+    align-items: start;
+}
+
+.case-lead {
+    max-width: 880px !important;
+    margin: 0 !important;
+    font-size: clamp(1.12rem,1.36vw,1.42rem) !important;
+    line-height: 1.66 !important;
+}
+
+.case-hero-metrics {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 10px !important;
+}
+
+.case-metric {
+    min-height: 140px !important;
+    padding: 19px !important;
+    border-radius: 20px !important;
+}
+
+.case-metric strong {
+    font-size: clamp(1.45rem,2vw,2.15rem) !important;
+}
+
+.case-metric span {
+    font-size: clamp(.78rem,.82vw,.9rem) !important;
+    line-height: 1.46 !important;
+}
+
+/* Navigation is deliberately non-sticky. The sticky visual below provides context. */
+.case-nav {
+    position: relative !important;
+    top: auto !important;
+    z-index: 6 !important;
+    padding: 10px 0 18px !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.case-nav a {
+    transition: color .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.case-nav a.active {
+    color: var(--text);
+    background: rgba(89,225,141,.11);
+    border-color: rgba(89,225,141,.34);
+}
+
+/* ---------- Methods: aligned declarative cards ---------- */
+#case-methods {
+    padding-top: 48px !important;
+}
+
+#case-methods .case-section-head {
+    display: block !important;
+    width: 100% !important;
+    max-width: 1380px !important;
+    margin: 0 0 28px !important;
+}
+
+#case-methods .case-section-head h2,
+#case-methods .case-section-head .case-section-intro,
+#case-methods .case-section-number {
+    grid-column: auto !important;
+    grid-row: auto !important;
+}
+
+#case-methods .case-section-head h2 {
+    max-width: 1100px;
+}
+
+#case-methods .case-section-head .case-section-intro {
+    max-width: 1100px !important;
+}
+
+.case-biology-bridge {
+    align-items: stretch !important;
+    gap: 16px !important;
+    margin: 24px 0 20px !important;
+}
+
+.case-biology-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 290px;
+    padding: clamp(24px,2.2vw,32px) !important;
+}
+
+.case-biology-card h3 {
+    min-height: 2.5em;
+    font-size: clamp(1.35rem,1.62vw,1.72rem) !important;
+    line-height: 1.15;
+}
+
+.case-biology-card p {
+    font-size: clamp(.98rem,1.02vw,1.09rem) !important;
+    line-height: 1.68 !important;
+}
+
+.case-formula {
+    margin-top: auto !important;
+}
+
+.case-big-picture {
+    margin: 22px 0 18px;
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 10px;
+}
+
+.case-big-picture-step {
+    position: relative;
+    padding: 18px 18px 17px;
+    border: 1px solid rgba(193,246,237,.12);
+    border-radius: 18px;
+    background: rgba(6,78,83,.56);
+}
+
+.case-big-picture-step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    z-index: 5;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--greenBright);
+    background: #06484E;
+    border: 1px solid rgba(89,225,141,.22);
+    font-weight: 900;
+}
+
+.case-big-picture-step b {
+    display: block;
+    color: var(--text);
+    font-size: .98rem;
+}
+
+.case-big-picture-step span {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: .86rem;
+    line-height: 1.5;
+}
+
+.case-method-grid {
+    display: none !important;
+}
+
+/* ---------- Scrollytelling ---------- */
+.case-scrolly {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(390px,.78fr) minmax(0,1.22fr);
+    gap: clamp(30px,4vw,62px);
+    align-items: start;
+    padding: 54px 0 36px;
+    border-top: 1px solid rgba(193,246,237,.09);
+}
+
+.case-story-stage {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 72px;
+    height: min(74vh,760px);
+    min-height: 520px;
+    overflow: hidden;
+    border: 1px solid rgba(193,246,237,.14);
+    border-radius: 26px;
+    background: rgba(4,55,61,.94);
+    box-shadow: 0 18px 44px rgba(0,24,28,.16);
+}
+
+.case-story-copy {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.case-story-step {
+    min-height: 72vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(34px,5vh,60px) 0;
+    opacity: .38;
+    transform: translateY(8px);
+    transition: opacity .22s ease, transform .22s ease;
+}
+
+.case-story-step.active {
+    opacity: 1;
+    transform: none;
+}
+
+.case-story-kicker {
+    color: var(--greenBright);
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.case-story-step h2 {
+    margin: 9px 0 0;
+    font-size: clamp(2.05rem,3.15vw,3.7rem);
+    line-height: 1.0;
+    letter-spacing: -.045em;
+}
+
+.case-story-step p {
+    max-width: 650px;
+    margin: 18px 0 0;
+    color: rgba(229,246,242,.91);
+    font-size: clamp(1rem,1.08vw,1.15rem);
+    line-height: 1.7;
+}
+
+.case-story-step ul {
+    max-width: 650px;
+    margin: 18px 0 0;
+    padding-left: 1.25rem;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.case-story-step li + li {
+    margin-top: 8px;
+}
+
+.case-story-stat-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 9px;
+}
+
+.case-story-stat {
+    padding: 14px 15px;
+    border: 1px solid rgba(193,246,237,.11);
+    border-radius: 14px;
+    background: rgba(193,246,237,.035);
+}
+
+.case-story-stat strong {
+    display: block;
+    color: var(--greenBright);
+    font-size: 1.06rem;
+}
+
+.case-story-stat span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: .82rem;
+    line-height: 1.45;
+}
+
+.case-story-note {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--greenBright);
+    border-radius: 0 13px 13px 0;
+    background: rgba(89,225,141,.065);
+    color: var(--mint);
+    font-size: .92rem;
+    line-height: 1.58;
+}
+
+.case-story-scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.985);
+    transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+}
+
+.case-story-scene.active {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+}
+
+.case-scene-media {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(255,255,255,.97);
+}
+
+.case-scene-media.dark {
+    background: rgba(4,55,61,.95);
+}
+
+.case-scene-media img {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+}
+
+.case-scene-caption {
+    flex: 0 0 auto;
+    padding: 16px 19px 18px;
+    background: rgba(4,61,67,.99);
+    border-top: 1px solid rgba(193,246,237,.09);
+}
+
+.case-scene-caption small {
+    color: var(--greenBright);
+    font-size: .66rem;
+    font-weight: 900;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+
+.case-scene-caption strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 1rem;
+}
+
+/* Opening biological scene */
+.case-ecology-diagram {
+    width: 100%;
+    height: 100%;
+    padding: clamp(22px,3vw,38px);
+    display: grid;
+    align-content: center;
+    gap: 14px;
+}
+
+.case-ecology-heading {
+    text-align: center;
+}
+
+.case-ecology-heading strong {
+    display: block;
+    color: var(--text);
+    font-size: clamp(1.55rem,2vw,2.1rem);
+}
+
+.case-ecology-heading span {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.case-ecology-flow {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 10px;
+    align-items: stretch;
+}
+
+.case-ecology-node {
+    position: relative;
+    min-height: 150px;
+    padding: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(193,246,237,.13);
+    border-radius: 18px;
+    background: rgba(193,246,237,.045);
+}
+
+.case-ecology-node:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    z-index: 4;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #06484E;
+    border: 1px solid rgba(89,225,141,.22);
+    color: var(--greenBright);
+    font-weight: 900;
+}
+
+.case-ecology-node b {
+    color: var(--greenBright);
+    font-size: .92rem;
+}
+
+.case-ecology-node span {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: .8rem;
+    line-height: 1.46;
+}
+
+/* Compact section after scrolly: consensus explorer */
+.case-explorer-section {
+    padding: 64px 0 54px;
+    border-top: 1px solid rgba(193,246,237,.09);
+}
+
+.case-explorer-head {
+    max-width: 1040px;
+    margin-bottom: 26px;
+}
+
+.case-explorer-head h2 {
+    margin: 8px 0 0;
+    font-size: clamp(2.1rem,3.2vw,3.7rem);
+    line-height: 1;
+}
+
+.case-explorer-head p {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.65;
+}
+
+/* ---------- Responsive scrollytelling ---------- */
+@media (max-width: 1100px) {
+    .case-hero-lower {
+        grid-template-columns: 1fr;
+    }
+
+    .case-hero-metrics {
+        grid-template-columns: repeat(4,minmax(0,1fr)) !important;
+    }
+
+    .case-scrolly {
+        grid-template-columns: minmax(330px,.9fr) minmax(0,1.1fr);
+        gap: 28px;
+    }
+
+    .case-ecology-flow {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .case-ecology-node:nth-child(2)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .case-study-shell {
+        width: calc(100% - 20px) !important;
+    }
+
+    .case-title {
+        font-size: clamp(3rem,14vw,5rem) !important;
+    }
+
+    .case-hero-lower {
+        margin-top: 26px;
+    }
+
+    .case-hero-metrics {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .case-biology-bridge,
+    .case-big-picture {
+        grid-template-columns: 1fr !important;
+    }
+
+    .case-biology-card {
+        min-height: 0;
+    }
+
+    .case-biology-card h3 {
+        min-height: 0;
+    }
+
+    .case-big-picture-step:not(:last-child)::after {
+        content: "↓";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -19px;
+        transform: translateX(-50%);
+    }
+
+    .case-scrolly {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding-top: 34px;
+    }
+
+    .case-story-stage {
+        order: 1;
+        width: 100%;
+        height: 44vh;
+        min-height: 330px;
+        top: 58px;
+        z-index: 8;
+        border-radius: 18px;
+    }
+
+    .case-story-copy {
+        order: 2;
+    }
+
+    .case-story-step {
+        min-height: 72vh;
+        padding: 42px 6px;
+    }
+
+    .case-story-step h2 {
+        font-size: clamp(2rem,9vw,3rem);
+    }
+
+    .case-story-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .case-ecology-flow {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .case-ecology-node {
+        min-height: 110px;
+        padding: 12px;
+    }
+
+    .case-ecology-node::after {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-story-step,
+    .case-story-scene,
+    .case-study-view {
+        transition: none !important;
+    }
+}
+
 </style>
 </head>
 
@@ -9265,7 +9920,7 @@ function openPanel(panel) {
 
         },
 
-        430
+        270
     );
 
 }
@@ -9557,7 +10212,7 @@ function closeActivePanel() {
         */
         setTimeout(
             finishClose,
-            760
+            520
         );
 
     }
@@ -10184,12 +10839,7 @@ function getConservationCaseStudyHTML() {
     <div class="case-study-shell">
 
         <div class="case-study-topbar">
-
-            <button
-                class="case-back"
-                type="button"
-                data-case-back
-            >
+            <button class="case-back" type="button" data-case-back>
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to Mini Projects
             </button>
@@ -10197,771 +10847,478 @@ function getConservationCaseStudyHTML() {
             <div class="case-study-top-label">
                 Interactive research case study
             </div>
-
         </div>
-
 
         <section class="case-hero" id="case-overview">
 
-            <div>
-
-                <div class="case-eyebrow">
-                    Spatial conservation policy modelling
-                </div>
-
+            <div class="case-hero-heading">
+                <div class="case-eyebrow">Spatial conservation policy modelling</div>
                 <h1 class="case-title">
-                    Funding landscapes for
-                    <span class="accent">habitat and connectivity</span>
+                    Funding landscapes for <span class="accent">habitat and connectivity</span>
                 </h1>
-
-                <p class="case-lead">
-                    This case study asks a practical conservation question: if a government
-                    has a fixed amount of money to improve agricultural landscapes for pollinators,
-                    where should that money be spent? Bee and butterfly occurrence records are first
-                    translated into species-level ecological profiles describing the landscape
-                    conditions with which each species is associated. Those profiles are then compared
-                    with the habitat composition of every 5-km landscape cell. The result is a
-                    pollinator-informed estimate of local habitat suitability and, by linking suitable
-                    neighbouring cells, structural connectivity. The policy model then compares several
-                    ways of allocating the same intervention budget across eligible agricultural cells.
-                    It also tests a real-world limitation: even a high-priority place cannot receive an
-                    intervention if the relevant representative land-management unit is unavailable.
-                </p>
-
-                <div class="case-tags">
-                    <span>Switzerland</span>
-                    <span>5-km landscape cells</span>
-                    <span>Spatial allocation</span>
-                    <span>Habitat-connectivity trade-off</span>
-                    <span>Policy scenarios</span>
-                </div>
-
             </div>
 
+            <div class="case-hero-lower">
+                <div>
+                    <p class="case-lead">
+                        This project tests a simple policy question: <strong>if the amount of conservation
+                        funding is fixed, where should intervention be placed to produce stronger modeled
+                        outcomes for bees and butterflies?</strong> Pollinator observations provide the
+                        ecological evidence, the Swiss 5-km grid provides the landscape, representative
+                        agricultural management units define where intervention can be implemented, and the
+                        policy model redistributes the same budget under different habitat and connectivity priorities.
+                    </p>
 
-            <div class="case-hero-metrics">
-
-                <div class="case-metric">
-                    <strong>CHF 3,300</strong>
-                    <span>Annual payment assigned to each hectare of intervention. The model uses this rate to convert funded area into programme cost.</span>
+                    <div class="case-tags">
+                        <span>Switzerland</span>
+                        <span>554 bee species</span>
+                        <span>217 butterfly species</span>
+                        <span>5-km landscape cells</span>
+                        <span>Spatial allocation</span>
+                    </div>
                 </div>
 
-                <div class="case-metric">
-                    <strong>2,793.77 ha</strong>
-                    <span>The fixed amount of land funded in the reference scenario. It equals 1% of the modelled eligible cropland and stays constant in the main strategy comparison.</span>
+                <div class="case-hero-metrics">
+                    <div class="case-metric">
+                        <strong>CHF 3,300</strong>
+                        <span>Annual payment per hectare of modeled beneficial-strip intervention — not per 5-km cell.</span>
+                    </div>
+                    <div class="case-metric">
+                        <strong>2,793.77 ha</strong>
+                        <span>Fixed total intervention area in the reference scenario.</span>
+                    </div>
+                    <div class="case-metric">
+                        <strong>CHF 9.22M</strong>
+                        <span>Reference annual programme budget used for the main strategy comparison.</span>
+                    </div>
+                    <div class="case-metric">
+                        <strong>75 cells</strong>
+                        <span>Core locations selected by all five targeted ecological strategies.</span>
+                    </div>
                 </div>
-
-                <div class="case-metric">
-                    <strong>CHF 9.22M</strong>
-                    <span>The approximate yearly cost of funding 2,793.77 ha at CHF 3,300 per hectare. Every main allocation strategy works with this same budget.</span>
-                </div>
-
-                <div class="case-metric">
-                    <strong>75 cells</strong>
-                    <span>Landscape cells selected by every targeted ecological strategy. These 75 cells form the strongest consensus-priority core.</span>
-                </div>
-
             </div>
 
         </section>
 
-
         <nav class="case-nav" aria-label="Case study sections">
-            <a href="#case-methods">Methods</a>
-            <a href="#case-reference">Reference scenario</a>
-            <a href="#case-tradeoff">Strategy trade-offs</a>
+            <a href="#case-methods">Model logic</a>
+            <a href="#case-reference">Policy setup</a>
+            <a href="#case-tradeoff">Strategy results</a>
             <a href="#case-participation">Participation</a>
             <a href="#case-spatial">Spatial allocation</a>
             <a href="#case-consensus">Consensus</a>
             <a href="#case-robustness">Robustness</a>
         </nav>
 
-
         <section class="case-section" id="case-methods">
 
             <div class="case-section-head">
-                <div class="case-section-number">01 · Methods</div>
-                <h2>From policy assumptions to spatial allocation</h2>
+                <div class="case-section-number">01 · Model logic</div>
+                <h2>Pollinator evidence is translated into a landscape-allocation model</h2>
                 <p class="case-section-intro">
-                    Think of the model as a controlled conservation experiment carried out on a map.
-                    The bees and butterflies provide the ecological evidence: their occurrence records,
-                    habitat associations and trait-based mobility information are used to describe how
-                    species relate to different landscape conditions. The 5-km grid provides the spatial
-                    environment. The policy layer then asks where a fixed amount of intervention should
-                    be placed so that the resulting landscape better matches pollinator habitat needs and/or
-                    forms a more continuous network of suitable neighbouring cells. Representative
-                    land-management units determine where the intervention can actually be implemented.
+                    The model has three different roles. <strong>Bees and butterflies are the ecological
+                    response layer.</strong> <strong>Representative land-management units are the agents</strong>
+                    that determine where implementation is possible. The <strong>policy budget is the external
+                    driver</strong> that determines how much intervention can be funded. The model then asks how
+                    different spatial allocations of the same programme change pollinator-informed habitat
+                    suitability and structural connectivity.
                 </p>
             </div>
 
             <div class="case-biology-bridge">
 
                 <article class="case-biology-card">
-                    <h3>What role do bees and butterflies play?</h3>
+                    <h3>Bees and butterflies as the biological response layer</h3>
                     <p>
-                        They are the <strong>ecological response layer</strong>, not the policy agents.
-                        The model contains 554 ABM-ready bee species and 217 ABM-ready butterfly species.
-                        For each species, observed occurrence patterns are summarised into a landscape-association
-                        profile. Butterfly morphology and functional movement groups, and bee body-size / ITD
-                        mobility information, remain part of the ecological profile and interpretation.
+                        GBIF occurrence records for <strong>554 bee species</strong> and <strong>217 butterfly
+                        species</strong> were summarized into species-level landscape-association profiles.
+                        These profiles describe the habitat compositions in which each species was observed
+                        across Switzerland. Butterfly morphology and functional movement groups, together with
+                        bee body-size / ITD mobility information, are retained for ecological interpretation.
+                        They are not used as arbitrary multipliers of local habitat suitability.
                     </p>
                     <div class="case-formula">
-                        Pollinator records + traits &rarr; species ecological profiles &rarr; habitat suitability across 5-km cells
+                        Pollinator observations + traits &rarr; species ecological profiles &rarr; habitat suitability across 5-km cells
                     </div>
                 </article>
 
                 <article class="case-biology-card">
-                    <h3>How do habitat and connectivity scores come from them?</h3>
+                    <h3>Habitat suitability and connectivity are scored from species–landscape relationships</h3>
                     <p>
-                        <strong>Local habitat response</strong> asks how closely the habitat composition of a cell
-                        matches the empirical landscape associations of the modeled bee and butterfly species.
-                        <strong>Structural connectivity</strong> then asks whether suitable neighbouring cells form
-                        a stronger continuous landscape network. Improving one cell can therefore help locally,
-                        help connectivity, or contribute to both.
+                        For each species, its empirical landscape-association profile is compared with the
+                        habitat composition of every 5-km cell. That comparison produces a local habitat-match
+                        score. Cells are then connected to neighbouring cells in a landscape graph.
+                        <strong>Structural connectivity</strong> becomes stronger when neighbouring cells are
+                        simultaneously suitable, so a funded cell can improve local habitat, strengthen continuity,
+                        or contribute to both.
                     </p>
                     <div class="case-formula">
-                        Better species&ndash;habitat match = stronger local response; suitable neighbouring cells = stronger structural connectivity
+                        Species profile &harr; cell habitat composition = local habitat match; neighbouring suitable cells = structural connectivity
                     </div>
                 </article>
 
             </div>
 
-            <div class="case-method-grid">
-
-                <article class="method-step">
-                    <span>1</span>
-                    <h3>Define the policy envelope</h3>
-                    <p>
-                        Define what is actually being funded: hectares of beneficial-strip
-                        intervention on eligible cropland, not entire 5-km cells. The payment
-                        is CHF 3,300 per intervention hectare per year. The reference programme
-                        funds 2,793.77 ha in total, with a modelling cap of 3% of cropland in
-                        any one eligible cell.
-                    </p>
-                </article>
-
-                <article class="method-step">
-                    <span>2</span>
-                    <h3>Score ecological objectives</h3>
-                    <p>
-                        Use bee and butterfly ecological profiles to score every eligible
-                        cell. Local habitat response represents the improvement in species&ndash;habitat
-                        matching within that cell. Structural connectivity represents how the
-                        cell contributes to continuity among suitable neighbouring cells.
-                    </p>
-                </article>
-
-                <article class="method-step">
-                    <span>3</span>
-                    <h3>Allocate the same budget</h3>
-                    <p>
-                        Spend exactly the same CHF 9.22M reference budget using six rules:
-                        one random baseline plus habitat-only, connectivity-only and three
-                        mixed habitat/connectivity weightings. This isolates the effect of
-                        <em>where</em> intervention is placed rather than simply spending more.
-                    </p>
-                </article>
-
-                <article class="method-step">
-                    <span>4</span>
-                    <h3>Stress-test implementation</h3>
-                    <p>
-                        Treat eligible agricultural cells as representative land-management
-                        units and vary how many are available to participate. Then test whether
-                        ecologically targeted allocation still outperforms random placement when
-                        implementation opportunities are limited.
-                    </p>
-                </article>
-
+            <div class="case-big-picture" aria-label="Simplified model flow">
+                <div class="case-big-picture-step">
+                    <b>1 · Score the ecological landscape</b>
+                    <span>Use bee and butterfly profiles to estimate habitat suitability across the 5-km grid.</span>
+                </div>
+                <div class="case-big-picture-step">
+                    <b>2 · Identify intervention opportunities</b>
+                    <span>Use cropland to determine where beneficial-strip intervention can be implemented.</span>
+                </div>
+                <div class="case-big-picture-step">
+                    <b>3 · Allocate the same budget</b>
+                    <span>Place the same CHF 9.22M programme under different habitat/connectivity priorities.</span>
+                </div>
+                <div class="case-big-picture-step">
+                    <b>4 · Compare outcomes</b>
+                    <span>Measure habitat response, connectivity, participation constraints and robust priority locations.</span>
+                </div>
             </div>
 
-            <a
-                class="case-method-link"
-                href="https://johnny1996ornot.github.io/Sankey-Diagram---Resume-/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Open the interactive Sankey diagram showing the research flow
+            <a class="case-method-link"
+               href="https://johnny1996ornot.github.io/Sankey-Diagram---Resume-/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Open the interactive Sankey diagram showing the full research flow
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
 
         </section>
 
+        <div class="case-scrolly" data-case-scrolly>
 
-        <section class="case-section" id="case-reference">
+            <aside class="case-story-stage" aria-live="polite">
 
-            <div class="case-section-head">
-                <div class="case-section-number">02 · Reference policy scenario</div>
-                <h2>Holding the budget constant</h2>
-                <p class="case-section-intro">
-                    The payment is <strong>not CHF 3,300 per 5-km cell</strong>. A 5-km cell is only
-                    the spatial accounting and decision unit. The model first measures how much
-                    eligible cropland occurs inside each cell, then assigns a limited number of
-                    hectares of beneficial-strip intervention within that cropland. Each funded
-                    intervention hectare costs CHF 3,300 per year. The whole 5-km cell is never
-                    assumed to become conserved or converted.
-                </p>
-            </div>
-
-            <div class="case-grid media-discussion">
-
-                <figure class="case-media table-media">
-                    <img
-                        data-src="./01_Table_Reference_Policy_Accounting.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Reference conservation-policy accounting table"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Table 1</span>
-                        <strong>Reference conservation-policy accounting</strong>
-                    </figcaption>
-                </figure>
-
-                <div class="case-discussion">
-                    <h3>What is actually being paid for?</h3>
-                    <p>
-                        The modeled intervention is a <strong>beneficial strip established on open
-                        cropland</strong>. The policy parameter is CHF 3,300 per hectare per year.
-                        Funding is therefore calculated from the number of intervention hectares
-                        assigned inside a cell &mdash; not from the total size of the 5-km square.
-                    </p>
-
-                    <div class="case-logic-chain">
-                        <b>Funding in one cell</b> = intervention hectares assigned in that cell
-                        &times; CHF 3,300 per hectare per year.
-                    </div>
-
-                    <div class="case-basic-facts">
-                        <div class="case-basic-fact">
-                            <strong>5-km cell</strong>
-                            <span>A spatial decision unit. The whole cell is not conserved.</span>
-                        </div>
-                        <div class="case-basic-fact">
-                            <strong>Paid unit</strong>
-                            <span>One hectare of modeled beneficial-strip intervention.</span>
-                        </div>
-                        <div class="case-basic-fact">
-                            <strong>Cell capacity</strong>
-                            <span>Maximum modeled intervention = 3% of cropland inside that cell.</span>
-                        </div>
-                        <div class="case-basic-fact">
-                            <strong>Reference programme</strong>
-                            <span>2,793.77 ha total intervention = about CHF 9.22M per year.</span>
+                <div class="case-story-scene active" data-scene="ecology">
+                    <div class="case-scene-media dark">
+                        <div class="case-ecology-diagram">
+                            <div class="case-ecology-heading">
+                                <strong>How pollinator data enter the model</strong>
+                                <span>The bees and butterflies provide the biological evidence used to score the landscape.</span>
+                            </div>
+                            <div class="case-ecology-flow">
+                                <div class="case-ecology-node">
+                                    <b>Occurrence data</b>
+                                    <span>Where bee and butterfly species were observed in Switzerland.</span>
+                                </div>
+                                <div class="case-ecology-node">
+                                    <b>Species profiles</b>
+                                    <span>Observed landscape associations, supported by trait information.</span>
+                                </div>
+                                <div class="case-ecology-node">
+                                    <b>Local suitability</b>
+                                    <span>Species profile compared with habitat composition in each 5-km cell.</span>
+                                </div>
+                                <div class="case-ecology-node">
+                                    <b>Connectivity</b>
+                                    <span>Suitable neighbouring cells linked into a structural landscape network.</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <p>
-                        For example, if a cell contains 1,000 ha of cropland, the 3% modelling cap
-                        allows at most 30 ha of intervention there. At CHF 3,300/ha/year, that cell
-                        could absorb at most CHF 99,000 of the programme. The remaining cropland
-                        is not assumed to change.
-                    </p>
-
-                    <p>
-                        Across the modeled Swiss landscape there are 279,376.63 ha of eligible cropland.
-                        The reference experiment sets the programme scale to 1% of that eligible area:
-                        2,793.77 ha. Multiplying by CHF 3,300/ha gives the annual reference budget of
-                        CHF 9,219,428.79. Every main strategy receives this same intervention area and
-                        budget; only the spatial placement changes.
-                    </p>
-
-                    <div class="case-callout">
-                        The central experiment is therefore: with the same CHF 9.22M and the same
-                        2,793.77 intervention hectares, where should funding be placed to create the
-                        strongest modeled pollinator habitat and/or connectivity benefit?
+                    <div class="case-scene-caption">
+                        <small>Ecological layer</small>
+                        <strong>Pollinator evidence becomes spatial habitat and connectivity information</strong>
                     </div>
                 </div>
 
-            </div>
-
-        </section>
-
-
-        <section class="case-section" id="case-tradeoff">
-
-            <div class="case-section-head">
-                <div class="case-section-number">03 · Strategy performance</div>
-                <h2>Trading local habitat response for structural connectivity</h2>
-                <p class="case-section-intro">
-                    These are not generic land-cover scores. They are calculated from the ecological
-                    profiles of the modeled bees and butterflies. For each species, its observed
-                    landscape association is compared with the habitat composition of each 5-km cell.
-                    The resulting species&ndash;cell habitat match is the basis of local habitat response.
-                    The same cell-level suitability information is then linked across neighbouring
-                    cells to measure structural connectivity. The policy strategies simply change how
-                    much weight is given to those two pollinator-informed objectives.
-                </p>
-            </div>
-
-            <div class="case-grid two">
-
-                <figure class="case-media table-media">
-                    <img
-                        data-src="./02_Table_Strategy_Performance.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Performance of alternative conservation funding strategies"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Table 2</span>
-                        <strong>Performance of alternative funding strategies</strong>
-                    </figcaption>
-                </figure>
-
-                <figure class="case-media">
-                    <img
-                        data-src="./03_Figure_Habitat_Connectivity_Tradeoff.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Trade-off between habitat and connectivity benefits"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Figure</span>
-                        <strong>Habitat-connectivity trade-off</strong>
-                    </figcaption>
-                </figure>
-
-            </div>
-
-            <div class="case-grid media-discussion case-figure-wide">
-
-                <figure class="case-media">
-                    <img
-                        data-src="./04_Figure_Targeting_Advantage_vs_Random.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Ecological benefit of spatial targeting compared with random funding"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Figure</span>
-                        <strong>Targeting advantage relative to random allocation</strong>
-                    </figcaption>
-                    <div class="case-value-table" aria-label="Exact targeting advantages">
-                        <div class="case-value-table-title">Exact values shown in the bars</div>
-                        <div class="case-value-row head"><span>Strategy</span><span>Habitat</span><span>Connectivity</span></div>
-                        <div class="case-value-row"><span>Habitat only</span><span>+53.0%</span><span>+51.1%</span></div>
-                        <div class="case-value-row"><span>75% Habitat / 25% Connectivity</span><span>+51.9%</span><span>+68.1%</span></div>
-                        <div class="case-value-row"><span>50% Habitat / 50% Connectivity</span><span>+49.3%</span><span>+76.4%</span></div>
-                        <div class="case-value-row"><span>25% Habitat / 75% Connectivity</span><span>+45.9%</span><span>+81.3%</span></div>
-                        <div class="case-value-row"><span>Connectivity only</span><span>+41.7%</span><span>+83.0%</span></div>
+                <div class="case-story-scene" data-scene="policy">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./01_Table_Reference_Policy_Accounting.png"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Reference conservation-policy accounting table">
                     </div>
-                </figure>
-
-                <div class="case-discussion">
-                    <h3>What do these bars mean biologically?</h3>
-                    <p>
-                        Bees and butterflies are the ecological basis of both bars. The blue
-                        <strong>local habitat response</strong> bar asks whether the modeled intervention
-                        makes funded cells better matches for the habitat associations of the pollinator
-                        species in the dataset. The green <strong>structural connectivity</strong> bar asks
-                        whether those suitable cells become better connected to suitable neighbouring
-                        cells across the 5-km landscape graph.
-                    </p>
-
-                    <div class="case-logic-chain">
-                        Bee + butterfly landscape associations &rarr; species&ndash;cell habitat suitability
-                        &rarr; local habitat response &rarr; neighbouring-cell continuity &rarr; structural connectivity.
-                    </div>
-
-                    <p>
-                        Habitat-only targeting produces the largest local habitat advantage over random
-                        allocation at 53.0%. Connectivity-only targeting gives the largest structural-
-                        connectivity advantage at 83.0%. The mixed strategies deliberately trade a small
-                        amount of one objective for more of the other. The 50/50 strategy retains 97.6%
-                        of the maximum habitat response and 96.4% of the maximum connectivity response,
-                        making it a strong compromise under equal weighting.
-                    </p>
-                    <p>
-                        This should not be read as &ldquo;53% more bees&rdquo; or &ldquo;83% more species&rdquo;. The model
-                        does not simulate future abundance, reproduction or richness. It estimates how
-                        intervention changes habitat compatibility and structural continuity for the
-                        modeled pollinator community.
-                    </p>
-                    <div class="case-callout">
-                        More or greener land is not automatically scored as better. A cell improves when
-                        the intervention moves its habitat composition toward conditions associated with
-                        the modeled bee and butterfly species, and connectivity improves when suitable
-                        neighbouring cells form stronger continuous links.
+                    <div class="case-scene-caption">
+                        <small>Policy setup</small>
+                        <strong>The model funds intervention hectares, not entire 5-km cells</strong>
                     </div>
                 </div>
 
-            </div>
-
-        </section>
-
-
-        <section class="case-section" id="case-participation">
-
-            <div class="case-section-head">
-                <div class="case-section-number">04 · Management participation</div>
-                <h2>Good targeting still depends on who can participate</h2>
-                <p class="case-section-intro">
-                    A map can identify an ecologically valuable place, but a policy cannot act
-                    there unless the relevant land managers can actually participate. This section
-                    treats participation as an implementation constraint. The model progressively
-                    increases the share of eligible management units that are available and asks
-                    how much of the ecological targeting advantage can still be achieved. The
-                    animated map helps show the difference between an ecological priority and a
-                    priority that is also practically available for funding.
-                </p>
-            </div>
-
-            <div class="case-grid two">
-
-                <figure class="case-media table-media">
-                    <img
-                        data-src="./05_Table_Management_Availability.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Effect of management availability on targeting performance table"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Table 3</span>
-                        <strong>Management availability and targeting performance</strong>
-                    </figcaption>
-                </figure>
-
-                <figure class="case-media">
-                    <img
-                        data-src="./06_Figure_Management_Availability_Effect.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Management availability and value of spatial targeting line graph"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Figure</span>
-                        <strong>Targeting advantage rises with management availability</strong>
-                    </figcaption>
-                </figure>
-
-            </div>
-
-            <div class="case-gif-grid">
-
-                <figure class="case-media">
-                    <img
-                        data-src="./18_Animated_Management_Availability.gif"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Animated management availability scenario"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Animated scenario</span>
-                        <strong>How participation constraints reshape the funded landscape</strong>
-                    </figcaption>
-                </figure>
-
-                <div class="case-discussion">
-                    <h3>Participation acts as an implementation constraint</h3>
-                    <p>
-                        At 25% management availability, the summary comparison reports no
-                        targeting advantage over random. The reason is intuitive: when only a
-                        small fraction of management units can participate, the model has little
-                        freedom to choose the places it considers ecologically best. At 50%, 75%
-                        and 100% availability, that choice set becomes larger and the ecological
-                        value of spatial targeting rises sharply, especially for connectivity.
-                    </p>
-                    <p>
-                        At full management availability, the 50/50 targeting scenario reaches a
-                        59.5% habitat advantage and a 101.6% connectivity advantage over random
-                        allocation. A value above 100% here means that the improvement relative to
-                        the random baseline is slightly more than twice the baseline improvement
-                        used for comparison; it does not mean that connectivity itself is "101.6%".
-                        The animation makes the mechanism visible: the ecological ranking may stay
-                        the same, but funding can only be placed where management capacity exists.
-                    </p>
+                <div class="case-story-scene" data-scene="tradeoff">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./03_Figure_Habitat_Connectivity_Tradeoff.png"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Trade-off between habitat and connectivity benefits">
+                    </div>
+                    <div class="case-scene-caption">
+                        <small>Strategy trade-off</small>
+                        <strong>Changing policy weighting changes the ecological objective being prioritized</strong>
+                    </div>
                 </div>
 
-            </div>
-
-        </section>
-
-
-        <section class="case-section" id="case-spatial">
-
-            <div class="case-section-head">
-                <div class="case-section-number">05 · Spatial allocation</div>
-                <h2>The same budget can be dispersed or concentrated</h2>
-                <p class="case-section-intro">
-                    The main strategies spend the same annual budget and fund the same total
-                    intervention area, but they distribute that intervention very differently.
-                    Random allocation spreads funding across many cells. Ecological targeting
-                    concentrates the same total area into fewer cells that score more highly for
-                    habitat, connectivity or both. This section therefore separates programme
-                    size from programme geography: the amount of funding is fixed, while its
-                    spatial concentration changes.
-                </p>
-            </div>
-
-            <div class="case-grid two">
-
-                <figure class="case-media table-media">
-                    <img
-                        data-src="./07_Table_Spatial_Distribution_of_Reference_Budget.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Spatial distribution of the same reference conservation budget table"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Table 4</span>
-                        <strong>Spatial distribution of the same reference budget</strong>
-                    </figcaption>
-                </figure>
-
-                <figure class="case-media">
-                    <img
-                        data-src="./08_Figure_Funding_Concentration.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Spatial concentration of the same conservation budget"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Figure</span>
-                        <strong>Targeted strategies fund fewer, higher-priority cells</strong>
-                    </figcaption>
-                </figure>
-
-            </div>
-
-            <div class="case-gif-grid">
-
-                <figure class="case-media">
-                    <img
-                        data-src="./17_Animated_Policy_Allocation.gif"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Animated spatial conservation policy allocation"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Animated allocation</span>
-                        <strong>Funding locations shift as policy weighting changes</strong>
-                    </figcaption>
-                </figure>
-
-                <div class="case-discussion">
-                    <h3>Targeting concentrates rather than enlarges the programme</h3>
-                    <p>
-                        Random allocation spreads 2,793.77 ha across 390 selected 5-km cells,
-                        averaging about 7.16 ha per selected cell. The targeted strategies use
-                        exactly the same total intervention area but concentrate it into only
-                        119 to 128 cells, with roughly 21.83 to 23.48 ha in each selected cell.
-                        A useful analogy is pouring the same amount of water into many shallow
-                        cups versus fewer deeper cups: the quantity is unchanged, but the spatial
-                        concentration is very different.
-                    </p>
-                    <p>
-                        The animated allocation shows the funded cells shifting as the policy
-                        changes its ecological weighting. Habitat-oriented strategies favour cells
-                        where beneficial-strip intervention most improves the modeled bee-and-butterfly
-                        habitat match. Connectivity-oriented strategies favour cells whose improvement
-                        contributes more strongly to continuity among suitable neighbouring cells.
-                        Because the budget and total intervention area remain fixed, the ecological
-                        gains come from better spatial targeting of pollinator-informed priorities,
-                        not from a larger programme.
-                    </p>
+                <div class="case-story-scene" data-scene="targeting">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./04_Figure_Targeting_Advantage_vs_Random.png"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Ecological benefit of spatial targeting compared with random funding">
+                    </div>
+                    <div class="case-scene-caption">
+                        <small>Same budget, different placement</small>
+                        <strong>Targeted allocation outperforms random allocation in the modeled ecological objectives</strong>
+                    </div>
                 </div>
 
+                <div class="case-story-scene" data-scene="participation">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./18_Animated_Management_Availability.gif"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Animated management availability scenario">
+                    </div>
+                    <div class="case-scene-caption">
+                        <small>Implementation constraint</small>
+                        <strong>Ecological priorities can only be funded where management units are available</strong>
+                    </div>
+                </div>
+
+                <div class="case-story-scene" data-scene="spatial">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./17_Animated_Policy_Allocation.gif"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Animated conservation policy allocation">
+                    </div>
+                    <div class="case-scene-caption">
+                        <small>Spatial allocation</small>
+                        <strong>The same programme moves across the landscape as ecological priorities change</strong>
+                    </div>
+                </div>
+
+                <div class="case-story-scene" data-scene="consensus">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./10_Map_Consensus_Priority_Panel.png"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Consensus conservation priority map panel">
+                    </div>
+                    <div class="case-scene-caption">
+                        <small>Consensus priorities</small>
+                        <strong>Some locations remain priorities even when habitat/connectivity weighting changes</strong>
+                    </div>
+                </div>
+
+                <div class="case-story-scene" data-scene="robustness">
+                    <div class="case-scene-media">
+                        <img data-scene-src="./16_Figure_Robustness_of_Targeted_Allocation.png"
+                             onerror="portfolioImageFallback(this)"
+                             data-case-lightbox
+                             alt="Robustness of targeted conservation allocation">
+                    </div>
+                    <div class="case-scene-caption">
+                        <small>Robustness</small>
+                        <strong>The targeting advantage remains positive across tested budget and effect assumptions</strong>
+                    </div>
+                </div>
+
+            </aside>
+
+            <div class="case-story-copy">
+
+                <article class="case-story-step active" data-story-step data-scene-target="ecology">
+                    <div class="case-story-kicker">Ecological foundation</div>
+                    <h2>Bees and butterflies determine what counts as an ecological improvement</h2>
+                    <p>
+                        The model does not simply reward a cell for becoming “greener.” Each bee and butterfly
+                        species has an empirical landscape-association profile derived from its observations.
+                        A cell receives a stronger local habitat score when its habitat composition more closely
+                        matches those species profiles. The pollinators are therefore the <strong>ecological
+                        response layer</strong> that gives biological meaning to the landscape scores.
+                    </p>
+                    <div class="case-story-note">
+                        Higher modeled suitability means a better match with observed species–landscape associations;
+                        it does not guarantee future abundance, reproduction or species richness.
+                    </div>
+                </article>
+
+                <article class="case-story-step" id="case-reference" data-story-step data-scene-target="policy">
+                    <div class="case-story-kicker">02 · Policy setup</div>
+                    <h2>The model pays for hectares of intervention, not for whole cells</h2>
+                    <p>
+                        A 5-km cell is only the spatial decision unit. The modeled intervention is a beneficial
+                        strip on eligible cropland and the payment parameter is <strong>CHF 3,300 per intervention
+                        hectare per year</strong>. The reference programme funds 2,793.77 ha in total, equivalent
+                        to an annual budget of about CHF 9.22M. A modelling cap allows intervention on at most
+                        3% of cropland inside any one eligible cell.
+                    </p>
+                    <div class="case-story-stat-grid">
+                        <div class="case-story-stat"><strong>CHF 3,300/ha</strong><span>Cost assigned to one intervention hectare per year.</span></div>
+                        <div class="case-story-stat"><strong>2,793.77 ha</strong><span>Total funded intervention area held constant.</span></div>
+                        <div class="case-story-stat"><strong>CHF 9.22M</strong><span>Approximate annual reference budget.</span></div>
+                        <div class="case-story-stat"><strong>3% per cell</strong><span>Maximum modeled intervention share of cropland in an eligible cell.</span></div>
+                    </div>
+                    <div class="case-story-note">
+                        Example: a cell containing 1,000 ha of cropland can receive at most 30 ha of intervention,
+                        costing up to CHF 99,000/year. The remaining 970 ha are not assumed to change.
+                    </div>
+                </article>
+
+                <article class="case-story-step" id="case-tradeoff" data-story-step data-scene-target="tradeoff">
+                    <div class="case-story-kicker">03 · Ecological objectives</div>
+                    <h2>Habitat and connectivity are two views of the same pollinator-informed landscape</h2>
+                    <p>
+                        <strong>Local habitat response</strong> measures how much an intervention improves
+                        species–habitat matching within a cell. <strong>Structural connectivity</strong> uses the
+                        same suitability information across neighbouring cells and asks whether suitable habitat
+                        forms a stronger continuous network. The policy weighting determines how much importance
+                        is assigned to each objective during funding allocation.
+                    </p>
+                    <div class="case-story-note">
+                        Mobility groups are retained for ecological interpretation, but the final local suitability
+                        score is based on habitat match rather than an arbitrary mobility multiplier.
+                    </div>
+                </article>
+
+                <article class="case-story-step" data-story-step data-scene-target="targeting">
+                    <div class="case-story-kicker">Same-budget experiment</div>
+                    <h2>Only the location of funding changes</h2>
+                    <p>
+                        Every main strategy receives the same budget and the same 2,793.77 intervention hectares.
+                        The experiment therefore isolates <strong>where</strong> funding is placed. Habitat-only
+                        targeting gives the strongest local habitat advantage over random allocation, while
+                        connectivity-only targeting gives the strongest structural-connectivity advantage.
+                        Mixed strategies deliberately preserve part of both objectives.
+                    </p>
+                    <div class="case-story-stat-grid">
+                        <div class="case-story-stat"><strong>+53.0%</strong><span>Habitat-only local habitat advantage vs random.</span></div>
+                        <div class="case-story-stat"><strong>+83.0%</strong><span>Connectivity-only connectivity advantage vs random.</span></div>
+                        <div class="case-story-stat"><strong>+49.3%</strong><span>50/50 habitat advantage vs random.</span></div>
+                        <div class="case-story-stat"><strong>+76.4%</strong><span>50/50 connectivity advantage vs random.</span></div>
+                    </div>
+                    <div class="case-story-note">
+                        These percentages are modeled improvements in habitat response and structural connectivity —
+                        not “53% more bees” or “83% more species.”
+                    </div>
+                </article>
+
+                <article class="case-story-step" id="case-participation" data-story-step data-scene-target="participation">
+                    <div class="case-story-kicker">04 · Implementation</div>
+                    <h2>Land-management availability controls how much ecological targeting can be realized</h2>
+                    <p>
+                        Eligible agricultural cells are represented by <strong>synthetic land-management units</strong>,
+                        not observed individual farmers. Participation is varied as a sensitivity scenario. At low
+                        availability, the model has little freedom to choose among ecologically high-ranking cells.
+                        As more management units become available, the policy gains more spatial choice and targeted
+                        allocation increasingly outperforms random placement.
+                    </p>
+                    <div class="case-story-stat-grid">
+                        <div class="case-story-stat"><strong>25%</strong><span>Availability can become the binding constraint; little or no targeting advantage remains.</span></div>
+                        <div class="case-story-stat"><strong>50–100%</strong><span>More available units create greater spatial choice for ecological targeting.</span></div>
+                    </div>
+                </article>
+
+                <article class="case-story-step" id="case-spatial" data-story-step data-scene-target="spatial">
+                    <div class="case-story-kicker">05 · Spatial allocation</div>
+                    <h2>Targeting concentrates the same intervention into fewer, higher-priority cells</h2>
+                    <p>
+                        Random allocation spreads 2,793.77 ha across 390 selected cells. Targeted strategies
+                        concentrate that same total area into roughly 119–128 cells. The animation shows those
+                        funded locations shifting as the ecological weighting changes from habitat-oriented to
+                        connectivity-oriented targeting.
+                    </p>
+                    <div class="case-story-stat-grid">
+                        <div class="case-story-stat"><strong>390 cells</strong><span>Random allocation.</span></div>
+                        <div class="case-story-stat"><strong>119–128 cells</strong><span>Targeted ecological strategies.</span></div>
+                    </div>
+                    <div class="case-story-note">
+                        A colored 5-km cell means intervention hectares are funded somewhere within that management
+                        cell. The entire square is never assumed to be converted or conserved.
+                    </div>
+                </article>
+
+                <article class="case-story-step" id="case-consensus" data-story-step data-scene-target="consensus">
+                    <div class="case-story-kicker">06 · Consensus</div>
+                    <h2>Some cells remain priorities regardless of how habitat and connectivity are weighted</h2>
+                    <p>
+                        The five targeted strategies do not select exactly the same places. Consensus analysis counts
+                        how often each cell is selected. Cells chosen repeatedly are less dependent on one particular
+                        ecological weighting and therefore represent more stable modeled priority locations.
+                    </p>
+                    <div class="case-story-stat-grid">
+                        <div class="case-story-stat"><strong>75 cells</strong><span>Selected by all five targeted strategies.</span></div>
+                        <div class="case-story-stat"><strong>117 cells</strong><span>Selected by at least three strategies.</span></div>
+                    </div>
+                </article>
+
+                <article class="case-story-step" id="case-robustness" data-story-step data-scene-target="robustness">
+                    <div class="case-story-kicker">07 · Robustness</div>
+                    <h2>The targeting advantage survives the tested budget and intervention-effect assumptions</h2>
+                    <p>
+                        The robustness analysis changes the programme budget and the assumed ecological effect of
+                        intervention. Instead of reporting only the best result, it records the weakest advantage
+                        over random allocation across the tested conditions. All three focal targeted strategies
+                        retain positive minimum habitat and connectivity advantages.
+                    </p>
+                    <div class="case-story-note">
+                        Robustness here means “stable within the tested model scenarios.” It is not a claim that the
+                        exact numerical advantage will occur under every real-world condition.
+                    </div>
+                </article>
+
             </div>
 
-        </section>
+        </div>
 
-
-        <section class="case-section" id="case-consensus">
-
-            <div class="case-section-head">
-                <div class="case-section-number">06 · Interactive consensus priorities</div>
-                <h2>Click a bar to see where that level of agreement occurs</h2>
-                <p class="case-section-intro">
-                    Some cells remain important even when the policy changes the balance between
-                    habitat and connectivity. The consensus score counts how many of the five
-                    targeted strategies select the same 5-km cell. A 5-of-5 cell is selected
-                    under every ecological weighting and is therefore a particularly robust
-                    spatial priority. Lower scores identify locations whose importance depends
-                    more strongly on the chosen objective. Click the bars below to switch the map
-                    and see where each level of agreement occurs.
+        <section class="case-explorer-section" aria-labelledby="consensusExplorerTitle">
+            <div class="case-explorer-head">
+                <div class="case-section-number">Explore the consensus map</div>
+                <h2 id="consensusExplorerTitle">Click a consensus level to see where those priority cells occur</h2>
+                <p>
+                    This interactive view keeps the spatial detail available after the main scrollytelling narrative.
+                    Higher consensus means a cell was selected under more of the five targeted ecological strategies.
                 </p>
             </div>
 
             <div class="consensus-interactive">
-
                 <div class="consensus-chart">
-                    <h3>Consensus strength</h3>
-                    <p>Strategies selecting the same 5-km landscape cell</p>
-
+                    <h3>Targeting consensus</h3>
+                    <p>Select a bar to update the map.</p>
                     <div class="consensus-bars">
-
-                        <button
-                            class="consensus-bar active"
-                            type="button"
-                            data-consensus="5"
-                            data-map="./11_Map_Consensus_5_of_5.png"
-                            data-title="Core consensus priority · 5 of 5 strategies"
-                            data-copy="75 cells remain priorities under every tested ecological weighting strategy. These form the strongest consensus-priority core."
-                            aria-pressed="true"
-                        >
-                            <span class="consensus-bar-label">5 of 5</span>
-                            <span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:100%"></span></span>
-                            <span class="consensus-bar-count">75</span>
+                        <button class="consensus-bar active" type="button" data-consensus="5" data-map="./11_Map_Consensus_5_of_5.png" data-title="Core consensus priority · 5 of 5 strategies" data-copy="75 cells remain priorities under every tested ecological weighting strategy. These form the strongest consensus-priority core." aria-pressed="true">
+                            <span class="consensus-bar-label">5 of 5</span><span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:100%"></span></span><span class="consensus-bar-count">75</span>
                         </button>
-
-                        <button
-                            class="consensus-bar"
-                            type="button"
-                            data-consensus="4"
-                            data-map="./12_Map_Consensus_4_of_5.png"
-                            data-title="High consensus · 4 of 5 strategies"
-                            data-copy="22 cells are selected by four of the five strategies. They are highly robust priorities, but one ecological weighting changes their status."
-                            aria-pressed="false"
-                        >
-                            <span class="consensus-bar-label">4 of 5</span>
-                            <span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:29.33%"></span></span>
-                            <span class="consensus-bar-count">22</span>
+                        <button class="consensus-bar" type="button" data-consensus="4" data-map="./12_Map_Consensus_4_of_5.png" data-title="High consensus · 4 of 5 strategies" data-copy="22 cells are selected by four of the five strategies. They are highly robust priorities, but one ecological weighting changes their status." aria-pressed="false">
+                            <span class="consensus-bar-label">4 of 5</span><span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:29.33%"></span></span><span class="consensus-bar-count">22</span>
                         </button>
-
-                        <button
-                            class="consensus-bar"
-                            type="button"
-                            data-consensus="3"
-                            data-map="./13_Map_Consensus_3_of_5.png"
-                            data-title="Moderate consensus · 3 of 5 strategies"
-                            data-copy="20 cells are selected by three strategies. These locations are shared priorities, but are more sensitive to how habitat and connectivity are weighted."
-                            aria-pressed="false"
-                        >
-                            <span class="consensus-bar-label">3 of 5</span>
-                            <span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:26.67%"></span></span>
-                            <span class="consensus-bar-count">20</span>
+                        <button class="consensus-bar" type="button" data-consensus="3" data-map="./13_Map_Consensus_3_of_5.png" data-title="Moderate consensus · 3 of 5 strategies" data-copy="20 cells are selected by three strategies. These locations are shared priorities, but are more sensitive to how habitat and connectivity are weighted." aria-pressed="false">
+                            <span class="consensus-bar-label">3 of 5</span><span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:26.67%"></span></span><span class="consensus-bar-count">20</span>
                         </button>
-
-                        <button
-                            class="consensus-bar"
-                            type="button"
-                            data-consensus="2"
-                            data-map="./14_Map_Consensus_2_of_5.png"
-                            data-title="Limited consensus · 2 of 5 strategies"
-                            data-copy="27 cells are selected by two strategies. Their priority status is more dependent on the ecological objective chosen by the policy."
-                            aria-pressed="false"
-                        >
-                            <span class="consensus-bar-label">2 of 5</span>
-                            <span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:36%"></span></span>
-                            <span class="consensus-bar-count">27</span>
+                        <button class="consensus-bar" type="button" data-consensus="2" data-map="./14_Map_Consensus_2_of_5.png" data-title="Limited consensus · 2 of 5 strategies" data-copy="27 cells are selected by two strategies. Their priority status is more dependent on the ecological objective chosen by the policy." aria-pressed="false">
+                            <span class="consensus-bar-label">2 of 5</span><span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:36%"></span></span><span class="consensus-bar-count">27</span>
                         </button>
-
-                        <button
-                            class="consensus-bar"
-                            type="button"
-                            data-consensus="1"
-                            data-map="./15_Map_Consensus_1_of_5.png"
-                            data-title="Strategy-specific priority · 1 of 5 strategies"
-                            data-copy="33 cells are selected by only one strategy. These are the most strategy-dependent locations in the consensus analysis."
-                            aria-pressed="false"
-                        >
-                            <span class="consensus-bar-label">1 of 5</span>
-                            <span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:44%"></span></span>
-                            <span class="consensus-bar-count">33</span>
+                        <button class="consensus-bar" type="button" data-consensus="1" data-map="./15_Map_Consensus_1_of_5.png" data-title="Strategy-specific priority · 1 of 5 strategies" data-copy="33 cells are selected by only one strategy. These are the most strategy-dependent locations in the consensus analysis." aria-pressed="false">
+                            <span class="consensus-bar-label">1 of 5</span><span class="consensus-bar-track"><span class="consensus-bar-fill" style="--bar-width:44%"></span></span><span class="consensus-bar-count">33</span>
                         </button>
-
                     </div>
                 </div>
-
 
                 <div class="consensus-map-card">
-                    <img
-                        id="consensusMapImage"
-                        data-src="./11_Map_Consensus_5_of_5.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Map of consensus conservation priority cells"
-                    >
+                    <img id="consensusMapImage" data-src="./11_Map_Consensus_5_of_5.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Map of consensus conservation priority cells">
                     <div class="consensus-map-copy">
                         <h3 id="consensusMapTitle">Core consensus priority · 5 of 5 strategies</h3>
-                        <p id="consensusMapDescription">
-                            75 cells remain priorities under every tested ecological weighting strategy.
-                            Because these locations survive all five weighting choices, they form the
-                            strongest consensus-priority core in the model.
-                        </p>
+                        <p id="consensusMapDescription">75 cells remain priorities under every tested ecological weighting strategy. Because these locations survive all five weighting choices, they form the strongest consensus-priority core in the model.</p>
                     </div>
                 </div>
-
             </div>
-
         </section>
-
-
-        <section class="case-section" id="case-robustness">
-
-            <div class="case-section-head">
-                <div class="case-section-number">07 · Robustness</div>
-                <h2>Do the targeting gains survive alternative assumptions?</h2>
-                <p class="case-section-intro">
-                    A model result is more convincing when it does not disappear after a small
-                    change in assumptions. The robustness analysis therefore looks across the
-                    tested budget and intervention-effect scenarios and records the lowest
-                    advantage each focal strategy achieves over random allocation. This is a
-                    conservative test: instead of highlighting the best run, it asks what remains
-                    true under the least favourable tested condition.
-                </p>
-            </div>
-
-            <div class="case-grid media-discussion">
-
-                <figure class="case-media">
-                    <img
-                        data-src="./16_Figure_Robustness_of_Targeted_Allocation.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Robustness of targeted conservation allocation"
-                    >
-                    <figcaption class="media-caption">
-                        <span class="media-kicker">Figure</span>
-                        <strong>Worst-case advantage over random allocation</strong>
-                    </figcaption>
-                </figure>
-
-                <div class="case-discussion">
-                    <h3>All three tested focal strategies retain positive advantages</h3>
-                    <p>
-                        Connectivity-only targeting retains a minimum habitat advantage of 34.3%
-                        and a minimum connectivity advantage of 49.2%. The 50/50 strategy retains
-                        37.9% and 48.6%, while habitat-only targeting retains 42.1% and 42.3%,
-                        respectively. All of these minimum values remain above zero, meaning that
-                        each focal targeted strategy still performs better than the random baseline
-                        even in its weakest tested scenario.
-                    </p>
-                    <p>
-                        This does not prove that the same numerical advantage would occur under
-                        every possible real-world condition. It does show that the observed benefit
-                        is not created by only one exact model setting. The preferred strategy still
-                        depends on whether policy values local habitat, connectivity or a balance of
-                        both, but the general advantage of targeted allocation persists across the
-                        scenarios that were tested.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
 
         <section class="case-section">
             <div class="case-conclusion">
                 <div class="case-section-number">Takeaway</div>
-                <h2>Where funding goes can matter as much as how much funding is available.</h2>
+                <h2>The study is fundamentally about budget allocation on land and its modeled pollinator consequences.</h2>
                 <p>
-                    Across the tested scenarios, the model shows that spatial decisions can change
-                    what the same amount of conservation funding achieves for the modeled pollinator
-                    community. Habitat-focused strategies favour stronger bee-and-butterfly habitat
-                    matching within funded cells, connectivity-focused strategies favour a more continuous
-                    network of suitable neighbouring cells, and mixed strategies preserve much of both.
-                    The participation experiment adds an important practical lesson: a mathematically
-                    high-priority location is not automatically implementable if the people or
-                    management units needed to act there are unavailable. The consensus analysis then
-                    highlights places that remain priorities even when ecological goals change, while
-                    the robustness analysis checks whether the targeting advantage survives alternative
-                    assumptions. These maps are therefore decision-support outputs, not predictions of
-                    exactly where future species will occur. They show how ecological goals, limited
-                    budgets and implementation constraints can be examined together before real policy
-                    decisions are made.
+                    The same conservation programme is placed in different parts of the agricultural landscape.
+                    Bee and butterfly ecological profiles determine whether those placements improve modeled local
+                    habitat suitability and structural connectivity. Representative land-management units determine
+                    whether high-priority locations are actually available for implementation. Across the tested
+                    scenarios, spatial targeting consistently outperforms random allocation, while the exact pattern
+                    depends on whether policy emphasizes local habitat, connectivity or a balance of both. The outputs
+                    are decision-support scenarios, not forecasts of future bee or butterfly abundance.
                 </p>
             </div>
         </section>
@@ -11124,6 +11481,10 @@ function openCaseStudy(key) {
         activeCaseStudy
     );
 
+    bindCaseScrollytelling(
+        activeCaseStudy
+    );
+
     activeCaseStudy.scrollTop = 0;
 
 }
@@ -11157,6 +11518,11 @@ function closeCaseStudy() {
         caseStudyObserver = null;
     }
 
+    if (view._caseStoryObserver) {
+        view._caseStoryObserver.disconnect();
+        view._caseStoryObserver = null;
+    }
+
     setTimeout(() => {
 
         if (view.isConnected) {
@@ -11167,7 +11533,7 @@ function closeCaseStudy() {
             activeCaseStudy = null;
         }
 
-    }, 380);
+    }, 240);
 
 }
 
@@ -11220,7 +11586,7 @@ function hydrateCaseStudyMedia(view) {
             },
             {
                 root: view,
-                rootMargin: "700px 0px",
+                rootMargin: "260px 0px",
                 threshold: 0.01
             }
         );
@@ -11229,6 +11595,112 @@ function hydrateCaseStudyMedia(view) {
         caseStudyObserver.observe(img);
     });
 
+}
+
+
+
+
+function bindCaseScrollytelling(view) {
+
+    const steps = Array.from(
+        view.querySelectorAll("[data-story-step]")
+    );
+
+    const scenes = Array.from(
+        view.querySelectorAll(".case-story-scene[data-scene]")
+    );
+
+    const navLinks = Array.from(
+        view.querySelectorAll(".case-nav a")
+    );
+
+    if (!steps.length || !scenes.length) {
+        return;
+    }
+
+    const loadSceneAsset = scene => {
+        const image = scene.querySelector("img[data-scene-src]");
+
+        if (!image || image.src) {
+            return;
+        }
+
+        const source = image.dataset.sceneSrc;
+
+        if (!source) {
+            return;
+        }
+
+        image.src = source;
+    };
+
+    const activateScene = sceneName => {
+
+        steps.forEach(step => {
+            step.classList.toggle(
+                "active",
+                step.dataset.sceneTarget === sceneName
+            );
+        });
+
+        scenes.forEach(scene => {
+            const active = scene.dataset.scene === sceneName;
+            scene.classList.toggle("active", active);
+
+            if (active) {
+                loadSceneAsset(scene);
+            }
+        });
+
+        const activeStep = steps.find(
+            step => step.dataset.sceneTarget === sceneName
+        );
+
+        const activeId = activeStep?.id;
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute("href");
+            link.classList.toggle(
+                "active",
+                Boolean(activeId && href === `#${activeId}`)
+            );
+        });
+    };
+
+    activateScene(
+        steps[0].dataset.sceneTarget
+    );
+
+    if (!("IntersectionObserver" in window)) {
+        return;
+    }
+
+    const stepObserver = new IntersectionObserver(
+        entries => {
+            const visible = entries
+                .filter(entry => entry.isIntersecting)
+                .sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+
+            if (!visible.length) {
+                return;
+            }
+
+            activateScene(
+                visible[0].target.dataset.sceneTarget
+            );
+        },
+        {
+            root: view,
+            rootMargin: "-32% 0px -44% 0px",
+            threshold: [0.05,0.15,0.3,0.5,0.7]
+        }
+    );
+
+    steps.forEach(step => {
+        stepObserver.observe(step);
+    });
+
+    view._caseStoryObserver = stepObserver;
 }
 
 
