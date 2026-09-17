@@ -7465,6 +7465,432 @@ img {
     }
 }
 
+
+
+/* =========================================================
+   RESEARCH STORY V2 — SMOOTH FULL-SCREEN COMPOSITION
+   Compositor-only panel transitions, lighter carousel work,
+   wider story layout, compact scene typography and progress dots.
+========================================================= */
+
+/* Remove expensive full-screen blur during open/close. */
+.expansion-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(1,29,33,.72) !important;
+}
+
+.expanded-title-shield,
+.expansion-close {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Full-screen panel: animate only compositor-friendly properties. */
+.expansion.fast-shell {
+    opacity: 0;
+    transform: scale(.992);
+    transform-origin: center;
+    transition: opacity .16s ease, transform .20s cubic-bezier(.2,.8,.2,1) !important;
+    will-change: opacity, transform !important;
+}
+
+.expansion.fast-shell.fast-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.expansion.fast-shell.fast-closing {
+    opacity: 0 !important;
+    transform: scale(.995) !important;
+    pointer-events: none;
+}
+
+.flying-title.fast-title {
+    opacity: 0;
+    transition: opacity .14s ease !important;
+    will-change: opacity !important;
+}
+
+.flying-title.fast-title.fast-visible {
+    opacity: 1;
+}
+
+.flying-title.fast-title.fast-closing {
+    opacity: 0 !important;
+}
+
+/* Decorative motion is paused inside an open panel. */
+.expansion .profile-scatter-system .orbit,
+.expansion .profile-scatter-system .planet,
+.expansion .profile-scatter-system .particle,
+.expansion .expanded-blob,
+.expansion .expanded-blob-small {
+    animation-play-state: paused !important;
+}
+
+/* Lightweight cover-flow: keep the depth cue without per-frame blur/3D transforms. */
+.cover-flow {
+    scroll-snap-type: x proximity !important;
+    perspective: none !important;
+}
+
+.flow-card {
+    transform: scale(.965) !important;
+    opacity: .66 !important;
+    filter: none !important;
+    transition: transform .16s ease, opacity .16s ease, border-color .16s ease, box-shadow .16s ease !important;
+    will-change: auto !important;
+}
+
+.flow-card.is-center {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+}
+
+/* Research view itself only fades. */
+.case-study-view {
+    transform: none !important;
+    transition: opacity .14s ease !important;
+}
+
+.expansion.is-closing .case-study-view {
+    transform: none !important;
+    transition: opacity .10s ease !important;
+}
+
+/* Use the available screen width instead of pushing the story inward. */
+.case-study-shell {
+    width: calc(100% - 28px) !important;
+    max-width: 1920px !important;
+    padding: 8px 0 48px !important;
+}
+
+.case-study-topbar {
+    min-height: 52px !important;
+    padding: 6px 0 !important;
+}
+
+.case-topbar-left {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.case-story-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.case-progress-count {
+    min-width: 34px;
+    color: var(--muted2);
+    font-size: .68rem;
+    font-weight: 850;
+    letter-spacing: .06em;
+    font-variant-numeric: tabular-nums;
+}
+
+.case-progress-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.case-progress-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(193,246,237,.28);
+    cursor: pointer;
+    transition: width .16s ease, background .16s ease, transform .16s ease;
+}
+
+.case-progress-dot:hover,
+.case-progress-dot:focus-visible {
+    background: rgba(193,246,237,.62);
+    outline: none;
+}
+
+.case-progress-dot.active {
+    width: 25px;
+    background: var(--greenBright);
+}
+
+/* Keep each narrative step and its visual together in a single desktop viewport. */
+.case-scrolly {
+    grid-template-columns: minmax(500px,.92fr) minmax(0,1.18fr) !important;
+    gap: clamp(24px,2.4vw,42px) !important;
+    padding: 26px 0 24px !important;
+}
+
+.case-story-stage {
+    top: 62px !important;
+    height: clamp(520px, calc(100vh - 108px), 650px) !important;
+    min-height: 0 !important;
+    border-radius: 22px !important;
+    box-shadow: 0 12px 28px rgba(0,24,28,.12) !important;
+}
+
+.case-story-step {
+    min-height: clamp(520px, calc(100vh - 108px), 650px) !important;
+    padding: 22px 8px 22px 0 !important;
+    justify-content: center !important;
+    opacity: .22 !important;
+    transform: none !important;
+    transition: opacity .15s ease !important;
+}
+
+.case-story-step.active {
+    opacity: 1 !important;
+}
+
+.case-story-step h2 {
+    max-width: 760px;
+    margin-top: 7px !important;
+    font-size: clamp(2rem,2.65vw,3rem) !important;
+    line-height: 1.01 !important;
+    letter-spacing: -.04em !important;
+}
+
+.case-story-step p {
+    max-width: 760px !important;
+    margin-top: 13px !important;
+    font-size: clamp(.94rem,1vw,1.06rem) !important;
+    line-height: 1.57 !important;
+}
+
+.case-story-stat-grid {
+    max-width: 760px;
+    margin-top: 14px !important;
+    gap: 7px !important;
+}
+
+.case-story-stat {
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+}
+
+.case-story-stat strong {
+    font-size: .99rem !important;
+}
+
+.case-story-stat span {
+    margin-top: 2px !important;
+    font-size: .76rem !important;
+    line-height: 1.36 !important;
+}
+
+.case-story-note {
+    max-width: 760px;
+    margin-top: 13px !important;
+    padding: 10px 13px !important;
+    font-size: .84rem !important;
+    line-height: 1.46 !important;
+}
+
+.case-story-scene {
+    transform: none !important;
+    transition: opacity .14s ease, visibility 0s linear .14s !important;
+}
+
+.case-story-scene.active {
+    transition-delay: 0s !important;
+}
+
+.case-scene-media {
+    padding: 12px !important;
+}
+
+.case-scene-caption {
+    padding: 11px 15px 13px !important;
+}
+
+.case-scene-caption strong {
+    font-size: .92rem !important;
+    line-height: 1.35;
+}
+
+.case-ecology-diagram {
+    padding: 22px !important;
+}
+
+.case-ecology-heading strong {
+    font-size: clamp(1.3rem,1.6vw,1.75rem) !important;
+}
+
+.case-ecology-node {
+    min-height: 124px !important;
+    padding: 14px !important;
+}
+
+/* Consensus explorer: slightly smaller headline so map + context are visible sooner. */
+.case-explorer-section {
+    padding: 44px 0 42px !important;
+}
+
+.case-explorer-head {
+    max-width: 1320px !important;
+    margin-bottom: 20px !important;
+}
+
+.case-explorer-head h2 {
+    font-size: clamp(2rem,2.65vw,3.15rem) !important;
+}
+
+/* Balanced final takeaway instead of a large empty card. */
+.case-takeaway-section {
+    padding-top: 26px !important;
+}
+
+.case-conclusion {
+    display: grid !important;
+    grid-template-columns: minmax(0,.92fr) minmax(0,1.08fr) !important;
+    gap: clamp(34px,5vw,78px) !important;
+    align-items: center !important;
+    padding: clamp(34px,4vw,56px) !important;
+}
+
+.case-conclusion h2 {
+    max-width: 720px !important;
+    font-size: clamp(2.5rem,3.65vw,4.15rem) !important;
+    line-height: .98 !important;
+}
+
+.case-conclusion-copy p {
+    max-width: 760px !important;
+    margin: 0 !important;
+    font-size: clamp(.98rem,1.08vw,1.13rem) !important;
+    line-height: 1.62 !important;
+}
+
+.case-takeaway-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 9px;
+}
+
+.case-takeaway-grid > div {
+    padding: 14px;
+    border: 1px solid rgba(193,246,237,.11);
+    border-radius: 14px;
+    background: rgba(193,246,237,.035);
+}
+
+.case-takeaway-grid strong,
+.case-takeaway-grid span {
+    display: block;
+}
+
+.case-takeaway-grid strong {
+    color: var(--greenBright);
+    font-size: .84rem;
+}
+
+.case-takeaway-grid span {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: .76rem;
+    line-height: 1.42;
+}
+
+.case-takeaway-note {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--greenBright);
+    background: rgba(89,225,141,.055);
+    color: var(--mint);
+    font-size: .84rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 1250px) and (min-width: 801px) {
+    .case-scrolly {
+        grid-template-columns: minmax(410px,.92fr) minmax(0,1.08fr) !important;
+    }
+
+    .case-story-step h2 {
+        font-size: clamp(1.9rem,3vw,2.65rem) !important;
+    }
+
+    .case-story-stage,
+    .case-story-step {
+        height: auto;
+        min-height: clamp(500px, calc(100vh - 104px), 620px) !important;
+    }
+
+    .case-takeaway-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .case-study-shell {
+        width: calc(100% - 18px) !important;
+    }
+
+    .case-study-topbar {
+        align-items: flex-start !important;
+    }
+
+    .case-topbar-left {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .case-story-progress {
+        order: 2;
+        width: 100%;
+        margin-top: 2px;
+    }
+
+    .case-study-top-label {
+        display: none;
+    }
+
+    .case-progress-dots {
+        gap: 6px;
+    }
+
+    .case-progress-dot {
+        width: 7px;
+        height: 7px;
+    }
+
+    .case-progress-dot.active {
+        width: 20px;
+    }
+
+    .case-story-stage {
+        height: 42vh !important;
+        min-height: 300px !important;
+        top: 82px !important;
+    }
+
+    .case-story-step {
+        min-height: auto !important;
+        padding: 34px 4px !important;
+    }
+
+    .case-story-step h2 {
+        font-size: clamp(2rem,8.8vw,2.8rem) !important;
+    }
+
+    .case-conclusion {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    .case-takeaway-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 </style>
 </head>
 
@@ -9431,498 +9857,124 @@ function getLeftRailScene(key) {
 
 function openPanel(panel) {
 
-
     if (activePanel) {
         return;
     }
 
+    activePanel = panel;
 
-    activePanel =
-        panel;
+    const key = panel.dataset.panel;
+    const originalTitle = panel.querySelector("[data-title]");
+    const titleStyle = getComputedStyle(originalTitle);
+    const originalFontSize = parseFloat(titleStyle.fontSize);
 
+    /*
+       Performance choice:
+       the old version animated left/top/width/height from the dashboard tile
+       to the full-screen panel. That forces layout and paint on every frame.
+       This version opens the full-size panel immediately and animates only
+       opacity + transform, which stays on the compositor and is much smoother.
+    */
+    backdrop.hidden = false;
+    requestAnimationFrame(() => backdrop.classList.add("open"));
 
-    const key =
-        panel.dataset.panel;
+    const margin = window.innerWidth <= 800 ? 6 : 18;
+    const finalLeft = margin;
+    const finalTop = margin;
+    const finalWidth = window.innerWidth - margin * 2;
+    const finalHeight = window.innerHeight - margin * 2;
 
+    expansion = document.createElement("div");
+    expansion.className = `expansion expansion-${key} fast-shell`;
+    expansion.style.left = `${finalLeft}px`;
+    expansion.style.top = `${finalTop}px`;
+    expansion.style.width = `${finalWidth}px`;
+    expansion.style.height = `${finalHeight}px`;
+    expansion.style.borderRadius = window.innerWidth <= 800 ? "23px" : "32px";
 
-    const panelRect =
-        panel.getBoundingClientRect();
-
-
-    const originalTitle =
-        panel.querySelector(
-            "[data-title]"
-        );
-
-
-    const titleRect =
-        originalTitle
-        .getBoundingClientRect();
-
-
-    const titleStyle =
-        getComputedStyle(
-            originalTitle
-        );
-
-
-    const panelStyle =
-        getComputedStyle(
-            panel
-        );
-
-
-    const originalFontSize =
-        parseFloat(
-            titleStyle.fontSize
-        );
-
-
-    /* -----------------------------------------------------
-       BACKDROP
-    ----------------------------------------------------- */
-
-    backdrop.hidden =
-        false;
-
-
-    requestAnimationFrame(
-        () => {
-
-            backdrop.classList.add(
-                "open"
-            );
-
-        }
-    );
-
-
-    /* -----------------------------------------------------
-       EXPANDING BOX
-    ----------------------------------------------------- */
-
-    expansion =
-        document.createElement(
-            "div"
-        );
-
-
-    expansion.className =
-        `expansion expansion-${key}`;
-
-
-    expansion.style.left =
-        `${panelRect.left}px`;
-
-
-    expansion.style.top =
-        `${panelRect.top}px`;
-
-
-    expansion.style.width =
-        `${panelRect.width}px`;
-
-
-    expansion.style.height =
-        `${panelRect.height}px`;
-
-
-    expansion.style.borderRadius =
-        panelStyle.borderRadius;
-
-
-    expansion.innerHTML =
-        `
-
+    expansion.innerHTML = `
         <div class="expanded-blob"></div>
-
         <div class="expanded-blob-small"></div>
-
         ${
             key === "profile"
-                ? `
-                  <div class="planet-system profile-scatter-system">
-                      ${panel.querySelector(".planet-system")?.innerHTML || ""}
-                  </div>
-                  `
+                ? `<div class="planet-system profile-scatter-system">${panel.querySelector(".planet-system")?.innerHTML || ""}</div>`
                 : ""
         }
-
         <div class="expanded-title-shield"></div>
-
-
         <div class="expanded-content">
-
-
             <div class="expanded-header-row">
-
-
                 <div>
-
-
-                    <div class="expanded-kicker">
-
-                        ${content[key].kicker}
-
-                    </div>
-
-
-                    <div class="expanded-description">
-
-                        ${content[key].description}
-
-                    </div>
-
-
+                    <div class="expanded-kicker">${content[key].kicker}</div>
+                    <div class="expanded-description">${content[key].description}</div>
                     ${getLeftRailScene(key)}
-
-
                 </div>
-
-
             </div>
-
-
             ${content[key].html}
-
-
         </div>
+    `;
 
-        `;
+    document.body.appendChild(expansion);
 
-
-    document.body.appendChild(
-        expansion
-    );
-
-
-    /* -----------------------------------------------------
-       FLYING TITLE
-    ----------------------------------------------------- */
-
-    flyingTitle =
-        document.createElement(
-            originalTitle.tagName
+    const finalTitleLeft = finalLeft + (window.innerWidth <= 800 ? 18 : Math.max(42, window.innerWidth * .027));
+    const finalTitleSize = getExpandedTitleSize(key, originalFontSize);
+    const titleLineCount = originalTitle.querySelectorAll(".title-line").length || 1;
+    const estimatedTitleHeight = finalTitleSize * 1.04 * titleLineCount;
+    const finalTitleTop = window.innerWidth <= 800
+        ? finalTop + 21
+        : (
+            key === "profile"
+                ? finalTop + finalHeight * .49 - estimatedTitleHeight / 2
+                : finalTop + finalHeight * .42 - estimatedTitleHeight / 2
         );
+    const finalTitleWidth = window.innerWidth <= 800
+        ? Math.min(finalWidth * .78, 1100)
+        : Math.min(finalWidth * .335, 625);
 
-
-    flyingTitle.className =
-        "flying-title";
-
-
-    flyingTitle.dataset.key =
-        key;
-
-
-    flyingTitle.innerHTML =
-        originalTitle.innerHTML;
-
-
-    flyingTitle.style.left =
-        `${titleRect.left}px`;
-
-
-    flyingTitle.style.top =
-        `${titleRect.top}px`;
-
-
-    flyingTitle.style.width =
-        `${titleRect.width}px`;
-
-
-    flyingTitle.style.fontSize =
-        titleStyle.fontSize;
-
-
-    flyingTitle.style.lineHeight =
-        titleStyle.lineHeight;
-
-
-    document.body.appendChild(
-        flyingTitle
-    );
-
-
-    originalTitle.style.opacity =
-        "0";
-
-
-    panel.style.opacity =
-        "0";
-
-
-    /* -----------------------------------------------------
-       FINAL BOX
-    ----------------------------------------------------- */
-
-    const margin =
-        window.innerWidth <= 800
-            ? 6
-            : 22;
-
-
-    const finalLeft =
-        margin;
-
-
-    const finalTop =
-        margin;
-
-
-    const finalWidth =
-        window.innerWidth
-        - margin * 2;
-
-
-    const finalHeight =
-        window.innerHeight
-        - margin * 2;
-
-
-    const finalTitleLeft =
-        finalLeft
-        + (
-            window.innerWidth <= 800
-                ? 18
-                : Math.max(42, window.innerWidth * .027)
-        );
-
-
-    const finalTitleSize =
-        getExpandedTitleSize(
-            key,
-            originalFontSize
-        );
-
-
-    const titleLineCount =
-        originalTitle.querySelectorAll(
-            ".title-line"
-        ).length || 1;
-
-
-    const estimatedTitleHeight =
-        finalTitleSize
-        * 1.04
-        * titleLineCount;
-
-
-    const finalTitleTop =
-        window.innerWidth <= 800
-            ? finalTop + 21
-            : (
-                key === "profile"
-                    ? finalTop
-                      + finalHeight * .49
-                      - estimatedTitleHeight / 2
-                    : finalTop
-                      + finalHeight * .42
-                      - estimatedTitleHeight / 2
-              );
-
-
-    const finalTitleWidth =
-        window.innerWidth <= 800
-            ? Math.min(
-                finalWidth * .78,
-                1100
-            )
-            : Math.min(
-                finalWidth * .335,
-                625
-            );
-
-
-    /*
-       Keep the section label and description directly below the
-       large travelling title. This is calculated from the title
-       position instead of using a fixed top/bottom offset, so
-       short and long headings do not collide with their copy.
-    */
     if (window.innerWidth > 800) {
-
-        const titleToCopyGap =
-            key === "skills"
-                ? 78
-                : key === "profile"
-                    ? 42
-                    : 38;
-
-
-        const railCopyTop =
-            Math.min(
-                finalHeight - 185,
-                Math.max(
-                    112,
-                    (finalTitleTop - finalTop)
-                    + estimatedTitleHeight
-                    + titleToCopyGap
-                )
-            );
-
-        expansion.style.setProperty(
-            "--rail-copy-top",
-            `${railCopyTop}px`
+        const titleToCopyGap = key === "skills" ? 78 : key === "profile" ? 42 : 38;
+        const railCopyTop = Math.min(
+            finalHeight - 185,
+            Math.max(112, (finalTitleTop - finalTop) + estimatedTitleHeight + titleToCopyGap)
         );
-
+        expansion.style.setProperty("--rail-copy-top", `${railCopyTop}px`);
     }
 
+    flyingTitle = document.createElement(originalTitle.tagName);
+    flyingTitle.className = "flying-title fast-title compact";
+    flyingTitle.dataset.key = key;
+    flyingTitle.innerHTML = originalTitle.innerHTML;
+    flyingTitle.style.left = `${finalTitleLeft}px`;
+    flyingTitle.style.top = `${finalTitleTop}px`;
+    flyingTitle.style.width = `${finalTitleWidth}px`;
+    flyingTitle.style.fontSize = `${finalTitleSize}px`;
+    flyingTitle.style.lineHeight = "1.04";
+    document.body.appendChild(flyingTitle);
 
-    requestAnimationFrame(
-        () => {
+    originalTitle.style.opacity = "0";
+    panel.style.opacity = "0";
 
-
-            expansion.style.left =
-                `${finalLeft}px`;
-
-
-            expansion.style.top =
-                `${finalTop}px`;
-
-
-            expansion.style.width =
-                `${finalWidth}px`;
-
-
-            expansion.style.height =
-                `${finalHeight}px`;
-
-
-            expansion.style.borderRadius =
-                window.innerWidth <= 800
-                    ? "23px"
-                    : "38px";
-
-
-            flyingTitle.style.left =
-                `${finalTitleLeft}px`;
-
-
-            flyingTitle.style.top =
-                `${finalTitleTop}px`;
-
-
-            flyingTitle.style.fontSize =
-                `${finalTitleSize}px`;
-
-
-            flyingTitle.style.lineHeight =
-                "1.04";
-
-
-            flyingTitle.style.width =
-                `${finalTitleWidth}px`;
-
-
-            flyingTitle.classList.add(
-                "compact"
-            );
-
-
-        }
-    );
-
-
-    /*
-       Profile planets begin as the same clustered system seen
-       on the dashboard, then separate across the expanded panel.
-       Their original float/orbit animations continue while the
-       independent CSS `translate` property moves them apart.
-    */
-    if (key === "profile") {
-
-        setTimeout(
-            () => {
-
-                const scatterSystem =
-                    expansion?.querySelector(
-                        ".profile-scatter-system"
-                    );
-
-                if (scatterSystem) {
-                    scatterSystem.classList.add(
-                        "scattered"
-                    );
-                }
-
-            },
-            150
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       CLOSE
-    ----------------------------------------------------- */
-
-    closeButton =
-        document.createElement(
-            "button"
-        );
-
-
-    closeButton.className =
-        "expansion-close";
-
-
-    closeButton.innerHTML =
-        `
-        <i class="fa-solid fa-xmark"></i>
-        `;
-
-
-    document.body.appendChild(
-        closeButton
-    );
-
-
+    closeButton = document.createElement("button");
+    closeButton.className = "expansion-close";
+    closeButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+    document.body.appendChild(closeButton);
     positionCloseButton();
+    closeButton.addEventListener("click", closeActivePanel);
 
+    requestAnimationFrame(() => {
+        expansion?.classList.add("fast-visible");
+        flyingTitle?.classList.add("fast-visible");
+    });
 
-    closeButton.addEventListener(
-        "click",
-        closeActivePanel
-    );
-
-
-    /* -----------------------------------------------------
-       SHOW CONTENT
-    ----------------------------------------------------- */
-
-    setTimeout(
-        () => {
-
-
-            if (!expansion) {
-                return;
-            }
-
-
-            expansion.classList.add(
-                "content-visible"
-            );
-
-
-            closeButton.classList.add(
-                "visible"
-            );
-
-
-            initialiseCoverFlows();
-
-
-            bindGalleryItems();
-
-
-            bindCaseStudyLaunchers();
-
-
-        },
-
-        270
-    );
-
+    setTimeout(() => {
+        if (!expansion) {
+            return;
+        }
+        expansion.classList.add("content-visible");
+        closeButton?.classList.add("visible");
+        initialiseCoverFlows();
+        bindGalleryItems();
+        bindCaseStudyLaunchers();
+    }, 120);
 }
 
 
@@ -9932,304 +9984,46 @@ function openPanel(panel) {
 
 function closeActivePanel() {
 
-    if (
-        !activePanel
-        ||
-        !expansion
-        ||
-        !flyingTitle
-    ) {
+    if (!activePanel || !expansion || !flyingTitle) {
         return;
     }
 
+    const panel = activePanel;
+    const originalTitle = panel.querySelector("[data-title]");
 
-    const panel =
-        activePanel;
-
-
-    const originalTitle =
-        panel.querySelector(
-            "[data-title]"
-        );
-
-
-    /*
-       Keep the real dashboard tile in place but invisible until
-       the animated shell has physically reached it.
-    */
-    panel.classList.add(
-        "panel-return-target"
-    );
-
-    panel.style.opacity =
-        "0";
-
-    originalTitle.style.opacity =
-        "0";
-
-
-    /*
-       Profile planets collapse at the SAME TIME as the popup
-       starts travelling home. No separate half-second pause.
-    */
-    const scatterSystem =
-        expansion.querySelector(
-            ".profile-scatter-system"
-        );
-
-    if (scatterSystem) {
-        scatterSystem.classList.remove(
-            "scattered"
-        );
+    if (caseStudyObserver) {
+        caseStudyObserver.disconnect();
+        caseStudyObserver = null;
     }
 
-
-    /*
-       Fade content immediately.
-    */
-    expansion.classList.add(
-        "is-closing"
-    );
-
-
-    if (closeButton) {
-        closeButton.classList.remove(
-            "visible"
-        );
+    if (activeCaseStudy?._caseStoryObserver) {
+        activeCaseStudy._caseStoryObserver.disconnect();
     }
 
-
-    backdrop.classList.remove(
-        "open"
-    );
-
-
-    let closeFinished =
-        false;
-
-
-    function finishClose() {
-
-        if (closeFinished) {
-            return;
-        }
-
-        closeFinished =
-            true;
-
-
-        panel.classList.remove(
-            "panel-return-target"
-        );
-
-        panel.style.opacity =
-            "";
-
-        originalTitle.style.opacity =
-            "";
-
-
-        if (expansion) {
-            expansion.remove();
-        }
-
-        if (flyingTitle) {
-            flyingTitle.remove();
-        }
-
-        if (closeButton) {
-            closeButton.remove();
-        }
-
-
-        backdrop.hidden =
-            true;
-
-
-        expansion =
-            null;
-
-        flyingTitle =
-            null;
-
-        closeButton =
-            null;
-
-        activePanel =
-            null;
-
-        activeCaseStudy =
-            null;
-
-
-        if (caseStudyObserver) {
-            caseStudyObserver.disconnect();
-            caseStudyObserver = null;
-        }
-
-    }
-
-
-    function startReturnAnimation() {
-
-        if (
-            !expansion
-            ||
-            !flyingTitle
-            ||
-            !activePanel
-        ) {
-            return;
-        }
-
-
-        const panelDestination =
-            panel.getBoundingClientRect();
-
-
-        const titleDestination =
-            originalTitle.getBoundingClientRect();
-
-
-        const titleStyle =
-            getComputedStyle(
-                originalTitle
-            );
-
-
-        const panelStyle =
-            getComputedStyle(
-                panel
-            );
-
-
-        /*
-           Return the title to its dashboard line arrangement.
-        */
-        flyingTitle.classList.remove(
-            "compact"
-        );
-
-
-        /*
-           Geometry-closing no longer instantly hides the contents;
-           they are already fading with .is-closing while the shell
-           starts moving. That removes the stop-start feeling.
-        */
-        expansion.classList.add(
-            "geometry-closing"
-        );
-
-
-        /*
-           Commit the closing state, then change geometry on the
-           next animation frame so the browser has one clean
-           interpolation from popup -> dashboard tile.
-        */
-        void expansion.offsetWidth;
-
-
-        requestAnimationFrame(
-            () => {
-
-                if (!expansion || !flyingTitle) {
-                    return;
-                }
-
-
-                expansion.style.left =
-                    `${panelDestination.left}px`;
-
-                expansion.style.top =
-                    `${panelDestination.top}px`;
-
-                expansion.style.width =
-                    `${panelDestination.width}px`;
-
-                expansion.style.height =
-                    `${panelDestination.height}px`;
-
-                expansion.style.borderRadius =
-                    panelStyle.borderRadius;
-
-
-                flyingTitle.style.left =
-                    `${titleDestination.left}px`;
-
-                flyingTitle.style.top =
-                    `${titleDestination.top}px`;
-
-                flyingTitle.style.width =
-                    `${titleDestination.width}px`;
-
-                flyingTitle.style.fontSize =
-                    titleStyle.fontSize;
-
-                flyingTitle.style.lineHeight =
-                    titleStyle.lineHeight;
-
-            }
-        );
-
-
-        /*
-           Finish based on the actual CSS transition rather than a
-           fixed timeout. This prevents the final-frame hitch.
-        */
-        const onTransitionEnd =
-            event => {
-
-                if (
-                    event.target === expansion
-                    &&
-                    (
-                        event.propertyName === "width"
-                        ||
-                        event.propertyName === "height"
-                    )
-                ) {
-
-                    expansion.removeEventListener(
-                        "transitionend",
-                        onTransitionEnd
-                    );
-
-                    finishClose();
-
-                }
-
-            };
-
-
-        expansion.addEventListener(
-            "transitionend",
-            onTransitionEnd
-        );
-
-
-        /*
-           Safety fallback only; normally transitionend wins.
-        */
-        setTimeout(
-            finishClose,
-            520
-        );
-
-    }
-
-
-    /*
-       A tiny overlap lets the text begin fading before movement,
-       but there is no perceptible pause. Profile gets a few extra
-       milliseconds so the scattered planets visibly start folding
-       inward while the panel begins its return.
-    */
-    setTimeout(
-        startReturnAnimation,
-        scatterSystem ? 65 : 24
-    );
-
+    expansion.classList.add("fast-closing");
+    flyingTitle.classList.add("fast-closing");
+    closeButton?.classList.remove("visible");
+    backdrop.classList.remove("open");
+
+    const finishClose = () => {
+        panel.style.opacity = "";
+        originalTitle.style.opacity = "";
+
+        expansion?.remove();
+        flyingTitle?.remove();
+        closeButton?.remove();
+
+        backdrop.hidden = true;
+        expansion = null;
+        flyingTitle = null;
+        closeButton = null;
+        activePanel = null;
+        activeCaseStudy = null;
+    };
+
+    setTimeout(finishClose, 190);
 }
+
 
 /* =========================================================
    CLOSE POSITION
@@ -10303,428 +10097,100 @@ function initialiseCoverFlows() {
         return;
     }
 
+    expansion.querySelectorAll("[data-cover-flow]").forEach(track => {
 
-    expansion
-        .querySelectorAll(
-            "[data-cover-flow]"
-        )
-        .forEach(
-            track => {
+        const cards = Array.from(track.querySelectorAll(".flow-card"));
+        if (!cards.length) {
+            return;
+        }
 
-                const cards =
-                    Array.from(
-                        track.querySelectorAll(
-                            ".flow-card"
-                        )
-                    );
+        const dotsContainer = expansion.querySelector(`[data-dots-for="${track.id}"]`);
+        let dots = [];
+        let ticking = false;
 
+        function centerCard(card, smooth = true) {
+            const target = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+            track.scrollTo({
+                left: Math.max(0, target),
+                behavior: smooth ? "smooth" : "auto"
+            });
+        }
 
-                if (!cards.length) {
+        track._centerCard = centerCard;
+
+        if (dotsContainer) {
+            dotsContainer.innerHTML = "";
+            cards.forEach((card, index) => {
+                const dot = document.createElement("button");
+                dot.className = "flow-dot";
+                dot.type = "button";
+                dot.setAttribute("aria-label", `Go to card ${index + 1}`);
+                dot.addEventListener("click", event => {
+                    event.stopPropagation();
+                    centerCard(card, true);
+                });
+                dotsContainer.appendChild(dot);
+                dots.push(dot);
+            });
+        }
+
+        /*
+           Deliberately lightweight: during scrolling we only identify the
+           nearest card and toggle one class. The previous version recalculated
+           rotateY, blur, translate, opacity and z-index for every card on every
+           animation frame, which was the main source of carousel micro-lag.
+        */
+        function updateFlow() {
+            const viewportCenter = track.scrollLeft + track.clientWidth / 2;
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+
+            cards.forEach((card, index) => {
+                const center = card.offsetLeft + card.offsetWidth / 2;
+                const distance = Math.abs(center - viewportCenter);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+
+            cards.forEach((card, index) => {
+                card.classList.toggle("is-center", index === closestIndex);
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle("active", index === closestIndex);
+            });
+
+            ticking = false;
+        }
+
+        function requestUpdate() {
+            if (ticking) {
+                return;
+            }
+            ticking = true;
+            requestAnimationFrame(updateFlow);
+        }
+
+        track.addEventListener("scroll", requestUpdate, { passive: true });
+
+        cards.forEach(card => {
+            card.addEventListener("click", event => {
+                if (card.classList.contains("is-center")) {
                     return;
                 }
-
-
-                const dotsContainer =
-                    expansion.querySelector(
-                        `[data-dots-for="${track.id}"]`
-                    );
-
-
-                let dots = [];
-                let ticking = false;
-
-
-                /* -----------------------------------------
-                   CENTER ONE CARD WITHOUT scrollIntoView()
-                ----------------------------------------- */
-
-                function centerCard(
-                    card,
-                    smooth = true
-                ) {
-
-                    const target =
-                        card.offsetLeft
-                        -
-                        (
-                            track.clientWidth
-                            -
-                            card.offsetWidth
-                        ) / 2;
-
-
-                    track.scrollTo({
-
-                        left:
-                            Math.max(
-                                0,
-                                target
-                            ),
-
-                        behavior:
-                            smooth
-                                ? "smooth"
-                                : "auto"
-
-                    });
-
-                }
-
-
-                /*
-                   Expose the helper to gallery click handling.
-                */
-                track._centerCard =
-                    centerCard;
-
-
-                /* -----------------------------------------
-                   BUILD DOTS
-                ----------------------------------------- */
-
-                if (dotsContainer) {
-
-                    dotsContainer.innerHTML =
-                        "";
-
-
-                    cards.forEach(
-                        (card,index) => {
-
-                            const dot =
-                                document.createElement(
-                                    "button"
-                                );
-
-
-                            dot.className =
-                                "flow-dot";
-
-
-                            dot.type =
-                                "button";
-
-
-                            dot.setAttribute(
-                                "aria-label",
-                                `Go to card ${index + 1}`
-                            );
-
-
-                            dot.addEventListener(
-                                "click",
-                                event => {
-
-                                    event.stopPropagation();
-
-                                    centerCard(
-                                        card,
-                                        true
-                                    );
-
-                                }
-                            );
-
-
-                            dotsContainer.appendChild(
-                                dot
-                            );
-
-
-                            dots.push(
-                                dot
-                            );
-
-                        }
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   COVER FLOW CALCULATION
-
-                   IMPORTANT:
-                   offsetLeft / offsetWidth are untransformed
-                   layout geometry. This prevents the visual
-                   transform from feeding back into the next
-                   frame's position calculation.
-                ----------------------------------------- */
-
-                function updateFlow() {
-
-                    const viewportCenter =
-                        track.scrollLeft
-                        +
-                        track.clientWidth / 2;
-
-
-                    let closestIndex =
-                        0;
-
-
-                    let closestDistance =
-                        Infinity;
-
-
-                    cards.forEach(
-                        (card,index) => {
-
-                            const cardCenter =
-                                card.offsetLeft
-                                +
-                                card.offsetWidth / 2;
-
-
-                            const distance =
-                                cardCenter
-                                -
-                                viewportCenter;
-
-
-                            const normal =
-                                distance
-                                /
-                                card.offsetWidth;
-
-
-                            const abs =
-                                Math.min(
-                                    Math.abs(normal),
-                                    1.8
-                                );
-
-
-                            const scale =
-                                1
-                                -
-                                Math.min(
-                                    abs,
-                                    1
-                                )
-                                * .13;
-
-
-                            const rotate =
-                                Math.max(
-                                    -20,
-                                    Math.min(
-                                        20,
-                                        normal * -18
-                                    )
-                                );
-
-
-                            const translateY =
-                                Math.min(
-                                    abs * 16,
-                                    20
-                                );
-
-
-                            /*
-                               Slight inward shift creates the
-                               iTunes / Cover Flow stacking
-                               without changing actual layout.
-                            */
-                            const translateX =
-                                Math.max(
-                                    -24,
-                                    Math.min(
-                                        24,
-                                        normal * -20
-                                    )
-                                );
-
-
-                            const opacity =
-                                Math.max(
-                                    .40,
-                                    1
-                                    -
-                                    abs * .44
-                                );
-
-
-                            const blur =
-                                Math.min(
-                                    abs * .30,
-                                    .45
-                                );
-
-
-                            card.style.transform =
-                                `
-                                translate3d(
-                                    ${translateX}px,
-                                    ${translateY}px,
-                                    0
-                                )
-                                rotateY(${rotate}deg)
-                                scale(${scale})
-                                `;
-
-
-                            card.style.opacity =
-                                opacity;
-
-
-                            card.style.filter =
-                                `blur(${blur}px)`;
-
-
-                            card.style.zIndex =
-                                `${
-                                    100
-                                    -
-                                    Math.round(
-                                        abs * 10
-                                    )
-                                }`;
-
-
-                            const absoluteDistance =
-                                Math.abs(
-                                    distance
-                                );
-
-
-                            if (
-                                absoluteDistance
-                                <
-                                closestDistance
-                            ) {
-
-                                closestDistance =
-                                    absoluteDistance;
-
-                                closestIndex =
-                                    index;
-
-                            }
-
-                        }
-                    );
-
-
-                    cards.forEach(
-                        (card,index) => {
-
-                            card.classList.toggle(
-                                "is-center",
-                                index === closestIndex
-                            );
-
-                        }
-                    );
-
-
-                    dots.forEach(
-                        (dot,index) => {
-
-                            dot.classList.toggle(
-                                "active",
-                                index === closestIndex
-                            );
-
-                        }
-                    );
-
-
-                    ticking =
-                        false;
-
-                }
-
-
-                function requestUpdate() {
-
-                    if (ticking) {
-                        return;
-                    }
-
-
-                    ticking =
-                        true;
-
-
-                    requestAnimationFrame(
-                        updateFlow
-                    );
-
-                }
-
-
-                track.addEventListener(
-                    "scroll",
-                    requestUpdate,
-                    {
-                        passive: true
-                    }
-                );
-
-
-                /*
-                   Tapping a side card centers it first.
-                   Center-card links still open normally.
-                */
-                cards.forEach(
-                    card => {
-
-                        card.addEventListener(
-                            "click",
-                            event => {
-
-                                if (
-                                    card.classList.contains(
-                                        "is-center"
-                                    )
-                                ) {
-                                    return;
-                                }
-
-
-                                event.preventDefault();
-
-                                event.stopPropagation();
-
-
-                                centerCard(
-                                    card,
-                                    true
-                                );
-
-                            }
-                        );
-
-                    }
-                );
-
-
-                /*
-                   Start with the first card centered without
-                   scrollIntoView(), so no ancestor or popup
-                   can jump sideways.
-                */
-                requestAnimationFrame(
-                    () => {
-
-                        centerCard(
-                            cards[0],
-                            false
-                        );
-
-
-                        requestAnimationFrame(
-                            updateFlow
-                        );
-
-                    }
-                );
-
-            }
-        );
-
+                event.preventDefault();
+                event.stopPropagation();
+                centerCard(card, true);
+            });
+        });
+
+        requestAnimationFrame(() => {
+            centerCard(cards[0], false);
+            requestAnimationFrame(updateFlow);
+        });
+    });
 }
 
 
@@ -10839,10 +10305,26 @@ function getConservationCaseStudyHTML() {
     <div class="case-study-shell">
 
         <div class="case-study-topbar">
-            <button class="case-back" type="button" data-case-back>
-                <i class="fa-solid fa-arrow-left"></i>
-                Back to Mini Projects
-            </button>
+            <div class="case-topbar-left">
+                <button class="case-back" type="button" data-case-back>
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Mini Projects
+                </button>
+
+                <div class="case-story-progress" aria-label="Research story sections">
+                    <span class="case-progress-count" data-story-progress-count>1 / 8</span>
+                    <div class="case-progress-dots" role="group" aria-label="Jump to a research section">
+                        <button class="case-progress-dot active" type="button" data-story-jump="ecology" aria-label="Section 1: ecological foundation" aria-current="step"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="policy" aria-label="Section 2: policy setup"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="tradeoff" aria-label="Section 3: ecological objectives"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="targeting" aria-label="Section 4: same-budget experiment"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="participation" aria-label="Section 5: implementation"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="spatial" aria-label="Section 6: spatial allocation"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="consensus" aria-label="Section 7: consensus"></button>
+                        <button class="case-progress-dot" type="button" data-story-jump="robustness" aria-label="Section 8: robustness"></button>
+                    </div>
+                </div>
+            </div>
 
             <div class="case-study-top-label">
                 Interactive research case study
@@ -11307,19 +10789,33 @@ function getConservationCaseStudyHTML() {
             </div>
         </section>
 
-        <section class="case-section">
+        <section class="case-section case-takeaway-section">
             <div class="case-conclusion">
-                <div class="case-section-number">Takeaway</div>
-                <h2>The study is fundamentally about budget allocation on land and its modeled pollinator consequences.</h2>
-                <p>
-                    The same conservation programme is placed in different parts of the agricultural landscape.
-                    Bee and butterfly ecological profiles determine whether those placements improve modeled local
-                    habitat suitability and structural connectivity. Representative land-management units determine
-                    whether high-priority locations are actually available for implementation. Across the tested
-                    scenarios, spatial targeting consistently outperforms random allocation, while the exact pattern
-                    depends on whether policy emphasizes local habitat, connectivity or a balance of both. The outputs
-                    are decision-support scenarios, not forecasts of future bee or butterfly abundance.
-                </p>
+                <div class="case-conclusion-title">
+                    <div class="case-section-number">Takeaway</div>
+                    <h2>Same budget. Different geography. Different modeled pollinator outcomes.</h2>
+                </div>
+
+                <div class="case-conclusion-copy">
+                    <p>
+                        The same conservation programme is placed in different parts of the agricultural landscape.
+                        Bee and butterfly ecological profiles determine whether those placements improve modeled local
+                        habitat suitability and structural connectivity. Representative land-management units determine
+                        whether high-priority locations are actually available for implementation. Across the tested
+                        scenarios, spatial targeting consistently outperforms random allocation, while the exact pattern
+                        depends on whether policy emphasizes local habitat, connectivity or a balance of both.
+                    </p>
+
+                    <div class="case-takeaway-grid">
+                        <div><strong>Ecology</strong><span>Bees and butterflies define what habitat improvement means in the model.</span></div>
+                        <div><strong>Policy</strong><span>The comparison holds the programme budget constant and changes where intervention is placed.</span></div>
+                        <div><strong>Implementation</strong><span>Management availability limits whether ecologically preferred locations can actually be funded.</span></div>
+                    </div>
+
+                    <div class="case-takeaway-note">
+                        These are decision-support scenarios, not forecasts of future bee abundance, butterfly abundance or species richness.
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -11533,7 +11029,7 @@ function closeCaseStudy() {
             activeCaseStudy = null;
         }
 
-    }, 240);
+    }, 140);
 
 }
 
@@ -11602,17 +11098,11 @@ function hydrateCaseStudyMedia(view) {
 
 function bindCaseScrollytelling(view) {
 
-    const steps = Array.from(
-        view.querySelectorAll("[data-story-step]")
-    );
-
-    const scenes = Array.from(
-        view.querySelectorAll(".case-story-scene[data-scene]")
-    );
-
-    const navLinks = Array.from(
-        view.querySelectorAll(".case-nav a")
-    );
+    const steps = Array.from(view.querySelectorAll("[data-story-step]"));
+    const scenes = Array.from(view.querySelectorAll(".case-story-scene[data-scene]"));
+    const navLinks = Array.from(view.querySelectorAll(".case-nav a"));
+    const progressDots = Array.from(view.querySelectorAll("[data-story-jump]"));
+    const progressCount = view.querySelector("[data-story-progress-count]");
 
     if (!steps.length || !scenes.length) {
         return;
@@ -11620,56 +11110,84 @@ function bindCaseScrollytelling(view) {
 
     const loadSceneAsset = scene => {
         const image = scene.querySelector("img[data-scene-src]");
-
-        if (!image || image.src) {
+        if (!image || image.hasAttribute("src")) {
             return;
         }
-
         const source = image.dataset.sceneSrc;
+        if (source) {
+            image.src = source;
+        }
+    };
 
-        if (!source) {
+    const pauseInactiveGif = scene => {
+        const image = scene.querySelector("img[data-scene-src]");
+        if (!image) {
             return;
         }
-
-        image.src = source;
+        const source = image.dataset.sceneSrc || "";
+        if (/\.gif(?:$|\?)/i.test(source) && image.hasAttribute("src")) {
+            image.removeAttribute("src");
+        }
     };
 
     const activateScene = sceneName => {
+        let activeIndex = 0;
 
-        steps.forEach(step => {
-            step.classList.toggle(
-                "active",
-                step.dataset.sceneTarget === sceneName
-            );
+        steps.forEach((step, index) => {
+            const active = step.dataset.sceneTarget === sceneName;
+            step.classList.toggle("active", active);
+            if (active) {
+                activeIndex = index;
+            }
         });
 
         scenes.forEach(scene => {
             const active = scene.dataset.scene === sceneName;
             scene.classList.toggle("active", active);
-
             if (active) {
                 loadSceneAsset(scene);
+            } else {
+                pauseInactiveGif(scene);
             }
         });
 
-        const activeStep = steps.find(
-            step => step.dataset.sceneTarget === sceneName
-        );
-
+        const activeStep = steps[activeIndex];
         const activeId = activeStep?.id;
 
         navLinks.forEach(link => {
             const href = link.getAttribute("href");
-            link.classList.toggle(
-                "active",
-                Boolean(activeId && href === `#${activeId}`)
-            );
+            link.classList.toggle("active", Boolean(activeId && href === `#${activeId}`));
         });
+
+        progressDots.forEach(dot => {
+            const active = dot.dataset.storyJump === sceneName;
+            dot.classList.toggle("active", active);
+            if (active) {
+                dot.setAttribute("aria-current", "step");
+            } else {
+                dot.removeAttribute("aria-current");
+            }
+        });
+
+        if (progressCount) {
+            progressCount.textContent = `${activeIndex + 1} / ${steps.length}`;
+        }
     };
 
-    activateScene(
-        steps[0].dataset.sceneTarget
-    );
+    progressDots.forEach(dot => {
+        dot.addEventListener("click", () => {
+            const target = steps.find(step => step.dataset.sceneTarget === dot.dataset.storyJump);
+            if (!target) {
+                return;
+            }
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        });
+    });
+
+    activateScene(steps[0].dataset.sceneTarget);
 
     if (!("IntersectionObserver" in window)) {
         return;
@@ -11679,27 +11197,22 @@ function bindCaseScrollytelling(view) {
         entries => {
             const visible = entries
                 .filter(entry => entry.isIntersecting)
-                .sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
             if (!visible.length) {
                 return;
             }
 
-            activateScene(
-                visible[0].target.dataset.sceneTarget
-            );
+            activateScene(visible[0].target.dataset.sceneTarget);
         },
         {
             root: view,
-            rootMargin: "-32% 0px -44% 0px",
-            threshold: [0.05,0.15,0.3,0.5,0.7]
+            rootMargin: "-27% 0px -37% 0px",
+            threshold: [0.15, 0.35, 0.55]
         }
     );
 
-    steps.forEach(step => {
-        stepObserver.observe(step);
-    });
-
+    steps.forEach(step => stepObserver.observe(step));
     view._caseStoryObserver = stepObserver;
 }
 
