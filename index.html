@@ -8470,6 +8470,62 @@ body.research-case-open .expanded-title-shield {
     .case-final-result { grid-template-columns: 1fr !important; }
 }
 
+
+/* =========================================================
+   RESEARCH STORY V5 — DOT NAVIGATION ALIGNMENT + ASSET FIXES
+========================================================= */
+
+.case-progress-dots {
+    gap: 8px !important;
+}
+
+.case-progress-dot {
+    position: relative;
+    cursor: pointer !important;
+}
+
+.case-progress-dot::after {
+    content: attr(title);
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 10px);
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 190px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    background: rgba(2, 46, 50, .96);
+    border: 1px solid rgba(193,246,237,.14);
+    color: #eefcf9;
+    font-size: .67rem;
+    line-height: 1.2;
+    font-weight: 750;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .12s ease;
+    z-index: 100;
+}
+
+.case-progress-dot:hover::after,
+.case-progress-dot:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* A story section is the click target: keep its first line comfortably below
+   the sticky research header if the browser performs any native anchor scroll. */
+.case-story-step {
+    scroll-margin-top: 104px !important;
+}
+
+@media (max-width: 800px) {
+    .case-progress-dot::after {
+        display: none;
+    }
+}
+
 </style>
 </head>
 
@@ -11037,7 +11093,7 @@ function getConservationCaseStudyHTML() {
                     <div class="case-story-note">Movement groups are retained for interpretation, but the final local suitability score is based on habitat match rather than a generic mobility multiplier.</div>
                 </article>
 
-                <article class="case-story-step" data-story-step data-scene-target="targeting">
+                <article class="case-story-step" id="case-targeting" data-story-step data-scene-target="targeting">
                     <div class="case-story-kicker">04 · Same-budget experiment</div>
                     <h2>Same money, different placement.</h2>
                     <p>
@@ -11070,13 +11126,17 @@ function getConservationCaseStudyHTML() {
                     <div class="case-story-kicker">06 · Spatial allocation</div>
                     <h2>Targeting concentrates the same programme in fewer priority cells.</h2>
                     <p>
-                        Random allocation spreads 2,793.77 ha across 390 selected cells. Targeted strategies concentrate the
-                        same intervention area into roughly 119–128 cells. Colored cells show where intervention hectares are
-                        funded within a management cell; they do not mean that the entire 5-km square is converted or conserved.
+                        Every strategy funds the same <strong>2,793.77 ha</strong> with the same reference budget. What changes is
+                        <strong>which eligible management cells are selected first</strong>. Each cell can absorb a different amount
+                        of intervention because its maximum capacity is 3% of the cropland inside that cell. The number of funded
+                        cells is therefore an outcome of the allocation, not a number fixed in advance. In this model run, random
+                        allocation needed 390 cells to place the full programme, while the targeted rankings reached the same total
+                        intervention area in roughly 119–128 cells. A colored 5-km cell means that some intervention hectares were
+                        funded inside that management unit; the entire square is not converted or conserved.
                     </p>
                     <div class="case-story-stat-grid">
-                        <div class="case-story-stat"><strong>390 cells</strong><span>Random allocation.</span></div>
-                        <div class="case-story-stat"><strong>119–128 cells</strong><span>Targeted ecological allocation.</span></div>
+                        <div class="case-story-stat"><strong>390 cells</strong><span>Random: 2,793.77 ha total, about 7.16 ha per funded cell on average.</span></div>
+                        <div class="case-story-stat"><strong>119–128 cells</strong><span>Targeted: the same 2,793.77 ha, concentrated at about 21.83–23.48 ha per funded cell.</span></div>
                     </div>
                 </article>
 
@@ -11147,12 +11207,12 @@ function getConservationCaseStudyHTML() {
                 </div>
 
                 <div class="case-story-scene" data-scene="targeting">
-                    <div class="case-scene-media"><img src="./Figure_2_Targeting_Advantage_vs_Random.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Ecological benefit of spatial targeting compared with random funding"></div>
+                    <div class="case-scene-media"><img src="./04_Figure_Targeting_Advantage_vs_Random.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Ecological benefit of spatial targeting compared with random funding"></div>
                     <div class="case-scene-caption"><small>04 · Same-budget experiment</small><strong>Targeted placement produces larger modeled ecological gains than random placement under the same budget</strong></div>
                 </div>
 
                 <div class="case-story-scene" data-scene="participation">
-                    <div class="case-scene-media"><img src="./Figure_3_Management_Availability_Effect.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Effect of management availability on targeting advantage"></div>
+                    <div class="case-scene-media"><img src="./06_Figure_Management_Availability_Effect.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Effect of management availability on targeting advantage"></div>
                     <div class="case-scene-caption"><small>05 · Participation</small><strong>The value of targeting rises when policymakers have more eligible locations to choose from</strong></div>
                 </div>
 
@@ -11162,8 +11222,8 @@ function getConservationCaseStudyHTML() {
                 </div>
 
                 <div class="case-story-scene" data-scene="consensus">
-                    <div class="case-scene-media"><img src="./10_Map_Consensus_Priority_Panel.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Consensus conservation priority map panel"></div>
-                    <div class="case-scene-caption"><small>07 · Consensus</small><strong>Repeatedly selected cells reveal strategy-stable conservation priorities</strong></div>
+                    <div class="case-scene-media"><img src="./09_Figure_Consensus_Strength.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Consensus strength of conservation priority cells"></div>
+                    <div class="case-scene-caption"><small>07 · Consensus</small><strong>Consensus counts show which cells remain priorities across multiple ecological strategies</strong></div>
                 </div>
 
                 <div class="case-story-scene" data-scene="robustness">
@@ -11511,6 +11571,7 @@ function bindCaseScrollytelling(view) {
     const progressDots = Array.from(view.querySelectorAll("[data-story-jump]"));
     const progressCount = view.querySelector("[data-story-progress-count]");
     const progressCurrent = view.querySelector("[data-story-progress-current]");
+    const topbar = view.querySelector(".case-study-topbar");
 
     if (!steps.length || !scenes.length) {
         return;
@@ -11520,7 +11581,7 @@ function bindCaseScrollytelling(view) {
         ecology: "01 · Pollinator ecology",
         policy: "02 · Policy setup",
         tradeoff: "03 · Habitat & connectivity",
-        targeting: "04 · Same budget",
+        targeting: "04 · Same-budget experiment",
         participation: "05 · Participation",
         spatial: "06 · Spatial allocation",
         consensus: "07 · Consensus",
@@ -11530,8 +11591,33 @@ function bindCaseScrollytelling(view) {
     let activeSceneName = null;
     let rafId = 0;
 
-    // Preload every scene once. Assets are never removed again, so revisiting
-    // a section cannot produce a blank panel or restart image decoding.
+    /*
+       IMPORTANT:
+       The dots, the active text block and the active visual now use the SAME
+       anchor: the green section kicker at the top of each story step.
+       This prevents a dot from landing between two sections while the visual
+       switches according to a different calculation.
+    */
+    const getAnchor = step =>
+        step.querySelector(".case-story-kicker") || step;
+
+    const getHeaderOffset = () => {
+        const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 72;
+        return topbarHeight + 22;
+    };
+
+    const getAnchorScrollTop = step => {
+        const viewRect = view.getBoundingClientRect();
+        const anchorRect = getAnchor(step).getBoundingClientRect();
+
+        return Math.max(
+            0,
+            view.scrollTop + (anchorRect.top - viewRect.top) - getHeaderOffset()
+        );
+    };
+
+    /* Scene assets have real src attributes and stay loaded. Do not remove
+       image/GIF sources when a scene becomes inactive. */
     scenes.forEach(scene => {
         scene.querySelectorAll("img[data-scene-src]").forEach(image => {
             const source = image.dataset.sceneSrc;
@@ -11542,24 +11628,35 @@ function bindCaseScrollytelling(view) {
     });
 
     const activateScene = sceneName => {
-        if (!sceneName || sceneName === activeSceneName) {
+        if (!sceneName) {
             return;
         }
 
         activeSceneName = sceneName;
-        const activeIndex = Math.max(0, steps.findIndex(step => step.dataset.sceneTarget === sceneName));
+
+        const activeIndex = Math.max(
+            0,
+            steps.findIndex(step => step.dataset.sceneTarget === sceneName)
+        );
 
         steps.forEach(step => {
-            step.classList.toggle("active", step.dataset.sceneTarget === sceneName);
+            step.classList.toggle(
+                "active",
+                step.dataset.sceneTarget === sceneName
+            );
         });
 
         scenes.forEach(scene => {
-            scene.classList.toggle("active", scene.dataset.scene === sceneName);
+            scene.classList.toggle(
+                "active",
+                scene.dataset.scene === sceneName
+            );
         });
 
         progressDots.forEach(dot => {
             const active = dot.dataset.storyJump === sceneName;
             dot.classList.toggle("active", active);
+
             if (active) {
                 dot.setAttribute("aria-current", "step");
             } else {
@@ -11572,59 +11669,79 @@ function bindCaseScrollytelling(view) {
         }
 
         if (progressCurrent) {
-            progressCurrent.textContent = sceneLabels[sceneName] || `Section ${activeIndex + 1}`;
+            progressCurrent.textContent =
+                sceneLabels[sceneName] || `Section ${activeIndex + 1}`;
         }
     };
 
     const updateFromScroll = () => {
         rafId = 0;
+
         const viewRect = view.getBoundingClientRect();
-        const targetY = viewRect.top + Math.min(view.clientHeight * 0.46, 430);
+        const triggerY = viewRect.top + getHeaderOffset() + 12;
 
-        let bestStep = steps[0];
-        let bestDistance = Infinity;
+        /*
+           The active section is the last section whose kicker has crossed the
+           same fixed trigger line used by dot navigation. If the first section
+           has not crossed it yet, section 1 remains active.
+        */
+        let activeStep = steps[0];
 
-        steps.forEach(step => {
-            const rect = step.getBoundingClientRect();
-            const center = rect.top + rect.height * 0.5;
-            const distance = Math.abs(center - targetY);
-            if (distance < bestDistance) {
-                bestDistance = distance;
-                bestStep = step;
+        for (const step of steps) {
+            const anchorTop = getAnchor(step).getBoundingClientRect().top;
+
+            if (anchorTop <= triggerY) {
+                activeStep = step;
+            } else {
+                break;
             }
-        });
+        }
 
-        activateScene(bestStep.dataset.sceneTarget);
+        activateScene(activeStep.dataset.sceneTarget);
     };
 
     const scheduleUpdate = () => {
         if (rafId) {
             return;
         }
+
         rafId = requestAnimationFrame(updateFromScroll);
     };
 
     progressDots.forEach(dot => {
         dot.addEventListener("click", () => {
-            const target = steps.find(step => step.dataset.sceneTarget === dot.dataset.storyJump);
+            const target = steps.find(
+                step => step.dataset.sceneTarget === dot.dataset.storyJump
+            );
+
             if (!target) {
                 return;
             }
 
-            const desiredTop = Math.max(0, target.offsetTop - 82);
-            view.scrollTo({ top: desiredTop, behavior: "auto" });
+            /* Activate first so the matching visual changes immediately. */
             activateScene(target.dataset.sceneTarget);
+
+            /* Then place the section kicker directly below the sticky header. */
+            view.scrollTo({
+                top: getAnchorScrollTop(target),
+                behavior: "auto"
+            });
+
+            /* Re-evaluate after layout settles so the dot/text/visual remain synced. */
+            requestAnimationFrame(updateFromScroll);
         });
     });
 
     view.addEventListener("scroll", scheduleUpdate, { passive: true });
-    view.addEventListener("resize", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate, { passive: true });
 
     activateScene(steps[0].dataset.sceneTarget);
     requestAnimationFrame(updateFromScroll);
 
     view._caseStoryCleanup = () => {
         view.removeEventListener("scroll", scheduleUpdate);
+        window.removeEventListener("resize", scheduleUpdate);
+
         if (rafId) {
             cancelAnimationFrame(rafId);
         }
