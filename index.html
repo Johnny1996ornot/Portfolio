@@ -8526,6 +8526,90 @@ body.research-case-open .expanded-title-shield {
     }
 }
 
+
+
+/* =========================================================
+   V6 EXIT / CLOSE CONTROL FIX
+   Distinct Back and X actions + reliable pointer target.
+========================================================= */
+
+.case-study-topbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 18px !important;
+}
+
+.case-topbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    flex: 0 0 auto;
+}
+
+.case-study-close {
+    position: relative;
+    z-index: 80;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid rgba(193,246,237,.28);
+    border-radius: 50%;
+    background: rgba(2,53,60,.94);
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background .16s ease, border-color .16s ease, transform .16s ease;
+}
+
+.case-study-close:hover,
+.case-study-close:focus-visible {
+    background: var(--green);
+    border-color: rgba(89,225,141,.78);
+    transform: scale(1.04);
+    outline: none;
+}
+
+/* The ordinary X must always sit above every expanded non-research panel. */
+.expansion-close {
+    z-index: 7200 !important;
+    pointer-events: auto !important;
+}
+
+/* While the research story is open, its own X replaces the floating panel X. */
+body.research-case-open .expansion-close {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+@media (max-width: 800px) {
+    .case-study-topbar {
+        gap: 8px !important;
+    }
+
+    .case-topbar-right {
+        gap: 8px;
+    }
+
+    .case-study-top-label {
+        display: none !important;
+    }
+
+    .case-study-close {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+    }
+}
+
 </style>
 </head>
 
@@ -10590,10 +10674,17 @@ function openPanel(panel) {
 
     closeButton = document.createElement("button");
     closeButton.className = "expansion-close";
-    closeButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+    closeButton.type = "button";
+    closeButton.setAttribute("aria-label", "Close expanded section");
+    closeButton.setAttribute("title", "Close section");
+    closeButton.innerHTML = `<i class="fa-solid fa-xmark" aria-hidden="true"></i>`;
     document.body.appendChild(closeButton);
     positionCloseButton();
-    closeButton.addEventListener("click", closeActivePanel);
+    closeButton.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeActivePanel();
+    });
 
     requestAnimationFrame(() => {
         expansion?.classList.add("fast-visible");
@@ -10619,16 +10710,35 @@ function openPanel(panel) {
 
 function closeActivePanel() {
 
-    if (!activePanel || !expansion || !flyingTitle) {
+    if (!activePanel || !expansion) {
         return;
     }
 
     const panel = activePanel;
     const originalTitle = panel.querySelector("[data-title]");
+    const view = activeCaseStudy;
 
-    if (view._caseStoryCleanup) {
-        view._caseStoryCleanup();
-        view._caseStoryCleanup = null;
+    /*
+       Clean up the research story first if it is open.
+       The previous version referenced an undefined variable named `view`
+       here, which threw a ReferenceError every time the X button was clicked.
+       That single error prevented ALL expanded-panel X buttons from closing.
+    */
+    if (view) {
+
+        if (view._caseStoryCleanup) {
+            view._caseStoryCleanup();
+            view._caseStoryCleanup = null;
+        }
+
+        if (view._caseStoryObserver) {
+            view._caseStoryObserver.disconnect();
+            view._caseStoryObserver = null;
+        }
+
+        view.classList.remove("open");
+        view.remove();
+        activeCaseStudy = null;
     }
 
     if (caseStudyObserver) {
@@ -10636,24 +10746,33 @@ function closeActivePanel() {
         caseStudyObserver = null;
     }
 
-    if (activeCaseStudy?._caseStoryObserver) {
-        activeCaseStudy._caseStoryObserver.disconnect();
+    document.body.classList.remove("research-case-open");
+
+    expansion.classList.remove("case-study-active");
+    expansion.classList.add("fast-closing");
+
+    if (flyingTitle) {
+        flyingTitle.classList.remove("case-study-hidden");
+        flyingTitle.classList.add("fast-closing");
     }
 
-    expansion.classList.add("fast-closing");
-    flyingTitle.classList.add("fast-closing");
     closeButton?.classList.remove("visible");
     backdrop.classList.remove("open");
 
     const finishClose = () => {
+
         panel.style.opacity = "";
-        originalTitle.style.opacity = "";
+
+        if (originalTitle) {
+            originalTitle.style.opacity = "";
+        }
 
         expansion?.remove();
         flyingTitle?.remove();
         closeButton?.remove();
 
         backdrop.hidden = true;
+
         expansion = null;
         flyingTitle = null;
         closeButton = null;
@@ -10663,6 +10782,7 @@ function closeActivePanel() {
 
     setTimeout(finishClose, 190);
 }
+
 
 
 /* =========================================================
@@ -10967,7 +11087,18 @@ function getConservationCaseStudyHTML() {
                 </div>
             </div>
 
-            <div class="case-study-top-label">Research case study</div>
+            <div class="case-topbar-right">
+                <div class="case-study-top-label">Research case study</div>
+                <button
+                    class="case-study-close"
+                    type="button"
+                    data-case-close
+                    aria-label="Close research case study and return to the portfolio"
+                    title="Close research case study"
+                >
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
 
         <section class="case-hero" id="case-overview">
@@ -11404,7 +11535,33 @@ function openCaseStudy(key) {
     if (back) {
         back.addEventListener(
             "click",
-            closeCaseStudy
+            event => {
+                event.preventDefault();
+                event.stopPropagation();
+                closeCaseStudy();
+            }
+        );
+    }
+
+    const caseClose =
+        activeCaseStudy.querySelector(
+            "[data-case-close]"
+        );
+
+    if (caseClose) {
+        caseClose.addEventListener(
+            "click",
+            event => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                /*
+                   The X exits the complete expanded section and returns to
+                   the main portfolio. The Back button above returns only to
+                   Mini Projects, so the two controls have distinct jobs.
+                */
+                closeActivePanel();
+            }
         );
     }
 
@@ -11463,28 +11620,30 @@ function closeCaseStudy() {
         return;
     }
 
-    const view =
-        activeCaseStudy;
+    const view = activeCaseStudy;
 
-    view.classList.remove(
-        "open"
-    );
+    if (view._caseStoryCleanup) {
+        view._caseStoryCleanup();
+        view._caseStoryCleanup = null;
+    }
 
-    expansion?.classList.remove(
-        "case-study-active"
-    );
-
-    document.body.classList.remove("research-case-open");
-
-    if (flyingTitle) {
-        flyingTitle.classList.remove(
-            "case-study-hidden"
-        );
+    if (view._caseStoryObserver) {
+        view._caseStoryObserver.disconnect();
+        view._caseStoryObserver = null;
     }
 
     if (caseStudyObserver) {
         caseStudyObserver.disconnect();
         caseStudyObserver = null;
+    }
+
+    view.classList.remove("open");
+
+    expansion?.classList.remove("case-study-active");
+    document.body.classList.remove("research-case-open");
+
+    if (flyingTitle) {
+        flyingTitle.classList.remove("case-study-hidden");
     }
 
     setTimeout(() => {
@@ -11497,9 +11656,13 @@ function closeCaseStudy() {
             activeCaseStudy = null;
         }
 
-    }, 140);
+        /* Restore the normal panel X after returning to Mini Projects. */
+        closeButton?.classList.add("visible");
+        positionCloseButton();
 
+    }, 140);
 }
+
 
 
 function hydrateCaseStudyMedia(view) {
