@@ -8611,6 +8611,47 @@ body.research-case-open .expansion-close {
 }
 
 </style>
+
+<style id="case-story-sync-fix-v7">
+/* =========================================================
+   RESEARCH STORY V7 — HARD SYNCHRONISATION FIX
+
+   Do not cross-fade between research visuals.
+   The text card, progress dot and right-hand visual change in the
+   same frame so a previous image can never visually linger.
+========================================================= */
+
+.case-story-scene {
+    transition: none !important;
+}
+
+.case-story-scene:not(.active) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.case-story-scene.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 2 !important;
+}
+
+/* Make inactive scenes sit beneath the active scene even if a browser
+   is still repainting an animated GIF. */
+.case-story-scene:not(.active) {
+    z-index: 0 !important;
+}
+
+/* The active text marker also changes without animation. */
+.case-story-step,
+.case-story-step.active,
+.case-progress-dot,
+.case-progress-dot.active {
+    transition: none !important;
+}
+</style>
 </head>
 
 
@@ -11729,16 +11770,31 @@ function hydrateCaseStudyMedia(view) {
 
 function bindCaseScrollytelling(view) {
 
-    const steps = Array.from(view.querySelectorAll("[data-story-step]"));
-    const scenes = Array.from(view.querySelectorAll(".case-story-scene[data-scene]"));
-    const progressDots = Array.from(view.querySelectorAll("[data-story-jump]"));
-    const progressCount = view.querySelector("[data-story-progress-count]");
-    const progressCurrent = view.querySelector("[data-story-progress-current]");
-    const topbar = view.querySelector(".case-study-topbar");
+    const steps = Array.from(
+        view.querySelectorAll("[data-story-step]")
+    );
+
+    const scenes = Array.from(
+        view.querySelectorAll(".case-story-scene[data-scene]")
+    );
+
+    const progressDots = Array.from(
+        view.querySelectorAll("[data-story-jump]")
+    );
+
+    const progressCount =
+        view.querySelector("[data-story-progress-count]");
+
+    const progressCurrent =
+        view.querySelector("[data-story-progress-current]");
+
+    const topbar =
+        view.querySelector(".case-study-topbar");
 
     if (!steps.length || !scenes.length) {
         return;
     }
+
 
     const sceneLabels = {
         ecology: "01 · Pollinator ecology",
@@ -11751,166 +11807,428 @@ function bindCaseScrollytelling(view) {
         robustness: "08 · Robustness"
     };
 
-    let activeSceneName = null;
+
+    let activeSceneName = "";
     let rafId = 0;
 
-    /*
-       IMPORTANT:
-       The dots, the active text block and the active visual now use the SAME
-       anchor: the green section kicker at the top of each story step.
-       This prevents a dot from landing between two sections while the visual
-       switches according to a different calculation.
-    */
-    const getAnchor = step =>
-        step.querySelector(".case-story-kicker") || step;
+
+    /* ---------------------------------------------------------
+       PRELOAD EVERY STORY VISUAL IMMEDIATELY
+
+       The old version could show the correct section text before a
+       heavy PNG/GIF had finished painting.  All story assets are now
+       requested as soon as the case study opens.
+    --------------------------------------------------------- */
+
+    const storyImages = Array.from(
+        view.querySelectorAll(
+            ".case-story-scene img"
+        )
+    );
+
+    storyImages.forEach(img => {
+
+        img.loading = "eager";
+        img.decoding = "async";
+
+        const source =
+            img.getAttribute("src") ||
+            img.dataset.sceneSrc ||
+            img.dataset.src;
+
+        if (!source) {
+            return;
+        }
+
+        /* Ensure the real image element itself starts loading now. */
+        if (!img.getAttribute("src")) {
+            img.src = source;
+        }
+
+        /* Warm the browser cache as well. */
+        const preloader = new Image();
+        preloader.src = source;
+
+    });
+
 
     const getHeaderOffset = () => {
-        const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 72;
-        return topbarHeight + 22;
+
+        const height =
+            topbar
+                ? topbar.getBoundingClientRect().height
+                : 72;
+
+        return height + 12;
     };
 
-    const getAnchorScrollTop = step => {
-        const viewRect = view.getBoundingClientRect();
-        const anchorRect = getAnchor(step).getBoundingClientRect();
+
+    /*
+       ONE SHARED READING LINE
+
+       The active text, active visual, progress count and progress dot
+       are all chosen from the same position in the viewport.
+
+       IMPORTANT:
+       We no longer wait for a section kicker to reach the sticky
+       header.  That was the cause of the one-card delay: a new card
+       could already dominate the screen while the previous visual
+       remained active.
+
+       The reading line sits about 42% down the usable story viewport.
+       Whichever text card occupies that line owns the visual.
+    */
+
+    const getReadingLineY = () => {
+
+        const viewRect =
+            view.getBoundingClientRect();
+
+        const headerBottom =
+            viewRect.top + getHeaderOffset();
+
+        const visibleBottom =
+            Math.min(
+                viewRect.bottom,
+                window.innerHeight
+            );
+
+        const usableHeight =
+            Math.max(
+                220,
+                visibleBottom - headerBottom
+            );
+
+        return (
+            headerBottom +
+            usableHeight * 0.42
+        );
+    };
+
+
+    const getActiveStep = () => {
+
+        const readingY =
+            getReadingLineY();
+
+        /*
+           First preference:
+           choose the section actually crossing the reading line.
+        */
+
+        for (const step of steps) {
+
+            const rect =
+                step.getBoundingClientRect();
+
+            if (
+                readingY >= rect.top &&
+                readingY < rect.bottom
+            ) {
+                return step;
+            }
+        }
+
+
+        /*
+           Fallback:
+           during very fast scrolls the reading line can momentarily fall
+           between sections. Choose the nearest section centre instead of
+           keeping the previous scene.
+        */
+
+        let nearest =
+            steps[0];
+
+        let nearestDistance =
+            Infinity;
+
+        for (const step of steps) {
+
+            const rect =
+                step.getBoundingClientRect();
+
+            const centre =
+                rect.top + rect.height / 2;
+
+            const distance =
+                Math.abs(
+                    centre - readingY
+                );
+
+            if (distance < nearestDistance) {
+                nearest = step;
+                nearestDistance = distance;
+            }
+        }
+
+        return nearest;
+    };
+
+
+    const activateScene = sceneName => {
+
+        if (
+            !sceneName ||
+            sceneName === activeSceneName
+        ) {
+            return;
+        }
+
+        activeSceneName =
+            sceneName;
+
+        const activeIndex =
+            Math.max(
+                0,
+                steps.findIndex(
+                    step =>
+                        step.dataset.sceneTarget ===
+                        sceneName
+                )
+            );
+
+
+        /*
+           Text, visual and dot state are committed together in the same
+           JavaScript turn. There is no delayed scene transition.
+        */
+
+        steps.forEach(step => {
+
+            step.classList.toggle(
+                "active",
+                step.dataset.sceneTarget ===
+                    sceneName
+            );
+
+        });
+
+
+        scenes.forEach(scene => {
+
+            const active =
+                scene.dataset.scene ===
+                sceneName;
+
+            scene.classList.toggle(
+                "active",
+                active
+            );
+
+            scene.setAttribute(
+                "aria-hidden",
+                active ? "false" : "true"
+            );
+
+        });
+
+
+        progressDots.forEach(dot => {
+
+            const active =
+                dot.dataset.storyJump ===
+                sceneName;
+
+            dot.classList.toggle(
+                "active",
+                active
+            );
+
+            if (active) {
+                dot.setAttribute(
+                    "aria-current",
+                    "step"
+                );
+            } else {
+                dot.removeAttribute(
+                    "aria-current"
+                );
+            }
+
+        });
+
+
+        if (progressCount) {
+
+            progressCount.textContent =
+                `${activeIndex + 1} / ${steps.length}`;
+
+        }
+
+
+        if (progressCurrent) {
+
+            progressCurrent.textContent =
+                sceneLabels[sceneName] ||
+                `Section ${activeIndex + 1}`;
+
+        }
+
+    };
+
+
+    const updateFromScroll = () => {
+
+        rafId = 0;
+
+        const activeStep =
+            getActiveStep();
+
+        if (!activeStep) {
+            return;
+        }
+
+        activateScene(
+            activeStep.dataset.sceneTarget
+        );
+
+    };
+
+
+    const scheduleUpdate = () => {
+
+        /*
+           requestAnimationFrame keeps scrolling smooth while still updating
+           once per painted frame.  The previous multi-second mismatch was not
+           caused by rAF; it came from using the wrong trigger position.
+        */
+
+        if (rafId) {
+            return;
+        }
+
+        rafId =
+            requestAnimationFrame(
+                updateFromScroll
+            );
+
+    };
+
+
+    const getScrollTopForStep = step => {
+
+        const viewRect =
+            view.getBoundingClientRect();
+
+        const rect =
+            step.getBoundingClientRect();
+
+        const currentReadingY =
+            getReadingLineY();
+
+        const targetCentre =
+            rect.top +
+            rect.height * 0.50;
 
         return Math.max(
             0,
-            view.scrollTop + (anchorRect.top - viewRect.top) - getHeaderOffset()
+            view.scrollTop +
+            targetCentre -
+            currentReadingY
         );
     };
 
-    /* Scene assets have real src attributes and stay loaded. Do not remove
-       image/GIF sources when a scene becomes inactive. */
-    scenes.forEach(scene => {
-        scene.querySelectorAll("img[data-scene-src]").forEach(image => {
-            const source = image.dataset.sceneSrc;
-            if (source && !image.getAttribute("src")) {
-                image.src = source;
-            }
-        });
-    });
-
-    const activateScene = sceneName => {
-        if (!sceneName) {
-            return;
-        }
-
-        activeSceneName = sceneName;
-
-        const activeIndex = Math.max(
-            0,
-            steps.findIndex(step => step.dataset.sceneTarget === sceneName)
-        );
-
-        steps.forEach(step => {
-            step.classList.toggle(
-                "active",
-                step.dataset.sceneTarget === sceneName
-            );
-        });
-
-        scenes.forEach(scene => {
-            scene.classList.toggle(
-                "active",
-                scene.dataset.scene === sceneName
-            );
-        });
-
-        progressDots.forEach(dot => {
-            const active = dot.dataset.storyJump === sceneName;
-            dot.classList.toggle("active", active);
-
-            if (active) {
-                dot.setAttribute("aria-current", "step");
-            } else {
-                dot.removeAttribute("aria-current");
-            }
-        });
-
-        if (progressCount) {
-            progressCount.textContent = `${activeIndex + 1} / ${steps.length}`;
-        }
-
-        if (progressCurrent) {
-            progressCurrent.textContent =
-                sceneLabels[sceneName] || `Section ${activeIndex + 1}`;
-        }
-    };
-
-    const updateFromScroll = () => {
-        rafId = 0;
-
-        const viewRect = view.getBoundingClientRect();
-        const triggerY = viewRect.top + getHeaderOffset() + 12;
-
-        /*
-           The active section is the last section whose kicker has crossed the
-           same fixed trigger line used by dot navigation. If the first section
-           has not crossed it yet, section 1 remains active.
-        */
-        let activeStep = steps[0];
-
-        for (const step of steps) {
-            const anchorTop = getAnchor(step).getBoundingClientRect().top;
-
-            if (anchorTop <= triggerY) {
-                activeStep = step;
-            } else {
-                break;
-            }
-        }
-
-        activateScene(activeStep.dataset.sceneTarget);
-    };
-
-    const scheduleUpdate = () => {
-        if (rafId) {
-            return;
-        }
-
-        rafId = requestAnimationFrame(updateFromScroll);
-    };
 
     progressDots.forEach(dot => {
-        dot.addEventListener("click", () => {
-            const target = steps.find(
-                step => step.dataset.sceneTarget === dot.dataset.storyJump
-            );
 
-            if (!target) {
-                return;
+        dot.addEventListener(
+            "click",
+            () => {
+
+                const target =
+                    steps.find(
+                        step =>
+                            step.dataset.sceneTarget ===
+                            dot.dataset.storyJump
+                    );
+
+                if (!target) {
+                    return;
+                }
+
+
+                /*
+                   Change all UI state BEFORE scrolling so the user never sees
+                   the wrong picture after clicking a progress dot.
+                */
+
+                activateScene(
+                    target.dataset.sceneTarget
+                );
+
+
+                view.scrollTo({
+                    top:
+                        getScrollTopForStep(
+                            target
+                        ),
+                    behavior: "auto"
+                });
+
+
+                requestAnimationFrame(
+                    updateFromScroll
+                );
+
             }
+        );
 
-            /* Activate first so the matching visual changes immediately. */
-            activateScene(target.dataset.sceneTarget);
-
-            /* Then place the section kicker directly below the sticky header. */
-            view.scrollTo({
-                top: getAnchorScrollTop(target),
-                behavior: "auto"
-            });
-
-            /* Re-evaluate after layout settles so the dot/text/visual remain synced. */
-            requestAnimationFrame(updateFromScroll);
-        });
     });
 
-    view.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate, { passive: true });
 
-    activateScene(steps[0].dataset.sceneTarget);
-    requestAnimationFrame(updateFromScroll);
+    /*
+       Update on scroll and resize only.  Eight text cards are cheap to measure,
+       and the right visual no longer cross-fades, so this stays responsive.
+    */
+
+    view.addEventListener(
+        "scroll",
+        scheduleUpdate,
+        { passive: true }
+    );
+
+    window.addEventListener(
+        "resize",
+        scheduleUpdate,
+        { passive: true }
+    );
+
+
+    /*
+       Set the first scene immediately, then verify against the actual viewport.
+    */
+
+    activateScene(
+        steps[0].dataset.sceneTarget
+    );
+
+    requestAnimationFrame(
+        updateFromScroll
+    );
+
 
     view._caseStoryCleanup = () => {
-        view.removeEventListener("scroll", scheduleUpdate);
-        window.removeEventListener("resize", scheduleUpdate);
+
+        view.removeEventListener(
+            "scroll",
+            scheduleUpdate
+        );
+
+        window.removeEventListener(
+            "resize",
+            scheduleUpdate
+        );
 
         if (rafId) {
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(
+                rafId
+            );
         }
-    };
-}
 
+    };
+
+}
 
 
 function bindCaseStudyInteractions(view) {
