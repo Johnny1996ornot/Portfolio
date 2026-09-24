@@ -7911,6 +7911,100 @@ img {
 
 
 
+
+
+/* =========================================================
+   DATA & CODING PROJECTS — UNCRAMPED TITLE
+========================================================= */
+
+.panel-mini .shared-title {
+    max-width:
+        92%;
+
+    margin-top:
+        7px;
+
+    font-size:
+        clamp(1.85rem, 2.55vw, 3rem)
+        !important;
+
+    line-height:
+        .93 !important;
+
+    letter-spacing:
+        -.055em !important;
+}
+
+.panel-mini .shared-title .title-line {
+    white-space:
+        nowrap;
+}
+
+.panel-mini .mini-preview {
+    margin-top:
+        16px;
+}
+
+.panel-mini .mini-preview-row {
+    padding-top:
+        7px;
+}
+
+
+/* Expanded mini-project panel */
+
+.flying-title[data-key="mini"] {
+    letter-spacing:
+        -.055em !important;
+
+    line-height:
+        .98 !important;
+}
+
+.flying-title[data-key="mini"] .title-line {
+    white-space:
+        nowrap;
+}
+
+.expansion-mini:not(.case-study-active)
+.expanded-header-row > div {
+    max-width:
+        500px !important;
+}
+
+.expansion-mini:not(.case-study-active)
+.expanded-description {
+    max-width:
+        470px !important;
+}
+
+
+/* Phone */
+
+@media (max-width: 800px) {
+
+    .panel-mini .shared-title {
+        max-width:
+            88%;
+
+        font-size:
+            clamp(1.05rem, 5vw, 1.65rem)
+            !important;
+
+        line-height:
+            .96 !important;
+    }
+
+    .panel-mini .shared-title .title-line,
+    .flying-title[data-key="mini"] .title-line {
+        white-space:
+            normal;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -10202,7 +10296,7 @@ body.research-case-open .expansion-close {
 
             <i class="fa-solid fa-code"></i>
 
-            Applied Projects
+            Applied Modelling
 
         </div>
 
@@ -10213,11 +10307,7 @@ body.research-case-open .expansion-close {
         >
 
             <span class="title-line">
-                Data Modelling
-            </span>
-
-            <span class="title-line">
-                &amp; Coding
+                Data &amp; Coding
             </span>
 
             <span class="title-line accent">
@@ -11193,12 +11283,12 @@ gallery: {
 mini: {
 
     kicker:
-        "Data Modelling & Coding Projects",
+        "Applied Modelling",
 
     description:
         `
-        Interactive modelling studies, analytical tools,
-        data visualisations and coding prototypes.
+        Interactive data models, analytical tools,
+        visualisations and coding prototypes.
         `,
 
     html:
@@ -11767,11 +11857,7 @@ function getExpandedTitleSize(
         }
 
 
-        if (
-            key === "gallery"
-            ||
-            key === "mini"
-        ) {
+        if (key === "gallery") {
 
             return Math.min(
                 Math.max(
@@ -11779,6 +11865,18 @@ function getExpandedTitleSize(
                     86
                 ),
                 102
+            );
+        }
+
+
+        if (key === "mini") {
+
+            return Math.min(
+                Math.max(
+                    originalSize * 1.08,
+                    72
+                ),
+                84
             );
         }
 
@@ -11881,7 +11979,7 @@ function openPanel(panel) {
         : Math.min(finalWidth * .335, 625);
 
     if (window.innerWidth > 800) {
-        const titleToCopyGap = key === "skills" ? 78 : key === "profile" ? 42 : 38;
+        const titleToCopyGap = key === "skills" ? 78 : key === "mini" ? 54 : key === "profile" ? 42 : 38;
         const railCopyTop = Math.min(
             finalHeight - 185,
             Math.max(112, (finalTitleTop - finalTop) + estimatedTitleHeight + titleToCopyGap)
