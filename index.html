@@ -7720,6 +7720,197 @@ img {
 
 
 
+
+
+/* =========================================================
+   PROJECT REFRAMING — PROFESSIONAL TITLES + REAL DATA SOURCES
+========================================================= */
+
+/* ---------- Data Modelling & Coding dashboard tile ---------- */
+
+.panel-mini .shared-title {
+    font-size:
+        clamp(2.35rem, 3.25vw, 4.25rem);
+    line-height:
+        .92;
+}
+
+
+/* ---------- Urban Heat hero: no Swiss-style metric boxes ---------- */
+
+.urban-heat-case-shell .heat-project-hero {
+    min-height:
+        auto !important;
+}
+
+.urban-heat-case-shell .heat-objective-layout {
+    display:
+        block !important;
+
+    grid-template-columns:
+        1fr !important;
+
+    max-width:
+        1080px;
+
+    margin-top:
+        clamp(26px, 3vw, 42px)
+        !important;
+}
+
+.urban-heat-case-shell .heat-objective {
+    max-width:
+        1030px !important;
+
+    padding:
+        0 !important;
+
+    font-size:
+        clamp(1.18rem, 1.48vw, 1.55rem)
+        !important;
+
+    line-height:
+        1.58 !important;
+}
+
+.urban-heat-case-shell .heat-objective strong {
+    color:
+        var(--greenBright);
+}
+
+.urban-heat-case-shell .heat-project-hero
+.case-tags {
+    margin-top:
+        22px !important;
+}
+
+
+/* ---------- Urban Heat Data & Methods ---------- */
+
+.urban-heat-case-shell .heat-data-methods {
+    padding-top:
+        clamp(46px, 6vh, 72px)
+        !important;
+}
+
+@media (min-width: 1000px) {
+
+    .urban-heat-case-shell
+    .heat-data-methods
+    .case-section-head {
+        grid-template-columns:
+            minmax(430px, .92fr)
+            minmax(0, 1.08fr)
+            !important;
+
+        margin-bottom:
+            28px !important;
+    }
+
+    .urban-heat-case-shell
+    .heat-data-methods
+    .case-section-head h2 {
+        max-width:
+            700px !important;
+
+        font-size:
+            clamp(2.75rem, 3.75vw, 4.3rem)
+            !important;
+    }
+
+    .urban-heat-case-shell
+    .heat-data-methods
+    .case-section-intro {
+        margin-top:
+            30px !important;
+
+        max-width:
+            800px !important;
+
+        font-size:
+            clamp(1.02rem, 1.08vw, 1.17rem)
+            !important;
+    }
+
+    .urban-heat-case-shell
+    .heat-data-methods
+    .heat-method-grid {
+        margin-top:
+            22px !important;
+    }
+
+}
+
+.urban-heat-case-shell .heat-method-step {
+    min-height:
+        238px !important;
+}
+
+.urban-heat-case-shell .heat-method-step p {
+    font-size:
+        .92rem !important;
+
+    line-height:
+        1.62 !important;
+}
+
+.urban-heat-case-shell .heat-method-note {
+    margin-top:
+        18px !important;
+}
+
+
+/* ---------- Conservation project direct title ---------- */
+
+@media (min-width: 1000px) {
+
+    .conservation-case-shell
+    #case-overview
+    .case-title {
+        max-width:
+            1500px !important;
+
+        font-size:
+            clamp(3.6rem, 5.6vw, 6.5rem)
+            !important;
+
+        line-height:
+            .91 !important;
+    }
+
+    .conservation-case-shell
+    #case-overview
+    .case-lead {
+        max-width:
+            980px !important;
+    }
+
+}
+
+
+/* ---------- Phone / narrow layouts ---------- */
+
+@media (max-width: 800px) {
+
+    .panel-mini .shared-title {
+        font-size:
+            clamp(2rem, 8.6vw, 3rem);
+    }
+
+    .urban-heat-case-shell .heat-objective {
+        font-size:
+            1.02rem !important;
+    }
+
+    .urban-heat-case-shell .heat-method-step {
+        min-height:
+            0 !important;
+    }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
@@ -10011,7 +10202,7 @@ body.research-case-open .expansion-close {
 
             <i class="fa-solid fa-code"></i>
 
-            Mini Projects
+            Applied Projects
 
         </div>
 
@@ -10022,7 +10213,11 @@ body.research-case-open .expansion-close {
         >
 
             <span class="title-line">
-                Mini
+                Data Modelling
+            </span>
+
+            <span class="title-line">
+                &amp; Coding
             </span>
 
             <span class="title-line accent">
@@ -10067,7 +10262,7 @@ body.research-case-open .expansion-close {
         <div class="mini-preview-row">
 
             <strong>
-                Urban Heat Intervention
+                Urban Heat Modelling
             </strong>
 
         </div>
@@ -10998,12 +11193,12 @@ gallery: {
 mini: {
 
     kicker:
-        "Mini Projects",
+        "Data Modelling & Coding Projects",
 
     description:
         `
-        Interactive web experiments,
-        visualisations and smaller coding projects.
+        Interactive modelling studies, analytical tools,
+        data visualisations and coding prototypes.
         `,
 
     html:
@@ -11304,17 +11499,17 @@ mini: {
                     <div class="mini-body">
 
                         <div class="card-label">
-                            Spatial / Policy Modelling
+                            Conservation / Spatial Modelling
                         </div>
 
                         <h3>
-                            Conservation Policy Model
+                            Switzerland Pollinator Policy Modelling
                         </h3>
 
                         <p>
-                            Interactive case study of conservation funding,
-                            habitat-connectivity trade-offs, management
-                            participation and spatial priority consensus.
+                            Spatial modelling case study testing how a fixed
+                            conservation budget can be allocated to support
+                            pollinator habitat and landscape connectivity.
                         </p>
 
                         <div class="tags">
@@ -11363,13 +11558,13 @@ mini: {
                         </div>
 
                         <h3>
-                            Metro Manila Heat Intervention
+                            Metro Manila Urban Heat &amp; Intervention Priority
                         </h3>
 
                         <p>
-                            Interactive spatial case study moving from baseline
-                            land-surface temperature to tree-intervention
-                            priorities and critical urban heat hotspots.
+                            Spatial modelling case study identifying where
+                            tree-based heat mitigation should be examined first
+                            across Metro Manila.
                         </p>
 
                         <div class="tags">
@@ -12098,13 +12293,13 @@ function getConservationCaseStudyHTML() {
 
     return `
 
-    <div class="case-study-shell">
+    <div class="case-study-shell conservation-case-shell">
 
         <div class="case-study-topbar">
             <div class="case-topbar-left">
                 <button class="case-back" type="button" data-case-back>
                     <i class="fa-solid fa-arrow-left"></i>
-                    Back to Mini Projects
+                    Back to Data & Coding Projects
                 </button>
 
                 <div class="case-story-progress" aria-label="Research story sections">
@@ -12139,18 +12334,22 @@ function getConservationCaseStudyHTML() {
 
         <section class="case-hero" id="case-overview">
             <div class="case-hero-heading">
-                <div class="case-eyebrow">Spatial conservation policy modelling</div>
-                <h1 class="case-title">Funding landscapes for <span class="accent">pollinator habitat and connectivity</span></h1>
+                <div class="case-eyebrow">Switzerland · Pollinator conservation · Spatial policy modelling</div>
+                <h1 class="case-title">
+                    Modelling pollinator habitat, connectivity and
+                    <span class="accent">conservation funding in Switzerland</span>
+                </h1>
             </div>
 
             <div class="case-hero-lower">
                 <div>
                     <p class="case-lead">
-                        This project asks a controlled conservation question: <strong>if the amount of money is fixed,
-                        does where we place agricultural intervention change the modeled ecological benefit for bees
-                        and butterflies?</strong> Pollinator data define ecological value, the Swiss 5-km grid defines
-                        the landscape, representative management units define where intervention can occur, and the
-                        policy model redistributes the same programme under different spatial priorities.
+                        <strong>Research question:</strong> with a fixed conservation budget, how does changing
+                        <em>where</em> agricultural intervention is funded affect modelled habitat and structural
+                        connectivity outcomes for bees and butterflies? Pollinator data define ecological value,
+                        the Swiss 5-km grid defines the landscape, representative management units define where
+                        intervention can occur, and the policy model redistributes the same programme under
+                        different spatial priorities.
                     </p>
                     <div class="case-tags">
                         <span>Switzerland</span><span>554 bee species</span><span>217 butterfly species</span>
@@ -12478,7 +12677,7 @@ function getUrbanHeatCaseStudyHTML() {
 
                 <button class="case-back" type="button" data-case-back>
                     <i class="fa-solid fa-arrow-left"></i>
-                    Back to Mini Projects
+                    Back to Data & Coding Projects
                 </button>
 
                 <div class="case-story-progress" aria-label="Urban heat research story sections">
@@ -12520,69 +12719,40 @@ function getUrbanHeatCaseStudyHTML() {
         </div>
 
 
-        <section class="case-hero" id="heat-overview">
+        <section class="case-hero heat-project-hero" id="heat-overview">
 
             <div class="case-hero-heading">
 
                 <div class="case-eyebrow">
-                    Metro Manila · Urban heat · Spatial intervention
+                    Metro Manila · Urban heat · Spatial modelling
                 </div>
 
                 <h1 class="case-title">
-                    From a heat surface to
+                    Modelling urban heat and
                     <span class="accent">
-                        tree-intervention priorities
+                        tree-intervention priority in Metro Manila
                     </span>
                 </h1>
 
             </div>
 
 
-            <div class="case-hero-lower">
+            <div class="case-hero-lower heat-objective-layout">
 
                 <div>
 
-                    <p class="case-lead">
-                        This project asks a practical urban-environment question:
-                        <strong>where should tree-based intervention be examined first when
-                        both heat intensity and spatial suitability matter?</strong>
-                        The workflow begins with a baseline land-surface-temperature
-                        surface, repairs missing pixels, develops alternative priority
-                        views and then narrows the analysis toward a final intervention
-                        surface and a shortlist of critical hotspots.
+                    <p class="case-lead heat-objective">
+                        <strong>Objective:</strong> identify areas where tree-based heat mitigation
+                        should be examined first by combining land-surface temperature, existing
+                        vegetation and land-cover suitability across Metro Manila.
                     </p>
 
                     <div class="case-tags">
                         <span>Metro Manila</span>
                         <span>Google Earth Engine</span>
-                        <span>Land Surface Temperature</span>
-                        <span>Spatial Prioritisation</span>
-                        <span>Tree Intervention</span>
-                    </div>
-
-                </div>
-
-
-                <div class="case-hero-metrics">
-
-                    <div class="case-metric">
-                        <strong>30 m</strong>
-                        <span>Working resolution used for the gap-filled LST surface shown in the project outputs.</span>
-                    </div>
-
-                    <div class="case-metric">
-                        <strong>300 m</strong>
-                        <span>Broader heat context used to inspect neighbourhood-scale temperature patterns.</span>
-                    </div>
-
-                    <div class="case-metric">
-                        <strong>2 lenses</strong>
-                        <span>Tree-intervention priority and heat-priority views are compared before the final priority surface.</span>
-                    </div>
-
-                    <div class="case-metric">
-                        <strong>Top 100</strong>
-                        <span>A final shortlist highlights the most critical hotspot cells for closer planning review.</span>
+                        <span>Landsat 9</span>
+                        <span>Sentinel-2</span>
+                        <span>Dynamic World</span>
                     </div>
 
                 </div>
@@ -12592,30 +12762,30 @@ function getUrbanHeatCaseStudyHTML() {
         </section>
 
 
-        <section class="case-section" id="heat-methods">
+        <section class="case-section heat-data-methods" id="heat-methods">
 
             <div class="case-section-head">
 
                 <div>
 
                     <div class="case-section-number">
-                        Method
+                        Data &amp; Methods
                     </div>
 
                     <h2>
-                        Build the heat baseline first, then turn temperature into a planning question.
+                        Satellite observations provide the heat, vegetation and land-cover evidence.
                     </h2>
 
                 </div>
 
                 <p class="case-section-intro">
-                    A temperature map alone does not tell a city where an intervention should go.
-                    This workflow separates the problem into several steps. First, the analysis
-                    establishes the spatial pattern of land-surface temperature. Second, it creates
-                    a continuous working surface where missing values would make comparison difficult.
-                    Third, tree-intervention and heat-priority layers provide different ways of asking
-                    where intervention may matter most. Finally, the resulting priority surface is used
-                    to identify critical locations for closer examination.
+                    The analysis is implemented in <strong>Google Earth Engine</strong> and clipped to
+                    the Metro Manila study boundary. <strong>Landsat 9 Collection 2 Level-2</strong>
+                    provides the land-surface-temperature baseline. <strong>Sentinel-2 Surface
+                    Reflectance</strong> provides vegetation information through spectral indices such
+                    as NDVI, while <strong>Dynamic World</strong> supplies land-cover context such as
+                    existing trees, built-up surfaces and water. These layers are aligned into a common
+                    spatial workflow before the intervention-priority surfaces are calculated.
                 </p>
 
             </div>
@@ -12624,43 +12794,55 @@ function getUrbanHeatCaseStudyHTML() {
             <div class="heat-method-grid">
 
                 <article class="heat-method-step">
-                    <b>01 · Baseline</b>
-                    <h3>Map the observed heat pattern</h3>
+                    <b>01 · Heat source</b>
+                    <h3>Landsat 9 surface temperature</h3>
                     <p>
-                        The raw composite is the starting temperature landscape. It shows where the
-                        city is relatively hotter or cooler before the prioritisation logic is applied.
+                        Landsat 9 Collection 2 Level-2 imagery is used to describe the spatial pattern
+                        of land-surface temperature. The raw composite is the observed heat baseline;
+                        missing pixels are then gap-filled to create a continuous 30-m working surface
+                        for spatial comparison.
                     </p>
                 </article>
 
                 <article class="heat-method-step">
-                    <b>02 · Continuity</b>
-                    <h3>Repair gaps for spatial comparison</h3>
+                    <b>02 · Vegetation source</b>
+                    <h3>Sentinel-2 vegetation condition</h3>
                     <p>
-                        A gap-filled 30-m surface creates a more continuous temperature layer so that
-                        neighbouring locations can be compared consistently during the next modelling steps.
+                        Sentinel-2 Surface Reflectance imagery is used to describe existing vegetation
+                        through NDVI and related vegetation structure information. This helps distinguish
+                        already-green areas from places where additional tree cover may be more relevant
+                        to investigate.
                     </p>
                 </article>
 
                 <article class="heat-method-step">
-                    <b>03 · Priorities</b>
-                    <h3>Separate suitability from heat urgency</h3>
+                    <b>03 · Land-cover source</b>
+                    <h3>Dynamic World land-cover context</h3>
                     <p>
-                        The project keeps a tree-intervention priority view and a heat-priority view.
-                        This prevents the hottest place from automatically being treated as the only
-                        important planning criterion.
+                        Dynamic World provides land-cover context for the intervention model. Classes
+                        such as trees, built-up land and water help interpret whether a hot location is
+                        also spatially appropriate for a tree-based intervention rather than relying on
+                        temperature alone.
                     </p>
                 </article>
 
                 <article class="heat-method-step">
-                    <b>04 · Decision support</b>
-                    <h3>Combine evidence into an intervention shortlist</h3>
+                    <b>04 · Spatial modelling</b>
+                    <h3>Prioritisation and hotspot screening</h3>
                     <p>
-                        The final priority layer and critical-hotspot map are decision-support outputs.
-                        They are meant to help focus field checking and planning, not to claim that every
-                        highlighted cell should automatically receive trees.
+                        All layers are clipped to Metro Manila and brought into a common analytical grid.
+                        The model compares a general tree-intervention priority with a heat-priority view,
+                        checks broader 300-m heat context, combines the evidence into a final priority
+                        surface and then identifies the Top 100 critical hotspot cells for closer review.
                     </p>
                 </article>
 
+            </div>
+
+            <div class="heat-case-note heat-method-note">
+                The maps are decision-support outputs, not automatic planting instructions. Final
+                site selection would still require local land-use information, field validation,
+                planting-space checks, utilities and implementation constraints.
             </div>
 
         </section>
@@ -12947,147 +13129,6 @@ function getUrbanHeatCaseStudyHTML() {
             </aside>
 
         </div>
-
-
-        <section class="heat-explorer-section" id="heat-explorer">
-
-            <div class="heat-explorer-head">
-
-                <div>
-                    <div class="case-section-number">
-                        Interactive map set
-                    </div>
-
-                    <h2>
-                        Compare every stage of the workflow.
-                    </h2>
-                </div>
-
-                <p>
-                    Select a map to replace the main figure. This makes it easier to compare
-                    how the analysis moves from a temperature surface to an intervention
-                    shortlist without opening seven separate image windows.
-                </p>
-
-            </div>
-
-
-            <div class="heat-explorer">
-
-                <div class="heat-map-tabs">
-
-                    <button
-                        class="heat-map-button active"
-                        type="button"
-                        data-heat-map="./01_Baseline_LST_RAW_COMPOSITE.png"
-                        data-heat-title="Raw baseline LST composite"
-                        data-heat-copy="The starting temperature landscape before gap filling or intervention prioritisation."
-                        aria-pressed="true"
-                    >
-                        <span>01</span>
-                        <strong>Baseline LST</strong>
-                    </button>
-
-                    <button
-                        class="heat-map-button"
-                        type="button"
-                        data-heat-map="./02_LST_GapFilled_30m.png"
-                        data-heat-title="Gap-filled LST · 30 m"
-                        data-heat-copy="A continuous working temperature surface used for consistent cell-by-cell spatial comparison."
-                        aria-pressed="false"
-                    >
-                        <span>02</span>
-                        <strong>Gap-filled 30 m</strong>
-                    </button>
-
-                    <button
-                        class="heat-map-button"
-                        type="button"
-                        data-heat-map="./03_Tree_Intervention_Priority_REBUILT.png"
-                        data-heat-title="Tree-intervention priority"
-                        data-heat-copy="The planning question shifts from where it is hot to where tree-based intervention can be prioritised spatially."
-                        aria-pressed="false"
-                    >
-                        <span>03</span>
-                        <strong>Tree priority</strong>
-                    </button>
-
-                    <button
-                        class="heat-map-button"
-                        type="button"
-                        data-heat-map="./04_Tree_Intervention_HeatPriority_REBUILT.png"
-                        data-heat-title="Heat-priority tree intervention"
-                        data-heat-copy="A complementary priority view that gives stronger attention to thermal urgency."
-                        aria-pressed="false"
-                    >
-                        <span>04</span>
-                        <strong>Heat priority</strong>
-                    </button>
-
-                    <button
-                        class="heat-map-button"
-                        type="button"
-                        data-heat-map="./05_Baseline_LST_300m_REBUILT.png"
-                        data-heat-title="Baseline LST · 300 m"
-                        data-heat-copy="A broader spatial view that helps distinguish neighbourhood-scale heat patterns from fine-resolution local variation."
-                        aria-pressed="false"
-                    >
-                        <span>05</span>
-                        <strong>300 m context</strong>
-                    </button>
-
-                    <button
-                        class="heat-map-button"
-                        type="button"
-                        data-heat-map="./06_Intervention_Priority_FINAL.png"
-                        data-heat-title="Final intervention priority"
-                        data-heat-copy="The synthesis map used as a screening surface for places that deserve closer site-level investigation."
-                        aria-pressed="false"
-                    >
-                        <span>06</span>
-                        <strong>Final priority</strong>
-                    </button>
-
-                    <button
-                        class="heat-map-button"
-                        type="button"
-                        data-heat-map="./12_Top100_Critical_Hotspots.png"
-                        data-heat-title="Top 100 critical hotspots"
-                        data-heat-copy="A compact shortlist that turns the city-wide analysis into a manageable set of locations for validation and planning review."
-                        aria-pressed="false"
-                    >
-                        <span>07</span>
-                        <strong>Top 100 hotspots</strong>
-                    </button>
-
-                </div>
-
-
-                <div class="heat-map-card">
-
-                    <img
-                        id="heatMapImage"
-                        src="./01_Baseline_LST_RAW_COMPOSITE.png"
-                        onerror="portfolioImageFallback(this)"
-                        data-case-lightbox
-                        alt="Selected Metro Manila urban heat modelling output"
-                    >
-
-                    <div class="heat-map-copy">
-                        <h3 id="heatMapTitle">
-                            Raw baseline LST composite
-                        </h3>
-
-                        <p id="heatMapDescription">
-                            The starting temperature landscape before gap filling or intervention prioritisation.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
 
 
         <section class="case-section case-takeaway-section">
