@@ -13279,3 +13279,1379 @@ function hydrateCaseStudyMedia(view) {
                 img.dataset.src;
 
             if
+
+
+                 (!source) {
+            return;
+        }
+
+        img.src = source;
+        img.removeAttribute("data-src");
+
+    };
+
+    if (!("IntersectionObserver" in window)) {
+        images.forEach(loadImage);
+        return;
+    }
+
+    caseStudyObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    loadImage(entry.target);
+                    caseStudyObserver?.unobserve(
+                        entry.target
+                    );
+
+                });
+
+            },
+            {
+                root: view,
+                rootMargin: "260px 0px",
+                threshold: 0.01
+            }
+        );
+
+    images.forEach(img => {
+        caseStudyObserver.observe(img);
+    });
+
+}
+
+
+
+
+function bindCaseScrollytelling(view) {
+
+    const steps = Array.from(
+        view.querySelectorAll("[data-story-step]")
+    );
+
+    const scenes = Array.from(
+        view.querySelectorAll(".case-story-scene[data-scene]")
+    );
+
+    const progressDots = Array.from(
+        view.querySelectorAll("[data-story-jump]")
+    );
+
+    const progressCount =
+        view.querySelector("[data-story-progress-count]");
+
+    const progressCurrent =
+        view.querySelector("[data-story-progress-current]");
+
+    const topbar =
+        view.querySelector(".case-study-topbar");
+
+    if (!steps.length || !scenes.length) {
+        return;
+    }
+
+
+    const sceneLabels = {
+        ecology: "01 · Pollinator ecology",
+        policy: "02 · Policy setup",
+        tradeoff: "03 · Habitat & connectivity",
+        targeting: "04 · Same-budget experiment",
+        participation: "05 · Participation",
+        spatial: "06 · Spatial allocation",
+        consensus: "07 · Consensus",
+        robustness: "08 · Robustness",
+
+        "heat-baseline": "01 · Baseline heat",
+        "heat-gapfill": "02 · Gap-filled LST",
+        "heat-tree": "03 · Tree priority",
+        "heat-urgency": "04 · Heat priority",
+        "heat-scale": "05 · 300 m context",
+        "heat-final": "06 · Final priority",
+        "heat-hotspots": "07 · Critical hotspots"
+    };
+
+
+    let activeSceneName = "";
+    let rafId = 0;
+
+
+    /* ---------------------------------------------------------
+       PRELOAD EVERY STORY VISUAL IMMEDIATELY
+
+       The old version could show the correct section text before a
+       heavy PNG/GIF had finished painting. All story assets are now
+       requested as soon as the case study opens.
+    --------------------------------------------------------- */
+
+    const storyImages = Array.from(
+        view.querySelectorAll(
+            ".case-story-scene img"
+        )
+    );
+
+    storyImages.forEach(img => {
+
+        img.loading = "eager";
+        img.decoding = "async";
+
+        const source =
+            img.getAttribute("src") ||
+            img.dataset.sceneSrc ||
+            img.dataset.src;
+
+        if (!source) {
+            return;
+        }
+
+        if (!img.getAttribute("src")) {
+            img.src = source;
+        }
+
+        const preloader = new Image();
+        preloader.src = source;
+
+    });
+
+
+    const getHeaderOffset = () => {
+
+        const height =
+            topbar
+                ? topbar.getBoundingClientRect().height
+                : 72;
+
+        return height + 12;
+    };
+
+
+    const getReadingLineY = () => {
+
+        const viewRect =
+            view.getBoundingClientRect();
+
+        const headerBottom =
+            viewRect.top + getHeaderOffset();
+
+        const visibleBottom =
+            Math.min(
+                viewRect.bottom,
+                window.innerHeight
+            );
+
+        const usableHeight =
+            Math.max(
+                220,
+                visibleBottom - headerBottom
+            );
+
+        return (
+            headerBottom +
+            usableHeight * 0.42
+        );
+    };
+
+
+    const getActiveStep = () => {
+
+        const readingY =
+            getReadingLineY();
+
+        for (const step of steps) {
+
+            const rect =
+                step.getBoundingClientRect();
+
+            if (
+                readingY >= rect.top &&
+                readingY < rect.bottom
+            ) {
+                return step;
+            }
+        }
+
+        let nearest =
+            steps[0];
+
+        let nearestDistance =
+            Infinity;
+
+        for (const step of steps) {
+
+            const rect =
+                step.getBoundingClientRect();
+
+            const centre =
+                rect.top + rect.height / 2;
+
+            const distance =
+                Math.abs(
+                    centre - readingY
+                );
+
+            if (distance < nearestDistance) {
+                nearest = step;
+                nearestDistance = distance;
+            }
+        }
+
+        return nearest;
+    };
+
+
+    const activateScene = sceneName => {
+
+        if (
+            !sceneName ||
+            sceneName === activeSceneName
+        ) {
+            return;
+        }
+
+        activeSceneName =
+            sceneName;
+
+        const activeIndex =
+            Math.max(
+                0,
+                steps.findIndex(
+                    step =>
+                        step.dataset.sceneTarget ===
+                        sceneName
+                )
+            );
+
+
+        steps.forEach(step => {
+
+            step.classList.toggle(
+                "active",
+                step.dataset.sceneTarget ===
+                    sceneName
+            );
+
+        });
+
+
+        scenes.forEach(scene => {
+
+            const active =
+                scene.dataset.scene ===
+                sceneName;
+
+            scene.classList.toggle(
+                "active",
+                active
+            );
+
+            scene.setAttribute(
+                "aria-hidden",
+                active ? "false" : "true"
+            );
+
+        });
+
+
+        progressDots.forEach(dot => {
+
+            const active =
+                dot.dataset.storyJump ===
+                sceneName;
+
+            dot.classList.toggle(
+                "active",
+                active
+            );
+
+            if (active) {
+                dot.setAttribute(
+                    "aria-current",
+                    "step"
+                );
+            } else {
+                dot.removeAttribute(
+                    "aria-current"
+                );
+            }
+
+        });
+
+
+        if (progressCount) {
+
+            progressCount.textContent =
+                `${activeIndex + 1} / ${steps.length}`;
+
+        }
+
+
+        if (progressCurrent) {
+
+            progressCurrent.textContent =
+                sceneLabels[sceneName] ||
+                `Section ${activeIndex + 1}`;
+
+        }
+
+    };
+
+
+    const updateFromScroll = () => {
+
+        rafId = 0;
+
+        const activeStep =
+            getActiveStep();
+
+        if (!activeStep) {
+            return;
+        }
+
+        activateScene(
+            activeStep.dataset.sceneTarget
+        );
+
+    };
+
+
+    const scheduleUpdate = () => {
+
+        if (rafId) {
+            return;
+        }
+
+        rafId =
+            requestAnimationFrame(
+                updateFromScroll
+            );
+
+    };
+
+
+    const getScrollTopForStep = step => {
+
+        const rect =
+            step.getBoundingClientRect();
+
+        const currentReadingY =
+            getReadingLineY();
+
+        const targetCentre =
+            rect.top +
+            rect.height * 0.50;
+
+        return Math.max(
+            0,
+            view.scrollTop +
+            targetCentre -
+            currentReadingY
+        );
+    };
+
+
+    progressDots.forEach(dot => {
+
+        dot.addEventListener(
+            "click",
+            () => {
+
+                const target =
+                    steps.find(
+                        step =>
+                            step.dataset.sceneTarget ===
+                            dot.dataset.storyJump
+                    );
+
+                if (!target) {
+                    return;
+                }
+
+                activateScene(
+                    target.dataset.sceneTarget
+                );
+
+                view.scrollTo({
+                    top:
+                        getScrollTopForStep(
+                            target
+                        ),
+                    behavior: "auto"
+                });
+
+                requestAnimationFrame(
+                    updateFromScroll
+                );
+
+            }
+        );
+
+    });
+
+
+    view.addEventListener(
+        "scroll",
+        scheduleUpdate,
+        { passive: true }
+    );
+
+    window.addEventListener(
+        "resize",
+        scheduleUpdate,
+        { passive: true }
+    );
+
+
+    activateScene(
+        steps[0].dataset.sceneTarget
+    );
+
+    requestAnimationFrame(
+        updateFromScroll
+    );
+
+
+    view._caseStoryCleanup = () => {
+
+        view.removeEventListener(
+            "scroll",
+            scheduleUpdate
+        );
+
+        window.removeEventListener(
+            "resize",
+            scheduleUpdate
+        );
+
+        if (rafId) {
+            cancelAnimationFrame(
+                rafId
+            );
+        }
+
+    };
+
+}
+
+
+function bindCaseStudyInteractions(view) {
+
+    const bars =
+        Array.from(
+            view.querySelectorAll(
+                ".consensus-bar"
+            )
+        );
+
+    const mapImage =
+        view.querySelector(
+            "#consensusMapImage"
+        );
+
+    const mapTitle =
+        view.querySelector(
+            "#consensusMapTitle"
+        );
+
+    const mapDescription =
+        view.querySelector(
+            "#consensusMapDescription"
+        );
+
+
+    const heatButtons =
+        Array.from(
+            view.querySelectorAll(
+                ".heat-map-button[data-heat-map]"
+            )
+        );
+
+    const heatMapImage =
+        view.querySelector(
+            "#heatMapImage"
+        );
+
+    const heatMapTitle =
+        view.querySelector(
+            "#heatMapTitle"
+        );
+
+    const heatMapDescription =
+        view.querySelector(
+            "#heatMapDescription"
+        );
+
+
+    heatButtons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                heatButtons.forEach(item => {
+                    item.classList.remove("active");
+                    item.setAttribute(
+                        "aria-pressed",
+                        "false"
+                    );
+                });
+
+                button.classList.add("active");
+                button.setAttribute(
+                    "aria-pressed",
+                    "true"
+                );
+
+                if (heatMapImage) {
+                    heatMapImage.dataset.rawFallbackTried =
+                        "false";
+
+                    heatMapImage.src =
+                        button.dataset.heatMap;
+                }
+
+                if (heatMapTitle) {
+                    heatMapTitle.textContent =
+                        button.dataset.heatTitle || "";
+                }
+
+                if (heatMapDescription) {
+                    heatMapDescription.textContent =
+                        button.dataset.heatCopy || "";
+                }
+
+            }
+        );
+
+    });
+
+
+    bars.forEach(bar => {
+
+        bar.addEventListener(
+            "click",
+            () => {
+
+                bars.forEach(item => {
+                    item.classList.remove("active");
+                    item.setAttribute("aria-pressed","false");
+                });
+
+                bar.classList.add("active");
+                bar.setAttribute("aria-pressed","true");
+
+                if (mapImage) {
+                    mapImage.dataset.rawFallbackTried = "false";
+                    mapImage.removeAttribute("data-src");
+                    mapImage.src = bar.dataset.map;
+                }
+
+                if (mapTitle) {
+                    mapTitle.textContent =
+                        bar.dataset.title;
+                }
+
+                if (mapDescription) {
+                    mapDescription.textContent =
+                        bar.dataset.copy;
+                }
+
+            }
+        );
+
+    });
+
+
+    view
+        .querySelectorAll("[data-case-lightbox]")
+        .forEach(img => {
+
+            img.addEventListener(
+                "click",
+                () => {
+
+                    const source =
+                        img.currentSrc
+                        || img.src
+                        || img.dataset.src;
+
+                    if (!source) {
+                        return;
+                    }
+
+                    lightboxImage.src = source;
+                    lightbox.classList.add("open");
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   IMAGE FALLBACK
+========================================================= */
+
+function portfolioImageFallback(img) {
+
+    if (!img || img.dataset.rawFallbackTried === "true") {
+        return;
+    }
+
+    try {
+
+        const current =
+            new URL(
+                img.currentSrc || img.src,
+                window.location.href
+            );
+
+        const filename =
+            current.pathname
+                .split("/")
+                .pop();
+
+        if (!filename) {
+            return;
+        }
+
+        img.dataset.rawFallbackTried =
+            "true";
+
+        img.src =
+            `https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/${filename}`;
+
+    }
+
+    catch (error) {
+        /* Avoid a retry loop. */
+    }
+
+}
+
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+function closeLightbox() {
+
+    lightbox.classList.remove(
+        "open"
+    );
+
+    lightboxImage.src =
+        "";
+
+}
+
+
+lightboxClose.addEventListener(
+    "click",
+    closeLightbox
+);
+
+
+lightbox.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target
+            ===
+            lightbox
+        ) {
+
+            closeLightbox();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key
+            !==
+            "Escape"
+        ) {
+
+            return;
+        }
+
+        if (
+            lightbox.classList
+            .contains(
+                "open"
+            )
+        ) {
+
+            closeLightbox();
+
+            return;
+        }
+
+        if (activeCaseStudy) {
+
+            closeCaseStudy();
+
+            return;
+        }
+
+        closeActivePanel();
+
+    }
+);
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    positionCloseButton
+);
+
+</script>
+
+
+<!-- =========================================================
+     MOBILE RESEARCH FIGURES FIX
+
+     This block is intentionally appended to the exact working
+     portfolio. It changes only the research-story presentation
+     on screens 800px wide or smaller.
+
+     Desktop behaviour, cards, titles, text, animations and the
+     rest of the portfolio remain untouched.
+========================================================= -->
+
+<style id="mobile-research-figures-fix">
+
+@media (max-width: 800px) {
+
+    .case-scrolly.mobile-inline-ready
+    > .case-story-stage {
+
+        display: none !important;
+    }
+
+
+    .case-scrolly.mobile-inline-ready {
+
+        display: block !important;
+
+        width: 100% !important;
+
+        padding-top: 18px !important;
+    }
+
+
+    .case-scrolly.mobile-inline-ready
+    > .case-story-copy {
+
+        display: block !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+    }
+
+
+    .case-scrolly.mobile-inline-ready
+    .case-story-step {
+
+        min-height: 0 !important;
+
+        height: auto !important;
+
+        padding:
+            32px
+            4px
+            42px !important;
+
+        opacity: 1 !important;
+
+        transform: none !important;
+
+        border-left: 0 !important;
+    }
+
+
+    .case-scrolly.mobile-inline-ready
+    .case-story-step.active {
+
+        padding-left: 4px !important;
+    }
+
+
+    .case-scrolly.mobile-inline-ready
+    .case-story-step
+    +
+    .case-story-step {
+
+        border-top:
+            1px solid
+            rgba(193,246,237,.09);
+    }
+
+
+    .mobile-inline-figure {
+
+        position: relative !important;
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        margin:
+            22px
+            0
+            0 !important;
+
+        overflow: hidden !important;
+
+        border:
+            1px solid
+            rgba(193,246,237,.16);
+
+        border-radius: 18px;
+
+        background: #f4f6f6;
+
+        box-shadow:
+            0 12px 26px
+            rgba(0,24,28,.14);
+    }
+
+
+    .mobile-inline-figure
+    .case-story-scene {
+
+        position: relative !important;
+
+        inset: auto !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+
+        min-height: 0 !important;
+
+        max-height: none !important;
+
+        opacity: 1 !important;
+
+        visibility: visible !important;
+
+        pointer-events: auto !important;
+
+        transform: none !important;
+
+        z-index: auto !important;
+
+        overflow: visible !important;
+    }
+
+
+    .mobile-inline-figure
+    .case-story-scene:not(.active) {
+
+        display: flex !important;
+
+        opacity: 1 !important;
+
+        visibility: visible !important;
+    }
+
+
+    .mobile-inline-figure
+    .case-scene-media {
+
+        position: relative !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+
+        min-height: 0 !important;
+
+        max-height: none !important;
+
+        padding: 8px !important;
+
+        overflow: visible !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        background: #f4f6f6 !important;
+    }
+
+
+    .mobile-inline-figure
+    .case-scene-media img,
+
+    .mobile-inline-figure img {
+
+        position: relative !important;
+
+        display: block !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+
+        min-width: 0 !important;
+
+        min-height: 0 !important;
+
+        max-width: 100% !important;
+
+        max-height: none !important;
+
+        margin:
+            0 auto !important;
+
+        padding: 0 !important;
+
+        object-fit: contain !important;
+
+        object-position: center !important;
+
+        background: #f4f6f6 !important;
+    }
+
+
+    .mobile-inline-figure
+    .case-scene-caption {
+
+        position: relative !important;
+
+        width: 100% !important;
+
+        min-height: 0 !important;
+
+        padding:
+            11px
+            13px
+            13px !important;
+    }
+
+
+    .mobile-inline-figure
+    .case-visual-panel,
+
+    .mobile-inline-figure
+    .case-ecology-diagram {
+
+        position: relative !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+
+        min-height: 0 !important;
+
+        max-height: none !important;
+
+        overflow: visible !important;
+    }
+
+
+    .mobile-inline-figure
+    .case-policy-grid,
+
+    .mobile-inline-figure
+    .case-ecology-flow-v3 {
+
+        grid-template-columns: 1fr !important;
+    }
+}
+
+</style>
+
+
+<script id="mobile-research-figures-script">
+
+(() => {
+
+    const isMobile = () =>
+        window.matchMedia(
+            "(max-width: 800px)"
+        ).matches;
+
+
+    function buildMobileInlineFigures(
+        view
+    ) {
+
+        if (
+            !isMobile()
+            ||
+            !view
+        ) {
+            return;
+        }
+
+
+        const scrolly =
+            view.querySelector(
+                ".case-scrolly"
+            );
+
+
+        if (
+            !scrolly
+            ||
+            scrolly.dataset.mobileInlineBuilt
+                ===
+                "true"
+        ) {
+            return;
+        }
+
+
+        const copy =
+            scrolly.querySelector(
+                ":scope > .case-story-copy"
+            );
+
+
+        const stage =
+            scrolly.querySelector(
+                ":scope > .case-story-stage"
+            );
+
+
+        if (
+            !copy
+            ||
+            !stage
+        ) {
+            return;
+        }
+
+
+        const steps =
+            Array.from(
+                copy.querySelectorAll(
+                    "[data-story-step]"
+                )
+            );
+
+
+        const scenes =
+            Array.from(
+                stage.querySelectorAll(
+                    ".case-story-scene[data-scene]"
+                )
+            );
+
+
+        if (
+            !steps.length
+            ||
+            !scenes.length
+        ) {
+            return;
+        }
+
+
+        const sceneMap =
+            new Map(
+                scenes.map(
+                    scene => [
+                        scene.dataset.scene,
+                        scene
+                    ]
+                )
+            );
+
+
+        let inserted = 0;
+
+
+        steps.forEach(
+            step => {
+
+                const sceneName =
+                    step.dataset.sceneTarget;
+
+
+                const sourceScene =
+                    sceneMap.get(
+                        sceneName
+                    );
+
+
+                if (!sourceScene) {
+                    return;
+                }
+
+
+                const existing =
+                    step.querySelector(
+                        ":scope > .mobile-inline-figure"
+                    );
+
+
+                if (existing) {
+
+                    inserted += 1;
+
+                    return;
+                }
+
+
+                const wrapper =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                wrapper.className =
+                    "mobile-inline-figure";
+
+
+                const clone =
+                    sourceScene.cloneNode(
+                        true
+                    );
+
+
+                clone.classList.add(
+                    "active"
+                );
+
+
+                clone.removeAttribute(
+                    "data-scene"
+                );
+
+
+                clone.removeAttribute(
+                    "aria-hidden"
+                );
+
+
+                clone
+                    .querySelectorAll(
+                        "img"
+                    )
+                    .forEach(
+                        img => {
+
+                            const source =
+                                img.getAttribute(
+                                    "src"
+                                )
+                                ||
+                                img.dataset.src
+                                ||
+                                img.dataset.sceneSrc;
+
+
+                            if (source) {
+
+                                img.src =
+                                    source;
+                            }
+
+
+                            img.removeAttribute(
+                                "data-src"
+                            );
+
+
+                            img.removeAttribute(
+                                "data-scene-src"
+                            );
+
+
+                            img.loading =
+                                "eager";
+
+
+                            img.decoding =
+                                "async";
+
+
+                            img.addEventListener(
+                                "error",
+                                () => {
+
+                                    if (
+                                        typeof portfolioImageFallback
+                                        ===
+                                        "function"
+                                    ) {
+
+                                        portfolioImageFallback(
+                                            img
+                                        );
+                                    }
+                                }
+                            );
+
+
+                            if (
+                                img.hasAttribute(
+                                    "data-case-lightbox"
+                                )
+                            ) {
+
+                                img.style.cursor =
+                                    "zoom-in";
+
+
+                                img.addEventListener(
+                                    "click",
+                                    () => {
+
+                                        const imageSource =
+                                            img.currentSrc
+                                            ||
+                                            img.src;
+
+
+                                        if (!imageSource) {
+                                            return;
+                                        }
+
+
+                                        if (
+                                            lightboxImage
+                                            &&
+                                            lightbox
+                                        ) {
+
+                                            lightboxImage.src =
+                                                imageSource;
+
+
+                                            lightbox.classList.add(
+                                                "open"
+                                            );
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    );
+
+
+                wrapper.appendChild(
+                    clone
+                );
+
+
+                step.appendChild(
+                    wrapper
+                );
+
+
+                inserted += 1;
+            }
+        );
+
+
+        if (
+            inserted
+            ===
+            steps.length
+        ) {
+
+            scrolly.classList.add(
+                "mobile-inline-ready"
+            );
+
+
+            scrolly.dataset.mobileInlineBuilt =
+                "true";
+        }
+    }
+
+
+    function scan() {
+
+        if (!isMobile()) {
+            return;
+        }
+
+
+        document
+            .querySelectorAll(
+                ".case-study-view"
+            )
+            .forEach(
+                buildMobileInlineFigures
+            );
+    }
+
+
+    const observer =
+        new MutationObserver(
+            () => {
+
+                requestAnimationFrame(
+                    scan
+                );
+            }
+        );
+
+
+    observer.observe(
+        document.body,
+        {
+            childList: true,
+            subtree: true
+        }
+    );
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        scan
+    );
+
+
+    window.addEventListener(
+        "resize",
+        scan,
+        {
+            passive: true
+        }
+    );
+
+
+    scan();
+
+})();
+
+</script>
+
+</body>
+</html>
