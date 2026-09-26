@@ -1305,9 +1305,6 @@ img {
 
 /* =========================================================
    OPEN PANEL CONTENT
-
-   Notice the large top padding.
-   Nothing can now sit under the moving title.
 ========================================================= */
 
 .expanded-content {
@@ -1368,7 +1365,6 @@ img {
 }
 
 
-
 /* =========================================================
    CLEAN REVERSE / CLOSE ANIMATION
 ========================================================= */
@@ -1399,10 +1395,6 @@ img {
         opacity .14s ease;
 }
 
-/*
-   Once the content has faded, the returning object is just
-   the clean panel shell and the traveling title.
-*/
 .expansion.geometry-closing .expanded-content,
 .expansion.geometry-closing .expanded-title-shield,
 .expansion.geometry-closing .expanded-blob,
@@ -1410,14 +1402,11 @@ img {
     visibility: hidden;
 }
 
-/*
-   Keep the dashboard destination invisible until the
-   animated shell has actually reached it.
-*/
 .panel.panel-return-target {
     opacity: 0 !important;
     pointer-events: none;
 }
+
 
 /* =========================================================
    OPEN HEADER
@@ -1676,7 +1665,6 @@ img {
 }
 
 
-
 /* =========================================================
    COVER FLOW WRAPPER
 ========================================================= */
@@ -1696,7 +1684,6 @@ img {
 
 /* =========================================================
    COVER FLOW TRACK
-   Portrait / UNO-card proportions.
 ========================================================= */
 
 .cover-flow {
@@ -1726,10 +1713,6 @@ img {
     perspective: 1450px;
     touch-action: pan-x;
 
-    /*
-       Prevent the carousel from nudging the surrounding
-       expanded panel while it is being scrolled.
-    */
     contain: layout style;
 }
 
@@ -1740,7 +1723,6 @@ img {
 
 /* =========================================================
    COVER FLOW CARD
-   Vertical 2:3 gaming / UNO-card shape.
 ========================================================= */
 
 .flow-card {
@@ -1790,11 +1772,6 @@ img {
 
     opacity: .58;
 
-    /*
-       Transform intentionally has NO CSS transition.
-       It follows the finger / scroll position frame by frame.
-       This removes the previous left-shift-then-correct motion.
-    */
     transition:
         opacity .10s linear,
         filter .10s linear,
@@ -1895,6 +1872,7 @@ img {
         rgba(89,225,141,.12);
 
     color: var(--greenBright);
+
     font-size: 1.15rem;
 }
 
@@ -1948,7 +1926,6 @@ img {
 
 /* =========================================================
    VISUAL COVER FLOW
-   Same portrait card silhouette.
 ========================================================= */
 
 .visual-card {
@@ -1998,7 +1975,6 @@ img {
 
 /* =========================================================
    MINI PROJECT FLOW CARD
-   Same portrait card silhouette.
 ========================================================= */
 
 .mini-card {
@@ -2105,6 +2081,7 @@ img {
     position: absolute;
 
     inset: 0;
+
     width: 100%;
     height: 100%;
 }
@@ -2216,11 +2193,13 @@ img {
 .contact-card {
 
     min-height: 165px;
+
     padding: 24px;
 
     display: flex;
 
     flex-direction: column;
+
     justify-content: space-between;
 
     border:
@@ -2233,6 +2212,7 @@ img {
         rgba(6,69,75,.72);
 
     color: inherit;
+
     text-decoration: none;
 
     transition:
@@ -2265,6 +2245,7 @@ img {
     font-size: .7rem;
 
     font-weight: 800;
+
     letter-spacing: .1em;
 
     text-transform: uppercase;
@@ -2291,6 +2272,7 @@ img {
 .lightbox {
 
     position: fixed;
+
     inset: 0;
 
     z-index: 10000;
@@ -2298,6 +2280,7 @@ img {
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 22px;
@@ -2379,6 +2362,7 @@ img {
     .brand {
 
         font-size: .5rem;
+
         letter-spacing: .08em;
     }
 
@@ -2387,10 +2371,6 @@ img {
         display: none;
     }
 
-
-    /* -----------------------------------------------------
-       HOME LAYOUT
-    ----------------------------------------------------- */
 
     .dashboard {
 
@@ -2429,6 +2409,7 @@ img {
     .panel-kicker {
 
         font-size: .46rem;
+
         letter-spacing: .07em;
     }
 
@@ -2444,11 +2425,6 @@ img {
 
         font-size: .62rem;
     }
-
-
-    /* -----------------------------------------------------
-       HOME TITLES
-    ----------------------------------------------------- */
 
     .panel-profile
     .shared-title {
@@ -2487,7 +2463,6 @@ img {
             clamp(1.15rem,5.7vw,1.85rem);
     }
 
-
     .profile-content {
 
         max-width: 88%;
@@ -2506,11 +2481,6 @@ img {
 
         font-size: .46rem;
     }
-
-
-    /* -----------------------------------------------------
-       MOBILE PLANETS
-    ----------------------------------------------------- */
 
     .planet-system {
 
@@ -2561,11 +2531,6 @@ img {
 
         height: 100px;
     }
-
-
-    /* -----------------------------------------------------
-       HOME SMALL CONTENT
-    ----------------------------------------------------- */
 
     .preview-line {
 
@@ -2629,11 +2594,6 @@ img {
         font-size: .46rem;
     }
 
-
-    /* -----------------------------------------------------
-       OPEN TITLE AREA
-    ----------------------------------------------------- */
-
     .expanded-title-shield {
 
         height: 144px;
@@ -2656,13 +2616,6 @@ img {
 
         line-height: 1.6;
     }
-
-
-
-    /* -----------------------------------------------------
-       COVER FLOW
-       Portrait UNO / gaming-card shape on phone too.
-    ----------------------------------------------------- */
 
     .cover-flow {
         --card-width:
@@ -2721,9 +2674,6 @@ img {
         font-size: .62rem;
     }
 
-
-    /* visual cards */
-
     .visual-image {
         height: 58%;
     }
@@ -2736,9 +2686,6 @@ img {
     .visual-caption h3 {
         font-size: 1.22rem;
     }
-
-
-    /* mini cards */
 
     .mini-image,
     .sankey-preview,
@@ -2772,8 +2719,6 @@ img {
 
         margin-bottom: 7px;
     }
-
-    /* contact */
 
     .contact-grid {
 
@@ -2814,24 +2759,18 @@ img {
 
 /* =========================================================
    LEFT-RAIL MICRO ANIMATIONS
-   Lightweight inline SVG/CSS only — no GIF/video assets.
 ========================================================= */
 
 .left-rail-scene {
     display: none;
 }
 
+
 /* =========================================================
    DESKTOP EXPANDED LAYOUT
-   Large title rail on the left; content / Cover Flow on right.
-   Mobile remains unchanged by keeping this above 800px only.
 ========================================================= */
 
 @media (min-width: 801px) {
-
-    /* -----------------------------------------------------
-       LEFT FROSTED TITLE RAIL
-    ----------------------------------------------------- */
 
     .expanded-title-shield {
         top: 0;
@@ -2863,11 +2802,6 @@ img {
             saturate(128%);
     }
 
-
-    /* -----------------------------------------------------
-       KEEP OPEN TITLES LARGE AND STACKED
-    ----------------------------------------------------- */
-
     .flying-title.compact .title-line {
         display: block;
     }
@@ -2876,16 +2810,10 @@ img {
         line-height: .92;
     }
 
-
-    /* -----------------------------------------------------
-       TWO-COLUMN EXPANDED PANEL
-    ----------------------------------------------------- */
-
     .expanded-content {
         padding: 0;
 
         display: grid;
-
         grid-template-columns:
             clamp(520px, 40vw, 790px)
             minmax(0, 1fr);
@@ -2897,11 +2825,6 @@ img {
 
         overflow: hidden;
     }
-
-
-    /* -----------------------------------------------------
-       LEFT DESCRIPTION AREA
-    ----------------------------------------------------- */
 
     .expanded-header-row {
         grid-column: 1;
@@ -2920,7 +2843,6 @@ img {
         align-self: stretch;
 
         overflow-y: auto;
-
         scrollbar-width: none;
     }
 
@@ -2969,11 +2891,6 @@ img {
             rgba(225,244,240,.91);
     }
 
-
-    /* -----------------------------------------------------
-       RIGHT CONTENT STAGE
-    ----------------------------------------------------- */
-
     .flow-section {
         grid-column: 2;
         grid-row: 1;
@@ -2990,9 +2907,7 @@ img {
             clamp(12px, 1.3vw, 24px);
 
         display: flex;
-
         flex-direction: column;
-
         justify-content: center;
     }
 
@@ -3007,11 +2922,6 @@ img {
         color:
             rgba(193,246,237,.63);
     }
-
-
-    /* -----------------------------------------------------
-       PROFILE CONTACT CARDS USE THE RIGHT SIDE
-    ----------------------------------------------------- */
 
     .contact-grid {
         grid-column: 2;
@@ -3041,11 +2951,6 @@ img {
         font-size:
             clamp(1.2rem, 1.35vw, 1.48rem);
     }
-
-
-    /* -----------------------------------------------------
-       BIGGER, MORE READABLE UNO CARDS ON DESKTOP
-    ----------------------------------------------------- */
 
     .cover-flow {
         --card-width:
@@ -3102,28 +3007,16 @@ img {
         margin-top: 8px;
     }
 
-
-    /* -----------------------------------------------------
-       VISUAL / MINI CARDS KEEP PORTRAIT PROPORTIONS
-       BUT USE MORE OF THE AVAILABLE STAGE.
-    ----------------------------------------------------- */
-
     .visual-card,
     .mini-card {
         aspect-ratio: 2 / 3;
     }
-
-
-    /* -----------------------------------------------------
-       LEFT-RAIL BODY / DESCRIPTION
-    ----------------------------------------------------- */
 
     .expanded-header-row > div {
         width: 100%;
         min-height: 100%;
 
         display: flex;
-
         flex-direction: column;
     }
 
@@ -3148,12 +3041,12 @@ img {
 
 }
 
+
 /* =========================================================
-   AUTHORITATIVE DESKTOP PANEL REFINEMENTS
+   FINAL DESKTOP TITLE-RAIL REFINEMENT
 ========================================================= */
 
-.flying-title.compact
-.title-line::after {
+.flying-title.compact .title-line::after {
     content: none !important;
 }
 
@@ -3170,58 +3063,49 @@ img {
     .expansion-gallery .expanded-header-row,
     .expansion-mini .expanded-header-row {
 
-        padding-top:
-            0 !important;
+        padding-top: 0 !important;
 
         padding-left:
-            clamp(42px,3.1vw,60px);
+            clamp(42px, 3.1vw, 60px);
 
         padding-right:
-            clamp(34px,2.7vw,52px);
+            clamp(34px, 2.7vw, 52px);
 
         padding-bottom:
-            clamp(48px,6vh,78px);
+            clamp(48px, 6vh, 78px);
 
-        display:
-            flex;
+        display: flex;
 
-        align-items:
-            flex-end;
+        align-items: flex-end;
     }
 
     .expanded-header-row > div {
-        width:
-            100%;
 
-        min-height:
-            0 !important;
+        width: 100%;
 
-        display:
-            block;
+        min-height: 0 !important;
+
+        display: block;
     }
 
     .expanded-kicker {
 
         font-size:
-            clamp(.92rem,.84vw,1.08rem);
+            clamp(.92rem, .84vw, 1.08rem);
 
-        letter-spacing:
-            .15em;
+        letter-spacing: .15em;
     }
 
     .expanded-description {
 
-        max-width:
-            515px;
+        max-width: 515px;
 
-        margin-top:
-            20px;
+        margin-top: 20px;
 
         font-size:
-            clamp(1.34rem,1.48vw,1.72rem);
+            clamp(1.34rem, 1.48vw, 1.72rem);
 
-        line-height:
-            1.52;
+        line-height: 1.52;
 
         color:
             rgba(239,252,249,.95);
@@ -3231,20 +3115,15 @@ img {
 
         content: "";
 
-        display:
-            block;
+        display: block;
 
-        width:
-            58px;
+        width: 58px;
 
-        height:
-            3px;
+        height: 3px;
 
-        margin-bottom:
-            19px;
+        margin-bottom: 19px;
 
-        border-radius:
-            999px;
+        border-radius: 999px;
 
         background:
             rgba(89,225,141,.72);
@@ -3257,11 +3136,12 @@ img {
     .expanded-header-row > div::before {
         display: none;
     }
+
 }
 
 
 /* =========================================================
-   READABILITY + CARD SIZING
+   DESKTOP READABILITY + IMAGE PANEL REFINEMENT
 ========================================================= */
 
 @media (min-width: 801px) {
@@ -3278,21 +3158,18 @@ img {
 
     .expanded-kicker {
         font-size:
-            clamp(1rem,.92vw,1.18rem) !important;
+            clamp(1rem, .92vw, 1.18rem) !important;
     }
 
     .expanded-description {
-        max-width:
-            520px !important;
+        max-width: 520px !important;
 
-        margin-top:
-            22px !important;
+        margin-top: 22px !important;
 
         font-size:
-            clamp(1.42rem,1.55vw,1.82rem) !important;
+            clamp(1.42rem, 1.55vw, 1.82rem) !important;
 
-        line-height:
-            1.5 !important;
+        line-height: 1.5 !important;
 
         color:
             rgba(244,255,252,.97) !important;
@@ -3300,14 +3177,14 @@ img {
 
     .cover-flow {
         --card-width:
-            clamp(360px,25vw,420px) !important;
+            clamp(360px, 25vw, 420px) !important;
     }
 
     .flow-card {
         aspect-ratio: 2 / 3;
 
         padding:
-            clamp(32px,2.2vw,38px) !important;
+            clamp(32px, 2.2vw, 38px) !important;
 
         border-radius:
             31px !important;
@@ -3315,10 +3192,9 @@ img {
 
     .card-label {
         font-size:
-            clamp(.96rem,.9vw,1.08rem) !important;
+            clamp(.96rem, .9vw, 1.08rem) !important;
 
-        line-height:
-            1.25;
+        line-height: 1.25;
     }
 
     .flow-card h3 {
@@ -3326,7 +3202,7 @@ img {
             26px !important;
 
         font-size:
-            clamp(2.18rem,2.35vw,2.65rem) !important;
+            clamp(2.18rem, 2.35vw, 2.65rem) !important;
 
         line-height:
             1.08 !important;
@@ -3340,7 +3216,7 @@ img {
             20px !important;
 
         font-size:
-            clamp(1.22rem,1.28vw,1.42rem) !important;
+            clamp(1.22rem, 1.28vw, 1.42rem) !important;
 
         line-height:
             1.52 !important;
@@ -3356,7 +3232,7 @@ img {
             8px 11px !important;
 
         font-size:
-            clamp(.82rem,.76vw,.94rem) !important;
+            clamp(.82rem, .76vw, .94rem) !important;
     }
 
     .skill-heading {
@@ -3377,7 +3253,7 @@ img {
 
     .flow-help {
         font-size:
-            clamp(1.02rem,.95vw,1.14rem) !important;
+            clamp(1.02rem, .95vw, 1.14rem) !important;
     }
 
     .visual-caption {
@@ -3387,7 +3263,7 @@ img {
 
     .visual-caption h3 {
         font-size:
-            clamp(1.75rem,1.85vw,2.15rem) !important;
+            clamp(1.75rem, 1.85vw, 2.15rem) !important;
 
         line-height:
             1.12 !important;
@@ -3400,7 +3276,7 @@ img {
 
     .mini-body h3 {
         font-size:
-            clamp(1.85rem,1.95vw,2.25rem) !important;
+            clamp(1.85rem, 1.95vw, 2.25rem) !important;
 
         line-height:
             1.1 !important;
@@ -3408,7 +3284,7 @@ img {
 
     .mini-body p {
         font-size:
-            clamp(1.08rem,1.1vw,1.24rem) !important;
+            clamp(1.08rem, 1.1vw, 1.24rem) !important;
 
         line-height:
             1.5 !important;
@@ -3416,19 +3292,13 @@ img {
 
 }
 
-
-/* =========================================================
-   IMAGE DISPLAY
-========================================================= */
-
 .thumb {
     background:
         rgba(193,246,237,.055);
 }
 
 .thumb img {
-    object-fit:
-        contain !important;
+    object-fit: contain !important;
 
     background:
         rgba(246,255,252,.96);
@@ -3446,25 +3316,68 @@ img {
 
 
 /* =========================================================
-   DESKTOP TITLE RAIL
+   FINAL DESKTOP HEADING SCALE
+========================================================= */
+
+@media (min-width: 801px) {
+
+    .expanded-content {
+        grid-template-columns:
+            clamp(520px, 40vw, 790px)
+            minmax(0, 1fr) !important;
+    }
+
+    .expanded-description {
+        max-width:
+            620px !important;
+
+        font-size:
+            clamp(1.5rem, 1.62vw, 1.92rem) !important;
+
+        line-height:
+            1.5 !important;
+    }
+
+    .expanded-kicker {
+        font-size:
+            clamp(1.02rem, .95vw, 1.2rem) !important;
+    }
+
+    .flying-title {
+        max-width:
+            calc(min(790px, 40vw) - 84px);
+
+        letter-spacing:
+            -.07em;
+    }
+
+    .flying-title .title-line {
+        white-space:
+            normal;
+    }
+
+}
+
+
+/* =========================================================
+   CLEAN DESKTOP TITLE RAIL — FINAL OVERRIDE
 ========================================================= */
 
 @media (min-width: 801px) {
 
     .expansion {
         --desktop-rail-width:
-            clamp(600px,44vw,860px);
+            clamp(600px, 44vw, 860px);
     }
 
     .expanded-title-shield {
-        display:
-            none !important;
+        display: none !important;
     }
 
     .expanded-content {
         grid-template-columns:
             var(--desktop-rail-width)
-            minmax(0,1fr) !important;
+            minmax(0, 1fr) !important;
 
         background:
             transparent !important;
@@ -3474,7 +3387,6 @@ img {
     }
 
     .expanded-header-row {
-
         overflow:
             hidden !important;
 
@@ -3491,20 +3403,19 @@ img {
             transparent !important;
 
         padding-left:
-            clamp(52px,4vw,82px) !important;
+            clamp(52px, 4vw, 82px) !important;
 
         padding-right:
-            clamp(48px,3.7vw,76px) !important;
+            clamp(48px, 3.7vw, 76px) !important;
 
         padding-bottom:
-            clamp(48px,5.5vh,76px) !important;
+            clamp(48px, 5.5vh, 76px) !important;
     }
 
     .expanded-header-row::before,
     .expanded-header-row::after,
     .expanded-header-row > div::before,
     .expanded-header-row > div::after {
-
         display:
             none !important;
 
@@ -3513,7 +3424,6 @@ img {
     }
 
     .expanded-header-row > div {
-
         width:
             100% !important;
 
@@ -3525,13 +3435,11 @@ img {
     }
 
     .expanded-kicker {
-
         font-size:
-            clamp(1.06rem,1vw,1.25rem) !important;
+            clamp(1.06rem, 1vw, 1.25rem) !important;
     }
 
     .expanded-description {
-
         width:
             100% !important;
 
@@ -3542,7 +3450,7 @@ img {
             22px !important;
 
         font-size:
-            clamp(1.5rem,1.58vw,1.86rem) !important;
+            clamp(1.5rem, 1.58vw, 1.86rem) !important;
 
         line-height:
             1.48 !important;
@@ -3555,11 +3463,10 @@ img {
     }
 
     .flying-title {
-
         max-width:
             calc(
                 var(--desktop-rail-width)
-                - clamp(104px,8vw,158px)
+                - clamp(104px, 8vw, 158px)
             ) !important;
 
         letter-spacing:
@@ -3570,14 +3477,12 @@ img {
     }
 
     .flying-title .title-line {
-
         white-space:
             normal !important;
     }
 
     .flow-section,
     .contact-grid {
-
         border-left:
             0 !important;
 
@@ -3819,6 +3724,7 @@ img {
     .heat-map-tabs {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
+
 }
 
 @media (max-width: 800px) {
@@ -3834,6 +3740,7 @@ img {
     .heat-map-button {
         transform: none !important;
     }
+
 }
 
 
@@ -3872,7 +3779,6 @@ img {
     object-fit: cover;
     object-position: center;
 }
-
 
 .case-study-view {
     position: absolute;
@@ -4142,11 +4048,15 @@ img {
 
 .case-nav a {
     flex: 0 0 auto;
+
     padding: 8px 12px;
+
     border: 1px solid rgba(193,246,237,.14);
     border-radius: 999px;
+
     background: rgba(2,53,60,.48);
     color: var(--muted);
+
     text-decoration: none;
     font-size: .74rem;
     font-weight: 760;
@@ -4574,7 +4484,6 @@ img {
 
 }
 
-
 @media (max-width: 800px) {
 
     .case-study-shell {
@@ -4669,13 +4578,8 @@ img {
 
 
 /* =========================================================
-   FINAL POLISH — NATURAL CASE-STUDY MEDIA, SOFT COVER-FLOW
-   FADE, AND SCATTERING PROFILE PLANETS
+   FINAL POLISH
 ========================================================= */
-
-/* -------------------------
-   Case-study media
-------------------------- */
 
 .case-grid.two {
     align-items: start !important;
@@ -4693,10 +4597,6 @@ img {
     height: auto !important;
 }
 
-/*
-   Tables are documentary elements, not tall visual cards.
-   Let them occupy only their real image/caption height.
-*/
 .case-media.table-media {
     overflow: visible !important;
 
@@ -4749,16 +4649,8 @@ img {
 }
 
 
-/* -------------------------
-   Seamless desktop fade
-------------------------- */
-
 @media (min-width: 801px) {
 
-    /*
-       The title rail no longer ends in a visible vertical line.
-       It dissolves into the carousel stage instead.
-    */
     .expanded-header-row {
         overflow: visible !important;
     }
@@ -4800,10 +4692,6 @@ img {
             );
     }
 
-    /*
-       Cards themselves fade as they approach the title rail,
-       so they never terminate against a hard clipping edge.
-    */
     .cover-flow {
         -webkit-mask-image:
             linear-gradient(
@@ -4827,11 +4715,6 @@ img {
     }
 
 }
-
-
-/* -------------------------
-   Expanded profile planets
-------------------------- */
 
 .profile-scatter-system {
     position: absolute !important;
@@ -4864,13 +4747,6 @@ img {
         translate;
 }
 
-
-/*
-   Every piece moves in a different direction.
-   `translate` is used instead of `transform`, so the existing
-   orbit/float/pulse animations keep running at the same time.
-*/
-
 .profile-scatter-system.scattered .orbit1 {
     translate: -34vw 8vh;
 }
@@ -4882,7 +4758,6 @@ img {
 .profile-scatter-system.scattered .orbit3 {
     translate: -18vw -18vh;
 }
-
 
 .profile-scatter-system.scattered .planet1 {
     translate: -7vw -8vh;
@@ -4900,7 +4775,6 @@ img {
     translate: -31vw -21vh;
 }
 
-
 .profile-scatter-system.scattered .particle1 {
     translate: -45vw -18vh;
 }
@@ -4913,18 +4787,11 @@ img {
     translate: -36vw 27vh;
 }
 
-
-/*
-   Keep the moving pieces atmospheric and behind the contact
-   information rather than competing with it.
-*/
 .expansion-profile .expanded-content,
 .expansion-profile .flying-title {
     z-index: 5;
 }
 
-
-/* Mobile gets the same idea at a much smaller scale. */
 @media (max-width: 800px) {
 
     .profile-scatter-system {
@@ -5183,11 +5050,6 @@ img {
     }
 
 }
-
-
-/* =========================================================
-   CLOSE: FADE AND GEOMETRY MOVE AT THE SAME TIME
-========================================================= */
 
 .expansion.is-closing .expanded-content {
     opacity:
@@ -5684,11 +5546,6 @@ img {
     }
 
 }
-
-
-/* ---------------------------------------------------------
-   Case-study vertical rhythm: more explanation, less dead space
---------------------------------------------------------- */
 
 .case-section {
     padding: clamp(46px, 6.5vh, 78px) 0 !important;
@@ -6445,10 +6302,6 @@ img {
 }
 
 
-/* ---------------------------------------------------------
-   TAKEAWAY — full closing panel
---------------------------------------------------------- */
-
 @media (min-width: 801px) {
 
     .urban-heat-case-shell .case-takeaway-section {
@@ -6588,13 +6441,12 @@ img {
 
 
 /* =========================================================
-   PROJECT REFRAMING — PROFESSIONAL TITLES + REAL DATA SOURCES
+   PROJECT REFRAMING
 ========================================================= */
 
 .panel-mini .shared-title {
     font-size:
         clamp(2.35rem, 3.25vw, 4.25rem);
-
     line-height:
         .92;
 }
@@ -7185,6 +7037,18 @@ img {
     line-height: 1.7;
 }
 
+.case-story-step ul {
+    max-width: 650px;
+    margin: 18px 0 0;
+    padding-left: 1.25rem;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.case-story-step li + li {
+    margin-top: 8px;
+}
+
 .case-story-stat-grid {
     margin-top: 20px;
     display: grid;
@@ -7631,6 +7495,62 @@ body.research-case-open .expansion-close {
 .case-progress-dot,
 .case-progress-dot.active {
     transition: none !important;
+}
+
+</style>
+
+
+<style id="cover-flow-depth-fix">
+
+.cover-flow {
+    perspective: 1350px !important;
+    perspective-origin: 50% 48% !important;
+    overflow-y: visible !important;
+}
+
+.flow-card {
+    opacity: 1;
+
+    transform-style: preserve-3d !important;
+    transform-origin: center center !important;
+
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+
+    will-change:
+        transform,
+        opacity,
+        filter !important;
+}
+
+.flow-card.is-center {
+    opacity: 1 !important;
+
+    filter:
+        brightness(1)
+        saturate(1) !important;
+
+    border-color:
+        rgba(89,225,141,.62) !important;
+
+    box-shadow:
+        0 34px 78px rgba(0,24,27,.42),
+        0 0 0 1px rgba(89,225,141,.11),
+        0 0 34px rgba(89,225,141,.08) !important;
+}
+
+.expansion:not(.case-study-active)
+.cover-flow
+.flow-card.is-center {
+    opacity: 1 !important;
+}
+
+@media (max-width: 800px) {
+
+    .cover-flow {
+        perspective: 1050px !important;
+    }
+
 }
 
 </style>
@@ -9001,8 +8921,6 @@ mini: {
             >
 
 
-                <!-- EXPERIENCE TIMELINE -->
-
                 <a
                     class="flow-card mini-card"
                     href="https://johnny1996ornot.github.io/Experience-Timeline-Diagram/"
@@ -9061,8 +8979,6 @@ mini: {
 
                 </a>
 
-
-                <!-- SANKEY -->
 
                 <a
                     class="flow-card mini-card"
@@ -9179,8 +9095,6 @@ mini: {
                 </a>
 
 
-                <!-- NOTEDUMP -->
-
                 <a
                     class="flow-card mini-card"
                     href="https://notedump-factory.onrender.com/"
@@ -9253,8 +9167,6 @@ mini: {
                 </a>
 
 
-                <!-- CONSERVATION POLICY CASE STUDY -->
-
                 <article
                     class="flow-card mini-card case-study-launch"
                     data-case-study="conservation-policy"
@@ -9302,8 +9214,6 @@ mini: {
                     </div>
                 </article>
 
-
-                <!-- METRO MANILA URBAN HEAT CASE STUDY -->
 
                 <article
                     class="flow-card mini-card case-study-launch"
@@ -9587,130 +9497,49 @@ function openPanel(panel) {
     activePanel = panel;
 
     const key = panel.dataset.panel;
+    const originalTitle = panel.querySelector("[data-title]");
+    const titleStyle = getComputedStyle(originalTitle);
+    const originalFontSize = parseFloat(titleStyle.fontSize);
 
-    const originalTitle =
-        panel.querySelector(
-            "[data-title]"
-        );
+    backdrop.hidden = false;
+    requestAnimationFrame(() => backdrop.classList.add("open"));
 
-    const titleStyle =
-        getComputedStyle(
-            originalTitle
-        );
+    const margin = window.innerWidth <= 800 ? 6 : 18;
+    const finalLeft = margin;
+    const finalTop = margin;
+    const finalWidth = window.innerWidth - margin * 2;
+    const finalHeight = window.innerHeight - margin * 2;
 
-    const originalFontSize =
-        parseFloat(
-            titleStyle.fontSize
-        );
+    expansion = document.createElement("div");
+    expansion.className = `expansion expansion-${key} fast-shell`;
+    expansion.style.left = `${finalLeft}px`;
+    expansion.style.top = `${finalTop}px`;
+    expansion.style.width = `${finalWidth}px`;
+    expansion.style.height = `${finalHeight}px`;
+    expansion.style.borderRadius = window.innerWidth <= 800 ? "23px" : "32px";
 
-
-    backdrop.hidden =
-        false;
-
-
-    requestAnimationFrame(
-        () =>
-            backdrop.classList.add(
-                "open"
-            )
-    );
-
-
-    const margin =
-        window.innerWidth <= 800
-            ? 6
-            : 18;
-
-
-    const finalLeft =
-        margin;
-
-    const finalTop =
-        margin;
-
-    const finalWidth =
-        window.innerWidth
-        -
-        margin * 2;
-
-    const finalHeight =
-        window.innerHeight
-        -
-        margin * 2;
-
-
-    expansion =
-        document.createElement(
-            "div"
-        );
-
-
-    expansion.className =
-        `expansion expansion-${key} fast-shell`;
-
-
-    expansion.style.left =
-        `${finalLeft}px`;
-
-    expansion.style.top =
-        `${finalTop}px`;
-
-    expansion.style.width =
-        `${finalWidth}px`;
-
-    expansion.style.height =
-        `${finalHeight}px`;
-
-    expansion.style.borderRadius =
-        window.innerWidth <= 800
-            ? "23px"
-            : "32px";
-
-
-    expansion.innerHTML =
-        `
+    expansion.innerHTML = `
         <div class="expanded-blob"></div>
-
         <div class="expanded-blob-small"></div>
-
         ${
             key === "profile"
                 ? `<div class="planet-system profile-scatter-system">${panel.querySelector(".planet-system")?.innerHTML || ""}</div>`
                 : ""
         }
-
         <div class="expanded-title-shield"></div>
-
         <div class="expanded-content">
-
             <div class="expanded-header-row">
-
                 <div>
-
-                    <div class="expanded-kicker">
-                        ${content[key].kicker}
-                    </div>
-
-                    <div class="expanded-description">
-                        ${content[key].description}
-                    </div>
-
+                    <div class="expanded-kicker">${content[key].kicker}</div>
+                    <div class="expanded-description">${content[key].description}</div>
                     ${getLeftRailScene(key)}
-
                 </div>
-
             </div>
-
             ${content[key].html}
-
         </div>
-        `;
+    `;
 
-
-    document.body.appendChild(
-        expansion
-    );
-
+    document.body.appendChild(expansion);
 
     const finalTitleLeft =
         finalLeft
@@ -9724,13 +9553,11 @@ function openPanel(panel) {
                 )
         );
 
-
     const finalTitleSize =
         getExpandedTitleSize(
             key,
             originalFontSize
         );
-
 
     const titleLineCount =
         originalTitle
@@ -9741,14 +9568,12 @@ function openPanel(panel) {
         ||
         1;
 
-
     const estimatedTitleHeight =
         finalTitleSize
         *
         1.04
         *
         titleLineCount;
-
 
     const finalTitleTop =
         window.innerWidth <= 800
@@ -9774,7 +9599,6 @@ function openPanel(panel) {
                     estimatedTitleHeight / 2
             );
 
-
     const finalTitleWidth =
         window.innerWidth <= 800
 
@@ -9790,7 +9614,6 @@ function openPanel(panel) {
                 625
             );
 
-
     if (window.innerWidth > 800) {
 
         const titleToCopyGap =
@@ -9801,7 +9624,6 @@ function openPanel(panel) {
                     : key === "profile"
                         ? 42
                         : 38;
-
 
         const railCopyTop =
             Math.min(
@@ -9824,31 +9646,25 @@ function openPanel(panel) {
                 )
             );
 
-
         expansion.style.setProperty(
             "--rail-copy-top",
             `${railCopyTop}px`
         );
     }
 
-
     flyingTitle =
         document.createElement(
             originalTitle.tagName
         );
 
-
     flyingTitle.className =
         "flying-title fast-title compact";
-
 
     flyingTitle.dataset.key =
         key;
 
-
     flyingTitle.innerHTML =
         originalTitle.innerHTML;
-
 
     flyingTitle.style.left =
         `${finalTitleLeft}px`;
@@ -9865,11 +9681,9 @@ function openPanel(panel) {
     flyingTitle.style.lineHeight =
         "1.04";
 
-
     document.body.appendChild(
         flyingTitle
     );
-
 
     originalTitle.style.opacity =
         "0";
@@ -9877,44 +9691,35 @@ function openPanel(panel) {
     panel.style.opacity =
         "0";
 
-
     closeButton =
         document.createElement(
             "button"
         );
 
-
     closeButton.className =
         "expansion-close";
 
-
     closeButton.type =
         "button";
-
 
     closeButton.setAttribute(
         "aria-label",
         "Close expanded section"
     );
 
-
     closeButton.setAttribute(
         "title",
         "Close section"
     );
 
-
     closeButton.innerHTML =
         `<i class="fa-solid fa-xmark" aria-hidden="true"></i>`;
-
 
     document.body.appendChild(
         closeButton
     );
 
-
     positionCloseButton();
-
 
     closeButton.addEventListener(
         "click",
@@ -9928,7 +9733,6 @@ function openPanel(panel) {
         }
     );
 
-
     requestAnimationFrame(
         () => {
 
@@ -9941,7 +9745,6 @@ function openPanel(panel) {
             );
         }
     );
-
 
     setTimeout(
         () => {
@@ -9985,20 +9788,16 @@ function closeActivePanel() {
         return;
     }
 
-
     const panel =
         activePanel;
-
 
     const originalTitle =
         panel.querySelector(
             "[data-title]"
         );
 
-
     const view =
         activeCaseStudy;
-
 
     if (view) {
 
@@ -10012,7 +9811,6 @@ function closeActivePanel() {
                 null;
         }
 
-
         if (
             view._caseStoryObserver
         ) {
@@ -10023,19 +9821,15 @@ function closeActivePanel() {
                 null;
         }
 
-
         view.classList.remove(
             "open"
         );
 
-
         view.remove();
-
 
         activeCaseStudy =
             null;
     }
-
 
     if (caseStudyObserver) {
 
@@ -10045,21 +9839,17 @@ function closeActivePanel() {
             null;
     }
 
-
     document.body.classList.remove(
         "research-case-open"
     );
-
 
     expansion.classList.remove(
         "case-study-active"
     );
 
-
     expansion.classList.add(
         "fast-closing"
     );
-
 
     if (flyingTitle) {
 
@@ -10072,16 +9862,13 @@ function closeActivePanel() {
         );
     }
 
-
     closeButton?.classList.remove(
         "visible"
     );
 
-
     backdrop.classList.remove(
         "open"
     );
-
 
     const finishClose =
         () => {
@@ -10089,13 +9876,11 @@ function closeActivePanel() {
             panel.style.opacity =
                 "";
 
-
             if (originalTitle) {
 
                 originalTitle.style.opacity =
                     "";
             }
-
 
             expansion?.remove();
 
@@ -10103,10 +9888,8 @@ function closeActivePanel() {
 
             closeButton?.remove();
 
-
             backdrop.hidden =
                 true;
-
 
             expansion =
                 null;
@@ -10123,7 +9906,6 @@ function closeActivePanel() {
             activeCaseStudy =
                 null;
         };
-
 
     setTimeout(
         finishClose,
@@ -10143,19 +9925,17 @@ function positionCloseButton() {
         return;
     }
 
-
     const margin =
         window.innerWidth <= 800
             ? 15
             : 39;
 
-
     closeButton.style.top =
         `${margin}px`;
 
-
     closeButton.style.right =
         `${margin}px`;
+
 }
 
 
@@ -10199,7 +9979,6 @@ function initialiseCoverFlows() {
         return;
     }
 
-
     expansion
         .querySelectorAll(
             "[data-cover-flow]"
@@ -10214,21 +9993,17 @@ function initialiseCoverFlows() {
                         )
                     );
 
-
                 if (!cards.length) {
                     return;
                 }
-
 
                 const dotsContainer =
                     expansion.querySelector(
                         `[data-dots-for="${track.id}"]`
                     );
 
-
                 let dots =
                     [];
-
 
                 let ticking =
                     false;
@@ -10250,7 +10025,6 @@ function initialiseCoverFlows() {
                         /
                         2;
 
-
                     track.scrollTo(
                         {
                             left:
@@ -10267,7 +10041,6 @@ function initialiseCoverFlows() {
                     );
                 }
 
-
                 track._centerCard =
                     centerCard;
 
@@ -10276,7 +10049,6 @@ function initialiseCoverFlows() {
 
                     dotsContainer.innerHTML =
                         "";
-
 
                     cards.forEach(
                         (
@@ -10289,20 +10061,16 @@ function initialiseCoverFlows() {
                                     "button"
                                 );
 
-
                             dot.className =
                                 "flow-dot";
 
-
                             dot.type =
                                 "button";
-
 
                             dot.setAttribute(
                                 "aria-label",
                                 `Go to card ${index + 1}`
                             );
-
 
                             dot.addEventListener(
                                 "click",
@@ -10317,11 +10085,9 @@ function initialiseCoverFlows() {
                                 }
                             );
 
-
                             dotsContainer.appendChild(
                                 dot
                             );
-
 
                             dots.push(
                                 dot
@@ -10338,10 +10104,32 @@ function initialiseCoverFlows() {
                         +
                         track.clientWidth / 2;
 
+                    const firstCard =
+                        cards[0];
+
+                    const trackStyles =
+                        getComputedStyle(
+                            track
+                        );
+
+                    const gap =
+                        parseFloat(
+                            trackStyles.columnGap
+                            ||
+                            trackStyles.gap
+                            ||
+                            "0"
+                        )
+                        ||
+                        0;
+
+                    const cardSpacing =
+                        firstCard.offsetWidth
+                        +
+                        gap;
 
                     let closestIndex =
                         0;
-
 
                     let closestDistance =
                         Infinity;
@@ -10358,6 +10146,26 @@ function initialiseCoverFlows() {
                                 +
                                 card.offsetWidth / 2;
 
+                            const rawOffset =
+                                (
+                                    center
+                                    -
+                                    viewportCenter
+                                )
+                                /
+                                Math.max(
+                                    cardSpacing,
+                                    1
+                                );
+
+                            const offset =
+                                Math.max(
+                                    -2.35,
+                                    Math.min(
+                                        2.35,
+                                        rawOffset
+                                    )
+                                );
 
                             const distance =
                                 Math.abs(
@@ -10365,7 +10173,6 @@ function initialiseCoverFlows() {
                                     -
                                     viewportCenter
                                 );
-
 
                             if (
                                 distance
@@ -10376,10 +10183,104 @@ function initialiseCoverFlows() {
                                 closestDistance =
                                     distance;
 
-
                                 closestIndex =
                                     index;
                             }
+
+
+                            const absOffset =
+                                Math.abs(
+                                    offset
+                                );
+
+                            const centreStrength =
+                                Math.max(
+                                    0,
+                                    1
+                                    -
+                                    Math.min(
+                                        absOffset,
+                                        1
+                                    )
+                                );
+
+                            const translateZ =
+                                -115 * absOffset
+                                +
+                                105 * centreStrength;
+
+                            const scale =
+                                1.07
+                                -
+                                Math.min(
+                                    absOffset,
+                                    2
+                                )
+                                *
+                                .085;
+
+                            const rotateY =
+                                Math.max(
+                                    -18,
+                                    Math.min(
+                                        18,
+                                        offset * -11
+                                    )
+                                );
+
+                            const translateY =
+                                Math.min(
+                                    absOffset,
+                                    2
+                                )
+                                *
+                                7;
+
+                            const opacity =
+                                Math.max(
+                                    .34,
+                                    1
+                                    -
+                                    Math.min(
+                                        absOffset,
+                                        2.25
+                                    )
+                                    *
+                                    .26
+                                );
+
+                            const brightness =
+                                Math.max(
+                                    .70,
+                                    1
+                                    -
+                                    Math.min(
+                                        absOffset,
+                                        2
+                                    )
+                                    *
+                                    .13
+                                );
+
+                            card.style.transform =
+                                `translate3d(0, ${translateY}px, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+
+                            card.style.opacity =
+                                opacity.toFixed(
+                                    3
+                                );
+
+                            card.style.filter =
+                                `brightness(${brightness.toFixed(3)}) saturate(${(0.88 + centreStrength * 0.12).toFixed(3)})`;
+
+                            card.style.zIndex =
+                                String(
+                                    Math.round(
+                                        100
+                                        -
+                                        absOffset * 20
+                                    )
+                                );
                         }
                     );
 
@@ -10390,11 +10291,21 @@ function initialiseCoverFlows() {
                             index
                         ) => {
 
-                            card.classList.toggle(
-                                "is-center",
+                            const centered =
                                 index
                                 ===
-                                closestIndex
+                                closestIndex;
+
+                            card.classList.toggle(
+                                "is-center",
+                                centered
+                            );
+
+                            card.setAttribute(
+                                "aria-current",
+                                centered
+                                    ? "true"
+                                    : "false"
                             );
                         }
                     );
@@ -10415,7 +10326,6 @@ function initialiseCoverFlows() {
                         }
                     );
 
-
                     ticking =
                         false;
                 }
@@ -10427,10 +10337,8 @@ function initialiseCoverFlows() {
                         return;
                     }
 
-
                     ticking =
                         true;
-
 
                     requestAnimationFrame(
                         updateFlow
@@ -10462,11 +10370,9 @@ function initialiseCoverFlows() {
                                     return;
                                 }
 
-
                                 event.preventDefault();
 
                                 event.stopPropagation();
-
 
                                 centerCard(
                                     card,
@@ -10486,11 +10392,16 @@ function initialiseCoverFlows() {
                             false
                         );
 
-
                         requestAnimationFrame(
                             updateFlow
                         );
                     }
+                );
+
+
+                setTimeout(
+                    requestUpdate,
+                    120
                 );
 
             }
@@ -10509,7 +10420,6 @@ function bindGalleryItems() {
         return;
     }
 
-
     expansion
         .querySelectorAll(
             ".gallery-item"
@@ -10520,14 +10430,11 @@ function bindGalleryItems() {
                 if (
                     item.dataset.bound
                 ) {
-
                     return;
                 }
 
-
                 item.dataset.bound =
                     "true";
-
 
                 item.addEventListener(
                     "click",
@@ -10544,7 +10451,6 @@ function bindGalleryItems() {
                                     "[data-cover-flow]"
                                 );
 
-
                             if (
                                 track
                                 &&
@@ -10558,17 +10464,13 @@ function bindGalleryItems() {
                                 );
                             }
 
-
                             return;
                         }
 
-
                         event.stopPropagation();
-
 
                         lightboxImage.src =
                             item.dataset.image;
-
 
                         lightbox.classList.add(
                             "open"
@@ -10577,6 +10479,7 @@ function bindGalleryItems() {
                 );
             }
         );
+
 }
 
 
@@ -13013,7 +12916,6 @@ function bindCaseStudyLaunchers() {
         return;
     }
 
-
     expansion
         .querySelectorAll(
             "[data-case-study]"
@@ -13029,10 +12931,8 @@ function bindCaseStudyLaunchers() {
                     return;
                 }
 
-
                 card.dataset.caseBound =
                     "true";
-
 
                 const activate =
                     event => {
@@ -13045,23 +12945,19 @@ function bindCaseStudyLaunchers() {
                             return;
                         }
 
-
                         event.preventDefault();
 
                         event.stopPropagation();
-
 
                         openCaseStudy(
                             card.dataset.caseStudy
                         );
                     };
 
-
                 card.addEventListener(
                     "click",
                     activate
                 );
-
 
                 card.addEventListener(
                     "keydown",
@@ -13112,26 +13008,21 @@ function openCaseStudy(key) {
         return;
     }
 
-
     activeCaseStudy =
         document.createElement(
             "div"
         );
 
-
     activeCaseStudy.className =
         "case-study-view";
-
 
     activeCaseStudy.setAttribute(
         "role",
         "document"
     );
 
-
     activeCaseStudy.dataset.caseStudy =
         key;
-
 
     activeCaseStudy.innerHTML =
         key
@@ -13144,21 +13035,21 @@ function openCaseStudy(key) {
             :
             getConservationCaseStudyHTML();
 
-
     expansion.appendChild(
         activeCaseStudy
     );
-
 
     expansion.classList.add(
         "case-study-active"
     );
 
-
     document.body.classList.add(
         "research-case-open"
     );
 
+    closeButton?.classList.remove(
+        "visible"
+    );
 
     if (flyingTitle) {
 
@@ -13166,7 +13057,6 @@ function openCaseStudy(key) {
             "case-study-hidden"
         );
     }
-
 
     requestAnimationFrame(
         () => {
@@ -13177,12 +13067,10 @@ function openCaseStudy(key) {
         }
     );
 
-
     const back =
         activeCaseStudy.querySelector(
             "[data-case-back]"
         );
-
 
     if (back) {
 
@@ -13194,18 +13082,15 @@ function openCaseStudy(key) {
 
                 event.stopPropagation();
 
-
                 closeCaseStudy();
             }
         );
     }
 
-
     const caseClose =
         activeCaseStudy.querySelector(
             "[data-case-close]"
         );
-
 
     if (caseClose) {
 
@@ -13217,12 +13102,10 @@ function openCaseStudy(key) {
 
                 event.stopPropagation();
 
-
                 closeActivePanel();
             }
         );
     }
-
 
     activeCaseStudy
         .querySelectorAll(
@@ -13240,20 +13123,16 @@ function openCaseStudy(key) {
                                 "href"
                             );
 
-
                         const target =
                             activeCaseStudy.querySelector(
                                 selector
                             );
 
-
                         if (!target) {
                             return;
                         }
 
-
                         event.preventDefault();
-
 
                         target.scrollIntoView(
                             {
@@ -13269,21 +13148,17 @@ function openCaseStudy(key) {
             }
         );
 
-
     hydrateCaseStudyMedia(
         activeCaseStudy
     );
-
 
     bindCaseStudyInteractions(
         activeCaseStudy
     );
 
-
     bindCaseScrollytelling(
         activeCaseStudy
     );
-
 
     activeCaseStudy.scrollTop =
         0;
@@ -13301,10 +13176,8 @@ function closeCaseStudy() {
         return;
     }
 
-
     const view =
         activeCaseStudy;
-
 
     if (
         view._caseStoryCleanup
@@ -13316,7 +13189,6 @@ function closeCaseStudy() {
             null;
     }
 
-
     if (
         view._caseStoryObserver
     ) {
@@ -13327,7 +13199,6 @@ function closeCaseStudy() {
             null;
     }
 
-
     if (caseStudyObserver) {
 
         caseStudyObserver.disconnect();
@@ -13336,21 +13207,17 @@ function closeCaseStudy() {
             null;
     }
 
-
     view.classList.remove(
         "open"
     );
-
 
     expansion?.classList.remove(
         "case-study-active"
     );
 
-
     document.body.classList.remove(
         "research-case-open"
     );
-
 
     if (flyingTitle) {
 
@@ -13358,7 +13225,6 @@ function closeCaseStudy() {
             "case-study-hidden"
         );
     }
-
 
     setTimeout(
         () => {
@@ -13370,7 +13236,6 @@ function closeCaseStudy() {
                 view.remove();
             }
 
-
             if (
                 activeCaseStudy
                 ===
@@ -13381,11 +13246,9 @@ function closeCaseStudy() {
                     null;
             }
 
-
             closeButton?.classList.add(
                 "visible"
             );
-
 
             positionCloseButton();
 
@@ -13409,1662 +13272,10 @@ function hydrateCaseStudyMedia(view) {
             )
         );
 
-
     const loadImage =
         img => {
 
             const source =
                 img.dataset.src;
 
-
-            if (!source) {
-                return;
-            }
-
-
-            img.src =
-                source;
-
-
-            img.removeAttribute(
-                "data-src"
-            );
-        };
-
-
-    if (
-        !(
-            "IntersectionObserver"
-            in
-            window
-        )
-    ) {
-
-        images.forEach(
-            loadImage
-        );
-
-        return;
-    }
-
-
-    caseStudyObserver =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
-
-
-                        loadImage(
-                            entry.target
-                        );
-
-
-                        caseStudyObserver?.unobserve(
-                            entry.target
-                        );
-                    }
-                );
-            },
-
-            {
-                root:
-                    view,
-
-                rootMargin:
-                    "260px 0px",
-
-                threshold:
-                    .01
-            }
-        );
-
-
-    images.forEach(
-        img => {
-
-            caseStudyObserver.observe(
-                img
-            );
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CASE SCROLLYTELLING
-========================================================= */
-
-function bindCaseScrollytelling(view) {
-
-    const steps =
-        Array.from(
-            view.querySelectorAll(
-                "[data-story-step]"
-            )
-        );
-
-
-    const scenes =
-        Array.from(
-            view.querySelectorAll(
-                ".case-story-scene[data-scene]"
-            )
-        );
-
-
-    const progressDots =
-        Array.from(
-            view.querySelectorAll(
-                "[data-story-jump]"
-            )
-        );
-
-
-    const progressCount =
-        view.querySelector(
-            "[data-story-progress-count]"
-        );
-
-
-    const progressCurrent =
-        view.querySelector(
-            "[data-story-progress-current]"
-        );
-
-
-    const topbar =
-        view.querySelector(
-            ".case-study-topbar"
-        );
-
-
-    if (
-        !steps.length
-        ||
-        !scenes.length
-    ) {
-        return;
-    }
-
-
-    const sceneLabels = {
-
-        ecology:
-            "01 · Pollinator ecology",
-
-        policy:
-            "02 · Policy setup",
-
-        tradeoff:
-            "03 · Habitat & connectivity",
-
-        targeting:
-            "04 · Same-budget experiment",
-
-        participation:
-            "05 · Participation",
-
-        spatial:
-            "06 · Spatial allocation",
-
-        consensus:
-            "07 · Consensus",
-
-        robustness:
-            "08 · Robustness",
-
-        "heat-baseline":
-            "01 · Baseline heat",
-
-        "heat-gapfill":
-            "02 · Gap-filled LST",
-
-        "heat-tree":
-            "03 · Tree priority",
-
-        "heat-urgency":
-            "04 · Heat priority",
-
-        "heat-scale":
-            "05 · 300 m context",
-
-        "heat-final":
-            "06 · Final priority",
-
-        "heat-hotspots":
-            "07 · Critical hotspots"
-    };
-
-
-    let activeSceneName =
-        "";
-
-
-    let rafId =
-        0;
-
-
-    const storyImages =
-        Array.from(
-            view.querySelectorAll(
-                ".case-story-scene img"
-            )
-        );
-
-
-    storyImages.forEach(
-        img => {
-
-            img.loading =
-                "eager";
-
-
-            img.decoding =
-                "async";
-
-
-            const source =
-                img.getAttribute(
-                    "src"
-                )
-
-                ||
-
-                img.dataset.sceneSrc
-
-                ||
-
-                img.dataset.src;
-
-
-            if (!source) {
-                return;
-            }
-
-
-            if (
-                !img.getAttribute(
-                    "src"
-                )
-            ) {
-
-                img.src =
-                    source;
-            }
-
-
-            const preloader =
-                new Image();
-
-
-            preloader.src =
-                source;
-        }
-    );
-
-
-    const getHeaderOffset =
-        () => {
-
-            const height =
-                topbar
-                    ?
-                    topbar
-                        .getBoundingClientRect()
-                        .height
-
-                    :
-                    72;
-
-
-            return (
-                height
-                +
-                12
-            );
-        };
-
-
-    const getReadingLineY =
-        () => {
-
-            const viewRect =
-                view.getBoundingClientRect();
-
-
-            const headerBottom =
-                viewRect.top
-                +
-                getHeaderOffset();
-
-
-            const visibleBottom =
-                Math.min(
-                    viewRect.bottom,
-                    window.innerHeight
-                );
-
-
-            const usableHeight =
-                Math.max(
-                    220,
-                    visibleBottom
-                    -
-                    headerBottom
-                );
-
-
-            return (
-                headerBottom
-                +
-                usableHeight * .42
-            );
-        };
-
-
-    const getActiveStep =
-        () => {
-
-            const readingY =
-                getReadingLineY();
-
-
-            for (
-                const step
-                of
-                steps
-            ) {
-
-                const rect =
-                    step.getBoundingClientRect();
-
-
-                if (
-                    readingY
-                    >=
-                    rect.top
-
-                    &&
-
-                    readingY
-                    <
-                    rect.bottom
-                ) {
-
-                    return step;
-                }
-            }
-
-
-            let nearest =
-                steps[0];
-
-
-            let nearestDistance =
-                Infinity;
-
-
-            for (
-                const step
-                of
-                steps
-            ) {
-
-                const rect =
-                    step.getBoundingClientRect();
-
-
-                const centre =
-                    rect.top
-                    +
-                    rect.height / 2;
-
-
-                const distance =
-                    Math.abs(
-                        centre
-                        -
-                        readingY
-                    );
-
-
-                if (
-                    distance
-                    <
-                    nearestDistance
-                ) {
-
-                    nearest =
-                        step;
-
-
-                    nearestDistance =
-                        distance;
-                }
-            }
-
-
-            return nearest;
-        };
-
-
-    const activateScene =
-        sceneName => {
-
-            if (
-                !sceneName
-                ||
-                sceneName
-                ===
-                activeSceneName
-            ) {
-                return;
-            }
-
-
-            activeSceneName =
-                sceneName;
-
-
-            const activeIndex =
-                Math.max(
-                    0,
-
-                    steps.findIndex(
-                        step =>
-                            step.dataset.sceneTarget
-                            ===
-                            sceneName
-                    )
-                );
-
-
-            steps.forEach(
-                step => {
-
-                    step.classList.toggle(
-                        "active",
-                        step.dataset.sceneTarget
-                        ===
-                        sceneName
-                    );
-                }
-            );
-
-
-            scenes.forEach(
-                scene => {
-
-                    const active =
-                        scene.dataset.scene
-                        ===
-                        sceneName;
-
-
-                    scene.classList.toggle(
-                        "active",
-                        active
-                    );
-
-
-                    scene.setAttribute(
-                        "aria-hidden",
-                        active
-                            ?
-                            "false"
-                            :
-                            "true"
-                    );
-                }
-            );
-
-
-            progressDots.forEach(
-                dot => {
-
-                    const active =
-                        dot.dataset.storyJump
-                        ===
-                        sceneName;
-
-
-                    dot.classList.toggle(
-                        "active",
-                        active
-                    );
-
-
-                    if (active) {
-
-                        dot.setAttribute(
-                            "aria-current",
-                            "step"
-                        );
-                    }
-
-                    else {
-
-                        dot.removeAttribute(
-                            "aria-current"
-                        );
-                    }
-                }
-            );
-
-
-            if (progressCount) {
-
-                progressCount.textContent =
-                    `${activeIndex + 1} / ${steps.length}`;
-            }
-
-
-            if (progressCurrent) {
-
-                progressCurrent.textContent =
-                    sceneLabels[
-                        sceneName
-                    ]
-
-                    ||
-
-                    `Section ${activeIndex + 1}`;
-            }
-        };
-
-
-    const updateFromScroll =
-        () => {
-
-            rafId =
-                0;
-
-
-            const activeStep =
-                getActiveStep();
-
-
-            if (!activeStep) {
-                return;
-            }
-
-
-            activateScene(
-                activeStep.dataset.sceneTarget
-            );
-        };
-
-
-    const scheduleUpdate =
-        () => {
-
-            if (rafId) {
-                return;
-            }
-
-
-            rafId =
-                requestAnimationFrame(
-                    updateFromScroll
-                );
-        };
-
-
-    const getScrollTopForStep =
-        step => {
-
-            const rect =
-                step.getBoundingClientRect();
-
-
-            const currentReadingY =
-                getReadingLineY();
-
-
-            const targetCentre =
-                rect.top
-                +
-                rect.height * .50;
-
-
-            return Math.max(
-                0,
-
-                view.scrollTop
-                +
-                targetCentre
-                -
-                currentReadingY
-            );
-        };
-
-
-    progressDots.forEach(
-        dot => {
-
-            dot.addEventListener(
-                "click",
-                () => {
-
-                    const target =
-                        steps.find(
-                            step =>
-                                step.dataset.sceneTarget
-                                ===
-                                dot.dataset.storyJump
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    activateScene(
-                        target.dataset.sceneTarget
-                    );
-
-
-                    view.scrollTo(
-                        {
-                            top:
-                                getScrollTopForStep(
-                                    target
-                                ),
-
-                            behavior:
-                                "auto"
-                        }
-                    );
-
-
-                    requestAnimationFrame(
-                        updateFromScroll
-                    );
-                }
-            );
-        }
-    );
-
-
-    view.addEventListener(
-        "scroll",
-        scheduleUpdate,
-        {
-            passive: true
-        }
-    );
-
-
-    window.addEventListener(
-        "resize",
-        scheduleUpdate,
-        {
-            passive: true
-        }
-    );
-
-
-    activateScene(
-        steps[0]
-            .dataset
-            .sceneTarget
-    );
-
-
-    requestAnimationFrame(
-        updateFromScroll
-    );
-
-
-    view._caseStoryCleanup =
-        () => {
-
-            view.removeEventListener(
-                "scroll",
-                scheduleUpdate
-            );
-
-
-            window.removeEventListener(
-                "resize",
-                scheduleUpdate
-            );
-
-
-            if (rafId) {
-
-                cancelAnimationFrame(
-                    rafId
-                );
-            }
-        };
-
-}
-
-
-/* =========================================================
-   CASE STUDY INTERACTIONS
-========================================================= */
-
-function bindCaseStudyInteractions(view) {
-
-    const bars =
-        Array.from(
-            view.querySelectorAll(
-                ".consensus-bar"
-            )
-        );
-
-
-    const mapImage =
-        view.querySelector(
-            "#consensusMapImage"
-        );
-
-
-    const mapTitle =
-        view.querySelector(
-            "#consensusMapTitle"
-        );
-
-
-    const mapDescription =
-        view.querySelector(
-            "#consensusMapDescription"
-        );
-
-
-    bars.forEach(
-        bar => {
-
-            bar.addEventListener(
-                "click",
-                () => {
-
-                    bars.forEach(
-                        item => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-
-                            item.setAttribute(
-                                "aria-pressed",
-                                "false"
-                            );
-                        }
-                    );
-
-
-                    bar.classList.add(
-                        "active"
-                    );
-
-
-                    bar.setAttribute(
-                        "aria-pressed",
-                        "true"
-                    );
-
-
-                    if (mapImage) {
-
-                        mapImage.dataset.rawFallbackTried =
-                            "false";
-
-
-                        mapImage.removeAttribute(
-                            "data-src"
-                        );
-
-
-                        mapImage.src =
-                            bar.dataset.map;
-                    }
-
-
-                    if (mapTitle) {
-
-                        mapTitle.textContent =
-                            bar.dataset.title;
-                    }
-
-
-                    if (mapDescription) {
-
-                        mapDescription.textContent =
-                            bar.dataset.copy;
-                    }
-                }
-            );
-        }
-    );
-
-
-    view
-        .querySelectorAll(
-            "[data-case-lightbox]"
-        )
-        .forEach(
-            img => {
-
-                img.addEventListener(
-                    "click",
-                    () => {
-
-                        const source =
-                            img.currentSrc
-                            ||
-                            img.src
-                            ||
-                            img.dataset.src;
-
-
-                        if (!source) {
-                            return;
-                        }
-
-
-                        lightboxImage.src =
-                            source;
-
-
-                        lightbox.classList.add(
-                            "open"
-                        );
-                    }
-                );
-            }
-        );
-
-}
-
-
-/* =========================================================
-   IMAGE FALLBACK
-========================================================= */
-
-function portfolioImageFallback(img) {
-
-    if (
-        !img
-        ||
-        img.dataset.rawFallbackTried
-        ===
-        "true"
-    ) {
-        return;
-    }
-
-
-    try {
-
-        const current =
-            new URL(
-                img.currentSrc
-                ||
-                img.src,
-                window.location.href
-            );
-
-
-        const filename =
-            current
-                .pathname
-                .split("/")
-                .pop();
-
-
-        if (!filename) {
-            return;
-        }
-
-
-        img.dataset.rawFallbackTried =
-            "true";
-
-
-        img.src =
-            `https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/${filename}`;
-    }
-
-    catch (error) {
-
-        /* Avoid a retry loop. */
-    }
-
-}
-
-
-/* =========================================================
-   LIGHTBOX
-========================================================= */
-
-function closeLightbox() {
-
-    lightbox.classList.remove(
-        "open"
-    );
-
-
-    lightboxImage.src =
-        "";
-
-}
-
-
-lightboxClose.addEventListener(
-    "click",
-    closeLightbox
-);
-
-
-lightbox.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target
-            ===
-            lightbox
-        ) {
-
-            closeLightbox();
-        }
-    }
-);
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key
-            !==
-            "Escape"
-        ) {
-
-            return;
-        }
-
-
-        if (
-            lightbox
-                .classList
-                .contains(
-                    "open"
-                )
-        ) {
-
-            closeLightbox();
-
-            return;
-        }
-
-
-        if (
-            activeCaseStudy
-        ) {
-
-            closeCaseStudy();
-
-            return;
-        }
-
-
-        closeActivePanel();
-    }
-);
-
-
-/* =========================================================
-   RESIZE
-========================================================= */
-
-window.addEventListener(
-    "resize",
-    positionCloseButton
-);
-
-</script>
-
-
-<!-- =========================================================
-     MOBILE RESEARCH FIGURES FIX
-
-     This is the only new section added to the working file.
-     It changes the research-story presentation only on
-     screens 800px wide or smaller.
-========================================================= -->
-
-<style id="mobile-research-figures-fix">
-
-@media (max-width: 800px) {
-
-    /*
-       Once each research explanation has received its matching
-       cloned visual, the old sticky mobile stage is no longer
-       needed. Desktop is not affected by this rule.
-    */
-    .case-scrolly.mobile-inline-ready
-    > .case-story-stage {
-
-        display: none !important;
-    }
-
-
-    .case-scrolly.mobile-inline-ready {
-
-        display: block !important;
-
-        width: 100% !important;
-
-        padding-top: 18px !important;
-    }
-
-
-    .case-scrolly.mobile-inline-ready
-    > .case-story-copy {
-
-        display: block !important;
-
-        width: 100% !important;
-
-        min-width: 0 !important;
-    }
-
-
-    /* Each research explanation becomes a normal vertical block. */
-    .case-scrolly.mobile-inline-ready
-    .case-story-step {
-
-        min-height: 0 !important;
-
-        height: auto !important;
-
-        padding:
-            32px
-            4px
-            42px !important;
-
-        opacity: 1 !important;
-
-        transform: none !important;
-
-        border-left: 0 !important;
-    }
-
-
-    .case-scrolly.mobile-inline-ready
-    .case-story-step.active {
-
-        padding-left: 4px !important;
-    }
-
-
-    .case-scrolly.mobile-inline-ready
-    .case-story-step
-    +
-    .case-story-step {
-
-        border-top:
-            1px solid
-            rgba(193,246,237,.09);
-    }
-
-
-    /* Wrapper inserted directly below each matching explanation. */
-    .mobile-inline-figure {
-
-        position: relative !important;
-
-        width: 100% !important;
-
-        max-width: 100% !important;
-
-        margin:
-            22px
-            0
-            0 !important;
-
-        overflow: hidden !important;
-
-        border:
-            1px solid
-            rgba(193,246,237,.16);
-
-        border-radius: 18px;
-
-        background: #f4f6f6;
-
-        box-shadow:
-            0 12px 26px
-            rgba(0,24,28,.14);
-    }
-
-
-    /*
-       Desktop scenes are absolutely stacked on one another.
-       Their mobile clones must instead participate in normal
-       document flow so every graph/map/GIF gets its own height.
-    */
-    .mobile-inline-figure
-    .case-story-scene {
-
-        position: relative !important;
-
-        inset: auto !important;
-
-        display: flex !important;
-
-        flex-direction: column !important;
-
-        width: 100% !important;
-
-        height: auto !important;
-
-        min-height: 0 !important;
-
-        max-height: none !important;
-
-        opacity: 1 !important;
-
-        visibility: visible !important;
-
-        pointer-events: auto !important;
-
-        transform: none !important;
-
-        z-index: auto !important;
-
-        overflow: visible !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-story-scene:not(.active) {
-
-        display: flex !important;
-
-        opacity: 1 !important;
-
-        visibility: visible !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-scene-media {
-
-        position: relative !important;
-
-        width: 100% !important;
-
-        height: auto !important;
-
-        min-height: 0 !important;
-
-        max-height: none !important;
-
-        padding: 8px !important;
-
-        overflow: visible !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        justify-content: center !important;
-
-        background: #f4f6f6 !important;
-    }
-
-
-    /*
-       Critical mobile figure rule:
-       use the image's natural aspect ratio instead of forcing it
-       into the desktop sticky-stage height.
-    */
-    .mobile-inline-figure
-    .case-scene-media img,
-
-    .mobile-inline-figure img {
-
-        position: relative !important;
-
-        display: block !important;
-
-        width: 100% !important;
-
-        height: auto !important;
-
-        min-width: 0 !important;
-
-        min-height: 0 !important;
-
-        max-width: 100% !important;
-
-        max-height: none !important;
-
-        margin:
-            0 auto !important;
-
-        padding: 0 !important;
-
-        object-fit: contain !important;
-
-        object-position: center !important;
-
-        background: #f4f6f6 !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-scene-caption {
-
-        position: relative !important;
-
-        width: 100% !important;
-
-        min-height: 0 !important;
-
-        padding:
-            11px
-            13px
-            13px !important;
-    }
-
-
-    /* Non-image research diagrams also need natural mobile height. */
-    .mobile-inline-figure
-    .case-visual-panel,
-
-    .mobile-inline-figure
-    .case-ecology-diagram {
-
-        position: relative !important;
-
-        width: 100% !important;
-
-        height: auto !important;
-
-        min-height: 0 !important;
-
-        max-height: none !important;
-
-        overflow: visible !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-policy-grid,
-
-    .mobile-inline-figure
-    .case-ecology-flow-v3 {
-
-        grid-template-columns: 1fr !important;
-    }
-
-}
-
-</style>
-
-
-<script id="mobile-research-figures-script">
-
-(() => {
-
-    const isMobile = () =>
-        window.matchMedia(
-            "(max-width: 800px)"
-        ).matches;
-
-
-    function buildMobileInlineFigures(
-        view
-    ) {
-
-        if (
-            !isMobile()
-            ||
-            !view
-        ) {
-            return;
-        }
-
-
-        const scrolly =
-            view.querySelector(
-                ".case-scrolly"
-            );
-
-
-        if (
-            !scrolly
-            ||
-            scrolly.dataset.mobileInlineBuilt
-                ===
-                "true"
-        ) {
-            return;
-        }
-
-
-        const copy =
-            scrolly.querySelector(
-                ":scope > .case-story-copy"
-            );
-
-
-        const stage =
-            scrolly.querySelector(
-                ":scope > .case-story-stage"
-            );
-
-
-        if (
-            !copy
-            ||
-            !stage
-        ) {
-            return;
-        }
-
-
-        const steps =
-            Array.from(
-                copy.querySelectorAll(
-                    "[data-story-step]"
-                )
-            );
-
-
-        const scenes =
-            Array.from(
-                stage.querySelectorAll(
-                    ".case-story-scene[data-scene]"
-                )
-            );
-
-
-        if (
-            !steps.length
-            ||
-            !scenes.length
-        ) {
-            return;
-        }
-
-
-        const sceneMap =
-            new Map(
-                scenes.map(
-                    scene => [
-                        scene.dataset.scene,
-                        scene
-                    ]
-                )
-            );
-
-
-        let inserted =
-            0;
-
-
-        steps.forEach(
-            step => {
-
-                const sceneName =
-                    step.dataset.sceneTarget;
-
-
-                const sourceScene =
-                    sceneMap.get(
-                        sceneName
-                    );
-
-
-                if (!sourceScene) {
-                    return;
-                }
-
-
-                const existing =
-                    step.querySelector(
-                        ":scope > .mobile-inline-figure"
-                    );
-
-
-                if (existing) {
-
-                    inserted +=
-                        1;
-
-                    return;
-                }
-
-
-                const wrapper =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                wrapper.className =
-                    "mobile-inline-figure";
-
-
-                const clone =
-                    sourceScene.cloneNode(
-                        true
-                    );
-
-
-                clone.classList.add(
-                    "active"
-                );
-
-
-                clone.removeAttribute(
-                    "data-scene"
-                );
-
-
-                clone.removeAttribute(
-                    "aria-hidden"
-                );
-
-
-                /*
-                   Make sure deferred media has a real source
-                   before the clone is added to the page.
-                */
-                clone
-                    .querySelectorAll(
-                        "img"
-                    )
-                    .forEach(
-                        img => {
-
-                            const source =
-                                img.getAttribute(
-                                    "src"
-                                )
-                                ||
-                                img.dataset.src
-                                ||
-                                img.dataset.sceneSrc;
-
-
-                            if (source) {
-
-                                img.src =
-                                    source;
-                            }
-
-
-                            img.removeAttribute(
-                                "data-src"
-                            );
-
-
-                            img.removeAttribute(
-                                "data-scene-src"
-                            );
-
-
-                            img.loading =
-                                "eager";
-
-
-                            img.decoding =
-                                "async";
-
-
-                            /*
-                               Re-attach repository fallback.
-                            */
-                            img.addEventListener(
-                                "error",
-                                () => {
-
-                                    if (
-                                        typeof portfolioImageFallback
-                                        ===
-                                        "function"
-                                    ) {
-
-                                        portfolioImageFallback(
-                                            img
-                                        );
-                                    }
-                                }
-                            );
-
-
-                            /*
-                               Preserve tap-to-enlarge behaviour.
-                            */
-                            if (
-                                img.hasAttribute(
-                                    "data-case-lightbox"
-                                )
-                            ) {
-
-                                img.style.cursor =
-                                    "zoom-in";
-
-
-                                img.addEventListener(
-                                    "click",
-                                    () => {
-
-                                        const imageSource =
-                                            img.currentSrc
-                                            ||
-                                            img.src;
-
-
-                                        if (!imageSource) {
-                                            return;
-                                        }
-
-
-                                        if (
-                                            lightboxImage
-                                            &&
-                                            lightbox
-                                        ) {
-
-                                            lightboxImage.src =
-                                                imageSource;
-
-
-                                            lightbox.classList.add(
-                                                "open"
-                                            );
-                                        }
-                                    }
-                                );
-                            }
-                        }
-                    );
-
-
-                wrapper.appendChild(
-                    clone
-                );
-
-
-                step.appendChild(
-                    wrapper
-                );
-
-
-                inserted +=
-                    1;
-            }
-        );
-
-
-        /*
-           Hide the original sticky stage ONLY after every
-           explanation successfully receives a matching visual.
-        */
-        if (
-            inserted
-            ===
-            steps.length
-        ) {
-
-            scrolly.classList.add(
-                "mobile-inline-ready"
-            );
-
-
-            scrolly.dataset.mobileInlineBuilt =
-                "true";
-        }
-    }
-
-
-    function scan() {
-
-        if (!isMobile()) {
-            return;
-        }
-
-
-        document
-            .querySelectorAll(
-                ".case-study-view"
-            )
-            .forEach(
-                buildMobileInlineFigures
-            );
-    }
-
-
-    /*
-       Case-study HTML is dynamically created, so detect it
-       whenever a research view is added to the DOM.
-    */
-    const observer =
-        new MutationObserver(
-            () => {
-
-                requestAnimationFrame(
-                    scan
-                );
-            }
-        );
-
-
-    observer.observe(
-        document.body,
-        {
-            childList: true,
-            subtree: true
-        }
-    );
-
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        scan
-    );
-
-
-    window.addEventListener(
-        "resize",
-        scan,
-        {
-            passive: true
-        }
-    );
-
-
-    scan();
-
-})();
-
-</script>
-
-</body>
-
-</html>
+            if
