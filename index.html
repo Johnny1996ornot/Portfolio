@@ -7838,6 +7838,272 @@ perspective            : depth of the carousel
 
 </style>
 
+<style id="final-layout-carousel-and-case-fixes">
+/* =========================================================
+FINAL FIXES
+Fixes:
+1. minor cut on carousel cards
+2. spacing problems in expanded views
+3. research/case-study map looking too zoomed
+4. smoother visuals overall
+========================================================= */
+
+/* ---------------------------------------------------------
+A. COVER FLOW / CAROUSEL FIXES
+--------------------------------------------------------- */
+:root {
+  --portfolio-card-width: clamp(300px, 20vw, 348px);
+  --portfolio-card-gap: clamp(16px, 1.2vw, 22px);
+}
+
+.flow-section {
+  overflow: visible !important;
+  min-width: 0;
+}
+
+.cover-flow {
+  --card-width: var(--portfolio-card-width) !important;
+  gap: var(--portfolio-card-gap) !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  padding-top: 18px !important;
+  padding-bottom: 20px !important;
+  padding-left: max(64px, calc((100% - var(--card-width)) / 2)) !important;
+  padding-right: max(64px, calc((100% - var(--card-width)) / 2)) !important;
+  scroll-padding-inline: max(64px, calc((100% - var(--card-width)) / 2)) !important;
+  scroll-snap-type: x proximity !important;
+  scroll-behavior: smooth !important;
+  overscroll-behavior-x: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  perspective: 1200px !important;
+  perspective-origin: 50% 50% !important;
+  touch-action: pan-x !important;
+  scrollbar-width: none !important;
+}
+
+.cover-flow::-webkit-scrollbar {
+  display: none !important;
+}
+
+.flow-card {
+  max-height: min(68vh, 600px) !important;
+  overflow: hidden !important;
+  scroll-snap-align: center !important;
+  scroll-snap-stop: normal !important;
+  transform-origin: center center !important;
+  transform-style: preserve-3d !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  will-change: transform, opacity, filter !important;
+  transition:
+    opacity .16s linear,
+    filter .16s linear,
+    border-color .24s ease,
+    box-shadow .24s ease !important;
+}
+
+.flow-card.is-center {
+  opacity: 1 !important;
+  border-color: rgba(89,225,141,.56) !important;
+  box-shadow:
+    0 28px 64px rgba(0,24,27,.32),
+    0 0 0 1px rgba(89,225,141,.09) !important;
+}
+
+.flow-dots {
+  margin-top: 10px !important;
+}
+
+.flow-dot {
+  transition: width .22s ease, background .22s ease, transform .22s ease !important;
+}
+
+.flow-dot.active {
+  width: 24px !important;
+}
+
+/* ---------------------------------------------------------
+B. EXPANDED PANEL SPACING FIXES
+--------------------------------------------------------- */
+@media (min-width: 801px) {
+  .expanded-content {
+    grid-template-columns: clamp(450px, 34vw, 600px) minmax(0, 1fr) !important;
+    align-items: stretch !important;
+  }
+
+  .expanded-header-row,
+  .expansion-profile .expanded-header-row,
+  .expansion-projects .expanded-header-row,
+  .expansion-skills .expanded-header-row,
+  .expansion-gallery .expanded-header-row,
+  .expansion-mini .expanded-header-row {
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: clamp(30px, 4vh, 48px) !important;
+  }
+
+  .expanded-header-row > div {
+    width: 100% !important;
+    max-width: 540px !important;
+  }
+
+  .expanded-description {
+    margin-top: 18px !important;
+    line-height: 1.55 !important;
+  }
+
+  .flow-section {
+    padding-top: clamp(26px, 3.6vh, 40px) !important;
+    padding-bottom: clamp(24px, 3vh, 34px) !important;
+    justify-content: center !important;
+  }
+}
+
+/* ---------------------------------------------------------
+C. URBAN HEAT / CASE STUDY SPACING FIX
+--------------------------------------------------------- */
+.urban-heat-case-shell #heat-methods.case-section {
+  padding-top: 50px !important;
+  padding-bottom: 44px !important;
+}
+
+.urban-heat-case-shell #heat-methods .case-section-head {
+  margin-bottom: 24px !important;
+}
+
+.urban-heat-case-shell #heat-methods .case-section-intro {
+  margin-top: 14px !important;
+  max-width: 760px !important;
+}
+
+.urban-heat-case-shell #heat-methods .heat-method-grid {
+  margin-top: 14px !important;
+  gap: 14px !important;
+}
+
+.urban-heat-case-shell #heat-methods .heat-method-step {
+  min-height: 170px !important;
+  padding: 20px !important;
+}
+
+/* ---------------------------------------------------------
+D. SCROLLY CASE-STUDY MAP / IMAGE FIX
+This is the part that stops the map from looking too zoomed in.
+--------------------------------------------------------- */
+.case-scrolly {
+  align-items: start !important;
+}
+
+.case-story-stage {
+  overflow: hidden !important;
+  background: #f4f6f6 !important;
+}
+
+.case-story-scene {
+  overflow: hidden !important;
+}
+
+.case-scene-media {
+  min-height: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 18px 18px 10px !important;
+  overflow: hidden !important;
+  background: #f4f6f6 !important;
+}
+
+.case-scene-media img {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.case-scene-caption {
+  flex: 0 0 auto !important;
+  min-height: auto !important;
+  padding: 12px 18px 16px !important;
+}
+
+@media (min-width: 801px) {
+  .urban-heat-case-shell .case-scrolly {
+    grid-template-columns: minmax(390px, .74fr) minmax(0, 1.26fr) !important;
+    gap: clamp(26px, 3vw, 50px) !important;
+    padding-top: 18px !important;
+  }
+
+  .urban-heat-case-shell .case-story-stage {
+    top: 74px !important;
+    height: min(78vh, 760px) !important;
+    min-height: 560px !important;
+    max-height: calc(100vh - 92px) !important;
+    border-radius: 22px !important;
+  }
+
+  .urban-heat-case-shell .case-scene-media {
+    padding: 16px 16px 8px !important;
+  }
+
+  .urban-heat-case-shell .case-scene-media img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  .urban-heat-case-shell .case-scene-caption {
+    padding: 10px 16px 14px !important;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --portfolio-card-width: min(76vw, 310px);
+    --portfolio-card-gap: 12px;
+  }
+
+  .cover-flow {
+    padding-left: max(28px, calc((100% - var(--card-width)) / 2)) !important;
+    padding-right: max(28px, calc((100% - var(--card-width)) / 2)) !important;
+    scroll-padding-inline: max(28px, calc((100% - var(--card-width)) / 2)) !important;
+    perspective: 1000px !important;
+  }
+
+  .flow-card {
+    max-height: none !important;
+  }
+
+  .urban-heat-case-shell .case-story-stage {
+    top: 70px !important;
+    height: 46vh !important;
+    min-height: 320px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .urban-heat-case-shell .case-scene-media {
+    padding: 12px !important;
+  }
+
+  .urban-heat-case-shell #heat-methods.case-section {
+    padding-top: 34px !important;
+    padding-bottom: 26px !important;
+  }
+
+  .urban-heat-case-shell #heat-methods .heat-method-grid {
+    gap: 10px !important;
+  }
+
+  .urban-heat-case-shell #heat-methods .heat-method-step {
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+}
+</style>
+
 </head>
 
 
@@ -10183,510 +10449,174 @@ Lower values = calmer / flatter motion.
 ========================================================= */
 
 function initialiseCoverFlows() {
+  if (!expansion) return;
 
-    if (!expansion) {
-        return;
+  const ROTATION_MAX_DEG = 5.5;
+  const DEPTH_PER_CARD_PX = 34;
+  const CENTER_LIFT_Z_PX = 14;
+  const SCALE_DROP_PER_CARD = 0.03;
+  const VERTICAL_DROP_PX = 2;
+
+  expansion.querySelectorAll("[data-cover-flow]").forEach(track => {
+    const cards = Array.from(track.querySelectorAll(".flow-card"));
+    if (!cards.length) return;
+
+    const dotsContainer = expansion.querySelector(
+      `[data-dots-for="${track.id}"]`
+    );
+
+    let dots = [];
+    let ticking = false;
+    let closestIndex = 0;
+    let settleTimer = null;
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
     }
 
-
-    const ROTATION_MAX_DEG =
-        9;
-
-    const DEPTH_PER_CARD_PX =
-        62;
-
-    const CENTER_LIFT_Z_PX =
-        34;
-
-    const SCALE_DROP_PER_CARD =
-        0.045;
-
-    const VERTICAL_DROP_PX =
-        4;
-
-
-    expansion
-    .querySelectorAll(
-        "[data-cover-flow]"
-    )
-    .forEach(
-        track => {
-
-
-            const cards =
-                Array.from(
-                    track.querySelectorAll(
-                        ".flow-card"
-                    )
-                );
-
-
-            if (!cards.length) {
-                return;
-            }
-
-
-            const dotsContainer =
-                expansion.querySelector(
-                    `[data-dots-for="${track.id}"]`
-                );
-
-
-            let dots =
-                [];
-
-            let ticking =
-                false;
-
-            let closestIndex =
-                0;
-
-
-            function centerCard(
-                card,
-                smooth = true
-            ) {
-
-                const target =
-                    card.offsetLeft
-                    -
-                    (
-                        track.clientWidth
-                        -
-                        card.offsetWidth
-                    ) / 2;
-
-
-                const maxScroll =
-                    Math.max(
-                        0,
-                        track.scrollWidth
-                        -
-                        track.clientWidth
-                    );
-
-
-                track.scrollTo({
-
-                    left:
-                        Math.min(
-                            maxScroll,
-                            Math.max(
-                                0,
-                                target
-                            )
-                        ),
-
-                    behavior:
-                        smooth
-                        ? "smooth"
-                        : "auto"
-
-                });
-            }
-
-
-            track._centerCard =
-                centerCard;
-
-
-            if (dotsContainer) {
-
-                dotsContainer.innerHTML =
-                    "";
-
-
-                cards.forEach(
-                    (card, index) => {
-
-                        const dot =
-                            document.createElement(
-                                "button"
-                            );
-
-                        dot.className =
-                            "flow-dot";
-
-                        dot.type =
-                            "button";
-
-                        dot.setAttribute(
-                            "aria-label",
-                            `Go to card ${index + 1}`
-                        );
-
-
-                        dot.addEventListener(
-
-                            "click",
-
-                            event => {
-
-                                event.stopPropagation();
-
-                                centerCard(
-                                    card,
-                                    true
-                                );
-                            }
-                        );
-
-
-                        dotsContainer.appendChild(
-                            dot
-                        );
-
-                        dots.push(
-                            dot
-                        );
-                    }
-                );
-            }
-
-
-            function updateFlow() {
-
-
-                const viewportCenter =
-                    track.scrollLeft
-                    +
-                    track.clientWidth / 2;
-
-
-                const styles =
-                    getComputedStyle(
-                        track
-                    );
-
-
-                const gap =
-                    parseFloat(
-                        styles.columnGap
-                        ||
-                        styles.gap
-                        ||
-                        "0"
-                    )
-                    ||
-                    0;
-
-
-                const cardSpacing =
-                    cards[0].offsetWidth
-                    +
-                    gap;
-
-
-                let nearestDistance =
-                    Infinity;
-
-
-                closestIndex =
-                    0;
-
-
-                cards.forEach(
-                    (card, index) => {
-
-
-                        const cardCenter =
-                            card.offsetLeft
-                            +
-                            card.offsetWidth / 2;
-
-
-                        const rawOffset =
-                            (
-                                cardCenter
-                                -
-                                viewportCenter
-                            )
-                            /
-                            Math.max(
-                                cardSpacing,
-                                1
-                            );
-
-
-                        const offset =
-                            Math.max(
-                                -2.25,
-                                Math.min(
-                                    2.25,
-                                    rawOffset
-                                )
-                            );
-
-
-                        const absOffset =
-                            Math.abs(
-                                offset
-                            );
-
-
-                        const distance =
-                            Math.abs(
-                                cardCenter
-                                -
-                                viewportCenter
-                            );
-
-
-                        if (
-                            distance
-                            <
-                            nearestDistance
-                        ) {
-
-                            nearestDistance =
-                                distance;
-
-                            closestIndex =
-                                index;
-                        }
-
-
-                        const centreStrength =
-                            Math.max(
-                                0,
-                                1
-                                -
-                                Math.min(
-                                    absOffset,
-                                    1
-                                )
-                            );
-
-
-                        const translateZ =
-                            -
-                            (
-                                DEPTH_PER_CARD_PX
-                                *
-                                absOffset
-                            )
-                            +
-                            (
-                                CENTER_LIFT_Z_PX
-                                *
-                                centreStrength
-                            );
-
-
-                        const scale =
-                            1.03
-                            -
-                            Math.min(
-                                absOffset,
-                                2
-                            )
-                            *
-                            SCALE_DROP_PER_CARD;
-
-
-                        const rotateY =
-                            Math.max(
-                                -ROTATION_MAX_DEG,
-
-                                Math.min(
-
-                                    ROTATION_MAX_DEG,
-
-                                    offset * -6.5
-                                )
-                            );
-
-
-                        const translateY =
-                            Math.min(
-                                absOffset,
-                                2
-                            )
-                            *
-                            VERTICAL_DROP_PX;
-
-
-                        const opacity =
-                            Math.max(
-                                0.52,
-                                1
-                                -
-                                Math.min(
-                                    absOffset,
-                                    2.25
-                                )
-                                *
-                                0.19
-                            );
-
-
-                        const brightness =
-                            Math.max(
-                                0.82,
-                                1
-                                -
-                                Math.min(
-                                    absOffset,
-                                    2
-                                )
-                                *
-                                0.08
-                            );
-
-
-                        card.style.transform =
-
-                            `translate3d(0, ${translateY}px, ${translateZ}px) `
-                            +
-                            `rotateY(${rotateY}deg) scale(${scale})`;
-
-
-                        card.style.opacity =
-                            opacity.toFixed(3);
-
-
-                        card.style.filter =
-
-                            `brightness(${brightness.toFixed(3)}) `
-                            +
-                            `saturate(${(0.92 + centreStrength * 0.08).toFixed(3)})`;
-
-
-                        card.style.zIndex =
-                            String(
-                                Math.round(
-                                    100
-                                    -
-                                    absOffset * 18
-                                )
-                            );
-                    }
-                );
-
-
-                cards.forEach(
-                    (card, index) => {
-
-                        const centered =
-                            index ===
-                            closestIndex;
-
-
-                        card.classList.toggle(
-                            "is-center",
-                            centered
-                        );
-
-
-                        card.setAttribute(
-
-                            "aria-current",
-
-                            centered
-                            ? "true"
-                            : "false"
-                        );
-                    }
-                );
-
-
-                dots.forEach(
-                    (dot, index) => {
-
-                        dot.classList.toggle(
-                            "active",
-                            index === closestIndex
-                        );
-                    }
-                );
-
-
-                ticking =
-                    false;
-            }
-
-
-            function requestUpdate() {
-
-                if (ticking) {
-                    return;
-                }
-
-                ticking =
-                    true;
-
-                requestAnimationFrame(
-                    updateFlow
-                );
-            }
-
-
-            track.addEventListener(
-                "scroll",
-                requestUpdate,
-                {
-                    passive: true
-                }
-            );
-
-
-            cards.forEach(
-                card => {
-
-                    card.addEventListener(
-
-                        "click",
-
-                        event => {
-
-                            if (
-                                card.classList.contains(
-                                    "is-center"
-                                )
-                            ) {
-                                return;
-                            }
-
-
-                            event.preventDefault();
-
-                            event.stopPropagation();
-
-
-                            centerCard(
-                                card,
-                                true
-                            );
-                        }
-                    );
-                }
-            );
-
-
-            requestAnimationFrame(
-
-                () => {
-
-                    centerCard(
-                        cards[0],
-                        false
-                    );
-
-                    requestAnimationFrame(
-                        updateFlow
-                    );
-                }
-            );
-
-
-            setTimeout(
-                requestUpdate,
-                120
-            );
+    function getTrackGap() {
+      const styles = getComputedStyle(track);
+      return (
+        parseFloat(styles.columnGap || styles.gap || "0") || 0
+      );
+    }
+
+    function centerCard(card, smooth = true) {
+      if (!card) return;
+
+      const target =
+        card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+
+      track.scrollTo({
+        left: clamp(target, 0, maxScroll),
+        behavior: smooth ? "smooth" : "auto"
+      });
+    }
+
+    track._centerCard = centerCard;
+
+    if (dotsContainer) {
+      dotsContainer.innerHTML = "";
+      cards.forEach((card, index) => {
+        const dot = document.createElement("button");
+        dot.className = "flow-dot";
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Go to card ${index + 1}`);
+        dot.addEventListener("click", event => {
+          event.stopPropagation();
+          centerCard(card, true);
+        });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    function updateFlow() {
+      const viewportCenter = track.scrollLeft + track.clientWidth / 2;
+      const gap = getTrackGap();
+      const cardSpacing = cards[0].offsetWidth + gap;
+
+      let nearestDistance = Infinity;
+      closestIndex = 0;
+
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const rawOffset = (cardCenter - viewportCenter) / Math.max(cardSpacing, 1);
+        const offset = clamp(rawOffset, -2.2, 2.2);
+        const absOffset = Math.abs(offset);
+        const distance = Math.abs(cardCenter - viewportCenter);
+
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          closestIndex = index;
         }
-    );
-}
 
+        const centerStrength = Math.max(0, 1 - Math.min(absOffset, 1));
+
+        const translateZ =
+          -(DEPTH_PER_CARD_PX * absOffset) + (CENTER_LIFT_Z_PX * centerStrength);
+
+        const scale =
+          1.015 - Math.min(absOffset, 2) * SCALE_DROP_PER_CARD;
+
+        const rotateY =
+          clamp(offset * -4.4, -ROTATION_MAX_DEG, ROTATION_MAX_DEG);
+
+        const translateY =
+          Math.min(absOffset, 2) * VERTICAL_DROP_PX;
+
+        const opacity =
+          Math.max(0.72, 1 - Math.min(absOffset, 2.2) * 0.10);
+
+        const brightness =
+          Math.max(0.90, 1 - Math.min(absOffset, 2) * 0.04);
+
+        const saturate =
+          0.96 + centerStrength * 0.06;
+
+        card.style.transform =
+          `translate3d(0, ${translateY}px, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+        card.style.opacity = opacity.toFixed(3);
+        card.style.filter =
+          `brightness(${brightness.toFixed(3)}) saturate(${saturate.toFixed(3)})`;
+        card.style.zIndex = String(Math.round(100 - absOffset * 12));
+      });
+
+      cards.forEach((card, index) => {
+        const centered = index === closestIndex;
+        card.classList.toggle("is-center", centered);
+        card.setAttribute("aria-current", centered ? "true" : "false");
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === closestIndex);
+      });
+
+      ticking = false;
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateFlow);
+    }
+
+    function scheduleSettle() {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        centerCard(cards[closestIndex], true);
+      }, 120);
+    }
+
+    track.addEventListener("scroll", () => {
+      requestUpdate();
+      scheduleSettle();
+    }, { passive: true });
+
+    cards.forEach(card => {
+      card.addEventListener("click", event => {
+        if (card.classList.contains("is-center")) return;
+        event.preventDefault();
+        event.stopPropagation();
+        centerCard(card, true);
+      });
+    });
+
+    track.addEventListener("pointerup", () => scheduleSettle());
+    track.addEventListener("touchend", () => scheduleSettle());
+
+    requestAnimationFrame(() => {
+      centerCard(cards[0], false);
+      requestAnimationFrame(updateFlow);
+    });
+
+    setTimeout(requestUpdate, 100);
+    setTimeout(requestUpdate, 260);
+  });
+}
+</script>
 
 /* =========================================================
 SECTION 16 — LIGHTBOX JAVASCRIPT
