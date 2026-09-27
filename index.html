@@ -9458,15 +9458,11 @@ class="shared-title"
 data-title
 >
 <span class="title-line">
-Spatial Data
-</span>
-
-<span class="title-line">
-Environmental Assessment
+Technical
 </span>
 
 <span class="title-line accent">
-Data Analysis
+Skills
 </span>
 </h2>
 
@@ -9939,7 +9935,7 @@ DESIGN RULES
     display: none;
     flex-direction: column;
     gap: 14px;
-    animation: researchYearFade .18s ease both;
+    animation: none;
 }
 
 .expansion-projects #research-year-2025:checked ~ .research-year-stage .research-year-2025,
@@ -10297,7 +10293,7 @@ SECTION 11 — EDITABLE TECHNICAL-SKILLS CARDS
 skills: {
 
 kicker:
-"Technical Toolkit",
+"Technical Skills",
 
 description:
 `
@@ -11182,7 +11178,7 @@ function getExpandedTitleSize(
         const mobileSizes = {
             profile: 32,
             projects: 28,
-            skills: 24,
+            skills: 29,
             gallery: 28,
             mini: 28
         };
@@ -11200,7 +11196,7 @@ function getExpandedTitleSize(
     const desktopSizes = {
         profile: 68,
         projects: 60,
-        skills: 48,
+        skills: 46,
         gallery: 54,
         mini: 52
     };
@@ -16998,6 +16994,181 @@ overrides cannot win over it.
 
 .flow-card {
     transition: opacity .16s ease, transform .20s cubic-bezier(.22,1,.36,1), border-color .20s ease, box-shadow .20s ease !important;
+}
+</style>
+
+
+<style id="portfolio-v9-research-skills-authoritative">
+/* =========================================================
+PORTFOLIO V9 — RESEARCH YEAR BAR + TECHNICAL SKILLS
+Only the Research Projects and Technical Skills expanded panels are
+changed here. This block is intentionally last so older generic
+.flow-section rules cannot override the research layout.
+========================================================= */
+
+/* ---------------------------------------------------------
+TECHNICAL SKILLS — SIMPLE TITLE, NO OVERLAP
+--------------------------------------------------------- */
+@media (min-width: 801px) {
+    .expansion-skills:not(.case-study-active) .expanded-header-row > div {
+        top: var(--rail-copy-top, 420px) !important;
+        max-width: 350px !important;
+    }
+
+    .flying-title[data-key="skills"] {
+        width: min(330px, 23vw) !important;
+        font-size: 46px !important;
+        line-height: .96 !important;
+        letter-spacing: -.055em !important;
+    }
+
+    .expansion-skills:not(.case-study-active) .expanded-description {
+        margin-top: 12px !important;
+        max-width: 340px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .flying-title[data-key="skills"] {
+        width: calc(100vw - 88px) !important;
+        font-size: 29px !important;
+        line-height: .98 !important;
+    }
+
+    .expansion-skills:not(.case-study-active) .expanded-header-row {
+        padding-top: var(--mobile-title-space, 118px) !important;
+    }
+}
+
+/* ---------------------------------------------------------
+RESEARCH PROJECTS — YEAR BAR STAYS FIXED; ONLY LIST SCROLLS
+--------------------------------------------------------- */
+@media (min-width: 801px) {
+    .expansion.expansion-projects:not(.case-study-active)
+    .flow-section.research-year-browser {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding:
+            34px
+            34px
+            34px
+            clamp(360px, 26vw, 455px) !important;
+        display: flex !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+        transform: none !important;
+    }
+
+    .expansion-projects .research-year-shell {
+        width: min(100%, 980px) !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        overflow: hidden !important;
+    }
+
+    .expansion-projects .research-year-toolbar {
+        position: relative !important;
+        top: auto !important;
+        flex: 0 0 auto !important;
+        width: fit-content !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        z-index: 20 !important;
+        transform: none !important;
+    }
+
+    .expansion-projects .research-year-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        overscroll-behavior: contain !important;
+        scrollbar-gutter: stable !important;
+        padding: 0 7px 18px 0 !important;
+    }
+
+    .expansion-projects .research-year-group {
+        width: 100% !important;
+        margin: 0 !important;
+        animation: none !important;
+    }
+
+    .expansion-projects .research-project-card {
+        transform: none;
+    }
+
+    .expansion-projects .research-project-card:hover {
+        transform: translateX(3px);
+    }
+}
+
+/* Mobile: title/copy first, then a sticky year bar. The projects scroll
+   under the year selector instead of dragging the selector with them. */
+@media (max-width: 800px) {
+    .expansion.expansion-projects:not(.case-study-active)
+    .flow-section.research-year-browser {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 4px 14px 28px !important;
+        display: block !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .expansion-projects .research-year-shell {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        gap: 14px !important;
+        overflow: visible !important;
+    }
+
+    .expansion-projects .research-year-toolbar {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 40 !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 7px !important;
+        transform: none !important;
+        background:
+            linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025)),
+            rgba(5,67,73,.90) !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.10),
+            0 10px 28px rgba(0,24,27,.22) !important;
+    }
+
+    .expansion-projects .research-year-pills {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x proximity;
+    }
+
+    .expansion-projects .research-year-pills label {
+        scroll-snap-align: center;
+    }
+
+    .expansion-projects .research-year-stage {
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    .expansion-projects .research-year-group {
+        animation: none !important;
+    }
 }
 </style>
 
