@@ -10384,6 +10384,239 @@ Remove blend mode: the maps sit on an intentional white portrait canvas.
 }
 </style>
 
+
+<style id="v13-technical-skills-and-urban-heat-controls">
+/* =========================================================
+V13 — TECHNICAL SKILLS PANEL + URBAN HEAT CONTROL PLACEMENT
+========================================================= */
+
+/* TECHNICAL SKILLS — all capabilities visible at once */
+@media (min-width: 801px) {
+    .expansion-skills:not(.case-study-active) .expanded-header-row {
+        width: clamp(420px, 30vw, 560px) !important;
+    }
+
+    .expansion-skills:not(.case-study-active) .expanded-header-row > div {
+        left: clamp(54px, 4vw, 78px) !important;
+        right: 30px !important;
+        top: 62% !important;
+    }
+
+    .expansion-skills:not(.case-study-active) .expanded-description {
+        max-width: 410px !important;
+        font-size: clamp(1.05rem, 1.08vw, 1.22rem) !important;
+        line-height: 1.52 !important;
+    }
+
+    .expansion-skills .flying-title,
+    .flying-title[data-key="skills"] {
+        max-width: clamp(330px, 27vw, 500px) !important;
+        line-height: .92 !important;
+    }
+
+    .skills-panel-layout {
+        position: absolute !important;
+        z-index: 3 !important;
+        top: 50% !important;
+        right: clamp(34px, 3vw, 58px) !important;
+        left: clamp(430px, 31vw, 590px) !important;
+        transform: translateY(-50%) !important;
+        min-width: 0 !important;
+        max-height: calc(100% - 78px) !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        padding: 6px 8px 12px 6px !important;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(193,246,237,.24) transparent;
+    }
+
+    .skills-panel-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+        align-items: stretch !important;
+    }
+
+    .skill-panel-project-management {
+        grid-column: span 2 !important;
+    }
+}
+
+.skills-panel-layout::-webkit-scrollbar { width: 6px; }
+.skills-panel-layout::-webkit-scrollbar-track { background: transparent; }
+.skills-panel-layout::-webkit-scrollbar-thumb { background: rgba(193,246,237,.24); border-radius: 999px; }
+
+.skill-panel-tile {
+    min-width: 0;
+    min-height: 190px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(193,246,237,.14);
+    border-radius: 22px;
+    background:
+        linear-gradient(145deg, rgba(193,246,237,.055), rgba(46,175,125,.025)),
+        rgba(6,76,81,.72);
+    box-shadow: 0 14px 30px rgba(0,25,28,.10);
+}
+
+.skill-panel-topline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.skill-panel-tile .card-icon {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 13px !important;
+    font-size: 1rem !important;
+}
+
+.skill-panel-tile .card-label {
+    font-size: .72rem !important;
+    line-height: 1.25 !important;
+}
+
+.skill-panel-tile h3 {
+    margin: 15px 0 0 !important;
+    font-size: clamp(1.18rem, 1.22vw, 1.48rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.025em !important;
+}
+
+.skill-panel-tile p {
+    margin: 10px 0 0 !important;
+    color: var(--muted) !important;
+    font-size: clamp(.82rem, .78vw, .94rem) !important;
+    line-height: 1.5 !important;
+}
+
+.skill-panel-tile .tags {
+    margin-top: auto !important;
+    padding-top: 14px !important;
+    gap: 5px !important;
+}
+
+.skill-panel-tile .tags span {
+    padding: 5px 8px !important;
+    font-size: .65rem !important;
+}
+
+@media (max-width: 1120px) and (min-width: 801px) {
+    .skills-panel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .skill-panel-project-management { grid-column: span 2 !important; }
+}
+
+@media (max-width: 800px) {
+    .skills-panel-layout {
+        position: relative !important;
+        inset: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 118px 14px 28px !important;
+    }
+
+    .skills-panel-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .skill-panel-project-management { grid-column: auto !important; }
+    .skill-panel-tile { min-height: 0 !important; padding: 18px !important; }
+}
+
+/* URBAN HEAT — controls belong under the LEFT COPY, where the red arrow pointed.
+   Remove the right-side rail and the 70px track padding that exposed the next slide. */
+.urban-heat-carousel-track {
+    gap: 0 !important;
+    padding: 2px 2px 10px !important;
+}
+
+.urban-heat-slide {
+    grid-template-columns: minmax(350px,.70fr) minmax(560px,1.30fr) !important;
+    gap: clamp(30px, 3.4vw, 58px) !important;
+    padding: 4px 0 72px !important;
+}
+
+.urban-heat-slide-figure {
+    width: min(100%, 760px) !important;
+    max-height: min(82vh, 860px) !important;
+    justify-self: center !important;
+}
+
+.urban-heat-slide-copy {
+    position: relative !important;
+    align-self: center !important;
+    padding: 10px 4px 16px !important;
+}
+
+.urban-heat-carousel-controls {
+    position: absolute !important;
+    z-index: 18 !important;
+    left: clamp(18px, 2vw, 34px) !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: 14px !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 11px !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+}
+
+.urban-heat-carousel-arrow {
+    position: static !important;
+    transform: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    flex: 0 0 42px !important;
+}
+
+.urban-heat-carousel-dots {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 7px !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+}
+
+.urban-heat-carousel-dot.active {
+    width: 27px !important;
+    height: 9px !important;
+}
+
+@media (max-width: 800px) {
+    .urban-heat-slide {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding: 4px 0 62px !important;
+    }
+
+    .urban-heat-slide-figure {
+        width: min(100%, 520px) !important;
+        max-height: none !important;
+    }
+
+    .urban-heat-carousel-controls {
+        left: 50% !important;
+        bottom: 6px !important;
+        transform: translateX(-50%) !important;
+        justify-content: center !important;
+    }
+}
+</style>
+
 </head>
 
 
@@ -11134,265 +11367,113 @@ Experimental toxicology research assessing embryotoxic and teratogenic effects u
 
 
 /* =========================================================
-SECTION 11 — EDITABLE TECHNICAL-SKILLS CARDS
+SECTION 11 — EDITABLE TECHNICAL SKILLS PANEL
+All skill groups are visible at once. No carousel in this section.
 ========================================================= */
 
 skills: {
 
 kicker:
-"Technical Skills",
+"Core Capabilities",
 
 description:
 `
-Swipe through my geospatial, environmental,
-analytical and scientific capabilities.
+Geospatial, analytical, environmental,
+research and project-delivery capabilities.
 `,
 
 html:
 `
 
-<div class="flow-section">
+<div class="skills-panel-layout" aria-label="Technical skills overview">
 
-<div class="flow-help">
-Swipe sideways to explore
+<div class="skills-panel-grid">
+
+<article class="skill-panel-tile">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-earth-asia"></i></div>
+<div class="card-label">Spatial Data</div>
 </div>
-
-
-<div
-class="cover-flow"
-id="skillsFlow"
-data-cover-flow
->
-
-
-<article class="flow-card">
-
-<div class="skill-heading">
-
-<div class="card-icon">
-<i class="fa-solid fa-earth-asia"></i>
-</div>
-
-<div class="card-label">
-Spatial Data
-</div>
-
-</div>
-
-<h3>
-GIS & Geospatial Analysis
-</h3>
-
-<p>
-Spatial processing, mapping,
-geoprocessing, spatial database
-development, interpolation,
-overlay analysis and
-spatial modelling.
-</p>
-
+<h3>GIS &amp; Geospatial Analysis</h3>
+<p>Spatial processing, mapping, geoprocessing, spatial database development, interpolation, overlay analysis and network modelling.</p>
 <div class="tags">
-<span>QGIS</span>
-<span>PyQGIS</span>
-<span>Spatial Databases</span>
-<span>IDW</span>
-<span>Overlay Analysis</span>
-<span>Network Analysis</span>
+<span>QGIS</span><span>PyQGIS</span><span>Spatial Databases</span><span>IDW</span><span>Overlay Analysis</span><span>Network Analysis</span>
 </div>
-
 </article>
 
-
-<article class="flow-card">
-
-<div class="skill-heading">
-
-<div class="card-icon">
-<i class="fa-solid fa-satellite"></i>
+<article class="skill-panel-tile">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-satellite"></i></div>
+<div class="card-label">Earth Observation</div>
 </div>
-
-<div class="card-label">
-Earth Observation
-</div>
-
-</div>
-
-<h3>
-Remote Sensing
-</h3>
-
-<p>
-Satellite imagery processing,
-vegetation indices, water-quality
-indicators, land-cover mapping
-and environmental classification.
-</p>
-
+<h3>Remote Sensing</h3>
+<p>Satellite imagery processing, vegetation indices, water-quality indicators, land-cover mapping and environmental classification.</p>
 <div class="tags">
-<span>Google Earth Engine</span>
-<span>NDVI</span>
-<span>EVI</span>
-<span>TSS</span>
-<span>Land Cover</span>
-<span>Supervised Classification</span>
+<span>Google Earth Engine</span><span>NDVI</span><span>EVI</span><span>TSS</span><span>Land Cover</span><span>Supervised Classification</span>
 </div>
-
 </article>
 
-
-<article class="flow-card">
-
-<div class="skill-heading">
-
-<div class="card-icon">
-<i class="fa-solid fa-chart-line"></i>
+<article class="skill-panel-tile">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+<div class="card-label">Analysis</div>
 </div>
-
-<div class="card-label">
-Analysis
-</div>
-
-</div>
-
-<h3>
-Data Analysis & Programming
-</h3>
-
-<p>
-Data cleaning, statistical analysis,
-harmonisation, reproducible workflows,
-automated geospatial processing
-and computational modelling.
-</p>
-
+<h3>Data Analysis &amp; Programming</h3>
+<p>Data cleaning, statistical analysis, harmonisation, reproducible workflows, automated geospatial processing and computational modelling.</p>
 <div class="tags">
-<span>Python</span>
-<span>R</span>
-<span>Pandas</span>
-<span>Statistics</span>
-<span>Automation</span>
-<span>Computational Modelling</span>
+<span>Python</span><span>R</span><span>Pandas</span><span>Statistics</span><span>Automation</span><span>Computational Modelling</span>
 </div>
-
 </article>
 
-
-<article class="flow-card">
-
-<div class="skill-heading">
-
-<div class="card-icon">
-<i class="fa-solid fa-leaf"></i>
+<article class="skill-panel-tile">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+<div class="card-label">Environmental Assessment</div>
 </div>
-
-<div class="card-label">
-Environmental Assessment
-</div>
-
-</div>
-
-<h3>
-Environmental Impact Assessment
-</h3>
-
-<p>
-Environmental assessment,
-climate-change adaptation,
-disaster-risk reduction,
-risk mapping and
-environmental monitoring.
-</p>
-
+<h3>Environmental Impact &amp; Risk Assessment</h3>
+<p>Environmental assessment, climate-change adaptation, disaster-risk reduction, risk mapping and environmental monitoring.</p>
 <div class="tags">
-<span>EIA</span>
-<span>CCA</span>
-<span>DRR</span>
-<span>Environmental Monitoring</span>
-<span>Risk Assessment</span>
+<span>EIA</span><span>CCA</span><span>DRR</span><span>Environmental Monitoring</span><span>Risk Assessment</span>
 </div>
-
 </article>
 
-
-<article class="flow-card">
-
-<div class="skill-heading">
-
-<div class="card-icon">
-<i class="fa-solid fa-flask"></i>
+<article class="skill-panel-tile">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-flask"></i></div>
+<div class="card-label">Scientific Research</div>
 </div>
-
-<div class="card-label">
-Scientific Research
-</div>
-
-</div>
-
-<h3>
-Laboratory & Field Research
-</h3>
-
-<p>
-Environmental contamination,
-field sampling, trace-metal analysis,
-microplastics, ecotoxicology
-and research design.
-</p>
-
+<h3>Laboratory &amp; Field Research</h3>
+<p>Environmental contamination, field sampling, trace-metal analysis, microplastics, ecotoxicology and research design.</p>
 <div class="tags">
-<span>Heavy Metals</span>
-<span>Microplastics</span>
-<span>Ecotoxicology</span>
-<span>Fieldwork</span>
-<span>Research Design</span>
+<span>Heavy Metals</span><span>Microplastics</span><span>Ecotoxicology</span><span>Fieldwork</span><span>Research Design</span>
 </div>
-
 </article>
 
-
-<article class="flow-card">
-
-<div class="skill-heading">
-
-<div class="card-icon">
-<i class="fa-solid fa-chart-simple"></i>
+<article class="skill-panel-tile">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div>
+<div class="card-label">Communication</div>
 </div>
-
-<div class="card-label">
-Communication
-</div>
-
-</div>
-
-<h3>
-Visualisation & Technical Communication
-</h3>
-
-<p>
-Analytical maps,
-interactive web tools,
-data visualisations,
-technical reports and
-scientific communication.
-</p>
-
+<h3>Visualisation &amp; Technical Communication</h3>
+<p>Analytical maps, interactive web tools, data visualisations, technical reports and scientific communication.</p>
 <div class="tags">
-<span>HTML</span>
-<span>Interactive Visualisation</span>
-<span>Maps</span>
-<span>Technical Reports</span>
+<span>HTML</span><span>Interactive Visualisation</span><span>Maps</span><span>Technical Reports</span>
 </div>
-
 </article>
 
+<article class="skill-panel-tile skill-panel-project-management">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-list-check"></i></div>
+<div class="card-label">Project Delivery</div>
+</div>
+<h3>Project Management &amp; Coordination</h3>
+<p>Project scoping, task sequencing, delivery planning, research coordination, team guidance, documentation and stakeholder communication.</p>
+<div class="tags">
+<span>Project Planning</span><span>Scoping</span><span>Coordination</span><span>Team Leadership</span><span>Documentation</span><span>Stakeholder Communication</span>
+</div>
+</article>
 
 </div>
-
-
-<div
-class="flow-dots"
-data-dots-for="skillsFlow"
-></div>
 
 </div>
 
@@ -12043,7 +12124,7 @@ function getExpandedTitleSize(
     const desktopSizes = {
         profile: 68,
         projects: 76,
-        skills: 74,
+        skills: 90,
         gallery: 72,
         mini: 72
     };
