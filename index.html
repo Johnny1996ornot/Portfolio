@@ -8143,49 +8143,52 @@ intro far below the heading. Restore a true two-column desktop row.
 </style>
 
 
-<style id="portfolio-v3-authoritative-layout">
+<style id="portfolio-v4-authoritative-layout">
 /* =========================================================
-PORTFOLIO V3 — AUTHORITATIVE LAYOUT + MORPH + SMOOTH CAROUSEL
-This is deliberately the last style block before </head>.
+PORTFOLIO V4 — AUTHORITATIVE RESPONSIVE LAYOUT
+Last desktop/mobile layout override before </head>.
+Goals:
+- smoother transform-based morph
+- native, fluid carousel scrolling
+- more card breathing room without clipping
+- compact mobile expanded panels
+- compact mobile case-study navigation
+- proper mobile stacking for methods / biology / workflow cards
+- tighter Urban Heat Data & Methods layout on desktop
 ========================================================= */
 
-/* -----------------------------
-1. REAL CARD-TO-PANEL MORPH
------------------------------ */
+/* ---------------------------------------------------------
+1. MORPH — TRANSFORM ONLY (GPU FRIENDLY)
+--------------------------------------------------------- */
 .expansion {
+    transform-origin: top left !important;
     transition:
-        left .48s cubic-bezier(.22,1,.36,1),
-        top .48s cubic-bezier(.22,1,.36,1),
-        width .48s cubic-bezier(.22,1,.36,1),
-        height .48s cubic-bezier(.22,1,.36,1),
-        border-radius .48s cubic-bezier(.22,1,.36,1),
-        box-shadow .48s cubic-bezier(.22,1,.36,1) !important;
-    will-change: left, top, width, height, border-radius !important;
+        transform .44s cubic-bezier(.22,1,.36,1),
+        border-radius .44s cubic-bezier(.22,1,.36,1),
+        box-shadow .44s cubic-bezier(.22,1,.36,1) !important;
+    will-change: transform !important;
 }
 
 .flying-title {
+    transform-origin: top left !important;
     transition:
-        left .48s cubic-bezier(.22,1,.36,1),
-        top .48s cubic-bezier(.22,1,.36,1),
-        width .48s cubic-bezier(.22,1,.36,1),
-        font-size .48s cubic-bezier(.22,1,.36,1),
-        line-height .48s cubic-bezier(.22,1,.36,1),
+        transform .44s cubic-bezier(.22,1,.36,1),
         opacity .16s ease !important;
-    will-change: left, top, width, font-size !important;
+    will-change: transform !important;
 }
 
 .expansion-backdrop {
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-    transition: opacity .28s ease !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    transition: opacity .26s ease !important;
 }
 
 .expanded-content {
     opacity: 0 !important;
-    transform: translate3d(0, 8px, 0) !important;
+    transform: translate3d(0, 7px, 0) !important;
     transition:
-        opacity .22s ease,
-        transform .28s cubic-bezier(.22,1,.36,1) !important;
+        opacity .20s ease,
+        transform .24s cubic-bezier(.22,1,.36,1) !important;
 }
 
 .expansion.content-visible .expanded-content {
@@ -8195,14 +8198,91 @@ This is deliberately the last style block before </head>.
 
 .expansion.morph-closing .expanded-content {
     opacity: 0 !important;
-    transform: translate3d(0,5px,0) !important;
+    transform: translate3d(0,4px,0) !important;
     pointer-events: none !important;
 }
 
-/* -----------------------------
-2. DESKTOP LEFT RAIL + CAROUSEL
-Use the screen instead of leaving a giant dead zone.
------------------------------ */
+/* ---------------------------------------------------------
+2. CAROUSEL — NATIVE SCROLL + CLASS-BASED EMPHASIS
+No continuous per-frame transforms.
+--------------------------------------------------------- */
+:root {
+    --portfolio-card-width: clamp(286px, 18.5vw, 330px);
+    --portfolio-card-gap: clamp(18px, 1.35vw, 24px);
+}
+
+.flow-section {
+    min-width: 0 !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+}
+
+.cover-flow {
+    --card-width: var(--portfolio-card-width) !important;
+    gap: var(--portfolio-card-gap) !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    scroll-snap-type: x proximity !important;
+    scroll-behavior: smooth !important;
+    scroll-padding-inline: max(68px, calc((100% - var(--card-width)) / 2)) !important;
+    padding-left: max(68px, calc((100% - var(--card-width)) / 2)) !important;
+    padding-right: max(68px, calc((100% - var(--card-width)) / 2)) !important;
+    overscroll-behavior-x: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+    scrollbar-width: none !important;
+    perspective: none !important;
+}
+
+.cover-flow::-webkit-scrollbar {
+    display: none !important;
+}
+
+.flow-card {
+    scroll-snap-align: center !important;
+    scroll-snap-stop: normal !important;
+    transform: translate3d(0,4px,0) scale(.965) !important;
+    transform-origin: center center !important;
+    transform-style: flat !important;
+    opacity: .74 !important;
+    filter: none !important;
+    will-change: transform, opacity !important;
+    transition:
+        transform .22s cubic-bezier(.22,1,.36,1),
+        opacity .18s ease,
+        border-color .20s ease,
+        box-shadow .20s ease !important;
+    pointer-events: auto !important;
+}
+
+.flow-card.is-center {
+    transform: translate3d(0,0,0) scale(1) !important;
+    opacity: 1 !important;
+    border-color: rgba(89,225,141,.58) !important;
+    box-shadow:
+        0 24px 52px rgba(0,24,27,.26),
+        0 0 0 1px rgba(89,225,141,.09) !important;
+}
+
+.flow-card * {
+    pointer-events: auto;
+}
+
+.flow-dots {
+    margin-top: 8px !important;
+}
+
+.external-project,
+.case-study-launch,
+.gallery-item,
+a.flow-card,
+button.flow-card {
+    pointer-events: auto !important;
+}
+
+/* ---------------------------------------------------------
+3. DESKTOP EXPANDED PORTFOLIO
+--------------------------------------------------------- */
 @media (min-width: 801px) {
 
     .expansion:not(.case-study-active) .expanded-content {
@@ -8218,7 +8298,7 @@ Use the screen instead of leaving a giant dead zone.
     .expansion:not(.case-study-active) .expanded-header-row {
         position: absolute !important;
         inset: 0 auto 0 0 !important;
-        width: clamp(340px, 29vw, 500px) !important;
+        width: clamp(335px, 28vw, 485px) !important;
         height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -8234,14 +8314,14 @@ Use the screen instead of leaving a giant dead zone.
         display: block !important;
         position: absolute !important;
         inset: 0 auto 0 0 !important;
-        width: calc(100% + 120px) !important;
+        width: calc(100% + 112px) !important;
         background:
             linear-gradient(
                 90deg,
                 rgba(4,64,70,1) 0%,
                 rgba(4,64,70,.97) 67%,
-                rgba(4,64,70,.74) 80%,
-                rgba(4,64,70,.30) 91%,
+                rgba(4,64,70,.72) 80%,
+                rgba(4,64,70,.28) 91%,
                 rgba(4,64,70,0) 100%
             ) !important;
         pointer-events: none !important;
@@ -8255,26 +8335,26 @@ Use the screen instead of leaving a giant dead zone.
     .expansion:not(.case-study-active) .expanded-header-row > div {
         position: absolute !important;
         z-index: 3 !important;
-        top: var(--rail-copy-top, 280px) !important;
-        left: clamp(48px, 3.4vw, 66px) !important;
-        right: 34px !important;
+        top: var(--rail-copy-top, 250px) !important;
+        left: clamp(44px, 3.2vw, 62px) !important;
+        right: 28px !important;
         bottom: auto !important;
         width: auto !important;
-        max-width: 420px !important;
+        max-width: 405px !important;
         margin: 0 !important;
         overflow: visible !important;
     }
 
     .expansion:not(.case-study-active) .expanded-kicker {
-        font-size: clamp(.82rem, .76vw, .98rem) !important;
+        font-size: clamp(.80rem, .73vw, .94rem) !important;
         letter-spacing: .14em !important;
     }
 
     .expansion:not(.case-study-active) .expanded-description {
-        margin-top: 12px !important;
-        max-width: 405px !important;
-        font-size: clamp(1.02rem, 1.02vw, 1.18rem) !important;
-        line-height: 1.52 !important;
+        margin-top: 11px !important;
+        max-width: 390px !important;
+        font-size: clamp(.98rem, .98vw, 1.13rem) !important;
+        line-height: 1.50 !important;
         color: rgba(241,253,250,.92) !important;
     }
 
@@ -8285,10 +8365,10 @@ Use the screen instead of leaving a giant dead zone.
         height: 100% !important;
         margin: 0 !important;
         padding:
-            34px
-            clamp(28px, 2.5vw, 46px)
-            34px
-            clamp(330px, 29vw, 505px) !important;
+            38px
+            clamp(26px, 2.3vw, 42px)
+            38px
+            clamp(320px, 28vw, 488px) !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
@@ -8299,37 +8379,57 @@ Use the screen instead of leaving a giant dead zone.
 
     .expansion:not(.case-study-active) .flow-help {
         flex: 0 0 auto !important;
-        margin: 0 0 6px !important;
+        margin: 0 0 4px !important;
         text-align: center !important;
-        font-size: clamp(.88rem, .8vw, 1rem) !important;
+        font-size: clamp(.86rem, .78vw, .98rem) !important;
     }
 
     .expansion:not(.case-study-active) .cover-flow {
         flex: 1 1 auto !important;
         min-height: 0 !important;
-        max-height: none !important;
         width: 100% !important;
-        padding-top: 54px !important;
-        padding-bottom: 50px !important;
-        overflow-x: auto !important;
-        overflow-y: visible !important;
+        max-height: none !important;
+        padding-top: 42px !important;
+        padding-bottom: 42px !important;
         -webkit-mask-image: none !important;
         mask-image: none !important;
     }
 
     .flow-card {
-        height: clamp(510px, 62vh, 570px) !important;
+        height: clamp(470px, 56vh, 530px) !important;
         max-height: none !important;
         aspect-ratio: auto !important;
     }
 
-    /* Profile contacts stay on the right but no longer float absurdly far away. */
+    .mini-card .mini-image,
+    .mini-card .sankey-preview,
+    .mini-card .notedump-preview {
+        height: 31% !important;
+        flex: 0 0 31% !important;
+    }
+
+    .mini-card .mini-body {
+        min-height: 0 !important;
+        padding: 17px 21px 22px !important;
+    }
+
+    .mini-card .mini-body h3 {
+        font-size: clamp(1.42rem, 1.55vw, 1.82rem) !important;
+        line-height: 1.08 !important;
+    }
+
+    .mini-card .mini-body p {
+        font-size: clamp(.90rem, .90vw, 1rem) !important;
+        line-height: 1.45 !important;
+        margin-top: 10px !important;
+    }
+
     .expansion-profile:not(.case-study-active) .contact-grid {
         position: absolute !important;
         z-index: 5 !important;
         top: 50% !important;
-        left: clamp(500px, 40vw, 650px) !important;
-        right: clamp(46px, 4vw, 78px) !important;
+        left: clamp(490px, 39vw, 635px) !important;
+        right: clamp(44px, 3.6vw, 74px) !important;
         width: auto !important;
         max-width: 900px !important;
         margin: 0 !important;
@@ -8338,64 +8438,145 @@ Use the screen instead of leaving a giant dead zone.
     }
 }
 
-/* -----------------------------
-3. CARDS — MORE ROOM, NO TOP CUT, NO 3D JANK
------------------------------ */
-:root {
-    --portfolio-card-width: clamp(292px, 19vw, 338px);
-    --portfolio-card-gap: clamp(18px, 1.35vw, 24px);
+/* ---------------------------------------------------------
+4. MOBILE EXPANDED PORTFOLIO
+Compact header, no giant dead area, cards fully visible.
+--------------------------------------------------------- */
+@media (max-width: 800px) {
+
+    .expansion:not(.case-study-active) {
+        overflow: hidden !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-title-shield {
+        height: 96px !important;
+        background:
+            linear-gradient(
+                180deg,
+                rgba(5,65,72,.97) 0%,
+                rgba(5,65,72,.92) 72%,
+                rgba(5,65,72,0) 100%
+            ) !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-content {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 104px 10px 14px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    /* The mobile expanded page uses the morphed title as the header.
+       Hide the duplicate kicker/description block so it does not create dead space. */
+    .expansion:not(.case-study-active) .expanded-header-row {
+        display: none !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-section {
+        position: relative !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-help {
+        margin: 0 0 4px !important;
+        padding: 0 !important;
+        font-size: .78rem !important;
+        line-height: 1.25 !important;
+    }
+
+    :root {
+        --portfolio-card-width: min(80vw, 318px);
+        --portfolio-card-gap: 12px;
+    }
+
+    .cover-flow {
+        padding-top: 22px !important;
+        padding-bottom: 26px !important;
+        padding-left: max(26px, calc((100% - var(--card-width)) / 2)) !important;
+        padding-right: max(26px, calc((100% - var(--card-width)) / 2)) !important;
+        scroll-padding-inline: max(26px, calc((100% - var(--card-width)) / 2)) !important;
+    }
+
+    .flow-card {
+        height: auto !important;
+        min-height: 470px !important;
+        max-height: none !important;
+        aspect-ratio: auto !important;
+        padding: 20px !important;
+        border-radius: 22px !important;
+    }
+
+    .visual-card {
+        min-height: 500px !important;
+        padding: 0 !important;
+    }
+
+    .mini-card {
+        min-height: 535px !important;
+        padding: 0 !important;
+    }
+
+    .mini-card .mini-image,
+    .mini-card .sankey-preview,
+    .mini-card .notedump-preview {
+        height: 34% !important;
+        flex: 0 0 34% !important;
+    }
+
+    .mini-card .mini-body {
+        padding: 17px 18px 20px !important;
+    }
+
+    .mini-card .mini-body p {
+        font-size: .86rem !important;
+        line-height: 1.45 !important;
+    }
+
+    .visual-image {
+        height: 60% !important;
+    }
+
+    .visual-caption {
+        padding: 16px 17px 18px !important;
+    }
+
+    .expansion-profile:not(.case-study-active) .expanded-content {
+        padding-top: 102px !important;
+    }
+
+    .expansion-profile:not(.case-study-active) .contact-grid {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin: 0 !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .expansion-profile:not(.case-study-active) .contact-card {
+        min-height: 105px !important;
+        padding: 16px 17px !important;
+    }
 }
 
-.cover-flow {
-    --card-width: var(--portfolio-card-width) !important;
-    gap: var(--portfolio-card-gap) !important;
-    scroll-snap-type: x proximity !important;
-    scroll-behavior: smooth !important;
-    perspective: none !important;
-    scroll-padding-inline: max(76px, calc((100% - var(--card-width)) / 2)) !important;
-    padding-left: max(76px, calc((100% - var(--card-width)) / 2)) !important;
-    padding-right: max(76px, calc((100% - var(--card-width)) / 2)) !important;
-    overscroll-behavior-x: contain !important;
-    scrollbar-width: none !important;
-    touch-action: pan-x !important;
-}
-
-.flow-card {
-    transform-style: flat !important;
-    backface-visibility: visible !important;
-    -webkit-backface-visibility: visible !important;
-    will-change: transform, opacity !important;
-    transition:
-        border-color .20s ease,
-        box-shadow .20s ease !important;
-}
-
-.flow-card.is-center {
-    filter: none !important;
-    border-color: rgba(89,225,141,.58) !important;
-    box-shadow:
-        0 26px 58px rgba(0,24,27,.28),
-        0 0 0 1px rgba(89,225,141,.10) !important;
-}
-
-.mini-card .mini-image,
-.mini-card .sankey-preview,
-.mini-card .notedump-preview {
-    height: 32% !important;
-    flex: 0 0 32% !important;
-}
-
-.mini-card .mini-body {
-    padding: 18px 23px 24px !important;
-}
-
-/* -----------------------------
-4. CASE-STUDY FIGURES — ALWAYS FIT ENTIRE MAP/LEGEND
------------------------------ */
-.case-story-stage {
-    overflow: hidden !important;
-}
-
+/* ---------------------------------------------------------
+5. CASE-STUDY FIGURES — CONTAIN ENTIRE IMAGE
+--------------------------------------------------------- */
+.case-story-stage,
 .case-story-scene {
     overflow: hidden !important;
 }
@@ -8419,19 +8600,285 @@ Use the screen instead of leaving a giant dead zone.
     object-position: center !important;
 }
 
-@media (max-width: 800px) {
+/* ---------------------------------------------------------
+6. DESKTOP CASE-STUDY SPACING
+--------------------------------------------------------- */
+@media (min-width: 1000px) {
 
-    .cover-flow {
+    .urban-heat-case-shell #heat-methods.case-section {
         padding-top: 34px !important;
-        padding-bottom: 34px !important;
-        padding-left: max(30px, calc((100% - var(--card-width)) / 2)) !important;
-        padding-right: max(30px, calc((100% - var(--card-width)) / 2)) !important;
-        scroll-padding-inline: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+        padding-bottom: 38px !important;
     }
 
-    .flow-card {
-        height: auto !important;
-        min-height: 510px !important;
+    .urban-heat-case-shell #heat-methods .case-section-head {
+        display: grid !important;
+        grid-template-columns: minmax(360px,.88fr) minmax(480px,1.12fr) !important;
+        column-gap: clamp(34px,4vw,66px) !important;
+        row-gap: 8px !important;
+        align-items: start !important;
+        max-width: none !important;
+        margin: 0 0 20px !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .case-section-number {
+        grid-column: 1 / -1 !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .case-section-head > div {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .case-section-head h2 {
+        margin-top: 6px !important;
+        max-width: 670px !important;
+        font-size: clamp(2.55rem,3.25vw,3.8rem) !important;
+        line-height: .98 !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .case-section-intro {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+        align-self: start !important;
+        max-width: 760px !important;
+        margin: 8px 0 0 !important;
+        font-size: clamp(1rem,1.06vw,1.16rem) !important;
+        line-height: 1.58 !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .heat-method-grid {
+        margin-top: 0 !important;
+        gap: 12px !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .heat-method-step {
+        min-height: 160px !important;
+        padding: 18px !important;
+    }
+}
+
+/* ---------------------------------------------------------
+7. MOBILE CASE STUDY — REAL MOBILE LAYOUT
+--------------------------------------------------------- */
+@media (max-width: 800px) {
+
+    .case-study-shell {
+        width: calc(100% - 12px) !important;
+        padding-bottom: 42px !important;
+    }
+
+    .case-study-topbar {
+        min-height: 52px !important;
+        height: 52px !important;
+        padding: 6px 7px !important;
+        gap: 7px !important;
+        border-radius: 0 0 14px 14px;
+    }
+
+    .case-topbar-left {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        gap: 8px !important;
+    }
+
+    .case-back {
+        width: 38px !important;
+        height: 38px !important;
+        min-height: 38px !important;
+        flex: 0 0 38px !important;
+        padding: 0 !important;
+        justify-content: center !important;
+        font-size: 0 !important;
+        border-radius: 50% !important;
+    }
+
+    .case-back i {
+        font-size: .92rem !important;
+        margin: 0 !important;
+    }
+
+    .case-story-progress {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        gap: 0 !important;
+    }
+
+    .case-progress-count,
+    .case-progress-dots {
+        display: none !important;
+    }
+
+    .case-progress-current {
+        display: block !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        font-size: .70rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .case-topbar-right {
+        flex: 0 0 auto !important;
+        gap: 0 !important;
+    }
+
+    .case-study-close {
+        width: 36px !important;
+        height: 36px !important;
+        flex: 0 0 36px !important;
+    }
+
+    .case-hero {
+        padding: 34px 4px 42px !important;
+    }
+
+    .case-title {
+        margin-top: 12px !important;
+        font-size: clamp(2.65rem, 12vw, 3.8rem) !important;
+        line-height: .90 !important;
+        letter-spacing: -.06em !important;
+    }
+
+    .case-lead {
+        margin-top: 20px !important;
+        font-size: .98rem !important;
+        line-height: 1.58 !important;
+    }
+
+    .case-tags {
+        margin-top: 18px !important;
+        gap: 6px !important;
+    }
+
+    .case-tags span {
+        padding: 6px 8px !important;
+        font-size: .68rem !important;
+    }
+
+    .case-hero-metrics {
+        margin-top: 22px !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+    }
+
+    .case-metric {
+        min-height: 105px !important;
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+
+    .case-metric strong {
+        font-size: 1.25rem !important;
+    }
+
+    .case-metric span {
+        font-size: .74rem !important;
+        line-height: 1.36 !important;
+    }
+
+    #case-methods,
+    .urban-heat-case-shell #heat-methods.case-section {
+        padding-top: 32px !important;
+        padding-bottom: 34px !important;
+    }
+
+    #case-methods .case-section-head,
+    .urban-heat-case-shell #heat-methods .case-section-head {
+        display: block !important;
+        margin-bottom: 20px !important;
+    }
+
+    #case-methods .case-section-head h2,
+    .urban-heat-case-shell #heat-methods .case-section-head h2 {
+        margin-top: 8px !important;
+        font-size: clamp(2rem, 9.4vw, 2.8rem) !important;
+        line-height: 1 !important;
+    }
+
+    #case-methods .case-section-intro,
+    .urban-heat-case-shell #heat-methods .case-section-intro {
+        margin-top: 14px !important;
+        font-size: .94rem !important;
+        line-height: 1.58 !important;
+    }
+
+    .case-biology-bridge {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin: 18px 0 !important;
+    }
+
+    .case-biology-card {
+        min-height: 0 !important;
+        padding: 18px !important;
+    }
+
+    .case-biology-card h3 {
+        min-height: 0 !important;
+        font-size: 1.22rem !important;
+    }
+
+    .case-big-picture {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin: 16px 0 !important;
+    }
+
+    .case-big-picture-step {
+        padding: 15px 16px !important;
+    }
+
+    .case-big-picture-step:not(:last-child)::after {
+        content: "↓" !important;
+        right: auto !important;
+        left: 50% !important;
+        top: auto !important;
+        bottom: -18px !important;
+        transform: translateX(-50%) !important;
+        width: 26px !important;
+        height: 26px !important;
+    }
+
+    .case-method-grid,
+    .heat-method-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .heat-method-step {
+        min-height: 0 !important;
+        padding: 17px !important;
+    }
+
+    .case-scrolly {
+        padding-top: 8px !important;
+    }
+
+    .case-story-step {
+        padding: 28px 4px 34px !important;
+    }
+
+    .case-story-step h2 {
+        font-size: clamp(1.85rem, 8vw, 2.55rem) !important;
+        line-height: 1.02 !important;
+    }
+
+    .case-story-step p {
+        font-size: .95rem !important;
+        line-height: 1.60 !important;
+    }
+
+    .case-story-note {
+        margin-top: 15px !important;
+        padding: 12px 13px !important;
+        font-size: .82rem !important;
+    }
+
+    .case-story-stat-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 7px !important;
     }
 }
 
@@ -8441,6 +8888,10 @@ Use the screen instead of leaving a giant dead zone.
     .expanded-content,
     .flow-card {
         transition: none !important;
+    }
+
+    .cover-flow {
+        scroll-behavior: auto !important;
     }
 }
 </style>
@@ -10120,126 +10571,76 @@ function openPanel(panel) {
 
     activePanel = panel;
 
-    const key =
-        panel.dataset.panel;
-
-    const originalTitle =
-        panel.querySelector("[data-title]");
-
-    const panelRect =
-        panel.getBoundingClientRect();
-
-    const titleRect =
-        originalTitle.getBoundingClientRect();
-
-    const titleStyle =
-        getComputedStyle(originalTitle);
-
-    const originalFontSize =
-        parseFloat(titleStyle.fontSize);
-
-    const originalLineHeight =
-        parseFloat(titleStyle.lineHeight)
-        || originalFontSize * .95;
-
-    const panelRadius =
-        getComputedStyle(panel).borderRadius
-        || "28px";
+    const key = panel.dataset.panel;
+    const originalTitle = panel.querySelector("[data-title]");
+    const panelRect = panel.getBoundingClientRect();
+    const titleRect = originalTitle.getBoundingClientRect();
+    const titleStyle = getComputedStyle(originalTitle);
+    const originalFontSize = parseFloat(titleStyle.fontSize);
+    const panelRadius = getComputedStyle(panel).borderRadius || "28px";
 
     backdrop.hidden = false;
 
-    const margin =
-        window.innerWidth <= 800
-        ? 6
-        : 18;
-
+    const mobile = window.innerWidth <= 800;
+    const margin = mobile ? 6 : 18;
     const finalLeft = margin;
     const finalTop = margin;
     const finalWidth = window.innerWidth - margin * 2;
     const finalHeight = window.innerHeight - margin * 2;
 
-    const finalTitleSize =
-        getExpandedTitleSize(
-            key,
-            originalFontSize
-        );
-
-    const titleLineCount =
-        originalTitle.querySelectorAll(".title-line").length
-        || 1;
+    const finalTitleSize = getExpandedTitleSize(key, originalFontSize);
+    const titleLineCount = originalTitle.querySelectorAll(".title-line").length || 1;
 
     const finalTitleLeft =
-        finalLeft
-        +
-        (
-            window.innerWidth <= 800
-            ? 18
-            : Math.max(48, window.innerWidth * .032)
-        );
+        finalLeft + (mobile ? 16 : Math.max(46, window.innerWidth * .03));
 
     const finalTitleTop =
-        window.innerWidth <= 800
-        ? finalTop + 28
-        : finalTop + 76;
+        mobile ? finalTop + 22 : finalTop + 68;
 
     const finalTitleWidth =
-        window.innerWidth <= 800
-        ? Math.min(finalWidth * .84, 760)
-        : Math.min(finalWidth * .29, 510);
+        mobile
+        ? Math.max(180, finalWidth - 92)
+        : Math.min(finalWidth * .28, 490);
 
-    const finalLineHeight =
-        finalTitleSize * .92;
+    const estimatedTitleHeight = finalTitleSize * .92 * titleLineCount;
 
-    const estimatedTitleHeight =
-        finalLineHeight * titleLineCount;
-
-    /* Copy starts directly under the morphed title instead of floating
-       halfway down the screen. */
-    if (window.innerWidth > 800) {
-
-        const railCopyTop =
-            Math.min(
-                finalHeight - 210,
-                Math.max(
-                    210,
-                    (
-                        finalTitleTop
-                        - finalTop
-                    )
-                    + estimatedTitleHeight
-                    + 32
-                )
-            );
-
-        /* Stored on the shell so CSS can align the kicker + description. */
+    if (!mobile) {
+        const railCopyTop = Math.min(
+            finalHeight - 190,
+            Math.max(
+                190,
+                (finalTitleTop - finalTop) + estimatedTitleHeight + 24
+            )
+        );
         panel.dataset.lastRailCopyTop = String(railCopyTop);
     }
 
-    expansion =
-        document.createElement("div");
+    expansion = document.createElement("div");
+    expansion.className = `expansion expansion-${key} morph-shell`;
 
-    expansion.className =
-        `expansion expansion-${key} morph-shell`;
-
-    /* IMPORTANT: the new panel begins exactly where the clicked home card is. */
-    expansion.style.left = `${panelRect.left}px`;
-    expansion.style.top = `${panelRect.top}px`;
-    expansion.style.width = `${panelRect.width}px`;
-    expansion.style.height = `${panelRect.height}px`;
+    /* The shell is laid out at its FINAL size from the start.
+       We visually place it over the clicked card with a transform.
+       This avoids animating width/height/left/top every frame. */
+    expansion.style.left = `${finalLeft}px`;
+    expansion.style.top = `${finalTop}px`;
+    expansion.style.width = `${finalWidth}px`;
+    expansion.style.height = `${finalHeight}px`;
     expansion.style.borderRadius = panelRadius;
+    expansion.style.transformOrigin = "top left";
 
-    const railCopyTop =
-        Number(panel.dataset.lastRailCopyTop || 250);
+    const shellDx = panelRect.left - finalLeft;
+    const shellDy = panelRect.top - finalTop;
+    const shellSx = panelRect.width / finalWidth;
+    const shellSy = panelRect.height / finalHeight;
 
-    expansion.style.setProperty(
-        "--rail-copy-top",
-        `${railCopyTop}px`
-    );
+    expansion.style.transform =
+        `translate3d(${shellDx}px, ${shellDy}px, 0) scale(${shellSx}, ${shellSy})`;
+
+    const railCopyTop = Number(panel.dataset.lastRailCopyTop || 230);
+    expansion.style.setProperty("--rail-copy-top", `${railCopyTop}px`);
 
     expansion.innerHTML = `
-
         <div class="expanded-blob"></div>
-
         <div class="expanded-blob-small"></div>
 
         ${
@@ -10251,128 +10652,92 @@ function openPanel(panel) {
         <div class="expanded-title-shield"></div>
 
         <div class="expanded-content">
-
             <div class="expanded-header-row">
-
                 <div>
-
-                    <div class="expanded-kicker">
-                        ${content[key].kicker}
-                    </div>
-
-                    <div class="expanded-description">
-                        ${content[key].description}
-                    </div>
-
+                    <div class="expanded-kicker">${content[key].kicker}</div>
+                    <div class="expanded-description">${content[key].description}</div>
                     ${getLeftRailScene(key)}
-
                 </div>
-
             </div>
-
             ${content[key].html}
-
         </div>
     `;
 
     document.body.appendChild(expansion);
 
-    /* The title also begins at the exact home-page title geometry. */
-    flyingTitle =
-        document.createElement(originalTitle.tagName);
-
-    flyingTitle.className =
-        "flying-title compact morph-title";
-
+    flyingTitle = document.createElement(originalTitle.tagName);
+    flyingTitle.className = "flying-title compact morph-title";
     flyingTitle.dataset.key = key;
     flyingTitle.innerHTML = originalTitle.innerHTML;
 
-    flyingTitle.style.left = `${titleRect.left}px`;
-    flyingTitle.style.top = `${titleRect.top}px`;
-    flyingTitle.style.width = `${titleRect.width}px`;
-    flyingTitle.style.fontSize = `${originalFontSize}px`;
-    flyingTitle.style.lineHeight = `${originalLineHeight}px`;
+    /* Title is also laid out at its FINAL state first. */
+    flyingTitle.style.left = `${finalTitleLeft}px`;
+    flyingTitle.style.top = `${finalTitleTop}px`;
+    flyingTitle.style.width = `${finalTitleWidth}px`;
+    flyingTitle.style.fontSize = `${finalTitleSize}px`;
+    flyingTitle.style.lineHeight = ".92";
+    flyingTitle.style.transformOrigin = "top left";
 
     document.body.appendChild(flyingTitle);
 
-    /* Let the clones paint once before hiding the originals. */
-    expansion.getBoundingClientRect();
-    flyingTitle.getBoundingClientRect();
+    const finalTitleRect = flyingTitle.getBoundingClientRect();
+    const titleDx = titleRect.left - finalTitleRect.left;
+    const titleDy = titleRect.top - finalTitleRect.top;
+    const titleScale = Math.max(
+        .05,
+        Math.min(
+            4,
+            titleRect.width / Math.max(finalTitleRect.width, 1)
+        )
+    );
+
+    flyingTitle.style.transform =
+        `translate3d(${titleDx}px, ${titleDy}px, 0) scale(${titleScale})`;
+
+    /* Paint the initial transformed state before hiding the home elements. */
+    void expansion.offsetWidth;
+    void flyingTitle.offsetWidth;
 
     originalTitle.style.opacity = "0";
     panel.style.opacity = "0";
     panel.style.pointerEvents = "none";
 
-    closeButton =
-        document.createElement("button");
-
-    closeButton.className =
-        "expansion-close";
-
+    closeButton = document.createElement("button");
+    closeButton.className = "expansion-close";
     closeButton.type = "button";
     closeButton.setAttribute("aria-label", "Close expanded section");
     closeButton.setAttribute("title", "Close section");
-    closeButton.innerHTML =
-        `<i class="fa-solid fa-xmark" aria-hidden="true"></i>`;
-
+    closeButton.innerHTML = `<i class="fa-solid fa-xmark" aria-hidden="true"></i>`;
     document.body.appendChild(closeButton);
     positionCloseButton();
 
-    closeButton.addEventListener(
-        "click",
-        event => {
-            event.preventDefault();
-            event.stopPropagation();
-            closeActivePanel();
+    closeButton.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeActivePanel();
+    });
+
+    requestAnimationFrame(() => {
+        backdrop.classList.add("open");
+        expansion.style.transform = "translate3d(0,0,0) scale(1,1)";
+        expansion.style.borderRadius = mobile ? "23px" : "32px";
+        flyingTitle.style.transform = "translate3d(0,0,0) scale(1)";
+
+        if (key === "profile") {
+            expansion.querySelector(".profile-scatter-system")?.classList.add("scattered");
         }
-    );
+    });
 
-    /* Start backdrop and geometry morph on the next frame. */
-    requestAnimationFrame(
-        () => {
-
-            backdrop.classList.add("open");
-
-            expansion.style.left = `${finalLeft}px`;
-            expansion.style.top = `${finalTop}px`;
-            expansion.style.width = `${finalWidth}px`;
-            expansion.style.height = `${finalHeight}px`;
-            expansion.style.borderRadius =
-                window.innerWidth <= 800
-                ? "23px"
-                : "32px";
-
-            flyingTitle.style.left = `${finalTitleLeft}px`;
-            flyingTitle.style.top = `${finalTitleTop}px`;
-            flyingTitle.style.width = `${finalTitleWidth}px`;
-            flyingTitle.style.fontSize = `${finalTitleSize}px`;
-            flyingTitle.style.lineHeight = ".92";
-
-            if (key === "profile") {
-                expansion.querySelector(".profile-scatter-system")?.classList.add("scattered");
-            }
-        }
-    );
-
-    /* Reveal the actual panel contents after the shell/title are already moving.
-       This avoids the old "card suddenly appears" effect. */
-    setTimeout(
-        () => {
-
-            if (!expansion) {
-                return;
-            }
-
-            expansion.classList.add("content-visible");
-            closeButton?.classList.add("visible");
-
-            initialiseCoverFlows();
-            bindGalleryItems();
-            bindCaseStudyLaunchers();
-
-        },
-        window.innerWidth <= 800 ? 250 : 330
-    );
+    /* Wait for the morph to be nearly finished before showing inner content.
+       This is what makes it read as one object transforming, rather than a card popping in. */
+    setTimeout(() => {
+        if (!expansion) return;
+        expansion.classList.add("content-visible");
+        closeButton?.classList.add("visible");
+        initialiseCoverFlows();
+        bindGalleryItems();
+        bindCaseStudyLaunchers();
+    }, mobile ? 380 : 420);
 }
 
 
@@ -10382,11 +10747,7 @@ CLOSE PANEL
 
 function closeActivePanel() {
 
-    if (
-        !activePanel
-        ||
-        !expansion
-    ) {
+    if (!activePanel || !expansion) {
         return;
     }
 
@@ -10395,17 +10756,14 @@ function closeActivePanel() {
     const view = activeCaseStudy;
 
     if (view) {
-
         if (view._caseStoryCleanup) {
             view._caseStoryCleanup();
             view._caseStoryCleanup = null;
         }
-
         if (view._caseStoryObserver) {
             view._caseStoryObserver.disconnect();
             view._caseStoryObserver = null;
         }
-
         view.classList.remove("open");
         view.remove();
         activeCaseStudy = null;
@@ -10418,8 +10776,6 @@ function closeActivePanel() {
 
     document.body.classList.remove("research-case-open");
     expansion.classList.remove("case-study-active");
-
-    /* Hide inner content first, then morph the shell and title back home. */
     expansion.classList.remove("content-visible");
     expansion.classList.add("morph-closing");
 
@@ -10428,61 +10784,60 @@ function closeActivePanel() {
 
     const panelRect = panel.getBoundingClientRect();
     const titleRect = originalTitle.getBoundingClientRect();
-    const titleStyle = getComputedStyle(originalTitle);
-    const originalFontSize = parseFloat(titleStyle.fontSize);
-    const originalLineHeight = parseFloat(titleStyle.lineHeight) || originalFontSize * .95;
     const panelRadius = getComputedStyle(panel).borderRadius || "28px";
+    const shellRect = expansion.getBoundingClientRect();
 
-    /* Stop the scattered profile planets before the reverse shell motion. */
+    const shellDx = panelRect.left - shellRect.left;
+    const shellDy = panelRect.top - shellRect.top;
+    const shellSx = panelRect.width / Math.max(shellRect.width, 1);
+    const shellSy = panelRect.height / Math.max(shellRect.height, 1);
+
     expansion.querySelector(".profile-scatter-system")?.classList.remove("scattered");
 
-    requestAnimationFrame(
-        () => {
+    let titleTransform = "translate3d(0,0,0) scale(1)";
 
-            expansion.style.left = `${panelRect.left}px`;
-            expansion.style.top = `${panelRect.top}px`;
-            expansion.style.width = `${panelRect.width}px`;
-            expansion.style.height = `${panelRect.height}px`;
-            expansion.style.borderRadius = panelRadius;
+    if (flyingTitle) {
+        flyingTitle.classList.remove("case-study-hidden");
+        const currentTitleRect = flyingTitle.getBoundingClientRect();
+        const titleDx = titleRect.left - currentTitleRect.left;
+        const titleDy = titleRect.top - currentTitleRect.top;
+        const titleScale = Math.max(
+            .05,
+            Math.min(
+                4,
+                titleRect.width / Math.max(currentTitleRect.width, 1)
+            )
+        );
+        titleTransform =
+            `translate3d(${titleDx}px, ${titleDy}px, 0) scale(${titleScale})`;
+    }
 
-            if (flyingTitle) {
-                flyingTitle.classList.remove("case-study-hidden");
-                flyingTitle.style.left = `${titleRect.left}px`;
-                flyingTitle.style.top = `${titleRect.top}px`;
-                flyingTitle.style.width = `${titleRect.width}px`;
-                flyingTitle.style.fontSize = `${originalFontSize}px`;
-                flyingTitle.style.lineHeight = `${originalLineHeight}px`;
-            }
+    requestAnimationFrame(() => {
+        expansion.style.transform =
+            `translate3d(${shellDx}px, ${shellDy}px, 0) scale(${shellSx}, ${shellSy})`;
+        expansion.style.borderRadius = panelRadius;
+
+        if (flyingTitle) {
+            flyingTitle.style.transform = titleTransform;
         }
-    );
+    });
 
-    const finishClose =
-        () => {
+    const finishClose = () => {
+        panel.style.opacity = "";
+        panel.style.pointerEvents = "";
+        if (originalTitle) originalTitle.style.opacity = "";
+        expansion?.remove();
+        flyingTitle?.remove();
+        closeButton?.remove();
+        backdrop.hidden = true;
+        expansion = null;
+        flyingTitle = null;
+        closeButton = null;
+        activePanel = null;
+        activeCaseStudy = null;
+    };
 
-            panel.style.opacity = "";
-            panel.style.pointerEvents = "";
-
-            if (originalTitle) {
-                originalTitle.style.opacity = "";
-            }
-
-            expansion?.remove();
-            flyingTitle?.remove();
-            closeButton?.remove();
-
-            backdrop.hidden = true;
-
-            expansion = null;
-            flyingTitle = null;
-            closeButton = null;
-            activePanel = null;
-            activeCaseStudy = null;
-        };
-
-    setTimeout(
-        finishClose,
-        window.innerWidth <= 800 ? 390 : 500
-    );
+    setTimeout(finishClose, window.innerWidth <= 800 ? 420 : 470);
 }
 
 
@@ -10560,234 +10915,108 @@ function initialiseCoverFlows() {
         return;
     }
 
-    /* =====================================================
-    SMOOTH COVER-FLOW
-
-    The previous version combined Z-depth, rotateY, brightness,
-    saturation and snapping. That looked dramatic but cost smoothness.
-
-    This version uses only compositor-friendly translate + scale + opacity.
-    ===================================================== */
-
     expansion
     .querySelectorAll("[data-cover-flow]")
-    .forEach(
-        track => {
+    .forEach(track => {
 
-            const cards =
-                Array.from(
-                    track.querySelectorAll(".flow-card")
-                );
+        const cards = Array.from(track.querySelectorAll(".flow-card"));
+        if (!cards.length) return;
 
-            if (!cards.length) {
-                return;
-            }
+        const dotsContainer = expansion.querySelector(
+            `[data-dots-for="${track.id}"]`
+        );
 
-            const dotsContainer =
-                expansion.querySelector(
-                    `[data-dots-for="${track.id}"]`
-                );
+        let dots = [];
+        let rafId = 0;
+        let closestIndex = 0;
 
-            let dots = [];
-            let rafId = 0;
-            let closestIndex = 0;
+        const clamp = (value, min, max) =>
+            Math.max(min, Math.min(max, value));
 
-            const clamp =
-                (value, min, max) =>
-                    Math.max(min, Math.min(max, value));
+        function centerCard(card, smooth = true) {
+            if (!card) return;
 
-            function centerCard(card, smooth = true) {
+            const target =
+                card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
 
-                if (!card) {
-                    return;
-                }
+            const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
 
-                const target =
-                    card.offsetLeft
-                    -
-                    (
-                        track.clientWidth
-                        -
-                        card.offsetWidth
-                    ) / 2;
-
-                const maxScroll =
-                    Math.max(
-                        0,
-                        track.scrollWidth
-                        -
-                        track.clientWidth
-                    );
-
-                track.scrollTo({
-                    left: clamp(target, 0, maxScroll),
-                    behavior: smooth ? "smooth" : "auto"
-                });
-            }
-
-            track._centerCard = centerCard;
-
-            if (dotsContainer) {
-
-                dotsContainer.innerHTML = "";
-
-                cards.forEach(
-                    (card, index) => {
-
-                        const dot = document.createElement("button");
-                        dot.className = "flow-dot";
-                        dot.type = "button";
-                        dot.setAttribute("aria-label", `Go to card ${index + 1}`);
-
-                        dot.addEventListener(
-                            "click",
-                            event => {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                centerCard(card, true);
-                            }
-                        );
-
-                        dotsContainer.appendChild(dot);
-                        dots.push(dot);
-                    }
-                );
-            }
-
-            function updateFlow() {
-
-                rafId = 0;
-
-                const viewportCenter =
-                    track.scrollLeft
-                    +
-                    track.clientWidth / 2;
-
-                let nearestDistance = Infinity;
-                closestIndex = 0;
-
-                cards.forEach(
-                    (card, index) => {
-
-                        const cardCenter =
-                            card.offsetLeft
-                            +
-                            card.offsetWidth / 2;
-
-                        const distancePx =
-                            cardCenter
-                            -
-                            viewportCenter;
-
-                        const normalized =
-                            clamp(
-                                distancePx / Math.max(track.clientWidth * .56, 1),
-                                -1.45,
-                                1.45
-                            );
-
-                        const abs = Math.abs(normalized);
-                        const distance = Math.abs(distancePx);
-
-                        if (distance < nearestDistance) {
-                            nearestDistance = distance;
-                            closestIndex = index;
-                        }
-
-                        /* Smooth and restrained: center card full size,
-                           side cards gently recede without rotating. */
-                        const scale =
-                            1
-                            -
-                            Math.min(abs, 1) * .055;
-
-                        const y =
-                            Math.min(abs, 1) * 7;
-
-                        const opacity =
-                            1
-                            -
-                            Math.min(abs, 1.25) * .20;
-
-                        card.style.transform =
-                            `translate3d(0, ${y.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
-
-                        card.style.opacity =
-                            opacity.toFixed(3);
-
-                        card.style.zIndex =
-                            String(
-                                Math.round(
-                                    100
-                                    -
-                                    Math.min(abs, 1.5) * 12
-                                )
-                            );
-                    }
-                );
-
-                cards.forEach(
-                    (card, index) => {
-
-                        const centered =
-                            index === closestIndex;
-
-                        card.classList.toggle("is-center", centered);
-                        card.setAttribute("aria-current", centered ? "true" : "false");
-                    }
-                );
-
-                dots.forEach(
-                    (dot, index) => {
-                        dot.classList.toggle("active", index === closestIndex);
-                    }
-                );
-            }
-
-            function requestUpdate() {
-
-                if (rafId) {
-                    return;
-                }
-
-                rafId = requestAnimationFrame(updateFlow);
-            }
-
-            track.addEventListener(
-                "scroll",
-                requestUpdate,
-                { passive: true }
-            );
-
-            cards.forEach(
-                card => {
-
-                    card.addEventListener(
-                        "click",
-                        event => {
-
-                            if (card.classList.contains("is-center")) {
-                                return;
-                            }
-
-                            event.preventDefault();
-                            event.stopPropagation();
-                            centerCard(card, true);
-                        }
-                    );
-                }
-            );
-
-            requestAnimationFrame(
-                () => {
-                    centerCard(cards[0], false);
-                    requestAnimationFrame(updateFlow);
-                }
-            );
-
-            setTimeout(requestUpdate, 120);
+            track.scrollTo({
+                left: clamp(target, 0, maxScroll),
+                behavior: smooth ? "smooth" : "auto"
+            });
         }
-    );
+
+        track._centerCard = centerCard;
+
+        if (dotsContainer) {
+            dotsContainer.innerHTML = "";
+
+            cards.forEach((card, index) => {
+                const dot = document.createElement("button");
+                dot.className = "flow-dot";
+                dot.type = "button";
+                dot.setAttribute("aria-label", `Go to card ${index + 1}`);
+                dot.addEventListener("click", event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    centerCard(card, true);
+                });
+                dotsContainer.appendChild(dot);
+                dots.push(dot);
+            });
+        }
+
+        function updateActiveCard() {
+            rafId = 0;
+
+            const viewportCenter = track.scrollLeft + track.clientWidth / 2;
+            let nearestDistance = Infinity;
+            closestIndex = 0;
+
+            cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                const distance = Math.abs(cardCenter - viewportCenter);
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+
+            cards.forEach((card, index) => {
+                const centered = index === closestIndex;
+                card.classList.toggle("is-center", centered);
+                card.setAttribute("aria-current", centered ? "true" : "false");
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle("active", index === closestIndex);
+            });
+        }
+
+        function requestUpdate() {
+            if (rafId) return;
+            rafId = requestAnimationFrame(updateActiveCard);
+        }
+
+        track.addEventListener("scroll", requestUpdate, { passive: true });
+
+        cards.forEach(card => {
+            card.addEventListener("click", event => {
+                if (card.classList.contains("is-center")) return;
+                event.preventDefault();
+                event.stopPropagation();
+                centerCard(card, true);
+            });
+        });
+
+        requestAnimationFrame(() => {
+            centerCard(cards[0], false);
+            requestAnimationFrame(updateActiveCard);
+        });
+
+        setTimeout(requestUpdate, 100);
+    });
 }
 
 
@@ -15145,303 +15374,115 @@ MOBILE RESEARCH FIGURES FIX
 ========================================================= -->
 
 <style id="mobile-research-figures-fix">
-
 @media (max-width: 800px) {
 
-    .case-scrolly.mobile-inline-ready
-    > .case-story-stage {
-        display:
-            none !important;
+    .case-scrolly.mobile-inline-ready > .case-story-stage {
+        display: none !important;
     }
-
 
     .case-scrolly.mobile-inline-ready {
-        display:
-            block !important;
-
-        width:
-            100% !important;
-
-        padding-top:
-            18px !important;
+        display: block !important;
+        width: 100% !important;
+        padding-top: 8px !important;
     }
 
-
-    .case-scrolly.mobile-inline-ready
-    > .case-story-copy {
-        display:
-            block !important;
-
-        width:
-            100% !important;
-
-        min-width:
-            0 !important;
+    .case-scrolly.mobile-inline-ready > .case-story-copy {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
     }
 
-
-    .case-scrolly.mobile-inline-ready
-    .case-story-step {
-        min-height:
-            0 !important;
-
-        height:
-            auto !important;
-
-        padding:
-            32px
-            4px
-            42px !important;
-
-        opacity:
-            1 !important;
-
-        transform:
-            none !important;
-
-        border-left:
-            0 !important;
+    .case-scrolly.mobile-inline-ready .case-story-step {
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 28px 4px 34px !important;
+        opacity: 1 !important;
+        transform: none !important;
+        border-left: 0 !important;
     }
 
-
-    .case-scrolly.mobile-inline-ready
-    .case-story-step.active {
-        padding-left:
-            4px !important;
+    .case-scrolly.mobile-inline-ready .case-story-step.active {
+        padding-left: 4px !important;
     }
 
-
-    .case-scrolly.mobile-inline-ready
-    .case-story-step
-    +
-    .case-story-step {
-        border-top:
-            1px solid rgba(193,246,237,.09);
+    .case-scrolly.mobile-inline-ready .case-story-step + .case-story-step {
+        border-top: 1px solid rgba(193,246,237,.09);
     }
-
 
     .mobile-inline-figure {
-        position:
-            relative !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 18px 0 0 !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(193,246,237,.16);
+        border-radius: 16px;
+        background: #f4f6f6;
+        box-shadow: 0 10px 22px rgba(0,24,28,.12);
+    }
 
-        width:
-            100% !important;
+    /* V4 wrapper contains scene media + caption directly.
+       No nested absolute .case-story-scene means no collapsing image area. */
+    .mobile-inline-figure .case-scene-media {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding: 8px !important;
+        overflow: visible !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #f4f6f6 !important;
+    }
 
-        max-width:
-            100% !important;
-
-        margin:
-            22px 0 0 !important;
-
-        overflow:
-            hidden !important;
-
-        border:
-            1px solid rgba(193,246,237,.16);
-
-        border-radius:
-            18px;
-
+    .mobile-inline-figure .case-scene-media.dark {
         background:
-            #f4f6f6;
-
-        box-shadow:
-            0 12px 26px rgba(0,24,28,.14);
+            radial-gradient(circle at 88% 12%, rgba(89,225,141,.13), transparent 34%),
+            linear-gradient(145deg, #063f46, #075157) !important;
     }
 
-
-    .mobile-inline-figure
-    .case-story-scene {
-        position:
-            relative !important;
-
-        inset:
-            auto !important;
-
-        display:
-            flex !important;
-
-        flex-direction:
-            column !important;
-
-        width:
-            100% !important;
-
-        height:
-            auto !important;
-
-        min-height:
-            0 !important;
-
-        max-height:
-            none !important;
-
-        opacity:
-            1 !important;
-
-        visibility:
-            visible !important;
-
-        pointer-events:
-            auto !important;
-
-        transform:
-            none !important;
-
-        z-index:
-            auto !important;
-
-        overflow:
-            visible !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-story-scene:not(.active) {
-        display:
-            flex !important;
-
-        opacity:
-            1 !important;
-
-        visibility:
-            visible !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-scene-media {
-        position:
-            relative !important;
-
-        width:
-            100% !important;
-
-        height:
-            auto !important;
-
-        min-height:
-            0 !important;
-
-        max-height:
-            none !important;
-
-        padding:
-            8px !important;
-
-        overflow:
-            visible !important;
-
-        display:
-            flex !important;
-
-        align-items:
-            center !important;
-
-        justify-content:
-            center !important;
-
-        background:
-            #f4f6f6 !important;
-    }
-
-
-    .mobile-inline-figure
-    .case-scene-media img,
+    .mobile-inline-figure .case-scene-media img,
     .mobile-inline-figure img {
-        position:
-            relative !important;
-
-        display:
-            block !important;
-
-        width:
-            100% !important;
-
-        height:
-            auto !important;
-
-        min-width:
-            0 !important;
-
-        min-height:
-            0 !important;
-
-        max-width:
-            100% !important;
-
-        max-height:
-            none !important;
-
-        margin:
-            0 auto !important;
-
-        padding:
-            0 !important;
-
-        object-fit:
-            contain !important;
-
-        object-position:
-            center !important;
-
-        background:
-            #f4f6f6 !important;
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        object-fit: contain !important;
+        object-position: center !important;
     }
 
-
-    .mobile-inline-figure
-    .case-scene-caption {
-        position:
-            relative !important;
-
-        width:
-            100% !important;
-
-        min-height:
-            0 !important;
-
-        padding:
-            11px
-            13px
-            13px !important;
+    .mobile-inline-figure .case-scene-caption {
+        position: relative !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        padding: 10px 12px 12px !important;
     }
 
-
-    .mobile-inline-figure
-    .case-visual-panel,
-    .mobile-inline-figure
-    .case-ecology-diagram {
-        position:
-            relative !important;
-
-        width:
-            100% !important;
-
-        height:
-            auto !important;
-
-        min-height:
-            0 !important;
-
-        max-height:
-            none !important;
-
-        overflow:
-            visible !important;
+    .mobile-inline-figure .case-visual-panel,
+    .mobile-inline-figure .case-ecology-diagram {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 16px !important;
     }
 
-
-    .mobile-inline-figure
-    .case-policy-grid,
-    .mobile-inline-figure
-    .case-ecology-flow-v3 {
-        grid-template-columns:
-            1fr !important;
+    .mobile-inline-figure .case-policy-grid,
+    .mobile-inline-figure .case-ecology-flow-v3 {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
     }
-
 }
-
 </style>
 
 
@@ -15593,28 +15634,12 @@ MOBILE RESEARCH FIGURES FIX
                     "mobile-inline-figure";
 
 
-                const clone =
-                    sourceScene.cloneNode(
-                        true
-                    );
+                /* Copy only the scene contents, not the absolutely positioned
+                   .case-story-scene wrapper. This prevents mobile figures from
+                   collapsing into a thin strip. */
+                wrapper.innerHTML = sourceScene.innerHTML;
 
-
-                clone.classList.add(
-                    "active"
-                );
-
-
-                clone.removeAttribute(
-                    "data-scene"
-                );
-
-
-                clone.removeAttribute(
-                    "aria-hidden"
-                );
-
-
-                clone
+                wrapper
                 .querySelectorAll(
                     "img"
                 )
@@ -15734,11 +15759,6 @@ MOBILE RESEARCH FIGURES FIX
                             );
                         }
                     }
-                );
-
-
-                wrapper.appendChild(
-                    clone
                 );
 
 
