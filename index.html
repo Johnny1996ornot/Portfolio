@@ -5,6 +5,7 @@
 GITHUB QUICK EDIT MAP
 =========================================================
 This is the COMPLETE single-file portfolio.
+Version: V11 clean repair.
 
 HOW TO EDIT IN GITHUB:
 Use Ctrl+F / Find and search for the SECTION names below.
@@ -8146,191 +8147,7 @@ intro far below the heading. Restore a true two-column desktop row.
 <style id="portfolio-v4-authoritative-layout">
 /* =========================================================
 PORTFOLIO V4 — AUTHORITATIVE RESPONSIVE LAYOUT
-Last desktop/mobile layout override before 
-
-<style id="portfolio-v10-authoritative">
-/* =========================================================
-PORTFOLIO V10 — REQUESTED POLISH
-Only: homepage preview, Technical Skills title scale, and Urban Heat carousel.
-Switzerland case-study layout is intentionally untouched.
-========================================================= */
-
-/* ---------- HOME TECHNICAL SKILLS — SAME VISUAL WEIGHT AS OTHER PANELS ---------- */
-.panel-skills .shared-title {
-    font-size: clamp(2.05rem, 3.15vw, 3.65rem) !important;
-    line-height: .94 !important;
-    letter-spacing: -.055em !important;
-}
-
-@media (max-width: 800px) {
-    .panel-skills .shared-title {
-        font-size: clamp(1.15rem, 5.8vw, 1.85rem) !important;
-        line-height: .98 !important;
-    }
-}
-
-/* ---------- EXPANDED TECHNICAL SKILLS — BIGGER, BUT STILL BELOW PROFILE SCALE ---------- */
-@media (min-width: 801px) {
-    .flying-title[data-key="skills"] {
-        width: min(390px, 27vw) !important;
-        font-size: 60px !important;
-        line-height: .93 !important;
-        letter-spacing: -.06em !important;
-    }
-
-    .expansion-skills:not(.case-study-active) .expanded-header-row > div {
-        max-width: 390px !important;
-    }
-
-    .expansion-skills:not(.case-study-active) .expanded-description {
-        max-width: 370px !important;
-        margin-top: 16px !important;
-    }
-}
-
-@media (max-width: 800px) {
-    .flying-title[data-key="skills"] {
-        font-size: 32px !important;
-        width: calc(100vw - 88px) !important;
-        line-height: .96 !important;
-    }
-}
-
-/* ---------- HOME DATA & CODING PREVIEW — SUPPORT FIVE ROWS CLEANLY ---------- */
-.panel-mini .mini-preview {
-    gap: 5px !important;
-}
-
-.panel-mini .mini-preview-row {
-    padding-top: 6px !important;
-}
-
-/* ---------- URBAN HEAT RESULTS — REMOVE EXTRA EXPLANATION / USE SPACE FOR FIGURE ---------- */
-.urban-heat-results-carousel {
-    padding: 14px 0 34px !important;
-}
-
-.urban-heat-carousel-heading {
-    display: block !important;
-    margin: 0 0 12px !important;
-}
-
-.urban-heat-carousel-heading h2 {
-    margin: 6px 0 0 !important;
-    font-size: clamp(1.9rem, 2.7vw, 3.1rem) !important;
-    line-height: 1 !important;
-}
-
-.urban-heat-carousel-heading p {
-    display: none !important;
-}
-
-.urban-heat-carousel-shell {
-    position: relative !important;
-}
-
-.urban-heat-slide {
-    grid-template-columns: minmax(290px, .60fr) minmax(0, 1.40fr) !important;
-    gap: clamp(24px, 3vw, 44px) !important;
-    align-items: center !important;
-}
-
-.urban-heat-slide-copy {
-    padding: 10px 2px !important;
-}
-
-.urban-heat-slide-copy h2 {
-    max-width: 500px !important;
-    font-size: clamp(1.9rem, 2.6vw, 3rem) !important;
-    line-height: 1.02 !important;
-}
-
-.urban-heat-slide-copy p {
-    max-width: 510px !important;
-    margin-top: 12px !important;
-    font-size: clamp(.96rem, .96vw, 1.08rem) !important;
-    line-height: 1.56 !important;
-}
-
-.urban-heat-slide-figure {
-    width: 100% !important;
-    max-width: 980px !important;
-    height: min(68vh, 650px) !important;
-    min-height: 500px !important;
-    justify-self: stretch !important;
-    border: 1px solid rgba(193,246,237,.13) !important;
-    border-radius: 24px !important;
-    background: transparent !important;
-    box-shadow: 0 18px 46px rgba(0,24,28,.16) !important;
-}
-
-.urban-heat-slide-figure > img {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    padding: 4px !important;
-    background: transparent !important;
-    mix-blend-mode: multiply;
-}
-
-.urban-heat-slide-figure .case-scene-caption {
-    background: rgba(4,61,67,.96) !important;
-    padding: 10px 15px 12px !important;
-}
-
-/* Controls live BELOW the slide instead of floating over the text or map. */
-.urban-heat-carousel-controls {
-    min-height: 54px;
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-}
-
-.urban-heat-carousel-arrow {
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    width: 42px !important;
-    height: 42px !important;
-    flex: 0 0 42px;
-}
-
-.urban-heat-carousel-dots {
-    margin: 0 !important;
-    min-width: 118px;
-}
-
-@media (max-width: 800px) {
-    .urban-heat-results-carousel {
-        padding-top: 10px !important;
-    }
-
-    .urban-heat-slide {
-        grid-template-columns: 1fr !important;
-        gap: 10px !important;
-    }
-
-    .urban-heat-slide-figure {
-        height: min(56vh, 470px) !important;
-        min-height: 350px !important;
-        max-width: none !important;
-    }
-
-    .urban-heat-carousel-controls {
-        margin-top: 8px;
-        gap: 12px;
-    }
-}
-</style>
-
-</head>.
+Last desktop/mobile layout override before the closing head tag.
 Goals:
 - smoother transform-based morph
 - native, fluid carousel scrolling
@@ -9451,6 +9268,43 @@ D. MOBILE URBAN HEAT CAROUSEL
 }
 </style>
 
+
+<style id="portfolio-v11-authoritative">
+/* =========================================================
+PORTFOLIO V11 — CLEAN REPAIR + V10 POLISH
+========================================================= */
+.panel-skills .shared-title { font-size: clamp(2.05rem, 3.15vw, 3.65rem) !important; line-height: .94 !important; letter-spacing: -.055em !important; }
+@media (max-width: 800px) { .panel-skills .shared-title { font-size: clamp(1.15rem, 5.8vw, 1.85rem) !important; line-height: .98 !important; } }
+@media (min-width: 801px) {
+  .flying-title[data-key="skills"] { width: min(390px, 27vw) !important; font-size: 60px !important; line-height: .93 !important; letter-spacing: -.06em !important; }
+  .expansion-skills:not(.case-study-active) .expanded-header-row > div { max-width: 390px !important; }
+  .expansion-skills:not(.case-study-active) .expanded-description { max-width: 370px !important; margin-top: 16px !important; }
+}
+@media (max-width: 800px) { .flying-title[data-key="skills"] { font-size: 32px !important; width: calc(100vw - 88px) !important; line-height: .96 !important; } }
+.panel-mini .mini-preview { gap: 5px !important; }
+.panel-mini .mini-preview-row { padding-top: 6px !important; }
+.urban-heat-results-carousel { padding: 14px 0 34px !important; }
+.urban-heat-carousel-heading { display: block !important; margin: 0 0 12px !important; }
+.urban-heat-carousel-heading h2 { margin: 6px 0 0 !important; font-size: clamp(1.9rem, 2.7vw, 3.1rem) !important; line-height: 1 !important; }
+.urban-heat-carousel-heading p { display: none !important; }
+.urban-heat-carousel-shell { position: relative !important; }
+.urban-heat-slide { grid-template-columns: minmax(290px, .60fr) minmax(0, 1.40fr) !important; gap: clamp(24px, 3vw, 44px) !important; align-items: center !important; }
+.urban-heat-slide-copy { padding: 10px 2px !important; }
+.urban-heat-slide-copy h2 { max-width: 500px !important; font-size: clamp(1.9rem, 2.6vw, 3rem) !important; line-height: 1.02 !important; }
+.urban-heat-slide-copy p { max-width: 510px !important; margin-top: 12px !important; font-size: clamp(.96rem, .96vw, 1.08rem) !important; line-height: 1.56 !important; }
+.urban-heat-slide-figure { width: 100% !important; max-width: 980px !important; height: min(68vh, 650px) !important; min-height: 500px !important; justify-self: stretch !important; border: 1px solid rgba(193,246,237,.13) !important; border-radius: 24px !important; background: transparent !important; box-shadow: 0 18px 46px rgba(0,24,28,.16) !important; }
+.urban-heat-slide-figure > img { width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; object-position: center !important; padding: 4px !important; background: transparent !important; mix-blend-mode: multiply; }
+.urban-heat-slide-figure .case-scene-caption { background: rgba(4,61,67,.96) !important; padding: 10px 15px 12px !important; }
+.urban-heat-carousel-controls { min-height: 54px; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+.urban-heat-carousel-arrow { position: static !important; top: auto !important; left: auto !important; right: auto !important; transform: none !important; width: 42px !important; height: 42px !important; flex: 0 0 42px; }
+.urban-heat-carousel-dots { margin: 0 !important; min-width: 118px; }
+@media (max-width: 800px) {
+  .urban-heat-results-carousel { padding-top: 10px !important; }
+  .urban-heat-slide { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .urban-heat-slide-figure { height: min(56vh, 470px) !important; min-height: 350px !important; max-width: none !important; }
+  .urban-heat-carousel-controls { margin-top: 8px; gap: 12px; }
+}
+</style>
 
 </head>
 
@@ -14212,7 +14066,6 @@ Urban heat results
 </div>
 
 <div class="urban-heat-carousel-shell">
-
 <div
 class="urban-heat-carousel-track"
 data-heat-track
@@ -14356,6 +14209,8 @@ constraints would still need to be checked on the ground.
 
 </div>
 
+</div>
+
 <div class="urban-heat-carousel-controls">
 
 <button
@@ -14377,8 +14232,6 @@ aria-label="Next urban heat figure"
 >
 <i class="fa-solid fa-chevron-right"></i>
 </button>
-
-</div>
 
 </div>
 
@@ -17204,8 +17057,8 @@ TECHNICAL SKILLS — SIMPLE TITLE, NO OVERLAP
     }
 
     .flying-title[data-key="skills"] {
-        width: min(390px, 27vw) !important;
-        font-size: 60px !important;
+        width: min(330px, 23vw) !important;
+        font-size: 46px !important;
         line-height: .96 !important;
         letter-spacing: -.055em !important;
     }
@@ -17219,7 +17072,7 @@ TECHNICAL SKILLS — SIMPLE TITLE, NO OVERLAP
 @media (max-width: 800px) {
     .flying-title[data-key="skills"] {
         width: calc(100vw - 88px) !important;
-        font-size: 32px !important;
+        font-size: 29px !important;
         line-height: .98 !important;
     }
 
