@@ -7601,203 +7601,155 @@ body.research-case-open
 <style id="final-layout-carousel-and-case-fixes">
 
 /* =========================================================
-FINAL AUTHORITATIVE LAYOUT + INTERACTION FIXES
+FINAL AUTHORITATIVE LAYOUT + INTERACTION FIXES — V2
 
-This is the only late-stage cover-flow override.
-It fixes:
-1. clipped card content / side-card cropping
-2. inconsistent expanded-panel spacing
-3. case-study maps appearing zoomed or cropped
-4. pointer/click reliability
-5. smoother carousel rendering
+Goals:
+1. Give every carousel substantially more room above and below.
+2. Keep centered cards fully visible without chopping their content.
+3. Prevent mini-project cards from losing text at the bottom.
+4. Repair the Data & Methods spacing in the urban-heat case study.
+5. Keep maps/figures fully visible with object-fit: contain.
+6. Restore the dark pollinator explainer panel and style its content.
+7. Keep dynamic controls clickable.
 ========================================================= */
 
 :root {
-    --portfolio-card-width:
-        clamp(300px, 20vw, 348px);
-
-    --portfolio-card-gap:
-        clamp(16px, 1.2vw, 22px);
+    --portfolio-card-width: clamp(292px, 19vw, 338px);
+    --portfolio-card-gap: clamp(18px, 1.35vw, 24px);
 }
 
 /* ---------------------------------------------------------
-A. CAROUSEL / COVER FLOW
+A. CAROUSEL — MORE BREATHING ROOM, NO TOP/BOTTOM CROPPING
 --------------------------------------------------------- */
 
 .flow-section {
-    overflow:
-        visible !important;
-
+    overflow: visible !important;
     min-width: 0;
+    pointer-events: auto !important;
+}
 
-    pointer-events:
-        auto !important;
+/* An older rule moved the entire carousel upward. Reset it. */
+.expansion:not(.case-study-active) .flow-section {
+    transform: none !important;
 }
 
 .cover-flow {
-    --card-width:
-        var(--portfolio-card-width) !important;
+    --card-width: var(--portfolio-card-width) !important;
+    gap: var(--portfolio-card-gap) !important;
 
-    gap:
-        var(--portfolio-card-gap) !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
 
-    overflow-x:
-        auto !important;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
 
-    overflow-y:
-        visible !important;
+    padding-left: max(72px, calc((100% - var(--card-width)) / 2)) !important;
+    padding-right: max(72px, calc((100% - var(--card-width)) / 2)) !important;
 
-    padding-top:
-        16px !important;
+    scroll-padding-inline: max(72px, calc((100% - var(--card-width)) / 2)) !important;
+    scroll-snap-type: x proximity !important;
+    scroll-behavior: smooth !important;
+    overscroll-behavior-x: contain !important;
+    -webkit-overflow-scrolling: touch !important;
 
-    padding-bottom:
-        18px !important;
+    perspective: 1350px !important;
+    perspective-origin: 50% 50% !important;
+    touch-action: pan-x !important;
+    scrollbar-width: none !important;
+    pointer-events: auto !important;
 
-    padding-left:
-        max(
-            64px,
-            calc(
-                (100% - var(--card-width)) / 2
-            )
-        ) !important;
-
-    padding-right:
-        max(
-            64px,
-            calc(
-                (100% - var(--card-width)) / 2
-            )
-        ) !important;
-
-    scroll-padding-inline:
-        max(
-            64px,
-            calc(
-                (100% - var(--card-width)) / 2
-            )
-        ) !important;
-
-    scroll-snap-type:
-        x proximity !important;
-
-    scroll-behavior:
-        smooth !important;
-
-    overscroll-behavior-x:
-        contain !important;
-
-    -webkit-overflow-scrolling:
-        touch !important;
-
-    perspective:
-        1250px !important;
-
-    perspective-origin:
-        50% 50% !important;
-
-    touch-action:
-        pan-x !important;
-
-    scrollbar-width:
-        none !important;
-
-    pointer-events:
-        auto !important;
+    max-height: none !important;
 }
 
 .cover-flow::-webkit-scrollbar {
-    display:
-        none !important;
+    display: none !important;
 }
 
 .flow-card {
-    height:
-        clamp(
-            510px,
-            69vh,
-            610px
-        ) !important;
+    height: clamp(540px, 68vh, 605px) !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
 
-    max-height:
-        none !important;
+    overflow: hidden !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: normal !important;
 
-    aspect-ratio:
-        auto !important;
+    transform-origin: center center !important;
+    transform-style: preserve-3d !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
 
-    overflow:
-        hidden !important;
-
-    scroll-snap-align:
-        center !important;
-
-    scroll-snap-stop:
-        normal !important;
-
-    transform-origin:
-        center center !important;
-
-    transform-style:
-        preserve-3d !important;
-
-    backface-visibility:
-        hidden !important;
-
-    -webkit-backface-visibility:
-        hidden !important;
-
-    will-change:
-        transform,
-        opacity !important;
-
-    pointer-events:
-        auto !important;
-
-    cursor:
-        pointer;
+    will-change: transform, opacity !important;
+    pointer-events: auto !important;
+    cursor: pointer;
 
     transition:
-        opacity .12s linear,
-        border-color .20s ease,
-        box-shadow .20s ease !important;
+        opacity .14s linear,
+        border-color .22s ease,
+        box-shadow .22s ease !important;
 }
 
 .flow-card * {
-    pointer-events:
-        auto;
+    pointer-events: auto;
 }
 
 .flow-card.is-center {
-    opacity:
-        1 !important;
-
-    filter:
-        none !important;
-
-    border-color:
-        rgba(89,225,141,.56) !important;
-
+    opacity: 1 !important;
+    filter: none !important;
+    border-color: rgba(89,225,141,.58) !important;
     box-shadow:
-        0 28px 64px rgba(0,24,27,.30),
-        0 0 0 1px rgba(89,225,141,.09) !important;
+        0 30px 70px rgba(0,24,27,.30),
+        0 0 0 1px rgba(89,225,141,.10) !important;
 }
 
-/* Give text cards enough breathing room so the last tag is not cut. */
+/* Text cards get extra room around the last row of tags. */
 .flow-card:not(.visual-card):not(.mini-card) {
-    padding-bottom:
-        26px !important;
+    padding-bottom: 30px !important;
 }
 
 .flow-card .tags {
-    margin-top:
-        auto !important;
+    margin-top: auto !important;
+    padding-top: 16px !important;
+}
 
-    padding-top:
-        18px !important;
+/* Mini cards previously devoted too much height to the preview image,
+   which caused the description to be clipped at the bottom. */
+.mini-card .mini-image,
+.mini-card .sankey-preview,
+.mini-card .notedump-preview {
+    height: 35% !important;
+    flex: 0 0 35% !important;
+}
+
+.mini-card .mini-body {
+    min-height: 0 !important;
+    padding: 20px 24px 24px !important;
+}
+
+.mini-card .mini-body h3 {
+    font-size: clamp(1.55rem, 1.72vw, 2rem) !important;
+    line-height: 1.08 !important;
+}
+
+.mini-card .mini-body p {
+    font-size: clamp(.96rem, .98vw, 1.07rem) !important;
+    line-height: 1.48 !important;
+    margin-top: 12px !important;
+}
+
+.mini-card .mini-body .tags {
+    padding-top: 12px !important;
+}
+
+/* Keep preview graphics completely visible instead of cropping them. */
+.mini-image img {
+    object-fit: contain !important;
+    object-position: center !important;
+    background: rgba(246,255,252,.97);
 }
 
 .flow-dots {
-    margin-top:
-        8px !important;
+    margin-top: 10px !important;
 }
 
 .flow-dot {
@@ -7808,384 +7760,383 @@ A. CAROUSEL / COVER FLOW
 }
 
 .flow-dot.active {
-    width:
-        24px !important;
+    width: 24px !important;
 }
 
 .external-project,
 .case-study-launch,
 .gallery-item,
-a.flow-card {
-    pointer-events:
-        auto !important;
+a.flow-card,
+button.flow-card {
+    pointer-events: auto !important;
 }
 
 /* ---------------------------------------------------------
-B. EXPANDED PORTFOLIO SPACING
+B. DESKTOP EXPANDED PORTFOLIO — REAL SPACE ABOVE THE CARDS
 --------------------------------------------------------- */
 
 @media (min-width: 801px) {
 
-    .expanded-content {
-        grid-template-columns:
-            clamp(450px, 34vw, 600px)
-            minmax(0, 1fr) !important;
-
-        align-items:
-            stretch !important;
+    .expansion:not(.case-study-active) .flow-section {
+        padding-top: clamp(66px, 7.5vh, 88px) !important;
+        padding-bottom: clamp(54px, 6vh, 72px) !important;
+        justify-content: center !important;
     }
 
-    .expanded-header-row,
-    .expansion-profile .expanded-header-row,
-    .expansion-projects .expanded-header-row,
-    .expansion-skills .expanded-header-row,
-    .expansion-gallery .expanded-header-row,
-    .expansion-mini .expanded-header-row {
-        align-items:
-            center !important;
-
-        padding-top:
-            0 !important;
-
-        padding-bottom:
-            clamp(30px, 4vh, 48px) !important;
-    }
-
-    .expanded-header-row > div {
-        width:
-            100% !important;
-
-        max-width:
-            540px !important;
+    .expansion:not(.case-study-active) .flow-help {
+        margin-bottom: 8px !important;
     }
 
     .expanded-description {
-        margin-top:
-            18px !important;
-
-        line-height:
-            1.55 !important;
+        line-height: 1.52 !important;
     }
 
-    .flow-section {
-        padding-top:
-            clamp(24px, 3.4vh, 38px) !important;
+    /* Contact grid: keep it visually centered instead of floating near the top. */
+    .expansion-profile:not(.case-study-active) .contact-grid {
+        top: 50% !important;
+        left: clamp(590px, 43vw, 760px) !important;
+        right: clamp(54px, 4vw, 84px) !important;
+        transform: translateY(-50%) !important;
+        gap: 16px !important;
+        max-width: 920px !important;
+    }
 
-        padding-bottom:
-            clamp(22px, 3vh, 34px) !important;
-
-        justify-content:
-            center !important;
+    .expansion-profile:not(.case-study-active) .contact-card {
+        min-height: 150px !important;
+        padding: 21px 23px !important;
     }
 }
 
 /* ---------------------------------------------------------
-C. URBAN HEAT METHODS SPACING
+C. CONTACT CARDS + COPY-EMAIL BUTTON
 --------------------------------------------------------- */
 
-.urban-heat-case-shell
-#heat-methods.case-section {
-    padding-top:
-        50px !important;
-
-    padding-bottom:
-        44px !important;
+button.contact-card {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 }
 
-.urban-heat-case-shell
-#heat-methods
-.case-section-head {
-    margin-bottom:
-        24px !important;
+.contact-card[data-copy-text] {
+    position: relative;
 }
 
-.urban-heat-case-shell
-#heat-methods
-.case-section-intro {
-    margin-top:
-        14px !important;
-
-    max-width:
-        760px !important;
+.contact-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 11px;
+    color: var(--greenBright);
+    font-size: .70rem;
+    font-weight: 850;
+    letter-spacing: .07em;
+    text-transform: uppercase;
 }
 
-.urban-heat-case-shell
-#heat-methods
-.heat-method-grid {
-    margin-top:
-        14px !important;
-
-    gap:
-        14px !important;
-}
-
-.urban-heat-case-shell
-#heat-methods
-.heat-method-step {
-    min-height:
-        170px !important;
-
-    padding:
-        20px !important;
+.contact-card.copied {
+    border-color: rgba(89,225,141,.56) !important;
+    background: rgba(46,175,125,.12) !important;
 }
 
 /* ---------------------------------------------------------
 D. CASE-STUDY IMAGE / MAP FIT
-The image element fills the AVAILABLE media region and the
-bitmap uses object-fit: contain. This prevents the lower part
-of the map/legend from being pushed behind the caption.
 --------------------------------------------------------- */
 
 .case-scrolly {
-    align-items:
-        start !important;
+    align-items: start !important;
 }
 
 .case-story-stage {
-    overflow:
-        hidden !important;
-
-    background:
-        #f4f6f6 !important;
+    overflow: hidden !important;
+    background: #f4f6f6 !important;
 }
 
 .case-story-scene {
-    overflow:
-        hidden !important;
-}
-
-.case-scene-media {
-    flex:
-        1 1 0 !important;
-
-    min-height:
-        0 !important;
-
-    width:
-        100% !important;
-
-    display:
-        flex !important;
-
-    align-items:
-        center !important;
-
-    justify-content:
-        center !important;
-
-    padding:
-        14px !important;
-
-    overflow:
-        hidden !important;
-
-    background:
-        #f4f6f6 !important;
-}
-
-.case-scene-media img {
-    display:
-        block !important;
-
-    width:
-        100% !important;
-
-    height:
-        100% !important;
-
-    min-width:
-        0 !important;
-
-    min-height:
-        0 !important;
-
-    max-width:
-        100% !important;
-
-    max-height:
-        100% !important;
-
-    object-fit:
-        contain !important;
-
-    object-position:
-        center center !important;
-}
-
-.case-scene-caption {
-    flex:
-        0 0 auto !important;
-
-    min-height:
-        0 !important;
-
-    padding:
-        10px 16px 13px !important;
-}
-
-/* Restore a small fade for research-story visual changes.
-   Earlier compatibility rules intentionally disabled every
-   transition, which made the scene swaps feel abrupt. */
-.case-story-scene {
-    transition:
-        opacity .16s ease !important;
+    overflow: hidden !important;
+    transition: opacity .18s ease !important;
 }
 
 .case-story-scene.active {
-    transition:
-        opacity .16s ease !important;
+    transition: opacity .18s ease !important;
 }
 
-@media (min-width: 801px) {
+.case-scene-media {
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    width: 100% !important;
 
-    .urban-heat-case-shell
-    .case-scrolly {
-        grid-template-columns:
-            minmax(390px, .74fr)
-            minmax(0, 1.26fr) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-        gap:
-            clamp(26px, 3vw, 50px) !important;
+    padding: 16px !important;
+    overflow: hidden !important;
+    background: #f4f6f6 !important;
+}
 
-        padding-top:
-            18px !important;
+.case-scene-media img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+}
+
+.case-scene-caption {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+    padding: 10px 16px 13px !important;
+}
+
+/* ---------------------------------------------------------
+E. POLLINATOR EXPLAINER — RESTORE THE DARK VISUAL PANEL
+--------------------------------------------------------- */
+
+.case-scene-media.dark {
+    background:
+        radial-gradient(circle at 88% 12%, rgba(89,225,141,.13), transparent 34%),
+        linear-gradient(145deg, #063f46, #075157) !important;
+    color: var(--text) !important;
+}
+
+.case-visual-panel {
+    width: min(94%, 900px);
+    margin: auto;
+    padding: clamp(22px, 2.5vw, 36px);
+    color: #073d43;
+}
+
+.case-scene-media.dark .case-visual-panel {
+    color: var(--text);
+}
+
+.case-visual-panel h3 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2vw, 2.15rem);
+    line-height: 1.12;
+    letter-spacing: -.03em;
+}
+
+.case-visual-panel > p {
+    margin: 13px 0 0;
+    font-size: clamp(.96rem, 1vw, 1.08rem);
+    line-height: 1.62;
+    color: rgba(7,61,67,.78);
+}
+
+.case-scene-media.dark .case-visual-panel > p {
+    color: rgba(231,249,245,.88);
+}
+
+.case-ecology-flow-v3 {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 12px;
+}
+
+.case-ecology-node-v3,
+.case-policy-tile {
+    padding: 17px 18px;
+    border: 1px solid rgba(193,246,237,.18);
+    border-radius: 16px;
+    background: rgba(193,246,237,.07);
+}
+
+.case-ecology-node-v3 strong,
+.case-policy-tile strong {
+    display: block;
+    color: var(--greenBright);
+    font-size: .92rem;
+}
+
+.case-ecology-node-v3 span,
+.case-policy-tile span {
+    display: block;
+    margin-top: 6px;
+    color: rgba(230,247,243,.83);
+    font-size: .82rem;
+    line-height: 1.48;
+}
+
+.case-ecology-arrowline {
+    margin-top: 17px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--greenBright);
+    border-radius: 0 12px 12px 0;
+    background: rgba(89,225,141,.07);
+    color: var(--mint);
+    font-size: .86rem;
+    line-height: 1.5;
+}
+
+.case-policy-equation {
+    margin-top: 20px;
+    padding: 15px 17px;
+    border: 1px solid rgba(46,175,125,.20);
+    border-radius: 14px;
+    background: rgba(46,175,125,.08);
+    color: #075057;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.case-policy-grid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+}
+
+.case-scene-media:not(.dark) .case-policy-tile {
+    border-color: rgba(2,53,60,.12);
+    background: rgba(2,53,60,.055);
+}
+
+.case-scene-media:not(.dark) .case-policy-tile strong {
+    color: #178761;
+}
+
+.case-scene-media:not(.dark) .case-policy-tile span {
+    color: rgba(7,61,67,.78);
+}
+
+/* ---------------------------------------------------------
+F. URBAN HEAT — FIX DATA & METHODS SPACING
+The old #case-methods rule forced display:block and stacked the
+intro far below the heading. Restore a true two-column desktop row.
+--------------------------------------------------------- */
+
+.urban-heat-case-shell #heat-methods.case-section {
+    padding-top: 36px !important;
+    padding-bottom: 42px !important;
+}
+
+@media (min-width: 1000px) {
+
+    .urban-heat-case-shell #heat-methods .case-section-head {
+        display: grid !important;
+        grid-template-columns: minmax(390px, .95fr) minmax(440px, 1.05fr) !important;
+        column-gap: clamp(38px, 4vw, 70px) !important;
+        align-items: start !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 0 26px !important;
     }
 
-    .urban-heat-case-shell
-    .case-story-stage {
-        top:
-            74px !important;
+    .urban-heat-case-shell #heat-methods .case-section-head > div {
+        grid-column: 1 !important;
+        align-self: start !important;
+    }
 
-        height:
-            min(78vh, 760px) !important;
+    .urban-heat-case-shell #heat-methods .case-section-head > .case-section-intro {
+        grid-column: 2 !important;
+        align-self: start !important;
+        margin: 8px 0 0 !important;
+        max-width: 720px !important;
+        font-size: clamp(1.02rem, 1.08vw, 1.18rem) !important;
+        line-height: 1.62 !important;
+    }
 
-        min-height:
-            560px !important;
+    .urban-heat-case-shell #heat-methods h2 {
+        margin-top: 8px !important;
+        max-width: 690px !important;
+        font-size: clamp(2.7rem, 3.35vw, 4rem) !important;
+        line-height: .99 !important;
+    }
 
-        max-height:
-            calc(100vh - 92px) !important;
+    .urban-heat-case-shell #heat-methods .heat-method-grid {
+        margin-top: 6px !important;
+        gap: 14px !important;
+    }
 
-        border-radius:
-            22px !important;
+    .urban-heat-case-shell #heat-methods .heat-method-step {
+        min-height: 164px !important;
+        padding: 20px !important;
+    }
+
+    .urban-heat-case-shell .case-scrolly {
+        grid-template-columns: minmax(390px, .74fr) minmax(0, 1.26fr) !important;
+        gap: clamp(28px, 3.1vw, 52px) !important;
+        padding-top: 22px !important;
+    }
+
+    .urban-heat-case-shell .case-story-stage {
+        top: 74px !important;
+        height: min(79vh, 770px) !important;
+        min-height: 570px !important;
+        max-height: calc(100vh - 92px) !important;
+        border-radius: 22px !important;
     }
 }
 
 @media (max-width: 1200px) and (min-width: 801px) {
 
     :root {
-        --portfolio-card-width:
-            clamp(285px, 24vw, 330px);
+        --portfolio-card-width: clamp(282px, 23vw, 326px);
     }
 
     .flow-card {
-        height:
-            clamp(490px, 68vh, 575px) !important;
+        height: clamp(520px, 67vh, 580px) !important;
     }
 }
 
 @media (max-width: 800px) {
 
     :root {
-        --portfolio-card-width:
-            min(76vw, 310px);
-
-        --portfolio-card-gap:
-            12px;
+        --portfolio-card-width: min(76vw, 306px);
+        --portfolio-card-gap: 14px;
     }
 
     .cover-flow {
-        padding-left:
-            max(
-                28px,
-                calc(
-                    (100% - var(--card-width)) / 2
-                )
-            ) !important;
-
-        padding-right:
-            max(
-                28px,
-                calc(
-                    (100% - var(--card-width)) / 2
-                )
-            ) !important;
-
-        scroll-padding-inline:
-            max(
-                28px,
-                calc(
-                    (100% - var(--card-width)) / 2
-                )
-            ) !important;
-
-        perspective:
-            1000px !important;
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+        padding-left: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+        padding-right: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+        scroll-padding-inline: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+        perspective: 1000px !important;
     }
 
     .flow-card {
-        height:
-            auto !important;
-
-        min-height:
-            500px !important;
-
-        aspect-ratio:
-            2 / 3 !important;
+        height: auto !important;
+        min-height: 520px !important;
+        aspect-ratio: 2 / 3 !important;
     }
 
-    .urban-heat-case-shell
-    .case-story-stage {
-        top:
-            70px !important;
-
-        height:
-            46vh !important;
-
-        min-height:
-            320px !important;
-
-        margin-bottom:
-            16px !important;
+    .mini-card .mini-image,
+    .mini-card .sankey-preview,
+    .mini-card .notedump-preview {
+        height: 34% !important;
+        flex-basis: 34% !important;
     }
 
-    .urban-heat-case-shell
-    #heat-methods.case-section {
-        padding-top:
-            34px !important;
-
-        padding-bottom:
-            26px !important;
+    .case-ecology-flow-v3,
+    .case-policy-grid {
+        grid-template-columns: 1fr;
     }
 
-    .urban-heat-case-shell
-    #heat-methods
-    .heat-method-grid {
-        gap:
-            10px !important;
-    }
-
-    .urban-heat-case-shell
-    #heat-methods
-    .heat-method-step {
-        min-height:
-            auto !important;
-
-        padding:
-            18px !important;
+    .urban-heat-case-shell #heat-methods.case-section {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
     .cover-flow {
-        scroll-behavior:
-            auto !important;
+        scroll-behavior: auto !important;
     }
 
     .flow-card,
     .case-story-scene {
-        transition:
-            none !important;
+        transition: none !important;
     }
 }
 
@@ -8615,9 +8566,11 @@ html:
 
 <div class="contact-grid">
 
-<a
+<button
 class="contact-card"
-href="mailto:jpaoloramirez@gmail.com"
+type="button"
+data-copy-text="jpaoloramirez@gmail.com"
+aria-label="Copy email address jpaoloramirez@gmail.com"
 >
 
 <i class="fa-solid fa-envelope"></i>
@@ -8632,9 +8585,14 @@ Email
 jpaoloramirez@gmail.com
 </div>
 
+<div class="contact-action" data-copy-status>
+<i class="fa-regular fa-copy"></i>
+<span>Click to copy</span>
 </div>
 
-</a>
+</div>
+
+</button>
 
 
 <a
@@ -15202,6 +15160,89 @@ lightbox.addEventListener(
         ) {
 
             closeLightbox();
+        }
+    }
+);
+
+
+/* =========================================================
+COPY CONTACT DETAILS
+Email is copied to the clipboard instead of opening a mail app.
+Works for dynamically injected contact cards.
+========================================================= */
+
+async function copyPortfolioText(text) {
+
+    if (
+        navigator.clipboard
+        &&
+        window.isSecureContext
+    ) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const helper = document.createElement("textarea");
+    helper.value = text;
+    helper.setAttribute("readonly", "");
+    helper.style.position = "fixed";
+    helper.style.opacity = "0";
+    helper.style.pointerEvents = "none";
+
+    document.body.appendChild(helper);
+    helper.select();
+    helper.setSelectionRange(0, helper.value.length);
+    document.execCommand("copy");
+    helper.remove();
+}
+
+
+document.addEventListener(
+    "click",
+    async event => {
+
+        const copyCard = event.target.closest("[data-copy-text]");
+
+        if (!copyCard) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const text = copyCard.dataset.copyText;
+
+        if (!text) {
+            return;
+        }
+
+        const status = copyCard.querySelector("[data-copy-status]");
+        const originalStatus = status ? status.innerHTML : "";
+
+        try {
+            await copyPortfolioText(text);
+
+            copyCard.classList.add("copied");
+
+            if (status) {
+                status.innerHTML = '<i class="fa-solid fa-check"></i><span>Copied!</span>';
+            }
+
+            setTimeout(() => {
+                copyCard.classList.remove("copied");
+
+                if (status) {
+                    status.innerHTML = originalStatus;
+                }
+            }, 1500);
+        }
+
+        catch (error) {
+            console.error("Could not copy contact text:", error);
+
+            if (status) {
+                status.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i><span>Copy failed</span>';
+            }
         }
     }
 );
