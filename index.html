@@ -9389,12 +9389,8 @@ data-title
 Research
 </span>
 
-<span class="title-line">
-into
-</span>
-
 <span class="title-line accent">
-results
+Projects
 </span>
 </h2>
 
@@ -9820,21 +9816,34 @@ html:
 
 <style>
 /* =========================================================
-RESEARCH INTO RESULTS — YEAR FILTERED PROJECT BROWSER
-Scoped only to the Research / Projects panel.
+RESEARCH PROJECTS — YEAR FILTERED LIST
+Scoped ONLY to the Research Projects panel.
+
+DESIGN RULES
+- Year selector is centered on its own row.
+- Only the selected year's projects are visible.
+- Project cards are horizontal list cards, not tall tiles.
+- Multiple projects in a year stack vertically, newest/current first.
 ========================================================= */
 
 .expansion-projects .research-year-browser {
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding:
+        clamp(68px, 8vh, 96px)
+        clamp(28px, 3vw, 54px)
+        clamp(38px, 5vh, 62px) !important;
 }
 
 .expansion-projects .research-year-shell {
-    width: min(100%, 1120px);
+    width: min(100%, 980px);
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: clamp(22px, 2.5vh, 30px);
 }
 
 .expansion-projects .research-year-shell > input {
@@ -9843,72 +9852,64 @@ Scoped only to the Research / Projects panel.
     pointer-events: none;
 }
 
+/* YEAR SELECTOR — centered, nothing else shares this line */
 .expansion-projects .research-year-toolbar {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 8px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 10px 12px 10px 16px;
+    justify-content: center;
     border: 1px solid rgba(193,246,237,.16);
-    border-radius: 24px;
+    border-radius: 999px;
     background:
-        linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.02)),
-        rgba(7,74,79,.48);
+        linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.018)),
+        rgba(5,67,73,.48);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.09),
-        0 18px 40px rgba(0,25,28,.14);
-    backdrop-filter: blur(18px) saturate(125%);
-    -webkit-backdrop-filter: blur(18px) saturate(125%);
-}
-
-.expansion-projects .research-year-toolbar-title {
-    color: rgba(231,249,245,.78);
-    font-size: .76rem;
-    font-weight: 850;
-    letter-spacing: .11em;
-    text-transform: uppercase;
-    white-space: nowrap;
+        inset 0 1px 0 rgba(255,255,255,.10),
+        inset 0 -1px 0 rgba(0,0,0,.10),
+        0 16px 38px rgba(0,24,27,.16);
+    backdrop-filter: blur(20px) saturate(135%);
+    -webkit-backdrop-filter: blur(20px) saturate(135%);
 }
 
 .expansion-projects .research-year-pills {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
+    justify-content: center;
+    gap: 7px;
     min-width: 0;
 }
 
 .expansion-projects .research-year-pills label {
-    min-width: 72px;
+    min-width: 76px;
     height: 42px;
-    padding: 0 16px;
+    padding: 0 17px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(193,246,237,.14);
+    border: 1px solid transparent;
     border-radius: 999px;
-    background:
-        linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
-        rgba(4,63,69,.50);
-    color: rgba(218,242,238,.62);
-    font-size: .92rem;
+    background: rgba(193,246,237,.025);
+    color: rgba(219,243,239,.58);
+    font-size: .91rem;
     font-weight: 850;
     letter-spacing: .02em;
     cursor: pointer;
     user-select: none;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
     transition:
-        transform .20s cubic-bezier(.22,1,.36,1),
-        color .20s ease,
-        background .20s ease,
-        border-color .20s ease,
-        box-shadow .20s ease;
+        transform .18s cubic-bezier(.22,1,.36,1),
+        color .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
 }
 
 .expansion-projects .research-year-pills label:hover {
-    transform: translateY(-2px);
     color: var(--text);
-    border-color: rgba(89,225,141,.30);
+    background: rgba(193,246,237,.06);
+    border-color: rgba(193,246,237,.12);
 }
 
 .expansion-projects #research-year-2025:checked ~ .research-year-toolbar label[for="research-year-2025"],
@@ -9916,32 +9917,29 @@ Scoped only to the Research / Projects panel.
 .expansion-projects #research-year-2022:checked ~ .research-year-toolbar label[for="research-year-2022"],
 .expansion-projects #research-year-2021:checked ~ .research-year-toolbar label[for="research-year-2021"],
 .expansion-projects #research-year-2017:checked ~ .research-year-toolbar label[for="research-year-2017"] {
-    color: #053d3f;
-    border-color: rgba(193,246,237,.56);
+    color: #043b3d;
+    border-color: rgba(193,246,237,.60);
     background:
-        linear-gradient(145deg, rgba(193,246,237,.98), rgba(89,225,141,.94));
+        linear-gradient(145deg, rgba(211,255,246,.98), rgba(89,225,141,.96));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.72),
-        0 8px 28px rgba(89,225,141,.18),
-        0 0 0 1px rgba(89,225,141,.12);
-    transform: translateY(-1px);
+        inset 0 1px 0 rgba(255,255,255,.78),
+        0 8px 24px rgba(89,225,141,.18),
+        0 0 0 1px rgba(89,225,141,.08);
+    transform: scale(1.025);
 }
 
+/* ACTIVE YEAR PROJECT LIST */
 .expansion-projects .research-year-stage {
-    position: relative;
-    min-height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    min-height: 0;
 }
 
 .expansion-projects .research-year-group {
     width: 100%;
     display: none;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
-    justify-content: center;
-    gap: clamp(18px, 2vw, 28px);
-    animation: researchYearIn .28s cubic-bezier(.22,1,.36,1) both;
+    flex-direction: column;
+    gap: 14px;
+    animation: researchYearFade .18s ease both;
 }
 
 .expansion-projects #research-year-2025:checked ~ .research-year-stage .research-year-2025,
@@ -9949,169 +9947,156 @@ Scoped only to the Research / Projects panel.
 .expansion-projects #research-year-2022:checked ~ .research-year-stage .research-year-2022,
 .expansion-projects #research-year-2021:checked ~ .research-year-stage .research-year-2021,
 .expansion-projects #research-year-2017:checked ~ .research-year-stage .research-year-2017 {
-    display: grid;
+    display: flex;
 }
 
-@keyframes researchYearIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(.985);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+@keyframes researchYearFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
+/* HORIZONTAL LIST CARD */
 .expansion-projects .research-project-card {
     position: relative;
-    min-height: 348px;
+    width: 100%;
+    min-height: 174px;
     overflow: hidden;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(193,246,237,.16);
-    border-radius: 30px;
+    padding: 24px 26px;
+    display: grid;
+    grid-template-columns: minmax(235px, .78fr) minmax(0, 1.22fr);
+    gap: clamp(24px, 3vw, 42px);
+    align-items: center;
+    border: 1px solid rgba(193,246,237,.14);
+    border-radius: 24px;
     background:
-        radial-gradient(circle at 90% 8%, rgba(89,225,141,.12), transparent 34%),
-        linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
-        rgba(7,79,83,.66);
+        radial-gradient(circle at 92% 8%, rgba(89,225,141,.10), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,.052), rgba(255,255,255,.016)),
+        rgba(6,75,80,.62);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.07),
-        0 22px 52px rgba(0,24,27,.16);
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 15px 34px rgba(0,24,27,.13);
+    backdrop-filter: blur(16px) saturate(118%);
+    -webkit-backdrop-filter: blur(16px) saturate(118%);
     transition:
-        transform .24s cubic-bezier(.22,1,.36,1),
-        border-color .22s ease,
-        box-shadow .22s ease,
-        background .22s ease;
+        transform .18s cubic-bezier(.22,1,.36,1),
+        border-color .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
 }
 
-.expansion-projects .research-project-card::after {
+.expansion-projects .research-project-card::before {
     content: "";
     position: absolute;
-    width: 150px;
-    height: 150px;
-    right: -65px;
-    bottom: -75px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(63,208,201,.12), rgba(63,208,201,0) 72%);
-    pointer-events: none;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, rgba(89,225,141,.95), rgba(63,208,201,.34));
+    opacity: .72;
 }
 
 .expansion-projects .research-project-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(89,225,141,.44);
+    transform: translateX(5px);
+    border-color: rgba(89,225,141,.34);
+    background:
+        radial-gradient(circle at 92% 8%, rgba(89,225,141,.13), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.02)),
+        rgba(7,82,86,.68);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.09),
-        0 28px 64px rgba(0,24,27,.24),
-        0 0 0 1px rgba(89,225,141,.06);
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 19px 42px rgba(0,24,27,.18);
 }
 
-.expansion-projects .research-project-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.expansion-projects .research-project-year {
-    color: var(--greenBright);
-    font-size: .76rem;
-    font-weight: 900;
-    letter-spacing: .11em;
-    text-transform: uppercase;
+.expansion-projects .research-project-heading {
+    min-width: 0;
 }
 
 .expansion-projects .research-project-type {
-    padding: 6px 9px;
-    border: 1px solid rgba(193,246,237,.13);
+    display: inline-flex;
+    align-items: center;
+    min-height: 29px;
+    padding: 0 10px;
+    border: 1px solid rgba(193,246,237,.12);
     border-radius: 999px;
     background: rgba(193,246,237,.055);
     color: rgba(221,245,241,.68);
-    font-size: .66rem;
-    font-weight: 760;
-    white-space: nowrap;
+    font-size: .67rem;
+    font-weight: 790;
+    letter-spacing: .035em;
+    text-transform: uppercase;
 }
 
 .expansion-projects .research-project-card h3 {
-    margin: 22px 0 0;
-    max-width: 360px;
+    margin: 14px 0 0;
     color: var(--text);
-    font-size: clamp(1.62rem, 1.7vw, 2.05rem);
+    font-size: clamp(1.48rem, 1.55vw, 1.9rem);
     line-height: 1.08;
     letter-spacing: -.035em;
 }
 
+.expansion-projects .research-project-body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .expansion-projects .research-project-card p {
-    margin: 14px 0 0;
-    color: rgba(220,241,237,.82);
+    margin: 0;
+    color: rgba(224,244,240,.82);
     font-size: .94rem;
     line-height: 1.56;
 }
 
 .expansion-projects .research-project-card .tags {
-    margin-top: auto;
-    padding-top: 20px;
+    margin-top: 15px;
+    padding-top: 0;
+    gap: 6px;
 }
 
 .expansion-projects .research-project-card .tags span {
-    background: rgba(193,246,237,.075);
+    padding: 6px 9px;
     border: 1px solid rgba(193,246,237,.08);
+    background: rgba(193,246,237,.065);
+    font-size: .67rem;
 }
 
-@media (max-width: 1100px) and (min-width: 801px) {
-    .expansion-projects .research-year-toolbar {
-        align-items: flex-start;
-        flex-direction: column;
+@media (max-width: 1050px) and (min-width: 801px) {
+    .expansion-projects .research-year-browser {
+        padding-left: 22px !important;
+        padding-right: 22px !important;
     }
 
-    .expansion-projects .research-year-pills {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .expansion-projects .research-year-stage {
-        min-height: 390px;
-    }
-
-    .expansion-projects .research-year-group {
-        grid-template-columns: minmax(280px, 390px);
+    .expansion-projects .research-project-card {
+        grid-template-columns: minmax(205px, .8fr) minmax(0, 1.2fr);
+        gap: 22px;
+        padding: 22px;
     }
 }
 
 @media (max-width: 800px) {
     .expansion-projects .research-year-browser {
-        padding: 6px 16px 28px !important;
+        padding: 20px 14px 30px !important;
+        overflow-y: visible !important;
     }
 
     .expansion-projects .research-year-shell {
         width: 100%;
-        gap: 16px;
+        gap: 17px;
     }
 
     .expansion-projects .research-year-toolbar {
-        padding: 10px;
-        gap: 10px;
-        border-radius: 20px;
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .expansion-projects .research-year-toolbar-title {
-        padding: 2px 6px 0;
-        font-size: .66rem;
+        width: 100%;
+        max-width: 100%;
+        padding: 7px;
+        overflow: hidden;
     }
 
     .expansion-projects .research-year-pills {
         width: 100%;
         overflow-x: auto;
         justify-content: flex-start;
-        gap: 7px;
-        padding-bottom: 2px;
+        gap: 6px;
         scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
     }
 
     .expansion-projects .research-year-pills::-webkit-scrollbar {
@@ -10120,35 +10105,32 @@ Scoped only to the Research / Projects panel.
 
     .expansion-projects .research-year-pills label {
         flex: 0 0 auto;
-        min-width: 68px;
-        height: 39px;
-        padding: 0 14px;
-        font-size: .84rem;
-    }
-
-    .expansion-projects .research-year-stage {
-        min-height: 0;
+        min-width: 65px;
+        height: 38px;
+        padding: 0 13px;
+        font-size: .82rem;
     }
 
     .expansion-projects .research-year-group {
-        grid-template-columns: 1fr;
-        gap: 14px;
+        gap: 11px;
     }
 
     .expansion-projects .research-project-card {
-        width: 100%;
-        min-height: 320px;
-        padding: 22px;
-        border-radius: 24px;
+        min-height: 0;
+        padding: 20px;
+        grid-template-columns: 1fr;
+        gap: 13px;
+        border-radius: 21px;
     }
 
     .expansion-projects .research-project-card h3 {
-        font-size: 1.55rem;
+        margin-top: 11px;
+        font-size: 1.42rem;
     }
 
     .expansion-projects .research-project-card p {
         font-size: .91rem;
-        line-height: 1.52;
+        line-height: 1.5;
     }
 }
 </style>
@@ -10162,11 +10144,6 @@ Scoped only to the Research / Projects panel.
 <input type="radio" name="research-year" id="research-year-2017">
 
 <div class="research-year-toolbar">
-
-<div class="research-year-toolbar-title">
-Research projects handled
-</div>
-
 <div class="research-year-pills" aria-label="Filter research projects by year">
 <label for="research-year-2025">2025</label>
 <label for="research-year-2024">2024</label>
@@ -10174,7 +10151,6 @@ Research projects handled
 <label for="research-year-2021">2021</label>
 <label for="research-year-2017">2017</label>
 </div>
-
 </div>
 
 <div class="research-year-stage">
@@ -10182,11 +10158,11 @@ Research projects handled
 <section class="research-year-group research-year-2025">
 
 <article class="research-project-card">
-<div class="research-project-meta">
-<span class="research-project-year">2025</span>
+<div class="research-project-heading">
 <span class="research-project-type">Data &amp; Geospatial</span>
-</div>
 <h3>International Urban Systems Project</h3>
+</div>
+<div class="research-project-body">
 <p>
 Designed spatial databases combining GHSL, WorldPop and conflict-related datasets,
 built hierarchical urban-zone classification models and automated geospatial workflows in Python.
@@ -10197,14 +10173,15 @@ built hierarchical urban-zone classification models and automated geospatial wor
 <span>Data Harmonisation</span>
 <span>Automation</span>
 </div>
+</div>
 </article>
 
 <article class="research-project-card">
-<div class="research-project-meta">
-<span class="research-project-year">2025</span>
+<div class="research-project-heading">
 <span class="research-project-type">Environmental Analysis</span>
-</div>
 <h3>Heavy Metal Spatial Distribution</h3>
+</div>
+<div class="research-project-body">
 <p>
 Environmental field sampling, atomic absorption spectroscopy,
 statistical analysis and spatial interpolation of lead contamination.
@@ -10215,17 +10192,18 @@ statistical analysis and spatial interpolation of lead contamination.
 <span>GIS</span>
 <span>Environmental Monitoring</span>
 </div>
+</div>
 </article>
 
 </section>
 
 <section class="research-year-group research-year-2024">
 <article class="research-project-card">
-<div class="research-project-meta">
-<span class="research-project-year">2024</span>
+<div class="research-project-heading">
 <span class="research-project-type">Pollution Research</span>
-</div>
 <h3>Microplastic Bioindicator Study</h3>
+</div>
+<div class="research-project-body">
 <p>
 Microplastic extraction, Nile Red detection, statistical analysis,
 bioindicator research and spatial hotspot mapping.
@@ -10236,16 +10214,17 @@ bioindicator research and spatial hotspot mapping.
 <span>QGIS</span>
 <span>Statistics</span>
 </div>
+</div>
 </article>
 </section>
 
 <section class="research-year-group research-year-2022">
 <article class="research-project-card">
-<div class="research-project-meta">
-<span class="research-project-year">2022</span>
+<div class="research-project-heading">
 <span class="research-project-type">Climate &amp; Risk</span>
-</div>
 <h3>Climate Risk Mapping — Project NOAH</h3>
+</div>
+<div class="research-project-body">
 <p>
 Processed and validated spatial climate datasets supporting climate-change adaptation,
 disaster-risk reduction and institutional resilience planning.
@@ -10256,16 +10235,17 @@ disaster-risk reduction and institutional resilience planning.
 <span>CCA</span>
 <span>GIS</span>
 </div>
+</div>
 </article>
 </section>
 
 <section class="research-year-group research-year-2021">
 <article class="research-project-card">
-<div class="research-project-meta">
-<span class="research-project-year">2021</span>
+<div class="research-project-heading">
 <span class="research-project-type">Spatial Modelling</span>
-</div>
 <h3>Metro Manila Landscape Connectivity</h3>
+</div>
+<div class="research-project-body">
 <p>
 Master's research using GIS, remote sensing and R-based spatial modelling
 to analyse fragmented urban landscapes.
@@ -10276,16 +10256,17 @@ to analyse fragmented urban landscapes.
 <span>Remote Sensing</span>
 <span>GIS</span>
 </div>
+</div>
 </article>
 </section>
 
 <section class="research-year-group research-year-2017">
 <article class="research-project-card">
-<div class="research-project-meta">
-<span class="research-project-year">2017</span>
+<div class="research-project-heading">
 <span class="research-project-type">Experimental Research</span>
-</div>
 <h3>Danio rerio Embryotoxicity</h3>
+</div>
+<div class="research-project-body">
 <p>
 Experimental toxicology research assessing embryotoxic and teratogenic effects using zebrafish embryos.
 </p>
@@ -10293,6 +10274,7 @@ Experimental toxicology research assessing embryotoxic and teratogenic effects u
 <span>Ecotoxicology</span>
 <span>Laboratory</span>
 <span>Research Design</span>
+</div>
 </div>
 </article>
 </section>
