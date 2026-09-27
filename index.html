@@ -8142,6 +8142,309 @@ intro far below the heading. Restore a true two-column desktop row.
 
 </style>
 
+
+<style id="portfolio-v3-authoritative-layout">
+/* =========================================================
+PORTFOLIO V3 — AUTHORITATIVE LAYOUT + MORPH + SMOOTH CAROUSEL
+This is deliberately the last style block before </head>.
+========================================================= */
+
+/* -----------------------------
+1. REAL CARD-TO-PANEL MORPH
+----------------------------- */
+.expansion {
+    transition:
+        left .48s cubic-bezier(.22,1,.36,1),
+        top .48s cubic-bezier(.22,1,.36,1),
+        width .48s cubic-bezier(.22,1,.36,1),
+        height .48s cubic-bezier(.22,1,.36,1),
+        border-radius .48s cubic-bezier(.22,1,.36,1),
+        box-shadow .48s cubic-bezier(.22,1,.36,1) !important;
+    will-change: left, top, width, height, border-radius !important;
+}
+
+.flying-title {
+    transition:
+        left .48s cubic-bezier(.22,1,.36,1),
+        top .48s cubic-bezier(.22,1,.36,1),
+        width .48s cubic-bezier(.22,1,.36,1),
+        font-size .48s cubic-bezier(.22,1,.36,1),
+        line-height .48s cubic-bezier(.22,1,.36,1),
+        opacity .16s ease !important;
+    will-change: left, top, width, font-size !important;
+}
+
+.expansion-backdrop {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    transition: opacity .28s ease !important;
+}
+
+.expanded-content {
+    opacity: 0 !important;
+    transform: translate3d(0, 8px, 0) !important;
+    transition:
+        opacity .22s ease,
+        transform .28s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.expansion.content-visible .expanded-content {
+    opacity: 1 !important;
+    transform: translate3d(0,0,0) !important;
+}
+
+.expansion.morph-closing .expanded-content {
+    opacity: 0 !important;
+    transform: translate3d(0,5px,0) !important;
+    pointer-events: none !important;
+}
+
+/* -----------------------------
+2. DESKTOP LEFT RAIL + CAROUSEL
+Use the screen instead of leaving a giant dead zone.
+----------------------------- */
+@media (min-width: 801px) {
+
+    .expansion:not(.case-study-active) .expanded-content {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-header-row {
+        position: absolute !important;
+        inset: 0 auto 0 0 !important;
+        width: clamp(340px, 29vw, 500px) !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        overflow: visible !important;
+        pointer-events: none !important;
+        background: transparent !important;
+        border: 0 !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-header-row::before {
+        content: "" !important;
+        display: block !important;
+        position: absolute !important;
+        inset: 0 auto 0 0 !important;
+        width: calc(100% + 120px) !important;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4,64,70,1) 0%,
+                rgba(4,64,70,.97) 67%,
+                rgba(4,64,70,.74) 80%,
+                rgba(4,64,70,.30) 91%,
+                rgba(4,64,70,0) 100%
+            ) !important;
+        pointer-events: none !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-header-row::after {
+        content: none !important;
+        display: none !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-header-row > div {
+        position: absolute !important;
+        z-index: 3 !important;
+        top: var(--rail-copy-top, 280px) !important;
+        left: clamp(48px, 3.4vw, 66px) !important;
+        right: 34px !important;
+        bottom: auto !important;
+        width: auto !important;
+        max-width: 420px !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-kicker {
+        font-size: clamp(.82rem, .76vw, .98rem) !important;
+        letter-spacing: .14em !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-description {
+        margin-top: 12px !important;
+        max-width: 405px !important;
+        font-size: clamp(1.02rem, 1.02vw, 1.18rem) !important;
+        line-height: 1.52 !important;
+        color: rgba(241,253,250,.92) !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-section {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding:
+            34px
+            clamp(28px, 2.5vw, 46px)
+            34px
+            clamp(330px, 29vw, 505px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        overflow: visible !important;
+        transform: none !important;
+        pointer-events: auto !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-help {
+        flex: 0 0 auto !important;
+        margin: 0 0 6px !important;
+        text-align: center !important;
+        font-size: clamp(.88rem, .8vw, 1rem) !important;
+    }
+
+    .expansion:not(.case-study-active) .cover-flow {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        width: 100% !important;
+        padding-top: 54px !important;
+        padding-bottom: 50px !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+    }
+
+    .flow-card {
+        height: clamp(510px, 62vh, 570px) !important;
+        max-height: none !important;
+        aspect-ratio: auto !important;
+    }
+
+    /* Profile contacts stay on the right but no longer float absurdly far away. */
+    .expansion-profile:not(.case-study-active) .contact-grid {
+        position: absolute !important;
+        z-index: 5 !important;
+        top: 50% !important;
+        left: clamp(500px, 40vw, 650px) !important;
+        right: clamp(46px, 4vw, 78px) !important;
+        width: auto !important;
+        max-width: 900px !important;
+        margin: 0 !important;
+        transform: translateY(-50%) !important;
+        gap: 14px !important;
+    }
+}
+
+/* -----------------------------
+3. CARDS — MORE ROOM, NO TOP CUT, NO 3D JANK
+----------------------------- */
+:root {
+    --portfolio-card-width: clamp(292px, 19vw, 338px);
+    --portfolio-card-gap: clamp(18px, 1.35vw, 24px);
+}
+
+.cover-flow {
+    --card-width: var(--portfolio-card-width) !important;
+    gap: var(--portfolio-card-gap) !important;
+    scroll-snap-type: x proximity !important;
+    scroll-behavior: smooth !important;
+    perspective: none !important;
+    scroll-padding-inline: max(76px, calc((100% - var(--card-width)) / 2)) !important;
+    padding-left: max(76px, calc((100% - var(--card-width)) / 2)) !important;
+    padding-right: max(76px, calc((100% - var(--card-width)) / 2)) !important;
+    overscroll-behavior-x: contain !important;
+    scrollbar-width: none !important;
+    touch-action: pan-x !important;
+}
+
+.flow-card {
+    transform-style: flat !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    will-change: transform, opacity !important;
+    transition:
+        border-color .20s ease,
+        box-shadow .20s ease !important;
+}
+
+.flow-card.is-center {
+    filter: none !important;
+    border-color: rgba(89,225,141,.58) !important;
+    box-shadow:
+        0 26px 58px rgba(0,24,27,.28),
+        0 0 0 1px rgba(89,225,141,.10) !important;
+}
+
+.mini-card .mini-image,
+.mini-card .sankey-preview,
+.mini-card .notedump-preview {
+    height: 32% !important;
+    flex: 0 0 32% !important;
+}
+
+.mini-card .mini-body {
+    padding: 18px 23px 24px !important;
+}
+
+/* -----------------------------
+4. CASE-STUDY FIGURES — ALWAYS FIT ENTIRE MAP/LEGEND
+----------------------------- */
+.case-story-stage {
+    overflow: hidden !important;
+}
+
+.case-story-scene {
+    overflow: hidden !important;
+}
+
+.case-scene-media {
+    min-height: 0 !important;
+    padding: 14px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.case-scene-media img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
+
+@media (max-width: 800px) {
+
+    .cover-flow {
+        padding-top: 34px !important;
+        padding-bottom: 34px !important;
+        padding-left: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+        padding-right: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+        scroll-padding-inline: max(30px, calc((100% - var(--card-width)) / 2)) !important;
+    }
+
+    .flow-card {
+        height: auto !important;
+        min-height: 510px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .expansion,
+    .flying-title,
+    .expanded-content,
+    .flow-card {
+        transition: none !important;
+    }
+}
+</style>
+
 </head>
 
 
@@ -9769,105 +10072,34 @@ function getExpandedTitleSize(
 
     if (mobile) {
 
-        if (key === "profile") {
-            return Math.min(
-                Math.max(
-                    originalSize * .73,
-                    31
-                ),
-                38
-            );
-        }
+        const mobileSizes = {
+            profile: 36,
+            projects: 31,
+            skills: 25,
+            gallery: 29,
+            mini: 28
+        };
 
-        if (key === "projects") {
-            return Math.min(
-                Math.max(
-                    originalSize * .58,
-                    25
-                ),
-                32
+        return mobileSizes[key]
+            || Math.min(
+                Math.max(originalSize * .72, 24),
+                34
             );
-        }
-
-        if (key === "skills") {
-            return Math.min(
-                Math.max(
-                    originalSize * .76,
-                    20
-                ),
-                27
-            );
-        }
-
-        if (
-            key === "gallery"
-            ||
-            key === "mini"
-        ) {
-            return Math.min(
-                Math.max(
-                    originalSize * .70,
-                    23
-                ),
-                30
-            );
-        }
     }
 
-    else {
+    const desktopSizes = {
+        profile: 78,
+        projects: 72,
+        skills: 58,
+        gallery: 66,
+        mini: 62
+    };
 
-        if (key === "profile") {
-            return Math.min(
-                Math.max(
-                    originalSize * 1.02,
-                    100
-                ),
-                126
-            );
-        }
-
-        if (key === "projects") {
-            return Math.min(
-                Math.max(
-                    originalSize * 1.22,
-                    96
-                ),
-                116
-            );
-        }
-
-        if (key === "skills") {
-            return Math.min(
-                Math.max(
-                    originalSize * 1.46,
-                    72
-                ),
-                84
-            );
-        }
-
-        if (key === "gallery") {
-            return Math.min(
-                Math.max(
-                    originalSize * 1.30,
-                    86
-                ),
-                102
-            );
-        }
-
-        if (key === "mini") {
-            return Math.min(
-                Math.max(
-                    originalSize * 1.08,
-                    72
-                ),
-                84
-            );
-        }
-    }
-
-    return 32;
+    return desktopSizes[key]
+        || Math.min(
+            Math.max(originalSize * 1.05, 54),
+            76
+        );
 }
 
 
@@ -9886,82 +10118,123 @@ function openPanel(panel) {
         return;
     }
 
-    activePanel =
-        panel;
+    activePanel = panel;
 
     const key =
         panel.dataset.panel;
 
     const originalTitle =
-        panel.querySelector(
-            "[data-title]"
-        );
+        panel.querySelector("[data-title]");
+
+    const panelRect =
+        panel.getBoundingClientRect();
+
+    const titleRect =
+        originalTitle.getBoundingClientRect();
 
     const titleStyle =
-        getComputedStyle(
-            originalTitle
-        );
+        getComputedStyle(originalTitle);
 
     const originalFontSize =
-        parseFloat(
-            titleStyle.fontSize
-        );
+        parseFloat(titleStyle.fontSize);
 
-    backdrop.hidden =
-        false;
+    const originalLineHeight =
+        parseFloat(titleStyle.lineHeight)
+        || originalFontSize * .95;
 
-    requestAnimationFrame(
-        () =>
-            backdrop.classList.add(
-                "open"
-            )
-    );
+    const panelRadius =
+        getComputedStyle(panel).borderRadius
+        || "28px";
+
+    backdrop.hidden = false;
 
     const margin =
         window.innerWidth <= 800
         ? 6
         : 18;
 
-    const finalLeft =
-        margin;
+    const finalLeft = margin;
+    const finalTop = margin;
+    const finalWidth = window.innerWidth - margin * 2;
+    const finalHeight = window.innerHeight - margin * 2;
 
-    const finalTop =
-        margin;
-
-    const finalWidth =
-        window.innerWidth
-        -
-        margin * 2;
-
-    const finalHeight =
-        window.innerHeight
-        -
-        margin * 2;
-
-    expansion =
-        document.createElement(
-            "div"
+    const finalTitleSize =
+        getExpandedTitleSize(
+            key,
+            originalFontSize
         );
 
-    expansion.className =
-        `expansion expansion-${key} fast-shell`;
+    const titleLineCount =
+        originalTitle.querySelectorAll(".title-line").length
+        || 1;
 
-    expansion.style.left =
-        `${finalLeft}px`;
+    const finalTitleLeft =
+        finalLeft
+        +
+        (
+            window.innerWidth <= 800
+            ? 18
+            : Math.max(48, window.innerWidth * .032)
+        );
 
-    expansion.style.top =
-        `${finalTop}px`;
-
-    expansion.style.width =
-        `${finalWidth}px`;
-
-    expansion.style.height =
-        `${finalHeight}px`;
-
-    expansion.style.borderRadius =
+    const finalTitleTop =
         window.innerWidth <= 800
-        ? "23px"
-        : "32px";
+        ? finalTop + 28
+        : finalTop + 76;
+
+    const finalTitleWidth =
+        window.innerWidth <= 800
+        ? Math.min(finalWidth * .84, 760)
+        : Math.min(finalWidth * .29, 510);
+
+    const finalLineHeight =
+        finalTitleSize * .92;
+
+    const estimatedTitleHeight =
+        finalLineHeight * titleLineCount;
+
+    /* Copy starts directly under the morphed title instead of floating
+       halfway down the screen. */
+    if (window.innerWidth > 800) {
+
+        const railCopyTop =
+            Math.min(
+                finalHeight - 210,
+                Math.max(
+                    210,
+                    (
+                        finalTitleTop
+                        - finalTop
+                    )
+                    + estimatedTitleHeight
+                    + 32
+                )
+            );
+
+        /* Stored on the shell so CSS can align the kicker + description. */
+        panel.dataset.lastRailCopyTop = String(railCopyTop);
+    }
+
+    expansion =
+        document.createElement("div");
+
+    expansion.className =
+        `expansion expansion-${key} morph-shell`;
+
+    /* IMPORTANT: the new panel begins exactly where the clicked home card is. */
+    expansion.style.left = `${panelRect.left}px`;
+    expansion.style.top = `${panelRect.top}px`;
+    expansion.style.width = `${panelRect.width}px`;
+    expansion.style.height = `${panelRect.height}px`;
+    expansion.style.borderRadius = panelRadius;
+
+    const railCopyTop =
+        Number(panel.dataset.lastRailCopyTop || 250);
+
+    expansion.style.setProperty(
+        "--rail-copy-top",
+        `${railCopyTop}px`
+    );
 
     expansion.innerHTML = `
 
@@ -9971,9 +10244,7 @@ function openPanel(panel) {
 
         ${
             key === "profile"
-
             ? `<div class="planet-system profile-scatter-system">${panel.querySelector(".planet-system")?.innerHTML || ""}</div>`
-
             : ""
         }
 
@@ -10004,245 +10275,87 @@ function openPanel(panel) {
         </div>
     `;
 
-    document.body.appendChild(
-        expansion
-    );
+    document.body.appendChild(expansion);
 
-
-    const finalTitleLeft =
-        finalLeft
-        +
-        (
-            window.innerWidth <= 800
-
-            ? 18
-
-            : Math.max(
-                42,
-                window.innerWidth * .027
-            )
-        );
-
-
-    const finalTitleSize =
-        getExpandedTitleSize(
-            key,
-            originalFontSize
-        );
-
-
-    const titleLineCount =
-        originalTitle
-        .querySelectorAll(
-            ".title-line"
-        )
-        .length
-        ||
-        1;
-
-
-    const estimatedTitleHeight =
-        finalTitleSize
-        *
-        1.04
-        *
-        titleLineCount;
-
-
-    const finalTitleTop =
-        window.innerWidth <= 800
-
-        ? finalTop + 21
-
-        :
-
-        (
-            key === "profile"
-
-            ?
-
-            finalTop
-            +
-            finalHeight * .49
-            -
-            estimatedTitleHeight / 2
-
-            :
-
-            finalTop
-            +
-            finalHeight * .42
-            -
-            estimatedTitleHeight / 2
-        );
-
-
-    const finalTitleWidth =
-        window.innerWidth <= 800
-
-        ?
-
-        Math.min(
-            finalWidth * .78,
-            1100
-        )
-
-        :
-
-        Math.min(
-            finalWidth * .335,
-            625
-        );
-
-
-    if (
-        window.innerWidth > 800
-    ) {
-
-        const titleToCopyGap =
-
-            key === "skills"
-
-            ? 78
-
-            : key === "mini"
-
-            ? 54
-
-            : key === "profile"
-
-            ? 42
-
-            : 38;
-
-
-        const railCopyTop =
-            Math.min(
-                finalHeight - 185,
-
-                Math.max(
-
-                    112,
-
-                    (
-                        finalTitleTop
-                        -
-                        finalTop
-                    )
-                    +
-                    estimatedTitleHeight
-                    +
-                    titleToCopyGap
-                )
-            );
-
-
-        expansion.style.setProperty(
-            "--rail-copy-top",
-            `${railCopyTop}px`
-        );
-    }
-
-
+    /* The title also begins at the exact home-page title geometry. */
     flyingTitle =
-        document.createElement(
-            originalTitle.tagName
-        );
+        document.createElement(originalTitle.tagName);
 
     flyingTitle.className =
-        "flying-title fast-title compact";
+        "flying-title compact morph-title";
 
-    flyingTitle.dataset.key =
-        key;
+    flyingTitle.dataset.key = key;
+    flyingTitle.innerHTML = originalTitle.innerHTML;
 
-    flyingTitle.innerHTML =
-        originalTitle.innerHTML;
+    flyingTitle.style.left = `${titleRect.left}px`;
+    flyingTitle.style.top = `${titleRect.top}px`;
+    flyingTitle.style.width = `${titleRect.width}px`;
+    flyingTitle.style.fontSize = `${originalFontSize}px`;
+    flyingTitle.style.lineHeight = `${originalLineHeight}px`;
 
-    flyingTitle.style.left =
-        `${finalTitleLeft}px`;
+    document.body.appendChild(flyingTitle);
 
-    flyingTitle.style.top =
-        `${finalTitleTop}px`;
+    /* Let the clones paint once before hiding the originals. */
+    expansion.getBoundingClientRect();
+    flyingTitle.getBoundingClientRect();
 
-    flyingTitle.style.width =
-        `${finalTitleWidth}px`;
-
-    flyingTitle.style.fontSize =
-        `${finalTitleSize}px`;
-
-    flyingTitle.style.lineHeight =
-        "1.04";
-
-    document.body.appendChild(
-        flyingTitle
-    );
-
-
-    originalTitle.style.opacity =
-        "0";
-
-    panel.style.opacity =
-        "0";
-
+    originalTitle.style.opacity = "0";
+    panel.style.opacity = "0";
+    panel.style.pointerEvents = "none";
 
     closeButton =
-        document.createElement(
-            "button"
-        );
+        document.createElement("button");
 
     closeButton.className =
         "expansion-close";
 
-    closeButton.type =
-        "button";
-
-    closeButton.setAttribute(
-        "aria-label",
-        "Close expanded section"
-    );
-
-    closeButton.setAttribute(
-        "title",
-        "Close section"
-    );
-
+    closeButton.type = "button";
+    closeButton.setAttribute("aria-label", "Close expanded section");
+    closeButton.setAttribute("title", "Close section");
     closeButton.innerHTML =
         `<i class="fa-solid fa-xmark" aria-hidden="true"></i>`;
 
-    document.body.appendChild(
-        closeButton
-    );
-
+    document.body.appendChild(closeButton);
     positionCloseButton();
-
 
     closeButton.addEventListener(
         "click",
         event => {
-
             event.preventDefault();
-
             event.stopPropagation();
-
             closeActivePanel();
         }
     );
 
-
+    /* Start backdrop and geometry morph on the next frame. */
     requestAnimationFrame(
         () => {
 
-            expansion?.classList.add(
-                "fast-visible"
-            );
+            backdrop.classList.add("open");
 
-            flyingTitle?.classList.add(
-                "fast-visible"
-            );
+            expansion.style.left = `${finalLeft}px`;
+            expansion.style.top = `${finalTop}px`;
+            expansion.style.width = `${finalWidth}px`;
+            expansion.style.height = `${finalHeight}px`;
+            expansion.style.borderRadius =
+                window.innerWidth <= 800
+                ? "23px"
+                : "32px";
+
+            flyingTitle.style.left = `${finalTitleLeft}px`;
+            flyingTitle.style.top = `${finalTitleTop}px`;
+            flyingTitle.style.width = `${finalTitleWidth}px`;
+            flyingTitle.style.fontSize = `${finalTitleSize}px`;
+            flyingTitle.style.lineHeight = ".92";
+
+            if (key === "profile") {
+                expansion.querySelector(".profile-scatter-system")?.classList.add("scattered");
+            }
         }
     );
 
-
+    /* Reveal the actual panel contents after the shell/title are already moving.
+       This avoids the old "card suddenly appears" effect. */
     setTimeout(
         () => {
 
@@ -10250,22 +10363,15 @@ function openPanel(panel) {
                 return;
             }
 
-            expansion.classList.add(
-                "content-visible"
-            );
-
-            closeButton?.classList.add(
-                "visible"
-            );
+            expansion.classList.add("content-visible");
+            closeButton?.classList.add("visible");
 
             initialiseCoverFlows();
-
             bindGalleryItems();
-
             bindCaseStudyLaunchers();
 
         },
-        120
+        window.innerWidth <= 800 ? 250 : 330
     );
 }
 
@@ -10284,143 +10390,98 @@ function closeActivePanel() {
         return;
     }
 
-
-    const panel =
-        activePanel;
-
-
-    const originalTitle =
-        panel.querySelector(
-            "[data-title]"
-        );
-
-
-    const view =
-        activeCaseStudy;
-
+    const panel = activePanel;
+    const originalTitle = panel.querySelector("[data-title]");
+    const view = activeCaseStudy;
 
     if (view) {
 
-        if (
-            view._caseStoryCleanup
-        ) {
-
+        if (view._caseStoryCleanup) {
             view._caseStoryCleanup();
-
-            view._caseStoryCleanup =
-                null;
+            view._caseStoryCleanup = null;
         }
 
-
-        if (
-            view._caseStoryObserver
-        ) {
-
+        if (view._caseStoryObserver) {
             view._caseStoryObserver.disconnect();
-
-            view._caseStoryObserver =
-                null;
+            view._caseStoryObserver = null;
         }
 
-
-        view.classList.remove(
-            "open"
-        );
-
+        view.classList.remove("open");
         view.remove();
-
-        activeCaseStudy =
-            null;
+        activeCaseStudy = null;
     }
-
 
     if (caseStudyObserver) {
-
         caseStudyObserver.disconnect();
-
-        caseStudyObserver =
-            null;
+        caseStudyObserver = null;
     }
 
+    document.body.classList.remove("research-case-open");
+    expansion.classList.remove("case-study-active");
 
-    document.body.classList.remove(
-        "research-case-open"
+    /* Hide inner content first, then morph the shell and title back home. */
+    expansion.classList.remove("content-visible");
+    expansion.classList.add("morph-closing");
+
+    closeButton?.classList.remove("visible");
+    backdrop.classList.remove("open");
+
+    const panelRect = panel.getBoundingClientRect();
+    const titleRect = originalTitle.getBoundingClientRect();
+    const titleStyle = getComputedStyle(originalTitle);
+    const originalFontSize = parseFloat(titleStyle.fontSize);
+    const originalLineHeight = parseFloat(titleStyle.lineHeight) || originalFontSize * .95;
+    const panelRadius = getComputedStyle(panel).borderRadius || "28px";
+
+    /* Stop the scattered profile planets before the reverse shell motion. */
+    expansion.querySelector(".profile-scatter-system")?.classList.remove("scattered");
+
+    requestAnimationFrame(
+        () => {
+
+            expansion.style.left = `${panelRect.left}px`;
+            expansion.style.top = `${panelRect.top}px`;
+            expansion.style.width = `${panelRect.width}px`;
+            expansion.style.height = `${panelRect.height}px`;
+            expansion.style.borderRadius = panelRadius;
+
+            if (flyingTitle) {
+                flyingTitle.classList.remove("case-study-hidden");
+                flyingTitle.style.left = `${titleRect.left}px`;
+                flyingTitle.style.top = `${titleRect.top}px`;
+                flyingTitle.style.width = `${titleRect.width}px`;
+                flyingTitle.style.fontSize = `${originalFontSize}px`;
+                flyingTitle.style.lineHeight = `${originalLineHeight}px`;
+            }
+        }
     );
-
-
-    expansion.classList.remove(
-        "case-study-active"
-    );
-
-
-    expansion.classList.add(
-        "fast-closing"
-    );
-
-
-    if (flyingTitle) {
-
-        flyingTitle.classList.remove(
-            "case-study-hidden"
-        );
-
-        flyingTitle.classList.add(
-            "fast-closing"
-        );
-    }
-
-
-    closeButton?.classList.remove(
-        "visible"
-    );
-
-
-    backdrop.classList.remove(
-        "open"
-    );
-
 
     const finishClose =
         () => {
 
-            panel.style.opacity =
-                "";
+            panel.style.opacity = "";
+            panel.style.pointerEvents = "";
 
             if (originalTitle) {
-
-                originalTitle.style.opacity =
-                    "";
+                originalTitle.style.opacity = "";
             }
 
             expansion?.remove();
-
             flyingTitle?.remove();
-
             closeButton?.remove();
 
-            backdrop.hidden =
-                true;
+            backdrop.hidden = true;
 
-            expansion =
-                null;
-
-            flyingTitle =
-                null;
-
-            closeButton =
-                null;
-
-            activePanel =
-                null;
-
-            activeCaseStudy =
-                null;
+            expansion = null;
+            flyingTitle = null;
+            closeButton = null;
+            activePanel = null;
+            activeCaseStudy = null;
         };
-
 
     setTimeout(
         finishClose,
-        190
+        window.innerWidth <= 800 ? 390 : 500
     );
 }
 
@@ -10499,29 +10560,23 @@ function initialiseCoverFlows() {
         return;
     }
 
-    /* ---------------------------------------------------------
-    MOTION SETTINGS
-    These values deliberately keep the 3D effect subtle.
-    --------------------------------------------------------- */
+    /* =====================================================
+    SMOOTH COVER-FLOW
 
-    const ROTATION_MAX_DEG = 4.25;
-    const DEPTH_PER_CARD_PX = 26;
-    const CENTER_LIFT_Z_PX = 10;
-    const SCALE_DROP_PER_CARD = 0.022;
-    const VERTICAL_DROP_PX = 1.5;
+    The previous version combined Z-depth, rotateY, brightness,
+    saturation and snapping. That looked dramatic but cost smoothness.
+
+    This version uses only compositor-friendly translate + scale + opacity.
+    ===================================================== */
 
     expansion
-    .querySelectorAll(
-        "[data-cover-flow]"
-    )
+    .querySelectorAll("[data-cover-flow]")
     .forEach(
         track => {
 
             const cards =
                 Array.from(
-                    track.querySelectorAll(
-                        ".flow-card"
-                    )
+                    track.querySelectorAll(".flow-card")
                 );
 
             if (!cards.length) {
@@ -10534,43 +10589,14 @@ function initialiseCoverFlows() {
                 );
 
             let dots = [];
-            let ticking = false;
+            let rafId = 0;
             let closestIndex = 0;
 
             const clamp =
                 (value, min, max) =>
-                    Math.max(
-                        min,
-                        Math.min(
-                            max,
-                            value
-                        )
-                    );
+                    Math.max(min, Math.min(max, value));
 
-            function getTrackGap() {
-
-                const styles =
-                    getComputedStyle(
-                        track
-                    );
-
-                return (
-                    parseFloat(
-                        styles.columnGap
-                        ||
-                        styles.gap
-                        ||
-                        "0"
-                    )
-                    ||
-                    0
-                );
-            }
-
-            function centerCard(
-                card,
-                smooth = true
-            ) {
+            function centerCard(card, smooth = true) {
 
                 if (!card) {
                     return;
@@ -10594,99 +10620,51 @@ function initialiseCoverFlows() {
                     );
 
                 track.scrollTo({
-                    left:
-                        clamp(
-                            target,
-                            0,
-                            maxScroll
-                        ),
-                    behavior:
-                        smooth
-                        ? "smooth"
-                        : "auto"
+                    left: clamp(target, 0, maxScroll),
+                    behavior: smooth ? "smooth" : "auto"
                 });
             }
 
-            track._centerCard =
-                centerCard;
-
-            /* -------------------------------------------------
-            DOT NAVIGATION
-            ------------------------------------------------- */
+            track._centerCard = centerCard;
 
             if (dotsContainer) {
 
-                dotsContainer.innerHTML =
-                    "";
+                dotsContainer.innerHTML = "";
 
                 cards.forEach(
                     (card, index) => {
 
-                        const dot =
-                            document.createElement(
-                                "button"
-                            );
-
-                        dot.className =
-                            "flow-dot";
-
-                        dot.type =
-                            "button";
-
-                        dot.setAttribute(
-                            "aria-label",
-                            `Go to card ${index + 1}`
-                        );
+                        const dot = document.createElement("button");
+                        dot.className = "flow-dot";
+                        dot.type = "button";
+                        dot.setAttribute("aria-label", `Go to card ${index + 1}`);
 
                         dot.addEventListener(
                             "click",
                             event => {
-
                                 event.preventDefault();
                                 event.stopPropagation();
-
-                                centerCard(
-                                    card,
-                                    true
-                                );
+                                centerCard(card, true);
                             }
                         );
 
-                        dotsContainer.appendChild(
-                            dot
-                        );
-
-                        dots.push(
-                            dot
-                        );
+                        dotsContainer.appendChild(dot);
+                        dots.push(dot);
                     }
                 );
             }
 
-            /* -------------------------------------------------
-            LIVE COVER-FLOW POSITIONING
-            ------------------------------------------------- */
-
             function updateFlow() {
+
+                rafId = 0;
 
                 const viewportCenter =
                     track.scrollLeft
                     +
                     track.clientWidth / 2;
 
-                const gap =
-                    getTrackGap();
-
-                const cardSpacing =
-                    cards[0].offsetWidth
-                    +
-                    gap;
-
-                let nearestDistance =
-                    Infinity;
-
-                closestIndex =
-                    0;
+                let nearestDistance = Infinity;
+                closestIndex = 0;
 
                 cards.forEach(
                     (card, index) => {
@@ -10696,130 +10674,53 @@ function initialiseCoverFlows() {
                             +
                             card.offsetWidth / 2;
 
-                        const rawOffset =
-                            (
-                                cardCenter
-                                -
-                                viewportCenter
-                            )
-                            /
-                            Math.max(
-                                cardSpacing,
-                                1
-                            );
+                        const distancePx =
+                            cardCenter
+                            -
+                            viewportCenter;
 
-                        const offset =
+                        const normalized =
                             clamp(
-                                rawOffset,
-                                -2.25,
-                                2.25
+                                distancePx / Math.max(track.clientWidth * .56, 1),
+                                -1.45,
+                                1.45
                             );
 
-                        const absOffset =
-                            Math.abs(
-                                offset
-                            );
+                        const abs = Math.abs(normalized);
+                        const distance = Math.abs(distancePx);
 
-                        const distance =
-                            Math.abs(
-                                cardCenter
-                                -
-                                viewportCenter
-                            );
-
-                        if (
-                            distance
-                            <
-                            nearestDistance
-                        ) {
-                            nearestDistance =
-                                distance;
-
-                            closestIndex =
-                                index;
+                        if (distance < nearestDistance) {
+                            nearestDistance = distance;
+                            closestIndex = index;
                         }
 
-                        const centreStrength =
-                            Math.max(
-                                0,
-                                1
-                                -
-                                Math.min(
-                                    absOffset,
-                                    1
-                                )
-                            );
-
-                        const translateZ =
-                            -(
-                                DEPTH_PER_CARD_PX
-                                *
-                                absOffset
-                            )
-                            +
-                            (
-                                CENTER_LIFT_Z_PX
-                                *
-                                centreStrength
-                            );
-
+                        /* Smooth and restrained: center card full size,
+                           side cards gently recede without rotating. */
                         const scale =
-                            1.012
+                            1
                             -
-                            Math.min(
-                                absOffset,
-                                2
-                            )
-                            *
-                            SCALE_DROP_PER_CARD;
+                            Math.min(abs, 1) * .055;
 
-                        const rotateY =
-                            clamp(
-                                offset * -3.5,
-                                -ROTATION_MAX_DEG,
-                                ROTATION_MAX_DEG
-                            );
-
-                        const translateY =
-                            Math.min(
-                                absOffset,
-                                2
-                            )
-                            *
-                            VERTICAL_DROP_PX;
+                        const y =
+                            Math.min(abs, 1) * 7;
 
                         const opacity =
-                            Math.max(
-                                0.78,
-                                1
-                                -
-                                Math.min(
-                                    absOffset,
-                                    2.25
-                                )
-                                *
-                                0.09
-                            );
+                            1
+                            -
+                            Math.min(abs, 1.25) * .20;
 
                         card.style.transform =
-                            `translate3d(0, ${translateY}px, ${translateZ}px) `
-                            +
-                            `rotateY(${rotateY}deg) scale(${scale})`;
+                            `translate3d(0, ${y.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
 
                         card.style.opacity =
                             opacity.toFixed(3);
-
-                        /* Avoid animating CSS filters every frame.
-                           This keeps scrolling noticeably smoother. */
-                        card.style.filter =
-                            "none";
 
                         card.style.zIndex =
                             String(
                                 Math.round(
                                     100
                                     -
-                                    absOffset * 12
+                                    Math.min(abs, 1.5) * 12
                                 )
                             );
                     }
@@ -10829,75 +10730,34 @@ function initialiseCoverFlows() {
                     (card, index) => {
 
                         const centered =
-                            index
-                            ===
-                            closestIndex;
+                            index === closestIndex;
 
-                        card.classList.toggle(
-                            "is-center",
-                            centered
-                        );
-
-                        card.setAttribute(
-                            "aria-current",
-                            centered
-                            ? "true"
-                            : "false"
-                        );
+                        card.classList.toggle("is-center", centered);
+                        card.setAttribute("aria-current", centered ? "true" : "false");
                     }
                 );
 
                 dots.forEach(
                     (dot, index) => {
-
-                        dot.classList.toggle(
-                            "active",
-                            index
-                            ===
-                            closestIndex
-                        );
+                        dot.classList.toggle("active", index === closestIndex);
                     }
                 );
-
-                ticking =
-                    false;
             }
 
             function requestUpdate() {
 
-                if (ticking) {
+                if (rafId) {
                     return;
                 }
 
-                ticking =
-                    true;
-
-                requestAnimationFrame(
-                    updateFlow
-                );
+                rafId = requestAnimationFrame(updateFlow);
             }
-
-            /* -------------------------------------------------
-            IMPORTANT:
-            We only update transforms while the user scrolls.
-            There is NO repeated JS auto-settle timer fighting
-            the browser's native proximity snapping anymore.
-            ------------------------------------------------- */
 
             track.addEventListener(
                 "scroll",
                 requestUpdate,
-                {
-                    passive: true
-                }
+                { passive: true }
             );
-
-            /* -------------------------------------------------
-            CLICK BEHAVIOUR
-            Side card = center it.
-            Center card = leave the event alone so its own link,
-            gallery or case-study interaction can run normally.
-            ------------------------------------------------- */
 
             cards.forEach(
                 card => {
@@ -10906,56 +10766,30 @@ function initialiseCoverFlows() {
                         "click",
                         event => {
 
-                            if (
-                                card.classList.contains(
-                                    "is-center"
-                                )
-                            ) {
+                            if (card.classList.contains("is-center")) {
                                 return;
                             }
 
                             event.preventDefault();
                             event.stopPropagation();
-
-                            centerCard(
-                                card,
-                                true
-                            );
+                            centerCard(card, true);
                         }
                     );
                 }
             );
 
-            /* -------------------------------------------------
-            INITIAL POSITION
-            ------------------------------------------------- */
-
             requestAnimationFrame(
                 () => {
-
-                    centerCard(
-                        cards[0],
-                        false
-                    );
-
-                    requestAnimationFrame(
-                        updateFlow
-                    );
+                    centerCard(cards[0], false);
+                    requestAnimationFrame(updateFlow);
                 }
             );
 
-            setTimeout(
-                requestUpdate,
-                100
-            );
-
-            setTimeout(
-                requestUpdate,
-                260
-            );
+            setTimeout(requestUpdate, 120);
         }
     );
 }
+
 
 /* =========================================================
 SECTION 16 — LIGHTBOX JAVASCRIPT
