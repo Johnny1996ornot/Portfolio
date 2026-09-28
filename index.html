@@ -10617,6 +10617,340 @@ V13 — TECHNICAL SKILLS PANEL + URBAN HEAT CONTROL PLACEMENT
 }
 </style>
 
+
+<style id="portfolio-v14-layout-motion-polish">
+/* =========================================================
+PORTFOLIO V14 — FIT, MOTION & SPACE POLISH
+- Technical Skills: title + project management in left rail; 6 skills fit 3x2
+- Faster GPU-friendly panel morphs (no live backdrop blur)
+- Urban Heat: copy starts high, controls live directly under copy, larger portrait map
+- Maps/Models/Visuals: wider landscape cards and stronger section title
+========================================================= */
+
+/* ---------- GLOBAL MOTION: lighter paint work, shorter transforms ---------- */
+.expansion {
+    transition: transform .30s cubic-bezier(.2,.78,.2,1), border-radius .30s cubic-bezier(.2,.78,.2,1) !important;
+    will-change: transform !important;
+}
+.flying-title {
+    transition: transform .30s cubic-bezier(.2,.78,.2,1), opacity .12s ease !important;
+    will-change: transform !important;
+}
+.expansion-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: opacity .16s ease !important;
+}
+.expansion:not(.content-visible) .expanded-content {
+    visibility: hidden !important;
+}
+.expansion.content-visible .expanded-content {
+    visibility: visible !important;
+}
+.expanded-content {
+    transform: none !important;
+    transition: opacity .14s ease !important;
+}
+.expansion.content-visible .expanded-content {
+    transform: none !important;
+}
+.expansion.morph-closing .expanded-content {
+    transform: none !important;
+}
+.expanded-blob,
+.expanded-blob-small {
+    animation: none !important;
+}
+.flow-card {
+    will-change: auto !important;
+    transition: transform .16s cubic-bezier(.2,.78,.2,1), opacity .13s ease, border-color .14s ease, box-shadow .14s ease !important;
+}
+
+/* ---------- TECHNICAL SKILLS: no carousel, everything fits in one screen ---------- */
+@media (min-width: 801px) {
+    .flying-title[data-key="skills"] {
+        left: clamp(54px, 3.6vw, 72px) !important;
+        top: 92px !important;
+        width: clamp(330px, 24vw, 430px) !important;
+        max-width: 430px !important;
+        font-size: clamp(4.45rem, 4.8vw, 5.45rem) !important;
+        line-height: .90 !important;
+        letter-spacing: -.062em !important;
+    }
+
+    .expansion-skills:not(.case-study-active) .expanded-header-row {
+        display: none !important;
+    }
+
+    .skills-panel-layout {
+        position: absolute !important;
+        inset: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
+        overflow: hidden !important;
+        padding: 54px clamp(38px, 3vw, 58px) 42px clamp(54px, 3.6vw, 72px) !important;
+        display: grid !important;
+        grid-template-columns: clamp(330px, 24vw, 430px) minmax(0, 1fr) !important;
+        gap: clamp(28px, 3vw, 52px) !important;
+        align-items: stretch !important;
+    }
+
+    .skills-panel-left-feature {
+        min-width: 0 !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        padding-top: clamp(250px, 30vh, 300px) !important;
+    }
+
+    .skills-panel-left-feature .skill-panel-project-management {
+        width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 20px !important;
+        border-radius: 20px !important;
+        background: rgba(6,76,81,.82) !important;
+    }
+
+    .skills-panel-left-feature .skill-panel-project-management h3 {
+        font-size: clamp(1.28rem, 1.35vw, 1.58rem) !important;
+    }
+
+    .skills-panel-left-feature .skill-panel-project-management p {
+        font-size: clamp(.82rem, .76vw, .92rem) !important;
+        line-height: 1.46 !important;
+    }
+
+    .skills-panel-grid {
+        min-width: 0 !important;
+        height: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+    }
+
+    .skills-panel-grid .skill-panel-tile {
+        min-height: 0 !important;
+        height: 100% !important;
+        padding: 18px !important;
+        border-radius: 20px !important;
+    }
+
+    .skills-panel-grid .skill-panel-tile h3 {
+        margin-top: 12px !important;
+        font-size: clamp(1.12rem, 1.13vw, 1.38rem) !important;
+        line-height: 1.10 !important;
+    }
+
+    .skills-panel-grid .skill-panel-tile p {
+        margin-top: 8px !important;
+        font-size: clamp(.79rem, .72vw, .90rem) !important;
+        line-height: 1.44 !important;
+    }
+
+    .skills-panel-grid .skill-panel-tile .tags {
+        padding-top: 10px !important;
+    }
+
+    .skills-panel-grid .skill-panel-tile .tags span,
+    .skills-panel-left-feature .tags span {
+        padding: 4px 7px !important;
+        font-size: .61rem !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .flying-title[data-key="skills"] {
+        font-size: clamp(2.3rem, 11vw, 3.15rem) !important;
+        line-height: .91 !important;
+        width: calc(100vw - 90px) !important;
+    }
+    .expansion-skills:not(.case-study-active) .expanded-header-row {
+        display: none !important;
+    }
+    .skills-panel-layout {
+        position: relative !important;
+        inset: auto !important;
+        transform: none !important;
+        display: block !important;
+        width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: var(--mobile-title-space, 150px) 14px 28px !important;
+    }
+    .skills-panel-left-feature {
+        margin-bottom: 10px !important;
+    }
+    .skills-panel-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    .skills-panel-left-feature .skill-panel-tile,
+    .skills-panel-grid .skill-panel-tile {
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 18px !important;
+    }
+}
+
+/* ---------- MAPS / MODELS / VISUALS: use horizontal space better ---------- */
+@media (min-width: 801px) {
+    .flying-title[data-key="gallery"] {
+        width: clamp(360px, 25vw, 460px) !important;
+        max-width: 460px !important;
+        font-size: clamp(4.35rem, 4.7vw, 5.25rem) !important;
+        line-height: .90 !important;
+    }
+    .expansion-gallery:not(.case-study-active) .flow-section {
+        padding-left: clamp(430px, 27vw, 500px) !important;
+        padding-right: 26px !important;
+    }
+    .expansion-gallery:not(.case-study-active) .cover-flow {
+        --card-width: clamp(390px, 24vw, 455px) !important;
+        gap: clamp(18px, 1.3vw, 24px) !important;
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+    }
+    .expansion-gallery:not(.case-study-active) .visual-card {
+        width: var(--card-width) !important;
+        flex: 0 0 var(--card-width) !important;
+        height: clamp(390px, 48vh, 455px) !important;
+        min-height: 390px !important;
+        max-height: 455px !important;
+        border-radius: 24px !important;
+    }
+    .expansion-gallery:not(.case-study-active) .visual-image {
+        height: 64% !important;
+        flex: 0 0 64% !important;
+    }
+    .expansion-gallery:not(.case-study-active) .visual-image img {
+        padding: 12px !important;
+    }
+    .expansion-gallery:not(.case-study-active) .visual-caption {
+        padding: 15px 19px 18px !important;
+    }
+    .expansion-gallery:not(.case-study-active) .visual-caption h3 {
+        font-size: clamp(1.42rem, 1.42vw, 1.74rem) !important;
+        line-height: 1.08 !important;
+    }
+}
+
+/* ---------- URBAN HEAT: top-aligned copy, controls directly under copy, bigger portrait map ---------- */
+.urban-heat-results-carousel {
+    padding: 8px 0 24px !important;
+}
+.urban-heat-carousel-heading {
+    margin: 0 0 8px !important;
+}
+.urban-heat-carousel-heading h2 {
+    font-size: clamp(2.15rem, 3vw, 3.45rem) !important;
+    margin: 4px 0 0 !important;
+}
+.urban-heat-carousel-track {
+    gap: 0 !important;
+    padding: 0 !important;
+}
+.urban-heat-slide {
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr) !important;
+    gap: clamp(24px, 2.7vw, 46px) !important;
+    align-items: start !important;
+    padding: 0 !important;
+}
+.urban-heat-slide-copy {
+    align-self: start !important;
+    padding: clamp(12px, 2vh, 20px) 4px 8px !important;
+}
+.urban-heat-slide-copy h2 {
+    margin-top: 8px !important;
+    max-width: 600px !important;
+    font-size: clamp(2.1rem, 2.9vw, 3.45rem) !important;
+    line-height: .99 !important;
+}
+.urban-heat-slide-copy p,
+.urban-heat-slide-copy .case-story-note {
+    max-width: 590px !important;
+}
+.urban-heat-slide-copy p {
+    margin-top: 12px !important;
+    line-height: 1.56 !important;
+}
+.urban-heat-slide-figure {
+    justify-self: center !important;
+    width: min(100%, 640px, calc(72vh * .80)) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: 4 / 5 !important;
+    display: grid !important;
+    grid-template-rows: minmax(0,1fr) auto !important;
+    border-radius: 22px !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+    box-shadow: 0 18px 42px rgba(0,24,28,.16) !important;
+}
+.urban-heat-slide-figure > img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+}
+.urban-heat-carousel-controls {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    min-height: 0 !important;
+    margin: 18px 0 0 !important;
+}
+.urban-heat-carousel-arrow {
+    position: static !important;
+    transform: none !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+}
+.urban-heat-carousel-dots {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 7px !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+}
+.urban-heat-carousel-dot.active {
+    width: 26px !important;
+    height: 9px !important;
+}
+
+@media (max-width: 800px) {
+    .urban-heat-results-carousel { padding: 6px 0 22px !important; }
+    .urban-heat-slide { grid-template-columns: 1fr !important; gap: 10px !important; }
+    .urban-heat-slide-copy { padding: 8px 2px 4px !important; }
+    .urban-heat-slide-figure {
+        width: min(94vw, 500px) !important;
+        aspect-ratio: 4 / 5 !important;
+        margin: 0 auto !important;
+    }
+    .urban-heat-carousel-controls {
+        justify-content: center !important;
+        margin-top: 14px !important;
+    }
+}
+</style>
+
 </head>
 
 
@@ -11387,6 +11721,20 @@ html:
 
 <div class="skills-panel-layout" aria-label="Technical skills overview">
 
+<div class="skills-panel-left-feature">
+<article class="skill-panel-tile skill-panel-project-management">
+<div class="skill-panel-topline">
+<div class="card-icon"><i class="fa-solid fa-list-check"></i></div>
+<div class="card-label">Project Delivery</div>
+</div>
+<h3>Project Management &amp; Coordination</h3>
+<p>Project scoping, task sequencing, delivery planning, research coordination, team guidance, documentation and stakeholder communication.</p>
+<div class="tags">
+<span>Project Planning</span><span>Scoping</span><span>Coordination</span><span>Team Leadership</span><span>Documentation</span><span>Stakeholder Communication</span>
+</div>
+</article>
+</div>
+
 <div class="skills-panel-grid">
 
 <article class="skill-panel-tile">
@@ -11461,17 +11809,6 @@ html:
 </div>
 </article>
 
-<article class="skill-panel-tile skill-panel-project-management">
-<div class="skill-panel-topline">
-<div class="card-icon"><i class="fa-solid fa-list-check"></i></div>
-<div class="card-label">Project Delivery</div>
-</div>
-<h3>Project Management &amp; Coordination</h3>
-<p>Project scoping, task sequencing, delivery planning, research coordination, team guidance, documentation and stakeholder communication.</p>
-<div class="tags">
-<span>Project Planning</span><span>Scoping</span><span>Coordination</span><span>Team Leadership</span><span>Documentation</span><span>Stakeholder Communication</span>
-</div>
-</article>
 
 </div>
 
@@ -12123,10 +12460,10 @@ function getExpandedTitleSize(
        a new giant headline appeared. */
     const desktopSizes = {
         profile: 68,
-        projects: 76,
-        skills: 90,
-        gallery: 72,
-        mini: 72
+        projects: 84,
+        skills: 86,
+        gallery: 86,
+        mini: 84
     };
 
     return desktopSizes[key]
@@ -12185,6 +12522,8 @@ function openPanel(panel) {
     const finalTitleTop =
         mobile
         ? finalTop + 28
+        : key === "skills"
+        ? finalTop + 88
         : Math.max(
             finalTop + 150,
             finalTop + finalHeight * .43 - estimatedTitleHeight / 2
@@ -12336,7 +12675,7 @@ function openPanel(panel) {
         bindGalleryItems();
         bindCaseStudyLaunchers();
         bindResearchYearStack();
-    }, mobile ? 380 : 420);
+    }, mobile ? 260 : 300);
 }
 
 
@@ -12436,7 +12775,7 @@ function closeActivePanel() {
         activeCaseStudy = null;
     };
 
-    setTimeout(finishClose, window.innerWidth <= 800 ? 420 : 470);
+    setTimeout(finishClose, window.innerWidth <= 800 ? 290 : 330);
 }
 
 
@@ -15868,6 +16207,11 @@ function bindUrbanHeatCarousel(view) {
             "[data-heat-dots]"
         );
 
+    const controls =
+        root.querySelector(
+            ".urban-heat-carousel-controls"
+        );
+
     const headerDots =
         Array.from(
             view.querySelectorAll(
@@ -15917,6 +16261,18 @@ function bindUrbanHeatCarousel(view) {
 
         activeIndex =
             clampIndex(index);
+
+        /* Keep navigation directly under the active slide's explanation.
+           Moving one lightweight control element avoids the large empty gap
+           and gives the map the full vertical space of the slide. */
+        if (controls) {
+            const activeCopy = slides[activeIndex].querySelector(
+                ".urban-heat-slide-copy"
+            );
+            if (activeCopy && controls.parentElement !== activeCopy) {
+                activeCopy.appendChild(controls);
+            }
+        }
 
         slides.forEach(
             (slide, slideIndex) => {
