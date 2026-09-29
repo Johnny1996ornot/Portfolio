@@ -10951,6 +10951,204 @@ PORTFOLIO V14 — FIT, MOTION & SPACE POLISH
 }
 </style>
 
+
+<style id="portfolio-v15-authoritative">
+/* =========================================================
+PORTFOLIO V15 — URBAN HEAT ALIGNMENT + STABLE CONTROLS + TITLE SAFETY
+========================================================= */
+
+/* Data & Coding title / copy safety */
+@media (min-width: 801px) {
+    .flying-title[data-key="mini"] {
+        width: clamp(340px, 26vw, 455px) !important;
+        max-width: 455px !important;
+        font-size: clamp(4rem, 4.45vw, 5rem) !important;
+        line-height: .90 !important;
+    }
+    .expansion-mini:not(.case-study-active) .expanded-header-row > div {
+        width: clamp(330px, 25vw, 430px) !important;
+        max-width: 430px !important;
+    }
+}
+
+/* Urban Heat: figure begins at the top of the result section.
+   Heading sits over the left column, while navigation has one fixed position
+   near the lower edge of the longest copy area. */
+.urban-heat-results-carousel {
+    position: relative !important;
+    padding: 0 0 28px !important;
+    min-height: 0 !important;
+}
+
+.urban-heat-carousel-heading {
+    position: absolute !important;
+    z-index: 8 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: min(40%, 610px) !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+}
+
+.urban-heat-carousel-heading h2 {
+    margin: 6px 0 0 !important;
+    font-size: clamp(2.25rem, 3.1vw, 3.65rem) !important;
+    line-height: .98 !important;
+}
+
+.urban-heat-carousel-shell {
+    position: relative !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+}
+
+.urban-heat-carousel-track {
+    padding: 0 !important;
+    gap: 0 !important;
+}
+
+.urban-heat-slide {
+    grid-template-columns: minmax(0, .77fr) minmax(0, 1.23fr) !important;
+    gap: clamp(26px, 3vw, 52px) !important;
+    align-items: start !important;
+    padding: 0 !important;
+    min-height: clamp(650px, 78vh, 790px) !important;
+}
+
+.urban-heat-slide-copy {
+    position: relative !important;
+    align-self: stretch !important;
+    min-height: clamp(650px, 78vh, 790px) !important;
+    padding: 126px 4px 92px !important;
+    display: block !important;
+}
+
+.urban-heat-slide-copy h2 {
+    margin: 8px 0 0 !important;
+    max-width: 620px !important;
+    font-size: clamp(2.1rem, 2.85vw, 3.45rem) !important;
+    line-height: .99 !important;
+}
+
+.urban-heat-slide-copy p,
+.urban-heat-slide-copy .case-story-note {
+    max-width: 610px !important;
+}
+
+.urban-heat-slide-copy p {
+    margin-top: 12px !important;
+    line-height: 1.54 !important;
+}
+
+.urban-heat-slide-figure {
+    align-self: start !important;
+    justify-self: center !important;
+    margin-top: 0 !important;
+    width: min(100%, 690px, calc(83vh * .80)) !important;
+    max-width: 690px !important;
+    aspect-ratio: 4 / 5 !important;
+    border-radius: 22px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+    box-shadow: 0 20px 48px rgba(0,24,28,.18) !important;
+}
+
+.urban-heat-slide-figure > img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    background: #fff !important;
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+}
+
+/* One stable navigation location for every result slide. */
+.urban-heat-carousel-controls {
+    position: absolute !important;
+    z-index: 20 !important;
+    left: 4px !important;
+    bottom: 34px !important;
+    width: min(39%, 610px) !important;
+    height: 44px !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    transform: none !important;
+}
+
+.urban-heat-carousel-arrow {
+    position: static !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    transform: none !important;
+}
+
+.urban-heat-carousel-dots {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 7px !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+}
+
+.urban-heat-carousel-dot.active {
+    width: 26px !important;
+    height: 9px !important;
+}
+
+/* Conclusion should read visually like a final statement rather than another step. */
+.case-takeaway-section .case-conclusion {
+    padding-top: clamp(36px, 4vw, 64px) !important;
+    padding-bottom: clamp(36px, 4vw, 64px) !important;
+}
+.case-takeaway-section .case-conclusion-title h2 {
+    max-width: 920px !important;
+    font-size: clamp(2.5rem, 4vw, 4.8rem) !important;
+    line-height: .98 !important;
+}
+.case-takeaway-section .case-conclusion-copy {
+    max-width: 1060px !important;
+}
+.case-takeaway-section .case-conclusion-copy p {
+    line-height: 1.55 !important;
+}
+
+@media (max-width: 800px) {
+    .urban-heat-carousel-heading {
+        position: relative !important;
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+    .urban-heat-slide {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        min-height: 0 !important;
+    }
+    .urban-heat-slide-copy {
+        min-height: 0 !important;
+        padding: 6px 2px 72px !important;
+    }
+    .urban-heat-slide-figure {
+        width: min(94vw, 520px) !important;
+        margin: 0 auto !important;
+    }
+    .urban-heat-carousel-controls {
+        position: absolute !important;
+        left: 50% !important;
+        bottom: auto !important;
+        top: auto !important;
+        width: auto !important;
+        height: 44px !important;
+        transform: translateX(-50%) !important;
+        justify-content: center !important;
+    }
+}
+</style>
 </head>
 
 
@@ -12618,6 +12816,24 @@ function openPanel(panel) {
     document.body.appendChild(flyingTitle);
 
     const finalTitleRect = flyingTitle.getBoundingClientRect();
+
+    /* Use the title's real rendered height rather than a line-count estimate.
+       This prevents descriptions from colliding with wrapped titles such as
+       Data & Coding Projects while preserving the morph. */
+    if (!mobile) {
+        const measuredRailCopyTop = Math.min(
+            finalHeight - 150,
+            Math.max(
+                250,
+                (finalTitleTop - finalTop) + finalTitleRect.height + 42
+            )
+        );
+        expansion.style.setProperty(
+            "--rail-copy-top",
+            `${measuredRailCopyTop}px`
+        );
+    }
+
     const titleDx = titleRect.left - finalTitleRect.left;
     const titleDy = titleRect.top - finalTitleRect.top;
     const titleScale = Math.max(
@@ -15477,7 +15693,7 @@ Takeaway
 
 
 <h2>
-The project converts heat information into a transparent spatial screening workflow.
+This work shows that urban heat planning needs more than a temperature map.
 </h2>
 
 
@@ -15489,26 +15705,27 @@ The project converts heat information into a transparent spatial screening workf
 
 <p>
 
-The strongest value of the workflow is not simply producing another heat map.
+This work shows that urban heat in Metro Manila should not be treated as a single
+temperature surface. By bringing together the observed land-surface-temperature
+pattern, a continuous working heat layer, tree-intervention suitability, heat-priority
+weighting, neighbourhood-scale context and final hotspot screening, the workflow
+shows where thermal urgency and spatial feasibility overlap.
 
-It shows the sequence of decisions between the observed temperature pattern
-and the final intervention shortlist.
-
-A planner can inspect the baseline,
-the repaired working surface,
-alternative intervention priorities,
-the effect of spatial scale and the final hotspot shortlist
-rather than receiving only one unexplained score.
+The results indicate that urban greening decisions need to consider both where heat
+is concentrated and whether a location can realistically support an intervention.
+This provides a transparent and reproducible screening framework that narrows a
+city-wide analysis into priority areas for field validation and local planning, allowing
+planners to move from heat observation to a defensible shortlist of sites for further
+assessment.
 
 </p>
 
 
 <div class="heat-case-note">
 
-The outputs are prioritisation and decision-support products.
-
-Site-specific intervention design would still require field validation
-and local planning information.
+The workflow supports prioritisation rather than automatic site selection. Final
+intervention design still requires field validation, land-use checks, local knowledge,
+planting-space assessment, utilities review and implementation planning.
 
 </div>
 
@@ -16261,18 +16478,6 @@ function bindUrbanHeatCarousel(view) {
 
         activeIndex =
             clampIndex(index);
-
-        /* Keep navigation directly under the active slide's explanation.
-           Moving one lightweight control element avoids the large empty gap
-           and gives the map the full vertical space of the slide. */
-        if (controls) {
-            const activeCopy = slides[activeIndex].querySelector(
-                ".urban-heat-slide-copy"
-            );
-            if (activeCopy && controls.parentElement !== activeCopy) {
-                activeCopy.appendChild(controls);
-            }
-        }
 
         slides.forEach(
             (slide, slideIndex) => {
