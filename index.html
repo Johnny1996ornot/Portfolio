@@ -11149,6 +11149,193 @@ PORTFOLIO V15 — URBAN HEAT ALIGNMENT + STABLE CONTROLS + TITLE SAFETY
     }
 }
 </style>
+
+<style id="portfolio-v16-connectivity-and-skills-visual-refresh">
+/* =========================================================
+V16 — NCR URBAN CONNECTIVITY + TECHNICAL SKILLS VISUAL REFRESH
+Only the Data & Coding / Research listings and Technical Skills are changed.
+========================================================= */
+
+/* ---------- NCR Urban Connectivity project preview ---------- */
+.ncr-connectivity-preview {
+    position: relative;
+    height: 38%;
+    min-height: 190px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 74% 28%, rgba(89,225,141,.28), transparent 24%),
+        linear-gradient(145deg, rgba(29,142,146,.38), rgba(3,55,63,.96));
+    border-bottom: 1px solid rgba(193,246,237,.12);
+}
+.ncr-connectivity-preview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(2,39,44,.22));
+    pointer-events: none;
+}
+.ncr-grid {
+    position: absolute; inset: 0; opacity: .28;
+    background-image:
+        linear-gradient(rgba(193,246,237,.17) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(193,246,237,.17) 1px, transparent 1px);
+    background-size: 34px 34px;
+    transform: perspective(400px) rotateX(56deg) scale(1.35) translateY(12px);
+    transform-origin: center 70%;
+}
+.ncr-route {
+    position: absolute; height: 7px; border-radius: 999px;
+    background: linear-gradient(90deg, #5ce68f, #3fd0c9);
+    box-shadow: 0 0 20px rgba(89,225,141,.30);
+}
+.ncr-route.route-a { width: 64%; left: 18%; top: 44%; transform: rotate(-18deg); }
+.ncr-route.route-b { width: 48%; left: 31%; top: 58%; transform: rotate(24deg); }
+.ncr-node {
+    position: absolute; width: 18px; height: 18px; border-radius: 50%;
+    background: #d9fff4; border: 5px solid rgba(63,208,201,.88);
+    box-shadow: 0 0 0 6px rgba(63,208,201,.12);
+}
+.ncr-node.node-a { left: 22%; top: 42%; }
+.ncr-node.node-b { left: 48%; top: 34%; }
+.ncr-node.node-c { left: 65%; top: 54%; }
+.ncr-node.node-d { left: 40%; top: 65%; }
+.ncr-preview-label {
+    position: absolute; z-index: 2; left: 20px; bottom: 18px;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 9px 13px; border-radius: 999px;
+    color: #eafff8; font-weight: 900; letter-spacing: .08em;
+    background: rgba(3,48,54,.62); border: 1px solid rgba(193,246,237,.22);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.ncr-preview-label i { color: #59e18d; }
+
+.expansion-projects .research-project-external {
+    color: var(--text) !important;
+    text-decoration: none !important;
+}
+.expansion-projects .research-project-external:hover { color: var(--text) !important; }
+
+/* ---------- Technical Skills: color-coded capability system ---------- */
+.skill-panel-tile {
+    --skill-accent: #59e18d;
+    --skill-accent-rgb: 89,225,141;
+    position: relative !important;
+    isolation: isolate;
+    overflow: hidden !important;
+    border-color: rgba(var(--skill-accent-rgb), .26) !important;
+    background:
+        radial-gradient(circle at 92% 4%, rgba(var(--skill-accent-rgb), .16), transparent 28%),
+        linear-gradient(150deg, rgba(var(--skill-accent-rgb), .075), rgba(255,255,255,.016) 45%),
+        rgba(5,68,75,.82) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.065),
+        0 15px 34px rgba(0,24,28,.14) !important;
+}
+.skill-panel-tile::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--skill-accent), rgba(var(--skill-accent-rgb), .18));
+}
+.skill-panel-tile::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 170px; height: 170px;
+    right: -54px; top: -54px;
+    border-radius: 50%;
+    border: 1px solid rgba(var(--skill-accent-rgb), .18);
+    box-shadow: 0 0 0 22px rgba(var(--skill-accent-rgb), .035), 0 0 0 48px rgba(var(--skill-accent-rgb), .02);
+}
+.skill-panel-tile .card-icon {
+    color: var(--skill-accent) !important;
+    background: rgba(var(--skill-accent-rgb), .13) !important;
+    border: 1px solid rgba(var(--skill-accent-rgb), .18) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.skill-panel-tile .card-label { color: var(--skill-accent) !important; }
+.skill-panel-tile .tags span {
+    color: rgba(235,255,250,.94) !important;
+    background: rgba(var(--skill-accent-rgb), .105) !important;
+    border: 1px solid rgba(var(--skill-accent-rgb), .13) !important;
+}
+.skill-panel-tile h3,
+.skill-panel-tile p,
+.skill-panel-tile .tags,
+.skill-panel-topline { position: relative; z-index: 2; }
+
+.skill-gis { --skill-accent:#48d7ff; --skill-accent-rgb:72,215,255; }
+.skill-remote { --skill-accent:#8be58a; --skill-accent-rgb:139,229,138; }
+.skill-data { --skill-accent:#b99cff; --skill-accent-rgb:185,156,255; }
+.skill-environment { --skill-accent:#f1c56d; --skill-accent-rgb:241,197,109; }
+.skill-research { --skill-accent:#ff91aa; --skill-accent-rgb:255,145,170; }
+.skill-communication { --skill-accent:#55e3c5; --skill-accent-rgb:85,227,197; }
+.skill-pm { --skill-accent:#5be18f; --skill-accent-rgb:91,225,143; }
+
+/* Category-specific decorative motifs */
+.skill-gis::after {
+    border-radius: 20px;
+    background-image:
+        linear-gradient(rgba(72,215,255,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(72,215,255,.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+    transform: rotate(12deg);
+}
+.skill-remote::after {
+    border: 2px solid rgba(139,229,138,.16);
+    box-shadow: 0 0 0 20px rgba(139,229,138,.035), inset 0 0 0 34px rgba(139,229,138,.028);
+}
+.skill-data::after {
+    border: 0; border-radius: 16px;
+    background: repeating-linear-gradient(90deg, rgba(185,156,255,.16) 0 9px, transparent 9px 20px);
+    transform: rotate(-12deg) scale(.82);
+}
+.skill-environment::after {
+    width: 150px; height: 190px; border-radius: 100% 0 100% 0;
+    border: 1px solid rgba(241,197,109,.16);
+    background: linear-gradient(135deg, rgba(241,197,109,.11), transparent 60%);
+    transform: rotate(23deg);
+}
+.skill-research::after {
+    border: 0;
+    background:
+        radial-gradient(circle at 30% 32%, rgba(255,145,170,.25) 0 8px, transparent 9px),
+        radial-gradient(circle at 65% 25%, rgba(255,145,170,.18) 0 6px, transparent 7px),
+        radial-gradient(circle at 48% 62%, rgba(255,145,170,.24) 0 10px, transparent 11px),
+        radial-gradient(circle at 76% 72%, rgba(255,145,170,.16) 0 7px, transparent 8px);
+}
+.skill-communication::after {
+    border: 0; border-radius: 16px;
+    background:
+        linear-gradient(to top, rgba(85,227,197,.17) 0 38%, transparent 38%) 18px 78px/24px 70px no-repeat,
+        linear-gradient(to top, rgba(85,227,197,.14) 0 62%, transparent 62%) 58px 48px/24px 100px no-repeat,
+        linear-gradient(to top, rgba(85,227,197,.20) 0 82%, transparent 82%) 98px 20px/24px 128px no-repeat;
+}
+.skill-pm::after {
+    border: 0; border-radius: 0;
+    background:
+        radial-gradient(circle, rgba(91,225,143,.25) 0 5px, transparent 6px) 20px 24px/100% 38px repeat-y,
+        linear-gradient(rgba(91,225,143,.14), rgba(91,225,143,.14)) 36px 24px/2px 118px no-repeat;
+}
+
+@media (min-width: 801px) {
+    .skills-panel-layout {
+        grid-template-columns: clamp(340px, 24vw, 440px) minmax(0,1fr) !important;
+        gap: clamp(30px, 3vw, 54px) !important;
+    }
+    .skills-panel-grid { gap: 16px !important; }
+    .skills-panel-grid .skill-panel-tile { padding: 20px !important; }
+    .skills-panel-left-feature .skill-panel-project-management { padding: 22px !important; }
+    .skill-panel-tile .card-icon { width: 46px !important; height: 46px !important; }
+}
+
+@media (max-width: 800px) {
+    .ncr-connectivity-preview { min-height: 170px; }
+    .skill-panel-tile::after { opacity: .72; }
+}
+</style>
 </head>
 
 
@@ -11473,6 +11660,12 @@ Projects
 
 <div class="mini-preview-row">
 <strong>
+NCR Urban Connectivity
+</strong>
+</div>
+
+<div class="mini-preview-row">
+<strong>
 Experience Timeline
 </strong>
 </div>
@@ -11714,6 +11907,28 @@ html:
 <section class="research-year-group" data-research-year="2026">
 <div class="research-year-heading"><span>2026</span><i></i></div>
 
+<a class="research-project-card research-project-link research-project-external"
+href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/"
+target="_blank" rel="noopener noreferrer" aria-label="Open NCR Urban Connectivity project">
+<div class="research-project-heading">
+<span class="research-project-type">Urban Connectivity · Interactive GIS</span>
+<h3>NCR Urban Connectivity</h3>
+<span class="research-project-open"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live project</span>
+</div>
+<div class="research-project-body">
+<p>
+Interactive geospatial project presenting urban-connectivity and accessibility analysis
+for the National Capital Region through a web-based mapping interface.
+</p>
+<div class="tags">
+<span>Urban Connectivity</span>
+<span>GIS</span>
+<span>Network Analysis</span>
+<span>Interactive Mapping</span>
+</div>
+</div>
+</a>
+
 <article class="research-project-card research-project-link" data-case-study="urban-heat" role="button" tabindex="0" aria-label="Open Metro Manila Urban Heat and Trees case study">
 <div class="research-project-heading">
 <span class="research-project-type">Urban Heat · Spatial Modelling</span>
@@ -11920,7 +12135,7 @@ html:
 <div class="skills-panel-layout" aria-label="Technical skills overview">
 
 <div class="skills-panel-left-feature">
-<article class="skill-panel-tile skill-panel-project-management">
+<article class="skill-panel-tile skill-panel-project-management skill-pm">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-list-check"></i></div>
 <div class="card-label">Project Delivery</div>
@@ -11935,7 +12150,7 @@ html:
 
 <div class="skills-panel-grid">
 
-<article class="skill-panel-tile">
+<article class="skill-panel-tile skill-gis">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-earth-asia"></i></div>
 <div class="card-label">Spatial Data</div>
@@ -11947,7 +12162,7 @@ html:
 </div>
 </article>
 
-<article class="skill-panel-tile">
+<article class="skill-panel-tile skill-remote">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-satellite"></i></div>
 <div class="card-label">Earth Observation</div>
@@ -11959,7 +12174,7 @@ html:
 </div>
 </article>
 
-<article class="skill-panel-tile">
+<article class="skill-panel-tile skill-data">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
 <div class="card-label">Analysis</div>
@@ -11971,7 +12186,7 @@ html:
 </div>
 </article>
 
-<article class="skill-panel-tile">
+<article class="skill-panel-tile skill-environment">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
 <div class="card-label">Environmental Assessment</div>
@@ -11983,7 +12198,7 @@ html:
 </div>
 </article>
 
-<article class="skill-panel-tile">
+<article class="skill-panel-tile skill-research">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-flask"></i></div>
 <div class="card-label">Scientific Research</div>
@@ -11995,7 +12210,7 @@ html:
 </div>
 </article>
 
-<article class="skill-panel-tile">
+<article class="skill-panel-tile skill-communication">
 <div class="skill-panel-topline">
 <div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div>
 <div class="card-label">Communication</div>
@@ -12250,6 +12465,40 @@ class="cover-flow"
 id="miniFlow"
 data-cover-flow
 >
+
+
+<a
+class="flow-card mini-card ncr-connectivity-card"
+href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+<div class="external-project">
+<i class="fa-solid fa-arrow-up-right-from-square"></i>
+</div>
+
+<div class="ncr-connectivity-preview" aria-hidden="true">
+<div class="ncr-grid"></div>
+<div class="ncr-route route-a"></div>
+<div class="ncr-route route-b"></div>
+<div class="ncr-node node-a"></div>
+<div class="ncr-node node-b"></div>
+<div class="ncr-node node-c"></div>
+<div class="ncr-node node-d"></div>
+<div class="ncr-preview-label"><i class="fa-solid fa-route"></i><span>NCR</span></div>
+</div>
+
+<div class="mini-body">
+<div class="card-label">Interactive GIS / Urban Connectivity</div>
+<h3>NCR Urban Connectivity</h3>
+<p>Interactive mapping project presenting urban-connectivity and accessibility analysis for the National Capital Region.</p>
+<div class="tags">
+<span>GIS</span><span>Network Analysis</span><span>Accessibility</span><span>Interactive Map</span>
+</div>
+</div>
+
+</a>
 
 
 <a
