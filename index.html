@@ -5,7 +5,7 @@
 GITHUB QUICK EDIT MAP
 =========================================================
 This is the COMPLETE single-file portfolio.
-Version: V11 clean repair.
+Version: V17 mobile responsive repair.
 
 HOW TO EDIT IN GITHUB:
 Use Ctrl+F / Find and search for the SECTION names below.
@@ -11336,6 +11336,393 @@ Only the Data & Coding / Research listings and Technical Skills are changed.
     .skill-panel-tile::after { opacity: .72; }
 }
 </style>
+
+<style id="portfolio-v17-mobile-authority">
+/* =========================================================
+V17 — MOBILE RESPONSIVE AUTHORITY
+This block intentionally comes last. It resets desktop grid/min-width rules
+that were surviving on phones and fixes carousel geometry after the morph.
+========================================================= */
+
+@media (max-width: 800px) {
+    html,
+    body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    /* -----------------------------------------------------
+    A. EXPANDED PORTFOLIO PANELS
+    One complete card at a time; never calculate width from vw.
+    ----------------------------------------------------- */
+    .expansion:not(.case-study-active) {
+        max-width: calc(100vw - 12px) !important;
+        overflow: hidden !important;
+    }
+
+    .expansion:not(.case-study-active) .expanded-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        overflow-x: hidden !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-section,
+    .expansion:not(.case-study-active) .cover-flow,
+    .expansion:not(.case-study-active) .flow-card {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-section {
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-help {
+        width: 100% !important;
+        margin: 4px 0 6px !important;
+        text-align: center !important;
+    }
+
+    .expansion:not(.case-study-active) .cover-flow {
+        --card-width: calc(100% - 20px) !important;
+        width: 100% !important;
+        padding: 12px 10px 20px !important;
+        scroll-padding-inline: 10px !important;
+        gap: 12px !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory !important;
+        overscroll-behavior-x: contain !important;
+        touch-action: pan-x !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .expansion:not(.case-study-active) .cover-flow .flow-card {
+        flex: 0 0 var(--card-width) !important;
+        width: var(--card-width) !important;
+        min-width: var(--card-width) !important;
+        max-width: var(--card-width) !important;
+        margin: 0 !important;
+        scroll-snap-align: center !important;
+        scroll-snap-stop: always !important;
+        transform: none !important;
+    }
+
+    .expansion:not(.case-study-active) .cover-flow .flow-card.is-center {
+        transform: none !important;
+    }
+
+    .expansion-mini:not(.case-study-active) .mini-card,
+    .expansion-gallery:not(.case-study-active) .visual-card {
+        overflow: hidden !important;
+    }
+
+    .expansion-mini:not(.case-study-active) .mini-card .mini-image,
+    .expansion-mini:not(.case-study-active) .mini-card .sankey-preview,
+    .expansion-mini:not(.case-study-active) .mini-card .notedump-preview,
+    .expansion-mini:not(.case-study-active) .mini-card .ncr-connectivity-preview {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .expansion-mini:not(.case-study-active) .mini-card .mini-body,
+    .expansion-gallery:not(.case-study-active) .visual-caption {
+        width: 100% !important;
+        min-width: 0 !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+    }
+
+    .expansion:not(.case-study-active) .flow-dots {
+        width: 100% !important;
+        justify-content: center !important;
+        margin: 2px auto 0 !important;
+    }
+
+    /* -----------------------------------------------------
+    B. CASE-STUDY HERO + SECTION HEADERS
+    This is the direct fix for the one-word-per-line Urban Heat hero.
+    ----------------------------------------------------- */
+    .case-study-shell,
+    .case-study-shell .case-hero,
+    .case-study-shell .case-section,
+    .case-study-shell .case-hero-heading,
+    .case-study-shell .case-hero-lower,
+    .case-study-shell .case-section-head {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .case-study-shell .case-hero-lower,
+    .case-study-shell .case-hero-lower.heat-objective-layout {
+        display: block !important;
+        grid-template-columns: none !important;
+        grid-template-rows: none !important;
+        gap: 0 !important;
+        margin-top: 22px !important;
+    }
+
+    .case-study-shell .case-hero-lower > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+
+    .case-study-shell .case-lead,
+    .case-study-shell .heat-objective,
+    .case-study-shell .case-tags {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+        hyphens: none !important;
+    }
+
+    .case-study-shell .case-tags {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 7px !important;
+    }
+
+    .case-study-shell .case-tags span {
+        width: auto !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+    }
+
+    .case-study-shell .case-hero-metrics {
+        width: 100% !important;
+        margin-top: 18px !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .case-study-shell .case-section-head,
+    .urban-heat-case-shell #heat-methods .case-section-head {
+        display: block !important;
+        grid-template-columns: none !important;
+        grid-template-rows: none !important;
+        gap: 0 !important;
+    }
+
+    .case-study-shell .case-section-head > *,
+    .urban-heat-case-shell #heat-methods .case-section-head > *,
+    .urban-heat-case-shell #heat-methods .case-section-intro {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .case-section-intro {
+        margin-top: 14px !important;
+    }
+
+    .urban-heat-case-shell #heat-methods .heat-method-grid {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+    /* -----------------------------------------------------
+    C. URBAN HEAT RESULTS
+    Size from the carousel container, not from the phone viewport.
+    ----------------------------------------------------- */
+    .urban-heat-results-carousel,
+    .urban-heat-carousel-shell,
+    .urban-heat-carousel-track {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .urban-heat-results-carousel {
+        overflow: hidden !important;
+        padding: 8px 0 28px !important;
+    }
+
+    .urban-heat-carousel-heading {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 12px !important;
+    }
+
+    .urban-heat-carousel-track {
+        display: flex !important;
+        gap: 0 !important;
+        padding: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory !important;
+        overscroll-behavior-x: contain !important;
+        touch-action: pan-x !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .urban-heat-slide {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto auto !important;
+        gap: 14px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        scroll-snap-align: start !important;
+        scroll-snap-stop: always !important;
+    }
+
+    .urban-heat-slide-copy {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        padding: 6px 2px 4px !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+    }
+
+    .urban-heat-slide-copy h2,
+    .urban-heat-slide-copy p,
+    .urban-heat-slide-copy .case-story-note {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .urban-heat-slide-figure {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        aspect-ratio: auto !important;
+        margin: 0 !important;
+        justify-self: stretch !important;
+        overflow: hidden !important;
+        background: #fff !important;
+        border-radius: 18px !important;
+    }
+
+    .urban-heat-slide-figure > img {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        object-fit: contain !important;
+        object-position: center top !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #fff !important;
+    }
+
+    .urban-heat-slide-figure .case-scene-caption {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* One predictable location: after the figure, independent of copy length. */
+    .urban-heat-carousel-controls {
+        position: relative !important;
+        inset: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        margin: 14px auto 0 !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 11px !important;
+    }
+
+    .urban-heat-carousel-dots {
+        flex-direction: row !important;
+        justify-content: center !important;
+    }
+
+    /* -----------------------------------------------------
+    D. SWITZERLAND MOBILE INLINE FIGURES
+    Keep the working one-column story layout and prevent accidental width leaks.
+    ----------------------------------------------------- */
+    .conservation-case-shell .case-scrolly.mobile-inline-ready,
+    .conservation-case-shell .case-story-copy,
+    .conservation-case-shell .case-story-step,
+    .conservation-case-shell .mobile-inline-figure,
+    .conservation-case-shell .mobile-inline-figure .case-scene-media {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .conservation-case-shell .mobile-inline-figure img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Avoid giant text created by desktop clamps inside embedded/mobile webviews. */
+    .case-study-shell .case-story-step h2 {
+        font-size: clamp(1.75rem, 8vw, 2.45rem) !important;
+        line-height: 1.04 !important;
+    }
+
+    .case-study-shell .case-story-step p,
+    .case-study-shell .case-story-note,
+    .case-study-shell .case-section-intro,
+    .case-study-shell .case-lead {
+        font-size: clamp(.94rem, 4vw, 1.05rem) !important;
+        line-height: 1.58 !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .expansion:not(.case-study-active) .cover-flow {
+        --card-width: calc(100% - 12px) !important;
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        scroll-padding-inline: 6px !important;
+    }
+
+    .case-study-shell .case-title {
+        font-size: clamp(2.35rem, 11vw, 3.2rem) !important;
+    }
+
+    .urban-heat-slide-copy h2 {
+        font-size: clamp(1.8rem, 8vw, 2.35rem) !important;
+    }
+}
+</style>
+
 </head>
 
 
@@ -13140,7 +13527,7 @@ function openPanel(panel) {
         bindGalleryItems();
         bindCaseStudyLaunchers();
         bindResearchYearStack();
-    }, mobile ? 260 : 300);
+    }, mobile ? 360 : 330);
 }
 
 
@@ -13322,6 +13709,12 @@ function initialiseCoverFlows() {
     .querySelectorAll("[data-cover-flow]")
     .forEach(track => {
 
+        /* Rebinding can happen after a resize or panel morph. Clean up the
+           previous observer/listeners first so one carousel has one controller. */
+        if (typeof track._coverflowCleanup === "function") {
+            track._coverflowCleanup();
+        }
+
         const cards = Array.from(track.querySelectorAll(".flow-card"));
         if (!cards.length) return;
 
@@ -13331,13 +13724,17 @@ function initialiseCoverFlows() {
 
         let dots = [];
         let rafId = 0;
-        let closestIndex = 0;
+        let closestIndex = Math.max(
+            0,
+            cards.findIndex(card => card.classList.contains("is-center"))
+        );
+        let resizeTimer = 0;
 
         const clamp = (value, min, max) =>
             Math.max(min, Math.min(max, value));
 
         function centerCard(card, smooth = true) {
-            if (!card) return;
+            if (!card || !track.isConnected) return;
 
             const target =
                 card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
@@ -13348,6 +13745,11 @@ function initialiseCoverFlows() {
                 left: clamp(target, 0, maxScroll),
                 behavior: smooth ? "smooth" : "auto"
             });
+        }
+
+        function centerCurrent(smooth = false) {
+            const card = cards[closestIndex] || cards[0];
+            centerCard(card, smooth);
         }
 
         track._centerCard = centerCard;
@@ -13363,6 +13765,7 @@ function initialiseCoverFlows() {
                 dot.addEventListener("click", event => {
                     event.preventDefault();
                     event.stopPropagation();
+                    closestIndex = index;
                     centerCard(card, true);
                 });
                 dotsContainer.appendChild(dot);
@@ -13375,16 +13778,18 @@ function initialiseCoverFlows() {
 
             const viewportCenter = track.scrollLeft + track.clientWidth / 2;
             let nearestDistance = Infinity;
-            closestIndex = 0;
+            let nearestIndex = 0;
 
             cards.forEach((card, index) => {
                 const cardCenter = card.offsetLeft + card.offsetWidth / 2;
                 const distance = Math.abs(cardCenter - viewportCenter);
                 if (distance < nearestDistance) {
                     nearestDistance = distance;
-                    closestIndex = index;
+                    nearestIndex = index;
                 }
             });
+
+            closestIndex = nearestIndex;
 
             cards.forEach((card, index) => {
                 const centered = index === closestIndex;
@@ -13402,23 +13807,61 @@ function initialiseCoverFlows() {
             rafId = requestAnimationFrame(updateActiveCard);
         }
 
-        track.addEventListener("scroll", requestUpdate, { passive: true });
+        const onScroll = () => requestUpdate();
+        track.addEventListener("scroll", onScroll, { passive: true });
 
-        cards.forEach(card => {
-            card.addEventListener("click", event => {
+        const cardHandlers = [];
+        cards.forEach((card, index) => {
+            const handler = event => {
                 if (card.classList.contains("is-center")) return;
                 event.preventDefault();
                 event.stopPropagation();
+                closestIndex = index;
                 centerCard(card, true);
+            };
+            card.addEventListener("click", handler);
+            cardHandlers.push([card, handler]);
+        });
+
+        /* The old mobile bug came from calculating the centre while the
+           expansion shell was still changing size. ResizeObserver recentres
+           the active card whenever the available width actually settles. */
+        const resizeObserver = new ResizeObserver(() => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                centerCurrent(false);
+                updateActiveCard();
+            }, 70);
+        });
+        resizeObserver.observe(track);
+
+        track._coverflowCleanup = () => {
+            track.removeEventListener("scroll", onScroll);
+            cardHandlers.forEach(([card, handler]) =>
+                card.removeEventListener("click", handler)
+            );
+            resizeObserver.disconnect();
+            clearTimeout(resizeTimer);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+
+        /* Two animation frames ensure the card has its final CSS width before
+           the first centre calculation. The delayed passes cover the end of
+           the panel morph and mobile browser chrome resizing. */
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                centerCurrent(false);
+                updateActiveCard();
             });
         });
 
-        requestAnimationFrame(() => {
-            centerCard(cards[0], false);
-            requestAnimationFrame(updateActiveCard);
+        [160, 380, 700].forEach(delay => {
+            setTimeout(() => {
+                if (!track.isConnected) return;
+                centerCurrent(false);
+                updateActiveCard();
+            }, delay);
         });
-
-        setTimeout(requestUpdate, 100);
     });
 }
 
