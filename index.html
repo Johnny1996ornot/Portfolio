@@ -5,14 +5,14 @@
 GITHUB QUICK EDIT MAP
 =========================================================
 This is the COMPLETE single-file portfolio.
-Version: V17 mobile responsive repair.
+Version: V20 solar-system navigation.
 
 HOW TO EDIT IN GITHUB:
 Use Ctrl+F / Find and search for the SECTION names below.
 
 SECTION 01  = COLORS / THEME
-SECTION 02  = HOME DASHBOARD / PANEL LAYOUT
-SECTION 03  = HOME PANEL VISUALS / PLANETS / PREVIEWS
+SECTION 02  = HOME SOLAR SYSTEM / ORBIT LAYOUT
+SECTION 03  = HOME SOLAR SYSTEM / PLANET VISUALS
 SECTION 04  = EXPANDED PANEL / OPEN-CLOSE ANIMATION
 SECTION 05  = COVER-FLOW CARDS / SIZE / SPACING / MOTION
 SECTION 06  = RESPONSIVE / MOBILE DESIGN
@@ -12088,6 +12088,580 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
     }
 }
 </style>
+
+<style id="portfolio-v20-solar-system-home">
+/* =========================================================
+V20 — SOLAR-SYSTEM HOME
+The existing portfolio contents remain unchanged. This block replaces only
+home navigation and lets the clicked celestial body morph into the full-screen
+existing section through the existing openPanel() system.
+========================================================= */
+
+#solarPortfolioHome {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    overflow: hidden !important;
+    padding: 18px clamp(18px, 2.4vw, 38px) 14px !important;
+    background:
+        radial-gradient(circle at 74% 47%, rgba(31,153,145,.16), transparent 28%),
+        radial-gradient(circle at 48% 54%, rgba(255,190,73,.07), transparent 18%),
+        radial-gradient(circle at 12% 7%, rgba(63,208,201,.08), transparent 24%),
+        linear-gradient(145deg, #011f27 0%, #022f38 50%, #032c33 100%) !important;
+    color: var(--text) !important;
+    isolation: isolate;
+}
+
+#solarPortfolioHome::before,
+#solarPortfolioHome::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+#solarPortfolioHome::before {
+    opacity: .66;
+    background-image:
+        radial-gradient(circle at 4% 18%, rgba(255,255,255,.8) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 16% 68%, rgba(193,246,237,.75) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 27% 28%, rgba(255,255,255,.7) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 38% 84%, rgba(89,225,141,.8) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 54% 11%, rgba(255,255,255,.72) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 67% 78%, rgba(193,246,237,.7) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 82% 20%, rgba(255,255,255,.82) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 94% 62%, rgba(89,225,141,.75) 0 1px, transparent 1.5px);
+    background-size: 210px 210px, 260px 260px, 310px 310px, 340px 340px, 290px 290px, 380px 380px, 320px 320px, 420px 420px;
+}
+#solarPortfolioHome::after {
+    background: radial-gradient(circle at 72% 46%, transparent 0 35%, rgba(0,13,18,.25) 78%, rgba(0,8,12,.45) 100%);
+}
+
+.solar-topbar,
+.solar-stage,
+.solar-footer { position: relative; z-index: 2; }
+
+.solar-topbar {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 18px;
+    border: 1px solid rgba(193,246,237,.17);
+    border-radius: 22px;
+    background: rgba(2,39,47,.60);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.solar-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 1.4rem;
+    font-weight: 1000;
+    letter-spacing: -.04em;
+}
+.solar-brand span {
+    padding-left: 18px;
+    border-left: 1px solid rgba(193,246,237,.22);
+    color: var(--muted);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+.solar-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-size: .82rem;
+    font-weight: 750;
+}
+.solar-hint-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--greenBright);
+    box-shadow: 0 0 14px rgba(89,225,141,.6);
+}
+
+.solar-stage {
+    height: calc(100% - 112px);
+    min-height: 590px;
+    display: grid;
+    grid-template-columns: minmax(270px, .56fr) minmax(650px, 1.44fr);
+    align-items: stretch;
+    gap: clamp(12px, 1.6vw, 30px);
+}
+.solar-intro {
+    align-self: center;
+    max-width: 430px;
+    padding: 20px 0 20px 20px;
+}
+.solar-eyebrow {
+    margin-bottom: 14px;
+    color: var(--greenBright);
+    font-size: .72rem;
+    font-weight: 950;
+    letter-spacing: .34em;
+}
+.solar-intro h2 {
+    margin: 0;
+    max-width: 420px;
+    color: var(--text);
+    font-size: clamp(2.65rem, 4.25vw, 5.2rem);
+    line-height: .91;
+    letter-spacing: -.065em;
+    font-weight: 1000;
+}
+.solar-intro h2 span { color: var(--greenBright); }
+.solar-intro > p {
+    max-width: 365px;
+    margin: 22px 0 0;
+    color: var(--muted);
+    font-size: clamp(.94rem, 1.1vw, 1.08rem);
+    line-height: 1.55;
+}
+.solar-rule {
+    width: 42px; height: 3px; margin-top: 24px; border-radius: 999px;
+    background: var(--greenBright);
+}
+.solar-intro .solar-instruction {
+    margin-top: 14px;
+    color: rgba(193,246,237,.72);
+    font-size: .82rem;
+}
+
+.solar-system {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: visible;
+    isolation: isolate;
+}
+.solar-system::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 76%; aspect-ratio: 1;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,191,73,.12), rgba(255,191,73,.025) 37%, transparent 70%);
+    pointer-events: none;
+}
+
+.orbit-ring {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid rgba(193,246,237,.17);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: inset 0 0 22px rgba(63,208,201,.02);
+}
+.orbit-ring::after {
+    content: "";
+    position: absolute;
+    width: 5px; height: 5px; border-radius: 50%;
+    top: 50%; left: -3px;
+    background: rgba(193,246,237,.75);
+    box-shadow: 0 0 10px rgba(63,208,201,.5);
+}
+.orbit-ring-1 { width: 62%; height: 50%; }
+.orbit-ring-2 { width: 78%; height: 66%; }
+.orbit-ring-3 { width: 86%; height: 76%; }
+.orbit-ring-4 { width: 72%; height: 60%; border-style: dashed; opacity: .72; }
+.orbit-ring-satellite { width: 50%; height: 36%; border-style: dotted; opacity: .62; }
+
+.solar-section-body {
+    font: inherit;
+    color: inherit;
+    border: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.solar-section-body:focus-visible {
+    outline: 3px solid rgba(89,225,141,.9);
+    outline-offset: 7px;
+}
+
+.solar-sun {
+    position: absolute;
+    z-index: 10;
+    left: 50%; top: 50%;
+    width: clamp(190px, 19vw, 300px);
+    aspect-ratio: 1;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: transparent;
+    overflow: visible;
+    transition: filter .2s ease, scale .2s ease;
+}
+.solar-sun:hover { filter: brightness(1.05); scale: 1.025; }
+.sun-corona,
+.sun-core {
+    position: absolute; border-radius: 50%; inset: 0;
+}
+.sun-corona {
+    inset: -12%;
+    background:
+        radial-gradient(circle, rgba(255,234,126,.38) 0 41%, rgba(255,169,42,.18) 51%, transparent 70%);
+    filter: blur(7px);
+    animation: sunPulse 4.8s ease-in-out infinite;
+}
+.sun-core {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 26px;
+    overflow: hidden;
+    color: #052c31;
+    border: 2px solid rgba(255,246,190,.7);
+    background:
+        radial-gradient(circle at 34% 30%, #fff5ad 0 4%, transparent 5%),
+        radial-gradient(circle at 68% 63%, rgba(255,133,22,.74) 0 7%, transparent 8%),
+        radial-gradient(circle at 52% 46%, #ffd95a 0 26%, #ffb62f 47%, #f47e1a 68%, #cb5b17 100%);
+    box-shadow:
+        inset 0 0 38px rgba(255,255,214,.55),
+        inset 0 0 95px rgba(255,105,0,.36),
+        0 0 36px rgba(255,190,66,.38),
+        0 0 90px rgba(255,151,42,.25);
+}
+.solar-sun-title {
+    margin: 0 !important;
+    font-size: clamp(1.5rem, 2.25vw, 2.55rem) !important;
+    line-height: .92 !important;
+    letter-spacing: -.055em !important;
+    font-weight: 1000 !important;
+    text-align: center;
+    color: #062e32 !important;
+}
+.sun-role {
+    display: block;
+    margin-top: 11px;
+    font-size: clamp(.54rem, .62vw, .72rem);
+    line-height: 1.32;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+    font-weight: 950;
+}
+.sun-click {
+    position: absolute;
+    z-index: 3;
+    left: 50%; bottom: -34px;
+    transform: translateX(-50%);
+    color: rgba(193,246,237,.78);
+    font-size: .62rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    white-space: nowrap;
+}
+
+.orbiting-planet {
+    --planet-size: clamp(82px, 7.7vw, 126px);
+    position: absolute;
+    z-index: 8;
+    left: 50%; top: 50%;
+    width: var(--planet-size);
+    height: var(--planet-size);
+    padding: 0;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: transparent;
+    overflow: visible;
+    will-change: transform;
+}
+.planet-surface {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid rgba(193,246,237,.44);
+    box-shadow:
+        inset -20px -22px 30px rgba(0,15,20,.5),
+        inset 12px 12px 26px rgba(255,255,255,.10),
+        0 14px 35px rgba(0,11,15,.35),
+        0 0 0 6px rgba(63,208,201,.035);
+    transition: transform .22s ease, filter .22s ease, box-shadow .22s ease;
+}
+.planet-surface i {
+    position: relative; z-index: 3;
+    font-size: clamp(1.3rem, 1.8vw, 2.1rem);
+    color: rgba(235,255,249,.9);
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
+}
+.orbiting-planet:hover .planet-surface,
+.orbiting-planet:focus-visible .planet-surface {
+    transform: scale(1.08);
+    filter: brightness(1.12) saturate(1.1);
+    box-shadow:
+        inset -20px -22px 30px rgba(0,15,20,.42),
+        inset 12px 12px 26px rgba(255,255,255,.14),
+        0 18px 46px rgba(0,11,15,.42),
+        0 0 0 7px rgba(89,225,141,.12),
+        0 0 32px rgba(89,225,141,.18);
+}
+.planet-research .planet-surface {
+    background:
+        radial-gradient(circle at 36% 30%, rgba(199,255,207,.8) 0 8%, transparent 9%),
+        radial-gradient(ellipse at 63% 53%, #267e58 0 18%, transparent 19%),
+        radial-gradient(ellipse at 33% 64%, #4baa63 0 21%, transparent 22%),
+        radial-gradient(circle at 45% 43%, #86d77a 0 32%, #2c8c69 58%, #0a4e52 100%);
+}
+.planet-skills .planet-surface {
+    background:
+        repeating-radial-gradient(ellipse at 65% 35%, transparent 0 8px, rgba(89,225,141,.23) 9px 10px, transparent 11px 18px),
+        radial-gradient(circle at 38% 30%, #3fcfc9, #147a84 52%, #063e4d 100%);
+}
+.planet-gallery .planet-surface {
+    background:
+        radial-gradient(ellipse at 30% 40%, #61a56d 0 15%, transparent 16%),
+        radial-gradient(ellipse at 68% 56%, #4c9b67 0 18%, transparent 19%),
+        radial-gradient(circle at 45% 42%, #3b9eb5 0 39%, #147383 61%, #063d52 100%);
+}
+.planet-coding .planet-surface {
+    background:
+        linear-gradient(45deg, rgba(255,206,115,.16) 25%, transparent 25% 50%, rgba(255,206,115,.12) 50% 75%, transparent 75%) 0 0/20px 20px,
+        radial-gradient(circle at 42% 36%, #d76f37, #8e3e28 58%, #401e29 100%);
+}
+
+.planet-label {
+    position: absolute;
+    left: calc(100% + 15px);
+    top: 50%;
+    width: clamp(190px, 15vw, 255px);
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 13px;
+    border-radius: 18px;
+    border: 1px solid rgba(193,246,237,.19);
+    background: rgba(2,45,52,.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 12px 30px rgba(0,12,16,.22);
+    text-align: left;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+}
+.orbiting-planet.label-left .planet-label {
+    left: auto;
+    right: calc(100% + 15px);
+}
+.planet-label-icon {
+    flex: 0 0 35px;
+    width: 35px; height: 35px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    color: var(--greenBright);
+    background: rgba(89,225,141,.10);
+    border: 1px solid rgba(89,225,141,.22);
+}
+.planet-title {
+    display: block;
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(.88rem, .95vw, 1.05rem) !important;
+    line-height: 1.05 !important;
+    font-weight: 950 !important;
+    letter-spacing: -.025em !important;
+}
+.planet-label small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: .68rem;
+    line-height: 1.35;
+}
+
+.solar-satellite {
+    position: absolute;
+    z-index: 6;
+    left: 50%; top: 50%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    will-change: transform;
+}
+.satellite-body {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 9px;
+    color: #d9fff4;
+    border: 1px solid rgba(193,246,237,.32);
+    background: linear-gradient(135deg, #1c6571, #0b3845);
+    box-shadow: 0 8px 22px rgba(0,0,0,.28);
+}
+.satellite-banner {
+    position: relative;
+    padding: 7px 12px 7px 16px;
+    border: 1px solid rgba(89,225,141,.30);
+    border-radius: 6px 14px 14px 6px;
+    color: #dbfff2;
+    background: rgba(4,64,67,.82);
+    font-size: .66rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.satellite-banner::before {
+    content: "";
+    position: absolute;
+    right: 100%; top: 50%;
+    width: 9px; height: 1px;
+    background: rgba(89,225,141,.55);
+}
+
+.solar-center-note {
+    position: absolute;
+    left: 50%; top: calc(50% + clamp(125px, 13vw, 190px));
+    transform: translateX(-50%);
+    color: rgba(193,246,237,.48);
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+    white-space: nowrap;
+}
+
+.solar-footer {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: rgba(193,246,237,.64);
+    font-size: .72rem;
+}
+.solar-footer i { color: var(--greenBright); }
+
+body.solar-orbits-paused .orbiting-planet,
+body.solar-orbits-paused .solar-satellite { will-change: auto; }
+body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
+
+/* The clicked celestial body becomes the origin of the full-screen section. */
+.expansion.expansion-profile,
+.expansion.expansion-projects,
+.expansion.expansion-skills,
+.expansion.expansion-gallery,
+.expansion.expansion-mini {
+    box-shadow: 0 24px 80px rgba(0,10,14,.42), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+.expansion.expansion-projects { background-image: radial-gradient(circle at 82% 18%, rgba(70,168,99,.16), transparent 30%) !important; }
+.expansion.expansion-skills { background-image: radial-gradient(circle at 82% 18%, rgba(63,208,201,.15), transparent 31%) !important; }
+.expansion.expansion-gallery { background-image: radial-gradient(circle at 82% 18%, rgba(60,157,181,.14), transparent 31%) !important; }
+.expansion.expansion-mini { background-image: radial-gradient(circle at 82% 18%, rgba(215,111,55,.12), transparent 31%) !important; }
+
+@keyframes sunPulse {
+    0%,100% { transform: scale(.98); opacity: .82; }
+    50% { transform: scale(1.055); opacity: 1; }
+}
+
+/* Medium laptop: keep the solar metaphor but tighten labels. */
+@media (max-width: 1180px) {
+    .solar-stage { grid-template-columns: minmax(235px,.46fr) minmax(560px,1.54fr); }
+    .solar-intro h2 { font-size: clamp(2.35rem, 4.8vw, 4.25rem); }
+    .planet-label { width: 185px; padding: 9px 10px; }
+    .planet-label small { display: none; }
+    .orbiting-planet { --planet-size: clamp(74px, 8vw, 105px); }
+}
+
+/* Phone/tablet: no horizontal overflow. Planets stop orbiting and become a compact constellation. */
+@media (max-width: 860px) {
+    #solarPortfolioHome {
+        height: 100% !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        padding: 10px 10px 20px !important;
+    }
+    .solar-topbar { height: 50px; padding: 0 12px; }
+    .solar-brand { font-size: 1.08rem; }
+    .solar-brand span { display: none; }
+    .solar-hint { font-size: .70rem; }
+    .solar-stage {
+        height: auto;
+        min-height: 0;
+        display: block;
+    }
+    .solar-intro {
+        max-width: none;
+        padding: 30px 12px 8px;
+    }
+    .solar-eyebrow { margin-bottom: 10px; }
+    .solar-intro h2 {
+        max-width: 340px;
+        font-size: clamp(2.45rem, 12vw, 4.5rem);
+    }
+    .solar-intro > p { max-width: 420px; margin-top: 15px; }
+    .solar-intro .solar-instruction { font-size: .76rem; }
+    .solar-system {
+        width: 100%;
+        min-height: 610px;
+        margin-top: 2px;
+    }
+    .orbit-ring { opacity: .44; }
+    .orbit-ring-1 { width: 78%; height: 43%; }
+    .orbit-ring-2 { width: 92%; height: 58%; }
+    .orbit-ring-3 { width: 96%; height: 74%; }
+    .orbit-ring-4 { width: 83%; height: 67%; }
+    .orbit-ring-satellite { display: none; }
+    .solar-sun {
+        width: min(47vw, 190px);
+        top: 43%;
+    }
+    .solar-sun-title { font-size: clamp(1.22rem, 6vw, 1.75rem) !important; }
+    .sun-role { font-size: .48rem; }
+    .sun-click { bottom: -27px; }
+    .orbiting-planet {
+        --planet-size: min(21vw, 82px);
+        will-change: auto;
+    }
+    .orbiting-planet[data-orbit="research"] { left: 24% !important; top: 19% !important; transform: translate(-50%,-50%) !important; }
+    .orbiting-planet[data-orbit="skills"]   { left: 78% !important; top: 27% !important; transform: translate(-50%,-50%) !important; }
+    .orbiting-planet[data-orbit="gallery"]  { left: 76% !important; top: 73% !important; transform: translate(-50%,-50%) !important; }
+    .orbiting-planet[data-orbit="coding"]   { left: 23% !important; top: 68% !important; transform: translate(-50%,-50%) !important; }
+    .planet-label,
+    .orbiting-planet.label-left .planet-label {
+        left: 50%; right: auto;
+        top: calc(100% + 9px);
+        width: 132px;
+        transform: translateX(-50%);
+        display: block;
+        padding: 7px 8px;
+        text-align: center;
+        border-radius: 12px;
+    }
+    .planet-label-icon { display: none; }
+    .planet-title { font-size: .72rem !important; line-height: 1.08 !important; }
+    .planet-label small { display: none; }
+    .solar-satellite { display: none; }
+    .solar-center-note { top: calc(43% + 118px); font-size: .47rem; }
+    .solar-footer { min-height: 36px; height: auto; padding: 10px 4px 0; }
+}
+
+@media (max-width: 430px) {
+    .solar-system { min-height: 540px; }
+    .solar-intro h2 { font-size: clamp(2.25rem, 11.5vw, 3.1rem); }
+    .solar-intro > p { font-size: .88rem; }
+    .solar-hint { display: none; }
+    .planet-label { width: 118px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sun-corona { animation: none !important; }
+    .planet-surface,
+    .solar-sun { transition: none !important; }
+}
+</style>
+
 </head>
 
 
@@ -12095,362 +12669,175 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
 
 
 <!-- =========================================================
-SECTION 08 — HOME PAGE HTML PANELS
+SECTION 08 — HOME SOLAR-SYSTEM NAVIGATION
+The Sun is the profile. Each moving planet opens the SAME existing
+portfolio section as before; only the home navigation has changed.
 ========================================================= -->
 
-<main class="app">
-
-<header class="topbar">
-
-<div class="brand">
-<i class="fa-solid fa-chart-line"></i>
-Environmental · Geospatial · Data
-</div>
-
-<div class="hint">
-Select a panel
-</div>
-
-</header>
-
-
-<section class="dashboard">
-
-
-<!-- =========================================================
-PROFILE
-========================================================= -->
-
-<button
-class="panel panel-profile"
-data-panel="profile"
->
-
-<div class="panel-arrow">
-<i class="fa-solid fa-arrow-up-right"></i>
-</div>
-
-<div class="profile-content">
-
-<div class="panel-kicker">
-<i class="fa-solid fa-user"></i>
-Profile
-</div>
-
-<h1
-class="shared-title"
-data-title
->
-<span class="title-line">
-John Paolo
-</span>
-
-<span class="title-line accent">
-Ramirez
-</span>
-</h1>
-
-<div class="profile-copy">
-Environmental & Geospatial Data Analyst
-working across spatial analysis,
-remote sensing, environmental research,
-modelling and data analysis.
-</div>
-
-</div>
-
-<div class="bottom-note">
-Contact · GitHub · LinkedIn
-</div>
-
-<div class="planet-system">
-<div class="orbit orbit1"></div>
-<div class="orbit orbit2"></div>
-<div class="orbit orbit3"></div>
-
-<div class="planet planet1"></div>
-<div class="planet planet2"></div>
-<div class="planet planet3"></div>
-<div class="planet planet4"></div>
-
-<div class="particle particle1"></div>
-<div class="particle particle2"></div>
-<div class="particle particle3"></div>
-</div>
-
-</button>
-
-
-<!-- =========================================================
-PROJECTS
-========================================================= -->
-
-<button
-class="panel panel-projects"
-data-panel="projects"
->
-
-<div class="panel-arrow">
-<i class="fa-solid fa-arrow-up-right"></i>
-</div>
-
-<div>
-
-<div class="panel-kicker">
-<i class="fa-solid fa-diagram-project"></i>
-Projects
-</div>
-
-<h2
-class="shared-title"
-data-title
->
-<span class="title-line">
-Research
-</span>
-
-<span class="title-line accent">
-Projects
-</span>
-</h2>
-
-</div>
-
-<div class="project-preview">
-
-<div class="preview-line">
-<strong>
-Urban Systems
-</strong>
-
-<span>
-Python · Data
-</span>
-</div>
-
-<div class="preview-line">
-<strong>
-Environmental Monitoring
-</strong>
-
-<span>
-GIS · Research
-</span>
-</div>
-
-<div class="preview-line">
-<strong>
-Climate & DRR
-</strong>
-
-<span>
-Spatial
-</span>
-</div>
-
-</div>
-
-</button>
-
-
-<!-- =========================================================
-SKILLS
-========================================================= -->
-
-<button
-class="panel panel-skills"
-data-panel="skills"
->
-
-<div class="panel-arrow">
-<i class="fa-solid fa-arrow-up-right"></i>
-</div>
-
-<div>
-
-<div class="panel-kicker">
-<i class="fa-solid fa-gears"></i>
-Skills
-</div>
-
-<h2
-class="shared-title"
-data-title
->
-<span class="title-line">
-Technical
-</span>
-
-<span class="title-line accent">
-Skills
-</span>
-</h2>
-
-</div>
-
-<div class="skill-preview">
-<span>QGIS</span>
-<span>Google Earth Engine</span>
-<span>Python</span>
-<span>R</span>
-<span>Remote Sensing</span>
-<span>Statistics</span>
-</div>
-
-</button>
-
-
-<!-- =========================================================
-SELECTED WORK
-========================================================= -->
-
-<button
-class="panel panel-gallery"
-data-panel="gallery"
->
-
-<div class="panel-arrow">
-<i class="fa-solid fa-arrow-up-right"></i>
-</div>
-
-<div>
-
-<div class="panel-kicker">
-<i class="fa-solid fa-images"></i>
-Selected Work
-</div>
-
-<h2
-class="shared-title"
-data-title
->
-<span class="title-line">
-Maps
-</span>
-
-<span class="title-line">
-Models
-</span>
-
-<span class="title-line accent">
-Visuals
-</span>
-</h2>
-
-</div>
-
-<div class="thumb-strip">
-
-<div class="thumb">
-<img
-src="./Picture2.png"
-data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture2.png"
-onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
-alt=""
->
-</div>
-
-<div class="thumb">
-<img
-src="./EVI%20and%20NDVI.png"
-data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/EVI%20and%20NDVI.png"
-onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
-alt=""
->
-</div>
-
-<div class="thumb">
-<img
-src="./Network%20Model%20Diagram.png"
-data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Network%20Model%20Diagram.png"
-onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
-alt=""
->
-</div>
-
-</div>
-
-</button>
-
-
-<!-- =========================================================
-DATA & CODING PROJECTS
-========================================================= -->
-
-<button
-class="panel panel-mini"
-data-panel="mini"
->
-
-<div class="panel-arrow">
-<i class="fa-solid fa-arrow-up-right"></i>
-</div>
-
-<div>
-
-<div class="panel-kicker">
-<i class="fa-solid fa-code"></i>
-Applied Modelling
-</div>
-
-<h2
-class="shared-title"
-data-title
->
-<span class="title-line">
-Data &amp; Coding
-</span>
-
-<span class="title-line accent">
-Projects
-</span>
-</h2>
-
-</div>
-
-<div class="mini-preview">
-
-<div class="mini-preview-row">
-<strong>
-NCR Urban Connectivity
-</strong>
-</div>
-
-<div class="mini-preview-row">
-<strong>
-Experience Timeline
-</strong>
-</div>
-
-<div class="mini-preview-row">
-<strong>
-Sankey Resume
-</strong>
-</div>
-
-<div class="mini-preview-row">
-<strong>
-NoteDump Factory
-</strong>
-</div>
-
-<div class="mini-preview-row">
-<strong>
-Switzerland Pollinator Modelling
-</strong>
-</div>
-
-<div class="mini-preview-row">
-<strong>
-Metro Manila Urban Heat &amp; Trees
-</strong>
-</div>
-
-</div>
-
-</button>
-
-</section>
+<main class="app solar-app" id="solarPortfolioHome">
+
+    <header class="solar-topbar" aria-label="Portfolio navigation header">
+        <div class="solar-brand">JPR <span>Environmental · Geospatial · Data</span></div>
+        <div class="solar-hint"><span class="solar-hint-dot"></span> Click a planet to enter a section</div>
+    </header>
+
+    <section class="solar-stage" aria-label="Interactive portfolio solar system">
+
+        <div class="solar-intro">
+            <div class="solar-eyebrow">WELCOME TO MY ORBIT</div>
+            <h2>Environmental &amp;<br>Geospatial <span>Data</span><br>Portfolio</h2>
+            <p>
+                Exploring environmental systems through spatial analysis,
+                remote sensing, research, modelling and code.
+            </p>
+            <div class="solar-rule"></div>
+            <p class="solar-instruction">
+                My name is the Sun. Each planet represents a major section of the portfolio
+                and follows its own orbit.
+            </p>
+        </div>
+
+        <div class="solar-system" id="portfolioSolarSystem" aria-label="Portfolio sections">
+
+            <div class="orbit-ring orbit-ring-1" aria-hidden="true"></div>
+            <div class="orbit-ring orbit-ring-2" aria-hidden="true"></div>
+            <div class="orbit-ring orbit-ring-3" aria-hidden="true"></div>
+            <div class="orbit-ring orbit-ring-4" aria-hidden="true"></div>
+            <div class="orbit-ring orbit-ring-satellite" aria-hidden="true"></div>
+
+            <!-- SUN / PROFILE -->
+            <button
+                type="button"
+                class="solar-sun solar-section-body"
+                data-panel="profile"
+                aria-label="Open profile"
+            >
+                <span class="sun-corona" aria-hidden="true"></span>
+                <span class="sun-core">
+                    <h1 class="shared-title solar-sun-title" data-title>
+                        <span class="title-line">John Paolo</span>
+                        <span class="title-line">Ramirez</span>
+                    </h1>
+                    <span class="sun-role">Environmental Scientist<br>&amp; Geospatial Analyst</span>
+                </span>
+                <span class="sun-click">PROFILE</span>
+            </button>
+
+            <!-- RESEARCH PROJECTS PLANET -->
+            <button
+                type="button"
+                class="orbiting-planet solar-section-body planet-research"
+                data-panel="projects"
+                data-orbit="research"
+                data-rx="0.31"
+                data-ry="0.25"
+                data-period="27"
+                data-phase="-1.20"
+                aria-label="Open Research Projects"
+            >
+                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-leaf"></i></span>
+                <span class="planet-label">
+                    <span class="planet-label-icon"><i class="fa-solid fa-leaf"></i></span>
+                    <span>
+                        <span class="shared-title planet-title" data-title>Research Projects</span>
+                        <small>Fieldwork, environmental research and spatial studies</small>
+                    </span>
+                </span>
+            </button>
+
+            <!-- TECHNICAL SKILLS PLANET -->
+            <button
+                type="button"
+                class="orbiting-planet solar-section-body planet-skills"
+                data-panel="skills"
+                data-orbit="skills"
+                data-rx="0.39"
+                data-ry="0.33"
+                data-period="34"
+                data-phase="0.05"
+                aria-label="Open Technical Skills"
+            >
+                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
+                <span class="planet-label">
+                    <span class="planet-label-icon"><i class="fa-solid fa-gears"></i></span>
+                    <span>
+                        <span class="shared-title planet-title" data-title>Technical Skills</span>
+                        <small>GIS, remote sensing, analytics, research and project delivery</small>
+                    </span>
+                </span>
+            </button>
+
+            <!-- MAPS / MODELS / VISUALS PLANET -->
+            <button
+                type="button"
+                class="orbiting-planet solar-section-body planet-gallery"
+                data-panel="gallery"
+                data-orbit="gallery"
+                data-rx="0.43"
+                data-ry="0.38"
+                data-period="43"
+                data-phase="0.90"
+                aria-label="Open Maps Models and Visuals"
+            >
+                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-map"></i></span>
+                <span class="planet-label">
+                    <span class="planet-label-icon"><i class="fa-solid fa-map"></i></span>
+                    <span>
+                        <span class="shared-title planet-title" data-title>Maps · Models · Visuals</span>
+                        <small>Maps, figures, models and visual outputs</small>
+                    </span>
+                </span>
+            </button>
+
+            <!-- DATA & CODING PLANET -->
+            <button
+                type="button"
+                class="orbiting-planet solar-section-body planet-coding"
+                data-panel="mini"
+                data-orbit="coding"
+                data-rx="0.36"
+                data-ry="0.30"
+                data-period="38"
+                data-phase="2.72"
+                aria-label="Open Data and Coding Projects"
+            >
+                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-code"></i></span>
+                <span class="planet-label">
+                    <span class="planet-label-icon"><i class="fa-solid fa-code"></i></span>
+                    <span>
+                        <span class="shared-title planet-title" data-title>Data &amp; Coding Projects</span>
+                        <small>Interactive tools, modelling and computational projects</small>
+                    </span>
+                </span>
+            </button>
+
+            <!-- Decorative satellite + banner. It is intentionally lightweight CSS/JS, not video/WebGL. -->
+            <div
+                class="solar-satellite"
+                id="portfolioSatellite"
+                data-rx="0.25"
+                data-ry="0.18"
+                data-period="19"
+                data-phase="4.15"
+                aria-hidden="true"
+            >
+                <span class="satellite-body"><i class="fa-solid fa-satellite"></i></span>
+                <span class="satellite-banner">Explore my work</span>
+            </div>
+
+            <div class="solar-center-note" aria-hidden="true">CLICK THE SUN FOR PROFILE</div>
+
+        </div>
+
+    </section>
+
+    <footer class="solar-footer">
+        <span><i class="fa-solid fa-computer-mouse"></i> Click a planet</span>
+        <span>•</span>
+        <span>Planet expands to full screen</span>
+        <span>•</span>
+        <span>Close to return to orbit</span>
+    </footer>
 
 </main>
 
@@ -13990,6 +14377,8 @@ function closeActivePanel() {
         closeButton = null;
         activePanel = null;
         activeCaseStudy = null;
+        document.body.classList.remove("solar-orbits-paused");
+        document.querySelectorAll(".solar-selected").forEach(el => el.classList.remove("solar-selected"));
     };
 
     setTimeout(finishClose, window.innerWidth <= 800 ? 290 : 330);
@@ -14021,27 +14410,83 @@ function positionCloseButton() {
 }
 
 
+
+/* =========================================================
+V20 — SOLAR ORBIT CONTROLLER
+Four transforms per frame is intentionally lightweight. It pauses while a
+section is open, on hidden tabs, on small screens, and for reduced motion.
+========================================================= */
+
+const solarHome = document.getElementById("solarPortfolioHome");
+const solarSystem = document.getElementById("portfolioSolarSystem");
+const solarOrbitBodies = solarSystem
+    ? Array.from(solarSystem.querySelectorAll(".orbiting-planet, .solar-satellite"))
+    : [];
+const solarReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let solarAnimationFrame = 0;
+let solarLastFrame = 0;
+
+function positionSolarBodies(timeMs = 0) {
+    if (!solarSystem || window.innerWidth <= 860) return;
+
+    const width = solarSystem.clientWidth;
+    const height = solarSystem.clientHeight;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const seconds = timeMs / 1000;
+
+    solarOrbitBodies.forEach(body => {
+        const rx = width * Number(body.dataset.rx || .3);
+        const ry = height * Number(body.dataset.ry || .25);
+        const period = Math.max(8, Number(body.dataset.period || 30));
+        const phase = Number(body.dataset.phase || 0);
+        const angle = phase + seconds * (Math.PI * 2 / period);
+        const x = centerX + Math.cos(angle) * rx;
+        const y = centerY + Math.sin(angle) * ry;
+
+        body.style.transform = `translate3d(${x - centerX}px, ${y - centerY}px, 0) translate(-50%, -50%)`;
+
+        if (body.classList.contains("orbiting-planet")) {
+            body.classList.toggle("label-left", x > centerX + width * .03);
+        }
+    });
+}
+
+function runSolarOrbit(timeMs) {
+    solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
+    if (!solarSystem || document.hidden || solarReducedMotion.matches) return;
+    if (document.body.classList.contains("solar-orbits-paused")) return;
+    if (window.innerWidth <= 860) return;
+    if (timeMs - solarLastFrame < 16) return;
+    solarLastFrame = timeMs;
+    positionSolarBodies(timeMs);
+}
+
+if (solarSystem) {
+    positionSolarBodies(0);
+    solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
+
+    let solarResizeTimer = null;
+    window.addEventListener("resize", () => {
+        clearTimeout(solarResizeTimer);
+        solarResizeTimer = setTimeout(() => positionSolarBodies(performance.now()), 80);
+    }, { passive: true });
+}
+
 /* =========================================================
 HOME PANEL CLICK HANDLING
 ========================================================= */
 
-panels.forEach(
+function launchSolarPanel(panel) {
+    if (activePanel) return;
+    document.body.classList.add("solar-orbits-paused");
+    panel.classList.add("solar-selected");
+    openPanel(panel);
+}
 
-    panel => {
-
-        panel.addEventListener(
-
-            "click",
-
-            () => {
-
-                openPanel(
-                    panel
-                );
-            }
-        );
-    }
-);
+panels.forEach(panel => {
+    panel.addEventListener("click", () => launchSolarPanel(panel));
+});
 
 
 backdrop.addEventListener(
