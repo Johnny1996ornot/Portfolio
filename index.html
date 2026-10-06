@@ -5,7 +5,7 @@
 GITHUB QUICK EDIT MAP
 =========================================================
 This is the COMPLETE single-file portfolio.
-Version: V20 solar-system navigation.
+Version: V22 3D solar-system navigation.
 
 HOW TO EDIT IN GITHUB:
 Use Ctrl+F / Find and search for the SECTION names below.
@@ -12090,16 +12090,15 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
 </style>
 
 
-<style id="portfolio-v21-solar-system-home">
+<style id="portfolio-v22-solar-system-home">
 /* =========================================================
-V21 — SOLAR-SYSTEM HOME
-Changes from V20:
-- darker deep-space palette
-- larger rotating Sun
-- smaller planets
-- no orbiting information boxes
-- section names travel beside their planets directly on the orbit paths
-- smoother delta-time orbit controller (no jumps after pause/resume)
+V22 — 3D SOLAR-SYSTEM HOME
+- smaller 3D planets with no icon/logo overlays
+- planets move in front of / behind the Sun using orbital depth
+- section names are true SVG text-on-path labels on the orbit lines
+- the name orbits around the Sun and passes behind it on the back half
+- no floating title boxes or satellite banner
+- delta-time orbit controller keeps motion continuous without jumps
 ========================================================= */
 
 #solarPortfolioHome {
@@ -12110,10 +12109,10 @@ Changes from V20:
     overflow: hidden !important;
     padding: 16px clamp(16px, 2vw, 34px) 12px !important;
     background:
-        radial-gradient(circle at 78% 42%, rgba(20, 102, 132, .13), transparent 30%),
-        radial-gradient(circle at 47% 52%, rgba(255, 178, 54, .045), transparent 19%),
-        radial-gradient(circle at 17% 12%, rgba(39, 111, 153, .10), transparent 27%),
-        linear-gradient(145deg, #00050b 0%, #00101a 48%, #001822 100%) !important;
+        radial-gradient(circle at 76% 39%, rgba(11, 74, 110, .12), transparent 31%),
+        radial-gradient(circle at 48% 51%, rgba(255, 166, 48, .035), transparent 18%),
+        radial-gradient(circle at 16% 12%, rgba(28, 86, 132, .08), transparent 28%),
+        linear-gradient(145deg, #000309 0%, #000913 44%, #00111c 100%) !important;
     color: var(--text) !important;
     isolation: isolate;
 }
@@ -12142,8 +12141,7 @@ Changes from V20:
 }
 
 #solarPortfolioHome::after {
-    background:
-        radial-gradient(circle at 78% 44%, transparent 0 31%, rgba(0,4,10,.18) 72%, rgba(0,2,7,.52) 100%);
+    background: radial-gradient(circle at 78% 44%, transparent 0 28%, rgba(0,4,10,.15) 70%, rgba(0,1,6,.58) 100%);
 }
 
 .solar-topbar,
@@ -12160,9 +12158,9 @@ Changes from V20:
     justify-content: space-between;
     gap: 18px;
     padding: 0 16px;
-    border: 1px solid rgba(155,220,235,.14);
+    border: 1px solid rgba(155,220,235,.13);
     border-radius: 20px;
-    background: rgba(0,15,25,.72);
+    background: rgba(0,10,19,.70);
 }
 
 .solar-brand {
@@ -12219,25 +12217,23 @@ Changes from V20:
 .solar-eyebrow {
     margin-bottom: 14px;
     color: var(--greenBright);
-    font-size: clamp(.90rem, 1.05vw, 1.08rem);
+    font-size: clamp(1rem, 1.2vw, 1.22rem);
     line-height: 1;
     font-weight: 1000;
-    letter-spacing: .25em;
+    letter-spacing: .24em;
 }
 
 .solar-intro h2 {
     margin: 0;
-    max-width: 385px;
+    max-width: 365px;
     color: var(--text);
-    font-size: clamp(2.20rem, 3.25vw, 4.05rem);
-    line-height: .93;
-    letter-spacing: -.058em;
+    font-size: clamp(2.05rem, 2.85vw, 3.55rem);
+    line-height: .96;
+    letter-spacing: -.052em;
     font-weight: 1000;
 }
 
-.solar-intro h2 span {
-    color: var(--greenBright);
-}
+.solar-intro h2 span { color: var(--greenBright); }
 
 .solar-intro > p {
     max-width: 355px;
@@ -12267,6 +12263,9 @@ Changes from V20:
     min-height: 0;
     overflow: visible;
     isolation: isolate;
+    perspective: 1100px;
+    perspective-origin: 50% 48%;
+    transform-style: preserve-3d;
     contain: layout paint;
 }
 
@@ -12275,20 +12274,22 @@ Changes from V20:
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 78%;
+    width: 72%;
     aspect-ratio: 1;
     transform: translate(-50%,-50%);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,185,61,.11), rgba(255,185,61,.018) 40%, transparent 71%);
+    background: radial-gradient(circle, rgba(255,181,58,.10), rgba(255,181,58,.018) 41%, transparent 70%);
     pointer-events: none;
+    z-index: 1;
 }
 
 .orbit-ring {
     position: absolute;
+    z-index: 2;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    border: 1px solid rgba(125,197,218,.18);
+    border: 1px solid rgba(115,188,211,.20);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -12296,20 +12297,47 @@ Changes from V20:
 .orbit-ring::after {
     content: "";
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
     top: 50%;
     left: -2px;
-    background: rgba(188,230,239,.72);
-    box-shadow: 0 0 8px rgba(83,177,205,.46);
+    background: rgba(188,230,239,.63);
+    box-shadow: 0 0 7px rgba(83,177,205,.40);
 }
 
-.orbit-ring-1 { width: 62%; height: 50%; }
-.orbit-ring-2 { width: 78%; height: 66%; }
-.orbit-ring-3 { width: 86%; height: 76%; }
-.orbit-ring-4 { width: 72%; height: 60%; border-style: dashed; opacity: .72; }
-.orbit-ring-satellite { width: 50%; height: 36%; border-style: dotted; opacity: .56; }
+.orbit-ring-1 { width: 58%; height: 46%; }
+.orbit-ring-2 { width: 70%; height: 58%; }
+.orbit-ring-3 { width: 82%; height: 70%; }
+.orbit-ring-4 { width: 92%; height: 80%; border-style: dashed; opacity: .74; }
+
+/* SVG labels are actual text-on-path, not floating labels. */
+.orbit-label-svg {
+    position: absolute;
+    z-index: 8;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.orbit-label-path {
+    fill: none;
+    stroke: none;
+}
+
+.orbit-path-label {
+    fill: rgba(214,244,247,.82);
+    font-size: clamp(9px, .62vw, 12px);
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    paint-order: stroke fill;
+    stroke: rgba(0,7,14,.72);
+    stroke-width: 2.6px;
+    stroke-linejoin: round;
+}
 
 .solar-section-body {
     font: inherit;
@@ -12324,184 +12352,136 @@ Changes from V20:
     outline-offset: 7px;
 }
 
-/* SUN */
+/* SUN — spherical core with moving texture. */
 .solar-sun {
     position: absolute;
     z-index: 12;
     left: 50%;
     top: 50%;
-    width: clamp(220px, 21vw, 340px);
+    width: clamp(220px, 19vw, 310px);
     aspect-ratio: 1;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%) translateZ(8px);
     border-radius: 50%;
     background: transparent;
     overflow: visible;
     transition: filter .18s ease, scale .18s ease;
+    transform-style: preserve-3d;
 }
 
-.solar-sun:hover {
-    filter: brightness(1.04);
-    scale: 1.018;
-}
+.solar-sun:hover { filter: brightness(1.045); scale: 1.012; }
 
 .sun-corona,
 .sun-core {
     position: absolute;
     border-radius: 50%;
-    inset: 0;
 }
 
 .sun-corona {
-    inset: -11%;
-    background:
-        radial-gradient(circle, rgba(255,232,121,.34) 0 41%, rgba(255,159,36,.15) 52%, transparent 72%);
-    filter: blur(6px);
-    animation: sunPulse 5.6s ease-in-out infinite;
+    z-index: 2;
+    inset: -12%;
+    background: radial-gradient(circle, rgba(255,230,117,.30) 0 41%, rgba(255,146,28,.13) 52%, transparent 72%);
+    filter: blur(7px);
+    animation: sunPulse 5.8s ease-in-out infinite;
 }
 
 .sun-core {
+    z-index: 4;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 28px;
     overflow: hidden;
-    color: #062c31;
-    border: 2px solid rgba(255,246,190,.72);
+    color: #082a2f;
+    border: 1px solid rgba(255,246,190,.76);
     background:
-        radial-gradient(circle at 34% 30%, #fff7bb 0 4%, transparent 5%),
-        radial-gradient(circle at 67% 63%, rgba(255,128,20,.72) 0 7%, transparent 8%),
-        radial-gradient(circle at 51% 45%, #ffe16e 0 26%, #ffb934 47%, #f47a17 68%, #bd4e13 100%);
+        radial-gradient(circle at 29% 24%, rgba(255,255,221,.98) 0 4%, rgba(255,244,158,.90) 5%, transparent 12%),
+        radial-gradient(circle at 35% 29%, #ffe56f 0 13%, transparent 28%),
+        radial-gradient(circle at 55% 45%, #ffd653 0 24%, #ffab2f 47%, #ed7518 70%, #9d3f14 100%);
     box-shadow:
-        inset 0 0 40px rgba(255,255,214,.52),
-        inset 0 0 105px rgba(255,97,0,.34),
-        0 0 38px rgba(255,185,55,.34),
-        0 0 100px rgba(255,140,32,.20);
-    animation: sunSpinWithName 120s linear infinite;
-    transform-origin: 50% 50%;
+        inset -40px -46px 64px rgba(118,35,7,.30),
+        inset 22px 19px 48px rgba(255,255,209,.36),
+        0 0 34px rgba(255,185,55,.34),
+        0 0 92px rgba(255,132,25,.18);
+    transform: translateZ(10px);
+}
+
+.sun-core::before {
+    content: "";
+    position: absolute;
+    inset: -12%;
+    border-radius: 50%;
+    opacity: .31;
+    background:
+        repeating-radial-gradient(circle at 52% 48%, rgba(255,245,153,.30) 0 2px, transparent 3px 12px),
+        repeating-linear-gradient(112deg, transparent 0 17px, rgba(134,50,9,.18) 18px 22px, transparent 23px 41px);
+    animation: sunSurfaceDrift 28s linear infinite;
     will-change: transform;
 }
 
-.solar-sun.solar-selected .sun-core {
-    animation: none !important;
-    transform: rotate(0deg) !important;
+.sun-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 28% 22%, rgba(255,255,244,.28), transparent 28%), linear-gradient(115deg, transparent 44%, rgba(65,15,4,.18) 76%, rgba(14,5,4,.34) 100%);
+    pointer-events: none;
 }
 
-.solar-sun-title {
-    margin: 0 !important;
-    font-size: clamp(1.65rem, 2.35vw, 2.8rem) !important;
-    line-height: .92 !important;
-    letter-spacing: -.055em !important;
-    font-weight: 1000 !important;
+.sun-center-label,
+.sun-role {
+    position: relative;
+    z-index: 6;
     text-align: center;
-    color: #062e32 !important;
+}
+
+.sun-center-label {
+    font-size: clamp(.76rem, .82vw, .96rem);
+    font-weight: 1000;
+    letter-spacing: .24em;
+    text-transform: uppercase;
 }
 
 .sun-role {
     display: block;
-    margin-top: 12px;
-    font-size: clamp(.55rem, .62vw, .74rem);
-    line-height: 1.30;
-    letter-spacing: .18em;
+    max-width: 170px;
+    margin-top: 10px;
+    font-size: clamp(.46rem, .53vw, .62rem);
+    line-height: 1.36;
+    letter-spacing: .17em;
     text-transform: uppercase;
     font-weight: 950;
 }
 
-.sun-click {
+/* Full name follows a small 3D orbit around the Sun. Individual letters can
+   pass behind the sphere on the rear half and reappear in front. */
+.sun-name-orbit {
     position: absolute;
-    z-index: 3;
-    left: 50%;
-    bottom: -34px;
-    transform: translateX(-50%);
-    color: rgba(188,229,237,.62);
-    font-size: .58rem;
-    font-weight: 900;
-    letter-spacing: .18em;
-    white-space: nowrap;
+    z-index: auto;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    transform-style: preserve-3d;
 }
 
-/* PLANETS */
-.orbiting-planet {
-    --planet-size: clamp(60px, 6vw, 92px);
+.sun-name-letter {
     position: absolute;
-    z-index: 9;
     left: 50%;
     top: 50%;
-    width: var(--planet-size);
-    height: var(--planet-size);
-    padding: 0;
-    transform: translate(-50%,-50%);
-    border-radius: 50%;
-    background: transparent;
-    overflow: visible;
-    will-change: transform;
-    contain: layout paint;
+    transform-origin: center;
+    color: rgba(238,252,244,.95);
+    font-size: clamp(.72rem, .82vw, 1rem);
+    line-height: 1;
+    font-weight: 1000;
+    letter-spacing: .03em;
+    text-shadow: 0 2px 6px rgba(0,0,0,.88), 0 0 10px rgba(89,225,141,.16);
+    white-space: pre;
+    will-change: transform, opacity;
 }
 
-.planet-surface {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 1px solid rgba(193,246,237,.38);
-    box-shadow:
-        inset -16px -18px 24px rgba(0,10,18,.52),
-        inset 9px 9px 21px rgba(255,255,255,.09),
-        0 10px 26px rgba(0,4,10,.38),
-        0 0 0 4px rgba(63,208,201,.025);
-    transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
-}
-
-.planet-surface i {
-    position: relative;
-    z-index: 3;
-    font-size: clamp(1.05rem, 1.45vw, 1.55rem);
-    color: rgba(239,255,250,.91);
-    filter: drop-shadow(0 2px 7px rgba(0,0,0,.35));
-}
-
-.orbiting-planet:hover .planet-surface,
-.orbiting-planet:focus-visible .planet-surface {
-    transform: scale(1.07);
-    filter: brightness(1.12) saturate(1.08);
-    box-shadow:
-        inset -16px -18px 24px rgba(0,10,18,.42),
-        inset 9px 9px 21px rgba(255,255,255,.12),
-        0 14px 34px rgba(0,4,10,.44),
-        0 0 0 5px rgba(89,225,141,.10),
-        0 0 23px rgba(89,225,141,.13);
-}
-
-.planet-research .planet-surface {
-    background:
-        radial-gradient(circle at 36% 30%, rgba(199,255,207,.82) 0 8%, transparent 9%),
-        radial-gradient(ellipse at 63% 53%, #267e58 0 18%, transparent 19%),
-        radial-gradient(ellipse at 33% 64%, #4baa63 0 21%, transparent 22%),
-        radial-gradient(circle at 45% 43%, #86d77a 0 32%, #2c8c69 58%, #0a4e52 100%);
-}
-
-.planet-skills .planet-surface {
-    background:
-        repeating-radial-gradient(ellipse at 65% 35%, transparent 0 8px, rgba(89,225,141,.23) 9px 10px, transparent 11px 18px),
-        radial-gradient(circle at 38% 30%, #3fcfc9, #147a84 52%, #063e4d 100%);
-}
-
-.planet-gallery .planet-surface {
-    background:
-        radial-gradient(ellipse at 30% 40%, #61a56d 0 15%, transparent 16%),
-        radial-gradient(ellipse at 68% 56%, #4c9b67 0 18%, transparent 19%),
-        radial-gradient(circle at 45% 42%, #3b9eb5 0 39%, #147383 61%, #063d52 100%);
-}
-
-.planet-coding .planet-surface {
-    background:
-        linear-gradient(45deg, rgba(255,206,115,.15) 25%, transparent 25% 50%, rgba(255,206,115,.10) 50% 75%, transparent 75%) 0 0/16px 16px,
-        radial-gradient(circle at 42% 36%, #d76f37, #8e3e28 58%, #401e29 100%);
-}
-
-/* Hidden title source retained only for the existing planet → full-screen morph. */
+/* Morph-source title remains present but invisible. */
+.sun-morph-title,
 .planet-morph-title {
     position: absolute !important;
     left: 50% !important;
@@ -12517,94 +12497,121 @@ Changes from V20:
     line-height: 1 !important;
 }
 
-/* Section names travel on the same orbit as each planet—no cards/boxes. */
-.orbit-title-runner {
+.sun-click {
     position: absolute;
     z-index: 7;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    color: rgba(211,243,246,.80);
-    font-size: clamp(.62rem, .70vw, .78rem);
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing: .14em;
-    text-transform: uppercase;
+    bottom: -31px;
+    transform: translateX(-50%);
+    color: rgba(188,229,237,.56);
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .18em;
     white-space: nowrap;
-    pointer-events: none;
-    text-shadow: 0 2px 10px rgba(0,0,0,.65);
-    will-change: transform;
 }
 
-.orbit-title-runner::before {
-    content: "";
-    display: inline-block;
-    width: 14px;
-    height: 1px;
-    margin-right: 7px;
-    vertical-align: .25em;
-    background: rgba(89,225,141,.60);
-}
-
-/* SATELLITE */
-.solar-satellite {
+/* PLANETS — smaller, spherical, no logos. */
+.orbiting-planet {
+    --planet-size: clamp(38px, 3.35vw, 54px);
     position: absolute;
-    z-index: 6;
     left: 50%;
     top: 50%;
-    display: flex;
-    align-items: center;
-    gap: 7px;
+    width: var(--planet-size);
+    height: var(--planet-size);
+    padding: 0;
     transform: translate(-50%,-50%);
-    pointer-events: none;
+    border-radius: 50%;
+    background: transparent;
+    overflow: visible;
+    will-change: transform, filter;
+    transform-style: preserve-3d;
+}
+
+.planet-surface {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid rgba(216,248,243,.34);
+    box-shadow:
+        inset -14px -16px 21px rgba(0,5,12,.55),
+        inset 8px 7px 15px rgba(255,255,255,.12),
+        0 7px 18px rgba(0,3,9,.42),
+        0 0 0 3px rgba(63,208,201,.025);
+    transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
+    transform: translateZ(6px);
+}
+
+.planet-surface::before {
+    content: "";
+    position: absolute;
+    width: 165%;
+    height: 120%;
+    left: -34%;
+    top: -10%;
+    opacity: .36;
+    background: repeating-linear-gradient(118deg, transparent 0 9px, rgba(255,255,255,.13) 10px 12px, transparent 13px 25px);
+    animation: planetTextureDrift 18s linear infinite;
     will-change: transform;
 }
 
-.satellite-body {
-    width: 36px;
-    height: 36px;
-    display: grid;
-    place-items: center;
-    border-radius: 9px;
-    color: #d9fff4;
-    border: 1px solid rgba(193,246,237,.28);
-    background: linear-gradient(135deg, #184f67, #071f34);
-    box-shadow: 0 8px 22px rgba(0,0,0,.28);
-}
-
-.satellite-banner {
-    position: relative;
-    padding: 7px 12px 7px 16px;
-    border: 1px solid rgba(89,225,141,.22);
-    border-radius: 5px 13px 13px 5px;
-    color: #d9f8ef;
-    background: rgba(2,39,47,.74);
-    font-size: .64rem;
-    font-weight: 900;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.satellite-banner::before {
+.planet-surface::after {
     content: "";
     position: absolute;
-    right: 100%;
-    top: 50%;
-    width: 9px;
-    height: 1px;
-    background: rgba(89,225,141,.48);
+    inset: 0;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 29% 24%, rgba(255,255,255,.32), transparent 22%),
+        linear-gradient(120deg, transparent 42%, rgba(0,4,12,.10) 58%, rgba(0,3,10,.58) 100%);
+}
+
+.orbiting-planet:hover .planet-surface,
+.orbiting-planet:focus-visible .planet-surface {
+    transform: translateZ(8px) scale(1.10);
+    filter: brightness(1.14) saturate(1.08);
+    box-shadow:
+        inset -14px -16px 20px rgba(0,5,12,.46),
+        inset 8px 7px 15px rgba(255,255,255,.15),
+        0 10px 26px rgba(0,4,10,.48),
+        0 0 18px rgba(89,225,141,.16);
+}
+
+.planet-research .planet-surface {
+    background:
+        radial-gradient(ellipse at 34% 38%, #78bd67 0 17%, transparent 18%),
+        radial-gradient(ellipse at 68% 55%, #397f53 0 18%, transparent 19%),
+        radial-gradient(circle at 44% 40%, #66b875 0 34%, #23806d 56%, #073d4a 100%);
+}
+
+.planet-skills .planet-surface {
+    background:
+        repeating-radial-gradient(ellipse at 64% 38%, transparent 0 7px, rgba(94,237,205,.20) 8px 9px, transparent 10px 17px),
+        radial-gradient(circle at 37% 29%, #42c9c7 0 14%, #167d88 54%, #053c4b 100%);
+}
+
+.planet-gallery .planet-surface {
+    background:
+        radial-gradient(ellipse at 31% 40%, #69a36f 0 16%, transparent 17%),
+        radial-gradient(ellipse at 68% 57%, #529b69 0 19%, transparent 20%),
+        radial-gradient(circle at 43% 40%, #3e9cb6 0 37%, #176f84 60%, #063a50 100%);
+}
+
+.planet-coding .planet-surface {
+    background:
+        repeating-linear-gradient(42deg, rgba(255,213,135,.08) 0 6px, transparent 7px 15px),
+        radial-gradient(circle at 38% 31%, #da7745 0 18%, #9d482d 57%, #421e2b 100%);
 }
 
 .solar-center-note {
     position: absolute;
+    z-index: 5;
     left: 50%;
-    top: calc(50% + clamp(145px, 14vw, 208px));
+    top: calc(50% + clamp(130px, 12.5vw, 185px));
     transform: translateX(-50%);
-    color: rgba(183,225,234,.36);
-    font-size: .50rem;
+    color: rgba(183,225,234,.30);
+    font-size: .46rem;
     font-weight: 900;
-    letter-spacing: .19em;
+    letter-spacing: .18em;
     white-space: nowrap;
 }
 
@@ -12615,89 +12622,60 @@ Changes from V20:
     justify-content: center;
     flex-wrap: wrap;
     gap: 9px;
-    color: rgba(193,233,239,.48);
+    color: rgba(193,233,239,.46);
     font-size: .68rem;
 }
 
-.solar-footer i {
-    color: var(--greenBright);
-}
+.solar-footer i { color: var(--greenBright); }
 
 body.solar-orbits-paused .orbiting-planet,
-body.solar-orbits-paused .orbit-title-runner,
-body.solar-orbits-paused .solar-satellite {
+body.solar-orbits-paused .sun-name-letter {
     will-change: auto;
 }
 
-body.solar-orbits-paused #solarPortfolioHome {
-    pointer-events: none;
-}
-
-/* Existing full-screen sections stay unchanged. */
-.expansion.expansion-profile,
-.expansion.expansion-projects,
-.expansion.expansion-skills,
-.expansion.expansion-gallery,
-.expansion.expansion-mini {
-    box-shadow: 0 24px 80px rgba(0,10,14,.42), inset 0 1px 0 rgba(255,255,255,.05) !important;
-}
-
-.expansion.expansion-projects { background-image: radial-gradient(circle at 82% 18%, rgba(70,168,99,.16), transparent 30%) !important; }
-.expansion.expansion-skills { background-image: radial-gradient(circle at 82% 18%, rgba(63,208,201,.15), transparent 31%) !important; }
-.expansion.expansion-gallery { background-image: radial-gradient(circle at 82% 18%, rgba(60,157,181,.14), transparent 31%) !important; }
-.expansion.expansion-mini { background-image: radial-gradient(circle at 82% 18%, rgba(215,111,55,.12), transparent 31%) !important; }
+body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
 
 @keyframes sunPulse {
-    0%,100% { transform: scale(.985); opacity: .82; }
-    50% { transform: scale(1.045); opacity: 1; }
+    0%,100% { transform: scale(.985); opacity: .72; }
+    50% { transform: scale(1.035); opacity: 1; }
 }
 
-@keyframes sunSpinWithName {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes sunSurfaceDrift {
+    from { transform: rotate(0deg) scale(1.03); }
+    to { transform: rotate(360deg) scale(1.03); }
 }
 
-@media (max-width: 1180px) {
-    .solar-stage {
-        grid-template-columns: minmax(225px,.42fr) minmax(560px,1.58fr);
-    }
-    .solar-intro h2 {
-        font-size: clamp(2.10rem, 4vw, 3.45rem);
-    }
-    .orbiting-planet {
-        --planet-size: clamp(58px, 6.2vw, 82px);
-    }
-    .orbit-title-runner {
-        font-size: .60rem;
-        letter-spacing: .11em;
-    }
+@keyframes planetTextureDrift {
+    from { transform: translate3d(-9%,0,0) rotate(0.001deg); }
+    to { transform: translate3d(18%,0,0) rotate(0.001deg); }
 }
 
-/* Phone/tablet: stable constellation rather than continuous orbital motion. */
+@media (max-width: 1180px) and (min-width: 861px) {
+    .solar-stage { grid-template-columns: minmax(245px,.45fr) minmax(560px,1.55fr); }
+    .solar-intro h2 { font-size: clamp(2rem, 3.1vw, 3.2rem); }
+    .solar-sun { width: clamp(205px, 20vw, 270px); }
+    .orbiting-planet { --planet-size: clamp(36px, 3.5vw, 48px); }
+    .orbit-path-label { font-size: 9px; letter-spacing: .13em; }
+}
+
+/* Phone/tablet: keep the same orbital geometry but freeze movement for easy tapping. */
 @media (max-width: 860px) {
     #solarPortfolioHome {
-        height: 100% !important;
+        height: auto !important;
+        min-height: 100% !important;
         overflow-y: auto !important;
-        overflow-x: hidden !important;
-        padding: 10px 10px 20px !important;
+        padding: 10px 10px 14px !important;
     }
 
     .solar-topbar {
-        height: 48px;
-        padding: 0 11px;
+        height: 47px;
+        padding: 0 12px;
+        border-radius: 16px;
     }
 
-    .solar-brand {
-        font-size: 1.04rem;
-    }
-
-    .solar-brand span {
-        display: none;
-    }
-
-    .solar-hint {
-        font-size: .68rem;
-    }
+    .solar-brand { font-size: 1.05rem; }
+    .solar-brand span { display: none; }
+    .solar-hint { font-size: .66rem; }
 
     .solar-stage {
         height: auto;
@@ -12707,136 +12685,52 @@ body.solar-orbits-paused #solarPortfolioHome {
 
     .solar-intro {
         max-width: none;
-        padding: 26px 12px 8px;
+        padding: 26px 14px 8px;
     }
 
-    .solar-eyebrow {
-        font-size: .82rem;
-        margin-bottom: 10px;
-    }
-
-    .solar-intro h2 {
-        max-width: 330px;
-        font-size: clamp(2.05rem, 10.2vw, 3.35rem);
-    }
-
-    .solar-intro > p {
-        max-width: 420px;
-        margin-top: 14px;
-    }
-
-    .solar-intro .solar-instruction {
-        font-size: .74rem;
-    }
+    .solar-eyebrow { font-size: .84rem; margin-bottom: 11px; }
+    .solar-intro h2 { max-width: 340px; font-size: clamp(2rem, 9vw, 3rem); }
+    .solar-intro > p { max-width: 420px; margin-top: 14px; }
+    .solar-intro .solar-instruction { font-size: .73rem; }
 
     .solar-system {
         width: 100%;
-        min-height: 600px;
-        margin-top: 2px;
-        contain: layout paint;
+        min-height: 560px;
+        margin-top: 4px;
+        perspective: 800px;
     }
 
-    .orbit-ring {
-        opacity: .42;
-    }
+    .orbit-ring-1 { width: 61%; height: 42%; }
+    .orbit-ring-2 { width: 74%; height: 56%; }
+    .orbit-ring-3 { width: 87%; height: 70%; }
+    .orbit-ring-4 { width: 96%; height: 82%; }
 
-    .orbit-ring-1 { width: 78%; height: 43%; }
-    .orbit-ring-2 { width: 92%; height: 58%; }
-    .orbit-ring-3 { width: 96%; height: 74%; }
-    .orbit-ring-4 { width: 83%; height: 67%; }
-    .orbit-ring-satellite { display: none; }
+    .solar-sun { width: min(48vw, 190px); }
+    .sun-center-label { font-size: .66rem; }
+    .sun-role { font-size: .42rem; max-width: 130px; }
+    .sun-name-letter { font-size: .63rem; }
+    .sun-click { bottom: -25px; }
 
-    .solar-sun {
-        width: min(51vw, 205px);
-        top: 43%;
-    }
+    .orbiting-planet { --planet-size: min(10vw, 44px); }
+    .orbit-path-label { font-size: 8px; letter-spacing: .10em; stroke-width: 2.2px; }
 
-    .solar-sun-title {
-        font-size: clamp(1.28rem, 6.1vw, 1.82rem) !important;
-    }
-
-    .sun-role {
-        font-size: .47rem;
-    }
-
-    .sun-core {
-        animation-duration: 120s;
-    }
-
-    .sun-click {
-        bottom: -27px;
-    }
-
-    .orbiting-planet {
-        --planet-size: min(17vw, 68px);
-        will-change: auto;
-    }
-
-    .orbiting-planet[data-orbit="research"] { left: 23% !important; top: 19% !important; transform: translate(-50%,-50%) !important; }
-    .orbiting-planet[data-orbit="skills"]   { left: 79% !important; top: 27% !important; transform: translate(-50%,-50%) !important; }
-    .orbiting-planet[data-orbit="gallery"]  { left: 77% !important; top: 73% !important; transform: translate(-50%,-50%) !important; }
-    .orbiting-planet[data-orbit="coding"]   { left: 22% !important; top: 69% !important; transform: translate(-50%,-50%) !important; }
-
-    .orbit-title-runner {
-        font-size: .57rem;
-        letter-spacing: .09em;
-        transform: translate(-50%,-50%) !important;
-        will-change: auto;
-    }
-
-    .orbit-title-runner[data-title-for="research"] { left: 23% !important; top: 10% !important; }
-    .orbit-title-runner[data-title-for="skills"]   { left: 79% !important; top: 17% !important; }
-    .orbit-title-runner[data-title-for="gallery"]  { left: 77% !important; top: 84% !important; }
-    .orbit-title-runner[data-title-for="coding"]   { left: 22% !important; top: 80% !important; }
-
-    .solar-satellite {
-        display: none;
-    }
-
-    .solar-center-note {
-        top: calc(43% + 126px);
-        font-size: .45rem;
-    }
-
-    .solar-footer {
-        min-height: 34px;
-        height: auto;
-        padding: 8px 4px 0;
-    }
+    .solar-center-note { top: calc(50% + 108px); font-size: .40rem; }
+    .solar-footer { min-height: 34px; height: auto; padding: 8px 4px 0; }
 }
 
 @media (max-width: 430px) {
-    .solar-system {
-        min-height: 540px;
-    }
-
-    .solar-intro h2 {
-        font-size: clamp(2rem, 10vw, 2.8rem);
-    }
-
-    .solar-intro > p {
-        font-size: .87rem;
-    }
-
-    .solar-hint {
-        display: none;
-    }
-
-    .orbit-title-runner {
-        font-size: .52rem;
-    }
+    .solar-system { min-height: 510px; }
+    .solar-intro h2 { font-size: clamp(1.9rem, 9vw, 2.65rem); }
+    .solar-hint { display: none; }
+    .orbit-path-label { font-size: 7.2px; letter-spacing: .08em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .sun-corona,
-    .sun-core {
-        animation: none !important;
-    }
-
+    .sun-core::before,
+    .planet-surface::before { animation: none !important; }
     .planet-surface,
-    .solar-sun {
-        transition: none !important;
-    }
+    .solar-sun { transition: none !important; }
 }
 </style>
 
@@ -12849,9 +12743,10 @@ body.solar-orbits-paused #solarPortfolioHome {
 
 
 <!-- =========================================================
-SECTION 08 — HOME SOLAR-SYSTEM NAVIGATION
-The Sun is the profile. Each planet keeps its own orbit. The section names
-travel directly on those orbit paths instead of inside floating boxes.
+SECTION 08 — HOME 3D SOLAR-SYSTEM NAVIGATION
+The Sun is the profile. Each planet follows its own orbit. Section titles are
+rendered directly on those orbit paths. Planets pass in front of and behind
+the Sun to create orbital depth.
 ========================================================= -->
 
 <main class="app solar-app" id="solarPortfolioHome">
@@ -12872,8 +12767,8 @@ travel directly on those orbit paths instead of inside floating boxes.
             </p>
             <div class="solar-rule"></div>
             <p class="solar-instruction">
-                My name is the Sun. Each planet represents a major section of the portfolio
-                and follows its own orbit.
+                My name orbits the Sun. Each smaller planet represents a major portfolio section
+                and carries its section title along the same orbital path.
             </p>
         </div>
 
@@ -12883,7 +12778,33 @@ travel directly on those orbit paths instead of inside floating boxes.
             <div class="orbit-ring orbit-ring-2" aria-hidden="true"></div>
             <div class="orbit-ring orbit-ring-3" aria-hidden="true"></div>
             <div class="orbit-ring orbit-ring-4" aria-hidden="true"></div>
-            <div class="orbit-ring orbit-ring-satellite" aria-hidden="true"></div>
+
+            <!-- Real text-on-path orbit labels. Geometry is populated by JavaScript. -->
+            <svg class="orbit-label-svg" id="portfolioOrbitLabels" aria-hidden="true" preserveAspectRatio="none">
+                <defs>
+                    <path id="orbit-research-forward" class="orbit-label-path"></path>
+                    <path id="orbit-research-reverse" class="orbit-label-path"></path>
+                    <path id="orbit-skills-forward" class="orbit-label-path"></path>
+                    <path id="orbit-skills-reverse" class="orbit-label-path"></path>
+                    <path id="orbit-gallery-forward" class="orbit-label-path"></path>
+                    <path id="orbit-gallery-reverse" class="orbit-label-path"></path>
+                    <path id="orbit-coding-forward" class="orbit-label-path"></path>
+                    <path id="orbit-coding-reverse" class="orbit-label-path"></path>
+                </defs>
+
+                <text class="orbit-path-label" data-orbit-label="research">
+                    <textPath href="#orbit-research-forward" startOffset="0%" text-anchor="middle">RESEARCH PROJECTS</textPath>
+                </text>
+                <text class="orbit-path-label" data-orbit-label="skills">
+                    <textPath href="#orbit-skills-forward" startOffset="0%" text-anchor="middle">TECHNICAL SKILLS</textPath>
+                </text>
+                <text class="orbit-path-label" data-orbit-label="gallery">
+                    <textPath href="#orbit-gallery-forward" startOffset="0%" text-anchor="middle">MAPS · MODELS · VISUALS</textPath>
+                </text>
+                <text class="orbit-path-label" data-orbit-label="coding">
+                    <textPath href="#orbit-coding-forward" startOffset="0%" text-anchor="middle">DATA &amp; CODING PROJECTS</textPath>
+                </text>
+            </svg>
 
             <!-- SUN / PROFILE -->
             <button
@@ -12893,14 +12814,16 @@ travel directly on those orbit paths instead of inside floating boxes.
                 aria-label="Open profile"
             >
                 <span class="sun-corona" aria-hidden="true"></span>
+                <span class="sun-name-orbit" id="sunNameOrbit" data-text="JOHN PAOLO RAMIREZ" aria-hidden="true"></span>
                 <span class="sun-core">
-                    <h1 class="shared-title solar-sun-title" data-title>
+                    <span class="sun-center-label">PROFILE</span>
+                    <span class="sun-role">Environmental Scientist<br>&amp; Geospatial Analyst</span>
+                    <h1 class="shared-title sun-morph-title" data-title>
                         <span class="title-line">John Paolo</span>
                         <span class="title-line">Ramirez</span>
                     </h1>
-                    <span class="sun-role">Environmental Scientist<br>&amp; Geospatial Analyst</span>
                 </span>
-                <span class="sun-click">PROFILE</span>
+                <span class="sun-click">CLICK THE SUN</span>
             </button>
 
             <!-- RESEARCH PROJECTS -->
@@ -12909,16 +12832,15 @@ travel directly on those orbit paths instead of inside floating boxes.
                 class="orbiting-planet solar-section-body planet-research"
                 data-panel="projects"
                 data-orbit="research"
-                data-rx="0.31"
-                data-ry="0.25"
-                data-period="46"
+                data-rx="0.29"
+                data-ry="0.23"
+                data-period="52"
                 data-phase="-1.20"
                 aria-label="Open Research Projects"
             >
-                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-leaf"></i></span>
+                <span class="planet-surface" aria-hidden="true"></span>
                 <span class="shared-title planet-morph-title" data-title>Research Projects</span>
             </button>
-            <div class="orbit-title-runner" data-title-for="research" aria-hidden="true">Research Projects</div>
 
             <!-- TECHNICAL SKILLS -->
             <button
@@ -12926,16 +12848,15 @@ travel directly on those orbit paths instead of inside floating boxes.
                 class="orbiting-planet solar-section-body planet-skills"
                 data-panel="skills"
                 data-orbit="skills"
-                data-rx="0.39"
-                data-ry="0.33"
-                data-period="58"
+                data-rx="0.35"
+                data-ry="0.29"
+                data-period="66"
                 data-phase="0.05"
                 aria-label="Open Technical Skills"
             >
-                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
+                <span class="planet-surface" aria-hidden="true"></span>
                 <span class="shared-title planet-morph-title" data-title>Technical Skills</span>
             </button>
-            <div class="orbit-title-runner" data-title-for="skills" aria-hidden="true">Technical Skills</div>
 
             <!-- MAPS / MODELS / VISUALS -->
             <button
@@ -12943,16 +12864,15 @@ travel directly on those orbit paths instead of inside floating boxes.
                 class="orbiting-planet solar-section-body planet-gallery"
                 data-panel="gallery"
                 data-orbit="gallery"
-                data-rx="0.43"
-                data-ry="0.38"
-                data-period="72"
+                data-rx="0.41"
+                data-ry="0.35"
+                data-period="78"
                 data-phase="0.90"
                 aria-label="Open Maps Models and Visuals"
             >
-                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-map"></i></span>
+                <span class="planet-surface" aria-hidden="true"></span>
                 <span class="shared-title planet-morph-title" data-title>Maps · Models · Visuals</span>
             </button>
-            <div class="orbit-title-runner" data-title-for="gallery" aria-hidden="true">Maps · Models · Visuals</div>
 
             <!-- DATA & CODING -->
             <button
@@ -12960,32 +12880,17 @@ travel directly on those orbit paths instead of inside floating boxes.
                 class="orbiting-planet solar-section-body planet-coding"
                 data-panel="mini"
                 data-orbit="coding"
-                data-rx="0.36"
-                data-ry="0.30"
-                data-period="64"
+                data-rx="0.46"
+                data-ry="0.40"
+                data-period="88"
                 data-phase="2.72"
                 aria-label="Open Data and Coding Projects"
             >
-                <span class="planet-surface" aria-hidden="true"><i class="fa-solid fa-code"></i></span>
+                <span class="planet-surface" aria-hidden="true"></span>
                 <span class="shared-title planet-morph-title" data-title>Data &amp; Coding Projects</span>
             </button>
-            <div class="orbit-title-runner" data-title-for="coding" aria-hidden="true">Data &amp; Coding Projects</div>
 
-            <!-- Decorative satellite + banner -->
-            <div
-                class="solar-satellite"
-                id="portfolioSatellite"
-                data-rx="0.25"
-                data-ry="0.18"
-                data-period="34"
-                data-phase="4.15"
-                aria-hidden="true"
-            >
-                <span class="satellite-body"><i class="fa-solid fa-satellite"></i></span>
-                <span class="satellite-banner">Explore my work</span>
-            </div>
-
-            <div class="solar-center-note" aria-hidden="true">CLICK THE SUN FOR PROFILE</div>
+            <div class="solar-center-note" aria-hidden="true">PROFILE · SUN</div>
 
         </div>
 
@@ -12994,7 +12899,7 @@ travel directly on those orbit paths instead of inside floating boxes.
     <footer class="solar-footer">
         <span><i class="fa-solid fa-computer-mouse"></i> Click a planet</span>
         <span>•</span>
-        <span>Planet expands to full screen</span>
+        <span>Titles follow the orbit paths</span>
         <span>•</span>
         <span>Close to return to orbit</span>
     </footer>
@@ -14573,10 +14478,12 @@ function positionCloseButton() {
 
 
 /* =========================================================
-V21 — SMOOTH SOLAR ORBIT CONTROLLER
-Uses accumulated delta time instead of absolute performance.now().
-That means planets keep the same angle after pauses, panel opens/closes,
-tab switches and resizes instead of jumping to a new point on the orbit.
+V22 — 3D SOLAR ORBIT CONTROLLER
+- accumulated delta time prevents pause/resume jumps
+- each planet receives a front/back depth value while orbiting
+- section titles are SVG textPaths on the same ellipse as each planet
+- title direction reverses on the lower half so the words remain readable
+- the name is split into letters that orbit the Sun and pass behind its sphere
 ========================================================= */
 
 const solarHome = document.getElementById("solarPortfolioHome");
@@ -14584,49 +14491,173 @@ const solarSystem = document.getElementById("portfolioSolarSystem");
 const solarPlanets = solarSystem
     ? Array.from(solarSystem.querySelectorAll(".orbiting-planet"))
     : [];
-const solarSatellite = solarSystem
-    ? solarSystem.querySelector(".solar-satellite")
+const solarOrbitSvg = solarSystem
+    ? solarSystem.querySelector("#portfolioOrbitLabels")
     : null;
-const solarTitleRunners = solarSystem
-    ? new Map(
-        Array.from(solarSystem.querySelectorAll(".orbit-title-runner"))
-            .map(label => [label.dataset.titleFor, label])
-      )
-    : new Map();
+const solarSun = solarSystem
+    ? solarSystem.querySelector(".solar-sun")
+    : null;
+const sunNameOrbit = solarSystem
+    ? solarSystem.querySelector("#sunNameOrbit")
+    : null;
 
 const solarReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let solarAnimationFrame = 0;
 let solarLastFrame = null;
 let solarElapsedSeconds = 0;
+let sunNameLetters = [];
 
-function placeSolarBody(body, angle, centerX, centerY, rx, ry) {
-    const x = centerX + Math.cos(angle) * rx;
-    const y = centerY + Math.sin(angle) * ry;
-
-    body.style.transform =
-        `translate3d(${x - centerX}px, ${y - centerY}px, 0) translate(-50%, -50%)`;
-
-    return { x, y };
+function normaliseAngle(angle) {
+    const full = Math.PI * 2;
+    return ((angle % full) + full) % full;
 }
 
-function placeOrbitTitle(planet, angle, centerX, centerY, rx, ry) {
-    const runner = solarTitleRunners.get(planet.dataset.orbit);
-    if (!runner) return;
+function buildSunNameLetters() {
+    if (!sunNameOrbit || sunNameLetters.length) return;
 
-    /* Put the lettering slightly behind its planet on the SAME ellipse.
-       It remains almost horizontal for readability, with only a gentle tilt. */
-    const labelAngle = angle - 0.32;
-    const labelX = centerX + Math.cos(labelAngle) * rx * 0.90;
-    const labelY = centerY + Math.sin(labelAngle) * ry * 0.90;
-    const tilt = Math.sin(labelAngle) * -7;
+    const text = String(sunNameOrbit.dataset.text || "JOHN PAOLO RAMIREZ");
+    const fragment = document.createDocumentFragment();
 
-    runner.style.transform =
-        `translate3d(${labelX - centerX}px, ${labelY - centerY}px, 0) translate(-50%, -50%) rotate(${tilt.toFixed(2)}deg)`;
+    [...text].forEach((character, index) => {
+        const span = document.createElement("span");
+        span.className = "sun-name-letter";
+        span.textContent = character === " " ? "\u00A0" : character;
+        span.dataset.letterIndex = String(index);
+        fragment.appendChild(span);
+    });
+
+    sunNameOrbit.appendChild(fragment);
+    sunNameLetters = Array.from(sunNameOrbit.querySelectorAll(".sun-name-letter"));
+}
+
+function getOrbitGeometry(planet, width, height) {
+    return {
+        rx: width * Number(planet.dataset.rx || .30),
+        ry: height * Number(planet.dataset.ry || .25),
+        period: Math.max(16, Number(planet.dataset.period || 52)),
+        phase: Number(planet.dataset.phase || 0)
+    };
+}
+
+function setOrbitPath(path, centerX, centerY, rx, ry, reverse = false) {
+    if (!path) return;
+
+    const sweep = reverse ? 0 : 1;
+    path.setAttribute(
+        "d",
+        `M ${centerX + rx} ${centerY} ` +
+        `A ${rx} ${ry} 0 1 ${sweep} ${centerX - rx} ${centerY} ` +
+        `A ${rx} ${ry} 0 1 ${sweep} ${centerX + rx} ${centerY}`
+    );
+}
+
+function updateOrbitLabelGeometry(width, height, centerX, centerY) {
+    if (!solarOrbitSvg) return;
+
+    solarOrbitSvg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+    solarPlanets.forEach(planet => {
+        const orbit = planet.dataset.orbit;
+        const { rx, ry } = getOrbitGeometry(planet, width, height);
+
+        setOrbitPath(
+            solarOrbitSvg.querySelector(`#orbit-${orbit}-forward`),
+            centerX,
+            centerY,
+            rx,
+            ry,
+            false
+        );
+
+        setOrbitPath(
+            solarOrbitSvg.querySelector(`#orbit-${orbit}-reverse`),
+            centerX,
+            centerY,
+            rx,
+            ry,
+            true
+        );
+    });
+}
+
+function placeOrbitLabel(planet, angle) {
+    if (!solarOrbitSvg) return;
+
+    const orbit = planet.dataset.orbit;
+    const label = solarOrbitSvg.querySelector(`[data-orbit-label="${orbit}"] textPath`);
+    if (!label) return;
+
+    const a = normaliseAngle(angle);
+    const forwardPercent = (a / (Math.PI * 2)) * 100;
+    const onLowerHalf = Math.sin(a) > 0;
+
+    /* Keep the text a little behind the planet rather than directly under it. */
+    const trail = 5.5;
+
+    if (onLowerHalf) {
+        label.setAttribute("href", `#orbit-${orbit}-reverse`);
+        label.setAttribute("startOffset", `${(100 - forwardPercent + trail + 100) % 100}%`);
+    } else {
+        label.setAttribute("href", `#orbit-${orbit}-forward`);
+        label.setAttribute("startOffset", `${(forwardPercent - trail + 100) % 100}%`);
+    }
+}
+
+function placeSolarPlanet(planet, angle, centerX, centerY, rx, ry) {
+    const x = centerX + Math.cos(angle) * rx;
+    const y = centerY + Math.sin(angle) * ry;
+    const depth = Math.sin(angle); // negative = back half, positive = front half
+    const translateZ = depth * 52;
+    const scale = 1 + depth * .055;
+
+    planet.style.transform =
+        `translate3d(${x - centerX}px, ${y - centerY}px, ${translateZ.toFixed(2)}px) ` +
+        `translate(-50%, -50%) scale(${scale.toFixed(3)})`;
+
+    planet.style.zIndex = depth >= 0 ? "18" : "6";
+    planet.style.filter = depth >= 0
+        ? `brightness(${(1.02 + depth * .06).toFixed(3)})`
+        : `brightness(${(0.83 + (depth + 1) * .12).toFixed(3)})`;
+
+    placeOrbitLabel(planet, angle);
+}
+
+function placeSunName(elapsedSeconds) {
+    if (!solarSun || !sunNameLetters.length) return;
+
+    const width = solarSun.offsetWidth;
+    const height = solarSun.offsetHeight;
+    if (!width || !height) return;
+
+    const rx = width * .61;
+    const ry = height * .39;
+    const period = 30;
+    const base = -Math.PI * .56 + elapsedSeconds * (Math.PI * 2 / period);
+    const spread = Math.min(.090, 1.58 / Math.max(sunNameLetters.length - 1, 1));
+    const midpoint = (sunNameLetters.length - 1) / 2;
+
+    sunNameLetters.forEach((letter, index) => {
+        const angle = base + (index - midpoint) * spread;
+        const x = Math.cos(angle) * rx;
+        const y = Math.sin(angle) * ry;
+        const dx = -rx * Math.sin(angle);
+        const dy = ry * Math.cos(angle);
+
+        let tangent = Math.atan2(dy, dx) * 180 / Math.PI;
+        if (tangent > 90 || tangent < -90) tangent += 180;
+
+        const front = Math.sin(angle) >= 0;
+        letter.style.zIndex = front ? "7" : "3";
+        letter.style.opacity = front ? ".98" : ".42";
+        letter.style.transform =
+            `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${front ? 28 : -28}px) ` +
+            `translate(-50%, -50%) rotate(${tangent.toFixed(2)}deg)`;
+    });
 }
 
 function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
-    if (!solarSystem || window.innerWidth <= 860) return;
+    if (!solarSystem) return;
 
     const width = solarSystem.clientWidth;
     const height = solarSystem.clientHeight;
@@ -14635,31 +14666,19 @@ function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
     const centerX = width / 2;
     const centerY = height / 2;
 
-    solarPlanets.forEach(planet => {
-        const rx = width * Number(planet.dataset.rx || .30);
-        const ry = height * Number(planet.dataset.ry || .25);
-        const period = Math.max(10, Number(planet.dataset.period || 32));
-        const phase = Number(planet.dataset.phase || 0);
-        const angle = phase + elapsedSeconds * (Math.PI * 2 / period);
+    updateOrbitLabelGeometry(width, height, centerX, centerY);
 
-        placeSolarBody(planet, angle, centerX, centerY, rx, ry);
-        placeOrbitTitle(planet, angle, centerX, centerY, rx, ry);
+    solarPlanets.forEach(planet => {
+        const { rx, ry, period, phase } = getOrbitGeometry(planet, width, height);
+        const angle = phase + elapsedSeconds * (Math.PI * 2 / period);
+        placeSolarPlanet(planet, angle, centerX, centerY, rx, ry);
     });
 
-    if (solarSatellite) {
-        const rx = width * Number(solarSatellite.dataset.rx || .25);
-        const ry = height * Number(solarSatellite.dataset.ry || .18);
-        const period = Math.max(10, Number(solarSatellite.dataset.period || 22));
-        const phase = Number(solarSatellite.dataset.phase || 0);
-        const angle = phase + elapsedSeconds * (Math.PI * 2 / period);
-
-        placeSolarBody(solarSatellite, angle, centerX, centerY, rx, ry);
-    }
+    placeSunName(elapsedSeconds);
 }
 
 function runSolarOrbit(timeMs) {
     solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
-
     if (!solarSystem) return;
 
     const paused =
@@ -14669,8 +14688,6 @@ function runSolarOrbit(timeMs) {
         window.innerWidth <= 860;
 
     if (paused) {
-        /* Reset only the timestamp—not the elapsed orbital position.
-           This prevents the old pause/resume jump. */
         solarLastFrame = timeMs;
         return;
     }
@@ -14681,20 +14698,18 @@ function runSolarOrbit(timeMs) {
         return;
     }
 
-    /* Clamp long frames so a temporary browser stall cannot fling a planet
-       halfway around its orbit on the next animation frame. */
     const deltaSeconds = Math.min(
         Math.max((timeMs - solarLastFrame) / 1000, 0),
-        0.05
+        0.04
     );
 
     solarLastFrame = timeMs;
     solarElapsedSeconds += deltaSeconds;
-
     positionSolarBodies(solarElapsedSeconds);
 }
 
 if (solarSystem) {
+    buildSunNameLetters();
     positionSolarBodies(0);
     solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
 
@@ -14705,7 +14720,7 @@ if (solarSystem) {
         solarResizeTimer = setTimeout(() => {
             positionSolarBodies(solarElapsedSeconds);
             solarLastFrame = performance.now();
-        }, 70);
+        }, 60);
     }, { passive: true });
 
     document.addEventListener("visibilitychange", () => {
