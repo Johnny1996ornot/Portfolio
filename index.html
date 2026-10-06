@@ -11723,6 +11723,216 @@ that were surviving on phones and fixes carousel geometry after the morph.
 }
 </style>
 
+
+<style id="portfolio-v18-conservation-research-responsive">
+/* =========================================================
+V18 — CONSERVATION CASE STUDY: RESEARCH WRITING + RESPONSIVE FIT
+Keeps the case study inside the viewport when a laptop window is reduced.
+========================================================= */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.expansion,
+.case-study-view,
+.case-study-shell,
+.conservation-case-shell {
+    max-width: 100vw;
+}
+
+.case-study-view,
+.conservation-case-shell {
+    overflow-x: hidden !important;
+}
+
+.conservation-case-shell,
+.conservation-case-shell * {
+    box-sizing: border-box;
+}
+
+.conservation-case-shell .case-hero,
+.conservation-case-shell .case-section,
+.conservation-case-shell .case-hero-heading,
+.conservation-case-shell .case-hero-lower,
+.conservation-case-shell .case-section-head,
+.conservation-case-shell .case-biology-bridge,
+.conservation-case-shell .case-big-picture,
+.conservation-case-shell .case-scrolly,
+.conservation-case-shell .case-story-copy,
+.conservation-case-shell .case-story-stage {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.conservation-case-shell .case-lead,
+.conservation-case-shell .case-section-intro,
+.conservation-case-shell .case-biology-card p,
+.conservation-case-shell .case-story-step p,
+.conservation-case-shell .case-story-note {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: none !important;
+}
+
+.conservation-case-shell .case-section-number,
+.conservation-case-shell .case-story-kicker {
+    letter-spacing: .12em;
+}
+
+.conservation-case-shell .case-story-step h2 {
+    text-wrap: balance;
+}
+
+@media (max-width: 1280px) {
+    .conservation-case-shell {
+        width: min(1180px, calc(100% - 28px)) !important;
+    }
+
+    .conservation-case-shell .case-title {
+        font-size: clamp(3.25rem, 6.6vw, 6.4rem) !important;
+        max-width: 100% !important;
+    }
+
+    .conservation-case-shell .case-hero-lower {
+        grid-template-columns: 1fr !important;
+        gap: 22px !important;
+    }
+
+    .conservation-case-shell .case-lead {
+        max-width: 980px !important;
+    }
+
+    .conservation-case-shell .case-hero-metrics {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        margin-top: 4px !important;
+    }
+
+    .conservation-case-shell .case-biology-bridge {
+        grid-template-columns: 1fr !important;
+    }
+
+    .conservation-case-shell .case-biology-card {
+        min-height: 0 !important;
+    }
+
+    .conservation-case-shell .case-big-picture {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .conservation-case-shell .case-big-picture-step:nth-child(2)::after {
+        display: none !important;
+    }
+
+    .conservation-case-shell .case-scrolly {
+        grid-template-columns: minmax(300px, .82fr) minmax(0, 1.18fr) !important;
+        gap: clamp(18px, 2.5vw, 34px) !important;
+    }
+
+    .conservation-case-shell .case-story-copy,
+    .conservation-case-shell .case-story-stage {
+        min-width: 0 !important;
+    }
+
+    .conservation-case-shell #case-methods .case-section-head h2 {
+        max-width: 980px !important;
+        font-size: clamp(2.2rem, 4.4vw, 3.8rem) !important;
+        line-height: 1.02 !important;
+    }
+
+    .conservation-case-shell #case-methods .case-section-intro {
+        max-width: 980px !important;
+    }
+}
+
+@media (max-width: 980px) and (min-width: 801px) {
+    .conservation-case-shell {
+        width: calc(100% - 22px) !important;
+    }
+
+    .conservation-case-shell .case-hero {
+        padding-top: 34px !important;
+        padding-bottom: 34px !important;
+    }
+
+    .conservation-case-shell .case-hero-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .conservation-case-shell .case-big-picture {
+        grid-template-columns: 1fr !important;
+    }
+
+    .conservation-case-shell .case-big-picture-step::after {
+        content: "↓" !important;
+        display: grid !important;
+        right: auto !important;
+        left: 50% !important;
+        top: auto !important;
+        bottom: -18px !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .conservation-case-shell .case-big-picture-step:last-child::after {
+        display: none !important;
+    }
+
+    .conservation-case-shell .case-scrolly {
+        grid-template-columns: minmax(270px, .88fr) minmax(0, 1.12fr) !important;
+        gap: 16px !important;
+    }
+
+    .conservation-case-shell .case-story-step {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .conservation-case-shell .case-story-step h2 {
+        font-size: clamp(1.8rem, 4.3vw, 2.65rem) !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .conservation-case-shell {
+        width: calc(100% - 16px) !important;
+    }
+
+    .conservation-case-shell .case-title {
+        font-size: clamp(2.35rem, 11vw, 3.3rem) !important;
+        line-height: .94 !important;
+    }
+
+    .conservation-case-shell .case-hero-lower {
+        display: block !important;
+    }
+
+    .conservation-case-shell .case-hero-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .conservation-case-shell .case-section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .conservation-case-shell .case-biology-card,
+    .conservation-case-shell .case-big-picture-step,
+    .conservation-case-shell .case-story-step,
+    .conservation-case-shell .mobile-inline-figure {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .conservation-case-shell #case-methods .case-section-head h2 {
+        font-size: clamp(1.95rem, 8.8vw, 2.7rem) !important;
+        text-wrap: balance;
+    }
+}
+</style>
+
 </head>
 
 
@@ -14153,20 +14363,18 @@ conservation funding in Switzerland
 
 <p class="case-lead">
 
-<strong>
-Research question:
-</strong>
+This study evaluates how alternative spatial allocations of a fixed
+conservation budget influence modelled pollinator habitat suitability
+and structural connectivity across Switzerland.
 
-with a fixed conservation budget, how does changing
-<em>where</em>
-agricultural intervention is funded affect modelled habitat and structural
-connectivity outcomes for bees and butterflies?
+Bee and butterfly occurrence data provide the ecological evidence used
+to characterise landscape suitability within a 5-km grid, while
+representative land-management units define where agricultural
+intervention is eligible.
 
-Pollinator data define ecological value,
-the Swiss 5-km grid defines the landscape,
-representative management units define where
-intervention can occur, and the policy model redistributes
-the same programme under different spatial priorities.
+The policy model then reallocates the same conservation programme among
+eligible locations under different spatial priorities, allowing habitat
+and connectivity outcomes to be compared under a common budget.
 
 </p>
 
@@ -14264,12 +14472,12 @@ id="case-methods"
 
 
 <div class="case-section-number">
-Orientation
+Modelling framework
 </div>
 
 
 <h2>
-Biology defines ecological value; policy decides where intervention goes.
+Ecological evidence, land eligibility and policy constraints are integrated within a common spatial model.
 </h2>
 
 
@@ -14278,23 +14486,16 @@ Biology defines ecological value; policy decides where intervention goes.
 
 <p class="case-section-intro">
 
-<strong>
-Bees and butterflies are the ecological response layer.
-</strong>
+The modelling framework combines pollinator occurrence patterns,
+species-specific landscape associations, eligible agricultural land
+and policy allocation rules.
 
-Their occurrence records and species-level landscape associations
-are used to evaluate how well each 5-km cell matches
-the modeled pollinator community.
-
-<strong>
-Representative land-management units are the ABM agents
-</strong>
-
-that determine where intervention can be implemented.
-
-The policy layer then allocates the same conservation programme
-across those eligible locations and compares the resulting
-habitat and connectivity outcomes.
+Habitat suitability is estimated for each 5-km cell from the
+correspondence between species ecological profiles and local habitat
+composition. Representative land-management units identify where
+intervention can be implemented, after which the policy model allocates
+a fixed programme budget across eligible locations and evaluates the
+resulting habitat and structural-connectivity outcomes.
 
 </p>
 
@@ -14309,22 +14510,22 @@ habitat and connectivity outcomes.
 
 
 <h3>
-Pollinator evidence
+Pollinator occurrence data and ecological profiles
 </h3>
 
 
 <p>
 
-The model contains 554 ABM-ready bee species and
-217 ABM-ready butterfly species.
+The final model includes 554 bee species and 217 butterfly species.
+GBIF occurrence records are summarised into species-specific
+landscape-association profiles that describe how each species is
+associated with the surrounding landscape.
 
-GBIF occurrence patterns were summarized into empirical
-landscape-association profiles.
-
-Butterfly morphology and movement groups and bee body-size /
-ITD mobility information are retained for ecological interpretation,
-while final local suitability is based on habitat matching rather than
-an arbitrary mobility multiplier.
+Butterfly morphology and movement-group information, together with bee
+body-size / ITD information, are retained for ecological interpretation.
+Local habitat suitability is estimated from the match between each
+species profile and the habitat composition of each 5-km cell rather
+than from a generic mobility multiplier.
 
 </p>
 
@@ -14347,22 +14548,22 @@ habitat suitability
 
 
 <h3>
-Habitat and connectivity scoring
+Habitat suitability and structural connectivity
 </h3>
 
 
 <p>
 
-A species profile is compared with the habitat composition of
-every 5-km cell to produce local habitat suitability.
+Species-level ecological profiles are compared with the habitat
+composition of each 5-km cell to estimate local habitat suitability.
 
-Neighbouring cells are then linked in a landscape graph.
+Suitable neighbouring cells are then represented as links in a
+landscape graph, allowing structural connectivity to be evaluated
+independently from local habitat quality.
 
-Structural connectivity becomes stronger when adjacent cells
-are simultaneously suitable.
-
-The model therefore distinguishes local habitat quality from
-continuity across the landscape.
+This distinction separates ecological suitability within individual
+cells from the continuity of suitable habitat across the wider
+landscape.
 
 </p>
 
@@ -14395,11 +14596,11 @@ aria-label="Simplified model flow"
 <div class="case-big-picture-step">
 
 <b>
-Pollinator evidence
+Ecological suitability
 </b>
 
 <span>
-Score ecological value across the landscape.
+Estimate species–habitat matching across the 5-km landscape grid.
 </span>
 
 </div>
@@ -14408,11 +14609,11 @@ Score ecological value across the landscape.
 <div class="case-big-picture-step">
 
 <b>
-Eligible cropland
+Intervention eligibility
 </b>
 
 <span>
-Identify where beneficial-strip intervention can occur.
+Identify eligible cropland within representative land-management units.
 </span>
 
 </div>
@@ -14421,11 +14622,11 @@ Identify where beneficial-strip intervention can occur.
 <div class="case-big-picture-step">
 
 <b>
-Fixed programme
+Policy allocation
 </b>
 
 <span>
-Redistribute the same CHF 9.22M budget under different priorities.
+Distribute the fixed CHF 9.22M programme under alternative spatial priorities.
 </span>
 
 </div>
@@ -14434,11 +14635,11 @@ Redistribute the same CHF 9.22M budget under different priorities.
 <div class="case-big-picture-step">
 
 <b>
-Compare outcomes
+Outcome evaluation
 </b>
 
 <span>
-Measure habitat, connectivity and implementation constraints.
+Compare habitat suitability, structural connectivity and implementation constraints.
 </span>
 
 </div>
@@ -14481,35 +14682,37 @@ data-scene-target="ecology"
 
 
 <div class="case-story-kicker">
-01 · Pollinator ecology
+01 · Ecological baseline
 </div>
 
 
 <h2>
-Pollinator evidence defines what counts as ecological improvement.
+Pollinator occurrence patterns establish the ecological baseline for spatial prioritisation.
 </h2>
 
 
 <p>
 
-The model does not reward a cell simply for being “greener.”
+Ecological suitability is estimated from species-specific landscape
+associations rather than from a generic measure of greenness.
 
-Each bee and butterfly species has an empirical
-landscape-association profile derived from observed occurrences.
+For each bee and butterfly species, occurrence records are used to
+derive a landscape-association profile that is compared with the habitat
+composition of every 5-km cell. Cells whose habitat composition more
+closely matches the observed species profile receive higher suitability
+scores.
 
-A cell scores more strongly when its habitat composition better
-matches those species profiles.
-
-This is the biological foundation of every later policy comparison.
+These baseline suitability values provide the ecological reference
+against which the intervention scenarios are evaluated.
 
 </p>
 
 
 <div class="case-story-note">
 
-Higher modeled suitability means a better match with observed
-species–landscape associations; it is not a forecast of future
-abundance or species richness.
+The suitability score represents modelled agreement between a species’
+observed landscape associations and cell habitat composition; it is not
+a prediction of future abundance or species richness.
 
 </div>
 
@@ -14526,30 +14729,32 @@ data-scene-target="policy"
 
 
 <div class="case-story-kicker">
-02 · Policy setup
+02 · Policy and funding
 </div>
 
 
 <h2>
-Funding pays for intervention hectares, not entire 5-km cells.
+The policy model allocates a fixed conservation budget to eligible intervention area within 5-km decision cells.
 </h2>
 
 
 <p>
 
-The modeled measure is a beneficial strip on eligible cropland.
+The policy experiment represents intervention as beneficial strips
+implemented on eligible cropland.
 
-The policy parameter is
+Programme expenditure is calculated using an annual payment parameter of
 
 <strong>
-CHF 3,300 per intervention hectare per year
+CHF 3,300 per intervention hectare
 </strong>.
 
-A 5-km cell is only the spatial decision unit.
+The 5-km cell functions as the spatial decision unit rather than the
+funded area itself: only eligible intervention hectares within a cell
+contribute to programme expenditure.
 
-The reference programme funds 2,793.77 ha in total,
-while a modeling cap limits intervention to a maximum of
-3% of cropland inside any one eligible cell.
+Under the reference scenario, the programme funds 2,793.77 ha in total,
+subject to a modelling cap of 3% of cropland within any eligible cell.
 
 </p>
 
@@ -14598,41 +14803,45 @@ data-scene-target="tradeoff"
 
 
 <div class="case-story-kicker">
-03 · Habitat & connectivity
+03 · Ecological outcomes
 </div>
 
 
 <h2>
-Habitat and connectivity measure different ecological outcomes.
+Ecological outcomes are evaluated through habitat suitability and structural connectivity.
 </h2>
 
 
 <p>
 
+The model evaluates two complementary ecological outcomes.
+
 <strong>
 Local habitat response
 </strong>
 
-measures how intervention changes species–habitat matching
-within a cell.
+quantifies how intervention changes species–habitat matching within
+individual cells, whereas
 
 <strong>
-Structural connectivity
+structural connectivity
 </strong>
 
-measures continuity among suitable neighbouring cells.
+measures the continuity of suitable neighbouring cells across the
+landscape.
 
-The same intervention can therefore improve the local ecological
-match, strengthen the larger network, or contribute to both.
+Depending on its location, an intervention can therefore improve local
+ecological suitability, strengthen the wider habitat network, or
+contribute to both outcomes.
 
 </p>
 
 
 <div class="case-story-note">
 
-Movement groups are retained for interpretation,
-but the final local suitability score is based on habitat match
-rather than a generic mobility multiplier.
+Movement-group information is retained for ecological interpretation,
+while local suitability is estimated from habitat matching rather than
+from a generic mobility multiplier.
 
 </div>
 
@@ -14649,36 +14858,25 @@ data-scene-target="targeting"
 
 
 <div class="case-story-kicker">
-04 · Same-budget experiment
+04 · Spatial targeting experiment
 </div>
 
 
 <h2>
-Same money, different placement.
+Alternative targeting strategies are compared under the same budget and total intervention area.
 </h2>
 
 
 <p>
 
-Every strategy receives the same reference budget
-and total intervention area.
+Each strategy receives the same reference budget and total intervention
+area. The experimental difference is the spatial ordering of eligible
+locations and the ecological objective used to prioritise them.
 
-The model changes only
-
-<strong>
-where
-</strong>
-
-intervention is placed and
-
-<strong>
-which ecological objective
-</strong>
-
-guides that placement.
-
-This isolates the value of spatial targeting instead of rewarding
-one strategy simply for spending more.
+Holding expenditure and intervention area constant isolates the effect
+of spatial targeting, allowing differences in ecological outcomes to be
+attributed to where intervention is placed rather than to how much is
+spent.
 
 </p>
 
@@ -14727,26 +14925,28 @@ data-scene-target="participation"
 
 
 <div class="case-story-kicker">
-05 · Participation
+05 · Participation constraint
 </div>
 
 
 <h2>
-Participation limits where ecological targeting can actually happen.
+Land-management participation constrains the spatial options available for ecological targeting.
 </h2>
 
 
 <p>
 
-Eligible agricultural cells are represented as land-management units.
+Eligible agricultural cells are represented as land-management units
+through which intervention can be implemented.
 
-Participation scenarios do not claim that real farmers have these
-exact probabilities; they stress-test implementation.
+The participation scenarios are used as implementation stress tests
+rather than as estimates of actual farmer behaviour. When only a small
+share of management units is available, the policy model has limited
+spatial choice and cannot consistently reach the highest-ranked
+ecological locations.
 
-At low availability, policymakers have little spatial choice.
-
-As more management units become available,
-the model can fund more of the highest-ranked ecological locations.
+As availability increases, a larger proportion of the preferred
+locations can be included within the fixed programme.
 
 </p>
 
@@ -14800,7 +15000,7 @@ data-scene-target="spatial"
 
 
 <h2>
-Targeting concentrates the same programme in fewer priority cells.
+Targeted allocation concentrates the fixed programme within higher-priority management cells.
 </h2>
 
 
@@ -14882,12 +15082,12 @@ data-scene-target="consensus"
 
 
 <div class="case-story-kicker">
-07 · Consensus
+07 · Cross-strategy consensus
 </div>
 
 
 <h2>
-Consensus reveals locations that remain priorities across strategies.
+Agreement among targeting strategies identifies comparatively stable priority locations.
 </h2>
 
 
@@ -14949,12 +15149,12 @@ data-scene-target="robustness"
 
 
 <div class="case-story-kicker">
-08 · Robustness
+08 · Robustness analysis
 </div>
 
 
 <h2>
-Targeting remains better than random across the tested scenarios.
+Targeted allocation retains an advantage over random placement across the tested model scenarios.
 </h2>
 
 
@@ -15006,7 +15206,7 @@ data-scene="ecology"
 
 
 <h3>
-How pollinator evidence becomes landscape information
+From pollinator occurrences to landscape-scale ecological suitability
 </h3>
 
 
@@ -15124,7 +15324,7 @@ data-scene="policy"
 
 
 <h3>
-What the policy actually pays for
+Intervention funding is calculated from eligible treatment area
 </h3>
 
 
