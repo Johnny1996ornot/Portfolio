@@ -11933,6 +11933,161 @@ body {
 }
 </style>
 
+
+
+<style id="portfolio-v19-conservation-layout-repair">
+/* =========================================================
+V19 — SWITZERLAND CASE-STUDY LAYOUT REPAIR
+Fixes reduced-laptop sticky-scene failure and excessive blank space.
+========================================================= */
+
+/* Keep the case shell from becoming its own accidental scroll container.
+   The actual scrolling container is .case-study-view. */
+.conservation-case-shell {
+    overflow: visible !important;
+}
+
+.conservation-case-shell .case-scrolly,
+.conservation-case-shell .case-story-copy {
+    overflow: visible !important;
+}
+
+/* Inline copies are only a compact-layout fallback. */
+@media (min-width: 1201px) {
+    .conservation-case-shell .mobile-inline-figure {
+        display: none !important;
+    }
+
+    .conservation-case-shell .case-scrolly {
+        grid-template-columns: minmax(360px, .84fr) minmax(500px, 1.16fr) !important;
+        gap: clamp(26px, 3vw, 48px) !important;
+        align-items: start !important;
+    }
+
+    .conservation-case-shell .case-story-stage {
+        position: sticky !important;
+        top: 76px !important;
+        height: clamp(470px, 68vh, 650px) !important;
+        min-height: 470px !important;
+        max-height: calc(100vh - 94px) !important;
+    }
+
+    .conservation-case-shell .case-story-step {
+        min-height: clamp(520px, 70vh, 650px) !important;
+        padding-top: clamp(34px, 5vh, 56px) !important;
+        padding-bottom: clamp(34px, 5vh, 56px) !important;
+    }
+}
+
+/* At reduced laptop widths, do not keep squeezing a desktop scrollytelling grid.
+   Each research section becomes a clean full-width block with its figure below it. */
+@media (max-width: 1200px) {
+    .conservation-case-shell {
+        width: min(1040px, calc(100% - 22px)) !important;
+    }
+
+    .conservation-case-shell .case-scrolly.mobile-inline-ready {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 24px 0 28px !important;
+        overflow: visible !important;
+    }
+
+    .conservation-case-shell .case-scrolly.mobile-inline-ready > .case-story-stage {
+        display: none !important;
+    }
+
+    .conservation-case-shell .case-scrolly.mobile-inline-ready > .case-story-copy {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .conservation-case-shell .case-scrolly.mobile-inline-ready .case-story-step {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 38px 0 46px !important;
+        opacity: 1 !important;
+        transform: none !important;
+        border-left: 0 !important;
+    }
+
+    .conservation-case-shell .case-scrolly.mobile-inline-ready .case-story-step + .case-story-step {
+        border-top: 1px solid rgba(193,246,237,.10) !important;
+    }
+
+    .conservation-case-shell .case-story-step h2 {
+        max-width: 850px !important;
+        font-size: clamp(2rem, 4.8vw, 3.15rem) !important;
+        line-height: 1.02 !important;
+    }
+
+    .conservation-case-shell .case-story-step p,
+    .conservation-case-shell .case-story-note,
+    .conservation-case-shell .case-story-step ul {
+        max-width: 820px !important;
+    }
+
+    .conservation-case-shell .mobile-inline-figure {
+        display: block !important;
+        width: min(900px, 100%) !important;
+        max-width: 100% !important;
+        margin: 24px 0 0 !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(193,246,237,.16) !important;
+        border-radius: 20px !important;
+        background: #f4f6f6 !important;
+        box-shadow: 0 12px 28px rgba(0,24,28,.13) !important;
+    }
+
+    .conservation-case-shell .mobile-inline-figure .case-scene-media {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding: 12px !important;
+        overflow: visible !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .conservation-case-shell .mobile-inline-figure img {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        object-fit: contain !important;
+    }
+
+    .conservation-case-shell .mobile-inline-figure .case-scene-caption {
+        position: relative !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        padding: 12px 16px 15px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .conservation-case-shell {
+        width: calc(100% - 14px) !important;
+    }
+
+    .conservation-case-shell .case-scrolly.mobile-inline-ready .case-story-step {
+        padding: 28px 0 34px !important;
+    }
+
+    .conservation-case-shell .case-story-step h2 {
+        font-size: clamp(1.8rem, 8vw, 2.5rem) !important;
+    }
+}
+</style>
 </head>
 
 
@@ -18752,7 +18907,7 @@ MOBILE RESEARCH FIGURES FIX
     const isMobile =
         () =>
             window.matchMedia(
-                "(max-width: 800px)"
+                "(max-width: 1200px)"
             ).matches;
 
 
