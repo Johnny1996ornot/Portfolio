@@ -12329,7 +12329,7 @@ V22 — 3D SOLAR-SYSTEM HOME
 
 .orbit-path-label {
     fill: rgba(214,244,247,.82);
-    font-size: clamp(9px, .62vw, 12px);
+    font-size: clamp(8px, .54vw, 10.5px);
     font-weight: 900;
     letter-spacing: .16em;
     text-transform: uppercase;
@@ -12454,30 +12454,44 @@ V22 — 3D SOLAR-SYSTEM HOME
     font-weight: 950;
 }
 
-/* Full name follows a small 3D orbit around the Sun. Individual letters can
-   pass behind the sphere on the rear half and reappear in front. */
-.sun-name-orbit {
+/* The name is printed directly on the Sun's visible surface.
+   The band moves with the rotating solar texture and is clipped by the sphere,
+   so the name disappears at one edge and returns from the other without ever
+   being mirrored or spelling backwards. */
+.sun-name-band {
     position: absolute;
-    z-index: auto;
-    inset: 0;
-    overflow: visible;
+    z-index: 6;
+    left: -14%;
+    top: 36%;
+    width: 128%;
+    height: 28%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
     pointer-events: none;
-    transform-style: preserve-3d;
+    transform: rotate(-7deg);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 13%, #000 87%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 13%, #000 87%, transparent 100%);
 }
 
-.sun-name-letter {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform-origin: center;
-    color: rgba(238,252,244,.95);
-    font-size: clamp(.72rem, .82vw, 1rem);
+.sun-name-band span {
+    display: block;
+    width: max-content;
+    padding-left: 100%;
+    color: rgba(18,55,52,.92);
+    font-size: clamp(.76rem, .94vw, 1.15rem);
     line-height: 1;
     font-weight: 1000;
-    letter-spacing: .03em;
-    text-shadow: 0 2px 6px rgba(0,0,0,.88), 0 0 10px rgba(89,225,141,.16);
-    white-space: pre;
-    will-change: transform, opacity;
+    letter-spacing: .075em;
+    white-space: nowrap;
+    text-shadow: 0 1px 0 rgba(255,250,202,.28);
+    animation: sunNameSurfaceSpin 16s linear infinite;
+    will-change: transform;
+}
+
+@keyframes sunNameSurfaceSpin {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
 /* Morph-source title remains present but invisible. */
@@ -12512,7 +12526,7 @@ V22 — 3D SOLAR-SYSTEM HOME
 
 /* PLANETS — smaller, spherical, no logos. */
 .orbiting-planet {
-    --planet-size: clamp(38px, 3.35vw, 54px);
+    --planet-size: clamp(30px, 2.65vw, 44px);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -12602,6 +12616,34 @@ V22 — 3D SOLAR-SYSTEM HOME
         radial-gradient(circle at 38% 31%, #da7745 0 18%, #9d482d 57%, #421e2b 100%);
 }
 
+/* Saturn-like ring treatment on Technical Skills.
+   Back ellipse + bright front arc makes the ring read as passing around the sphere. */
+.planet-skills::before,
+.planet-skills::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 165%;
+    height: 54%;
+    border-radius: 50%;
+    transform: translate(-50%,-50%) rotate(-16deg);
+    pointer-events: none;
+}
+
+.planet-skills::before {
+    z-index: 0;
+    border: 1.5px solid rgba(126,239,226,.42);
+    box-shadow: 0 0 8px rgba(74,218,208,.16);
+}
+
+.planet-skills::after {
+    z-index: 4;
+    border: 1.7px solid transparent;
+    border-bottom-color: rgba(177,255,239,.78);
+    filter: drop-shadow(0 1px 2px rgba(0,15,20,.45));
+}
+
 .solar-center-note {
     position: absolute;
     z-index: 5;
@@ -12629,7 +12671,7 @@ V22 — 3D SOLAR-SYSTEM HOME
 .solar-footer i { color: var(--greenBright); }
 
 body.solar-orbits-paused .orbiting-planet,
-body.solar-orbits-paused .sun-name-letter {
+body.solar-orbits-paused .sun-name-band span {
     will-change: auto;
 }
 
@@ -12708,8 +12750,7 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
     .solar-sun { width: min(48vw, 190px); }
     .sun-center-label { font-size: .66rem; }
     .sun-role { font-size: .42rem; max-width: 130px; }
-    .sun-name-letter { font-size: .63rem; }
-    .sun-click { bottom: -25px; }
+        .sun-click { bottom: -25px; }
 
     .orbiting-planet { --planet-size: min(10vw, 44px); }
     .orbit-path-label { font-size: 8px; letter-spacing: .10em; stroke-width: 2.2px; }
@@ -12728,6 +12769,7 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
 @media (prefers-reduced-motion: reduce) {
     .sun-corona,
     .sun-core::before,
+    .sun-name-band span,
     .planet-surface::before { animation: none !important; }
     .planet-surface,
     .solar-sun { transition: none !important; }
@@ -12767,8 +12809,8 @@ the Sun to create orbital depth.
             </p>
             <div class="solar-rule"></div>
             <p class="solar-instruction">
-                My name orbits the Sun. Each smaller planet represents a major portfolio section
-                and carries its section title along the same orbital path.
+                My name is printed on the rotating Sun. Each smaller planet represents a major portfolio section,
+                while its title travels along the same orbit at a clear reading distance.
             </p>
         </div>
 
@@ -12814,8 +12856,10 @@ the Sun to create orbital depth.
                 aria-label="Open profile"
             >
                 <span class="sun-corona" aria-hidden="true"></span>
-                <span class="sun-name-orbit" id="sunNameOrbit" data-text="JOHN PAOLO RAMIREZ" aria-hidden="true"></span>
                 <span class="sun-core">
+                    <span class="sun-name-band" aria-hidden="true">
+                        <span>JOHN PAOLO RAMIREZ&nbsp;&nbsp;·&nbsp;&nbsp;JOHN PAOLO RAMIREZ&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                    </span>
                     <span class="sun-center-label">PROFILE</span>
                     <span class="sun-role">Environmental Scientist<br>&amp; Geospatial Analyst</span>
                     <h1 class="shared-title sun-morph-title" data-title>
@@ -12899,7 +12943,7 @@ the Sun to create orbital depth.
     <footer class="solar-footer">
         <span><i class="fa-solid fa-computer-mouse"></i> Click a planet</span>
         <span>•</span>
-        <span>Titles follow the orbit paths</span>
+        <span>Titles follow each planet at a clear distance</span>
         <span>•</span>
         <span>Close to return to orbit</span>
     </footer>
@@ -14483,7 +14527,7 @@ V22 — 3D SOLAR ORBIT CONTROLLER
 - each planet receives a front/back depth value while orbiting
 - section titles are SVG textPaths on the same ellipse as each planet
 - title direction reverses on the lower half so the words remain readable
-- the name is split into letters that orbit the Sun and pass behind its sphere
+- the name is printed on the Sun surface and moves with the rotating surface texture
 ========================================================= */
 
 const solarHome = document.getElementById("solarPortfolioHome");
@@ -14497,38 +14541,15 @@ const solarOrbitSvg = solarSystem
 const solarSun = solarSystem
     ? solarSystem.querySelector(".solar-sun")
     : null;
-const sunNameOrbit = solarSystem
-    ? solarSystem.querySelector("#sunNameOrbit")
-    : null;
-
 const solarReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let solarAnimationFrame = 0;
 let solarLastFrame = null;
 let solarElapsedSeconds = 0;
-let sunNameLetters = [];
 
 function normaliseAngle(angle) {
     const full = Math.PI * 2;
     return ((angle % full) + full) % full;
-}
-
-function buildSunNameLetters() {
-    if (!sunNameOrbit || sunNameLetters.length) return;
-
-    const text = String(sunNameOrbit.dataset.text || "JOHN PAOLO RAMIREZ");
-    const fragment = document.createDocumentFragment();
-
-    [...text].forEach((character, index) => {
-        const span = document.createElement("span");
-        span.className = "sun-name-letter";
-        span.textContent = character === " " ? "\u00A0" : character;
-        span.dataset.letterIndex = String(index);
-        fragment.appendChild(span);
-    });
-
-    sunNameOrbit.appendChild(fragment);
-    sunNameLetters = Array.from(sunNameOrbit.querySelectorAll(".sun-name-letter"));
 }
 
 function getOrbitGeometry(planet, width, height) {
@@ -14592,15 +14613,26 @@ function placeOrbitLabel(planet, angle) {
     const forwardPercent = (a / (Math.PI * 2)) * 100;
     const onLowerHalf = Math.sin(a) > 0;
 
-    /* Keep the text a little behind the planet rather than directly under it. */
-    const trail = 5.5;
+    /*
+       Keep the title on the SAME orbit, but leave a deliberate empty arc around
+       the planet. The label therefore follows the planet instead of sitting
+       under it. A slightly larger gap is used for longer titles.
+    */
+    const textLength = (label.textContent || "").trim().length;
+    const gapPercent = Math.min(20, 11 + textLength * .18);
 
     if (onLowerHalf) {
         label.setAttribute("href", `#orbit-${orbit}-reverse`);
-        label.setAttribute("startOffset", `${(100 - forwardPercent + trail + 100) % 100}%`);
+        label.setAttribute(
+            "startOffset",
+            `${(100 - forwardPercent + gapPercent + 100) % 100}%`
+        );
     } else {
         label.setAttribute("href", `#orbit-${orbit}-forward`);
-        label.setAttribute("startOffset", `${(forwardPercent - trail + 100) % 100}%`);
+        label.setAttribute(
+            "startOffset",
+            `${(forwardPercent - gapPercent + 100) % 100}%`
+        );
     }
 }
 
@@ -14623,39 +14655,6 @@ function placeSolarPlanet(planet, angle, centerX, centerY, rx, ry) {
     placeOrbitLabel(planet, angle);
 }
 
-function placeSunName(elapsedSeconds) {
-    if (!solarSun || !sunNameLetters.length) return;
-
-    const width = solarSun.offsetWidth;
-    const height = solarSun.offsetHeight;
-    if (!width || !height) return;
-
-    const rx = width * .61;
-    const ry = height * .39;
-    const period = 30;
-    const base = -Math.PI * .56 + elapsedSeconds * (Math.PI * 2 / period);
-    const spread = Math.min(.090, 1.58 / Math.max(sunNameLetters.length - 1, 1));
-    const midpoint = (sunNameLetters.length - 1) / 2;
-
-    sunNameLetters.forEach((letter, index) => {
-        const angle = base + (index - midpoint) * spread;
-        const x = Math.cos(angle) * rx;
-        const y = Math.sin(angle) * ry;
-        const dx = -rx * Math.sin(angle);
-        const dy = ry * Math.cos(angle);
-
-        let tangent = Math.atan2(dy, dx) * 180 / Math.PI;
-        if (tangent > 90 || tangent < -90) tangent += 180;
-
-        const front = Math.sin(angle) >= 0;
-        letter.style.zIndex = front ? "7" : "3";
-        letter.style.opacity = front ? ".98" : ".42";
-        letter.style.transform =
-            `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${front ? 28 : -28}px) ` +
-            `translate(-50%, -50%) rotate(${tangent.toFixed(2)}deg)`;
-    });
-}
-
 function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
     if (!solarSystem) return;
 
@@ -14674,7 +14673,6 @@ function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
         placeSolarPlanet(planet, angle, centerX, centerY, rx, ry);
     });
 
-    placeSunName(elapsedSeconds);
 }
 
 function runSolarOrbit(timeMs) {
@@ -14709,7 +14707,6 @@ function runSolarOrbit(timeMs) {
 }
 
 if (solarSystem) {
-    buildSunNameLetters();
     positionSolarBodies(0);
     solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
 
