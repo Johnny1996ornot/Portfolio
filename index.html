@@ -13238,6 +13238,274 @@ html, body { max-width:100%; overflow-x:hidden !important; }
     }
 }
 </style>
+
+<style id="portfolio-v28-voxel-tower">
+/* =========================================================
+PORTFOLIO V28 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+Only the home navigation is replaced. Existing expanded portfolio
+sections and case studies remain unchanged.
+========================================================= */
+
+:root {
+  --v28-bg:#020914;
+  --v28-panel:rgba(4,20,36,.84);
+  --v28-line:rgba(83,222,207,.22);
+  --v28-text:#effcf8;
+  --v28-muted:#9bb8be;
+  --v28-mint:#58e6a2;
+  --v28-cyan:#35d7ff;
+}
+
+html, body { overflow-x:hidden; }
+body { background:var(--v28-bg) !important; }
+
+.voxel-app {
+  position:relative;
+  width:100%;
+  min-height:100dvh;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(16,81,114,.24), transparent 30%),
+    radial-gradient(circle at 78% 15%, rgba(104,58,181,.12), transparent 26%),
+    linear-gradient(180deg,#020913 0%,#03101d 52%,#020914 100%);
+  color:var(--v28-text);
+}
+
+.voxel-app::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.34;
+  background-image:
+    linear-gradient(rgba(57,178,207,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,178,207,.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(109,232,190,.62) 0 1px, transparent 1.4px);
+  background-size:48px 48px,48px 48px,87px 91px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.86), rgba(0,0,0,.16));
+}
+
+.voxel-stage {
+  position:relative;
+  width:100%;
+  height:100dvh;
+  min-height:680px;
+  overflow:hidden;
+}
+
+.voxel-canvas-wrap {
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+#voxelPortfolioCanvas {
+  display:block;
+  width:100%;
+  height:100%;
+  touch-action:none;
+  outline:none;
+}
+
+.voxel-brand {
+  position:absolute;
+  z-index:15;
+  top:clamp(22px,3.2vw,48px);
+  left:clamp(20px,3vw,54px);
+  width:min(420px,31vw);
+  pointer-events:none;
+  text-shadow:0 2px 16px rgba(0,0,0,.42);
+}
+.voxel-brand-kicker {
+  display:block;
+  margin-bottom:8px;
+  color:var(--v28-mint);
+  font-size:clamp(.72rem,.78vw,.9rem);
+  font-weight:900;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+.voxel-brand h1 {
+  margin:0;
+  font-size:clamp(2.05rem,3.15vw,4.6rem);
+  line-height:.9;
+  letter-spacing:-.045em;
+  max-width:430px;
+}
+.voxel-brand p {
+  margin:15px 0 0;
+  max-width:380px;
+  color:rgba(223,244,244,.82);
+  font-size:clamp(.88rem,1vw,1.07rem);
+  line-height:1.55;
+}
+
+.voxel-help {
+  position:absolute;
+  z-index:14;
+  left:clamp(20px,3vw,54px);
+  bottom:clamp(20px,3vw,46px);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border:1px solid rgba(93,221,205,.2);
+  border-radius:14px;
+  background:rgba(2,14,25,.72);
+  backdrop-filter:blur(9px);
+  color:#a9c5c8;
+  font-size:.76rem;
+  letter-spacing:.04em;
+  pointer-events:none;
+}
+.voxel-help-dot { width:7px;height:7px;border-radius:50%;background:var(--v28-mint);box-shadow:0 0 14px rgba(88,230,162,.75); }
+
+.voxel-controls {
+  position:absolute;
+  z-index:20;
+  top:clamp(22px,2.2vw,38px);
+  right:clamp(18px,2vw,34px);
+  display:flex;
+  gap:7px;
+}
+.voxel-control {
+  min-width:44px;
+  height:44px;
+  padding:0 13px;
+  border:1px solid rgba(104,225,218,.28);
+  border-radius:12px;
+  background:rgba(2,18,31,.86);
+  color:#eafff9;
+  font-weight:900;
+  font-size:1rem;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+.voxel-control:hover { background:rgba(13,53,66,.9);border-color:rgba(88,230,162,.55); }
+.voxel-control:active { transform:scale(.96); }
+.voxel-control.reset { font-size:.72rem;text-transform:uppercase;letter-spacing:.08em; }
+
+.voxel-section-key {
+  position:absolute;
+  z-index:18;
+  right:clamp(18px,2vw,36px);
+  bottom:clamp(20px,2.4vw,40px);
+  width:min(270px,21vw);
+  display:grid;
+  gap:7px;
+}
+.voxel-key-button {
+  appearance:none;
+  width:100%;
+  min-width:0;
+  display:grid;
+  grid-template-columns:30px minmax(0,1fr) 18px;
+  align-items:center;
+  gap:9px;
+  padding:9px 10px;
+  border:1px solid rgba(104,225,218,.18);
+  border-radius:11px;
+  background:rgba(3,19,32,.76);
+  color:#dff8f4;
+  text-align:left;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+.voxel-key-button:hover,
+.voxel-key-button:focus-visible { transform:translateX(-3px);border-color:var(--key-accent,#58e6a2);background:rgba(7,37,50,.92);outline:none; }
+.voxel-key-num {
+  display:grid;place-items:center;
+  width:30px;height:30px;border-radius:8px;
+  background:color-mix(in srgb,var(--key-accent,#58e6a2) 24%, #071728 76%);
+  color:var(--key-accent,#58e6a2);
+  font-weight:1000;font-size:.72rem;
+}
+.voxel-key-copy { min-width:0; }
+.voxel-key-copy strong { display:block;font-size:.78rem;line-height:1.08;white-space:normal; }
+.voxel-key-copy small { display:block;margin-top:3px;color:#7e9ba2;font-size:.62rem;line-height:1.12; }
+.voxel-key-arrow { color:var(--key-accent,#58e6a2);font-weight:1000; }
+
+.voxel-loading {
+  position:absolute;
+  z-index:8;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  padding:12px 16px;
+  border:1px solid rgba(88,230,162,.2);
+  border-radius:12px;
+  background:rgba(2,14,25,.72);
+  color:#9bc4c6;
+  font-size:.8rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.voxel-loading[hidden] { display:none; }
+.voxel-load-error { color:#f6c4bd; max-width:340px; text-align:center; line-height:1.45; }
+
+.voxel-contact-backdrop {
+  position:fixed;inset:0;z-index:1200;
+  background:rgba(0,5,12,.68);
+  backdrop-filter:blur(8px);
+}
+.voxel-contact-card {
+  position:fixed;z-index:1210;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(92vw,520px);
+  padding:24px;
+  border:1px solid rgba(94,224,205,.28);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(7,35,47,.98),rgba(3,18,30,.98));
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  color:#eafff8;
+}
+.voxel-contact-card[hidden],.voxel-contact-backdrop[hidden]{display:none;}
+.voxel-contact-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:16px;}
+.voxel-contact-top h3{margin:0;font-size:1.35rem;}.voxel-contact-top p{margin:4px 0 0;color:#9bb5ba;}
+.voxel-contact-close{width:40px;height:40px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:#031824;color:white;font-size:1.35rem;cursor:pointer;}
+.voxel-contact-links{display:grid;gap:9px;}
+.voxel-contact-row{display:flex;gap:11px;align-items:center;padding:12px 13px;border:1px solid rgba(255,255,255,.09);border-radius:12px;background:rgba(255,255,255,.035);color:#e8fcf7;text-decoration:none;text-align:left;cursor:pointer;}
+.voxel-contact-row b{display:block;font-size:.82rem}.voxel-contact-row span span{display:block;margin-top:2px;color:#9bb5ba;font-size:.74rem}.voxel-contact-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(88,230,162,.12);color:#58e6a2;font-weight:900;}
+.voxel-contact-status{min-height:1.2em;margin-top:10px;color:#58e6a2;font-size:.74rem;}
+
+@media (max-width:1100px){
+  .voxel-brand{width:min(370px,38vw)}
+  .voxel-section-key{width:220px}
+  .voxel-key-copy small{display:none}
+}
+
+@media (max-width:800px){
+  .voxel-stage{height:auto;min-height:0;padding-bottom:112px;}
+  .voxel-canvas-wrap{position:relative;height:68svh;min-height:500px;max-height:720px;}
+  .voxel-brand{top:16px;left:16px;width:min(74vw,330px);}
+  .voxel-brand h1{font-size:clamp(1.65rem,8vw,2.55rem)}
+  .voxel-brand p{font-size:.78rem;line-height:1.4;max-width:285px;margin-top:9px;}
+  .voxel-brand-kicker{font-size:.63rem;margin-bottom:5px;}
+  .voxel-controls{top:14px;right:12px;display:grid;grid-template-columns:repeat(2,42px);}
+  .voxel-control{min-width:42px;width:42px;height:42px;padding:0;}
+  .voxel-control.reset{grid-column:1/3;width:91px;font-size:.6rem;}
+  .voxel-help{left:12px;bottom:125px;font-size:.64rem;padding:8px 10px;}
+  .voxel-section-key{
+    position:absolute;left:10px;right:10px;bottom:10px;width:auto;
+    display:flex;gap:7px;overflow-x:auto;padding:0 0 2px;
+    scrollbar-width:none;
+  }
+  .voxel-section-key::-webkit-scrollbar{display:none}
+  .voxel-key-button{flex:0 0 178px;grid-template-columns:28px minmax(0,1fr) 14px;padding:8px;}
+  .voxel-key-copy strong{font-size:.7rem}.voxel-key-num{width:28px;height:28px}.voxel-key-arrow{font-size:.8rem}
+}
+
+@media (max-width:430px){
+  .voxel-canvas-wrap{height:64svh;min-height:460px;}
+  .voxel-brand p{display:none}
+  .voxel-help{bottom:118px;max-width:210px;line-height:1.25}
+  .voxel-controls{transform:scale(.9);transform-origin:top right;}
+}
+</style>
+
 </head>
 
 
@@ -13245,195 +13513,57 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 
 
+
 <!-- =========================================================
-SECTION 08 — HOME POINTILLIST DIGITAL-ISLAND NAVIGATION
-The homepage is a zoomable/pannable geospatial interface. Each flaglet opens an existing portfolio section.
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION
+Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
-
-<main class="app island-app" id="portfolioIslandHome">
-    <div class="island-shell">
-        <button class="island-name-banner" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard">
-            <span class="island-logo-mark" aria-hidden="true">
-                <svg viewBox="0 0 48 48" role="img">
-                    <path d="M5 37 18 15l5 8 5-13 15 27H5Z" fill="#58e6a2" opacity=".95"/>
-                    <path d="M13 37 23 23l6 9 5-7 9 12H13Z" fill="#79d9e2" opacity=".76"/>
-                    <path d="M9 37h31" stroke="#03131f" stroke-width="2.4"/>
-                </svg>
-            </span>
-            <span class="island-banner-copy">
-                <span class="island-banner-kicker">Interactive Geospatial Portfolio</span>
-                <strong class="island-banner-name">John Paolo Ramirez</strong>
-                <span class="island-banner-role">Environmental &amp; Geospatial Data Analyst · GIS · Remote Sensing · Spatial Modelling</span>
-            </span>
-            <span class="island-banner-action">Contact details <span aria-hidden="true">↗</span></span>
-        </button>
-
-        <section class="island-map-stage" id="islandMapStage" aria-label="Zoomable pointillist digital portfolio island. Select a flag to enter a portfolio section.">
-            <div class="island-map-note" aria-hidden="true">Digital terrain · select a flag · drag to pan</div>
-
-            <div class="island-world" id="islandWorld">
-                <svg class="island-map-svg" viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="seaV27" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0" stop-color="#063047"/>
-                            <stop offset=".55" stop-color="#042538"/>
-                            <stop offset="1" stop-color="#021a29"/>
-                        </linearGradient>
-                        <linearGradient id="landBaseV27" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0" stop-color="#7dd089"/>
-                            <stop offset=".46" stop-color="#5bb177"/>
-                            <stop offset="1" stop-color="#418a69"/>
-                        </linearGradient>
-                        <pattern id="seaDotsV27" width="22" height="22" patternUnits="userSpaceOnUse">
-                            <circle cx="3" cy="4" r="1.2" fill="#30b9d8" opacity=".19"/>
-                            <circle cx="14" cy="13" r=".9" fill="#9ee8ee" opacity=".10"/>
-                        </pattern>
-                        <pattern id="landDotsV27" width="18" height="18" patternUnits="userSpaceOnUse">
-                            <circle cx="4" cy="4" r="2.1" fill="#b7ef9f" opacity=".54"/>
-                            <circle cx="13" cy="8" r="1.7" fill="#38a975" opacity=".48"/>
-                            <circle cx="8" cy="15" r="1.15" fill="#def5aa" opacity=".38"/>
-                        </pattern>
-                        <pattern id="forestDotsV27" width="14" height="14" patternUnits="userSpaceOnUse">
-                            <circle cx="4" cy="4" r="2.4" fill="#1e8b5b"/>
-                            <circle cx="10" cy="8" r="2.0" fill="#2fa66b"/>
-                            <circle cx="6" cy="12" r="1.5" fill="#0f704e"/>
-                        </pattern>
-                        <pattern id="urbanDotsV27" width="16" height="16" patternUnits="userSpaceOnUse">
-                            <rect x="2" y="2" width="4" height="4" rx=".6" fill="#e5a45a" opacity=".85"/>
-                            <rect x="9" y="7" width="5" height="5" rx=".6" fill="#d4725d" opacity=".82"/>
-                            <rect x="3" y="11" width="3" height="3" rx=".5" fill="#f1cb73" opacity=".75"/>
-                        </pattern>
-                        <pattern id="dataDotsV27" width="16" height="16" patternUnits="userSpaceOnUse">
-                            <circle cx="4" cy="5" r="2.2" fill="#58d9d7" opacity=".75"/>
-                            <circle cx="12" cy="11" r="2" fill="#8f80f4" opacity=".72"/>
-                        </pattern>
-                        <clipPath id="islandClipV27">
-                            <path d="M255 350 C220 270 285 178 390 160 C430 95 535 82 610 122 C690 78 810 107 850 176 C945 176 1030 243 1028 327 C1090 394 1037 489 944 501 C897 573 785 580 707 543 C627 596 512 567 471 513 C371 532 284 475 288 399 C267 390 257 371 255 350Z"/>
-                        </clipPath>
-                        <filter id="mapShadowV27" x="-20%" y="-20%" width="140%" height="160%">
-                            <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#001018" flood-opacity=".46"/>
-                        </filter>
-                    </defs>
-
-                    <rect width="1400" height="700" fill="url(#seaV27)"/>
-                    <rect width="1400" height="700" fill="url(#seaDotsV27)"/>
-                    <g class="map-ocean-grid">
-                        <line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="200" x2="1400" y2="200"/><line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="400" x2="1400" y2="400"/><line x1="0" y1="500" x2="1400" y2="500"/><line x1="0" y1="600" x2="1400" y2="600"/>
-                        <line x1="100" y1="0" x2="100" y2="700"/><line x1="250" y1="0" x2="250" y2="700"/><line x1="400" y1="0" x2="400" y2="700"/><line x1="550" y1="0" x2="550" y2="700"/><line x1="700" y1="0" x2="700" y2="700"/><line x1="850" y1="0" x2="850" y2="700"/><line x1="1000" y1="0" x2="1000" y2="700"/><line x1="1150" y1="0" x2="1150" y2="700"/><line x1="1300" y1="0" x2="1300" y2="700"/>
-                    </g>
-
-                    <path class="map-coast-shadow" d="M255 368 C220 288 285 196 390 178 C430 113 535 100 610 140 C690 96 810 125 850 194 C945 194 1030 261 1028 345 C1090 412 1037 507 944 519 C897 591 785 598 707 561 C627 614 512 585 471 531 C371 550 284 493 288 417 C267 408 257 389 255 368Z"/>
-                    <path class="map-coast-side" filter="url(#mapShadowV27)" d="M255 368 C220 288 285 196 390 178 C430 113 535 100 610 140 C690 96 810 125 850 194 C945 194 1030 261 1028 345 C1090 412 1037 507 944 519 C897 591 785 598 707 561 C627 614 512 585 471 531 C371 550 284 493 288 417 C267 408 257 389 255 368Z"/>
-                    <path class="map-coast-main" d="M255 350 C220 270 285 178 390 160 C430 95 535 82 610 122 C690 78 810 107 850 176 C945 176 1030 243 1028 327 C1090 394 1037 489 944 501 C897 573 785 580 707 543 C627 596 512 567 471 513 C371 532 284 475 288 399 C267 390 257 371 255 350Z"/>
-
-                    <g clip-path="url(#islandClipV27)">
-                        <rect x="205" y="55" width="900" height="560" fill="url(#landDotsV27)" opacity=".66"/>
-                        <path d="M330 150 C410 100 505 118 540 205 C500 265 400 284 318 234Z" fill="url(#forestDotsV27)" opacity=".98"/>
-                        <path d="M650 110 C755 93 866 132 900 214 C842 265 737 268 655 220Z" fill="url(#forestDotsV27)" opacity=".94"/>
-                        <path d="M720 348 C835 314 960 344 990 424 C920 493 808 501 724 445Z" fill="url(#forestDotsV27)" opacity=".86"/>
-                        <path d="M324 311 C420 271 532 292 567 374 C514 431 402 438 314 394Z" fill="#c2c86d" opacity=".60"/>
-                        <path d="M486 432 C560 394 669 402 718 471 C674 535 574 544 494 506Z" fill="#d7b361" opacity=".43"/>
-                        <path d="M822 225 C919 219 1012 272 1003 347 C945 385 859 366 811 319Z" fill="url(#urbanDotsV27)" opacity=".90"/>
-                        <path d="M606 292 C693 258 791 278 818 350 C771 405 674 410 610 366Z" fill="url(#dataDotsV27)" opacity=".62"/>
-
-                        <path class="map-contour" d="M327 350 C319 283 375 218 447 205 C497 164 577 158 625 194 C689 164 779 188 808 237 C870 242 932 286 932 341 C964 391 924 440 865 452 C825 500 751 504 701 479 C641 515 568 495 540 456 C474 466 408 431 410 386 C366 383 333 370 327 350Z"/>
-                        <path class="map-contour" d="M380 350 C372 298 416 252 475 242 C520 207 585 209 628 238 C681 212 749 231 775 270 C827 277 864 307 865 347 C887 382 856 416 813 423 C779 457 725 462 688 443 C642 470 587 455 567 427 C518 434 471 409 470 377 C433 375 387 366 380 350Z"/>
-                        <path class="map-contour" d="M456 350 C449 319 480 289 522 283 C558 258 605 260 635 283 C673 263 719 275 736 304 C769 309 793 328 795 353 C807 376 784 398 754 402 C731 423 694 426 669 413 C637 433 600 421 587 402 C553 407 520 390 521 369 C494 370 461 361 456 350Z"/>
-
-                        <path class="map-road" d="M323 379 C433 324 539 373 646 352 C747 332 812 277 919 247"/>
-                        <path class="map-road" d="M445 490 C489 428 556 383 646 352 C718 328 824 340 948 401"/>
-                        <path class="map-road-secondary" d="M359 253 C431 294 495 317 548 384 C594 443 700 476 817 466"/>
-                        <path class="map-road-secondary" d="M717 171 C700 244 691 303 646 352 C597 404 514 433 410 421"/>
-                        <path class="map-river" d="M676 157 C669 225 653 281 646 352 C639 405 611 447 578 496"/>
-                        <path class="map-river-thin" d="M646 352 C712 355 754 378 811 423"/>
-                    </g>
-
-                    <!-- tiny isometric terrain stacks -->
-                    <g transform="translate(562 206)">
-                        <polygon class="voxel-left" points="-42,-10 0,10 0,48 -42,28"/><polygon class="voxel-right" points="42,-10 0,10 0,48 42,28"/><polygon class="voxel-top" points="0,-31 42,-10 0,10 -42,-10"/>
-                        <polygon class="voxel-left" points="-29,-37 0,-23 0,10 -29,-4"/><polygon class="voxel-right" points="29,-37 0,-23 0,10 29,-4"/><polygon class="voxel-rock" points="0,-52 29,-37 0,-23 -29,-37"/>
-                        <polygon class="voxel-left" points="-15,-62 0,-54 0,-23 -15,-31"/><polygon class="voxel-right" points="15,-62 0,-54 0,-23 15,-31"/><polygon class="voxel-snow" points="0,-70 15,-62 0,-54 -15,-62"/>
-                    </g>
-                    <g transform="translate(770 222) scale(.72)">
-                        <polygon class="voxel-left" points="-42,-10 0,10 0,48 -42,28"/><polygon class="voxel-right" points="42,-10 0,10 0,48 42,28"/><polygon class="voxel-top" points="0,-31 42,-10 0,10 -42,-10"/>
-                        <polygon class="voxel-left" points="-27,-38 0,-25 0,10 -27,-3"/><polygon class="voxel-right" points="27,-38 0,-25 0,10 27,-3"/><polygon class="voxel-rock" points="0,-52 27,-38 0,-25 -27,-38"/>
-                    </g>
-                    <g transform="translate(858 418) scale(.54)">
-                        <polygon class="voxel-left" points="-42,-10 0,10 0,48 -42,28"/><polygon class="voxel-right" points="42,-10 0,10 0,48 42,28"/><polygon class="voxel-top" points="0,-31 42,-10 0,10 -42,-10"/>
-                    </g>
-
-                    <text class="map-zone-label" x="362" y="195">ECOLOGICAL RIDGE</text>
-                    <text class="map-zone-label" x="842" y="264">URBAN / GIS DISTRICT</text>
-                    <text class="map-zone-label" x="472" y="499">FIELD &amp; MODELLING LOWLANDS</text>
-                    <text class="map-tiny-label" x="1108" y="564">REMOTE SENSING OCEAN</text>
-                    <text class="map-tiny-label" x="120" y="585">POINTILLIST RASTER / VECTOR TERRAIN</text>
-                </svg>
-
-                <button class="island-flag flag-profile" type="button" data-panel="profile" aria-label="Open Profile">
-                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
-                    <span class="flag-copy"><strong class="shared-title" data-title>Profile</strong><small>Background · experience · contact</small></span>
-                </button>
-
-                <button class="island-flag flag-projects" type="button" data-panel="projects" aria-label="Open Research Projects">
-                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
-                    <span class="flag-copy"><strong class="shared-title" data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span>
-                </button>
-
-                <button class="island-flag flag-skills" type="button" data-panel="skills" aria-label="Open Technical Skills">
-                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
-                    <span class="flag-copy flag-copy-left"><strong class="shared-title" data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span>
-                </button>
-
-                <button class="island-flag flag-gallery" type="button" data-panel="gallery" aria-label="Open Maps Models and Visuals">
-                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
-                    <span class="flag-copy"><strong class="shared-title" data-title>Maps · Models · Visuals</strong><small>Selected cartographic and analytical work</small></span>
-                </button>
-
-                <button class="island-flag flag-coding" type="button" data-panel="mini" aria-label="Open Data and Coding Projects">
-                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
-                    <span class="flag-copy flag-copy-left"><strong class="shared-title" data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span>
-                </button>
-
-                <button class="island-flag flag-contact" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard" aria-label="Open Contact Details">
-                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
-                    <span class="flag-copy flag-copy-left"><strong>Contact</strong><small>Email · phone · professional links</small></span>
-                </button>
-            </div>
-
-            <div class="island-map-controls" aria-label="Map zoom controls">
-                <button class="island-zoom-btn" type="button" data-map-zoom="in" aria-label="Zoom in">+</button>
-                <button class="island-zoom-btn" type="button" data-map-zoom="out" aria-label="Zoom out">−</button>
-                <button class="island-zoom-btn island-zoom-reset" type="button" data-map-zoom="reset">Reset view</button>
-            </div>
-            <div class="island-zoom-readout" id="islandZoomReadout" aria-live="polite">100%</div>
-
-            <svg class="island-compass" viewBox="0 0 100 100" aria-hidden="true">
-                <circle cx="50" cy="50" r="42" fill="rgba(2,24,35,.45)" stroke="rgba(207,242,240,.32)" stroke-width="2"/>
-                <path d="M50 9 58 43 50 50 42 43Z" fill="#58e6a2"/><path d="M50 91 42 57 50 50 58 57Z" fill="rgba(219,245,244,.33)"/>
-                <path d="M9 50 43 42 50 50 43 58Z" fill="rgba(219,245,244,.20)"/><path d="M91 50 57 58 50 50 57 42Z" fill="rgba(219,245,244,.20)"/>
-                <text x="50" y="10" text-anchor="middle" fill="#dff8f4" font-size="9" font-weight="900">N</text>
-            </svg>
-            <div class="island-scale" aria-hidden="true">schematic digital terrain<div class="island-scale-line"></div></div>
-        </section>
+<main class="app voxel-app" id="voxelPortfolioHome">
+  <section class="voxel-stage" id="voxelStage" aria-label="Interactive 3D pixel-art portfolio tower. Drag to rotate, scroll or pinch to zoom, and select a layer to enter a portfolio section.">
+    <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
+      <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
+      <div class="voxel-loading" id="voxelLoading">Loading voxel terrain…</div>
     </div>
 
-    <div class="island-contact-backdrop" id="islandContactBackdrop" hidden></div>
-    <aside class="island-contact-card" id="islandContactCard" hidden aria-label="Contact details">
-        <div class="island-contact-top">
-            <div><h3>John Paolo Ramirez</h3><p>Environmental &amp; Geospatial Data Analyst</p></div>
-            <button class="island-contact-close" type="button" aria-label="Close contact details">×</button>
-        </div>
-        <p class="island-contact-summary">GIS, remote sensing, environmental research, spatial modelling and data-analysis work focused on translating environmental information into usable evidence.</p>
-        <div class="island-contact-links">
-            <button class="island-contact-row island-contact-copy" type="button" data-copy-email="jpaoloramirez@gmail.com"><span class="island-contact-icon">@</span><span><b>Email · click to copy</b><span>jpaoloramirez@gmail.com</span></span></button>
-            <a class="island-contact-row" href="tel:+639275745752"><span class="island-contact-icon">☎</span><span><b>Mobile</b><span>+63 927 574 5752</span></span></a>
-            <a class="island-contact-row" href="https://github.com/Johnny1996ornot" target="_blank" rel="noopener"><span class="island-contact-icon">GH</span><span><b>GitHub</b><span>Johnny1996ornot</span></span></a>
-            <a class="island-contact-row" href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" rel="noopener"><span class="island-contact-icon">in</span><span><b>LinkedIn</b><span>John Paolo Ramirez</span></span></a>
-        </div>
-        <div class="island-contact-status" aria-live="polite"></div>
-    </aside>
-</main>
+    <header class="voxel-brand" aria-label="Portfolio heading">
+      <span class="voxel-brand-kicker">Interactive Geospatial Portfolio</span>
+      <h1>John Paolo Ramirez</h1>
+      <p>Environmental &amp; Geospatial Data Analyst · GIS · Remote Sensing · Spatial Modelling</p>
+    </header>
 
+    <div class="voxel-controls" aria-label="3D view controls">
+      <button class="voxel-control" type="button" data-voxel-action="zoom-in" aria-label="Zoom in">+</button>
+      <button class="voxel-control" type="button" data-voxel-action="zoom-out" aria-label="Zoom out">−</button>
+      <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
+    </div>
+
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · scroll / pinch to zoom · click a layer</div>
+
+    <nav class="voxel-section-key" aria-label="Portfolio sections">
+      <button class="voxel-key-button" type="button" data-panel="profile" style="--key-accent:#72e9a5"><span class="voxel-key-num">01</span><span class="voxel-key-copy"><strong data-title>Profile</strong><small>Background · experience · contact</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="projects" style="--key-accent:#a46cf1"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="skills" style="--key-accent:#35d7ff"><span class="voxel-key-num">03</span><span class="voxel-key-copy"><strong data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="gallery" style="--key-accent:#ff9f57"><span class="voxel-key-num">04</span><span class="voxel-key-copy"><strong data-title>Maps · Models · Visuals</strong><small>Cartographic and analytical work</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">05</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-contact-toggle style="--key-accent:#ffe070"><span class="voxel-key-num">06</span><span class="voxel-key-copy"><strong>Contact</strong><small>Email · phone · professional links</small></span><span class="voxel-key-arrow">↗</span></button>
+    </nav>
+  </section>
+
+  <div class="voxel-contact-backdrop" id="voxelContactBackdrop" hidden></div>
+  <aside class="voxel-contact-card" id="voxelContactCard" hidden aria-label="Contact details">
+    <div class="voxel-contact-top">
+      <div><h3>John Paolo Ramirez</h3><p>Environmental &amp; Geospatial Data Analyst</p></div>
+      <button class="voxel-contact-close" type="button" aria-label="Close contact details">×</button>
+    </div>
+    <div class="voxel-contact-links">
+      <button class="voxel-contact-row" type="button" data-copy-email="jpaoloramirez@gmail.com"><span class="voxel-contact-icon">@</span><span><b>Email · click to copy</b><span>jpaoloramirez@gmail.com</span></span></button>
+      <a class="voxel-contact-row" href="tel:+639275745752"><span class="voxel-contact-icon">☎</span><span><b>Mobile</b><span>+63 927 574 5752</span></span></a>
+      <a class="voxel-contact-row" href="https://github.com/Johnny1996ornot" target="_blank" rel="noopener"><span class="voxel-contact-icon">GH</span><span><b>GitHub</b><span>Johnny1996ornot</span></span></a>
+      <a class="voxel-contact-row" href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" rel="noopener"><span class="voxel-contact-icon">in</span><span><b>LinkedIn</b><span>John Paolo Ramirez</span></span></a>
+    </div>
+    <div class="voxel-contact-status" aria-live="polite"></div>
+  </aside>
+</main>
 
 <div
 class="expansion-backdrop"
@@ -20544,190 +20674,280 @@ MOBILE RESEARCH FIGURES FIX
 })();
 
 </script>
-<script id="portfolio-v27-island-home-js">
-(() => {
-    const root = document.getElementById('portfolioIslandHome');
-    if (!root || root.dataset.islandInit === '1') return;
-    root.dataset.islandInit = '1';
 
-    /* CONTACT */
-    const card = document.getElementById('islandContactCard');
-    const backdrop = document.getElementById('islandContactBackdrop');
-    const toggles = Array.from(root.querySelectorAll('[data-contact-toggle]'));
-    const closeBtn = root.querySelector('.island-contact-close');
-    const copyBtn = root.querySelector('[data-copy-email]');
-    const status = root.querySelector('.island-contact-status');
+<script type="module" id="portfolio-v28-voxel-home-js">
+(async () => {
+  const root = document.getElementById('voxelPortfolioHome');
+  const canvas = document.getElementById('voxelPortfolioCanvas');
+  const wrap = document.getElementById('voxelCanvasWrap');
+  const loading = document.getElementById('voxelLoading');
+  if (!root || !canvas || !wrap || root.dataset.voxelInit === '1') return;
+  root.dataset.voxelInit = '1';
 
-    function setContact(open) {
-        if (!card || !backdrop) return;
-        card.hidden = !open;
-        backdrop.hidden = !open;
-        toggles.forEach(btn => btn.setAttribute('aria-expanded', open ? 'true' : 'false'));
-        if (open) requestAnimationFrame(() => closeBtn?.focus({preventScroll:true}));
+  /* CONTACT — independent from the 3D engine, so it still works if WebGL/CDN fails. */
+  const contactCard = document.getElementById('voxelContactCard');
+  const contactBackdrop = document.getElementById('voxelContactBackdrop');
+  const contactClose = root.querySelector('.voxel-contact-close');
+  const contactStatus = root.querySelector('.voxel-contact-status');
+  const contactToggles = Array.from(root.querySelectorAll('[data-contact-toggle]'));
+  function setContact(open){
+    if (!contactCard || !contactBackdrop) return;
+    contactCard.hidden = !open;
+    contactBackdrop.hidden = !open;
+    if (open) requestAnimationFrame(() => contactClose?.focus({preventScroll:true}));
+  }
+  contactToggles.forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); setContact(true); }));
+  contactClose?.addEventListener('click', () => setContact(false));
+  contactBackdrop?.addEventListener('click', () => setContact(false));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && contactCard && !contactCard.hidden) setContact(false); });
+  root.querySelector('[data-copy-email]')?.addEventListener('click', async e => {
+    const email = e.currentTarget.dataset.copyEmail || '';
+    let ok = false;
+    try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(email); ok = true; } } catch(_) {}
+    if (!ok) {
+      const t = document.createElement('textarea'); t.value=email; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select();
+      try { ok = document.execCommand('copy'); } catch(_) {} t.remove();
     }
+    if (contactStatus) { contactStatus.textContent = ok ? 'Email copied to clipboard.' : `Email: ${email}`; setTimeout(() => contactStatus.textContent='',2200); }
+  });
 
-    toggles.forEach(btn => btn.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
-        setContact(card?.hidden !== false);
-    }));
-    closeBtn?.addEventListener('click', () => setContact(false));
-    backdrop?.addEventListener('click', () => setContact(false));
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && card && !card.hidden) setContact(false);
-    });
+  function openPortfolioSection(key){
+    if (key === 'contact') { setContact(true); return; }
+    const btn = root.querySelector(`[data-panel="${key}"]`);
+    if (btn) btn.click();
+  }
 
-    copyBtn?.addEventListener('click', async () => {
-        const email = copyBtn.dataset.copyEmail || '';
-        let copied = false;
-        try {
-            if (navigator.clipboard?.writeText) {
-                await navigator.clipboard.writeText(email);
-                copied = true;
-            }
-        } catch (_) {}
-        if (!copied) {
-            const field = document.createElement('textarea');
-            field.value = email;
-            field.setAttribute('readonly','');
-            field.style.position = 'fixed';
-            field.style.opacity = '0';
-            document.body.appendChild(field);
-            field.select();
-            try { copied = document.execCommand('copy'); } catch (_) {}
-            field.remove();
-        }
-        if (status) {
-            status.textContent = copied ? 'Email copied to clipboard.' : `Email: ${email}`;
-            window.clearTimeout(status._timer);
-            status._timer = window.setTimeout(() => { status.textContent = ''; }, 2200);
-        }
-    });
-
-    /* ZOOM + PAN */
-    const stage = document.getElementById('islandMapStage');
-    const world = document.getElementById('islandWorld');
-    const readout = document.getElementById('islandZoomReadout');
-    if (!stage || !world) return;
-
-    const state = { scale:1, x:0, y:0, min:.82, max:2.55 };
-    const pointers = new Map();
-    let dragStart = null;
-    let pinchStart = null;
-
-    const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
-    function boundsFor(scale=state.scale) {
-        const r = stage.getBoundingClientRect();
-        return {
-            x: Math.max(0, r.width * (scale - 1) * .52 + 46),
-            y: Math.max(0, r.height * (scale - 1) * .52 + 46)
-        };
+  let THREE, OrbitControls;
+  try {
+    THREE = await import('https://cdn.jsdelivr.net/npm/three@0.180.0/+esm');
+    ({ OrbitControls } = await import('https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm'));
+  } catch (err) {
+    if (loading) {
+      loading.hidden = false;
+      loading.classList.add('voxel-load-error');
+      loading.textContent = '3D terrain could not load. The section buttons still work.';
     }
-    function clampPan() {
-        const b = boundsFor();
-        state.x = clamp(state.x,-b.x,b.x);
-        state.y = clamp(state.y,-b.y,b.y);
+    return;
+  }
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x020914, 0.028);
+
+  const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
+  camera.position.set(12,10.5,14);
+  camera.lookAt(0,5.8,0);
+  camera.zoom = 1.08;
+  camera.updateProjectionMatrix();
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:true, powerPreference:'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setClearColor(0x000000,0);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = .075;
+  controls.enablePan = true;
+  controls.screenSpacePanning = true;
+  controls.rotateSpeed = .68;
+  controls.zoomSpeed = .88;
+  controls.panSpeed = .68;
+  controls.minZoom = .58;
+  controls.maxZoom = 2.25;
+  controls.minPolarAngle = .42;
+  controls.maxPolarAngle = Math.PI/2.03;
+  controls.target.set(0,5.7,0);
+  controls.update();
+
+  scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
+  const keyLight = new THREE.DirectionalLight(0xffffff,3.4); keyLight.position.set(7,15,9); keyLight.castShadow=true; scene.add(keyLight);
+  const cyanLight = new THREE.PointLight(0x38dcff,38,30,2); cyanLight.position.set(-6,9,5); scene.add(cyanLight);
+  const magentaLight = new THREE.PointLight(0xd45cff,24,24,2); magentaLight.position.set(5,11,-5); scene.add(magentaLight);
+
+  const tower = new THREE.Group();
+  scene.add(tower);
+  const targets = [];
+  const highlightMaterials = new Map();
+
+  const C = {
+    profile:0x56d878, research:0xb05cff, skills:0x34d5ff,
+    maps:0xff9e48, coding:0x35e4d2, contact:0xffdf65,
+    dark:0x05192a, deep:0x03111e
+  };
+
+  function shade(hex, factor){
+    const c=new THREE.Color(hex); c.multiplyScalar(factor); return c;
+  }
+  function box(w,h,d,color, opts={}){
+    const mat = new THREE.MeshStandardMaterial({ color, roughness:.72, metalness:.08, emissive:opts.emissive||0x000000, emissiveIntensity:opts.emissiveIntensity||0 });
+    const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat); m.castShadow=true; m.receiveShadow=true; return m;
+  }
+  function mark(mesh,key){ mesh.userData.section=key; targets.push(mesh); return mesh; }
+  function seeded(n){ const x=Math.sin(n*127.1+311.7)*43758.5453; return x-Math.floor(x); }
+
+  function makeLabel(title, sub, accent, key){
+    const cnv=document.createElement('canvas'); cnv.width=768; cnv.height=180;
+    const ctx=cnv.getContext('2d');
+    ctx.imageSmoothingEnabled=false;
+    ctx.fillStyle='rgba(2,15,28,.92)'; ctx.fillRect(0,0,768,180);
+    ctx.fillStyle=accent; ctx.fillRect(0,0,14,180);
+    ctx.strokeStyle=accent; ctx.lineWidth=4; ctx.strokeRect(2,2,764,176);
+    ctx.fillStyle='#effffb'; ctx.font='900 46px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'; ctx.fillText(title,42,72);
+    ctx.fillStyle='#8fb3b8'; ctx.font='700 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'; ctx.fillText(sub,42,116);
+    ctx.fillStyle=accent; ctx.font='900 20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'; ctx.fillText('CLICK LAYER ↗',42,150);
+    const tex=new THREE.CanvasTexture(cnv); tex.colorSpace=THREE.SRGBColorSpace; tex.minFilter=THREE.NearestFilter; tex.magFilter=THREE.NearestFilter;
+    const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));
+    spr.scale.set(5.0,1.17,1); spr.userData.section=key; targets.push(spr); return spr;
+  }
+
+  function addTree(parent,x,z,y){
+    const trunk=box(.18,.55,.18,0x6f472f); trunk.position.set(x,y+.28,z); parent.add(trunk);
+    const leaf=box(.62,.62,.62,0x2cb765); leaf.position.set(x,y+.83,z); parent.add(leaf);
+    const leaf2=box(.42,.42,.42,0x58d979); leaf2.position.set(x+.12,y+1.18,z-.08); parent.add(leaf2);
+  }
+  function addFlag(parent,x,z,y,color){
+    const pole=box(.10,1.2,.10,0xdbeef0); pole.position.set(x,y+.6,z); parent.add(pole);
+    const cloth=box(.68,.34,.09,color,{emissive:color,emissiveIntensity:.18}); cloth.position.set(x+.34,y+1.02,z); parent.add(cloth);
+  }
+
+  const layerMeta = [
+    {key:'profile', y:.1, size:7.4, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#72e9a5', side:1},
+    {key:'projects', y:2.65, size:6.2, color:C.research, title:'02  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
+    {key:'skills', y:5.15, size:5.45, color:C.skills, title:'03  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
+    {key:'gallery', y:7.65, size:4.75, color:C.maps, title:'04  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ffac61', side:-1},
+    {key:'mini', y:10.05, size:4.05, color:C.coding, title:'05  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
+    {key:'contact', y:12.35, size:3.25, color:C.contact, title:'06  CONTACT', sub:'email · phone · professional links', accent:'#ffe57b', side:-1}
+  ];
+
+  function createVoxelPlatform(meta,index){
+    const g=new THREE.Group(); g.position.y=meta.y; tower.add(g);
+    const n=Math.max(3,Math.round(meta.size));
+    const cell=meta.size/n;
+    const half=(n-1)*cell/2;
+    const mats=[];
+    for(let ix=0;ix<n;ix++) for(let iz=0;iz<n;iz++){
+      const edge=Math.max(Math.abs(ix-(n-1)/2),Math.abs(iz-(n-1)/2));
+      const r=seeded(index*99+ix*17+iz*31);
+      const topHeight=.48 + (r>.80?.16:0);
+      const sideColor=shade(meta.color,.46 + r*.12);
+      const m=box(cell*.97,topHeight,cell*.97,sideColor,{emissive:meta.color,emissiveIntensity:.035});
+      m.position.set(ix*cell-half,0,iz*cell-half);
+      mark(m,meta.key); g.add(m); mats.push(m.material);
+      const top=box(cell*.91,.12,cell*.91,shade(meta.color,.78+r*.22),{emissive:meta.color,emissiveIntensity:.075});
+      top.position.set(ix*cell-half,topHeight/2+.09,iz*cell-half); mark(top,meta.key); g.add(top); mats.push(top.material);
+      if(edge>(n-1)/2-.4 && r>.45){
+        const under=box(cell*.8,.35+seeded(ix+iz+index)*.45,cell*.8,shade(meta.color,.25));
+        under.position.set(ix*cell-half,-.42,iz*cell-half); mark(under,meta.key); g.add(under);
+      }
     }
-    function apply() {
-        clampPan();
-        world.style.transform = `translate3d(${state.x}px,${state.y}px,0) scale(${state.scale})`;
-        if (readout) readout.textContent = `${Math.round(state.scale*100)}%`;
+    highlightMaterials.set(meta.key,mats);
+    addFlag(g,-meta.size*.33,-meta.size*.28,.35,meta.color);
+    const label=makeLabel(meta.title,meta.sub,meta.accent,meta.key);
+    label.position.set(meta.side*(meta.size*.5+2.7),.9,0); g.add(label);
+
+    if(meta.key==='profile'){
+      for(const [x,z] of [[-2.2,-1.6],[-1.3,2],[2.1,-1.8],[1.7,1.8],[-2.4,.7]]) addTree(g,x,z,.33);
+      for(let i=-2;i<=2;i++){ const p=box(.58,.11,.58,0xe8c878); p.position.set(i*.62,.42,.4+i*.18); g.add(p); }
+      const hill1=box(1.2,.7,1.2,0x2c8d59); hill1.position.set(1.1,.72,-.5); g.add(hill1);
+      const hill2=box(.82,.82,.82,0x45b86a); hill2.position.set(1.1,1.45,-.5); g.add(hill2);
     }
-    function zoomTo(next, clientX, clientY) {
-        const prev = state.scale;
-        next = clamp(next,state.min,state.max);
-        if (Math.abs(next-prev) < .001) return;
-        const r = stage.getBoundingClientRect();
-        const fx = (clientX ?? (r.left+r.width/2)) - (r.left+r.width/2);
-        const fy = (clientY ?? (r.top+r.height/2)) - (r.top+r.height/2);
-        const ratio = next/prev;
-        state.x = fx - (fx-state.x)*ratio;
-        state.y = fy - (fy-state.y)*ratio;
-        state.scale = next;
-        apply();
+    if(meta.key==='projects'){
+      [[-1.5,-1.2,1.0],[1.25,-.6,1.5],[-.2,1.45,.9]].forEach(([x,z,h],i)=>{const b=box(.85,h,.85,i===1?0xff67c8:0x8b5cff,{emissive:i===1?0xff67c8:0x8b5cff,emissiveIntensity:.25});b.position.set(x,.55+h/2,z);g.add(b);});
+      for(let i=0;i<5;i++){ const t=box(.34,.10,.34,0x5bf1dd,{emissive:0x5bf1dd,emissiveIntensity:.4}); t.position.set(-1.5+i*.72,.48,1.1);g.add(t); }
     }
-    function resetView() {
-        state.scale = window.innerWidth <= 760 ? .96 : 1;
-        state.x = 0; state.y = 0;
-        apply();
+    if(meta.key==='skills'){
+      const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff];
+      colors.forEach((c,i)=>{const h=.8+i*.36; const b=box(.68,h,.68,c,{emissive:c,emissiveIntensity:.24}); b.position.set(-1.35+i*.9,.45+h/2,-.4+i*.25);g.add(b);});
+      for(let i=-1;i<=1;i++){const s=box(.45,1.2,.45,0x153c62,{emissive:0x31cfff,emissiveIntensity:.14});s.position.set(i*.75,1.0,1.5);g.add(s);}
     }
-
-    root.querySelectorAll('[data-map-zoom]').forEach(btn => {
-        btn.addEventListener('click', event => {
-            event.preventDefault();
-            const mode = btn.dataset.mapZoom;
-            if (mode === 'in') zoomTo(state.scale + .20);
-            else if (mode === 'out') zoomTo(state.scale - .20);
-            else resetView();
-        });
-    });
-
-    stage.addEventListener('wheel', event => {
-        if (event.ctrlKey) return;
-        event.preventDefault();
-        const factor = event.deltaY > 0 ? .90 : 1.10;
-        zoomTo(state.scale * factor,event.clientX,event.clientY);
-    }, {passive:false});
-
-    function pointDistance(a,b) { return Math.hypot(a.x-b.x,a.y-b.y); }
-    function midpoint(a,b) { return {x:(a.x+b.x)/2,y:(a.y+b.y)/2}; }
-
-    stage.addEventListener('pointerdown', event => {
-        if (event.target.closest('button,a,input,textarea,select')) return;
-        stage.setPointerCapture?.(event.pointerId);
-        pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
-        if (pointers.size === 1) {
-            dragStart = {px:event.clientX,py:event.clientY,x:state.x,y:state.y};
-            stage.classList.add('is-dragging');
-        } else if (pointers.size === 2) {
-            const [a,b] = Array.from(pointers.values());
-            pinchStart = {distance:pointDistance(a,b),scale:state.scale,mid:midpoint(a,b)};
-            stage.classList.remove('is-dragging');
-            stage.classList.add('is-pinching');
-        }
-    });
-
-    stage.addEventListener('pointermove', event => {
-        if (!pointers.has(event.pointerId)) return;
-        pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
-        if (pointers.size >= 2) {
-            const [a,b] = Array.from(pointers.values());
-            const d = pointDistance(a,b);
-            if (!pinchStart || pinchStart.distance < 1) return;
-            const mid = midpoint(a,b);
-            zoomTo(pinchStart.scale * (d/pinchStart.distance),mid.x,mid.y);
-        } else if (dragStart) {
-            state.x = dragStart.x + (event.clientX-dragStart.px);
-            state.y = dragStart.y + (event.clientY-dragStart.py);
-            apply();
-        }
-    });
-
-    function endPointer(event) {
-        pointers.delete(event.pointerId);
-        if (pointers.size === 0) {
-            dragStart = null; pinchStart = null;
-            stage.classList.remove('is-dragging','is-pinching');
-        } else if (pointers.size === 1) {
-            const p = Array.from(pointers.values())[0];
-            dragStart = {px:p.x,py:p.y,x:state.x,y:state.y};
-            pinchStart = null;
-            stage.classList.remove('is-pinching');
-            stage.classList.add('is-dragging');
-        }
+    if(meta.key==='gallery'){
+      const tileColors=[0x48d8ff,0x66d273,0xffcb57,0xff7a5a,0xb26cff];
+      let k=0; for(let x=-1.4;x<=1.4;x+=.7) for(let z=-1.4;z<=1.4;z+=.7){const c=tileColors[k++%tileColors.length];const t=box(.58,.11,.58,c,{emissive:c,emissiveIntensity:.08});t.position.set(x,.46,z);g.add(t);}
+      const frame=box(3.7,.18,.18,0xf2efe4);frame.position.set(0,.7,-1.85);g.add(frame);
     }
-    stage.addEventListener('pointerup',endPointer);
-    stage.addEventListener('pointercancel',endPointer);
+    if(meta.key==='mini'){
+      const colors=[0x22e4d5,0x2c8fff,0x8c62ff];
+      for(let i=0;i<7;i++){const h=.55+(i%3)*.38;const c=colors[i%3];const b=box(.58,h,.58,c,{emissive:c,emissiveIntensity:.34});b.position.set((i%4-1.5)*.8,.5+h/2,(Math.floor(i/4)-.5)*1.25);g.add(b);}
+      const pad=box(2.2,.12,1.25,0x0c2c49,{emissive:0x24d7ff,emissiveIntensity:.17});pad.position.set(0,.5,1.45);g.add(pad);
+    }
+    if(meta.key==='contact'){
+      const beacon=box(.8,1.6,.8,0xe9ffff,{emissive:0x55eaff,emissiveIntensity:.6});beacon.position.set(0,1.25,0);g.add(beacon);
+      const cap=box(1.35,.18,1.35,0x56eaff,{emissive:0x56eaff,emissiveIntensity:.75});cap.position.set(0,2.12,0);g.add(cap);
+      for(let i=0;i<4;i++){const p=box(.18,.18,.18,0xffef81,{emissive:0xffef81,emissiveIntensity:1});p.position.set(Math.cos(i*Math.PI/2)*1.2,.72,Math.sin(i*Math.PI/2)*1.2);g.add(p);}
+    }
+    return g;
+  }
 
-    stage.addEventListener('dblclick', event => {
-        if (event.target.closest('button')) return;
-        zoomTo(state.scale < 1.5 ? 1.6 : 1,event.clientX,event.clientY);
-    });
+  layerMeta.forEach(createVoxelPlatform);
 
-    window.addEventListener('resize',apply,{passive:true});
-    resetView();
+  /* Central data beam made of translucent voxel segments. */
+  const beamMat=new THREE.MeshStandardMaterial({color:0x44e8ff,transparent:true,opacity:.22,emissive:0x33dfff,emissiveIntensity:.8,roughness:.2});
+  for(let y=.6;y<14.4;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
+
+  const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-.8; water.material.transparent=true;water.material.opacity=.66;tower.add(water);
+  const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-.7;scene.add(grid);
+
+  /* Pixel particles. */
+  const pts=[]; for(let i=0;i<180;i++){ const a=seeded(i*7.7)*Math.PI*2,r=7+seeded(i*3.3)*9;pts.push(Math.cos(a)*r,seeded(i*5.1)*15-.4,Math.sin(a)*r); }
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
+  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x71dfff,size:.045,transparent:true,opacity:.7})));
+
+  function resize(){
+    const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight), aspect=w/h;
+    const frustum=window.innerWidth<=800?17.2:15.4;
+    camera.left=-frustum*aspect/2;camera.right=frustum*aspect/2;camera.top=frustum/2;camera.bottom=-frustum/2;camera.updateProjectionMatrix();
+    renderer.setSize(w,h,false);
+  }
+  resize();
+  const ro=new ResizeObserver(resize);ro.observe(wrap);
+
+  const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
+  let hovered=null, down=null;
+  function hitFromEvent(ev){
+    const r=canvas.getBoundingClientRect(); pointer.x=((ev.clientX-r.left)/r.width)*2-1;pointer.y=-((ev.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);
+    return raycaster.intersectObjects(targets,false)[0]?.object || null;
+  }
+  function setHover(key){
+    if(hovered===key)return;
+    if(hovered && highlightMaterials.has(hovered)) highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.035);
+    hovered=key;
+    if(hovered && highlightMaterials.has(hovered)) highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.22);
+    canvas.style.cursor=hovered?'pointer':'grab';
+  }
+  canvas.addEventListener('pointermove',ev=>{ if(ev.buttons)return; const h=hitFromEvent(ev);setHover(h?.userData?.section||null); });
+  canvas.addEventListener('pointerleave',()=>setHover(null));
+  canvas.addEventListener('pointerdown',ev=>{down={x:ev.clientX,y:ev.clientY};});
+  canvas.addEventListener('pointerup',ev=>{
+    if(!down)return; const moved=Math.hypot(ev.clientX-down.x,ev.clientY-down.y);down=null;if(moved>7)return;
+    const h=hitFromEvent(ev);const key=h?.userData?.section;if(key)openPortfolioSection(key);
+  });
+
+  root.querySelectorAll('[data-voxel-action]').forEach(btn=>btn.addEventListener('click',()=>{
+    const action=btn.dataset.voxelAction;
+    if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
+    if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
+    if(action==='reset'){camera.position.set(12,10.5,14);camera.zoom=1.08;camera.updateProjectionMatrix();controls.target.set(0,5.7,0);controls.update();}
+  }));
+
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let raf=0;
+  function render(){
+    controls.update();
+    if(!reduce){
+      const t=performance.now()*.00022;
+      cyanLight.position.x=Math.sin(t)*7;cyanLight.position.z=Math.cos(t)*7;
+    }
+    renderer.render(scene,camera);raf=requestAnimationFrame(render);
+  }
+  render();
+  if(loading)loading.hidden=true;
+
+  window.addEventListener('pagehide',()=>{cancelAnimationFrame(raf);ro.disconnect();renderer.dispose();},{once:true});
 })();
 </script>
+
 </body>
 
 </html>
