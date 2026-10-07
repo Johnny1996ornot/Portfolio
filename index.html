@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V35 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V36 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13570,10 +13570,10 @@ body { background:var(--v28-bg) !important; }
     right:12px;
     bottom:12px;
     display:grid;
-    grid-template-columns:repeat(3,42px);
+    grid-template-columns:repeat(4,42px);
   }
   .voxel-control{min-width:42px;width:42px;height:42px;padding:0;}
-  .voxel-control.reset{grid-column:1/4;width:140px;font-size:.6rem;justify-self:end;}
+  .voxel-control.reset{grid-column:3/5;width:91px;font-size:.6rem;justify-self:end;}
   .voxel-help{display:none;}
 }
 
@@ -13585,6 +13585,13 @@ body { background:var(--v28-bg) !important; }
   .voxel-key-button{min-height:48px;}
   .voxel-canvas-wrap{height:58svh;min-height:380px;}
   .voxel-controls{transform:scale(.88);transform-origin:bottom right;}
+}
+
+@media (max-width:360px){
+  .voxel-stage{padding-left:6px;padding-right:6px;}
+  .voxel-controls{right:6px;bottom:8px;transform:scale(.80);}
+  .voxel-canvas-wrap{height:56svh;min-height:350px;}
+  .voxel-key-copy strong{font-size:.66rem;}
 }
 
 /* =========================================================
@@ -13637,6 +13644,8 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 .voxel-section-key { z-index:45; }
 .voxel-help { z-index:44; }
 
+.voxel-control[data-voxel-action="pan-left"],
+.voxel-control[data-voxel-action="pan-right"],
 .voxel-control[data-voxel-action="pan-up"],
 .voxel-control[data-voxel-action="pan-down"] {
   color:#79efff;
@@ -13648,8 +13657,8 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
     padding:13px 14px 12px;
   }
   .voxel-brand-open { display:none; }
-  .voxel-controls { grid-template-columns:repeat(3,42px); }
-  .voxel-control.reset { grid-column:1/4;width:140px;justify-self:end; }
+  .voxel-controls { grid-template-columns:repeat(4,42px); }
+  .voxel-control.reset { grid-column:3/5;width:91px;justify-self:end; }
 }
 </style>
 
@@ -13866,7 +13875,7 @@ Case studies keep their dedicated research layouts.
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V35)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V36)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13884,6 +13893,8 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
     </button>
 
     <div class="voxel-controls" aria-label="3D view controls">
+      <button class="voxel-control" type="button" data-voxel-action="pan-left" aria-label="Move tower left" title="Move tower left">←</button>
+      <button class="voxel-control" type="button" data-voxel-action="pan-right" aria-label="Move tower right" title="Move tower right">→</button>
       <button class="voxel-control" type="button" data-voxel-action="pan-up" aria-label="Pan upward" title="Pan upward">↑</button>
       <button class="voxel-control" type="button" data-voxel-action="pan-down" aria-label="Pan downward" title="Pan downward">↓</button>
       <button class="voxel-control" type="button" data-voxel-action="zoom-in" aria-label="Zoom in">+</button>
@@ -13891,7 +13902,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · right/shift-drag or arrows to pan · wheel/pinch to zoom · click a floor</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · arrows or right/shift-drag to pan · wheel/pinch to zoom · click a floor</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -21100,9 +21111,9 @@ MOBILE RESEARCH FIGURES FIX
   scene.fog = new THREE.FogExp2(0x020914, 0.028);
 
   const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
-  camera.position.set(12,11.2,14);
-  camera.lookAt(0,6.1,0);
-  camera.zoom = .80;
+  camera.position.set(12,12.0,14);
+  camera.lookAt(0,6.7,0);
+  camera.zoom = .76;
   camera.updateProjectionMatrix();
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
@@ -21130,7 +21141,7 @@ MOBILE RESEARCH FIGURES FIX
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .42;
   controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(.15,6.1,0);
+  controls.target.set(.05,6.7,0);
   controls.addEventListener('start',()=>{controls._userPanned=true;});
   controls.update();
 
@@ -21140,7 +21151,7 @@ MOBILE RESEARCH FIGURES FIX
   const magentaLight = new THREE.PointLight(0xd45cff,24,24,2); magentaLight.position.set(5,11,-5); scene.add(magentaLight);
 
   const tower = new THREE.Group();
-  tower.position.x = 1.15;
+  tower.position.x = .65;
   scene.add(tower);
   const targets = [];
   const highlightMaterials = new Map();
@@ -21335,41 +21346,38 @@ MOBILE RESEARCH FIGURES FIX
     const g=new THREE.Group();
     g.position.set(x,y,z);
 
-    /* V35 — simple standing worker with limbs physically connected to the torso. */
-    const desk=box(1.52,.12,.74,0x15334a); desk.position.set(.28,.84,-.05); g.add(desk);
-    [-.48,1.03].forEach(dx=>{const leg=box(.10,.80,.10,0x0b2133);leg.position.set(dx,.43,-.05);g.add(leg);});
+    /* V36 — person stands clearly IN FRONT of the desk (+Z), so the body is never hidden by it. */
+    const desk=box(1.58,.12,.76,0x15334a); desk.position.set(.08,.84,-.18); g.add(desk);
+    [-.54,.70].forEach(dx=>{const leg=box(.10,.80,.10,0x0b2133);leg.position.set(dx,.43,-.18);g.add(leg);});
 
     const skin=0xc98f69, shirt=0x4f8fe8, pants=0x172b45, hair=0x162333;
-    const torso=box(.48,.82,.32,shirt); torso.position.set(-.62,1.23,.34); g.add(torso);
-    const head=box(.34,.36,.32,skin); head.position.set(-.62,1.82,.31); g.add(head);
-    const hairCap=box(.36,.12,.34,hair); hairCap.position.set(-.62,2.05,.29); g.add(hairCap);
+    const bodyX=-.34, bodyZ=.58;
+    const torso=box(.50,.84,.34,shirt); torso.position.set(bodyX,1.24,bodyZ); g.add(torso);
+    const head=box(.34,.36,.32,skin); head.position.set(bodyX,1.84,bodyZ-.02); g.add(head);
+    const hairCap=box(.36,.12,.34,hair); hairCap.position.set(bodyX,2.06,bodyZ-.04); g.add(hairCap);
 
-    /* One-piece block arms connect shoulder-to-keyboard, eliminating floating elbows. */
-    addBlockLimb(g,[-.38,1.48,.26],[-.05,1.03,.08],skin,.12);
-    addBlockLimb(g,[-.86,1.47,.26],[-.34,1.03,.08],skin,.12);
+    /* Shoulders + arms are continuous and terminate at the keyboard. */
+    const shoulderL=box(.16,.16,.16,skin); shoulderL.position.set(bodyX-.29,1.47,bodyZ-.02); g.add(shoulderL);
+    const shoulderR=box(.16,.16,.16,skin); shoulderR.position.set(bodyX+.29,1.47,bodyZ-.02); g.add(shoulderR);
+    addBlockLimb(g,[bodyX-.29,1.46,bodyZ-.03],[-.18,1.05,.10],skin,.13);
+    addBlockLimb(g,[bodyX+.29,1.46,bodyZ-.03],[.18,1.05,.10],skin,.13);
+    const handL=box(.13,.10,.14,skin); handL.position.set(-.18,1.02,.10); g.add(handL);
+    const handR=box(.13,.10,.14,skin); handR.position.set(.18,1.02,.10); g.add(handR);
 
-    /* Legs connect directly to the torso. */
-    const legL=box(.16,.80,.17,pants); legL.position.set(-.74,.52,.35); g.add(legL);
-    const legR=box(.16,.80,.17,pants); legR.position.set(-.50,.52,.35); g.add(legR);
+    const legL=box(.17,.82,.18,pants); legL.position.set(bodyX-.13,.52,bodyZ); g.add(legL);
+    const legR=box(.17,.82,.18,pants); legR.position.set(bodyX+.13,.52,bodyZ); g.add(legR);
 
-    const base=box(.68,.06,.42,0x778fa4); base.position.set(.20,.94,.00); g.add(base);
+    /* Laptop sits BEHIND the person on the desk and faces toward +Z. */
+    const base=box(.70,.06,.42,0x778fa4); base.position.set(.08,.94,-.08); g.add(base);
+    const screenBack=box(.74,.52,.12,0x111f2d); screenBack.position.set(.08,1.24,-.34); screenBack.rotation.x=-.10; g.add(screenBack);
 
-    /* Opaque rear shell blocks any glow from leaking behind the laptop. */
-    const screenBack=box(.72,.50,.10,0x18293a); screenBack.position.set(.20,1.22,-.24); screenBack.rotation.x=-.10; g.add(screenBack);
-
-    /* Only the front-facing panel emits light. Plane is single-sided and faces +Z. */
+    /* Single-sided front screen only; no point light means no glow can bleed behind it. */
     const frontMat=new THREE.MeshBasicMaterial({color:0x60f6ff,side:THREE.FrontSide,toneMapped:false});
-    const frontPanel=new THREE.Mesh(new THREE.PlaneGeometry(.58,.36),frontMat);
-    frontPanel.position.set(.20,1.22,-.185);
+    const frontPanel=new THREE.Mesh(new THREE.PlaneGeometry(.60,.38),frontMat);
+    frontPanel.position.set(.08,1.24,-.274);
     frontPanel.rotation.x=-.10;
     g.add(frontPanel);
 
-    /* Small forward glow only, placed between screen and worker. */
-    const frontGlow=new THREE.PointLight(0x5feeff,2.2,1.8,2);
-    frontGlow.position.set(.20,1.14,.10);
-    g.add(frontGlow);
-
-    g.rotation.y=-.04;
     parent.add(g);
     return g;
   }
@@ -21383,6 +21391,7 @@ MOBILE RESEARCH FIGURES FIX
 
   const satellites=[];
   const movingBoats=[];
+  const equalizerBars=[];
   function addMiniSatellite(parent,x,z,y){
     const g=new THREE.Group();
     g.position.set(x,y,z);
@@ -21420,8 +21429,8 @@ MOBILE RESEARCH FIGURES FIX
     /* Higher clearance above the research floor so the bedroom/study scene is easier to read. */
     {key:'skills', y:5.95, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
     {key:'gallery', y:8.45, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
-    {key:'mini', y:10.85, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
-    {key:'profile', y:13.15, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
+    {key:'mini', y:11.85, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
+    {key:'profile', y:14.25, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
   ];
 
   function createVoxelPlatform(meta,index){
@@ -21477,9 +21486,17 @@ MOBILE RESEARCH FIGURES FIX
       const roomLight=new THREE.PointLight(0xffd787,3.8,3.2,2); roomLight.position.set(1.25,1.30,1.10); g.add(roomLight);
     }
     if(meta.key==='skills'){
-      const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff];
-      colors.forEach((c,i)=>{const h=.8+i*.36; const b=box(.68,h,.68,c,{emissive:c,emissiveIntensity:.24}); b.position.set(-1.35+i*.9,.45+h/2,-.4+i*.25);g.add(b);});
-      for(let i=-1;i<=1;i++){const s=box(.45,1.2,.45,0x153c62,{emissive:0x31cfff,emissiveIntensity:.14});s.position.set(i*.75,1.0,1.5);g.add(s);}
+      /* Music/equalizer bars beneath the disco ball. */
+      const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff,0xff6fa7];
+      colors.forEach((c,i)=>{
+        const h=.72+i*.20;
+        const b=box(.56,h,.56,c,{emissive:c,emissiveIntensity:.30});
+        b.position.set(-1.25+i*.62,.45+h/2,-.30+Math.sin(i)*.18);
+        b.userData.eq={baseY:.45,baseH:h,phase:i*1.17,speed:.0022+i*.00014};
+        equalizerBars.push(b);
+        g.add(b);
+      });
+      for(let i=-1;i<=1;i++){const s=box(.40,1.0,.40,0x153c62,{emissive:0x31cfff,emissiveIntensity:.14});s.position.set(i*.70,.90,1.38);g.add(s);}
     }
     if(meta.key==='gallery'){
       /* Maps · Models · Visuals becomes a mini island scene with a moving boat. */
@@ -21519,9 +21536,19 @@ MOBILE RESEARCH FIGURES FIX
       const buildingData=[[-1.35,-1.15,.74,0x2e8fb5],[-.55,-1.15,1.18,0x1e6f91],[.42,-1.10,.90,0x2fae9d],[1.25,-1.12,1.42,0x4a77c7]];
       buildingData.forEach(([x,z,h,c],i)=>{
         const b=box(.62,h,.62,c,{emissive:c,emissiveIntensity:.16}); b.position.set(x,.53+h/2,z); mark(b,'mini'); g.add(b);
-        for(let wy=0;wy<Math.max(1,Math.floor(h/.35));wy++){
-          const w=box(.09,.07,.025,0xaefbff,{emissive:0x57eaff,emissiveIntensity:1.25});
-          w.position.set(x+.18,.74+wy*.30,z+.325); g.add(w);
+        const rows=Math.max(1,Math.floor(h/.35));
+        for(let wy=0;wy<rows;wy++){
+          const yy=.74+wy*.30;
+          /* Front and BACK windows. */
+          [-.16,.16].forEach(wx=>{
+            const wf=box(.10,.075,.026,0xaefbff,{emissive:0x57eaff,emissiveIntensity:1.25}); wf.position.set(x+wx,yy,z+.326); g.add(wf);
+            const wb=box(.10,.075,.026,0xaefbff,{emissive:0x57eaff,emissiveIntensity:1.25}); wb.position.set(x+wx,yy,z-.326); g.add(wb);
+          });
+          /* Side windows make the towers identifiable from any rotation angle. */
+          [-.16,.16].forEach(wz=>{
+            const wl=box(.026,.075,.10,0xaefbff,{emissive:0x57eaff,emissiveIntensity:1.10}); wl.position.set(x-.326,yy,z+wz); g.add(wl);
+            const wr=box(.026,.075,.10,0xaefbff,{emissive:0x57eaff,emissiveIntensity:1.10}); wr.position.set(x+.326,yy,z+wz); g.add(wr);
+          });
         }
       });
 
@@ -21546,7 +21573,7 @@ MOBILE RESEARCH FIGURES FIX
       addAutumnTree(g,.88,-.70,.45,.50);
 
       /* Hovering mini satellite — also clickable as Profile. */
-      const sat=addMiniSatellite(g,1.18,.18,2.10);
+      const sat=addMiniSatellite(g,1.72,.42,2.18);
       sat.traverse(obj=>{if(obj.isMesh)mark(obj,'profile');});
 
       /* Small emissive sun and pixel stars remain as the top-floor sky motif. */
@@ -21612,7 +21639,7 @@ MOBILE RESEARCH FIGURES FIX
 
   /* Central data beam made of translucent voxel segments. */
   const beamMat=new THREE.MeshStandardMaterial({color:0x44e8ff,transparent:true,opacity:.22,emissive:0x33dfff,emissiveIntensity:.8,roughness:.2});
-  for(let y=.6;y<15.4;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
+  for(let y=.6;y<16.8;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
 
   const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-3.18; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
   const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-3.08;scene.add(grid);
@@ -21639,10 +21666,10 @@ MOBILE RESEARCH FIGURES FIX
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight), aspect=w/h;
     const mobile=window.innerWidth<=800;
     const tiny=window.innerWidth<=430;
-    const frustum=tiny?20.8:(mobile?19.8:17.6);
-    tower.position.x=mobile?0.15:1.15;
+    const frustum=tiny?22.6:(mobile?21.4:18.8);
+    tower.position.x=mobile?0:.65;
     if(!controls._userPanned){
-      controls.target.x=mobile?0:.15;
+      controls.target.x=mobile?0:.05;
     }
     camera.left=-frustum*aspect/2;camera.right=frustum*aspect/2;camera.top=frustum/2;camera.bottom=-frustum/2;camera.updateProjectionMatrix();
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?2:3));
@@ -21658,6 +21685,15 @@ MOBILE RESEARCH FIGURES FIX
     const step=amount/Math.max(camera.zoom,.35);
     camera.position.y+=step;
     controls.target.y+=step;
+    controls.update();
+  }
+  function panViewHorizontal(amount){
+    controls._userPanned=true;
+    const step=amount/Math.max(camera.zoom,.35);
+    const right=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).normalize();
+    /* Moving camera opposite the requested screen direction moves the tower itself that way. */
+    camera.position.addScaledVector(right,-step);
+    controls.target.addScaledVector(right,-step);
     controls.update();
   }
 
@@ -21691,11 +21727,13 @@ MOBILE RESEARCH FIGURES FIX
 
   root.querySelectorAll('[data-voxel-action]').forEach(btn=>btn.addEventListener('click',()=>{
     const action=btn.dataset.voxelAction;
+    if(action==='pan-left'){panViewHorizontal(-1.15);}
+    if(action==='pan-right'){panViewHorizontal(1.15);}
     if(action==='pan-up'){panViewVertical(1.15);}
     if(action==='pan-down'){panViewVertical(-1.15);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
-    if(action==='reset'){controls._userPanned=false;camera.position.set(12,11.2,14);camera.zoom=.80;camera.updateProjectionMatrix();controls.target.set(window.innerWidth<=800?0:.15,6.1,0);controls.update();}
+    if(action==='reset'){controls._userPanned=false;camera.position.set(12,12.0,14);camera.zoom=.76;camera.updateProjectionMatrix();controls.target.set(window.innerWidth<=800?0:.05,6.7,0);controls.update();}
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21729,6 +21767,13 @@ MOBILE RESEARCH FIGURES FIX
         s.position.y=b.y+Math.sin(p*1.28)*.14;
         s.rotation.y=Math.sin(p*.72)*.18;
         s.rotation.z=Math.sin(p*.55)*.05;
+      });
+      equalizerBars.forEach((bar,i)=>{
+        const e=bar.userData.eq;
+        const pulse=.52 + (Math.sin(now*e.speed + e.phase)+1)*.44;
+        bar.scale.y=pulse;
+        bar.position.y=e.baseY + (e.baseH*pulse)/2;
+        bar.material.emissiveIntensity=.20 + pulse*.26;
       });
       movingBoats.forEach((boat,i)=>{
         const o=boat.userData.boatOrbit;
