@@ -13617,6 +13617,96 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 }
 </style>
 
+
+<style id="v31-pixel-card-theme">
+/* V31 — pixel / voxel card language to match the 3D home */
+.expansion-projects .research-year-toolbar,
+.expansion-projects .research-year-pills {
+  background: rgba(2,15,28,.90) !important;
+  border-color: rgba(74,224,218,.24) !important;
+  box-shadow: inset 0 0 0 1px rgba(84,238,221,.04), 4px 4px 0 rgba(1,9,18,.22) !important;
+  backdrop-filter: blur(10px) !important;
+}
+.expansion-projects .research-year-pills button {
+  border-radius: 3px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+  letter-spacing: .055em !important;
+  text-transform: uppercase !important;
+}
+.expansion-projects .research-year-pills button.active {
+  color: #03111e !important;
+  background: #72e9a5 !important;
+  box-shadow: 3px 3px 0 rgba(53,215,255,.22) !important;
+}
+.expansion-projects .research-year-heading {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+  color: #72e9a5 !important;
+}
+.expansion-projects .research-project-card {
+  --pixel-card-accent: #50e9da;
+  border: 1px solid color-mix(in srgb, var(--pixel-card-accent) 50%, transparent) !important;
+  border-radius: 4px !important;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--pixel-card-accent) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--pixel-card-accent) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(145deg, rgba(8,34,51,.97), rgba(2,17,31,.97)) !important;
+  background-size: 18px 18px,18px 18px,auto !important;
+  box-shadow: 5px 5px 0 rgba(1,10,18,.32), inset 0 0 0 1px rgba(255,255,255,.025) !important;
+}
+.expansion-projects .research-year-group:nth-of-type(2n) .research-project-card { --pixel-card-accent:#a46cf1; }
+.expansion-projects .research-year-group:nth-of-type(3n) .research-project-card { --pixel-card-accent:#ff7185; }
+.expansion-projects .research-project-card::before {
+  width: 5px !important;
+  background: var(--pixel-card-accent) !important;
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--pixel-card-accent) 28%, transparent) !important;
+}
+.expansion-projects .research-project-card::after {
+  content:"";
+  position:absolute;
+  width:8px;height:8px;
+  right:10px;top:10px;
+  background:var(--pixel-card-accent);
+  box-shadow:-10px 0 0 color-mix(in srgb,var(--pixel-card-accent) 48%,transparent),0 10px 0 color-mix(in srgb,var(--pixel-card-accent) 35%,transparent);
+  opacity:.72;
+  pointer-events:none;
+}
+.expansion-projects .research-project-type,
+.expansion-projects .research-project-open,
+.expansion-projects .research-project-card .tag,
+.expansion-projects .research-project-card .tags span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+}
+.expansion-projects .research-project-card .tags span,
+.expansion-projects .research-project-card .tag {
+  border-radius: 2px !important;
+  border: 1px solid rgba(80,233,218,.18) !important;
+  background: rgba(5,40,55,.72) !important;
+}
+.expansion-projects .research-project-link:hover {
+  transform: translate(-2px,-2px) !important;
+  box-shadow: 8px 8px 0 rgba(1,10,18,.34), inset 0 0 0 1px rgba(255,255,255,.035) !important;
+}
+.voxel-featured-card {
+  border-radius: 4px !important;
+  border: 1px solid rgba(80,233,218,.42) !important;
+  background: rgba(2,15,28,.97) !important;
+  box-shadow: 8px 8px 0 rgba(0,0,0,.30) !important;
+}
+.voxel-featured-link {
+  border-radius: 3px !important;
+  background:
+    linear-gradient(rgba(69,225,218,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(69,225,218,.045) 1px,transparent 1px),
+    rgba(5,30,45,.92) !important;
+  background-size:14px 14px !important;
+  border-color: color-mix(in srgb,var(--featured-accent) 48%,transparent) !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,.20) !important;
+}
+.voxel-featured-link:hover { transform: translate(-2px,-2px) !important; }
+@media (max-width:800px){
+  .expansion-projects .research-project-card { border-radius:3px !important; box-shadow:3px 3px 0 rgba(1,10,18,.28) !important; }
+}
+</style>
 </head>
 
 
@@ -13626,7 +13716,7 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V30)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V31)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13653,12 +13743,12 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 
     <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · right/shift-drag or arrows to pan · wheel/pinch to zoom · click a floor</div>
 
-    <nav class="voxel-section-key" aria-label="Portfolio sections">
-      <button class="voxel-key-button" type="button" data-featured-toggle style="--key-accent:#72e9a5"><span class="voxel-key-num">01</span><span class="voxel-key-copy"><strong>Featured Projects</strong><small>Switzerland · urban heat · green spaces</small></span><span class="voxel-key-arrow">↗</span></button>
-      <button class="voxel-key-button" type="button" data-panel="projects" style="--key-accent:#a46cf1"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span><span class="voxel-key-arrow">↗</span></button>
-      <button class="voxel-key-button" type="button" data-panel="skills" style="--key-accent:#35d7ff"><span class="voxel-key-num">03</span><span class="voxel-key-copy"><strong data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span><span class="voxel-key-arrow">↗</span></button>
-      <button class="voxel-key-button" type="button" data-panel="gallery" style="--key-accent:#ff9f57"><span class="voxel-key-num">04</span><span class="voxel-key-copy"><strong data-title>Maps · Models · Visuals</strong><small>Cartographic and analytical work</small></span><span class="voxel-key-arrow">↗</span></button>
-      <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">05</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
+    <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
+      <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="gallery" style="--key-accent:#ff7185"><span class="voxel-key-num">03</span><span class="voxel-key-copy"><strong data-title>Maps · Models · Visuals</strong><small>Cartographic and analytical work</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="skills" style="--key-accent:#35d7ff"><span class="voxel-key-num">04</span><span class="voxel-key-copy"><strong data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-panel="projects" style="--key-accent:#a46cf1"><span class="voxel-key-num">05</span><span class="voxel-key-copy"><strong data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span><span class="voxel-key-arrow">↗</span></button>
+      <button class="voxel-key-button" type="button" data-featured-toggle style="--key-accent:#72e9a5"><span class="voxel-key-num">06</span><span class="voxel-key-copy"><strong>Featured Projects</strong><small>Switzerland · urban heat · green spaces</small></span><span class="voxel-key-arrow">↗</span></button>
     </nav>
   </section>
 
@@ -13676,7 +13766,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
         <small>Spatial policy allocation for pollinator habitat and structural connectivity.</small>
         <span class="voxel-featured-arrow">Open case study ↗</span>
       </button>
-      <button class="voxel-featured-link" type="button" data-featured-case="urban-heat" style="--featured-accent:#ff9f57">
+      <button class="voxel-featured-link" type="button" data-featured-case="urban-heat" style="--featured-accent:#ff7185">
         <span class="voxel-featured-badge">Urban heat</span>
         <strong>Metro Manila Urban Heat &amp; Trees</strong>
         <small>Heat, vegetation and land-cover modelling for intervention-priority screening.</small>
@@ -20905,7 +20995,7 @@ MOBILE RESEARCH FIGURES FIX
 
   const C = {
     featured:0x56d878, profile:0xffdf65, research:0xb05cff, skills:0x34d5ff,
-    maps:0xff9e48, coding:0x35e4d2,
+    maps:0xff6f82, coding:0x35e4d2,
     dark:0x05192a, deep:0x03111e
   };
 
@@ -21025,6 +21115,49 @@ MOBILE RESEARCH FIGURES FIX
     return g;
   }
 
+  const fireflies=[];
+  function addFirefly(parent,x,z,y,phase=0){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    const coreMat=new THREE.MeshBasicMaterial({color:0xeaff71,transparent:true,opacity:.95});
+    const haloMat=new THREE.MeshBasicMaterial({color:0xb8ff62,transparent:true,opacity:.11,depthWrite:false});
+    const core=new THREE.Mesh(new THREE.SphereGeometry(.055,6,4),coreMat);
+    const halo=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),haloMat);
+    g.add(halo,core);
+    g.userData.firefly={x,z,y,phase,coreMat,haloMat};
+    parent.add(g);
+    fireflies.push(g);
+    return g;
+  }
+
+  function addLaptopWorker(parent,x,z,y){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    /* Low desk + chair */
+    const desk=box(1.28,.12,.72,0x16334d); desk.position.set(.16,.66,-.12); g.add(desk);
+    [-.42,.52].forEach(dx=>{const leg=box(.10,.62,.10,0x0d2235);leg.position.set(dx,.34,-.12);g.add(leg);});
+    const chair=box(.52,.12,.52,0x263b58); chair.position.set(-.48,.35,.46); g.add(chair);
+    const chairBack=box(.52,.62,.10,0x263b58); chairBack.position.set(-.48,.64,.68); g.add(chairBack);
+
+    /* Seated person */
+    const skin=0xd49a72, shirt=0x4a78e8, dark=0x142033;
+    const torso=box(.46,.66,.34,shirt); torso.position.set(-.35,.89,.34); torso.rotation.x=-.10; g.add(torso);
+    const head=box(.34,.34,.34,skin); head.position.set(-.32,1.37,.25); g.add(head);
+    const hair=box(.36,.12,.36,dark); hair.position.set(-.32,1.58,.22); g.add(hair);
+    [-.16,.16].forEach(dx=>{const arm=box(.12,.48,.12,skin);arm.position.set(-.02+dx,.92,.02);arm.rotation.x=-.65;g.add(arm);});
+    [-.16,.16].forEach(dx=>{const leg=box(.14,.52,.14,0x1d2d45);leg.position.set(-.40+dx,.44,.23);leg.rotation.x=.55;g.add(leg);});
+
+    /* Laptop with emissive display + local light */
+    const base=box(.66,.07,.42,0x7b8ea5); base.position.set(.18,.76,.03); base.rotation.x=-.08; g.add(base);
+    const screenFrame=box(.70,.48,.07,0x32445a); screenFrame.position.set(.18,1.03,-.17); screenFrame.rotation.x=-.18; g.add(screenFrame);
+    const screen=box(.58,.37,.025,0x7ff7ff,{emissive:0x2de8ff,emissiveIntensity:1.55}); screen.position.set(.18,1.04,-.205); screen.rotation.x=-.18; g.add(screen);
+    const glow=new THREE.PointLight(0x5feeff,5.8,3.6,2); glow.position.set(.18,1.02,-.05); g.add(glow);
+
+    g.rotation.y=-.30;
+    parent.add(g);
+    return g;
+  }
+
   const skyStars=[];
   const discoGlints=[];
   let topSun=null;
@@ -21041,12 +21174,12 @@ MOBILE RESEARCH FIGURES FIX
   }
 
   const layerMeta = [
-    {key:'featured', y:.1, size:7.4, color:C.featured, title:'01  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
-    {key:'projects', y:2.65, size:6.2, color:C.research, title:'02  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
-    {key:'skills', y:5.15, size:5.45, color:C.skills, title:'03  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
-    {key:'gallery', y:7.65, size:4.75, color:C.maps, title:'04  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ffac61', side:-1},
-    {key:'mini', y:10.05, size:4.05, color:C.coding, title:'05  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
-    {key:'profile', y:12.35, size:3.25, color:C.profile, title:'06  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
+    {key:'featured', y:.1, size:7.4, color:C.featured, title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
+    {key:'projects', y:2.65, size:6.2, color:C.research, title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
+    {key:'skills', y:5.15, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
+    {key:'gallery', y:7.65, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
+    {key:'mini', y:10.05, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
+    {key:'profile', y:12.35, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
   ];
 
   function createVoxelPlatform(meta,index){
@@ -21087,6 +21220,11 @@ MOBILE RESEARCH FIGURES FIX
       addButterfly(g,.15,1.25,1.28,0x7ee8ff,.58);
       addButterfly(g,2.05,.55,1.62,0xffdf70,.62);
 
+      /* Fireflies: tiny moving light points across the forest floor. */
+      const fireflySeeds=[[-2.35,-.35,.86],[-1.95,1.25,1.16],[-1.25,-1.65,1.04],[-.65,.85,1.32],[-.10,-.25,1.08],[.55,1.65,1.30],[1.10,.40,1.12],[1.62,-1.55,1.23],[2.20,.92,1.38],[2.62,-.35,1.10],[-2.65,1.75,1.24],[.35,-1.92,1.18]];
+      fireflySeeds.forEach((p,i)=>addFirefly(g,p[0],p[1],p[2],i*.83));
+      const forestGlow=new THREE.PointLight(0xd6ff73,2.8,5.0,2); forestGlow.position.set(-.25,1.05,.25); g.add(forestGlow);
+
       /* Three visual project markers on the featured-project floor. */
       const swissBase=box(1.05,.16,1.05,0x805ad8,{emissive:0xa46cf1,emissiveIntensity:.18});swissBase.position.set(-1.55,.52,-1.0);g.add(swissBase);
       const swissPeak=box(.55,.86,.55,0xdfeeff,{emissive:0x8cb8ff,emissiveIntensity:.08});swissPeak.position.set(-1.55,1.0,-1.0);swissPeak.rotation.y=.78;g.add(swissPeak);
@@ -21101,6 +21239,8 @@ MOBILE RESEARCH FIGURES FIX
     if(meta.key==='projects'){
       [[-1.5,-1.2,1.0],[1.25,-.6,1.5],[-.2,1.45,.9]].forEach(([x,z,h],i)=>{const b=box(.85,h,.85,i===1?0xff67c8:0x8b5cff,{emissive:i===1?0xff67c8:0x8b5cff,emissiveIntensity:.25});b.position.set(x,.55+h/2,z);g.add(b);});
       for(let i=0;i<5;i++){ const t=box(.34,.10,.34,0x5bf1dd,{emissive:0x5bf1dd,emissiveIntensity:.4}); t.position.set(-1.5+i*.72,.48,1.1);g.add(t); }
+      /* A small researcher working on a glowing laptop. */
+      addLaptopWorker(g,.30,.20,.43);
     }
     if(meta.key==='skills'){
       const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff];
@@ -21108,7 +21248,7 @@ MOBILE RESEARCH FIGURES FIX
       for(let i=-1;i<=1;i++){const s=box(.45,1.2,.45,0x153c62,{emissive:0x31cfff,emissiveIntensity:.14});s.position.set(i*.75,1.0,1.5);g.add(s);}
     }
     if(meta.key==='gallery'){
-      const tileColors=[0x48d8ff,0x66d273,0xffcb57,0xff7a5a,0xb26cff];
+      const tileColors=[0x48d8ff,0x66d273,0xff91a0,0xff647b,0xb26cff];
       let k=0; for(let x=-1.4;x<=1.4;x+=.7) for(let z=-1.4;z<=1.4;z+=.7){const c=tileColors[k++%tileColors.length];const t=box(.58,.11,.58,c,{emissive:c,emissiveIntensity:.08});t.position.set(x,.46,z);g.add(t);}
       const frame=box(3.7,.18,.18,0xf2efe4);frame.position.set(0,.7,-1.85);g.add(frame);
     }
@@ -21148,9 +21288,9 @@ MOBILE RESEARCH FIGURES FIX
 
   layerMeta.forEach(createVoxelPlatform);
 
-  /* Glittering disco ball suspended beneath the top Profile floor. */
+  /* Glittering disco ball suspended one floor lower, beneath Data & Coding. */
   const discoGroup=new THREE.Group();
-  discoGroup.position.set(1.35,12.18,-1.45);
+  discoGroup.position.set(-1.10,9.72,-1.30);
   const chainMat=new THREE.MeshStandardMaterial({color:0xa3c3cf,metalness:.9,roughness:.2});
   const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.72,8),chainMat);
   chain.position.y=-.36;
@@ -21177,10 +21317,10 @@ MOBILE RESEARCH FIGURES FIX
   discoGroup.add(discoLightB);
 
   const glintColors=[0xffffff,0x8ef4ff,0xff8fe4,0xffe783];
-  for(let i=0;i<9;i++){
-    const a=i/9*Math.PI*2;
-    const r=.72+(i%2)*.10;
-    addPixelStar(discoGroup,Math.cos(a)*r,-.92+Math.sin(a*1.7)*.28,Math.sin(a)*r,.12+(i%3)*.02,glintColors[i%glintColors.length],discoGlints);
+  for(let i=0;i<16;i++){
+    const a=i/16*Math.PI*2;
+    const r=.70+(i%3)*.08;
+    addPixelStar(discoGroup,Math.cos(a)*r,-.92+Math.sin(a*1.7)*.28,Math.sin(a)*r,.10+(i%4)*.018,glintColors[i%glintColors.length],discoGlints);
   }
   tower.add(discoGroup);
 
@@ -21275,7 +21415,18 @@ MOBILE RESEARCH FIGURES FIX
       discoBall.rotation.y=now*.00042;
       discoBall.rotation.x=Math.sin(now*.00022)*.10;
       discoMat.emissiveIntensity=.38 + (Math.sin(now*.0042)+1)*.18;
-      discoGlints.forEach((s,i)=>{const p=1+(Math.sin(now*.005+i*1.7)+1)*.28;s.scale.setScalar(p);s.rotation.z=now*.0006*(i%2?1:-1);});
+      discoGlints.forEach((s,i)=>{const p=.86+(Math.sin(now*.006+i*1.7)+1)*.48;s.scale.setScalar(p);s.rotation.z=now*.00075*(i%2?1:-1);});
+      fireflies.forEach((f,i)=>{
+        const d=f.userData.firefly;
+        const phase=now*.00125+d.phase;
+        f.position.x=d.x+Math.sin(phase*.72+i)*.16;
+        f.position.z=d.z+Math.cos(phase*.58+i*.7)*.14;
+        f.position.y=d.y+Math.sin(phase*1.15+i*.9)*.12;
+        const pulse=.35+(Math.sin(phase*3.2+i*1.4)+1)*.32;
+        d.coreMat.opacity=.55+pulse*.45;
+        d.haloMat.opacity=.035+pulse*.12;
+        f.scale.setScalar(.82+pulse*.34);
+      });
       if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
       skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
       sparkleMat.opacity=.13 + (Math.sin(now*.0014)+1)*.035;
