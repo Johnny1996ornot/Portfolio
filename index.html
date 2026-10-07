@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V29 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V30 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13471,6 +13471,43 @@ body { background:var(--v28-bg) !important; }
 .voxel-contact-row b{display:block;font-size:.82rem}.voxel-contact-row span span{display:block;margin-top:2px;color:#9bb5ba;font-size:.74rem}.voxel-contact-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(88,230,162,.12);color:#58e6a2;font-weight:900;}
 .voxel-contact-status{min-height:1.2em;margin-top:10px;color:#58e6a2;font-size:.74rem;}
 
+
+.voxel-featured-backdrop {
+  position:fixed;inset:0;z-index:1200;
+  background:rgba(0,5,12,.72);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.voxel-featured-card {
+  position:fixed;z-index:1210;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(92vw,720px);
+  padding:24px;
+  border:1px solid rgba(94,224,205,.28);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(7,35,47,.985),rgba(3,18,30,.985));
+  box-shadow:0 30px 90px rgba(0,0,0,.48);
+  color:#eafff8;
+}
+.voxel-featured-card[hidden],.voxel-featured-backdrop[hidden]{display:none;}
+.voxel-featured-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px;}
+.voxel-featured-top h3{margin:0;font-size:1.45rem;}
+.voxel-featured-top p{margin:5px 0 0;color:#9bb5ba;line-height:1.45;}
+.voxel-featured-close{width:40px;height:40px;flex:0 0 40px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:#031824;color:white;font-size:1.35rem;cursor:pointer;}
+.voxel-featured-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.voxel-featured-link{
+  appearance:none;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  min-height:160px;padding:16px;border:1px solid rgba(255,255,255,.09);border-radius:15px;
+  background:rgba(255,255,255,.035);color:#e8fcf7;text-decoration:none;text-align:left;cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+.voxel-featured-link:hover,.voxel-featured-link:focus-visible{transform:translateY(-2px);border-color:var(--featured-accent,#58e6a2);background:rgba(255,255,255,.065);outline:none;}
+.voxel-featured-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:color-mix(in srgb,var(--featured-accent,#58e6a2) 16%, transparent);color:var(--featured-accent,#58e6a2);font-size:.61rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
+.voxel-featured-link strong{font-size:.98rem;line-height:1.15;}
+.voxel-featured-link small{color:#96b2b7;font-size:.72rem;line-height:1.45;}
+.voxel-featured-arrow{margin-top:auto;color:var(--featured-accent,#58e6a2);font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
+@media(max-width:700px){.voxel-featured-grid{grid-template-columns:1fr}.voxel-featured-link{min-height:0}.voxel-featured-card{max-height:88vh;overflow:auto;padding:18px}.voxel-featured-top h3{font-size:1.2rem}}
+
 @media (max-width:1100px){
   .voxel-brand{width:min(370px,38vw)}
   .voxel-section-key{width:220px}
@@ -13506,7 +13543,7 @@ body { background:var(--v28-bg) !important; }
 }
 
 /* =========================================================
-V29 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
+V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 ========================================================= */
 #voxelPortfolioCanvas {
   position:relative;
@@ -13589,7 +13626,7 @@ V29 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V29)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V30)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13614,30 +13651,44 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · right/shift-drag or arrows to pan · wheel/pinch to zoom · click a layer</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · right/shift-drag or arrows to pan · wheel/pinch to zoom · click a floor</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections">
+      <button class="voxel-key-button" type="button" data-featured-toggle style="--key-accent:#72e9a5"><span class="voxel-key-num">01</span><span class="voxel-key-copy"><strong>Featured Projects</strong><small>Switzerland · urban heat · green spaces</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="projects" style="--key-accent:#a46cf1"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="skills" style="--key-accent:#35d7ff"><span class="voxel-key-num">03</span><span class="voxel-key-copy"><strong data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="gallery" style="--key-accent:#ff9f57"><span class="voxel-key-num">04</span><span class="voxel-key-copy"><strong data-title>Maps · Models · Visuals</strong><small>Cartographic and analytical work</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">05</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
-      <button class="voxel-key-button" type="button" data-contact-toggle style="--key-accent:#ffe070"><span class="voxel-key-num">06</span><span class="voxel-key-copy"><strong>Contact</strong><small>Email · phone · professional links</small></span><span class="voxel-key-arrow">↗</span></button>
     </nav>
   </section>
 
-  <div class="voxel-contact-backdrop" id="voxelContactBackdrop" hidden></div>
-  <aside class="voxel-contact-card" id="voxelContactCard" hidden aria-label="Contact details">
-    <div class="voxel-contact-top">
-      <div><h3>John Paolo Ramirez</h3><p>Environmental &amp; Geospatial Data Analyst</p></div>
-      <button class="voxel-contact-close" type="button" aria-label="Close contact details">×</button>
+
+  <div class="voxel-featured-backdrop" id="voxelFeaturedBackdrop" hidden></div>
+  <aside class="voxel-featured-card" id="voxelFeaturedCard" hidden aria-label="Featured projects">
+    <div class="voxel-featured-top">
+      <div><h3>Featured spatial projects</h3><p>The lowest floor is a project hub. Choose a project to open its case study or interactive map.</p></div>
+      <button class="voxel-featured-close" type="button" aria-label="Close featured projects">×</button>
     </div>
-    <div class="voxel-contact-links">
-      <button class="voxel-contact-row" type="button" data-copy-email="jpaoloramirez@gmail.com"><span class="voxel-contact-icon">@</span><span><b>Email · click to copy</b><span>jpaoloramirez@gmail.com</span></span></button>
-      <a class="voxel-contact-row" href="tel:+639275745752"><span class="voxel-contact-icon">☎</span><span><b>Mobile</b><span>+63 927 574 5752</span></span></a>
-      <a class="voxel-contact-row" href="https://github.com/Johnny1996ornot" target="_blank" rel="noopener"><span class="voxel-contact-icon">GH</span><span><b>GitHub</b><span>Johnny1996ornot</span></span></a>
-      <a class="voxel-contact-row" href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" rel="noopener"><span class="voxel-contact-icon">in</span><span><b>LinkedIn</b><span>John Paolo Ramirez</span></span></a>
+    <div class="voxel-featured-grid">
+      <button class="voxel-featured-link" type="button" data-featured-case="conservation-policy" style="--featured-accent:#a46cf1">
+        <span class="voxel-featured-badge">Conservation modelling</span>
+        <strong>Switzerland Pollinator Policy Modelling</strong>
+        <small>Spatial policy allocation for pollinator habitat and structural connectivity.</small>
+        <span class="voxel-featured-arrow">Open case study ↗</span>
+      </button>
+      <button class="voxel-featured-link" type="button" data-featured-case="urban-heat" style="--featured-accent:#ff9f57">
+        <span class="voxel-featured-badge">Urban heat</span>
+        <strong>Metro Manila Urban Heat &amp; Trees</strong>
+        <small>Heat, vegetation and land-cover modelling for intervention-priority screening.</small>
+        <span class="voxel-featured-arrow">Open case study ↗</span>
+      </button>
+      <a class="voxel-featured-link" href="https://johnny1996ornot.github.io/NCR-Urban-Connectivity/" target="_blank" rel="noopener noreferrer" style="--featured-accent:#58e6a2">
+        <span class="voxel-featured-badge">Interactive map</span>
+        <strong>Connectivity of Metro Manila's Green Spaces</strong>
+        <small>Interactive urban green-space connectivity and accessibility mapping.</small>
+        <span class="voxel-featured-arrow">Open live map ↗</span>
+      </a>
     </div>
-    <div class="voxel-contact-status" aria-live="polite"></div>
   </aside>
 </main>
 
@@ -20760,35 +20811,34 @@ MOBILE RESEARCH FIGURES FIX
   if (!root || !canvas || !wrap || root.dataset.voxelInit === '1') return;
   root.dataset.voxelInit = '1';
 
-  /* CONTACT — independent from the 3D engine, so it still works if WebGL/CDN fails. */
-  const contactCard = document.getElementById('voxelContactCard');
-  const contactBackdrop = document.getElementById('voxelContactBackdrop');
-  const contactClose = root.querySelector('.voxel-contact-close');
-  const contactStatus = root.querySelector('.voxel-contact-status');
-  const contactToggles = Array.from(root.querySelectorAll('[data-contact-toggle]'));
-  function setContact(open){
-    if (!contactCard || !contactBackdrop) return;
-    contactCard.hidden = !open;
-    contactBackdrop.hidden = !open;
-    if (open) requestAnimationFrame(() => contactClose?.focus({preventScroll:true}));
+  /* FEATURED PROJECT FLOOR — works independently of WebGL. */
+  const featuredCard = document.getElementById('voxelFeaturedCard');
+  const featuredBackdrop = document.getElementById('voxelFeaturedBackdrop');
+  const featuredClose = root.querySelector('.voxel-featured-close');
+  const featuredToggles = Array.from(root.querySelectorAll('[data-featured-toggle]'));
+  function setFeatured(open){
+    if (!featuredCard || !featuredBackdrop) return;
+    featuredCard.hidden = !open;
+    featuredBackdrop.hidden = !open;
+    if (open) requestAnimationFrame(() => featuredClose?.focus({preventScroll:true}));
   }
-  contactToggles.forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); setContact(true); }));
-  contactClose?.addEventListener('click', () => setContact(false));
-  contactBackdrop?.addEventListener('click', () => setContact(false));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && contactCard && !contactCard.hidden) setContact(false); });
-  root.querySelector('[data-copy-email]')?.addEventListener('click', async e => {
-    const email = e.currentTarget.dataset.copyEmail || '';
-    let ok = false;
-    try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(email); ok = true; } } catch(_) {}
-    if (!ok) {
-      const t = document.createElement('textarea'); t.value=email; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select();
-      try { ok = document.execCommand('copy'); } catch(_) {} t.remove();
-    }
-    if (contactStatus) { contactStatus.textContent = ok ? 'Email copied to clipboard.' : `Email: ${email}`; setTimeout(() => contactStatus.textContent='',2200); }
-  });
+  featuredToggles.forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); setFeatured(true); }));
+  featuredClose?.addEventListener('click', () => setFeatured(false));
+  featuredBackdrop?.addEventListener('click', () => setFeatured(false));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && featuredCard && !featuredCard.hidden) setFeatured(false); });
+
+  root.querySelectorAll('[data-featured-case]').forEach(btn => btn.addEventListener('click', () => {
+    const caseKey = btn.dataset.featuredCase;
+    setFeatured(false);
+    /* Open the existing Data & Coding panel first so the case-study shell has
+       the same parent/state it already uses elsewhere in the portfolio. */
+    const miniButton = root.querySelector('[data-panel="mini"]');
+    miniButton?.click();
+    window.setTimeout(() => window.openCaseStudy?.(caseKey), 560);
+  }));
 
   function openPortfolioSection(key){
-    if (key === 'contact') { setContact(true); return; }
+    if (key === 'featured') { setFeatured(true); return; }
     const btn = root.querySelector(`[data-panel="${key}"]`);
     if (btn) btn.click();
   }
@@ -20811,8 +20861,8 @@ MOBILE RESEARCH FIGURES FIX
 
   const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
   camera.position.set(12,10.5,14);
-  camera.lookAt(0,5.45,0);
-  camera.zoom = 1.08;
+  camera.lookAt(0,5.65,0);
+  camera.zoom = .82;
   camera.updateProjectionMatrix();
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
@@ -20836,11 +20886,11 @@ MOBILE RESEARCH FIGURES FIX
   controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
   controls.touches.ONE = THREE.TOUCH.ROTATE;
   controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
-  controls.minZoom = .58;
+  controls.minZoom = .46;
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .42;
   controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(0,5.45,0);
+  controls.target.set(0,5.65,0);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -20854,8 +20904,8 @@ MOBILE RESEARCH FIGURES FIX
   const highlightMaterials = new Map();
 
   const C = {
-    profile:0x56d878, research:0xb05cff, skills:0x34d5ff,
-    maps:0xff9e48, coding:0x35e4d2, contact:0xffdf65,
+    featured:0x56d878, profile:0xffdf65, research:0xb05cff, skills:0x34d5ff,
+    maps:0xff9e48, coding:0x35e4d2,
     dark:0x05192a, deep:0x03111e
   };
 
@@ -20975,23 +21025,28 @@ MOBILE RESEARCH FIGURES FIX
     return g;
   }
 
-  function addPixelStar(parent,x,y,z,size=.34,color=0xfff2a3){
+  const skyStars=[];
+  const discoGlints=[];
+  let topSun=null;
+
+  function addPixelStar(parent,x,y,z,size=.34,color=0xfff2a3,bucket=skyStars){
     const g=new THREE.Group();
     g.position.set(x,y,z);
     const v=box(size*.22,size,size*.22,color,{emissive:color,emissiveIntensity:.8});
     const h=box(size,size*.22,size*.22,color,{emissive:color,emissiveIntensity:.8});
     g.add(v,h);
     parent.add(g);
+    bucket?.push(g);
     return g;
   }
 
   const layerMeta = [
-    {key:'profile', y:.1, size:7.4, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#72e9a5', side:1},
+    {key:'featured', y:.1, size:7.4, color:C.featured, title:'01  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
     {key:'projects', y:2.65, size:6.2, color:C.research, title:'02  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
     {key:'skills', y:5.15, size:5.45, color:C.skills, title:'03  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
     {key:'gallery', y:7.65, size:4.75, color:C.maps, title:'04  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ffac61', side:-1},
     {key:'mini', y:10.05, size:4.05, color:C.coding, title:'05  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
-    {key:'contact', y:12.35, size:3.25, color:C.contact, title:'06  CONTACT', sub:'email · phone · professional links', accent:'#ffe57b', side:-1}
+    {key:'profile', y:12.35, size:3.25, color:C.profile, title:'06  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
   ];
 
   function createVoxelPlatform(meta,index){
@@ -21020,7 +21075,7 @@ MOBILE RESEARCH FIGURES FIX
     const label=makeLabel(meta.title,meta.sub,meta.accent,meta.key);
     label.position.set(meta.side*(meta.size*.5+2.7),.9,0); g.add(label);
 
-    if(meta.key==='profile'){
+    if(meta.key==='featured'){
       for(const [x,z] of [[-2.2,-1.6],[-1.3,2],[2.1,-1.8],[1.7,1.8],[-2.4,.7]]) addTree(g,x,z,.33);
       for(let i=-2;i<=2;i++){ const p=box(.58,.11,.58,0xe8c878); p.position.set(i*.62,.42,.4+i*.18); g.add(p); }
       const hill1=box(1.2,.7,1.2,0x2c8d59); hill1.position.set(1.1,.72,-.5); g.add(hill1);
@@ -21031,6 +21086,17 @@ MOBILE RESEARCH FIGURES FIX
       addButterfly(g,-1.55,.35,1.45,0xff78d6,.72);
       addButterfly(g,.15,1.25,1.28,0x7ee8ff,.58);
       addButterfly(g,2.05,.55,1.62,0xffdf70,.62);
+
+      /* Three visual project markers on the featured-project floor. */
+      const swissBase=box(1.05,.16,1.05,0x805ad8,{emissive:0xa46cf1,emissiveIntensity:.18});swissBase.position.set(-1.55,.52,-1.0);g.add(swissBase);
+      const swissPeak=box(.55,.86,.55,0xdfeeff,{emissive:0x8cb8ff,emissiveIntensity:.08});swissPeak.position.set(-1.55,1.0,-1.0);swissPeak.rotation.y=.78;g.add(swissPeak);
+      addButterfly(g,-1.08,-.72,1.35,0xff8ed8,.48);
+
+      const heatBase=box(1.05,.16,1.05,0xff8b4f,{emissive:0xff6c38,emissiveIntensity:.16});heatBase.position.set(0,.52,-1.0);g.add(heatBase);
+      for(let i=0;i<4;i++){const hot=box(.22,.20+.12*i,.22,[0xffd54f,0xffa53d,0xff7043,0xe84d5b][i],{emissive:[0xffd54f,0xffa53d,0xff7043,0xe84d5b][i],emissiveIntensity:.38});hot.position.set(-.34+i*.23,.68+.05*i,-1.0);g.add(hot);}
+
+      const greenBase=box(1.05,.16,1.05,0x2ca86f,{emissive:0x58e6a2,emissiveIntensity:.16});greenBase.position.set(1.55,.52,-1.0);g.add(greenBase);
+      [[1.30,-1.20],[1.55,-.86],[1.83,-1.13]].forEach(([xx,zz])=>{const node=box(.20,.34,.20,0x65efae,{emissive:0x58e6a2,emissiveIntensity:.32});node.position.set(xx,.82,zz);g.add(node);});
     }
     if(meta.key==='projects'){
       [[-1.5,-1.2,1.0],[1.25,-.6,1.5],[-.2,1.45,.9]].forEach(([x,z,h],i)=>{const b=box(.85,h,.85,i===1?0xff67c8:0x8b5cff,{emissive:i===1?0xff67c8:0x8b5cff,emissiveIntensity:.25});b.position.set(x,.55+h/2,z);g.add(b);});
@@ -21051,9 +21117,9 @@ MOBILE RESEARCH FIGURES FIX
       for(let i=0;i<7;i++){const h=.55+(i%3)*.38;const c=colors[i%3];const b=box(.58,h,.58,c,{emissive:c,emissiveIntensity:.34});b.position.set((i%4-1.5)*.8,.5+h/2,(Math.floor(i/4)-.5)*1.25);g.add(b);}
       const pad=box(2.2,.12,1.25,0x0c2c49,{emissive:0x24d7ff,emissiveIntensity:.17});pad.position.set(0,.5,1.45);g.add(pad);
     }
-    if(meta.key==='contact'){
-      const beacon=box(.8,1.6,.8,0xe9ffff,{emissive:0x55eaff,emissiveIntensity:.6});beacon.position.set(0,1.25,0);g.add(beacon);
-      const cap=box(1.35,.18,1.35,0x56eaff,{emissive:0x56eaff,emissiveIntensity:.75});cap.position.set(0,2.12,0);g.add(cap);
+    if(meta.key==='profile'){
+      const beacon=box(.8,1.6,.8,0xe9ffff,{emissive:0x55eaff,emissiveIntensity:.6});beacon.position.set(0,1.25,0);mark(beacon,'profile');g.add(beacon);
+      const cap=box(1.35,.18,1.35,0x56eaff,{emissive:0x56eaff,emissiveIntensity:.75});cap.position.set(0,2.12,0);mark(cap,'profile');g.add(cap);
       for(let i=0;i<4;i++){const p=box(.18,.18,.18,0xffef81,{emissive:0xffef81,emissiveIntensity:1});p.position.set(Math.cos(i*Math.PI/2)*1.2,.72,Math.sin(i*Math.PI/2)*1.2);g.add(p);}
 
       /* Top-floor sky motif: a small emissive sun and pixel stars. */
@@ -21067,6 +21133,7 @@ MOBILE RESEARCH FIGURES FIX
       });
       const sun=new THREE.Mesh(new THREE.IcosahedronGeometry(.48,2),sunMat);
       sun.position.set(-.72,2.95,-.08);
+      topSun=sun;
       g.add(sun);
       const sunGlow=new THREE.PointLight(0xffc857,7,7,2);
       sunGlow.position.copy(sun.position);
@@ -21081,32 +21148,40 @@ MOBILE RESEARCH FIGURES FIX
 
   layerMeta.forEach(createVoxelPlatform);
 
-  /* Disco ball suspended below the floating stack. */
+  /* Glittering disco ball suspended beneath the top Profile floor. */
   const discoGroup=new THREE.Group();
-  const chainMat=new THREE.MeshStandardMaterial({color:0x7fa7b6,metalness:.8,roughness:.28});
-  const chain=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,1.28,8),chainMat);
-  chain.position.y=-1.18;
+  discoGroup.position.set(1.35,12.18,-1.45);
+  const chainMat=new THREE.MeshStandardMaterial({color:0xa3c3cf,metalness:.9,roughness:.2});
+  const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.72,8),chainMat);
+  chain.position.y=-.36;
   discoGroup.add(chain);
 
   const discoMat=new THREE.MeshStandardMaterial({
-    color:0xc9f7ff,
-    metalness:.96,
-    roughness:.12,
-    emissive:0x12343f,
-    emissiveIntensity:.28,
+    color:0xe8fbff,
+    metalness:.98,
+    roughness:.08,
+    emissive:0x1b5264,
+    emissiveIntensity:.45,
     flatShading:true
   });
-  const discoBall=new THREE.Mesh(new THREE.IcosahedronGeometry(.62,3),discoMat);
-  discoBall.position.y=-2.12;
+  const discoBall=new THREE.Mesh(new THREE.IcosahedronGeometry(.42,3),discoMat);
+  discoBall.position.y=-.92;
   discoBall.castShadow=true;
   discoGroup.add(discoBall);
 
-  const discoLightA=new THREE.PointLight(0x77ecff,8,8,2);
-  discoLightA.position.set(-.9,-2.05,.4);
+  const discoLightA=new THREE.PointLight(0x77ecff,9,7,2);
+  discoLightA.position.set(-.55,-.9,.3);
   discoGroup.add(discoLightA);
-  const discoLightB=new THREE.PointLight(0xff72dd,5,7,2);
-  discoLightB.position.set(.85,-2.15,-.55);
+  const discoLightB=new THREE.PointLight(0xff72dd,7,6,2);
+  discoLightB.position.set(.55,-.96,-.35);
   discoGroup.add(discoLightB);
+
+  const glintColors=[0xffffff,0x8ef4ff,0xff8fe4,0xffe783];
+  for(let i=0;i<9;i++){
+    const a=i/9*Math.PI*2;
+    const r=.72+(i%2)*.10;
+    addPixelStar(discoGroup,Math.cos(a)*r,-.92+Math.sin(a*1.7)*.28,Math.sin(a)*r,.12+(i%3)*.02,glintColors[i%glintColors.length],discoGlints);
+  }
   tower.add(discoGroup);
 
   /* Central data beam made of translucent voxel segments. */
@@ -21186,7 +21261,7 @@ MOBILE RESEARCH FIGURES FIX
     if(action==='pan-down'){panViewVertical(-1.15);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
-    if(action==='reset'){camera.position.set(12,10.5,14);camera.zoom=1.08;camera.updateProjectionMatrix();controls.target.set(0,5.45,0);controls.update();}
+    if(action==='reset'){camera.position.set(12,10.5,14);camera.zoom=.82;camera.updateProjectionMatrix();controls.target.set(0,5.65,0);controls.update();}
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21197,8 +21272,12 @@ MOBILE RESEARCH FIGURES FIX
       const now=performance.now();
       const t=now*.00022;
       cyanLight.position.x=Math.sin(t)*7;cyanLight.position.z=Math.cos(t)*7;
-      discoBall.rotation.y=now*.00024;
-      discoBall.rotation.x=Math.sin(now*.00015)*.08;
+      discoBall.rotation.y=now*.00042;
+      discoBall.rotation.x=Math.sin(now*.00022)*.10;
+      discoMat.emissiveIntensity=.38 + (Math.sin(now*.0042)+1)*.18;
+      discoGlints.forEach((s,i)=>{const p=1+(Math.sin(now*.005+i*1.7)+1)*.28;s.scale.setScalar(p);s.rotation.z=now*.0006*(i%2?1:-1);});
+      if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
+      skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
       sparkleMat.opacity=.13 + (Math.sin(now*.0014)+1)*.035;
       sparklePoints.rotation.y=now*.000012;
       dustPoints.rotation.y=-now*.000006;
