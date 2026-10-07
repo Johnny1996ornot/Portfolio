@@ -21139,7 +21139,7 @@ MOBILE RESEARCH FIGURES FIX
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = .075;
-  /* V41: panning the OrbitControls target is disabled. The projection shifts instead,
+  /* V42: panning the OrbitControls target is disabled. The projection shifts instead,
      so rotating always remains centered on the 3D tower even after moving it on screen. */
   controls.enablePan = false;
   controls.screenSpacePanning = false;
@@ -21189,9 +21189,9 @@ MOBILE RESEARCH FIGURES FIX
   const scrollingTitleBands=[];
 
   function addScrollingTitleBands(parent, meta, index){
-    /* V41 — thicker platform fascia with larger scrolling section titles.
+    /* V42 — thicker platform fascia with larger scrolling section titles.
        The same title continuously scrolls around all four sides like a pixel marquee.
-       V41 doubles the readable fascia height while keeping the top surface fixed. */
+       V42 doubles the readable fascia height while keeping the top surface fixed. */
     const logicalW=1800, logicalH=196;
     const cnv=document.createElement('canvas');
     cnv.width=logicalW;
@@ -21200,7 +21200,7 @@ MOBILE RESEARCH FIGURES FIX
     ctx.imageSmoothingEnabled=true;
     ctx.imageSmoothingQuality='high';
 
-    ctx.fillStyle='rgba(1,12,24,.90)';
+    ctx.fillStyle='rgba(1,10,20,.98)';
     ctx.fillRect(0,0,logicalW,logicalH);
     ctx.fillStyle=meta.accent;
     ctx.fillRect(0,0,logicalW,5);
@@ -21209,9 +21209,9 @@ MOBILE RESEARCH FIGURES FIX
     const label=('   '+meta.title+'   •   ');
     ctx.font='900 88px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
     ctx.textBaseline='middle';
-    ctx.fillStyle='#f4fffd';
+    ctx.fillStyle='#ffffff';
     ctx.shadowColor='rgba(0,0,0,.7)';
-    ctx.shadowBlur=4;
+    ctx.shadowBlur=2;
     const measured=Math.max(620,ctx.measureText(label).width);
     for(let x=-measured;x<logicalW+measured;x+=measured){
       ctx.fillText(label,x,logicalH/2+2);
@@ -21232,13 +21232,17 @@ MOBILE RESEARCH FIGURES FIX
     const mat=new THREE.MeshBasicMaterial({
       map:tex,
       transparent:true,
-      opacity:.98,
+      opacity:1,
       side:THREE.FrontSide,
       depthWrite:false,
-      toneMapped:false
+      depthTest:true,
+      toneMapped:false,
+      polygonOffset:true,
+      polygonOffsetFactor:-4,
+      polygonOffsetUnits:-4
     });
 
-    /* V41: visually double the platform edge thickness WITHOUT moving the floor top.
+    /* V42: visually double the platform edge thickness WITHOUT moving the floor top.
        The added fascia hangs downward, so props stay in the same place and the floor below
        remains visible because the inter-floor gaps are much larger than this skirt. */
     const bandH=.72;
@@ -21260,11 +21264,15 @@ MOBILE RESEARCH FIGURES FIX
     fasciaLeft.position.set(-edge+.03,fasciaY,0); mark(fasciaLeft,meta.key); parent.add(fasciaLeft);
 
     const planeGeo=new THREE.PlaneGeometry(bandW,bandH);
+    /* V42 fix: the V41 fascia became thicker, so the title planes were accidentally
+       sitting inside the fascia mesh and were therefore hidden. Place each marquee
+       just outside the true outer face of the skirt, with a small safety gap. */
+    const titleOut=.072;
     const placements=[
-      [0,y, edge+.006, 0],
-      [0,y,-edge-.006, Math.PI],
-      [ edge+.006,y,0, Math.PI/2],
-      [-edge-.006,y,0,-Math.PI/2]
+      [0,y, edge+titleOut, 0],
+      [0,y,-edge-titleOut, Math.PI],
+      [ edge+titleOut,y,0, Math.PI/2],
+      [-edge-titleOut,y,0,-Math.PI/2]
     ];
     const meshes=[];
     placements.forEach(([x,yy,z,ry])=>{
@@ -21542,7 +21550,7 @@ MOBILE RESEARCH FIGURES FIX
       const roomLight=new THREE.PointLight(0xffd787,3.8,3.2,2); roomLight.position.set(1.25,1.30,1.10); g.add(roomLight);
     }
     if(meta.key==='skills'){
-      /* V41 — open disco/equalizer stage. The three blocking rear columns remain removed.
+      /* V42 — open disco/equalizer stage. The three blocking rear columns remain removed.
          The equalizer bars stay at floor level; the platform above the disco stage is raised instead. */
       const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff,0xff6fa7];
       colors.forEach((c,i)=>{
