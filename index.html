@@ -21189,10 +21189,10 @@ MOBILE RESEARCH FIGURES FIX
   const scrollingTitleBands=[];
 
   function addScrollingTitleBands(parent, meta, index){
-    /* V42 — thicker platform fascia with larger scrolling section titles.
-       The same title continuously scrolls around all four sides like a pixel marquee.
-       V42 doubles the readable fascia height while keeping the top surface fixed. */
-    const logicalW=1800, logicalH=196;
+    /* V43 — larger scrolling section titles without making the platform thicker.
+       The marquee stays on the same fascia, but the lettering is much larger and
+       repeats less often so each section name can be read from the default camera. */
+    const logicalW=1900, logicalH=208;
     const cnv=document.createElement('canvas');
     cnv.width=logicalW;
     cnv.height=logicalH;
@@ -21207,12 +21207,12 @@ MOBILE RESEARCH FIGURES FIX
     ctx.fillRect(0,logicalH-5,logicalW,5);
 
     const label=('   '+meta.title+'   •   ');
-    ctx.font='900 88px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.font='900 118px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
     ctx.textBaseline='middle';
     ctx.fillStyle='#ffffff';
     ctx.shadowColor='rgba(0,0,0,.7)';
     ctx.shadowBlur=2;
-    const measured=Math.max(620,ctx.measureText(label).width);
+    const measured=Math.max(760,ctx.measureText(label).width);
     for(let x=-measured;x<logicalW+measured;x+=measured){
       ctx.fillText(label,x,logicalH/2+2);
     }
@@ -21222,7 +21222,7 @@ MOBILE RESEARCH FIGURES FIX
     tex.colorSpace=THREE.SRGBColorSpace;
     tex.wrapS=THREE.RepeatWrapping;
     tex.wrapT=THREE.ClampToEdgeWrapping;
-    tex.repeat.set(1.18,1);
+    tex.repeat.set(.92,1);
     tex.minFilter=THREE.LinearMipmapLinearFilter;
     tex.magFilter=THREE.LinearFilter;
     tex.generateMipmaps=true;
@@ -21242,10 +21242,10 @@ MOBILE RESEARCH FIGURES FIX
       polygonOffsetUnits:-4
     });
 
-    /* V42: visually double the platform edge thickness WITHOUT moving the floor top.
+    /* V43: keep the thicker platform edge WITHOUT moving the floor top.
        The added fascia hangs downward, so props stay in the same place and the floor below
        remains visible because the inter-floor gaps are much larger than this skirt. */
-    const bandH=.72;
+    const bandH=.74;
     const bandW=meta.size*.94;
     const edge=meta.size*.5+.075;
     const y=-.15;
@@ -21264,9 +21264,8 @@ MOBILE RESEARCH FIGURES FIX
     fasciaLeft.position.set(-edge+.03,fasciaY,0); mark(fasciaLeft,meta.key); parent.add(fasciaLeft);
 
     const planeGeo=new THREE.PlaneGeometry(bandW,bandH);
-    /* V42 fix: the V41 fascia became thicker, so the title planes were accidentally
-       sitting inside the fascia mesh and were therefore hidden. Place each marquee
-       just outside the true outer face of the skirt, with a small safety gap. */
+    /* V43: keep the title planes just outside the thicker fascia so the larger text stays visible.
+       The marquee sits just outside the true outer face of the skirt with a small safety gap. */
     const titleOut=.072;
     const placements=[
       [0,y, edge+titleOut, 0],
@@ -21288,7 +21287,7 @@ MOBILE RESEARCH FIGURES FIX
 
     scrollingTitleBands.push({
       tex,
-      speed:(index%2?-.000014:.000014),
+      speed:(index%2?-.000011:.000011),
       phase:index*.137,
       meshes
     });
