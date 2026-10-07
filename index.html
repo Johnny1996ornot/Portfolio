@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V38 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V40 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13867,7 +13867,7 @@ Case studies keep their dedicated research layouts.
 </style>
 
 
-  <!-- V38: warm the CDN connection and preload the 3D modules for faster startup. -->
+  <!-- V40: warm the CDN connection and preload the 3D modules for faster startup. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/+esm">
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm">
@@ -13881,7 +13881,7 @@ Case studies keep their dedicated research layouts.
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V38)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V40)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13908,7 +13908,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · arrows or right/shift-drag to pan · wheel/pinch to zoom · click a floor</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · arrows or right/shift-drag to pan · wheel/pinch to zoom · click a floor / scrolling title</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -21139,7 +21139,7 @@ MOBILE RESEARCH FIGURES FIX
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = .075;
-  /* V38: panning the OrbitControls target is disabled. The projection shifts instead,
+  /* V40: panning the OrbitControls target is disabled. The projection shifts instead,
      so rotating always remains centered on the 3D tower even after moving it on screen. */
   controls.enablePan = false;
   controls.screenSpacePanning = false;
@@ -21186,61 +21186,86 @@ MOBILE RESEARCH FIGURES FIX
   function mark(mesh,key){ mesh.userData.section=key; targets.push(mesh); return mesh; }
   function seeded(n){ const x=Math.sin(n*127.1+311.7)*43758.5453; return x-Math.floor(x); }
 
-  function makeLabel(title, sub, accent, key){
-    /* V33 — even clearer high-resolution labels.
-       They are larger in world space and use stronger typography so they stay readable
-       when the user is zoomed out at the default view. */
-    const logicalW=920, logicalH=200, scale=3;
+  const scrollingTitleBands=[];
+
+  function addScrollingTitleBands(parent, meta, index){
+    /* V40 — section titles live on the platform edges instead of floating beside the tower.
+       The same title continuously scrolls around all four sides like a pixel marquee. */
+    const logicalW=1536, logicalH=128;
     const cnv=document.createElement('canvas');
-    cnv.width=Math.round(logicalW*scale);
-    cnv.height=Math.round(logicalH*scale);
+    cnv.width=logicalW;
+    cnv.height=logicalH;
     const ctx=cnv.getContext('2d');
-    ctx.scale(scale,scale);
     ctx.imageSmoothingEnabled=true;
     ctx.imageSmoothingQuality='high';
 
-    ctx.fillStyle='rgba(1,11,22,.975)';
+    ctx.fillStyle='rgba(1,12,24,.90)';
     ctx.fillRect(0,0,logicalW,logicalH);
-    ctx.fillStyle=accent;
-    ctx.fillRect(0,0,12,logicalH);
-    ctx.strokeStyle=accent;
-    ctx.lineWidth=4;
-    ctx.strokeRect(2,2,logicalW-4,logicalH-4);
+    ctx.fillStyle=meta.accent;
+    ctx.fillRect(0,0,logicalW,5);
+    ctx.fillRect(0,logicalH-5,logicalW,5);
 
-    ctx.shadowColor='rgba(0,0,0,.65)';
-    ctx.shadowBlur=4;
+    const label=('   '+meta.title+'   •   ');
+    ctx.font='900 48px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.textBaseline='middle';
     ctx.fillStyle='#f4fffd';
-    ctx.font='900 54px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText(title,42,76);
+    ctx.shadowColor='rgba(0,0,0,.7)';
+    ctx.shadowBlur=4;
+    const measured=Math.max(360,ctx.measureText(label).width);
+    for(let x=-measured;x<logicalW+measured;x+=measured){
+      ctx.fillText(label,x,logicalH/2+2);
+    }
     ctx.shadowBlur=0;
-
-    ctx.fillStyle='#c2d9dd';
-    ctx.font='800 28px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText(sub,42,126);
-
-    ctx.fillStyle=accent;
-    ctx.font='900 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText('OPEN FLOOR ↗',42,166);
 
     const tex=new THREE.CanvasTexture(cnv);
     tex.colorSpace=THREE.SRGBColorSpace;
+    tex.wrapS=THREE.RepeatWrapping;
+    tex.wrapT=THREE.ClampToEdgeWrapping;
+    tex.repeat.set(1.18,1);
     tex.minFilter=THREE.LinearMipmapLinearFilter;
     tex.magFilter=THREE.LinearFilter;
     tex.generateMipmaps=true;
-    tex.anisotropy=Math.min(16, renderer.capabilities.getMaxAnisotropy?.() || 1);
+    tex.anisotropy=Math.min(8, renderer.capabilities.getMaxAnisotropy?.() || 1);
     tex.needsUpdate=true;
 
-    const spr=new THREE.Sprite(new THREE.SpriteMaterial({
+    const mat=new THREE.MeshBasicMaterial({
       map:tex,
       transparent:true,
-      depthTest:false,
+      opacity:.98,
+      side:THREE.FrontSide,
       depthWrite:false,
       toneMapped:false
-    }));
-    spr.scale.set(6.95,1.52,1);
-    spr.userData.section=key;
-    targets.push(spr);
-    return spr;
+    });
+
+    const bandH=.38;
+    const bandW=meta.size*.92;
+    const edge=meta.size*.5+.045;
+    const y=.03;
+    const planeGeo=new THREE.PlaneGeometry(bandW,bandH);
+    const placements=[
+      [0,y, edge, 0],
+      [0,y,-edge, Math.PI],
+      [ edge,y,0, Math.PI/2],
+      [-edge,y,0,-Math.PI/2]
+    ];
+    const meshes=[];
+    placements.forEach(([x,yy,z,ry])=>{
+      const mesh=new THREE.Mesh(planeGeo,mat.clone());
+      mesh.material.map=tex;
+      mesh.position.set(x,yy,z);
+      mesh.rotation.y=ry;
+      mesh.renderOrder=8;
+      mark(mesh,meta.key);
+      parent.add(mesh);
+      meshes.push(mesh);
+    });
+
+    scrollingTitleBands.push({
+      tex,
+      speed:(index%2?-.000020:.000020),
+      phase:index*.137,
+      meshes
+    });
   }
 
   function addTree(parent,x,z,y){
@@ -21360,7 +21385,7 @@ MOBILE RESEARCH FIGURES FIX
     const g=new THREE.Group();
     g.position.set(x,y,z);
 
-    /* V38 — person stands clearly IN FRONT of the desk (+Z), so the body is never hidden by it. */
+    /* V40 — person stands clearly IN FRONT of the desk (+Z), so the body is never hidden by it. */
     const desk=box(1.58,.12,.76,0x15334a); desk.position.set(.08,.84,-.18); g.add(desk);
     [-.54,.70].forEach(dx=>{const leg=box(.10,.80,.10,0x0b2133);leg.position.set(dx,.43,-.18);g.add(leg);});
 
@@ -21442,9 +21467,9 @@ MOBILE RESEARCH FIGURES FIX
     {key:'projects', y:2.65, size:6.2, color:C.research, title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
     /* Higher clearance above the research floor so the bedroom/study scene is easier to read. */
     {key:'skills', y:5.95, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
-    {key:'gallery', y:8.45, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
+    {key:'gallery', y:9.10, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
     {key:'mini', y:11.85, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
-    {key:'profile', y:14.25, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
+    {key:'profile', y:14.95, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
   ];
 
   function createVoxelPlatform(meta,index){
@@ -21469,8 +21494,7 @@ MOBILE RESEARCH FIGURES FIX
       }
     }
     highlightMaterials.set(meta.key,mats);
-    const label=makeLabel(meta.title,meta.sub,meta.accent,meta.key);
-    label.position.set(meta.side*(meta.size*.5+3.35),1.0,0); g.add(label);
+    addScrollingTitleBands(g,meta,index);
 
     if(meta.key==='featured'){
       /* Lowest floor: a cleaner living forest with no abstract project-marker bars. */
@@ -21500,14 +21524,15 @@ MOBILE RESEARCH FIGURES FIX
       const roomLight=new THREE.PointLight(0xffd787,3.8,3.2,2); roomLight.position.set(1.25,1.30,1.10); g.add(roomLight);
     }
     if(meta.key==='skills'){
-      /* V38 — open disco/equalizer stage. The three blocking rear columns are removed,
-         and the animated music bars sit higher so they remain visible at default zoom. */
+      /* V40 — open disco/equalizer stage. The three blocking rear columns remain removed.
+         The equalizer bars stay at floor level; the platform above the disco stage is raised instead. */
       const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff,0xff6fa7];
       colors.forEach((c,i)=>{
         const h=.72+i*.20;
         const b=box(.56,h,.56,c,{emissive:c,emissiveIntensity:.34});
-        b.position.set(-1.25+i*.62,.72+h/2,-.14+Math.sin(i)*.12);
-        b.userData.eq={baseY:.72,baseH:h,phase:i*1.17,speed:.0022+i*.00014};
+        /* Bars stay at their original floor height; the ceiling above them is what was raised. */
+        b.position.set(-1.25+i*.62,.45+h/2,-.30+Math.sin(i)*.18);
+        b.userData.eq={baseY:.45,baseH:h,phase:i*1.17,speed:.0022+i*.00014};
         equalizerBars.push(b);
         g.add(b);
       });
@@ -21617,7 +21642,7 @@ MOBILE RESEARCH FIGURES FIX
 
   /* Glittering disco ball on the third floor, beneath Maps · Models · Visuals. */
   const discoGroup=new THREE.Group();
-  discoGroup.position.set(-1.08,8.02,-1.28);
+  discoGroup.position.set(-1.08,8.67,-1.28);
   const chainMat=new THREE.MeshStandardMaterial({color:0xa3c3cf,metalness:.9,roughness:.2});
   const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.72,8),chainMat);
   chain.position.y=-.36;
@@ -21823,6 +21848,9 @@ MOBILE RESEARCH FIGURES FIX
         bar.scale.y=pulse;
         bar.position.y=e.baseY + (e.baseH*pulse)/2;
         bar.material.emissiveIntensity=.20 + pulse*.26;
+      });
+      scrollingTitleBands.forEach((band)=>{
+        band.tex.offset.x=(band.phase + now*band.speed)%1;
       });
       movingBoats.forEach((boat,i)=>{
         const o=boat.userData.boatOrbit;
