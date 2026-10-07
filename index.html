@@ -5,14 +5,14 @@
 GITHUB QUICK EDIT MAP
 =========================================================
 This is the COMPLETE single-file portfolio.
-Version: V24 3D solar-system navigation.
+Version: V26 responsive cartographic island-map navigation.
 
 HOW TO EDIT IN GITHUB:
 Use Ctrl+F / Find and search for the SECTION names below.
 
 SECTION 01  = COLORS / THEME
-SECTION 02  = HOME SOLAR SYSTEM / ORBIT LAYOUT
-SECTION 03  = HOME SOLAR SYSTEM / PLANET VISUALS
+SECTION 02  = HOME CARTOGRAPHIC ISLAND / MAP LAYOUT
+SECTION 03  = HOME CARTOGRAPHIC ISLAND / PINS & CONTACT
 SECTION 04  = EXPANDED PANEL / OPEN-CLOSE ANIMATION
 SECTION 05  = COVER-FLOW CARDS / SIZE / SPACING / MOTION
 SECTION 06  = RESPONSIVE / MOBILE DESIGN
@@ -12090,13 +12090,13 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
 </style>
 
 
-<style id="portfolio-v24-solar-system-home">
+<style id="portfolio-v25-solar-system-home">
 /* =========================================================
-V22 — 3D SOLAR-SYSTEM HOME
+V25 — COUPLED PLANET + LABEL SOLAR-SYSTEM HOME
 - smaller 3D planets with no icon/logo overlays
 - planets move in front of / behind the Sun using orbital depth
-- section names are true SVG text-on-path labels on the orbit lines
-- the name orbits around the Sun and passes behind it on the back half
+- each section title is physically coupled to its planet on the same orbital path
+- all Sun text is one surface inscription that rotates with the Sun
 - no floating title boxes or satellite banner
 - delta-time orbit controller keeps motion continuous without jumps
 ========================================================= */
@@ -12328,15 +12328,18 @@ V22 — 3D SOLAR-SYSTEM HOME
 }
 
 .orbit-path-label {
-    fill: rgba(224,248,250,.90);
+    fill: rgba(224,248,250,.94);
     font-size: clamp(8.5px, .56vw, 11px);
     font-weight: 950;
-    letter-spacing: .145em;
+    letter-spacing: .135em;
     text-transform: uppercase;
     paint-order: stroke fill;
-    stroke: rgba(0,7,14,.78);
+    stroke: rgba(0,7,14,.82);
     stroke-width: 2.8px;
     stroke-linejoin: round;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: opacity .16s linear;
 }
 
 .solar-section-body {
@@ -12429,9 +12432,10 @@ V22 — 3D SOLAR-SYSTEM HOME
     pointer-events: none;
 }
 
-/* All visible words on the Sun are one surface-printed group.
-   The entire group moves together across the rotating sphere, so the name is
-   never duplicated and no fixed text sits on top of the moving name. */
+/* All visible words on the Sun form ONE inscription printed on the sphere.
+   JavaScript now moves and foreshortens this single group using a simulated
+   solar longitude. The inscription disappears on the rear hemisphere and
+   returns from the opposite edge without ever being duplicated or mirrored. */
 .sun-surface-copy {
     position: absolute;
     z-index: 6;
@@ -12441,13 +12445,14 @@ V22 — 3D SOLAR-SYSTEM HOME
     display: grid;
     justify-items: center;
     gap: 5px;
-    color: rgba(16,52,51,.94);
+    color: rgba(16,52,51,.96);
     text-align: center;
     pointer-events: none;
-    transform: translate(-50%,-50%) rotate(-7deg);
-    animation: sunSurfaceCopySpin 18s linear infinite;
+    transform: translate(-50%,-50%);
+    transform-origin: center center;
+    backface-visibility: hidden;
     will-change: transform, opacity;
-    text-shadow: 0 1px 0 rgba(255,250,202,.28);
+    text-shadow: 0 1px 0 rgba(255,250,202,.30);
 }
 
 .sun-surface-copy .sun-surface-kicker {
@@ -12475,16 +12480,6 @@ V22 — 3D SOLAR-SYSTEM HOME
     text-transform: uppercase;
 }
 
-@keyframes sunSurfaceCopySpin {
-    0%   { transform: translate(-168%,-50%) rotate(-7deg) scale(.80); opacity: 0; }
-    9%   { opacity: .25; }
-    22%  { transform: translate(-104%,-50%) rotate(-7deg) scale(.90); opacity: .72; }
-    50%  { transform: translate(-50%,-50%) rotate(-7deg) scale(1); opacity: 1; }
-    78%  { transform: translate(4%,-50%) rotate(-7deg) scale(.90); opacity: .72; }
-    91%  { opacity: .25; }
-    100% { transform: translate(68%,-50%) rotate(-7deg) scale(.80); opacity: 0; }
-}
-
 /* Morph-source title remains present but invisible. */
 .sun-morph-title,
 .planet-morph-title {
@@ -12503,14 +12498,15 @@ V22 — 3D SOLAR-SYSTEM HOME
 }
 
 
-/* PLANETS — smaller, spherical, no logos. */
+/* PLANETS — compact visible spheres inside generous click targets. */
 .orbiting-planet {
-    --planet-size: clamp(30px, 2.65vw, 44px);
+    --planet-size: clamp(27px, 2.25vw, 38px);
+    --planet-hit-size: max(46px, calc(var(--planet-size) + 14px));
     position: absolute;
     left: 50%;
     top: 50%;
-    width: var(--planet-size);
-    height: var(--planet-size);
+    width: var(--planet-hit-size);
+    height: var(--planet-hit-size);
     padding: 0;
     transform: translate(-50%,-50%);
     border-radius: 50%;
@@ -12522,7 +12518,10 @@ V22 — 3D SOLAR-SYSTEM HOME
 
 .planet-surface {
     position: absolute;
-    inset: 0;
+    left: 50%;
+    top: 50%;
+    width: var(--planet-size);
+    height: var(--planet-size);
     overflow: hidden;
     border-radius: 50%;
     border: 1px solid rgba(216,248,243,.34);
@@ -12532,7 +12531,7 @@ V22 — 3D SOLAR-SYSTEM HOME
         0 7px 18px rgba(0,3,9,.42),
         0 0 0 3px rgba(63,208,201,.025);
     transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
-    transform: translateZ(6px);
+    transform: translate(-50%,-50%) translateZ(6px);
 }
 
 .planet-surface::before {
@@ -12560,7 +12559,7 @@ V22 — 3D SOLAR-SYSTEM HOME
 
 .orbiting-planet:hover .planet-surface,
 .orbiting-planet:focus-visible .planet-surface {
-    transform: translateZ(8px) scale(1.10);
+    transform: translate(-50%,-50%) translateZ(8px) scale(1.10);
     filter: brightness(1.14) saturate(1.08);
     box-shadow:
         inset -14px -16px 20px rgba(0,5,12,.46),
@@ -12603,8 +12602,8 @@ V22 — 3D SOLAR-SYSTEM HOME
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 165%;
-    height: 54%;
+    width: calc(var(--planet-size) * 1.72);
+    height: calc(var(--planet-size) * .56);
     border-radius: 50%;
     transform: translate(-50%,-50%) rotate(-16deg);
     pointer-events: none;
@@ -12663,7 +12662,7 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
     .solar-stage { grid-template-columns: minmax(245px,.45fr) minmax(560px,1.55fr); }
     .solar-intro h2 { font-size: clamp(2rem, 3.1vw, 3.2rem); }
     .solar-sun { width: clamp(205px, 20vw, 270px); }
-    .orbiting-planet { --planet-size: clamp(36px, 3.5vw, 48px); }
+    .orbiting-planet { --planet-size: clamp(28px, 2.8vw, 39px); }
     .orbit-path-label { font-size: 9px; letter-spacing: .13em; }
 }
 
@@ -12720,7 +12719,7 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
     .sun-surface-copy .sun-surface-name { font-size: .76rem; }
     .sun-surface-copy .sun-surface-role { max-width: 140px; font-size: .38rem; }
 
-    .orbiting-planet { --planet-size: min(10vw, 44px); }
+    .orbiting-planet { --planet-size: min(8.6vw, 36px); }
     .orbit-path-label { font-size: 8px; letter-spacing: .10em; stroke-width: 2.2px; }
     .solar-footer { min-height: 34px; height: auto; padding: 8px 4px 0; }
 }
@@ -12743,6 +12742,449 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
 </style>
 
 
+
+<style id="portfolio-v26-island-home">
+/* =========================================================
+V26 — RESPONSIVE CARTOGRAPHIC / REMOTE-SENSING HOME
+Only the home navigation is replaced. Existing expanded portfolio
+sections and case studies remain intact.
+========================================================= */
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+}
+
+#portfolioIslandHome {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    padding: clamp(12px, 1.6vw, 24px);
+    color: #effaf8;
+    background:
+        radial-gradient(circle at 72% 22%, rgba(26,122,145,.16), transparent 27%),
+        radial-gradient(circle at 18% 82%, rgba(39,118,103,.12), transparent 28%),
+        linear-gradient(145deg, #03121d 0%, #061c29 50%, #041722 100%);
+    isolation: isolate;
+}
+
+#portfolioIslandHome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .42;
+    background-image:
+        linear-gradient(rgba(117,181,193,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(117,181,193,.045) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 95%);
+}
+
+.island-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+}
+
+.island-name-banner {
+    position: relative;
+    z-index: 30;
+    width: min(100%, 820px);
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 18px;
+    border: 1px solid rgba(183,232,231,.23);
+    border-radius: 18px;
+    color: inherit;
+    background: linear-gradient(135deg, rgba(239,249,244,.10), rgba(11,50,65,.70));
+    box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    text-align: left;
+}
+
+.island-name-banner:focus-visible,
+.island-pin:focus-visible,
+.island-contact-close:focus-visible,
+.island-contact-copy:focus-visible {
+    outline: 3px solid #59e18d;
+    outline-offset: 4px;
+}
+
+.island-logo-mark {
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background:
+        linear-gradient(145deg, rgba(89,225,141,.18), rgba(43,169,189,.10)),
+        #0a3342;
+    border: 1px solid rgba(89,225,141,.30);
+}
+
+.island-logo-mark svg { width: 30px; height: 30px; }
+
+.island-banner-copy { min-width: 0; }
+.island-banner-kicker {
+    display: block;
+    margin-bottom: 2px;
+    color: #59e18d;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+.island-banner-name {
+    display: block;
+    font-size: clamp(1.3rem, 2.1vw, 2rem) !important;
+    line-height: 1;
+    font-weight: 1000;
+    letter-spacing: -.035em;
+}
+.island-banner-role {
+    display: block;
+    margin-top: 5px;
+    color: rgba(224,242,243,.72);
+    font-size: clamp(.74rem, 1vw, .92rem);
+    line-height: 1.25;
+}
+.island-banner-action {
+    margin-left: auto;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #a9f6c7;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.island-map-board {
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(161,218,224,.18);
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 54% 45%, rgba(75,180,190,.16), transparent 34%),
+        linear-gradient(145deg, rgba(7,49,68,.96), rgba(3,28,41,.98));
+    box-shadow: 0 28px 70px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.05);
+}
+
+.island-map-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.map-water-grid line { stroke: rgba(178,226,232,.065); stroke-width: 1; }
+.map-coast-halo { fill: none; stroke: rgba(93,224,205,.16); stroke-width: 22; }
+.map-coast { fill: url(#islandLandGradient); stroke: #d0ecd9; stroke-width: 3.2; }
+.map-contour { fill: none; stroke: rgba(18,86,70,.32); stroke-width: 1.5; }
+.map-road-main { fill: none; stroke: rgba(247,246,219,.94); stroke-width: 5; stroke-linecap: round; }
+.map-road-secondary { fill: none; stroke: rgba(247,246,219,.58); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 8 8; }
+.map-river { fill: none; stroke: rgba(80,181,226,.86); stroke-width: 6; stroke-linecap: round; }
+.map-boundary { fill: none; stroke: rgba(252,252,247,.32); stroke-width: 1.3; stroke-dasharray: 4 6; }
+.map-forest { fill: rgba(25,105,58,.74); }
+.map-agri { fill: rgba(197,190,95,.52); }
+.map-urban { fill: rgba(215,127,86,.55); }
+.map-wetland { fill: rgba(51,152,135,.52); }
+.map-mountain { fill: rgba(64,101,75,.48); stroke: rgba(215,235,219,.40); stroke-width: 1; }
+.map-swath { fill: rgba(78,194,211,.07); stroke: rgba(92,215,221,.26); stroke-width: 1.4; stroke-dasharray: 10 8; }
+.map-label { fill: rgba(222,242,244,.38); font-size: 17px; font-family: system-ui, sans-serif; font-weight: 800; letter-spacing: .18em; }
+.map-small-label { fill: rgba(225,244,246,.56); font-size: 11px; font-family: system-ui, sans-serif; font-weight: 750; letter-spacing: .12em; }
+
+.island-map-title {
+    position: absolute;
+    z-index: 8;
+    left: clamp(18px, 2.2vw, 38px);
+    top: clamp(18px, 2.3vw, 34px);
+    pointer-events: none;
+}
+.island-map-title span {
+    display: block;
+    color: #59e18d;
+    font-size: .68rem;
+    font-weight: 950;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+.island-map-title strong {
+    display: block;
+    margin-top: 5px;
+    color: rgba(240,250,248,.94);
+    font-size: clamp(1.55rem, 2.6vw, 2.9rem);
+    line-height: .94;
+    letter-spacing: -.045em;
+}
+.island-map-title em {
+    display: block;
+    max-width: 420px;
+    margin-top: 8px;
+    color: rgba(215,238,240,.68);
+    font-size: .78rem;
+    line-height: 1.4;
+    font-style: normal;
+}
+
+.island-pin {
+    --pin-accent: #59e18d;
+    position: absolute;
+    z-index: 18;
+    transform: translate(-50%, -100%);
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.island-pin::after {
+    content: "";
+    position: absolute;
+    left: 21px;
+    top: 39px;
+    width: 2px;
+    height: 17px;
+    background: linear-gradient(to bottom, var(--pin-accent), transparent);
+}
+
+.island-pin-dot {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50% 50% 50% 8px;
+    transform: rotate(-45deg);
+    border: 2px solid rgba(255,255,255,.88);
+    background: linear-gradient(145deg, color-mix(in srgb, var(--pin-accent) 86%, white 8%), color-mix(in srgb, var(--pin-accent) 72%, #052a35 28%));
+    box-shadow: 0 8px 22px rgba(0,0,0,.28), 0 0 0 5px rgba(255,255,255,.055);
+}
+
+.island-pin-dot > span {
+    transform: rotate(45deg);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 950;
+}
+
+.island-pin-label {
+    min-width: 118px;
+    max-width: 210px;
+    margin-left: -3px;
+    padding: 9px 13px 10px 15px;
+    border: 1px solid rgba(201,237,237,.20);
+    border-left: 0;
+    border-radius: 0 14px 14px 0;
+    background: rgba(4,38,50,.86);
+    box-shadow: 0 10px 24px rgba(0,0,0,.20), inset 0 1px rgba(255,255,255,.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#portfolioIslandHome .island-pin-label [data-title] {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    color: #f3fbfa !important;
+    font-size: clamp(.78rem, .92vw, .96rem) !important;
+    line-height: 1.05 !important;
+    font-weight: 950 !important;
+    letter-spacing: -.015em !important;
+    white-space: normal !important;
+}
+.island-pin-label small {
+    display: block;
+    margin-top: 4px;
+    color: rgba(215,238,240,.58);
+    font-size: .59rem;
+    line-height: 1.2;
+}
+
+@media (hover:hover) and (pointer:fine) {
+    .island-pin:hover { z-index: 25; }
+    .island-pin:hover .island-pin-dot { filter: brightness(1.13); }
+    .island-pin:hover .island-pin-label { border-color: color-mix(in srgb, var(--pin-accent) 48%, transparent); }
+}
+
+.pin-profile { left: 33%; top: 48%; --pin-accent: #3f90e8; }
+.pin-projects { left: 50%; top: 27%; --pin-accent: #48b96e; }
+.pin-skills { left: 69%; top: 42%; --pin-accent: #df9c27; }
+.pin-gallery { left: 39%; top: 73%; --pin-accent: #d7496b; }
+.pin-coding { left: 62%; top: 70%; --pin-accent: #8f6de7; }
+.pin-contact { left: 80%; top: 65%; --pin-accent: #2e9fd5; }
+
+.island-compass {
+    position: absolute;
+    z-index: 8;
+    left: 26px;
+    bottom: 24px;
+    width: 92px;
+    aspect-ratio: 1;
+    opacity: .64;
+    pointer-events: none;
+}
+.island-scale {
+    position: absolute;
+    z-index: 8;
+    left: 138px;
+    bottom: 30px;
+    color: rgba(223,242,244,.64);
+    font-size: .58rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+.island-scale-line {
+    width: 130px;
+    height: 7px;
+    margin-top: 6px;
+    border-left: 2px solid rgba(229,245,245,.76);
+    border-right: 2px solid rgba(229,245,245,.76);
+    border-bottom: 2px solid rgba(229,245,245,.76);
+}
+
+.island-contact-backdrop {
+    position: absolute;
+    z-index: 80;
+    inset: 0;
+    background: rgba(0,7,13,.46);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+.island-contact-card {
+    position: absolute;
+    z-index: 90;
+    top: 92px;
+    right: 24px;
+    width: min(390px, calc(100% - 48px));
+    max-height: calc(100% - 116px);
+    overflow: auto;
+    padding: 22px;
+    border: 1px solid rgba(192,231,231,.27);
+    border-radius: 22px;
+    color: #eef8f6;
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.075), transparent 35%),
+        rgba(3,33,45,.96);
+    box-shadow: 0 32px 80px rgba(0,0,0,.40), inset 0 1px rgba(255,255,255,.07);
+}
+.island-contact-card[hidden], .island-contact-backdrop[hidden] { display: none !important; }
+.island-contact-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.island-contact-top h3 { margin:0; font-size:1.25rem; }
+.island-contact-top p { margin:4px 0 0; color:rgba(220,240,241,.62); font-size:.76rem; }
+.island-contact-close {
+    width: 40px; height:40px; border-radius:50%; border:1px solid rgba(210,239,240,.2); background:#062c3a; color:#fff; cursor:pointer;
+}
+.island-contact-summary { margin:18px 0; color:rgba(228,244,244,.78); font-size:.88rem; line-height:1.55; }
+.island-contact-links { display:grid; gap:9px; }
+.island-contact-row {
+    display:flex; align-items:center; gap:11px; min-height:50px; padding:9px 11px; border:1px solid rgba(198,232,233,.15); border-radius:13px; background:rgba(255,255,255,.035); color:#eff9f8; text-decoration:none;
+}
+.island-contact-row b { display:block; font-size:.75rem; }
+.island-contact-row span { display:block; margin-top:1px; color:rgba(211,236,237,.65); font-size:.69rem; overflow-wrap:anywhere; }
+.island-contact-icon { flex:0 0 auto; width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:rgba(89,225,141,.10); color:#59e18d; font-weight:950; }
+.island-contact-copy { width:100%; border:0; cursor:pointer; font:inherit; text-align:left; }
+.island-contact-status { min-height:20px; margin-top:10px; color:#7df1a9; font-size:.68rem; font-weight:800; }
+
+/* Keep the contact/pin UI out of expanded portfolio panels. */
+body:has(.expansion) #portfolioIslandHome { pointer-events: none; }
+
+@media (max-width: 980px) {
+    #portfolioIslandHome { height:auto; min-height:100vh; overflow-y:auto; padding:10px; }
+    .island-shell { min-height:100vh; grid-template-rows:auto auto; }
+    .island-name-banner { width:100%; min-height:66px; }
+    .island-map-board { min-height:720px; }
+    .island-map-title strong { font-size:clamp(1.45rem, 5vw, 2.35rem); }
+    .island-pin-label { max-width:170px; }
+    .pin-profile { left:31%; top:47%; }
+    .pin-projects { left:50%; top:29%; }
+    .pin-skills { left:70%; top:42%; }
+    .pin-gallery { left:35%; top:70%; }
+    .pin-coding { left:58%; top:73%; }
+    .pin-contact { left:78%; top:64%; }
+}
+
+@media (max-width: 700px) {
+    #portfolioIslandHome { padding:8px; }
+    .island-name-banner { border-radius:16px; padding:10px 12px; gap:10px; }
+    .island-logo-mark { width:42px; height:42px; }
+    .island-banner-kicker { font-size:.56rem; }
+    .island-banner-name { font-size:1.24rem !important; }
+    .island-banner-role { font-size:.68rem; }
+    .island-banner-action { display:none; }
+    .island-map-board { min-height:680px; border-radius:20px; }
+    .island-map-title { left:16px; top:16px; max-width:58%; }
+    .island-map-title span { font-size:.55rem; }
+    .island-map-title strong { font-size:clamp(1.25rem, 7vw, 1.9rem); }
+    .island-map-title em { display:none; }
+
+    .island-pin { transform:translate(-50%,-100%) scale(.94); transform-origin:50% 100%; }
+    .island-pin-dot { width:40px; height:40px; }
+    .island-pin::after { left:19px; top:36px; }
+    .island-pin-label { min-width:102px; max-width:138px; padding:8px 9px 9px 12px; }
+    #portfolioIslandHome .island-pin-label [data-title] { font-size:.72rem !important; }
+    .island-pin-label small { display:none; }
+
+    .pin-profile { left:29%; top:47%; }
+    .pin-projects { left:55%; top:31%; }
+    .pin-skills { left:72%; top:45%; }
+    .pin-gallery { left:31%; top:69%; }
+    .pin-coding { left:55%; top:77%; }
+    .pin-contact { left:78%; top:64%; }
+
+    .island-compass { width:68px; left:15px; bottom:18px; }
+    .island-scale { left:96px; bottom:22px; font-size:.50rem; }
+    .island-scale-line { width:82px; }
+
+    .island-contact-card {
+        position:fixed;
+        z-index:10050;
+        left:8px; right:8px; top:auto; bottom:8px;
+        width:auto; max-height:min(74vh, 620px);
+        border-radius:20px;
+    }
+    .island-contact-backdrop { position:fixed; z-index:10040; }
+}
+
+@media (max-width: 430px) {
+    .island-map-board { min-height:625px; }
+    .island-pin { transform:translate(-50%,-100%) scale(.88); }
+    .pin-profile { left:29%; top:48%; }
+    .pin-projects { left:54%; top:32%; }
+    .pin-skills { left:70%; top:47%; }
+    .pin-gallery { left:31%; top:68%; }
+    .pin-coding { left:52%; top:78%; }
+    .pin-contact { left:77%; top:65%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #portfolioIslandHome *, #portfolioIslandHome *::before, #portfolioIslandHome *::after { scroll-behavior:auto !important; transition-duration:.001ms !important; animation-duration:.001ms !important; }
+}
+</style>
 </head>
 
 
@@ -12752,165 +13194,184 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
 
 <!-- =========================================================
 SECTION 08 — HOME 3D SOLAR-SYSTEM NAVIGATION
-The Sun is the profile. Each planet follows its own orbit. Section titles are
-rendered directly on those orbit paths. Planets pass in front of and behind
-the Sun to create orbital depth.
+The Sun is the profile. Each planet and its title move as one orbital unit.
+Titles are rendered on the same orbital path immediately beside their planet.
+Planets pass in front of and behind the Sun to create orbital depth.
 ========================================================= -->
 
-<main class="app solar-app" id="solarPortfolioHome">
+<main class="app island-app" id="portfolioIslandHome">
+    <div class="island-shell">
+        <button class="island-name-banner" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard">
+            <span class="island-logo-mark" aria-hidden="true">
+                <svg viewBox="0 0 48 48" role="img">
+                    <path d="M5 37 18 15l5 8 5-13 15 27H5Z" fill="#59e18d" opacity=".92"/>
+                    <path d="M13 37 23 23l6 9 5-7 9 12H13Z" fill="#bfe9db" opacity=".78"/>
+                    <path d="M9 37h31" stroke="#062c37" stroke-width="2.4"/>
+                </svg>
+            </span>
+            <span class="island-banner-copy">
+                <span class="island-banner-kicker">Interactive Geospatial Portfolio</span>
+                <strong class="island-banner-name">John Paolo Ramirez</strong>
+                <span class="island-banner-role">Environmental &amp; Geospatial Data Analyst · GIS · Remote Sensing · Spatial Modelling</span>
+            </span>
+            <span class="island-banner-action">Contact details <span aria-hidden="true">↗</span></span>
+        </button>
 
-    <header class="solar-topbar" aria-label="Portfolio navigation header">
-        <div class="solar-brand">JPR <span>Environmental · Geospatial · Data</span></div>
-        <div class="solar-hint"><span class="solar-hint-dot"></span> Click a planet to enter a section</div>
-    </header>
+        <section class="island-map-board" aria-label="Interactive schematic portfolio island map">
+            <div class="island-map-title" aria-hidden="true">
+                <span>Portfolio Atlas · 2026</span>
+                <strong>JPR<br>Portfolio Island</strong>
+                <em>A schematic cartographic interface. Select a map pin to enter each portfolio section.</em>
+            </div>
 
-    <section class="solar-stage" aria-label="Interactive portfolio solar system">
-
-        <div class="solar-intro">
-            <div class="solar-eyebrow">WELCOME TO MY ORBIT</div>
-            <h2>Environmental &amp;<br>Geospatial <span>Data</span><br>Portfolio</h2>
-            <p>
-                Exploring environmental systems through spatial analysis,
-                remote sensing, research, modelling and code.
-            </p>
-            <div class="solar-rule"></div>
-            <p class="solar-instruction">
-                My profile is the rotating Sun. Each smaller planet represents a portfolio section,
-                and its title travels immediately beside it on the same orbit.
-            </p>
-        </div>
-
-        <div class="solar-system" id="portfolioSolarSystem" aria-label="Portfolio sections">
-
-            <div class="orbit-ring orbit-ring-1" aria-hidden="true"></div>
-            <div class="orbit-ring orbit-ring-2" aria-hidden="true"></div>
-            <div class="orbit-ring orbit-ring-3" aria-hidden="true"></div>
-            <div class="orbit-ring orbit-ring-4" aria-hidden="true"></div>
-
-            <!-- Real text-on-path orbit labels. Geometry is populated by JavaScript. -->
-            <svg class="orbit-label-svg" id="portfolioOrbitLabels" aria-hidden="true" preserveAspectRatio="none">
+            <svg class="island-map-svg" viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <defs>
-                    <path id="orbit-research-forward" class="orbit-label-path"></path>
-                    <path id="orbit-research-reverse" class="orbit-label-path"></path>
-                    <path id="orbit-skills-forward" class="orbit-label-path"></path>
-                    <path id="orbit-skills-reverse" class="orbit-label-path"></path>
-                    <path id="orbit-gallery-forward" class="orbit-label-path"></path>
-                    <path id="orbit-gallery-reverse" class="orbit-label-path"></path>
-                    <path id="orbit-coding-forward" class="orbit-label-path"></path>
-                    <path id="orbit-coding-reverse" class="orbit-label-path"></path>
+                    <linearGradient id="islandLandGradient" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#b8d996"/>
+                        <stop offset=".42" stop-color="#8fc37c"/>
+                        <stop offset="1" stop-color="#5e9d6d"/>
+                    </linearGradient>
+                    <linearGradient id="seaGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#0b4057"/>
+                        <stop offset="1" stop-color="#052839"/>
+                    </linearGradient>
+                    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#00131b" flood-opacity=".40"/>
+                    </filter>
+                    <clipPath id="islandClip">
+                        <path d="M167 348 C146 268 210 185 302 161 C350 105 449 92 511 133 C588 104 690 137 713 205 C796 225 841 296 816 361 C858 426 809 496 731 511 C683 578 580 577 521 547 C446 594 343 564 318 507 C235 500 180 448 192 390 C176 380 168 364 167 348Z"/>
+                    </clipPath>
                 </defs>
 
-                <text class="orbit-path-label" data-orbit-label="research">
-                    <textPath href="#orbit-research-forward" startOffset="0%" text-anchor="start">RESEARCH PROJECTS</textPath>
-                </text>
-                <text class="orbit-path-label" data-orbit-label="skills">
-                    <textPath href="#orbit-skills-forward" startOffset="0%" text-anchor="start">TECHNICAL SKILLS</textPath>
-                </text>
-                <text class="orbit-path-label" data-orbit-label="gallery">
-                    <textPath href="#orbit-gallery-forward" startOffset="0%" text-anchor="start">MAPS · MODELS · VISUALS</textPath>
-                </text>
-                <text class="orbit-path-label" data-orbit-label="coding">
-                    <textPath href="#orbit-coding-forward" startOffset="0%" text-anchor="start">DATA &amp; CODING PROJECTS</textPath>
-                </text>
+                <rect width="1000" height="660" fill="url(#seaGradient)"/>
+
+                <g class="map-water-grid" opacity=".75">
+                    <line x1="0" y1="110" x2="1000" y2="110"/><line x1="0" y1="220" x2="1000" y2="220"/><line x1="0" y1="330" x2="1000" y2="330"/><line x1="0" y1="440" x2="1000" y2="440"/><line x1="0" y1="550" x2="1000" y2="550"/>
+                    <line x1="120" y1="0" x2="120" y2="660"/><line x1="280" y1="0" x2="280" y2="660"/><line x1="440" y1="0" x2="440" y2="660"/><line x1="600" y1="0" x2="600" y2="660"/><line x1="760" y1="0" x2="760" y2="660"/><line x1="920" y1="0" x2="920" y2="660"/>
+                </g>
+
+                <path class="map-swath" d="M-70 470 340 -20 510 -20 90 550Z"/>
+                <path class="map-swath" d="M660 -40 1020 310 1020 440 565 5Z"/>
+                <text class="map-small-label" x="73" y="528" transform="rotate(-38 73 528)">SENTINEL / EARTH OBSERVATION SWATH</text>
+
+                <path class="map-coast-halo" d="M167 348 C146 268 210 185 302 161 C350 105 449 92 511 133 C588 104 690 137 713 205 C796 225 841 296 816 361 C858 426 809 496 731 511 C683 578 580 577 521 547 C446 594 343 564 318 507 C235 500 180 448 192 390 C176 380 168 364 167 348Z"/>
+                <path class="map-coast" filter="url(#softShadow)" d="M167 348 C146 268 210 185 302 161 C350 105 449 92 511 133 C588 104 690 137 713 205 C796 225 841 296 816 361 C858 426 809 496 731 511 C683 578 580 577 521 547 C446 594 343 564 318 507 C235 500 180 448 192 390 C176 380 168 364 167 348Z"/>
+
+                <g clip-path="url(#islandClip)">
+                    <path class="map-forest" d="M275 190 C330 120 420 128 456 190 C432 252 358 273 294 248Z"/>
+                    <path class="map-forest" d="M565 151 C647 137 723 183 728 250 C682 289 607 277 563 233Z"/>
+                    <path class="map-forest" d="M600 349 C688 315 775 347 786 420 C743 482 657 489 598 447Z"/>
+                    <path class="map-agri" d="M245 302 C319 264 403 278 425 348 C387 407 293 421 227 382Z"/>
+                    <path class="map-agri" d="M389 424 C444 387 522 394 563 444 C548 504 474 539 404 510Z"/>
+                    <path class="map-wetland" d="M517 246 C566 218 626 236 644 285 C615 328 556 337 514 306Z"/>
+                    <path class="map-urban" d="M676 267 C731 243 798 276 805 326 C772 357 716 361 674 333Z"/>
+                    <path class="map-urban" d="M303 441 C355 425 402 455 403 494 C367 521 318 513 294 483Z"/>
+
+                    <path class="map-mountain" d="M405 330 455 222 496 318Z"/>
+                    <path class="map-mountain" d="M446 337 501 186 553 330Z"/>
+                    <path class="map-mountain" d="M502 342 552 239 601 344Z"/>
+
+                    <path class="map-river" d="M500 190 C486 245 512 280 481 326 C454 363 467 407 438 452"/>
+                    <path class="map-river" d="M496 317 C557 329 584 372 623 414"/>
+
+                    <path class="map-road-main" d="M219 359 C296 332 333 333 405 347 C477 361 540 337 620 315 C692 295 747 319 794 357"/>
+                    <path class="map-road-main" d="M353 497 C390 441 423 403 483 368 C543 333 613 283 687 234"/>
+                    <path class="map-road-secondary" d="M280 205 C347 239 381 273 410 341 C430 388 483 431 548 468"/>
+                    <path class="map-road-secondary" d="M620 172 C612 224 629 274 674 331 C699 363 713 413 697 467"/>
+                    <path class="map-road-secondary" d="M242 414 C321 395 390 408 465 444 C536 477 622 493 714 471"/>
+
+                    <path class="map-contour" d="M225 334 C226 238 332 176 425 178 C553 141 690 186 754 274 C821 363 750 454 650 486 C531 537 382 514 286 454 C240 425 220 385 225 334Z"/>
+                    <path class="map-contour" d="M280 337 C279 262 354 218 429 221 C530 192 640 226 691 293 C742 363 689 424 614 448 C518 487 401 470 330 425 C294 402 275 371 280 337Z"/>
+                    <path class="map-contour" d="M345 340 C346 287 393 258 445 258 C514 239 585 261 619 306 C653 353 618 394 568 411 C503 438 426 426 380 398 C356 383 342 362 345 340Z"/>
+
+                    <path class="map-boundary" d="M332 160 C358 256 357 378 318 507"/>
+                    <path class="map-boundary" d="M511 133 C507 239 526 409 521 547"/>
+                    <path class="map-boundary" d="M713 205 C650 280 628 401 731 511"/>
+                </g>
+
+                <g opacity=".85">
+                    <circle cx="120" cy="470" r="18" fill="#6daa78" stroke="#d0ecd9"/><circle cx="145" cy="493" r="8" fill="#6daa78"/>
+                    <circle cx="851" cy="232" r="14" fill="#6daa78" stroke="#d0ecd9"/><circle cx="872" cy="251" r="6" fill="#6daa78"/>
+                    <circle cx="804" cy="550" r="22" fill="#6daa78" stroke="#d0ecd9"/>
+                </g>
+
+                <text class="map-label" x="70" y="210">SPATIAL DATA SEA</text>
+                <text class="map-label" x="725" y="575">REMOTE SENSING OCEAN</text>
+                <text class="map-small-label" x="415" y="125">ELEVATION / HABITAT RIDGE</text>
+                <text class="map-small-label" x="680" y="300">URBAN ANALYTICS DISTRICT</text>
+
+                <g transform="translate(887 92)" opacity=".72">
+                    <path d="M-18 0 17 0 M0-18 0 18" stroke="#dff5f5" stroke-width="1.5"/>
+                    <path d="m0-24 5 12-5-3-5 3Z" fill="#59e18d"/>
+                    <text class="map-small-label" x="10" y="-9">N</text>
+                </g>
             </svg>
 
-            <!-- SUN / PROFILE -->
-            <button
-                type="button"
-                class="solar-sun solar-section-body"
-                data-panel="profile"
-                aria-label="Open profile"
-            >
-                <span class="sun-corona" aria-hidden="true"></span>
-                <span class="sun-core">
-                    <span class="sun-surface-copy" aria-hidden="true">
-                        <span class="sun-surface-kicker">Profile</span>
-                        <span class="sun-surface-name">John Paolo Ramirez</span>
-                        <span class="sun-surface-role">Environmental Scientist &amp; Geospatial Analyst</span>
-                    </span>
-                    <h1 class="shared-title sun-morph-title" data-title>
-                        <span class="title-line">John Paolo</span>
-                        <span class="title-line">Ramirez</span>
-                    </h1>
-                </span>
+            <button class="island-pin pin-profile" type="button" data-panel="profile" aria-label="Open profile">
+                <span class="island-pin-dot"><span>P</span></span>
+                <span class="island-pin-label"><strong class="shared-title" data-title>Profile</strong><small>Background · experience · contact</small></span>
             </button>
 
-            <!-- RESEARCH PROJECTS -->
-            <button
-                type="button"
-                class="orbiting-planet solar-section-body planet-research"
-                data-panel="projects"
-                data-orbit="research"
-                data-rx="0.29"
-                data-ry="0.23"
-                data-period="52"
-                data-phase="-1.20"
-                aria-label="Open Research Projects"
-            >
-                <span class="planet-surface" aria-hidden="true"></span>
-                <span class="shared-title planet-morph-title" data-title>Research Projects</span>
+            <button class="island-pin pin-projects" type="button" data-panel="projects" aria-label="Open Research Projects">
+                <span class="island-pin-dot"><span>R</span></span>
+                <span class="island-pin-label"><strong class="shared-title" data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span>
             </button>
 
-            <!-- TECHNICAL SKILLS -->
-            <button
-                type="button"
-                class="orbiting-planet solar-section-body planet-skills"
-                data-panel="skills"
-                data-orbit="skills"
-                data-rx="0.35"
-                data-ry="0.29"
-                data-period="66"
-                data-phase="0.05"
-                aria-label="Open Technical Skills"
-            >
-                <span class="planet-surface" aria-hidden="true"></span>
-                <span class="shared-title planet-morph-title" data-title>Technical Skills</span>
+            <button class="island-pin pin-skills" type="button" data-panel="skills" aria-label="Open Technical Skills">
+                <span class="island-pin-dot"><span>S</span></span>
+                <span class="island-pin-label"><strong class="shared-title" data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span>
             </button>
 
-            <!-- MAPS / MODELS / VISUALS -->
-            <button
-                type="button"
-                class="orbiting-planet solar-section-body planet-gallery"
-                data-panel="gallery"
-                data-orbit="gallery"
-                data-rx="0.41"
-                data-ry="0.35"
-                data-period="78"
-                data-phase="0.90"
-                aria-label="Open Maps Models and Visuals"
-            >
-                <span class="planet-surface" aria-hidden="true"></span>
-                <span class="shared-title planet-morph-title" data-title>Maps · Models · Visuals</span>
+            <button class="island-pin pin-gallery" type="button" data-panel="gallery" aria-label="Open Maps Models and Visuals">
+                <span class="island-pin-dot"><span>M</span></span>
+                <span class="island-pin-label"><strong class="shared-title" data-title>Maps · Models · Visuals</strong><small>Selected cartographic and analytical work</small></span>
             </button>
 
-            <!-- DATA & CODING -->
-            <button
-                type="button"
-                class="orbiting-planet solar-section-body planet-coding"
-                data-panel="mini"
-                data-orbit="coding"
-                data-rx="0.46"
-                data-ry="0.40"
-                data-period="88"
-                data-phase="2.72"
-                aria-label="Open Data and Coding Projects"
-            >
-                <span class="planet-surface" aria-hidden="true"></span>
-                <span class="shared-title planet-morph-title" data-title>Data &amp; Coding Projects</span>
+            <button class="island-pin pin-coding" type="button" data-panel="mini" aria-label="Open Data and Coding Projects">
+                <span class="island-pin-dot"><span>D</span></span>
+                <span class="island-pin-label"><strong class="shared-title" data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span>
             </button>
 
+            <button class="island-pin pin-contact" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard">
+                <span class="island-pin-dot"><span>@</span></span>
+                <span class="island-pin-label"><strong>Contact</strong><small>Reveal email and professional links</small></span>
+            </button>
+
+            <svg class="island-compass" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="43" fill="none" stroke="rgba(226,245,245,.45)" stroke-width="2"/>
+                <circle cx="50" cy="50" r="31" fill="none" stroke="rgba(226,245,245,.25)"/>
+                <path d="M50 5 58 43 50 50 42 43Z" fill="#dff5f4"/><path d="M50 95 42 57 50 50 58 57Z" fill="rgba(223,245,244,.32)"/>
+                <path d="M5 50 43 42 50 50 43 58Z" fill="rgba(223,245,244,.25)"/><path d="M95 50 57 58 50 50 57 42Z" fill="rgba(223,245,244,.25)"/>
+                <text x="50" y="11" text-anchor="middle" fill="#59e18d" font-size="9" font-weight="900">N</text>
+                <text x="50" y="98" text-anchor="middle" fill="#dff5f4" font-size="8">S</text>
+                <text x="96" y="53" text-anchor="middle" fill="#dff5f4" font-size="8">E</text>
+                <text x="4" y="53" text-anchor="middle" fill="#dff5f4" font-size="8">W</text>
+            </svg>
+
+            <div class="island-scale" aria-hidden="true">SCHEMATIC · NOT TO SCALE<div class="island-scale-line"></div></div>
+        </section>
+    </div>
+
+    <div class="island-contact-backdrop" id="islandContactBackdrop" hidden></div>
+    <aside class="island-contact-card" id="islandContactCard" hidden aria-label="Contact details">
+        <div class="island-contact-top">
+            <div>
+                <h3>John Paolo Ramirez</h3>
+                <p>Environmental &amp; Geospatial Data Analyst</p>
+            </div>
+            <button class="island-contact-close" type="button" aria-label="Close contact details">×</button>
         </div>
-
-    </section>
-
-    <footer class="solar-footer">
-        <span><i class="fa-solid fa-computer-mouse"></i> Click a planet</span>
-        <span>•</span>
-        <span>Each planet travels with its title immediately beside it</span>
-        <span>•</span>
-        <span>Close to return to orbit</span>
-    </footer>
-
+        <p class="island-contact-summary">GIS, remote sensing, environmental research, spatial modelling and data-analysis work focused on translating environmental information into usable evidence.</p>
+        <div class="island-contact-links">
+            <button class="island-contact-row island-contact-copy" type="button" data-copy-email="jpaoloramirez@gmail.com">
+                <span class="island-contact-icon">@</span><span><b>Email · click to copy</b><span>jpaoloramirez@gmail.com</span></span>
+            </button>
+            <a class="island-contact-row" href="tel:+639275745752"><span class="island-contact-icon">☎</span><span><b>Mobile</b><span>+63 927 574 5752</span></span></a>
+            <a class="island-contact-row" href="https://github.com/Johnny1996ornot" target="_blank" rel="noopener"><span class="island-contact-icon">GH</span><span><b>GitHub</b><span>Johnny1996ornot</span></span></a>
+            <a class="island-contact-row" href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" rel="noopener"><span class="island-contact-icon">in</span><span><b>LinkedIn</b><span>John Paolo Ramirez</span></span></a>
+        </div>
+        <div class="island-contact-status" aria-live="polite"></div>
+    </aside>
 </main>
 
 
@@ -14485,12 +14946,13 @@ function positionCloseButton() {
 
 
 /* =========================================================
-V24 — 3D SOLAR ORBIT CONTROLLER
+V25 — COUPLED PLANET + LABEL ORBIT CONTROLLER
+- planet and section title are positioned from the SAME orbital state
+- true ellipse arc-length mapping keeps the title immediately beside its planet
+- labels reverse path direction when needed so words stay readable
+- titles themselves are clickable and open the same section as the planet
+- the Sun uses one non-duplicated inscription that rotates with the sphere
 - accumulated delta time prevents pause/resume jumps
-- each planet receives a front/back depth value while orbiting
-- section titles sit immediately beside their planet on the same ellipse
-- title direction reverses on the lower half so the words remain readable
-- all visible Sun text moves together as one printed surface group
 ========================================================= */
 
 const solarHome = document.getElementById("solarPortfolioHome");
@@ -14504,11 +14966,16 @@ const solarOrbitSvg = solarSystem
 const solarSun = solarSystem
     ? solarSystem.querySelector(".solar-sun")
     : null;
+const sunSurfaceCopy = solarSun
+    ? solarSun.querySelector(".sun-surface-copy")
+    : null;
 const solarReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let solarAnimationFrame = 0;
 let solarLastFrame = null;
 let solarElapsedSeconds = 0;
+let solarLayoutKey = "";
+const solarOrbitMetrics = new Map();
 
 function normaliseAngle(angle) {
     const full = Math.PI * 2;
@@ -14524,86 +14991,115 @@ function getOrbitGeometry(planet, width, height) {
     };
 }
 
+/* Two complete loops are drawn so a label can begin immediately after a
+   planet even when that planet is close to the path's nominal end point. */
 function setOrbitPath(path, centerX, centerY, rx, ry, reverse = false) {
     if (!path) return;
-
     const sweep = reverse ? 0 : 1;
-    path.setAttribute(
-        "d",
+    const loop =
         `M ${centerX + rx} ${centerY} ` +
         `A ${rx} ${ry} 0 1 ${sweep} ${centerX - rx} ${centerY} ` +
-        `A ${rx} ${ry} 0 1 ${sweep} ${centerX + rx} ${centerY}`
-    );
+        `A ${rx} ${ry} 0 1 ${sweep} ${centerX + rx} ${centerY} ` +
+        `A ${rx} ${ry} 0 1 ${sweep} ${centerX - rx} ${centerY} ` +
+        `A ${rx} ${ry} 0 1 ${sweep} ${centerX + rx} ${centerY}`;
+    path.setAttribute("d", loop);
+}
+
+function buildEllipseArcTable(rx, ry, steps = 720) {
+    const cumulative = new Float64Array(steps + 1);
+    let prevX = rx;
+    let prevY = 0;
+    let total = 0;
+
+    for (let i = 1; i <= steps; i++) {
+        const a = (i / steps) * Math.PI * 2;
+        const x = Math.cos(a) * rx;
+        const y = Math.sin(a) * ry;
+        total += Math.hypot(x - prevX, y - prevY);
+        cumulative[i] = total;
+        prevX = x;
+        prevY = y;
+    }
+
+    return { cumulative, total, steps };
+}
+
+function arcLengthAtAngle(metric, angle) {
+    const a = normaliseAngle(angle);
+    const scaled = (a / (Math.PI * 2)) * metric.steps;
+    const i = Math.floor(scaled);
+    const frac = scaled - i;
+    const aLen = metric.cumulative[i];
+    const bLen = metric.cumulative[Math.min(i + 1, metric.steps)];
+    return aLen + (bLen - aLen) * frac;
 }
 
 function updateOrbitLabelGeometry(width, height, centerX, centerY) {
     if (!solarOrbitSvg) return;
+
+    const key = `${Math.round(width)}x${Math.round(height)}`;
+    if (key === solarLayoutKey) return;
+    solarLayoutKey = key;
+    solarOrbitMetrics.clear();
 
     solarOrbitSvg.setAttribute("viewBox", `0 0 ${width} ${height}`);
 
     solarPlanets.forEach(planet => {
         const orbit = planet.dataset.orbit;
         const { rx, ry } = getOrbitGeometry(planet, width, height);
+        const forward = solarOrbitSvg.querySelector(`#orbit-${orbit}-forward`);
+        const reverse = solarOrbitSvg.querySelector(`#orbit-${orbit}-reverse`);
 
-        setOrbitPath(
-            solarOrbitSvg.querySelector(`#orbit-${orbit}-forward`),
-            centerX,
-            centerY,
+        setOrbitPath(forward, centerX, centerY, rx, ry, false);
+        setOrbitPath(reverse, centerX, centerY, rx, ry, true);
+
+        const metric = buildEllipseArcTable(rx, ry);
+        solarOrbitMetrics.set(orbit, {
+            ...metric,
             rx,
             ry,
-            false
-        );
-
-        setOrbitPath(
-            solarOrbitSvg.querySelector(`#orbit-${orbit}-reverse`),
-            centerX,
-            centerY,
-            rx,
-            ry,
-            true
-        );
+            forward,
+            reverse
+        });
     });
 }
 
-function placeOrbitLabel(planet, angle, rx, ry) {
+function placeOrbitLabel(planet, angle, depth) {
     if (!solarOrbitSvg) return;
 
     const orbit = planet.dataset.orbit;
-    const label = solarOrbitSvg.querySelector(`[data-orbit-label="${orbit}"] textPath`);
-    if (!label) return;
+    const labelText = solarOrbitSvg.querySelector(`[data-orbit-label="${orbit}"]`);
+    const textPath = labelText ? labelText.querySelector("textPath") : null;
+    const metric = solarOrbitMetrics.get(orbit);
+    if (!labelText || !textPath || !metric) return;
 
     const a = normaliseAngle(angle);
-    const forwardPercent = (a / (Math.PI * 2)) * 100;
-    const onLowerHalf = Math.sin(a) > 0;
+    const forwardLength = arcLengthAtAngle(metric, a);
+    const reverseLength = metric.total - forwardLength;
 
-    /*
-       The label begins just beyond the edge of the planet, not a large fixed
-       percentage away. This keeps the sphere and its title visually paired
-       throughout the orbit while still preventing either from covering the other.
-    */
-    const h = Math.pow(rx - ry, 2) / Math.pow(rx + ry, 2);
-    const circumference = Math.PI * (rx + ry) *
-        (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
-    const planetRadius = Math.max(planet.offsetWidth || 40, 30) / 2;
-    const gapPx = planetRadius + 8;
-    const gapPercent = Math.max(1.15, Math.min(3.8, (gapPx / circumference) * 100));
+    /* Forward tangent for x=rx*cos(a), y=ry*sin(a).  If the tangent points
+       left, use the reverse path. This keeps the letters upright/readable. */
+    const dx = -metric.rx * Math.sin(a);
+    const dy = metric.ry * Math.cos(a);
+    const tangentPointsRight = dx >= 0;
 
-    label.setAttribute("text-anchor", "start");
+    /* The visible sphere is smaller than the button hit area. Start the title
+       only a few pixels beyond the sphere edge so planet + title read as one
+       orbital object. */
+    const cssSize = parseFloat(getComputedStyle(planet).getPropertyValue("--planet-size")) || 34;
+    const gapPx = cssSize / 2 + 7;
 
-    if (onLowerHalf) {
-        const reversePercent = 100 - forwardPercent;
-        label.setAttribute("href", `#orbit-${orbit}-reverse`);
-        label.setAttribute(
-            "startOffset",
-            `${(reversePercent + gapPercent + 100) % 100}%`
-        );
+    textPath.setAttribute("text-anchor", "start");
+
+    if (tangentPointsRight) {
+        textPath.setAttribute("href", `#orbit-${orbit}-forward`);
+        textPath.setAttribute("startOffset", `${forwardLength + gapPx}px`);
     } else {
-        label.setAttribute("href", `#orbit-${orbit}-forward`);
-        label.setAttribute(
-            "startOffset",
-            `${(forwardPercent + gapPercent + 100) % 100}%`
-        );
+        textPath.setAttribute("href", `#orbit-${orbit}-reverse`);
+        textPath.setAttribute("startOffset", `${reverseLength + gapPx}px`);
     }
+
+    labelText.style.opacity = depth < -0.55 ? ".72" : "1";
 }
 
 function placeSolarPlanet(planet, angle, centerX, centerY, rx, ry) {
@@ -14611,7 +15107,7 @@ function placeSolarPlanet(planet, angle, centerX, centerY, rx, ry) {
     const y = centerY + Math.sin(angle) * ry;
     const depth = Math.sin(angle); // negative = back half, positive = front half
     const translateZ = depth * 52;
-    const scale = 1 + depth * .055;
+    const scale = 1 + depth * .045;
 
     planet.style.transform =
         `translate3d(${x - centerX}px, ${y - centerY}px, ${translateZ.toFixed(2)}px) ` +
@@ -14619,10 +15115,45 @@ function placeSolarPlanet(planet, angle, centerX, centerY, rx, ry) {
 
     planet.style.zIndex = depth >= 0 ? "18" : "6";
     planet.style.filter = depth >= 0
-        ? `brightness(${(1.02 + depth * .06).toFixed(3)})`
-        : `brightness(${(0.83 + (depth + 1) * .12).toFixed(3)})`;
+        ? `brightness(${(1.02 + depth * .05).toFixed(3)})`
+        : `brightness(${(0.85 + (depth + 1) * .10).toFixed(3)})`;
 
-    placeOrbitLabel(planet, angle, rx, ry);
+    placeOrbitLabel(planet, angle, depth);
+}
+
+function placeSunSurfaceInscription(elapsedSeconds) {
+    if (!sunSurfaceCopy || !solarSun) return;
+
+    if (solarReducedMotion.matches) {
+        sunSurfaceCopy.style.opacity = "1";
+        sunSurfaceCopy.style.visibility = "visible";
+        sunSurfaceCopy.style.transform =
+            "translate(-50%,-50%) translateX(0px) rotate(-4deg) scaleX(1)";
+        return;
+    }
+
+    const periodSeconds = 19;
+    const longitude = normaliseAngle(elapsedSeconds * (Math.PI * 2 / periodSeconds));
+    const facing = Math.cos(longitude);
+    const radius = Math.max(solarSun.offsetWidth || 260, 180) / 2;
+    const x = Math.sin(longitude) * radius * .56;
+
+    /* One DOM inscription only. On the rear hemisphere it is hidden; when it
+       returns it is still spelled normally, never mirrored or duplicated. */
+    if (facing <= 0.035) {
+        sunSurfaceCopy.style.opacity = "0";
+        sunSurfaceCopy.style.visibility = "hidden";
+        return;
+    }
+
+    const foreshorten = Math.max(.22, Math.min(1, .18 + facing * .82));
+    const fade = Math.max(0, Math.min(1, (facing - .035) / .20));
+
+    sunSurfaceCopy.style.visibility = "visible";
+    sunSurfaceCopy.style.opacity = fade.toFixed(3);
+    sunSurfaceCopy.style.transform =
+        `translate(-50%,-50%) translateX(${x.toFixed(2)}px) ` +
+        `rotate(-4deg) scaleX(${foreshorten.toFixed(3)})`;
 }
 
 function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
@@ -14643,6 +15174,7 @@ function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
         placeSolarPlanet(planet, angle, centerX, centerY, rx, ry);
     });
 
+    placeSunSurfaceInscription(elapsedSeconds);
 }
 
 function runSolarOrbit(timeMs) {
@@ -14668,7 +15200,7 @@ function runSolarOrbit(timeMs) {
 
     const deltaSeconds = Math.min(
         Math.max((timeMs - solarLastFrame) / 1000, 0),
-        0.04
+        0.035
     );
 
     solarLastFrame = timeMs;
@@ -14680,11 +15212,25 @@ if (solarSystem) {
     positionSolarBodies(0);
     solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
 
+    /* Make the title itself a second click target for the same section. */
+    if (solarOrbitSvg) {
+        solarOrbitSvg.querySelectorAll(".orbit-path-label").forEach(label => {
+            label.addEventListener("click", event => {
+                event.preventDefault();
+                event.stopPropagation();
+                const orbit = label.dataset.orbitLabel;
+                const planet = solarPlanets.find(item => item.dataset.orbit === orbit);
+                if (planet) planet.click();
+            });
+        });
+    }
+
     let solarResizeTimer = null;
 
     window.addEventListener("resize", () => {
         clearTimeout(solarResizeTimer);
         solarResizeTimer = setTimeout(() => {
+            solarLayoutKey = "";
             positionSolarBodies(solarElapsedSeconds);
             solarLastFrame = performance.now();
         }, 60);
@@ -19937,6 +20483,73 @@ MOBILE RESEARCH FIGURES FIX
 
 })();
 
-</script></body>
+</script>
+<script id="portfolio-v26-island-home-js">
+(() => {
+    const root = document.getElementById('portfolioIslandHome');
+    if (!root || root.dataset.islandInit === '1') return;
+    root.dataset.islandInit = '1';
+
+    const card = document.getElementById('islandContactCard');
+    const backdrop = document.getElementById('islandContactBackdrop');
+    const toggles = Array.from(root.querySelectorAll('[data-contact-toggle]'));
+    const closeBtn = root.querySelector('.island-contact-close');
+    const copyBtn = root.querySelector('[data-copy-email]');
+    const status = root.querySelector('.island-contact-status');
+
+    function setContact(open) {
+        if (!card || !backdrop) return;
+        card.hidden = !open;
+        backdrop.hidden = !open;
+        toggles.forEach(btn => btn.setAttribute('aria-expanded', open ? 'true' : 'false'));
+        if (open) {
+            requestAnimationFrame(() => closeBtn?.focus({preventScroll:true}));
+        }
+    }
+
+    toggles.forEach(btn => btn.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        setContact(card?.hidden !== false);
+    }));
+
+    closeBtn?.addEventListener('click', () => setContact(false));
+    backdrop?.addEventListener('click', () => setContact(false));
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && card && !card.hidden) setContact(false);
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+        const email = copyBtn.dataset.copyEmail || '';
+        let copied = false;
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(email);
+                copied = true;
+            }
+        } catch (_) {}
+
+        if (!copied) {
+            const field = document.createElement('textarea');
+            field.value = email;
+            field.setAttribute('readonly', '');
+            field.style.position = 'fixed';
+            field.style.opacity = '0';
+            document.body.appendChild(field);
+            field.select();
+            try { copied = document.execCommand('copy'); } catch (_) {}
+            field.remove();
+        }
+
+        if (status) {
+            status.textContent = copied ? 'Email copied to clipboard.' : `Email: ${email}`;
+            window.clearTimeout(status._timer);
+            status._timer = window.setTimeout(() => { status.textContent = ''; }, 2200);
+        }
+    });
+})();
+</script>
+</body>
 
 </html>
