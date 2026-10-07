@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V30 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V32 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13707,6 +13707,120 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
   .expansion-projects .research-project-card { border-radius:3px !important; box-shadow:3px 3px 0 rgba(1,10,18,.28) !important; }
 }
 </style>
+
+<style id="v32-voxel-expanded-theme">
+/* =========================================================
+V32 — NORMAL PORTFOLIO SECTIONS MATCH THE VOXEL HOME
+Case studies keep their dedicated research layouts.
+========================================================= */
+.expansion:not(.case-study-active) {
+  --v32-grid: rgba(53,215,255,.045);
+  background:
+    linear-gradient(var(--v32-grid) 1px, transparent 1px),
+    linear-gradient(90deg,var(--v32-grid) 1px, transparent 1px),
+    radial-gradient(circle at 88% 4%, rgba(88,230,162,.10), transparent 25%),
+    radial-gradient(circle at 65% 92%, rgba(164,108,241,.075), transparent 30%),
+    linear-gradient(145deg,#020b16 0%,#031423 52%,#020914 100%) !important;
+  background-size: 24px 24px,24px 24px,auto,auto,auto !important;
+  border-color: rgba(70,221,220,.27) !important;
+  box-shadow: 0 34px 100px rgba(0,0,0,.56), inset 0 0 0 1px rgba(255,255,255,.018) !important;
+}
+.expansion:not(.case-study-active) .expanded-title-shield {
+  background:
+    linear-gradient(90deg,rgba(2,11,22,.98),rgba(3,19,33,.94) 72%,rgba(3,19,33,.16)) !important;
+}
+.expansion:not(.case-study-active) .expanded-title,
+.expansion:not(.case-study-active) .expanded-title * { color:#f1fffc !important; }
+.expansion:not(.case-study-active) .expanded-title .accent,
+.expansion:not(.case-study-active) .expanded-kicker { color:#5be6a2 !important; }
+.expansion:not(.case-study-active) .expanded-description { color:#b8cfd3 !important; }
+.expansion:not(.case-study-active) .expanded-blob,
+.expansion:not(.case-study-active) .expanded-blob-small { opacity:.22 !important; filter:saturate(.75) brightness(.65) !important; }
+
+/* Shared cards */
+.expansion:not(.case-study-active) .flow-card,
+.expansion:not(.case-study-active) .skill-panel-tile,
+.expansion:not(.case-study-active) .research-project-card {
+  border-radius:4px !important;
+  background:
+    linear-gradient(rgba(67,218,220,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(67,218,220,.045) 1px,transparent 1px),
+    linear-gradient(145deg,rgba(7,31,47,.98),rgba(2,15,27,.98)) !important;
+  background-size:16px 16px,16px 16px,auto !important;
+  box-shadow:5px 5px 0 rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.022) !important;
+}
+.expansion-mini:not(.case-study-active) .flow-card { border-color:rgba(65,224,208,.48) !important; }
+.expansion-gallery:not(.case-study-active) .flow-card { border-color:rgba(255,113,133,.46) !important; }
+.expansion-skills:not(.case-study-active) .skill-panel-tile { border-color:rgba(var(--skill-accent-rgb),.44) !important; }
+
+.expansion:not(.case-study-active) .flow-card.is-center,
+.expansion:not(.case-study-active) .flow-card:hover {
+  box-shadow:8px 8px 0 rgba(0,0,0,.31), inset 0 0 0 1px rgba(91,230,162,.12) !important;
+}
+.expansion:not(.case-study-active) .flow-card h3,
+.expansion:not(.case-study-active) .skill-panel-tile h3 { color:#f0fffc !important; }
+.expansion:not(.case-study-active) .flow-card p,
+.expansion:not(.case-study-active) .skill-panel-tile p { color:#b6cdd1 !important; }
+.expansion:not(.case-study-active) .flow-card .card-label,
+.expansion:not(.case-study-active) .mini-card .card-label { color:#5be6a2 !important; }
+.expansion:not(.case-study-active) .flow-card .tags span,
+.expansion:not(.case-study-active) .skill-panel-tile .tags span {
+  border-radius:2px !important;
+  background:rgba(4,34,49,.88) !important;
+  border:1px solid rgba(83,220,215,.19) !important;
+  color:#dff9f5 !important;
+}
+.expansion:not(.case-study-active) .mini-card .mini-image,
+.expansion:not(.case-study-active) .mini-card .sankey-preview,
+.expansion:not(.case-study-active) .mini-card .notedump-preview,
+.expansion:not(.case-study-active) .visual-card .visual-image {
+  border-radius:2px !important;
+  border:1px solid rgba(76,218,220,.18) !important;
+  background:#061521 !important;
+}
+
+/* Skills retain category colors, but on the darker voxel surface. */
+.expansion-skills:not(.case-study-active) .skill-panel-tile {
+  background:
+    linear-gradient(rgba(var(--skill-accent-rgb),.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(var(--skill-accent-rgb),.045) 1px,transparent 1px),
+    radial-gradient(circle at 92% 5%,rgba(var(--skill-accent-rgb),.12),transparent 27%),
+    linear-gradient(145deg,rgba(7,29,44,.98),rgba(2,15,27,.98)) !important;
+  background-size:18px 18px,18px 18px,auto,auto !important;
+}
+.expansion-skills:not(.case-study-active) .skill-panel-tile::before { width:5px !important; }
+.expansion-skills:not(.case-study-active) .skill-panel-tile::after { opacity:.42 !important; }
+
+/* Research list — stronger voxel/pixel treatment around the already themed cards. */
+.expansion-projects:not(.case-study-active) .research-year-toolbar,
+.expansion-projects:not(.case-study-active) .research-year-pills {
+  background:#020d1a !important;
+  border-radius:4px !important;
+  border-color:rgba(83,220,215,.24) !important;
+}
+.expansion-projects:not(.case-study-active) .research-year-pills button { border-radius:2px !important; }
+.expansion-projects:not(.case-study-active) .research-year-stage { scrollbar-color:#5be6a2 #06131f; }
+
+/* Pixel-flavored close button / carousel dots */
+.expansion:not(.case-study-active) .expansion-close {
+  border-radius:4px !important;
+  background:#031522 !important;
+  border-color:rgba(87,229,218,.30) !important;
+}
+.expansion:not(.case-study-active) .flow-dot {
+  border-radius:2px !important;
+  background:#315a66 !important;
+}
+.expansion:not(.case-study-active) .flow-dot.active { background:#5be6a2 !important; }
+
+@media (max-width:800px){
+  .expansion:not(.case-study-active) { background-size:18px 18px,18px 18px,auto,auto,auto !important; }
+  .expansion:not(.case-study-active) .flow-card,
+  .expansion:not(.case-study-active) .skill-panel-tile,
+  .expansion:not(.case-study-active) .research-project-card { box-shadow:3px 3px 0 rgba(0,0,0,.28) !important; }
+}
+</style>
+
 </head>
 
 
@@ -13716,14 +13830,14 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V31)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V32)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
   <section class="voxel-stage" id="voxelStage" aria-label="Interactive 3D pixel-art portfolio tower. Drag to rotate, scroll or pinch to zoom, and select a layer to enter a portfolio section.">
     <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
       <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
-      <div class="voxel-loading" id="voxelLoading">Loading voxel terrain…</div>
+      <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
     </div>
 
     <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
@@ -20956,7 +21070,7 @@ MOBILE RESEARCH FIGURES FIX
   camera.updateProjectionMatrix();
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.25));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 3));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -21010,10 +21124,10 @@ MOBILE RESEARCH FIGURES FIX
   function seeded(n){ const x=Math.sin(n*127.1+311.7)*43758.5453; return x-Math.floor(x); }
 
   function makeLabel(title, sub, accent, key){
-    /* Render labels at 2× logical resolution and use linear mipmapping.
-       The earlier NearestFilter intentionally looked pixel-art-ish, but it
-       made the lettering break up badly when zoomed out. */
-    const logicalW=768, logicalH=180, scale=2.5;
+    /* V32 — high-resolution labels that remain legible at the default zoom.
+       The sprite is also slightly larger in world space, while still alternating
+       from side to side to avoid crowding the tower. */
+    const logicalW=820, logicalH=180, scale=4;
     const cnv=document.createElement('canvas');
     cnv.width=Math.round(logicalW*scale);
     cnv.height=Math.round(logicalH*scale);
@@ -21021,34 +21135,46 @@ MOBILE RESEARCH FIGURES FIX
     ctx.scale(scale,scale);
     ctx.imageSmoothingEnabled=true;
     ctx.imageSmoothingQuality='high';
-    ctx.fillStyle='rgba(2,15,28,.93)'; ctx.fillRect(0,0,logicalW,logicalH);
-    ctx.fillStyle=accent; ctx.fillRect(0,0,14,logicalH);
-    ctx.strokeStyle=accent; ctx.lineWidth=3; ctx.strokeRect(2,2,logicalW-4,logicalH-4);
-    ctx.fillStyle='#effffb';
-    ctx.font='900 46px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText(title,42,72);
-    ctx.fillStyle='#a9c6ca';
-    ctx.font='700 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText(sub,42,116);
+
+    ctx.fillStyle='rgba(1,11,22,.975)';
+    ctx.fillRect(0,0,logicalW,logicalH);
     ctx.fillStyle=accent;
-    ctx.font='900 20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText('CLICK LAYER ↗',42,150);
+    ctx.fillRect(0,0,12,logicalH);
+    ctx.strokeStyle=accent;
+    ctx.lineWidth=3;
+    ctx.strokeRect(2,2,logicalW-4,logicalH-4);
+
+    ctx.shadowColor='rgba(0,0,0,.65)';
+    ctx.shadowBlur=4;
+    ctx.fillStyle='#f4fffd';
+    ctx.font='900 46px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(title,38,70);
+    ctx.shadowBlur=0;
+
+    ctx.fillStyle='#c2d9dd';
+    ctx.font='700 25px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(sub,38,116);
+
+    ctx.fillStyle=accent;
+    ctx.font='900 21px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText('OPEN FLOOR ↗',38,151);
 
     const tex=new THREE.CanvasTexture(cnv);
     tex.colorSpace=THREE.SRGBColorSpace;
     tex.minFilter=THREE.LinearMipmapLinearFilter;
     tex.magFilter=THREE.LinearFilter;
     tex.generateMipmaps=true;
-    tex.anisotropy=Math.min(8, renderer.capabilities.getMaxAnisotropy?.() || 1);
+    tex.anisotropy=Math.min(16, renderer.capabilities.getMaxAnisotropy?.() || 1);
     tex.needsUpdate=true;
 
     const spr=new THREE.Sprite(new THREE.SpriteMaterial({
       map:tex,
       transparent:true,
       depthTest:false,
-      depthWrite:false
+      depthWrite:false,
+      toneMapped:false
     }));
-    spr.scale.set(5.0,1.17,1);
+    spr.scale.set(5.85,1.285,1);
     spr.userData.section=key;
     targets.push(spr);
     return spr;
@@ -21058,6 +21184,18 @@ MOBILE RESEARCH FIGURES FIX
     const trunk=box(.18,.55,.18,0x6f472f); trunk.position.set(x,y+.28,z); parent.add(trunk);
     const leaf=box(.62,.62,.62,0x2cb765); leaf.position.set(x,y+.83,z); parent.add(leaf);
     const leaf2=box(.42,.42,.42,0x58d979); leaf2.position.set(x+.12,y+1.18,z-.08); parent.add(leaf2);
+  }
+
+  function addAutumnTree(parent,x,z,y,scale=1){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    g.scale.setScalar(scale);
+    const trunk=box(.16,.48,.16,0x6b442d); trunk.position.y=.24; g.add(trunk);
+    const leafA=box(.52,.48,.52,0xf18a38,{emissive:0x8d3b18,emissiveIntensity:.08}); leafA.position.set(0,.72,0); g.add(leafA);
+    const leafB=box(.42,.38,.42,0xffb347,{emissive:0x9b4a19,emissiveIntensity:.10}); leafB.position.set(.12,1.02,-.08); g.add(leafB);
+    const leafC=box(.34,.30,.34,0xdf5f38,{emissive:0x7f251c,emissiveIntensity:.08}); leafC.position.set(-.13,.94,.12); g.add(leafC);
+    parent.add(g);
+    return g;
   }
   function addFlag(parent,x,z,y,color){
     const pole=box(.10,1.2,.10,0xdbeef0); pole.position.set(x,y+.6,z); parent.add(pole);
@@ -21082,8 +21220,9 @@ MOBILE RESEARCH FIGURES FIX
       fox.add(ear);
     });
 
-    [-.23,.23].forEach(zz=>{
-      const leg=box(.12,.28,.12,dark); leg.position.set(.06,.13,zz); fox.add(leg);
+    /* Four distinct legs so the fox reads correctly from multiple angles. */
+    [[-.20,-.18],[-.20,.18],[.22,-.18],[.22,.18]].forEach(([xx,zz])=>{
+      const leg=box(.11,.28,.11,dark); leg.position.set(xx,.13,zz); fox.add(leg);
     });
 
     const tail=box(.66,.23,.23,orange);
@@ -21130,31 +21269,69 @@ MOBILE RESEARCH FIGURES FIX
     return g;
   }
 
+  function addBed(parent,x,z,y){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    const frame=box(1.58,.18,.86,0x23465a); frame.position.y=.20; g.add(frame);
+    const mattress=box(1.48,.18,.78,0xe8eef0); mattress.position.y=.37; g.add(mattress);
+    const blanket=box(.92,.08,.80,0x4fd8c4,{emissive:0x1b6a68,emissiveIntensity:.06}); blanket.position.set(-.22,.51,0); g.add(blanket);
+    const pillow=box(.34,.10,.56,0xd9f3f0); pillow.position.set(.50,.52,0); g.add(pillow);
+    parent.add(g);
+    return g;
+  }
+
   function addLaptopWorker(parent,x,z,y){
     const g=new THREE.Group();
     g.position.set(x,y,z);
-    /* Low desk + chair */
-    const desk=box(1.28,.12,.72,0x16334d); desk.position.set(.16,.66,-.12); g.add(desk);
-    [-.42,.52].forEach(dx=>{const leg=box(.10,.62,.10,0x0d2235);leg.position.set(dx,.34,-.12);g.add(leg);});
-    const chair=box(.52,.12,.52,0x263b58); chair.position.set(-.48,.35,.46); g.add(chair);
-    const chairBack=box(.52,.62,.10,0x263b58); chairBack.position.set(-.48,.64,.68); g.add(chairBack);
 
-    /* Seated person */
-    const skin=0xd49a72, shirt=0x4a78e8, dark=0x142033;
-    const torso=box(.46,.66,.34,shirt); torso.position.set(-.35,.89,.34); torso.rotation.x=-.10; g.add(torso);
-    const head=box(.34,.34,.34,skin); head.position.set(-.32,1.37,.25); g.add(head);
-    const hair=box(.36,.12,.36,dark); hair.position.set(-.32,1.58,.22); g.add(hair);
-    [-.16,.16].forEach(dx=>{const arm=box(.12,.48,.12,skin);arm.position.set(-.02+dx,.92,.02);arm.rotation.x=-.65;g.add(arm);});
-    [-.16,.16].forEach(dx=>{const leg=box(.14,.52,.14,0x1d2d45);leg.position.set(-.40+dx,.44,.23);leg.rotation.x=.55;g.add(leg);});
+    /* Standing workstation: no chair, clean silhouette, arms aligned from shoulders. */
+    const desk=box(1.30,.12,.66,0x15334a); desk.position.set(.18,.82,-.18); g.add(desk);
+    [-.40,.70].forEach(dx=>{const leg=box(.10,.78,.10,0x0b2133);leg.position.set(dx,.42,-.18);g.add(leg);});
 
-    /* Laptop with emissive display + local light */
-    const base=box(.66,.07,.42,0x7b8ea5); base.position.set(.18,.76,.03); base.rotation.x=-.08; g.add(base);
-    const screenFrame=box(.70,.48,.07,0x32445a); screenFrame.position.set(.18,1.03,-.17); screenFrame.rotation.x=-.18; g.add(screenFrame);
-    const screen=box(.58,.37,.025,0x7ff7ff,{emissive:0x2de8ff,emissiveIntensity:1.55}); screen.position.set(.18,1.04,-.205); screen.rotation.x=-.18; g.add(screen);
-    const glow=new THREE.PointLight(0x5feeff,5.8,3.6,2); glow.position.set(.18,1.02,-.05); g.add(glow);
+    const skin=0xc98f69, shirt=0x4f8fe8, pants=0x172b45, hair=0x162333;
+    const torso=box(.48,.70,.34,shirt); torso.position.set(-.48,1.24,.27); g.add(torso);
+    const head=box(.34,.34,.34,skin); head.position.set(-.48,1.78,.23); g.add(head);
+    const hairCap=box(.36,.12,.36,hair); hairCap.position.set(-.48,1.99,.20); g.add(hairCap);
 
-    g.rotation.y=-.30;
+    /* Arms begin at the shoulders and angle naturally toward the keyboard. */
+    const armL=box(.13,.58,.13,skin); armL.position.set(-.25,1.22,.02); armL.rotation.x=-.74; armL.rotation.z=-.16; g.add(armL);
+    const armR=box(.13,.58,.13,skin); armR.position.set(-.06,1.20,.04); armR.rotation.x=-.72; armR.rotation.z=.16; g.add(armR);
+
+    /* Two standing legs. */
+    [-.13,.13].forEach(dx=>{const leg=box(.15,.70,.16,pants);leg.position.set(-.48+dx,.55,.28);g.add(leg);});
+
+    /* Glowing laptop. */
+    const base=box(.64,.06,.40,0x778fa4); base.position.set(.18,.92,-.04); g.add(base);
+    const screenFrame=box(.68,.46,.07,0x2e4258); screenFrame.position.set(.18,1.20,-.22); screenFrame.rotation.x=-.12; g.add(screenFrame);
+    const screen=box(.56,.35,.025,0x81fbff,{emissive:0x31eaff,emissiveIntensity:1.7}); screen.position.set(.18,1.20,-.258); screen.rotation.x=-.12; g.add(screen);
+    const glow=new THREE.PointLight(0x5feeff,6.4,3.8,2); glow.position.set(.18,1.22,-.05); g.add(glow);
+
+    g.rotation.y=-.18;
     parent.add(g);
+    return g;
+  }
+
+  function addStreetlight(parent,x,z,y,side=1){
+    const pole=box(.08,.82,.08,0x40596a); pole.position.set(x,y+.41,z); parent.add(pole);
+    const arm=box(.34,.06,.06,0x40596a); arm.position.set(x+.14*side,y+.80,z); parent.add(arm);
+    const lamp=box(.15,.10,.15,0xfff0a8,{emissive:0xffd96a,emissiveIntensity:1.6}); lamp.position.set(x+.28*side,y+.76,z); parent.add(lamp);
+    const light=new THREE.PointLight(0xffd76a,3.0,2.4,2); light.position.set(x+.28*side,y+.72,z); parent.add(light);
+  }
+
+  const satellites=[];
+  function addMiniSatellite(parent,x,z,y){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    const body=box(.42,.34,.34,0xe7edf2,{emissive:0x274a5a,emissiveIntensity:.10}); g.add(body);
+    const panelMat=0x2879c9;
+    const p1=box(.72,.08,.36,panelMat,{emissive:0x1e5f99,emissiveIntensity:.22}); p1.position.x=-.58; g.add(p1);
+    const p2=box(.72,.08,.36,panelMat,{emissive:0x1e5f99,emissiveIntensity:.22}); p2.position.x=.58; g.add(p2);
+    const mast=box(.07,.40,.07,0xb7ced6); mast.position.y=.36; g.add(mast);
+    const dish=box(.26,.06,.26,0xf6fbff,{emissive:0x6ddfff,emissiveIntensity:.28}); dish.position.y=.58; dish.rotation.z=.36; g.add(dish);
+    const blink=box(.09,.09,.09,0xfff08a,{emissive:0xffdc4f,emissiveIntensity:2}); blink.position.set(.16,.15,.18); g.add(blink);
+    g.userData.hoverBase={x,y,z,phase:seeded(x*17+z*13)*Math.PI*2};
+    parent.add(g);
+    satellites.push(g);
     return g;
   }
 
@@ -21204,43 +21381,35 @@ MOBILE RESEARCH FIGURES FIX
       }
     }
     highlightMaterials.set(meta.key,mats);
-    addFlag(g,-meta.size*.33,-meta.size*.28,.35,meta.color);
     const label=makeLabel(meta.title,meta.sub,meta.accent,meta.key);
     label.position.set(meta.side*(meta.size*.5+2.7),.9,0); g.add(label);
 
     if(meta.key==='featured'){
-      for(const [x,z] of [[-2.2,-1.6],[-1.3,2],[2.1,-1.8],[1.7,1.8],[-2.4,.7]]) addTree(g,x,z,.33);
-      for(let i=-2;i<=2;i++){ const p=box(.58,.11,.58,0xe8c878); p.position.set(i*.62,.42,.4+i*.18); g.add(p); }
-      const hill1=box(1.2,.7,1.2,0x2c8d59); hill1.position.set(1.1,.72,-.5); g.add(hill1);
-      const hill2=box(.82,.82,.82,0x45b86a); hill2.position.set(1.1,1.45,-.5); g.add(hill2);
+      /* Lowest floor: a cleaner living forest with no abstract project-marker bars. */
+      for(const [x,z] of [[-2.45,-1.55],[-1.55,1.95],[2.25,-1.65],[1.85,1.70],[-2.55,.65],[.95,2.15]]) addTree(g,x,z,.33);
+      const hill1=box(1.15,.62,1.15,0x2b8555); hill1.position.set(1.15,.69,-.45); g.add(hill1);
+      const hill2=box(.78,.74,.78,0x43ae66); hill2.position.set(1.15,1.31,-.45); g.add(hill2);
 
-      /* Small ecological details on the lowest floor. */
-      addFox(g,-.65,-.45,.46);
+      addFox(g,-.35,-.25,.46);
       addButterfly(g,-1.55,.35,1.45,0xff78d6,.72);
       addButterfly(g,.15,1.25,1.28,0x7ee8ff,.58);
       addButterfly(g,2.05,.55,1.62,0xffdf70,.62);
+      addButterfly(g,-2.05,-.85,1.35,0xa889ff,.54);
 
-      /* Fireflies: tiny moving light points across the forest floor. */
       const fireflySeeds=[[-2.35,-.35,.86],[-1.95,1.25,1.16],[-1.25,-1.65,1.04],[-.65,.85,1.32],[-.10,-.25,1.08],[.55,1.65,1.30],[1.10,.40,1.12],[1.62,-1.55,1.23],[2.20,.92,1.38],[2.62,-.35,1.10],[-2.65,1.75,1.24],[.35,-1.92,1.18]];
       fireflySeeds.forEach((p,i)=>addFirefly(g,p[0],p[1],p[2],i*.83));
-      const forestGlow=new THREE.PointLight(0xd6ff73,2.8,5.0,2); forestGlow.position.set(-.25,1.05,.25); g.add(forestGlow);
-
-      /* Three visual project markers on the featured-project floor. */
-      const swissBase=box(1.05,.16,1.05,0x805ad8,{emissive:0xa46cf1,emissiveIntensity:.18});swissBase.position.set(-1.55,.52,-1.0);g.add(swissBase);
-      const swissPeak=box(.55,.86,.55,0xdfeeff,{emissive:0x8cb8ff,emissiveIntensity:.08});swissPeak.position.set(-1.55,1.0,-1.0);swissPeak.rotation.y=.78;g.add(swissPeak);
-      addButterfly(g,-1.08,-.72,1.35,0xff8ed8,.48);
-
-      const heatBase=box(1.05,.16,1.05,0xff8b4f,{emissive:0xff6c38,emissiveIntensity:.16});heatBase.position.set(0,.52,-1.0);g.add(heatBase);
-      for(let i=0;i<4;i++){const hot=box(.22,.20+.12*i,.22,[0xffd54f,0xffa53d,0xff7043,0xe84d5b][i],{emissive:[0xffd54f,0xffa53d,0xff7043,0xe84d5b][i],emissiveIntensity:.38});hot.position.set(-.34+i*.23,.68+.05*i,-1.0);g.add(hot);}
-
-      const greenBase=box(1.05,.16,1.05,0x2ca86f,{emissive:0x58e6a2,emissiveIntensity:.16});greenBase.position.set(1.55,.52,-1.0);g.add(greenBase);
-      [[1.30,-1.20],[1.55,-.86],[1.83,-1.13]].forEach(([xx,zz])=>{const node=box(.20,.34,.20,0x65efae,{emissive:0x58e6a2,emissiveIntensity:.32});node.position.set(xx,.82,zz);g.add(node);});
+      const forestGlow=new THREE.PointLight(0xd6ff73,2.9,5.2,2); forestGlow.position.set(-.25,1.05,.25); g.add(forestGlow);
     }
     if(meta.key==='projects'){
-      [[-1.5,-1.2,1.0],[1.25,-.6,1.5],[-.2,1.45,.9]].forEach(([x,z,h],i)=>{const b=box(.85,h,.85,i===1?0xff67c8:0x8b5cff,{emissive:i===1?0xff67c8:0x8b5cff,emissiveIntensity:.25});b.position.set(x,.55+h/2,z);g.add(b);});
-      for(let i=0;i<5;i++){ const t=box(.34,.10,.34,0x5bf1dd,{emissive:0x5bf1dd,emissiveIntensity:.4}); t.position.set(-1.5+i*.72,.48,1.1);g.add(t); }
-      /* A small researcher working on a glowing laptop. */
-      addLaptopWorker(g,.30,.20,.43);
+      /* Research floor: compact bedroom-study scene. */
+      addBed(g,1.45,-.85,.42);
+      addLaptopWorker(g,-.65,.28,.43);
+
+      /* Low shelf and bedside light — kept below sight lines. */
+      const shelf=box(1.0,.46,.34,0x28485a); shelf.position.set(1.25,.72,1.25); g.add(shelf);
+      const lampBase=box(.20,.12,.20,0x476270); lampBase.position.set(1.25,1.02,1.25); g.add(lampBase);
+      const lamp=box(.28,.20,.28,0xffe8a0,{emissive:0xffd66a,emissiveIntensity:1.15}); lamp.position.set(1.25,1.20,1.25); g.add(lamp);
+      const roomLight=new THREE.PointLight(0xffd787,3.8,3.2,2); roomLight.position.set(1.25,1.30,1.10); g.add(roomLight);
     }
     if(meta.key==='skills'){
       const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff];
@@ -21253,16 +21422,48 @@ MOBILE RESEARCH FIGURES FIX
       const frame=box(3.7,.18,.18,0xf2efe4);frame.position.set(0,.7,-1.85);g.add(frame);
     }
     if(meta.key==='mini'){
-      const colors=[0x22e4d5,0x2c8fff,0x8c62ff];
-      for(let i=0;i<7;i++){const h=.55+(i%3)*.38;const c=colors[i%3];const b=box(.58,h,.58,c,{emissive:c,emissiveIntensity:.34});b.position.set((i%4-1.5)*.8,.5+h/2,(Math.floor(i/4)-.5)*1.25);g.add(b);}
-      const pad=box(2.2,.12,1.25,0x0c2c49,{emissive:0x24d7ff,emissiveIntensity:.17});pad.position.set(0,.5,1.45);g.add(pad);
+      /* Data & Coding floor becomes a tiny illuminated city. */
+      const road=box(3.65,.10,.78,0x152330,{emissive:0x0c1d2c,emissiveIntensity:.06}); road.position.set(0,.51,.10); mark(road,'mini'); g.add(road);
+      for(let i=-3;i<=3;i++){
+        const dash=box(.28,.03,.06,0xeaf7f4,{emissive:0x7fd7d8,emissiveIntensity:.22}); dash.position.set(i*.48,.58,.10); g.add(dash);
+      }
+      const sidewalkA=box(3.75,.09,.34,0x5a7180); sidewalkA.position.set(0,.52,-.52); g.add(sidewalkA);
+      const sidewalkB=box(3.75,.09,.34,0x5a7180); sidewalkB.position.set(0,.52,.72); g.add(sidewalkB);
+
+      const buildingData=[[-1.35,-1.15,.74,0x2e8fb5],[-.55,-1.15,1.18,0x1e6f91],[.42,-1.10,.90,0x2fae9d],[1.25,-1.12,1.42,0x4a77c7]];
+      buildingData.forEach(([x,z,h,c],i)=>{
+        const b=box(.62,h,.62,c,{emissive:c,emissiveIntensity:.16}); b.position.set(x,.53+h/2,z); mark(b,'mini'); g.add(b);
+        for(let wy=0;wy<Math.max(1,Math.floor(h/.35));wy++){
+          const w=box(.09,.07,.025,0xaefbff,{emissive:0x57eaff,emissiveIntensity:1.25});
+          w.position.set(x+.18,.74+wy*.30,z+.325); g.add(w);
+        }
+      });
+
+      /* Tiny car on the road. */
+      const car=new THREE.Group(); car.position.set(-.55,.68,.10);
+      const carBody=box(.78,.22,.42,0x78e6d0,{emissive:0x176e6b,emissiveIntensity:.10}); car.add(carBody);
+      const cabin=box(.38,.20,.34,0xc4f5ff,{emissive:0x56dfff,emissiveIntensity:.18}); cabin.position.set(.05,.20,0); car.add(cabin);
+      [[-.25,-.23],[-.25,.23],[.25,-.23],[.25,.23]].forEach(([xx,zz])=>{const wh=box(.14,.14,.08,0x121923);wh.position.set(xx,-.12,zz);car.add(wh);});
+      mark(carBody,'mini'); g.add(car);
+
+      addStreetlight(g,-1.55,-.48,.55,1);
+      addStreetlight(g,.15,.72,.55,-1);
+      addStreetlight(g,1.55,-.48,.55,1);
+      addAutumnTree(g,-1.70,1.35,.48,.62);
+      addAutumnTree(g,1.70,1.30,.48,.58);
     }
     if(meta.key==='profile'){
-      const beacon=box(.8,1.6,.8,0xe9ffff,{emissive:0x55eaff,emissiveIntensity:.6});beacon.position.set(0,1.25,0);mark(beacon,'profile');g.add(beacon);
-      const cap=box(1.35,.18,1.35,0x56eaff,{emissive:0x56eaff,emissiveIntensity:.75});cap.position.set(0,2.12,0);mark(cap,'profile');g.add(cap);
-      for(let i=0;i<4;i++){const p=box(.18,.18,.18,0xffef81,{emissive:0xffef81,emissiveIntensity:1});p.position.set(Math.cos(i*Math.PI/2)*1.2,.72,Math.sin(i*Math.PI/2)*1.2);g.add(p);}
+      /* Top floor: open autumn observation deck, no pedestal and no flag. */
+      addAutumnTree(g,-.82,-.62,.45,.72);
+      addAutumnTree(g,.86,.58,.45,.68);
+      addAutumnTree(g,-.92,.72,.45,.54);
+      addAutumnTree(g,.88,-.70,.45,.50);
 
-      /* Top-floor sky motif: a small emissive sun and pixel stars. */
+      /* Hovering mini satellite — also clickable as Profile. */
+      const sat=addMiniSatellite(g,.02,-.02,2.05);
+      sat.traverse(obj=>{if(obj.isMesh)mark(obj,'profile');});
+
+      /* Small emissive sun and pixel stars remain as the top-floor sky motif. */
       const sunMat=new THREE.MeshStandardMaterial({
         color:0xffcf4f,
         emissive:0xff9f1f,
@@ -21271,7 +21472,7 @@ MOBILE RESEARCH FIGURES FIX
         metalness:.05,
         flatShading:true
       });
-      const sun=new THREE.Mesh(new THREE.IcosahedronGeometry(.48,2),sunMat);
+      const sun=new THREE.Mesh(new THREE.IcosahedronGeometry(.42,2),sunMat);
       sun.position.set(-.72,2.95,-.08);
       topSun=sun;
       g.add(sun);
@@ -21282,15 +21483,14 @@ MOBILE RESEARCH FIGURES FIX
       addPixelStar(g,1.1,2.24,-.62,.24,0xb7f5ff);
       addPixelStar(g,-1.18,2.25,.68,.22,0xfff0d0);
       addPixelStar(g,.28,3.28,-.76,.18,0xffffff);
-    }
-    return g;
+    }    return g;
   }
 
   layerMeta.forEach(createVoxelPlatform);
 
-  /* Glittering disco ball suspended one floor lower, beneath Data & Coding. */
+  /* Glittering disco ball on the third floor, beneath Maps · Models · Visuals. */
   const discoGroup=new THREE.Group();
-  discoGroup.position.set(-1.10,9.72,-1.30);
+  discoGroup.position.set(-1.08,7.22,-1.28);
   const chainMat=new THREE.MeshStandardMaterial({color:0xa3c3cf,metalness:.9,roughness:.2});
   const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.72,8),chainMat);
   chain.position.y=-.36;
@@ -21426,6 +21626,15 @@ MOBILE RESEARCH FIGURES FIX
         d.coreMat.opacity=.55+pulse*.45;
         d.haloMat.opacity=.035+pulse*.12;
         f.scale.setScalar(.82+pulse*.34);
+      });
+      satellites.forEach((s,i)=>{
+        const b=s.userData.hoverBase;
+        const p=now*.0008+b.phase+i;
+        s.position.x=b.x+Math.sin(p*.82)*.18;
+        s.position.z=b.z+Math.cos(p*.68)*.15;
+        s.position.y=b.y+Math.sin(p*1.28)*.14;
+        s.rotation.y=Math.sin(p*.72)*.18;
+        s.rotation.z=Math.sin(p*.55)*.05;
       });
       if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
       skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
