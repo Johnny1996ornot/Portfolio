@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V28 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V29 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13504,6 +13504,80 @@ body { background:var(--v28-bg) !important; }
   .voxel-help{bottom:118px;max-width:210px;line-height:1.25}
   .voxel-controls{transform:scale(.9);transform-origin:top right;}
 }
+
+/* =========================================================
+V29 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
+========================================================= */
+#voxelPortfolioCanvas {
+  position:relative;
+  z-index:1;
+}
+
+.voxel-brand {
+  appearance:none;
+  z-index:52;
+  pointer-events:auto;
+  cursor:pointer;
+  display:block;
+  padding:18px 20px 16px;
+  border:1px solid rgba(96,226,207,.24);
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,rgba(4,24,39,.82),rgba(3,17,30,.62));
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter:blur(11px);
+  -webkit-backdrop-filter:blur(11px);
+  color:var(--v28-text);
+  text-align:left;
+  text-shadow:0 2px 16px rgba(0,0,0,.42);
+  transition:border-color .18s ease,background .18s ease,transform .18s ease;
+}
+.voxel-brand:hover,
+.voxel-brand:focus-visible {
+  border-color:rgba(88,230,162,.62);
+  background:
+    linear-gradient(145deg,rgba(6,35,50,.92),rgba(3,20,33,.76));
+  outline:none;
+  transform:translateY(-1px);
+}
+.voxel-brand-open {
+  display:inline-flex;
+  margin-top:13px;
+  color:#69ebb0;
+  font-size:.69rem;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.voxel-controls { z-index:60; }
+.voxel-section-key { z-index:45; }
+.voxel-help { z-index:44; }
+
+.voxel-control[data-voxel-action="pan-up"],
+.voxel-control[data-voxel-action="pan-down"] {
+  color:#79efff;
+}
+
+@media (max-width:800px){
+  .voxel-brand {
+    width:min(70vw,310px);
+    padding:13px 14px 12px;
+  }
+  .voxel-brand-open { display:none; }
+  .voxel-controls {
+    grid-template-columns:repeat(3,42px);
+  }
+  .voxel-control.reset {
+    grid-column:1/4;
+    width:140px;
+    justify-self:end;
+  }
+  .voxel-help {
+    max-width:min(72vw,390px);
+  }
+}
 </style>
 
 </head>
@@ -13515,7 +13589,7 @@ body { background:var(--v28-bg) !important; }
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V29)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13525,22 +13599,24 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <div class="voxel-loading" id="voxelLoading">Loading voxel terrain…</div>
     </div>
 
-    <header class="voxel-brand" aria-label="Portfolio heading">
+    <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
       <span class="voxel-brand-kicker">Interactive Geospatial Portfolio</span>
-      <h1>John Paolo Ramirez</h1>
+      <h1 data-title>John Paolo Ramirez</h1>
       <p>Environmental &amp; Geospatial Data Analyst · GIS · Remote Sensing · Spatial Modelling</p>
-    </header>
+      <span class="voxel-brand-open">Open profile ↗</span>
+    </button>
 
     <div class="voxel-controls" aria-label="3D view controls">
+      <button class="voxel-control" type="button" data-voxel-action="pan-up" aria-label="Pan upward" title="Pan upward">↑</button>
+      <button class="voxel-control" type="button" data-voxel-action="pan-down" aria-label="Pan downward" title="Pan downward">↓</button>
       <button class="voxel-control" type="button" data-voxel-action="zoom-in" aria-label="Zoom in">+</button>
       <button class="voxel-control" type="button" data-voxel-action="zoom-out" aria-label="Zoom out">−</button>
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · scroll / pinch to zoom · click a layer</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · right/shift-drag or arrows to pan · wheel/pinch to zoom · click a layer</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections">
-      <button class="voxel-key-button" type="button" data-panel="profile" style="--key-accent:#72e9a5"><span class="voxel-key-num">01</span><span class="voxel-key-copy"><strong data-title>Profile</strong><small>Background · experience · contact</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="projects" style="--key-accent:#a46cf1"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="skills" style="--key-accent:#35d7ff"><span class="voxel-key-num">03</span><span class="voxel-key-copy"><strong data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="gallery" style="--key-accent:#ff9f57"><span class="voxel-key-num">04</span><span class="voxel-key-copy"><strong data-title>Maps · Models · Visuals</strong><small>Cartographic and analytical work</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -20735,12 +20811,12 @@ MOBILE RESEARCH FIGURES FIX
 
   const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
   camera.position.set(12,10.5,14);
-  camera.lookAt(0,5.8,0);
+  camera.lookAt(0,5.45,0);
   camera.zoom = 1.08;
   camera.updateProjectionMatrix();
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:true, powerPreference:'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.25));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -20753,12 +20829,18 @@ MOBILE RESEARCH FIGURES FIX
   controls.screenSpacePanning = true;
   controls.rotateSpeed = .68;
   controls.zoomSpeed = .88;
-  controls.panSpeed = .68;
+  controls.panSpeed = .82;
+  controls.keyPanSpeed = 12;
+  controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
+  controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
+  controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
+  controls.touches.ONE = THREE.TOUCH.ROTATE;
+  controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
   controls.minZoom = .58;
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .42;
   controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(0,5.7,0);
+  controls.target.set(0,5.45,0);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -20788,18 +20870,48 @@ MOBILE RESEARCH FIGURES FIX
   function seeded(n){ const x=Math.sin(n*127.1+311.7)*43758.5453; return x-Math.floor(x); }
 
   function makeLabel(title, sub, accent, key){
-    const cnv=document.createElement('canvas'); cnv.width=768; cnv.height=180;
+    /* Render labels at 2× logical resolution and use linear mipmapping.
+       The earlier NearestFilter intentionally looked pixel-art-ish, but it
+       made the lettering break up badly when zoomed out. */
+    const logicalW=768, logicalH=180, scale=2.5;
+    const cnv=document.createElement('canvas');
+    cnv.width=Math.round(logicalW*scale);
+    cnv.height=Math.round(logicalH*scale);
     const ctx=cnv.getContext('2d');
-    ctx.imageSmoothingEnabled=false;
-    ctx.fillStyle='rgba(2,15,28,.92)'; ctx.fillRect(0,0,768,180);
-    ctx.fillStyle=accent; ctx.fillRect(0,0,14,180);
-    ctx.strokeStyle=accent; ctx.lineWidth=4; ctx.strokeRect(2,2,764,176);
-    ctx.fillStyle='#effffb'; ctx.font='900 46px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'; ctx.fillText(title,42,72);
-    ctx.fillStyle='#8fb3b8'; ctx.font='700 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'; ctx.fillText(sub,42,116);
-    ctx.fillStyle=accent; ctx.font='900 20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'; ctx.fillText('CLICK LAYER ↗',42,150);
-    const tex=new THREE.CanvasTexture(cnv); tex.colorSpace=THREE.SRGBColorSpace; tex.minFilter=THREE.NearestFilter; tex.magFilter=THREE.NearestFilter;
-    const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));
-    spr.scale.set(5.0,1.17,1); spr.userData.section=key; targets.push(spr); return spr;
+    ctx.scale(scale,scale);
+    ctx.imageSmoothingEnabled=true;
+    ctx.imageSmoothingQuality='high';
+    ctx.fillStyle='rgba(2,15,28,.93)'; ctx.fillRect(0,0,logicalW,logicalH);
+    ctx.fillStyle=accent; ctx.fillRect(0,0,14,logicalH);
+    ctx.strokeStyle=accent; ctx.lineWidth=3; ctx.strokeRect(2,2,logicalW-4,logicalH-4);
+    ctx.fillStyle='#effffb';
+    ctx.font='900 46px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(title,42,72);
+    ctx.fillStyle='#a9c6ca';
+    ctx.font='700 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(sub,42,116);
+    ctx.fillStyle=accent;
+    ctx.font='900 20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText('CLICK LAYER ↗',42,150);
+
+    const tex=new THREE.CanvasTexture(cnv);
+    tex.colorSpace=THREE.SRGBColorSpace;
+    tex.minFilter=THREE.LinearMipmapLinearFilter;
+    tex.magFilter=THREE.LinearFilter;
+    tex.generateMipmaps=true;
+    tex.anisotropy=Math.min(8, renderer.capabilities.getMaxAnisotropy?.() || 1);
+    tex.needsUpdate=true;
+
+    const spr=new THREE.Sprite(new THREE.SpriteMaterial({
+      map:tex,
+      transparent:true,
+      depthTest:false,
+      depthWrite:false
+    }));
+    spr.scale.set(5.0,1.17,1);
+    spr.userData.section=key;
+    targets.push(spr);
+    return spr;
   }
 
   function addTree(parent,x,z,y){
@@ -20810,6 +20922,67 @@ MOBILE RESEARCH FIGURES FIX
   function addFlag(parent,x,z,y,color){
     const pole=box(.10,1.2,.10,0xdbeef0); pole.position.set(x,y+.6,z); parent.add(pole);
     const cloth=box(.68,.34,.09,color,{emissive:color,emissiveIntensity:.18}); cloth.position.set(x+.34,y+1.02,z); parent.add(cloth);
+  }
+
+  function addFox(parent,x,z,y){
+    const fox=new THREE.Group();
+    fox.position.set(x,y,z);
+    const orange=0xe87932, cream=0xffe2b0, dark=0x2e2530;
+
+    const body=box(.72,.38,.34,orange); body.position.set(0,.34,0); fox.add(body);
+    const chest=box(.18,.28,.28,cream); chest.position.set(.28,.38,0); fox.add(chest);
+    const head=box(.42,.40,.38,orange); head.position.set(.42,.66,0); fox.add(head);
+    const muzzle=box(.19,.16,.25,cream); muzzle.position.set(.64,.58,0); fox.add(muzzle);
+    const nose=box(.09,.09,.12,dark); nose.position.set(.75,.60,0); fox.add(nose);
+
+    [-1,1].forEach(side=>{
+      const ear=box(.13,.22,.13,orange);
+      ear.position.set(.35,.94,side*.12);
+      ear.rotation.z=side*.12;
+      fox.add(ear);
+    });
+
+    [-.23,.23].forEach(zz=>{
+      const leg=box(.12,.28,.12,dark); leg.position.set(.06,.13,zz); fox.add(leg);
+    });
+
+    const tail=box(.66,.23,.23,orange);
+    tail.position.set(-.56,.44,.03);
+    tail.rotation.z=-.42;
+    fox.add(tail);
+    const tip=box(.22,.20,.20,cream);
+    tip.position.set(-.86,.58,.03);
+    tip.rotation.z=-.42;
+    fox.add(tip);
+
+    fox.rotation.y=-.35;
+    parent.add(fox);
+    return fox;
+  }
+
+  function addButterfly(parent,x,z,y,color=0xff78d6,scale=.7){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    const body=box(.07,.26,.07,0x28314b);
+    body.position.y=.13; g.add(body);
+    const wingA=box(.24,.06,.28,color,{emissive:color,emissiveIntensity:.36});
+    const wingB=wingA.clone();
+    wingA.position.set(-.17,.21,0); wingB.position.set(.17,.21,0);
+    wingA.rotation.z=.35; wingB.rotation.z=-.35;
+    g.add(wingA,wingB);
+    g.scale.setScalar(scale);
+    parent.add(g);
+    return g;
+  }
+
+  function addPixelStar(parent,x,y,z,size=.34,color=0xfff2a3){
+    const g=new THREE.Group();
+    g.position.set(x,y,z);
+    const v=box(size*.22,size,size*.22,color,{emissive:color,emissiveIntensity:.8});
+    const h=box(size,size*.22,size*.22,color,{emissive:color,emissiveIntensity:.8});
+    g.add(v,h);
+    parent.add(g);
+    return g;
   }
 
   const layerMeta = [
@@ -20852,6 +21025,12 @@ MOBILE RESEARCH FIGURES FIX
       for(let i=-2;i<=2;i++){ const p=box(.58,.11,.58,0xe8c878); p.position.set(i*.62,.42,.4+i*.18); g.add(p); }
       const hill1=box(1.2,.7,1.2,0x2c8d59); hill1.position.set(1.1,.72,-.5); g.add(hill1);
       const hill2=box(.82,.82,.82,0x45b86a); hill2.position.set(1.1,1.45,-.5); g.add(hill2);
+
+      /* Small ecological details on the lowest floor. */
+      addFox(g,-.65,-.45,.46);
+      addButterfly(g,-1.55,.35,1.45,0xff78d6,.72);
+      addButterfly(g,.15,1.25,1.28,0x7ee8ff,.58);
+      addButterfly(g,2.05,.55,1.62,0xffdf70,.62);
     }
     if(meta.key==='projects'){
       [[-1.5,-1.2,1.0],[1.25,-.6,1.5],[-.2,1.45,.9]].forEach(([x,z,h],i)=>{const b=box(.85,h,.85,i===1?0xff67c8:0x8b5cff,{emissive:i===1?0xff67c8:0x8b5cff,emissiveIntensity:.25});b.position.set(x,.55+h/2,z);g.add(b);});
@@ -20876,27 +21055,88 @@ MOBILE RESEARCH FIGURES FIX
       const beacon=box(.8,1.6,.8,0xe9ffff,{emissive:0x55eaff,emissiveIntensity:.6});beacon.position.set(0,1.25,0);g.add(beacon);
       const cap=box(1.35,.18,1.35,0x56eaff,{emissive:0x56eaff,emissiveIntensity:.75});cap.position.set(0,2.12,0);g.add(cap);
       for(let i=0;i<4;i++){const p=box(.18,.18,.18,0xffef81,{emissive:0xffef81,emissiveIntensity:1});p.position.set(Math.cos(i*Math.PI/2)*1.2,.72,Math.sin(i*Math.PI/2)*1.2);g.add(p);}
+
+      /* Top-floor sky motif: a small emissive sun and pixel stars. */
+      const sunMat=new THREE.MeshStandardMaterial({
+        color:0xffcf4f,
+        emissive:0xff9f1f,
+        emissiveIntensity:1.15,
+        roughness:.48,
+        metalness:.05,
+        flatShading:true
+      });
+      const sun=new THREE.Mesh(new THREE.IcosahedronGeometry(.48,2),sunMat);
+      sun.position.set(-.72,2.95,-.08);
+      g.add(sun);
+      const sunGlow=new THREE.PointLight(0xffc857,7,7,2);
+      sunGlow.position.copy(sun.position);
+      g.add(sunGlow);
+      addPixelStar(g,.72,2.75,.22,.34,0xfff5b8);
+      addPixelStar(g,1.1,2.24,-.62,.24,0xb7f5ff);
+      addPixelStar(g,-1.18,2.25,.68,.22,0xfff0d0);
+      addPixelStar(g,.28,3.28,-.76,.18,0xffffff);
     }
     return g;
   }
 
   layerMeta.forEach(createVoxelPlatform);
 
+  /* Disco ball suspended below the floating stack. */
+  const discoGroup=new THREE.Group();
+  const chainMat=new THREE.MeshStandardMaterial({color:0x7fa7b6,metalness:.8,roughness:.28});
+  const chain=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,1.28,8),chainMat);
+  chain.position.y=-1.18;
+  discoGroup.add(chain);
+
+  const discoMat=new THREE.MeshStandardMaterial({
+    color:0xc9f7ff,
+    metalness:.96,
+    roughness:.12,
+    emissive:0x12343f,
+    emissiveIntensity:.28,
+    flatShading:true
+  });
+  const discoBall=new THREE.Mesh(new THREE.IcosahedronGeometry(.62,3),discoMat);
+  discoBall.position.y=-2.12;
+  discoBall.castShadow=true;
+  discoGroup.add(discoBall);
+
+  const discoLightA=new THREE.PointLight(0x77ecff,8,8,2);
+  discoLightA.position.set(-.9,-2.05,.4);
+  discoGroup.add(discoLightA);
+  const discoLightB=new THREE.PointLight(0xff72dd,5,7,2);
+  discoLightB.position.set(.85,-2.15,-.55);
+  discoGroup.add(discoLightB);
+  tower.add(discoGroup);
+
   /* Central data beam made of translucent voxel segments. */
   const beamMat=new THREE.MeshStandardMaterial({color:0x44e8ff,transparent:true,opacity:.22,emissive:0x33dfff,emissiveIntensity:.8,roughness:.2});
   for(let y=.6;y<14.4;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
 
-  const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-.8; water.material.transparent=true;water.material.opacity=.66;tower.add(water);
-  const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-.7;scene.add(grid);
+  const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-3.18; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
+  const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-3.08;scene.add(grid);
 
-  /* Pixel particles. */
-  const pts=[]; for(let i=0;i<180;i++){ const a=seeded(i*7.7)*Math.PI*2,r=7+seeded(i*3.3)*9;pts.push(Math.cos(a)*r,seeded(i*5.1)*15-.4,Math.sin(a)*r); }
+  /* Subtle environmental dust plus a restrained sparkle layer. */
+  const pts=[]; for(let i=0;i<190;i++){ const a=seeded(i*7.7)*Math.PI*2,r=6.5+seeded(i*3.3)*9.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*18-2.2,Math.sin(a)*r); }
   const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
-  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x71dfff,size:.045,transparent:true,opacity:.7})));
+  const dustMat=new THREE.PointsMaterial({color:0x71dfff,size:.035,transparent:true,opacity:.38,depthWrite:false});
+  const dustPoints=new THREE.Points(pg,dustMat);
+  scene.add(dustPoints);
+
+  const sparklePts=[];
+  for(let i=0;i<58;i++){
+    const a=seeded(i*11.2+9)*Math.PI*2;
+    const r=5.5+seeded(i*4.9+3)*9;
+    sparklePts.push(Math.cos(a)*r, seeded(i*9.7+2)*18-2.0, Math.sin(a)*r);
+  }
+  const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sparklePts,3));
+  const sparkleMat=new THREE.PointsMaterial({color:0xfff4c7,size:.055,transparent:true,opacity:.15,depthWrite:false});
+  const sparklePoints=new THREE.Points(sg,sparkleMat);
+  scene.add(sparklePoints);
 
   function resize(){
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight), aspect=w/h;
-    const frustum=window.innerWidth<=800?17.2:15.4;
+    const frustum=window.innerWidth<=800?19.2:17.6;
     camera.left=-frustum*aspect/2;camera.right=frustum*aspect/2;camera.top=frustum/2;camera.bottom=-frustum/2;camera.updateProjectionMatrix();
     renderer.setSize(w,h,false);
   }
@@ -20905,6 +21145,22 @@ MOBILE RESEARCH FIGURES FIX
 
   const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
   let hovered=null, down=null;
+  function panViewVertical(amount){
+    const step=amount/Math.max(camera.zoom,.35);
+    camera.position.y+=step;
+    controls.target.y+=step;
+    controls.update();
+  }
+
+  /* Shift + wheel/trackpad pans vertically instead of zooming.
+     Right/middle-drag and two-finger touch panning are also enabled above. */
+  canvas.addEventListener('wheel',ev=>{
+    if(!ev.shiftKey)return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    panViewVertical(ev.deltaY*.009);
+  },{passive:false,capture:true});
+
   function hitFromEvent(ev){
     const r=canvas.getBoundingClientRect(); pointer.x=((ev.clientX-r.left)/r.width)*2-1;pointer.y=-((ev.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);
     return raycaster.intersectObjects(targets,false)[0]?.object || null;
@@ -20926,9 +21182,11 @@ MOBILE RESEARCH FIGURES FIX
 
   root.querySelectorAll('[data-voxel-action]').forEach(btn=>btn.addEventListener('click',()=>{
     const action=btn.dataset.voxelAction;
+    if(action==='pan-up'){panViewVertical(1.15);}
+    if(action==='pan-down'){panViewVertical(-1.15);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
-    if(action==='reset'){camera.position.set(12,10.5,14);camera.zoom=1.08;camera.updateProjectionMatrix();controls.target.set(0,5.7,0);controls.update();}
+    if(action==='reset'){camera.position.set(12,10.5,14);camera.zoom=1.08;camera.updateProjectionMatrix();controls.target.set(0,5.45,0);controls.update();}
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20936,8 +21194,14 @@ MOBILE RESEARCH FIGURES FIX
   function render(){
     controls.update();
     if(!reduce){
-      const t=performance.now()*.00022;
+      const now=performance.now();
+      const t=now*.00022;
       cyanLight.position.x=Math.sin(t)*7;cyanLight.position.z=Math.cos(t)*7;
+      discoBall.rotation.y=now*.00024;
+      discoBall.rotation.x=Math.sin(now*.00015)*.08;
+      sparkleMat.opacity=.13 + (Math.sin(now*.0014)+1)*.035;
+      sparklePoints.rotation.y=now*.000012;
+      dustPoints.rotation.y=-now*.000006;
     }
     renderer.render(scene,camera);raf=requestAnimationFrame(render);
   }
