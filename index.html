@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V34 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V35 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13390,10 +13390,13 @@ body { background:var(--v28-bg) !important; }
 .voxel-section-key {
   position:absolute;
   z-index:18;
-  right:clamp(18px,2vw,36px);
-  bottom:clamp(20px,2.4vw,40px);
-  width:min(270px,21vw);
+  left:clamp(20px,3vw,54px);
+  top:clamp(350px,42vh,430px);
+  right:auto;
+  bottom:auto;
+  width:min(420px,31vw);
   display:grid;
+  grid-template-columns:1fr;
   gap:7px;
 }
 .voxel-key-button {
@@ -13404,7 +13407,7 @@ body { background:var(--v28-bg) !important; }
   grid-template-columns:30px minmax(0,1fr) 18px;
   align-items:center;
   gap:9px;
-  padding:9px 10px;
+  padding:8px 10px;
   border:1px solid rgba(104,225,218,.18);
   border-radius:11px;
   background:rgba(3,19,32,.76);
@@ -13510,36 +13513,78 @@ body { background:var(--v28-bg) !important; }
 
 @media (max-width:1100px){
   .voxel-brand{width:min(370px,38vw)}
-  .voxel-section-key{width:220px}
+  .voxel-section-key{width:min(370px,38vw)}
   .voxel-key-copy small{display:none}
 }
 
 @media (max-width:800px){
-  .voxel-stage{height:auto;min-height:0;padding-bottom:112px;}
-  .voxel-canvas-wrap{position:relative;height:68svh;min-height:500px;max-height:720px;}
-  .voxel-brand{top:16px;left:16px;width:min(74vw,330px);}
-  .voxel-brand h1{font-size:clamp(1.65rem,8vw,2.55rem)}
-  .voxel-brand p{font-size:.78rem;line-height:1.4;max-width:285px;margin-top:9px;}
-  .voxel-brand-kicker{font-size:.63rem;margin-bottom:5px;}
-  .voxel-controls{top:14px;right:12px;display:grid;grid-template-columns:repeat(2,42px);}
-  .voxel-control{min-width:42px;width:42px;height:42px;padding:0;}
-  .voxel-control.reset{grid-column:1/3;width:91px;font-size:.6rem;}
-  .voxel-help{left:12px;bottom:125px;font-size:.64rem;padding:8px 10px;}
-  .voxel-section-key{
-    position:absolute;left:10px;right:10px;bottom:10px;width:auto;
-    display:flex;gap:7px;overflow-x:auto;padding:0 0 2px;
-    scrollbar-width:none;
+  .voxel-stage{
+    height:auto;
+    min-height:100svh;
+    padding:12px 12px 74px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    overflow:visible;
   }
-  .voxel-section-key::-webkit-scrollbar{display:none}
-  .voxel-key-button{flex:0 0 178px;grid-template-columns:28px minmax(0,1fr) 14px;padding:8px;}
-  .voxel-key-copy strong{font-size:.7rem}.voxel-key-num{width:28px;height:28px}.voxel-key-arrow{font-size:.8rem}
+  .voxel-brand{
+    position:relative;
+    order:1;
+    top:auto;left:auto;
+    width:100%;
+    max-width:none;
+    margin:0;
+  }
+  .voxel-brand h1{font-size:clamp(1.7rem,8.4vw,2.6rem)}
+  .voxel-brand p{font-size:.78rem;line-height:1.4;max-width:none;margin-top:9px;}
+  .voxel-brand-kicker{font-size:.63rem;margin-bottom:5px;}
+  .voxel-section-key{
+    position:relative;
+    order:2;
+    top:auto;left:auto;right:auto;bottom:auto;
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    overflow:visible;
+    padding:0;
+  }
+  .voxel-key-button{grid-template-columns:28px minmax(0,1fr) 14px;padding:8px;min-height:54px;}
+  .voxel-key-copy strong{font-size:.69rem}.voxel-key-copy small{display:none}.voxel-key-num{width:28px;height:28px}.voxel-key-arrow{font-size:.8rem}
+  .voxel-canvas-wrap{
+    position:relative;
+    order:3;
+    inset:auto;
+    width:100%;
+    height:62svh;
+    min-height:430px;
+    max-height:680px;
+    border:1px solid rgba(83,222,207,.12);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .voxel-controls{
+    position:fixed;
+    z-index:80;
+    top:auto;
+    right:12px;
+    bottom:12px;
+    display:grid;
+    grid-template-columns:repeat(3,42px);
+  }
+  .voxel-control{min-width:42px;width:42px;height:42px;padding:0;}
+  .voxel-control.reset{grid-column:1/4;width:140px;font-size:.6rem;justify-self:end;}
+  .voxel-help{display:none;}
 }
 
 @media (max-width:430px){
-  .voxel-canvas-wrap{height:64svh;min-height:460px;}
-  .voxel-brand p{display:none}
-  .voxel-help{bottom:118px;max-width:210px;line-height:1.25}
-  .voxel-controls{transform:scale(.9);transform-origin:top right;}
+  .voxel-stage{padding:8px 8px 72px;gap:8px;}
+  .voxel-brand{padding:11px 12px 10px !important;}
+  .voxel-brand p{font-size:.72rem;}
+  .voxel-section-key{grid-template-columns:1fr;}
+  .voxel-key-button{min-height:48px;}
+  .voxel-canvas-wrap{height:58svh;min-height:380px;}
+  .voxel-controls{transform:scale(.88);transform-origin:bottom right;}
 }
 
 /* =========================================================
@@ -13599,21 +13644,12 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 
 @media (max-width:800px){
   .voxel-brand {
-    width:min(70vw,310px);
+    width:100%;
     padding:13px 14px 12px;
   }
   .voxel-brand-open { display:none; }
-  .voxel-controls {
-    grid-template-columns:repeat(3,42px);
-  }
-  .voxel-control.reset {
-    grid-column:1/4;
-    width:140px;
-    justify-self:end;
-  }
-  .voxel-help {
-    max-width:min(72vw,390px);
-  }
+  .voxel-controls { grid-template-columns:repeat(3,42px); }
+  .voxel-control.reset { grid-column:1/4;width:140px;justify-self:end; }
 }
 </style>
 
@@ -13830,7 +13866,7 @@ Case studies keep their dedicated research layouts.
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V34)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V35)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -21094,7 +21130,8 @@ MOBILE RESEARCH FIGURES FIX
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .42;
   controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(0,6.1,0);
+  controls.target.set(.15,6.1,0);
+  controls.addEventListener('start',()=>{controls._userPanned=true;});
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -21103,6 +21140,7 @@ MOBILE RESEARCH FIGURES FIX
   const magentaLight = new THREE.PointLight(0xd45cff,24,24,2); magentaLight.position.set(5,11,-5); scene.add(magentaLight);
 
   const tower = new THREE.Group();
+  tower.position.x = 1.15;
   scene.add(tower);
   const targets = [];
   const highlightMaterials = new Map();
@@ -21280,34 +21318,58 @@ MOBILE RESEARCH FIGURES FIX
     return g;
   }
 
+  function addBlockLimb(parent,a,b,color,thickness=.12){
+    const start=new THREE.Vector3(a[0],a[1],a[2]);
+    const end=new THREE.Vector3(b[0],b[1],b[2]);
+    const mid=start.clone().add(end).multiplyScalar(.5);
+    const dir=end.clone().sub(start);
+    const len=dir.length();
+    const limb=box(thickness,len,thickness,color);
+    limb.position.copy(mid);
+    limb.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());
+    parent.add(limb);
+    return limb;
+  }
+
   function addLaptopWorker(parent,x,z,y){
     const g=new THREE.Group();
     g.position.set(x,y,z);
 
-    /* V33 — more open standing setup with cleaner anatomy and forward-only screen glow. */
-    const desk=box(1.44,.12,.70,0x15334a); desk.position.set(.26,.82,-.08); g.add(desk);
-    [-.46,.98].forEach(dx=>{const leg=box(.10,.78,.10,0x0b2133);leg.position.set(dx,.42,-.08);g.add(leg);});
+    /* V35 — simple standing worker with limbs physically connected to the torso. */
+    const desk=box(1.52,.12,.74,0x15334a); desk.position.set(.28,.84,-.05); g.add(desk);
+    [-.48,1.03].forEach(dx=>{const leg=box(.10,.80,.10,0x0b2133);leg.position.set(dx,.43,-.05);g.add(leg);});
 
     const skin=0xc98f69, shirt=0x4f8fe8, pants=0x172b45, hair=0x162333;
-    const torso=box(.44,.78,.28,shirt); torso.position.set(-.56,1.18,.34); g.add(torso);
-    const head=box(.32,.34,.30,skin); head.position.set(-.56,1.74,.28); g.add(head);
-    const hairCap=box(.34,.12,.32,hair); hairCap.position.set(-.56,1.95,.26); g.add(hairCap);
+    const torso=box(.48,.82,.32,shirt); torso.position.set(-.62,1.23,.34); g.add(torso);
+    const head=box(.34,.36,.32,skin); head.position.set(-.62,1.82,.31); g.add(head);
+    const hairCap=box(.36,.12,.34,hair); hairCap.position.set(-.62,2.05,.29); g.add(hairCap);
 
-    /* Arms connect directly from the shoulders to the keyboard. */
-    const upperL=box(.11,.32,.11,skin); upperL.position.set(-.40,1.28,.18); upperL.rotation.z=-.32; upperL.rotation.x=-.30; g.add(upperL);
-    const foreL=box(.11,.30,.11,skin); foreL.position.set(-.18,1.04,.02); foreL.rotation.x=-1.02; foreL.rotation.z=-.08; g.add(foreL);
-    const upperR=box(.11,.32,.11,skin); upperR.position.set(-.70,1.28,.18); upperR.rotation.z=.34; upperR.rotation.x=-.26; g.add(upperR);
-    const foreR=box(.11,.30,.11,skin); foreR.position.set(-.43,1.03,.01); foreR.rotation.x=-1.00; foreR.rotation.z=.10; g.add(foreR);
+    /* One-piece block arms connect shoulder-to-keyboard, eliminating floating elbows. */
+    addBlockLimb(g,[-.38,1.48,.26],[-.05,1.03,.08],skin,.12);
+    addBlockLimb(g,[-.86,1.47,.26],[-.34,1.03,.08],skin,.12);
 
-    [-.08,.11].forEach(dx=>{const leg=box(.15,.78,.16,pants);leg.position.set(-.58+dx,.43,.34);g.add(leg);});
+    /* Legs connect directly to the torso. */
+    const legL=box(.16,.80,.17,pants); legL.position.set(-.74,.52,.35); g.add(legL);
+    const legR=box(.16,.80,.17,pants); legR.position.set(-.50,.52,.35); g.add(legR);
 
-    const base=box(.66,.06,.40,0x778fa4); base.position.set(.18,.92,-.02); g.add(base);
-    const screenFrame=box(.70,.46,.07,0x2e4258); screenFrame.position.set(.18,1.18,-.22); screenFrame.rotation.x=-.12; g.add(screenFrame);
-    const screen=box(.58,.35,.025,0x81fbff,{emissive:0x31eaff,emissiveIntensity:1.75}); screen.position.set(.18,1.18,-.258); screen.rotation.x=-.12; g.add(screen);
-    /* Only the side facing the user and worker should appear illuminated. */
-    const frontGlow=new THREE.PointLight(0x5feeff,4.6,2.6,2); frontGlow.position.set(.18,1.12,.24); g.add(frontGlow);
+    const base=box(.68,.06,.42,0x778fa4); base.position.set(.20,.94,.00); g.add(base);
 
-    g.rotation.y=-.08;
+    /* Opaque rear shell blocks any glow from leaking behind the laptop. */
+    const screenBack=box(.72,.50,.10,0x18293a); screenBack.position.set(.20,1.22,-.24); screenBack.rotation.x=-.10; g.add(screenBack);
+
+    /* Only the front-facing panel emits light. Plane is single-sided and faces +Z. */
+    const frontMat=new THREE.MeshBasicMaterial({color:0x60f6ff,side:THREE.FrontSide,toneMapped:false});
+    const frontPanel=new THREE.Mesh(new THREE.PlaneGeometry(.58,.36),frontMat);
+    frontPanel.position.set(.20,1.22,-.185);
+    frontPanel.rotation.x=-.10;
+    g.add(frontPanel);
+
+    /* Small forward glow only, placed between screen and worker. */
+    const frontGlow=new THREE.PointLight(0x5feeff,2.2,1.8,2);
+    frontGlow.position.set(.20,1.14,.10);
+    g.add(frontGlow);
+
+    g.rotation.y=-.04;
     parent.add(g);
     return g;
   }
@@ -21484,7 +21546,7 @@ MOBILE RESEARCH FIGURES FIX
       addAutumnTree(g,.88,-.70,.45,.50);
 
       /* Hovering mini satellite — also clickable as Profile. */
-      const sat=addMiniSatellite(g,.02,-.02,2.05);
+      const sat=addMiniSatellite(g,1.18,.18,2.10);
       sat.traverse(obj=>{if(obj.isMesh)mark(obj,'profile');});
 
       /* Small emissive sun and pixel stars remain as the top-floor sky motif. */
@@ -21575,8 +21637,15 @@ MOBILE RESEARCH FIGURES FIX
 
   function resize(){
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight), aspect=w/h;
-    const frustum=window.innerWidth<=800?19.2:17.6;
+    const mobile=window.innerWidth<=800;
+    const tiny=window.innerWidth<=430;
+    const frustum=tiny?20.8:(mobile?19.8:17.6);
+    tower.position.x=mobile?0.15:1.15;
+    if(!controls._userPanned){
+      controls.target.x=mobile?0:.15;
+    }
     camera.left=-frustum*aspect/2;camera.right=frustum*aspect/2;camera.top=frustum/2;camera.bottom=-frustum/2;camera.updateProjectionMatrix();
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?2:3));
     renderer.setSize(w,h,false);
   }
   resize();
@@ -21585,6 +21654,7 @@ MOBILE RESEARCH FIGURES FIX
   const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
   let hovered=null, down=null;
   function panViewVertical(amount){
+    controls._userPanned=true;
     const step=amount/Math.max(camera.zoom,.35);
     camera.position.y+=step;
     controls.target.y+=step;
@@ -21625,7 +21695,7 @@ MOBILE RESEARCH FIGURES FIX
     if(action==='pan-down'){panViewVertical(-1.15);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
-    if(action==='reset'){camera.position.set(12,11.2,14);camera.zoom=.80;camera.updateProjectionMatrix();controls.target.set(0,6.1,0);controls.update();}
+    if(action==='reset'){controls._userPanned=false;camera.position.set(12,11.2,14);camera.zoom=.80;camera.updateProjectionMatrix();controls.target.set(window.innerWidth<=800?0:.15,6.1,0);controls.update();}
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
