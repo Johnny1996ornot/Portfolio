@@ -12090,7 +12090,7 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
 </style>
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V45 — PERFORMANCE-CLEAN VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V46 — PERFORMANCE-CLEAN VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -12716,6 +12716,53 @@ Case studies keep their dedicated research layouts.
 </style>
 
 
+
+<style id="v46-research-year-navigation-polish">
+/* =========================================================
+V46 — RESEARCH YEAR NAVIGATION POLISH
+- removes the visible research-list scrollbar
+- avoids long native smooth-scroll animations
+- keeps year clicks quick and responsive
+========================================================= */
+.expansion-projects .research-year-stage {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    scrollbar-gutter: auto !important;
+    scroll-behavior: auto !important;
+    padding-right: 0 !important;
+}
+.expansion-projects .research-year-stage::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+}
+.expansion-projects .research-year-pills button {
+    transition:
+        background-color .12s ease,
+        color .12s ease,
+        border-color .12s ease,
+        box-shadow .12s ease,
+        transform .12s ease !important;
+}
+.expansion-projects .research-year-pills button:focus {
+    outline: none !important;
+}
+.expansion-projects .research-year-pills button:focus-visible {
+    outline: 2px solid rgba(91,230,162,.78) !important;
+    outline-offset: 2px !important;
+}
+.expansion-projects .research-year-group.year-arrival {
+    animation: v46YearArrival .22s cubic-bezier(.2,.75,.25,1) both;
+}
+@keyframes v46YearArrival {
+    from { opacity: .72; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .expansion-projects .research-year-group.year-arrival { animation: none !important; }
+}
+</style>
+
   <!-- V40: warm the CDN connection and preload the 3D modules for faster startup. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/+esm">
@@ -12723,7 +12770,7 @@ Case studies keep their dedicated research layouts.
 
 
 <style id="portfolio-v44-performance-overrides">
-/* V45 performance cleanup — visual design preserved, expensive live blur removed. */
+/* V46 performance cleanup — visual design preserved, expensive live blur removed. */
 #voxelPortfolioHome .voxel-help,
 #voxelPortfolioHome .voxel-control,
 #voxelPortfolioHome .voxel-key-button {
@@ -14049,7 +14096,7 @@ SECTION 14 — PANEL OPEN / CLOSE JAVASCRIPT
 
 function openPanel(panel) {
 
-    /* V45: stop the hidden WebGL homepage before constructing a full-screen section. */
+    /* V46: stop the hidden WebGL homepage before constructing a full-screen section. */
     document.body.classList.add("voxel-render-paused");
     window.dispatchEvent(new Event("portfolio:voxel-pause"));
 
@@ -14361,7 +14408,7 @@ function closeActivePanel() {
         activeCaseStudy = null;
         document.body.classList.remove("solar-orbits-paused");
         document.querySelectorAll(".solar-selected").forEach(el => el.classList.remove("solar-selected"));
-        /* V45: restart the 3D homepage only after the panel has fully closed. */
+        /* V46: restart the 3D homepage only after the panel has fully closed. */
         document.body.classList.remove("voxel-render-paused");
         window.dispatchEvent(new Event("portfolio:voxel-resume"));
     };
@@ -14397,7 +14444,7 @@ function positionCloseButton() {
 
 
 
-/* Legacy solar-system animation controller removed in V45: no active solar DOM remains. */
+/* Legacy solar-system animation controller removed in V46: no active solar DOM remains. */
 
 /* =========================================================
 HOME PANEL CLICK HANDLING
@@ -17210,14 +17257,14 @@ function bindResearchYearStack() {
 
     let rafId = 0;
     let programmaticScroll = false;
-    let programmaticTimer = 0;
+    let scrollAnimationFrame = 0;
     let resizeTimer = 0;
+    let arrivalTimer = 0;
 
     /*
-       Give the final year enough trailing room so ANY year can truly reach
-       the top of the scroll viewport. Without this, years near the bottom
-       (especially 2021 / 2017) hit maxScroll early and appear to jump back
-       to 2022.
+       Keep enough trailing room so even the last year can reach the top.
+       The scrollbar itself is hidden in CSS, but wheel / trackpad / touch
+       scrolling still works normally.
     */
     function ensureResearchTailRoom() {
 
@@ -17256,7 +17303,67 @@ function bindResearchYearStack() {
         );
     }
 
-    function scrollToYear(year, smooth = true) {
+    function pulseArrival(group) {
+        groups.forEach(item => item.classList.remove("year-arrival"));
+        window.clearTimeout(arrivalTimer);
+        /* Force the class to restart even when clicking the same year twice. */
+        void group.offsetWidth;
+        group.classList.add("year-arrival");
+        arrivalTimer = window.setTimeout(
+            () => group.classList.remove("year-arrival"),
+            260
+        );
+    }
+
+    function stopProgrammaticScroll() {
+        if (scrollAnimationFrame) {
+            cancelAnimationFrame(scrollAnimationFrame);
+            scrollAnimationFrame = 0;
+        }
+        programmaticScroll = false;
+    }
+
+    /*
+       Short custom scroll rather than browser-native smooth scrolling.
+       Native smooth scroll was taking too long across large year distances,
+       which made button presses feel heavy and "rubbery".
+    */
+    function animateStageTo(targetTop, duration, done) {
+
+        stopProgrammaticScroll();
+        programmaticScroll = true;
+
+        const startTop = stage.scrollTop;
+        const distance = targetTop - startTop;
+
+        if (Math.abs(distance) < 2 || duration <= 0) {
+            stage.scrollTop = targetTop;
+            programmaticScroll = false;
+            if (done) done();
+            return;
+        }
+
+        const started = performance.now();
+
+        const tick = now => {
+            const t = Math.min(1, (now - started) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            stage.scrollTop = startTop + distance * eased;
+
+            if (t < 1) {
+                scrollAnimationFrame = requestAnimationFrame(tick);
+            } else {
+                scrollAnimationFrame = 0;
+                stage.scrollTop = targetTop;
+                programmaticScroll = false;
+                if (done) done();
+            }
+        };
+
+        scrollAnimationFrame = requestAnimationFrame(tick);
+    }
+
+    function scrollToYear(year, animate = true) {
 
         const group =
             groups.find(
@@ -17268,44 +17375,34 @@ function bindResearchYearStack() {
         }
 
         ensureResearchTailRoom();
-
-        programmaticScroll = true;
-        window.clearTimeout(programmaticTimer);
         setActiveYear(year);
 
-        const targetTop = Math.max(0, group.offsetTop - 2);
+        const maxTop = Math.max(0, stage.scrollHeight - stage.clientHeight);
+        const targetTop = Math.min(
+            maxTop,
+            Math.max(0, group.offsetTop - 2)
+        );
 
-        stage.scrollTo({
-            top: targetTop,
-            behavior: smooth ? "smooth" : "auto"
-        });
-
-        /* Keep the clicked year authoritative until the smooth scroll finishes. */
-        const release = () => {
-            programmaticScroll = false;
+        if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            stopProgrammaticScroll();
+            stage.scrollTop = targetTop;
             setActiveYear(year);
-        };
-
-        if (!smooth) {
-            programmaticTimer = window.setTimeout(release, 60);
+            pulseArrival(group);
             return;
         }
 
-        const started = performance.now();
+        const distance = Math.abs(stage.scrollTop - targetTop);
+        /* 150–260 ms: fast enough to feel immediate, still visually trackable. */
+        const duration = Math.min(260, Math.max(150, 130 + distance * 0.075));
 
-        const waitForTarget = () => {
-            const closeEnough = Math.abs(stage.scrollTop - targetTop) <= 3;
-            const timedOut = performance.now() - started > 950;
-
-            if (closeEnough || timedOut) {
-                release();
-                return;
+        animateStageTo(
+            targetTop,
+            duration,
+            () => {
+                setActiveYear(year);
+                pulseArrival(group);
             }
-
-            requestAnimationFrame(waitForTarget);
-        };
-
-        requestAnimationFrame(waitForTarget);
+        );
     }
 
     function updateActiveFromScroll() {
@@ -17363,6 +17460,10 @@ function bindResearchYearStack() {
         }
     );
 
+    /* A manual wheel / touch scroll should immediately take control back. */
+    stage.addEventListener("wheel", stopProgrammaticScroll, { passive: true });
+    stage.addEventListener("touchstart", stopProgrammaticScroll, { passive: true });
+
     stage.addEventListener(
         "scroll",
         scheduleUpdate,
@@ -17373,7 +17474,7 @@ function bindResearchYearStack() {
         "resize",
         () => {
             window.clearTimeout(resizeTimer);
-            resizeTimer = window.setTimeout(ensureResearchTailRoom, 120);
+            resizeTimer = window.setTimeout(ensureResearchTailRoom, 100);
         },
         { passive: true }
     );
@@ -19769,7 +19870,7 @@ MOBILE RESEARCH FIGURES FIX
     alpha:true,
     powerPreference:'high-performance'
   });
-  /* V45: 1.5× desktop / 1.25× mobile is visually crisp at this canvas size but
+  /* V46: 1.5× desktop / 1.25× mobile is visually crisp at this canvas size but
      substantially cheaper than the previous 2× / 1.5× render targets. */
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.25 : 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -20479,7 +20580,7 @@ MOBILE RESEARCH FIGURES FIX
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* =========================================================
-  V45 PERFORMANCE SCHEDULER
+  V46 PERFORMANCE SCHEDULER
   - 60 fps while the user is actively rotating/zooming
   - 30 fps desktop / 24 fps mobile for ambient animation
   - WebGL loop stops completely behind expanded portfolio sections
