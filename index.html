@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V32 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V33 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13710,7 +13710,7 @@ V30 — POLISH / ACCESSIBILITY / CAMERA CONTROL OVERRIDES
 
 <style id="v32-voxel-expanded-theme">
 /* =========================================================
-V32 — NORMAL PORTFOLIO SECTIONS MATCH THE VOXEL HOME
+V33 — NORMAL PORTFOLIO SECTIONS MATCH THE VOXEL HOME
 Case studies keep their dedicated research layouts.
 ========================================================= */
 .expansion:not(.case-study-active) {
@@ -13830,7 +13830,7 @@ Case studies keep their dedicated research layouts.
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V32)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V33)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -21064,9 +21064,9 @@ MOBILE RESEARCH FIGURES FIX
   scene.fog = new THREE.FogExp2(0x020914, 0.028);
 
   const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
-  camera.position.set(12,10.5,14);
-  camera.lookAt(0,5.65,0);
-  camera.zoom = .82;
+  camera.position.set(12,11.2,14);
+  camera.lookAt(0,6.1,0);
+  camera.zoom = .80;
   camera.updateProjectionMatrix();
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
@@ -21094,7 +21094,7 @@ MOBILE RESEARCH FIGURES FIX
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .42;
   controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(0,5.65,0);
+  controls.target.set(0,6.1,0);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -21124,10 +21124,10 @@ MOBILE RESEARCH FIGURES FIX
   function seeded(n){ const x=Math.sin(n*127.1+311.7)*43758.5453; return x-Math.floor(x); }
 
   function makeLabel(title, sub, accent, key){
-    /* V32 — high-resolution labels that remain legible at the default zoom.
-       The sprite is also slightly larger in world space, while still alternating
-       from side to side to avoid crowding the tower. */
-    const logicalW=820, logicalH=180, scale=4;
+    /* V33 — even clearer high-resolution labels.
+       They are larger in world space and use stronger typography so they stay readable
+       when the user is zoomed out at the default view. */
+    const logicalW=920, logicalH=200, scale=4;
     const cnv=document.createElement('canvas');
     cnv.width=Math.round(logicalW*scale);
     cnv.height=Math.round(logicalH*scale);
@@ -21141,23 +21141,23 @@ MOBILE RESEARCH FIGURES FIX
     ctx.fillStyle=accent;
     ctx.fillRect(0,0,12,logicalH);
     ctx.strokeStyle=accent;
-    ctx.lineWidth=3;
+    ctx.lineWidth=4;
     ctx.strokeRect(2,2,logicalW-4,logicalH-4);
 
     ctx.shadowColor='rgba(0,0,0,.65)';
     ctx.shadowBlur=4;
     ctx.fillStyle='#f4fffd';
-    ctx.font='900 46px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText(title,38,70);
+    ctx.font='900 54px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(title,42,76);
     ctx.shadowBlur=0;
 
     ctx.fillStyle='#c2d9dd';
-    ctx.font='700 25px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText(sub,38,116);
+    ctx.font='800 28px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(sub,42,126);
 
     ctx.fillStyle=accent;
-    ctx.font='900 21px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    ctx.fillText('OPEN FLOOR ↗',38,151);
+    ctx.font='900 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText('OPEN FLOOR ↗',42,166);
 
     const tex=new THREE.CanvasTexture(cnv);
     tex.colorSpace=THREE.SRGBColorSpace;
@@ -21174,7 +21174,7 @@ MOBILE RESEARCH FIGURES FIX
       depthWrite:false,
       toneMapped:false
     }));
-    spr.scale.set(5.85,1.285,1);
+    spr.scale.set(6.95,1.52,1);
     spr.userData.section=key;
     targets.push(spr);
     return spr;
@@ -21284,29 +21284,30 @@ MOBILE RESEARCH FIGURES FIX
     const g=new THREE.Group();
     g.position.set(x,y,z);
 
-    /* Standing workstation: no chair, clean silhouette, arms aligned from shoulders. */
-    const desk=box(1.30,.12,.66,0x15334a); desk.position.set(.18,.82,-.18); g.add(desk);
-    [-.40,.70].forEach(dx=>{const leg=box(.10,.78,.10,0x0b2133);leg.position.set(dx,.42,-.18);g.add(leg);});
+    /* V33 — more open standing setup with cleaner anatomy and forward-only screen glow. */
+    const desk=box(1.44,.12,.70,0x15334a); desk.position.set(.26,.82,-.08); g.add(desk);
+    [-.46,.98].forEach(dx=>{const leg=box(.10,.78,.10,0x0b2133);leg.position.set(dx,.42,-.08);g.add(leg);});
 
     const skin=0xc98f69, shirt=0x4f8fe8, pants=0x172b45, hair=0x162333;
-    const torso=box(.48,.70,.34,shirt); torso.position.set(-.48,1.24,.27); g.add(torso);
-    const head=box(.34,.34,.34,skin); head.position.set(-.48,1.78,.23); g.add(head);
-    const hairCap=box(.36,.12,.36,hair); hairCap.position.set(-.48,1.99,.20); g.add(hairCap);
+    const torso=box(.44,.78,.28,shirt); torso.position.set(-.56,1.18,.34); g.add(torso);
+    const head=box(.32,.34,.30,skin); head.position.set(-.56,1.74,.28); g.add(head);
+    const hairCap=box(.34,.12,.32,hair); hairCap.position.set(-.56,1.95,.26); g.add(hairCap);
 
-    /* Arms begin at the shoulders and angle naturally toward the keyboard. */
-    const armL=box(.13,.58,.13,skin); armL.position.set(-.25,1.22,.02); armL.rotation.x=-.74; armL.rotation.z=-.16; g.add(armL);
-    const armR=box(.13,.58,.13,skin); armR.position.set(-.06,1.20,.04); armR.rotation.x=-.72; armR.rotation.z=.16; g.add(armR);
+    /* Arms connect directly from the shoulders to the keyboard. */
+    const upperL=box(.11,.32,.11,skin); upperL.position.set(-.40,1.28,.18); upperL.rotation.z=-.32; upperL.rotation.x=-.30; g.add(upperL);
+    const foreL=box(.11,.30,.11,skin); foreL.position.set(-.18,1.04,.02); foreL.rotation.x=-1.02; foreL.rotation.z=-.08; g.add(foreL);
+    const upperR=box(.11,.32,.11,skin); upperR.position.set(-.70,1.28,.18); upperR.rotation.z=.34; upperR.rotation.x=-.26; g.add(upperR);
+    const foreR=box(.11,.30,.11,skin); foreR.position.set(-.43,1.03,.01); foreR.rotation.x=-1.00; foreR.rotation.z=.10; g.add(foreR);
 
-    /* Two standing legs. */
-    [-.13,.13].forEach(dx=>{const leg=box(.15,.70,.16,pants);leg.position.set(-.48+dx,.55,.28);g.add(leg);});
+    [-.08,.11].forEach(dx=>{const leg=box(.15,.78,.16,pants);leg.position.set(-.58+dx,.43,.34);g.add(leg);});
 
-    /* Glowing laptop. */
-    const base=box(.64,.06,.40,0x778fa4); base.position.set(.18,.92,-.04); g.add(base);
-    const screenFrame=box(.68,.46,.07,0x2e4258); screenFrame.position.set(.18,1.20,-.22); screenFrame.rotation.x=-.12; g.add(screenFrame);
-    const screen=box(.56,.35,.025,0x81fbff,{emissive:0x31eaff,emissiveIntensity:1.7}); screen.position.set(.18,1.20,-.258); screen.rotation.x=-.12; g.add(screen);
-    const glow=new THREE.PointLight(0x5feeff,6.4,3.8,2); glow.position.set(.18,1.22,-.05); g.add(glow);
+    const base=box(.66,.06,.40,0x778fa4); base.position.set(.18,.92,-.02); g.add(base);
+    const screenFrame=box(.70,.46,.07,0x2e4258); screenFrame.position.set(.18,1.18,-.22); screenFrame.rotation.x=-.12; g.add(screenFrame);
+    const screen=box(.58,.35,.025,0x81fbff,{emissive:0x31eaff,emissiveIntensity:1.75}); screen.position.set(.18,1.18,-.258); screen.rotation.x=-.12; g.add(screen);
+    /* Only the side facing the user and worker should appear illuminated. */
+    const frontGlow=new THREE.PointLight(0x5feeff,4.6,2.6,2); frontGlow.position.set(.18,1.12,.24); g.add(frontGlow);
 
-    g.rotation.y=-.18;
+    g.rotation.y=-.08;
     parent.add(g);
     return g;
   }
@@ -21353,10 +21354,11 @@ MOBILE RESEARCH FIGURES FIX
   const layerMeta = [
     {key:'featured', y:.1, size:7.4, color:C.featured, title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
     {key:'projects', y:2.65, size:6.2, color:C.research, title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
-    {key:'skills', y:5.15, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
-    {key:'gallery', y:7.65, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
-    {key:'mini', y:10.05, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
-    {key:'profile', y:12.35, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
+    /* Higher clearance above the research floor so the bedroom/study scene is easier to read. */
+    {key:'skills', y:5.95, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
+    {key:'gallery', y:8.45, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
+    {key:'mini', y:10.85, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
+    {key:'profile', y:13.15, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
   ];
 
   function createVoxelPlatform(meta,index){
@@ -21382,7 +21384,7 @@ MOBILE RESEARCH FIGURES FIX
     }
     highlightMaterials.set(meta.key,mats);
     const label=makeLabel(meta.title,meta.sub,meta.accent,meta.key);
-    label.position.set(meta.side*(meta.size*.5+2.7),.9,0); g.add(label);
+    label.position.set(meta.side*(meta.size*.5+3.35),1.0,0); g.add(label);
 
     if(meta.key==='featured'){
       /* Lowest floor: a cleaner living forest with no abstract project-marker bars. */
@@ -21402,8 +21404,8 @@ MOBILE RESEARCH FIGURES FIX
     }
     if(meta.key==='projects'){
       /* Research floor: compact bedroom-study scene. */
-      addBed(g,1.45,-.85,.42);
-      addLaptopWorker(g,-.65,.28,.43);
+      addBed(g,1.65,-1.05,.42);
+      addLaptopWorker(g,-.92,.10,.34);
 
       /* Low shelf and bedside light — kept below sight lines. */
       const shelf=box(1.0,.46,.34,0x28485a); shelf.position.set(1.25,.72,1.25); g.add(shelf);
@@ -21417,9 +21419,30 @@ MOBILE RESEARCH FIGURES FIX
       for(let i=-1;i<=1;i++){const s=box(.45,1.2,.45,0x153c62,{emissive:0x31cfff,emissiveIntensity:.14});s.position.set(i*.75,1.0,1.5);g.add(s);}
     }
     if(meta.key==='gallery'){
-      const tileColors=[0x48d8ff,0x66d273,0xff91a0,0xff647b,0xb26cff];
-      let k=0; for(let x=-1.4;x<=1.4;x+=.7) for(let z=-1.4;z<=1.4;z+=.7){const c=tileColors[k++%tileColors.length];const t=box(.58,.11,.58,c,{emissive:c,emissiveIntensity:.08});t.position.set(x,.46,z);g.add(t);}
-      const frame=box(3.7,.18,.18,0xf2efe4);frame.position.set(0,.7,-1.85);g.add(frame);
+      /* Maps · Models · Visuals becomes a mini island scene with a moving boat. */
+      const waterBase=box(3.85,.18,3.25,0x1d7fb5,{emissive:0x0f4d88,emissiveIntensity:.10});
+      waterBase.position.set(0,.54,0); g.add(waterBase);
+      const waterTop=box(3.62,.08,3.02,0x5dd7ff,{emissive:0x35b8f2,emissiveIntensity:.18});
+      waterTop.position.set(0,.68,0); g.add(waterTop);
+
+      const sand=box(1.45,.18,1.18,0xe8d38b,{emissive:0x7d6528,emissiveIntensity:.05}); sand.position.set(-.22,.83,.12); g.add(sand);
+      const grassA=box(1.10,.26,.92,0x4dc56c,{emissive:0x21603f,emissiveIntensity:.06}); grassA.position.set(-.26,1.03,.08); g.add(grassA);
+      const hill=box(.62,.32,.58,0x2ea256,{emissive:0x1a5f37,emissiveIntensity:.05}); hill.position.set(-.12,1.30,.05); g.add(hill);
+      addTree(g,-.54,-.05,1.02);
+      addTree(g,.18,.42,1.02);
+      addAutumnTree(g,.15,-.48,1.00,.52);
+
+      const dock=box(.64,.08,.24,0x8a6743); dock.position.set(.82,.78,.02); g.add(dock);
+      const dock2=box(.24,.08,.82,0x8a6743); dock2.position.set(.98,.78,.28); g.add(dock2);
+
+      const boat=new THREE.Group();
+      const hull=box(.54,.14,.24,0x9b5b34,{emissive:0x4c2815,emissiveIntensity:.05}); boat.add(hull);
+      const seat=box(.20,.10,.12,0xd9f3ff); seat.position.set(-.04,.12,0); boat.add(seat);
+      const mast=box(.05,.48,.05,0xe6f7ff); mast.position.set(.02,.34,0); boat.add(mast);
+      const sail=box(.28,.24,.04,0xfff2cc,{emissive:0xffdea0,emissiveIntensity:.08}); sail.position.set(.18,.40,0); boat.add(sail);
+      boat.position.set(1.10,.86,-.55);
+      boat.userData.boatOrbit={cx:.15, cz:.08, radiusX:1.28, radiusZ:.92, y:.86, phase:1.05, bob:.06};
+      g.add(boat); movingBoats.push(boat);
     }
     if(meta.key==='mini'){
       /* Data & Coding floor becomes a tiny illuminated city. */
@@ -21490,7 +21513,7 @@ MOBILE RESEARCH FIGURES FIX
 
   /* Glittering disco ball on the third floor, beneath Maps · Models · Visuals. */
   const discoGroup=new THREE.Group();
-  discoGroup.position.set(-1.08,7.22,-1.28);
+  discoGroup.position.set(-1.08,8.02,-1.28);
   const chainMat=new THREE.MeshStandardMaterial({color:0xa3c3cf,metalness:.9,roughness:.2});
   const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.72,8),chainMat);
   chain.position.y=-.36;
@@ -21526,7 +21549,7 @@ MOBILE RESEARCH FIGURES FIX
 
   /* Central data beam made of translucent voxel segments. */
   const beamMat=new THREE.MeshStandardMaterial({color:0x44e8ff,transparent:true,opacity:.22,emissive:0x33dfff,emissiveIntensity:.8,roughness:.2});
-  for(let y=.6;y<14.4;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
+  for(let y=.6;y<15.4;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
 
   const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-3.18; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
   const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-3.08;scene.add(grid);
@@ -21601,7 +21624,7 @@ MOBILE RESEARCH FIGURES FIX
     if(action==='pan-down'){panViewVertical(-1.15);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
-    if(action==='reset'){camera.position.set(12,10.5,14);camera.zoom=.82;camera.updateProjectionMatrix();controls.target.set(0,5.65,0);controls.update();}
+    if(action==='reset'){camera.position.set(12,11.2,14);camera.zoom=.80;camera.updateProjectionMatrix();controls.target.set(0,6.1,0);controls.update();}
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21635,6 +21658,15 @@ MOBILE RESEARCH FIGURES FIX
         s.position.y=b.y+Math.sin(p*1.28)*.14;
         s.rotation.y=Math.sin(p*.72)*.18;
         s.rotation.z=Math.sin(p*.55)*.05;
+      });
+      movingBoats.forEach((boat,i)=>{
+        const o=boat.userData.boatOrbit;
+        const p=now*.00055 + o.phase + i*.75;
+        boat.position.x=o.cx + Math.cos(p)*o.radiusX;
+        boat.position.z=o.cz + Math.sin(p)*o.radiusZ;
+        boat.position.y=o.y + Math.sin(p*2.1)*o.bob;
+        boat.rotation.y=-p + Math.PI/2;
+        boat.rotation.z=Math.sin(p*2.1)*.05;
       });
       if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
       skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
