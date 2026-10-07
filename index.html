@@ -13241,7 +13241,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V36 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V37 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13866,6 +13866,12 @@ Case studies keep their dedicated research layouts.
 }
 </style>
 
+
+  <!-- V37: warm the CDN connection and preload the 3D modules for faster startup. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/+esm">
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm">
+
 </head>
 
 
@@ -13875,7 +13881,7 @@ Case studies keep their dedicated research layouts.
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V36)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V37)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -21096,8 +21102,14 @@ MOBILE RESEARCH FIGURES FIX
 
   let THREE, OrbitControls;
   try {
-    THREE = await import('https://cdn.jsdelivr.net/npm/three@0.180.0/+esm');
-    ({ OrbitControls } = await import('https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm'));
+    if (loading) loading.textContent = 'Loading 3D engine…';
+    const [threeModule, controlsModule] = await Promise.all([
+      import('https://cdn.jsdelivr.net/npm/three@0.180.0/+esm'),
+      import('https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm')
+    ]);
+    THREE = threeModule;
+    ({ OrbitControls } = controlsModule);
+    if (loading) loading.textContent = 'Building voxel portfolio…';
   } catch (err) {
     if (loading) {
       loading.hidden = false;
@@ -21111,42 +21123,44 @@ MOBILE RESEARCH FIGURES FIX
   scene.fog = new THREE.FogExp2(0x020914, 0.028);
 
   const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
-  camera.position.set(12,12.0,14);
-  camera.lookAt(0,6.7,0);
+  camera.position.set(12.65,12.0,14);
+  camera.lookAt(.65,6.6,0);
   camera.zoom = .76;
   camera.updateProjectionMatrix();
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 3));
+  const initialMobile = window.innerWidth <= 800;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.5 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.enabled = !initialMobile;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setClearColor(0x000000,0);
 
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = .075;
-  controls.enablePan = true;
-  controls.screenSpacePanning = true;
+  /* V37: panning the OrbitControls target is disabled. The projection shifts instead,
+     so rotating always remains centered on the 3D tower even after moving it on screen. */
+  controls.enablePan = false;
+  controls.screenSpacePanning = false;
   controls.rotateSpeed = .68;
   controls.zoomSpeed = .88;
   controls.panSpeed = .82;
   controls.keyPanSpeed = 12;
   controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
-  controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
-  controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
+  controls.mouseButtons.MIDDLE = THREE.MOUSE.ROTATE;
+  controls.mouseButtons.RIGHT = THREE.MOUSE.ROTATE;
   controls.touches.ONE = THREE.TOUCH.ROTATE;
-  controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
+  controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE || THREE.TOUCH.DOLLY_PAN;
   controls.minZoom = .46;
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .42;
   controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(.05,6.7,0);
-  controls.addEventListener('start',()=>{controls._userPanned=true;});
+  controls.target.set(.65,6.6,0);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
-  const keyLight = new THREE.DirectionalLight(0xffffff,3.4); keyLight.position.set(7,15,9); keyLight.castShadow=true; scene.add(keyLight);
+  const keyLight = new THREE.DirectionalLight(0xffffff,3.4); keyLight.position.set(7,15,9); keyLight.castShadow=!initialMobile; scene.add(keyLight);
   const cyanLight = new THREE.PointLight(0x38dcff,38,30,2); cyanLight.position.set(-6,9,5); scene.add(cyanLight);
   const magentaLight = new THREE.PointLight(0xd45cff,24,24,2); magentaLight.position.set(5,11,-5); scene.add(magentaLight);
 
@@ -21176,7 +21190,7 @@ MOBILE RESEARCH FIGURES FIX
     /* V33 — even clearer high-resolution labels.
        They are larger in world space and use stronger typography so they stay readable
        when the user is zoomed out at the default view. */
-    const logicalW=920, logicalH=200, scale=4;
+    const logicalW=920, logicalH=200, scale=3;
     const cnv=document.createElement('canvas');
     cnv.width=Math.round(logicalW*scale);
     cnv.height=Math.round(logicalH*scale);
@@ -21346,12 +21360,12 @@ MOBILE RESEARCH FIGURES FIX
     const g=new THREE.Group();
     g.position.set(x,y,z);
 
-    /* V36 — person stands clearly IN FRONT of the desk (+Z), so the body is never hidden by it. */
+    /* V37 — person stands clearly IN FRONT of the desk (+Z), so the body is never hidden by it. */
     const desk=box(1.58,.12,.76,0x15334a); desk.position.set(.08,.84,-.18); g.add(desk);
     [-.54,.70].forEach(dx=>{const leg=box(.10,.80,.10,0x0b2133);leg.position.set(dx,.43,-.18);g.add(leg);});
 
     const skin=0xc98f69, shirt=0x4f8fe8, pants=0x172b45, hair=0x162333;
-    const bodyX=-.34, bodyZ=.58;
+    const bodyX=.08, bodyZ=.58;
     const torso=box(.50,.84,.34,shirt); torso.position.set(bodyX,1.24,bodyZ); g.add(torso);
     const head=box(.34,.36,.32,skin); head.position.set(bodyX,1.84,bodyZ-.02); g.add(head);
     const hairCap=box(.36,.12,.34,hair); hairCap.position.set(bodyX,2.06,bodyZ-.04); g.add(hairCap);
@@ -21359,10 +21373,10 @@ MOBILE RESEARCH FIGURES FIX
     /* Shoulders + arms are continuous and terminate at the keyboard. */
     const shoulderL=box(.16,.16,.16,skin); shoulderL.position.set(bodyX-.29,1.47,bodyZ-.02); g.add(shoulderL);
     const shoulderR=box(.16,.16,.16,skin); shoulderR.position.set(bodyX+.29,1.47,bodyZ-.02); g.add(shoulderR);
-    addBlockLimb(g,[bodyX-.29,1.46,bodyZ-.03],[-.18,1.05,.10],skin,.13);
-    addBlockLimb(g,[bodyX+.29,1.46,bodyZ-.03],[.18,1.05,.10],skin,.13);
-    const handL=box(.13,.10,.14,skin); handL.position.set(-.18,1.02,.10); g.add(handL);
-    const handR=box(.13,.10,.14,skin); handR.position.set(.18,1.02,.10); g.add(handR);
+    addBlockLimb(g,[bodyX-.29,1.46,bodyZ-.03],[bodyX-.18,1.05,.10],skin,.13);
+    addBlockLimb(g,[bodyX+.29,1.46,bodyZ-.03],[bodyX+.18,1.05,.10],skin,.13);
+    const handL=box(.13,.10,.14,skin); handL.position.set(bodyX-.18,1.02,.10); g.add(handL);
+    const handR=box(.13,.10,.14,skin); handR.position.set(bodyX+.18,1.02,.10); g.add(handR);
 
     const legL=box(.17,.82,.18,pants); legL.position.set(bodyX-.13,.52,bodyZ); g.add(legL);
     const legR=box(.17,.82,.18,pants); legR.position.set(bodyX+.13,.52,bodyZ); g.add(legR);
@@ -21424,7 +21438,7 @@ MOBILE RESEARCH FIGURES FIX
   }
 
   const layerMeta = [
-    {key:'featured', y:.1, size:7.4, color:C.featured, title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
+    {key:'featured', y:-1.05, size:7.4, color:C.featured, title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
     {key:'projects', y:2.65, size:6.2, color:C.research, title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
     /* Higher clearance above the research floor so the bedroom/study scene is easier to read. */
     {key:'skills', y:5.95, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
@@ -21641,18 +21655,18 @@ MOBILE RESEARCH FIGURES FIX
   const beamMat=new THREE.MeshStandardMaterial({color:0x44e8ff,transparent:true,opacity:.22,emissive:0x33dfff,emissiveIntensity:.8,roughness:.2});
   for(let y=.6;y<16.8;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
 
-  const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-3.18; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
-  const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-3.08;scene.add(grid);
+  const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-4.33; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
+  const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-4.23;scene.add(grid);
 
   /* Subtle environmental dust plus a restrained sparkle layer. */
-  const pts=[]; for(let i=0;i<190;i++){ const a=seeded(i*7.7)*Math.PI*2,r=6.5+seeded(i*3.3)*9.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*18-2.2,Math.sin(a)*r); }
+  const pts=[]; for(let i=0;i<120;i++){ const a=seeded(i*7.7)*Math.PI*2,r=6.5+seeded(i*3.3)*9.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*18-2.2,Math.sin(a)*r); }
   const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
   const dustMat=new THREE.PointsMaterial({color:0x71dfff,size:.035,transparent:true,opacity:.38,depthWrite:false});
   const dustPoints=new THREE.Points(pg,dustMat);
   scene.add(dustPoints);
 
   const sparklePts=[];
-  for(let i=0;i<58;i++){
+  for(let i=0;i<38;i++){
     const a=seeded(i*11.2+9)*Math.PI*2;
     const r=5.5+seeded(i*4.9+3)*9;
     sparklePts.push(Math.cos(a)*r, seeded(i*9.7+2)*18-2.0, Math.sin(a)*r);
@@ -21662,48 +21676,74 @@ MOBILE RESEARCH FIGURES FIX
   const sparklePoints=new THREE.Points(sg,sparkleMat);
   scene.add(sparklePoints);
 
-  function resize(){
+  let viewShiftX = 0;
+  let viewShiftY = 0;
+  let lastFrustum = 18.8;
+
+  function applyProjection(){
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight), aspect=w/h;
     const mobile=window.innerWidth<=800;
     const tiny=window.innerWidth<=430;
     const frustum=tiny?22.6:(mobile?21.4:18.8);
-    tower.position.x=mobile?0:.65;
-    if(!controls._userPanned){
-      controls.target.x=mobile?0:.05;
+    lastFrustum=frustum;
+    const halfH=frustum/2, halfW=frustum*aspect/2;
+    camera.left=-halfW+viewShiftX;
+    camera.right=halfW+viewShiftX;
+    camera.top=halfH+viewShiftY;
+    camera.bottom=-halfH+viewShiftY;
+    camera.updateProjectionMatrix();
+  }
+
+  function resize(){
+    const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight);
+    const mobile=window.innerWidth<=800;
+    const desiredTowerX=mobile?0:.65;
+
+    /* Keep the OrbitControls target locked to the tower itself. If responsive layout
+       changes the tower's world X, move the camera and pivot by the same delta. */
+    const dx=desiredTowerX-tower.position.x;
+    if(Math.abs(dx)>.0001){
+      tower.position.x=desiredTowerX;
+      camera.position.x+=dx;
+      controls.target.x+=dx;
     }
-    camera.left=-frustum*aspect/2;camera.right=frustum*aspect/2;camera.top=frustum/2;camera.bottom=-frustum/2;camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?2:3));
+    controls.target.y=6.6;
+    controls.target.z=0;
+
+    applyProjection();
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.5:2));
+    renderer.shadowMap.enabled=!mobile;
+    keyLight.castShadow=!mobile;
     renderer.setSize(w,h,false);
+    controls.update();
   }
   resize();
   const ro=new ResizeObserver(resize);ro.observe(wrap);
 
   const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
   let hovered=null, down=null;
-  function panViewVertical(amount){
-    controls._userPanned=true;
-    const step=amount/Math.max(camera.zoom,.35);
-    camera.position.y+=step;
-    controls.target.y+=step;
-    controls.update();
+
+  function moveViewVertical(direction){
+    const step=.85/Math.max(camera.zoom,.35);
+    /* Negative projection shift makes the model appear higher; positive makes it lower. */
+    viewShiftY += direction>0 ? -step : step;
+    applyProjection();
   }
-  function panViewHorizontal(amount){
-    controls._userPanned=true;
-    const step=amount/Math.max(camera.zoom,.35);
-    const right=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).normalize();
-    /* Moving camera opposite the requested screen direction moves the tower itself that way. */
-    camera.position.addScaledVector(right,-step);
-    controls.target.addScaledVector(right,-step);
-    controls.update();
+  function moveViewHorizontal(direction){
+    const step=.95/Math.max(camera.zoom,.35);
+    /* Shift only the orthographic projection. The controls target stays on the tower,
+       so all later rotations continue around the building — not the page center. */
+    viewShiftX += direction>0 ? -step : step;
+    applyProjection();
   }
 
-  /* Shift + wheel/trackpad pans vertically instead of zooming.
-     Right/middle-drag and two-finger touch panning are also enabled above. */
+  /* Shift + wheel/trackpad moves the composition vertically without moving the orbit pivot. */
   canvas.addEventListener('wheel',ev=>{
     if(!ev.shiftKey)return;
     ev.preventDefault();
     ev.stopImmediatePropagation();
-    panViewVertical(ev.deltaY*.009);
+    viewShiftY += ev.deltaY*.006/Math.max(camera.zoom,.35);
+    applyProjection();
   },{passive:false,capture:true});
 
   function hitFromEvent(ev){
@@ -21727,13 +21767,22 @@ MOBILE RESEARCH FIGURES FIX
 
   root.querySelectorAll('[data-voxel-action]').forEach(btn=>btn.addEventListener('click',()=>{
     const action=btn.dataset.voxelAction;
-    if(action==='pan-left'){panViewHorizontal(-1.15);}
-    if(action==='pan-right'){panViewHorizontal(1.15);}
-    if(action==='pan-up'){panViewVertical(1.15);}
-    if(action==='pan-down'){panViewVertical(-1.15);}
+    if(action==='pan-left'){moveViewHorizontal(-1);}
+    if(action==='pan-right'){moveViewHorizontal(1);}
+    if(action==='pan-up'){moveViewVertical(1);}
+    if(action==='pan-down'){moveViewVertical(-1);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
-    if(action==='reset'){controls._userPanned=false;camera.position.set(12,12.0,14);camera.zoom=.76;camera.updateProjectionMatrix();controls.target.set(window.innerWidth<=800?0:.05,6.7,0);controls.update();}
+    if(action==='reset'){
+      viewShiftX=0;viewShiftY=0;
+      const tx=window.innerWidth<=800?0:.65;
+      tower.position.x=tx;
+      camera.position.set(tx+12,12.0,14);
+      camera.zoom=.76;
+      controls.target.set(tx,6.6,0);
+      applyProjection();
+      controls.update();
+    }
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
