@@ -12088,1160 +12088,9 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
     }
 }
 </style>
-
-
-<style id="portfolio-v25-solar-system-home">
-/* =========================================================
-V25 — COUPLED PLANET + LABEL SOLAR-SYSTEM HOME
-- smaller 3D planets with no icon/logo overlays
-- planets move in front of / behind the Sun using orbital depth
-- each section title is physically coupled to its planet on the same orbital path
-- all Sun text is one surface inscription that rotates with the Sun
-- no floating title boxes or satellite banner
-- delta-time orbit controller keeps motion continuous without jumps
-========================================================= */
-
-#solarPortfolioHome {
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 100% !important;
-    overflow: hidden !important;
-    padding: 16px clamp(16px, 2vw, 34px) 12px !important;
-    background:
-        radial-gradient(circle at 76% 39%, rgba(11, 74, 110, .12), transparent 31%),
-        radial-gradient(circle at 48% 51%, rgba(255, 166, 48, .035), transparent 18%),
-        radial-gradient(circle at 16% 12%, rgba(28, 86, 132, .08), transparent 28%),
-        linear-gradient(145deg, #000309 0%, #000913 44%, #00111c 100%) !important;
-    color: var(--text) !important;
-    isolation: isolate;
-}
-
-#solarPortfolioHome::before,
-#solarPortfolioHome::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-#solarPortfolioHome::before {
-    opacity: .76;
-    background-image:
-        radial-gradient(circle at 4% 18%, rgba(255,255,255,.88) 0 1px, transparent 1.4px),
-        radial-gradient(circle at 16% 68%, rgba(166,222,255,.70) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 27% 28%, rgba(255,255,255,.74) 0 1px, transparent 1.4px),
-        radial-gradient(circle at 38% 84%, rgba(89,225,141,.72) 0 1px, transparent 1.6px),
-        radial-gradient(circle at 54% 11%, rgba(255,255,255,.76) 0 1px, transparent 1.4px),
-        radial-gradient(circle at 67% 78%, rgba(173,227,255,.66) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 82% 20%, rgba(255,255,255,.84) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 94% 62%, rgba(89,225,141,.70) 0 1px, transparent 1.5px);
-    background-size: 210px 210px, 260px 260px, 310px 310px, 340px 340px, 290px 290px, 380px 380px, 320px 320px, 420px 420px;
-}
-
-#solarPortfolioHome::after {
-    background: radial-gradient(circle at 78% 44%, transparent 0 28%, rgba(0,4,10,.15) 70%, rgba(0,1,6,.58) 100%);
-}
-
-.solar-topbar,
-.solar-stage,
-.solar-footer {
-    position: relative;
-    z-index: 2;
-}
-
-.solar-topbar {
-    height: 54px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 0 16px;
-    border: 1px solid rgba(155,220,235,.13);
-    border-radius: 20px;
-    background: rgba(0,10,19,.70);
-}
-
-.solar-brand {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 1.34rem;
-    font-weight: 1000;
-    letter-spacing: -.04em;
-}
-
-.solar-brand span {
-    padding-left: 16px;
-    border-left: 1px solid rgba(174,226,239,.17);
-    color: rgba(204,234,239,.66);
-    font-size: .72rem;
-    font-weight: 800;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-}
-
-.solar-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    color: rgba(204,234,239,.68);
-    font-size: .78rem;
-    font-weight: 750;
-}
-
-.solar-hint-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--greenBright);
-    box-shadow: 0 0 12px rgba(89,225,141,.55);
-}
-
-.solar-stage {
-    height: calc(100% - 104px);
-    min-height: 590px;
-    display: grid;
-    grid-template-columns: minmax(255px, .48fr) minmax(650px, 1.52fr);
-    align-items: stretch;
-    gap: clamp(10px, 1.3vw, 24px);
-}
-
-.solar-intro {
-    align-self: center;
-    max-width: 410px;
-    padding: 18px 0 18px 18px;
-}
-
-.solar-eyebrow {
-    margin-bottom: 14px;
-    color: var(--greenBright);
-    font-size: clamp(1rem, 1.2vw, 1.22rem);
-    line-height: 1;
-    font-weight: 1000;
-    letter-spacing: .24em;
-}
-
-.solar-intro h2 {
-    margin: 0;
-    max-width: 365px;
-    color: var(--text);
-    font-size: clamp(2.05rem, 2.85vw, 3.55rem);
-    line-height: .96;
-    letter-spacing: -.052em;
-    font-weight: 1000;
-}
-
-.solar-intro h2 span { color: var(--greenBright); }
-
-.solar-intro > p {
-    max-width: 355px;
-    margin: 19px 0 0;
-    color: rgba(218,240,242,.76);
-    font-size: clamp(.90rem, 1vw, 1.02rem);
-    line-height: 1.52;
-}
-
-.solar-rule {
-    width: 44px;
-    height: 3px;
-    margin-top: 22px;
-    border-radius: 999px;
-    background: var(--greenBright);
-}
-
-.solar-intro .solar-instruction {
-    margin-top: 13px;
-    color: rgba(193,233,239,.60);
-    font-size: .78rem;
-}
-
-.solar-system {
-    position: relative;
-    min-width: 0;
-    min-height: 0;
-    overflow: visible;
-    isolation: isolate;
-    perspective: 1100px;
-    perspective-origin: 50% 48%;
-    transform-style: preserve-3d;
-    contain: layout paint;
-}
-
-.solar-system::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72%;
-    aspect-ratio: 1;
-    transform: translate(-50%,-50%);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,181,58,.10), rgba(255,181,58,.018) 41%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.orbit-ring {
-    position: absolute;
-    z-index: 2;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    border: 1px solid rgba(115,188,211,.20);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.orbit-ring::after {
-    content: "";
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    top: 50%;
-    left: -2px;
-    background: rgba(188,230,239,.63);
-    box-shadow: 0 0 7px rgba(83,177,205,.40);
-}
-
-.orbit-ring-1 { width: 58%; height: 46%; }
-.orbit-ring-2 { width: 70%; height: 58%; }
-.orbit-ring-3 { width: 82%; height: 70%; }
-.orbit-ring-4 { width: 92%; height: 80%; border-style: dashed; opacity: .74; }
-
-/* SVG labels sit directly beside their planet on the same orbital path. */
-.orbit-label-svg {
-    position: absolute;
-    z-index: 8;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    pointer-events: none;
-}
-
-.orbit-label-path {
-    fill: none;
-    stroke: none;
-}
-
-.orbit-path-label {
-    fill: rgba(224,248,250,.94);
-    font-size: clamp(8.5px, .56vw, 11px);
-    font-weight: 950;
-    letter-spacing: .135em;
-    text-transform: uppercase;
-    paint-order: stroke fill;
-    stroke: rgba(0,7,14,.82);
-    stroke-width: 2.8px;
-    stroke-linejoin: round;
-    pointer-events: auto;
-    cursor: pointer;
-    transition: opacity .16s linear;
-}
-
-.solar-section-body {
-    font: inherit;
-    color: inherit;
-    border: 0;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.solar-section-body:focus-visible {
-    outline: 3px solid rgba(89,225,141,.9);
-    outline-offset: 7px;
-}
-
-/* SUN — spherical core with moving texture. */
-.solar-sun {
-    position: absolute;
-    z-index: 12;
-    left: 50%;
-    top: 50%;
-    width: clamp(220px, 19vw, 310px);
-    aspect-ratio: 1;
-    transform: translate(-50%,-50%) translateZ(8px);
-    border-radius: 50%;
-    background: transparent;
-    overflow: visible;
-    transition: filter .18s ease, scale .18s ease;
-    transform-style: preserve-3d;
-}
-
-.solar-sun:hover { filter: brightness(1.045); scale: 1.012; }
-
-.sun-corona,
-.sun-core {
-    position: absolute;
-    border-radius: 50%;
-}
-
-.sun-corona {
-    z-index: 2;
-    inset: -12%;
-    background: radial-gradient(circle, rgba(255,230,117,.30) 0 41%, rgba(255,146,28,.13) 52%, transparent 72%);
-    filter: blur(7px);
-    animation: sunPulse 5.8s ease-in-out infinite;
-}
-
-.sun-core {
-    z-index: 4;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 28px;
-    overflow: hidden;
-    color: #082a2f;
-    border: 1px solid rgba(255,246,190,.76);
-    background:
-        radial-gradient(circle at 29% 24%, rgba(255,255,221,.98) 0 4%, rgba(255,244,158,.90) 5%, transparent 12%),
-        radial-gradient(circle at 35% 29%, #ffe56f 0 13%, transparent 28%),
-        radial-gradient(circle at 55% 45%, #ffd653 0 24%, #ffab2f 47%, #ed7518 70%, #9d3f14 100%);
-    box-shadow:
-        inset -40px -46px 64px rgba(118,35,7,.30),
-        inset 22px 19px 48px rgba(255,255,209,.36),
-        0 0 34px rgba(255,185,55,.34),
-        0 0 92px rgba(255,132,25,.18);
-    transform: translateZ(10px);
-}
-
-.sun-core::before {
-    content: "";
-    position: absolute;
-    inset: -12%;
-    border-radius: 50%;
-    opacity: .31;
-    background:
-        repeating-radial-gradient(circle at 52% 48%, rgba(255,245,153,.30) 0 2px, transparent 3px 12px),
-        repeating-linear-gradient(112deg, transparent 0 17px, rgba(134,50,9,.18) 18px 22px, transparent 23px 41px);
-    animation: sunSurfaceDrift 28s linear infinite;
-    will-change: transform;
-}
-
-.sun-core::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle at 28% 22%, rgba(255,255,244,.28), transparent 28%), linear-gradient(115deg, transparent 44%, rgba(65,15,4,.18) 76%, rgba(14,5,4,.34) 100%);
-    pointer-events: none;
-}
-
-/* All visible words on the Sun form ONE inscription printed on the sphere.
-   JavaScript now moves and foreshortens this single group using a simulated
-   solar longitude. The inscription disappears on the rear hemisphere and
-   returns from the opposite edge without ever being duplicated or mirrored. */
-.sun-surface-copy {
-    position: absolute;
-    z-index: 6;
-    left: 50%;
-    top: 50%;
-    width: 74%;
-    display: grid;
-    justify-items: center;
-    gap: 5px;
-    color: rgba(16,52,51,.96);
-    text-align: center;
-    pointer-events: none;
-    transform: translate(-50%,-50%);
-    transform-origin: center center;
-    backface-visibility: hidden;
-    will-change: transform, opacity;
-    text-shadow: 0 1px 0 rgba(255,250,202,.30);
-}
-
-.sun-surface-copy .sun-surface-kicker {
-    font-size: clamp(.46rem, .52vw, .61rem);
-    font-weight: 1000;
-    letter-spacing: .24em;
-    text-transform: uppercase;
-}
-
-.sun-surface-copy .sun-surface-name {
-    font-size: clamp(.90rem, 1.08vw, 1.30rem);
-    line-height: .98;
-    font-weight: 1000;
-    letter-spacing: .045em;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.sun-surface-copy .sun-surface-role {
-    max-width: 185px;
-    font-size: clamp(.44rem, .50vw, .59rem);
-    line-height: 1.35;
-    font-weight: 950;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-}
-
-/* Morph-source title remains present but invisible. */
-.sun-morph-title,
-.planet-morph-title {
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-    width: 2px !important;
-    height: 2px !important;
-    overflow: hidden !important;
-    opacity: .001 !important;
-    transform: translate(-50%,-50%) !important;
-    pointer-events: none !important;
-    white-space: nowrap !important;
-    font-size: 1px !important;
-    line-height: 1 !important;
-}
-
-
-/* PLANETS — compact visible spheres inside generous click targets. */
-.orbiting-planet {
-    --planet-size: clamp(27px, 2.25vw, 38px);
-    --planet-hit-size: max(46px, calc(var(--planet-size) + 14px));
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: var(--planet-hit-size);
-    height: var(--planet-hit-size);
-    padding: 0;
-    transform: translate(-50%,-50%);
-    border-radius: 50%;
-    background: transparent;
-    overflow: visible;
-    will-change: transform, filter;
-    transform-style: preserve-3d;
-}
-
-.planet-surface {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: var(--planet-size);
-    height: var(--planet-size);
-    overflow: hidden;
-    border-radius: 50%;
-    border: 1px solid rgba(216,248,243,.34);
-    box-shadow:
-        inset -14px -16px 21px rgba(0,5,12,.55),
-        inset 8px 7px 15px rgba(255,255,255,.12),
-        0 7px 18px rgba(0,3,9,.42),
-        0 0 0 3px rgba(63,208,201,.025);
-    transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
-    transform: translate(-50%,-50%) translateZ(6px);
-}
-
-.planet-surface::before {
-    content: "";
-    position: absolute;
-    width: 165%;
-    height: 120%;
-    left: -34%;
-    top: -10%;
-    opacity: .36;
-    background: repeating-linear-gradient(118deg, transparent 0 9px, rgba(255,255,255,.13) 10px 12px, transparent 13px 25px);
-    animation: planetTextureDrift 18s linear infinite;
-    will-change: transform;
-}
-
-.planet-surface::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle at 29% 24%, rgba(255,255,255,.32), transparent 22%),
-        linear-gradient(120deg, transparent 42%, rgba(0,4,12,.10) 58%, rgba(0,3,10,.58) 100%);
-}
-
-.orbiting-planet:hover .planet-surface,
-.orbiting-planet:focus-visible .planet-surface {
-    transform: translate(-50%,-50%) translateZ(8px) scale(1.10);
-    filter: brightness(1.14) saturate(1.08);
-    box-shadow:
-        inset -14px -16px 20px rgba(0,5,12,.46),
-        inset 8px 7px 15px rgba(255,255,255,.15),
-        0 10px 26px rgba(0,4,10,.48),
-        0 0 18px rgba(89,225,141,.16);
-}
-
-.planet-research .planet-surface {
-    background:
-        radial-gradient(ellipse at 34% 38%, #78bd67 0 17%, transparent 18%),
-        radial-gradient(ellipse at 68% 55%, #397f53 0 18%, transparent 19%),
-        radial-gradient(circle at 44% 40%, #66b875 0 34%, #23806d 56%, #073d4a 100%);
-}
-
-.planet-skills .planet-surface {
-    background:
-        repeating-radial-gradient(ellipse at 64% 38%, transparent 0 7px, rgba(94,237,205,.20) 8px 9px, transparent 10px 17px),
-        radial-gradient(circle at 37% 29%, #42c9c7 0 14%, #167d88 54%, #053c4b 100%);
-}
-
-.planet-gallery .planet-surface {
-    background:
-        radial-gradient(ellipse at 31% 40%, #69a36f 0 16%, transparent 17%),
-        radial-gradient(ellipse at 68% 57%, #529b69 0 19%, transparent 20%),
-        radial-gradient(circle at 43% 40%, #3e9cb6 0 37%, #176f84 60%, #063a50 100%);
-}
-
-.planet-coding .planet-surface {
-    background:
-        repeating-linear-gradient(42deg, rgba(255,213,135,.08) 0 6px, transparent 7px 15px),
-        radial-gradient(circle at 38% 31%, #da7745 0 18%, #9d482d 57%, #421e2b 100%);
-}
-
-/* Saturn-like ring treatment on Technical Skills.
-   Back ellipse + bright front arc makes the ring read as passing around the sphere. */
-.planet-skills::before,
-.planet-skills::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: calc(var(--planet-size) * 1.72);
-    height: calc(var(--planet-size) * .56);
-    border-radius: 50%;
-    transform: translate(-50%,-50%) rotate(-16deg);
-    pointer-events: none;
-}
-
-.planet-skills::before {
-    z-index: 0;
-    border: 1.5px solid rgba(126,239,226,.42);
-    box-shadow: 0 0 8px rgba(74,218,208,.16);
-}
-
-.planet-skills::after {
-    z-index: 4;
-    border: 1.7px solid transparent;
-    border-bottom-color: rgba(177,255,239,.78);
-    filter: drop-shadow(0 1px 2px rgba(0,15,20,.45));
-}
-
-
-.solar-footer {
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 9px;
-    color: rgba(193,233,239,.46);
-    font-size: .68rem;
-}
-
-.solar-footer i { color: var(--greenBright); }
-
-body.solar-orbits-paused .orbiting-planet,
-body.solar-orbits-paused .sun-surface-copy {
-    will-change: auto;
-}
-
-body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
-
-@keyframes sunPulse {
-    0%,100% { transform: scale(.985); opacity: .72; }
-    50% { transform: scale(1.035); opacity: 1; }
-}
-
-@keyframes sunSurfaceDrift {
-    from { transform: rotate(0deg) scale(1.03); }
-    to { transform: rotate(360deg) scale(1.03); }
-}
-
-@keyframes planetTextureDrift {
-    from { transform: translate3d(-9%,0,0) rotate(0.001deg); }
-    to { transform: translate3d(18%,0,0) rotate(0.001deg); }
-}
-
-@media (max-width: 1180px) and (min-width: 861px) {
-    .solar-stage { grid-template-columns: minmax(245px,.45fr) minmax(560px,1.55fr); }
-    .solar-intro h2 { font-size: clamp(2rem, 3.1vw, 3.2rem); }
-    .solar-sun { width: clamp(205px, 20vw, 270px); }
-    .orbiting-planet { --planet-size: clamp(28px, 2.8vw, 39px); }
-    .orbit-path-label { font-size: 9px; letter-spacing: .13em; }
-}
-
-/* Phone/tablet: keep the same orbital geometry but freeze movement for easy tapping. */
-@media (max-width: 860px) {
-    #solarPortfolioHome {
-        height: auto !important;
-        min-height: 100% !important;
-        overflow-y: auto !important;
-        padding: 10px 10px 14px !important;
-    }
-
-    .solar-topbar {
-        height: 47px;
-        padding: 0 12px;
-        border-radius: 16px;
-    }
-
-    .solar-brand { font-size: 1.05rem; }
-    .solar-brand span { display: none; }
-    .solar-hint { font-size: .66rem; }
-
-    .solar-stage {
-        height: auto;
-        min-height: 0;
-        display: block;
-    }
-
-    .solar-intro {
-        max-width: none;
-        padding: 26px 14px 8px;
-    }
-
-    .solar-eyebrow { font-size: .84rem; margin-bottom: 11px; }
-    .solar-intro h2 { max-width: 340px; font-size: clamp(2rem, 9vw, 3rem); }
-    .solar-intro > p { max-width: 420px; margin-top: 14px; }
-    .solar-intro .solar-instruction { font-size: .73rem; }
-
-    .solar-system {
-        width: 100%;
-        min-height: 560px;
-        margin-top: 4px;
-        perspective: 800px;
-    }
-
-    .orbit-ring-1 { width: 61%; height: 42%; }
-    .orbit-ring-2 { width: 74%; height: 56%; }
-    .orbit-ring-3 { width: 87%; height: 70%; }
-    .orbit-ring-4 { width: 96%; height: 82%; }
-
-    .solar-sun { width: min(48vw, 190px); }
-    .sun-surface-copy { width: 78%; gap: 3px; }
-    .sun-surface-copy .sun-surface-kicker { font-size: .42rem; }
-    .sun-surface-copy .sun-surface-name { font-size: .76rem; }
-    .sun-surface-copy .sun-surface-role { max-width: 140px; font-size: .38rem; }
-
-    .orbiting-planet { --planet-size: min(8.6vw, 36px); }
-    .orbit-path-label { font-size: 8px; letter-spacing: .10em; stroke-width: 2.2px; }
-    .solar-footer { min-height: 34px; height: auto; padding: 8px 4px 0; }
-}
-
-@media (max-width: 430px) {
-    .solar-system { min-height: 510px; }
-    .solar-intro h2 { font-size: clamp(1.9rem, 9vw, 2.65rem); }
-    .solar-hint { display: none; }
-    .orbit-path-label { font-size: 7.2px; letter-spacing: .08em; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .sun-corona,
-    .sun-core::before,
-    .sun-surface-copy,
-    .planet-surface::before { animation: none !important; }
-    .planet-surface,
-    .solar-sun { transition: none !important; }
-}
-</style>
-
-
-
-<style id="portfolio-v27-island-home">
-/* =========================================================
-V27 — POINTILLIST / DIGITAL-ISLAND HOME
-The map can be zoomed with + / −, the mouse wheel, or touch pinch.
-Drag empty map space to pan. Portfolio sections remain unchanged.
-========================================================= */
-
-html, body { max-width:100%; overflow-x:hidden !important; }
-
-#portfolioIslandHome {
-    position:relative;
-    width:100%;
-    height:100vh;
-    min-height:100vh;
-    overflow:hidden;
-    padding:clamp(8px,1.15vw,16px);
-    color:#edf9fa;
-    background:
-        radial-gradient(circle at 64% 17%, rgba(23,145,175,.10), transparent 26%),
-        radial-gradient(circle at 15% 84%, rgba(53,183,143,.08), transparent 28%),
-        linear-gradient(145deg,#020b13 0%,#03131f 50%,#041925 100%);
-    isolation:isolate;
-}
-
-#portfolioIslandHome::before {
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    opacity:.31;
-    background-image:
-        radial-gradient(circle at 12% 24%, rgba(115,226,214,.45) 0 1px, transparent 1.4px),
-        radial-gradient(circle at 72% 12%, rgba(255,255,255,.28) 0 1px, transparent 1.3px),
-        radial-gradient(circle at 37% 77%, rgba(89,225,141,.27) 0 1px, transparent 1.4px);
-    background-size:97px 97px,137px 137px,173px 173px;
-}
-
-.island-shell {
-    position:relative;
-    z-index:2;
-    width:100%;
-    height:100%;
-    display:grid;
-    grid-template-rows:auto minmax(0,1fr);
-    gap:10px;
-    min-width:0;
-    min-height:0;
-}
-
-/* ---------- NAME / CONTACT BANNER ---------- */
-.island-name-banner {
-    position:relative;
-    z-index:60;
-    width:100%;
-    min-height:70px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:10px 16px;
-    border:1px solid rgba(132,224,232,.20);
-    border-radius:17px;
-    color:inherit;
-    background:linear-gradient(135deg,rgba(10,38,51,.94),rgba(5,27,39,.88));
-    box-shadow:0 16px 42px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.045);
-    cursor:pointer;
-    text-align:left;
-}
-.island-name-banner:focus-visible,
-.island-flag:focus-visible,
-.island-zoom-btn:focus-visible,
-.island-contact-close:focus-visible,
-.island-contact-copy:focus-visible {
-    outline:3px solid #58e6a2;
-    outline-offset:3px;
-}
-.island-logo-mark {
-    flex:0 0 auto;
-    width:44px;
-    height:44px;
-    display:grid;
-    place-items:center;
-    border-radius:12px;
-    background:linear-gradient(145deg,rgba(73,226,190,.17),rgba(34,123,170,.10));
-    border:1px solid rgba(85,226,170,.26);
-}
-.island-logo-mark svg { width:28px; height:28px; }
-.island-banner-copy { min-width:0; }
-.island-banner-kicker {
-    display:block;
-    margin-bottom:2px;
-    color:#58e6a2;
-    font-size:.63rem;
-    font-weight:950;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-}
-.island-banner-name {
-    display:block;
-    font-size:clamp(1.35rem,2vw,1.95rem) !important;
-    line-height:1;
-    font-weight:1000;
-    letter-spacing:-.035em;
-}
-.island-banner-role {
-    display:block;
-    margin-top:4px;
-    color:rgba(220,241,243,.66);
-    font-size:clamp(.70rem,.86vw,.90rem);
-    line-height:1.22;
-}
-.island-banner-action {
-    margin-left:auto;
-    flex:0 0 auto;
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    padding:8px 11px;
-    border-radius:999px;
-    color:#aaf6c7;
-    border:1px solid rgba(89,225,141,.18);
-    background:rgba(89,225,141,.055);
-    font-size:.66rem;
-    font-weight:950;
-    letter-spacing:.09em;
-    text-transform:uppercase;
-}
-
-/* ---------- MAP STAGE ---------- */
-.island-map-stage {
-    position:relative;
-    min-width:0;
-    min-height:0;
-    overflow:hidden;
-    border:1px solid rgba(94,194,211,.18);
-    border-radius:24px;
-    background:
-        radial-gradient(circle at 50% 43%,rgba(16,113,134,.13),transparent 37%),
-        linear-gradient(145deg,#031b29 0%,#032230 52%,#021722 100%);
-    box-shadow:0 28px 70px rgba(0,0,0,.30), inset 0 1px rgba(255,255,255,.035);
-    cursor:grab;
-    touch-action:none;
-    user-select:none;
-}
-.island-map-stage.is-dragging { cursor:grabbing; }
-
-.island-world {
-    position:absolute;
-    inset:0;
-    transform-origin:50% 50%;
-    will-change:transform;
-    transition:transform .18s cubic-bezier(.22,.8,.25,1);
-}
-.island-map-stage.is-dragging .island-world,
-.island-map-stage.is-pinching .island-world { transition:none; }
-
-.island-map-svg {
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    display:block;
-    pointer-events:none;
-}
-
-.map-ocean-grid line { stroke:rgba(83,196,216,.085); stroke-width:1; }
-.map-coast-side { fill:#073e47; stroke:#0a5260; stroke-width:7; }
-.map-coast-shadow { fill:none; stroke:rgba(10,218,205,.15); stroke-width:30; }
-.map-coast-main { fill:url(#landBaseV27); stroke:#a8f3cc; stroke-width:4; }
-.map-contour { fill:none; stroke:rgba(8,62,53,.36); stroke-width:1.2; }
-.map-road { fill:none; stroke:rgba(236,246,213,.82); stroke-width:5; stroke-linecap:round; }
-.map-road-secondary { fill:none; stroke:rgba(231,246,214,.45); stroke-width:2.5; stroke-linecap:round; stroke-dasharray:8 9; }
-.map-river { fill:none; stroke:#39c7e5; stroke-width:6; stroke-linecap:round; }
-.map-river-thin { fill:none; stroke:#52c9df; stroke-width:3; stroke-linecap:round; opacity:.8; }
-.map-zone-outline { fill:none; stroke:rgba(222,255,241,.15); stroke-width:1.2; stroke-dasharray:5 7; }
-.map-zone-label {
-    fill:rgba(222,246,244,.52);
-    font-size:14px;
-    font-weight:900;
-    letter-spacing:.15em;
-}
-.map-tiny-label {
-    fill:rgba(176,226,226,.43);
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.15em;
-}
-.voxel-top { fill:#71d49b; }
-.voxel-left { fill:#28765d; }
-.voxel-right { fill:#1b5e55; }
-.voxel-snow { fill:#d5f6ee; }
-.voxel-rock { fill:#587f75; }
-
-.island-map-note {
-    position:absolute;
-    z-index:42;
-    left:18px;
-    top:17px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 11px;
-    border:1px solid rgba(139,224,227,.16);
-    border-radius:999px;
-    color:rgba(211,240,241,.72);
-    background:rgba(2,24,35,.70);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    font-size:.60rem;
-    font-weight:850;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    pointer-events:none;
-}
-.island-map-note::before {
-    content:"";
-    width:7px; height:7px; border-radius:50%;
-    background:#58e6a2;
-    box-shadow:0 0 0 5px rgba(88,230,162,.08);
-}
-
-/* ---------- FLAGLETS ---------- */
-.island-flag {
-    --flag-accent:#58e6a2;
-    position:absolute;
-    z-index:26;
-    width:48px;
-    height:65px;
-    transform:translate(-50%,-100%);
-    border:0;
-    padding:0;
-    color:var(--flag-accent);
-    background:transparent;
-    cursor:pointer;
-    font:inherit;
-    -webkit-tap-highlight-color:transparent;
-}
-.island-flag:hover { z-index:40; }
-.flag-marker {
-    position:absolute;
-    inset:0;
-    width:48px;
-    height:65px;
-    filter:drop-shadow(0 11px 13px rgba(0,0,0,.30));
-}
-.flag-marker svg { width:100%; height:100%; overflow:visible; }
-.flag-marker .flag-cloth { fill:currentColor; }
-.flag-marker .flag-cloth-hi { fill:rgba(255,255,255,.20); }
-.flag-marker .flag-pole { stroke:#dffbfa; stroke-width:2.4; stroke-linecap:round; }
-.flag-marker .flag-top { fill:currentColor; }
-.flag-marker .flag-side-a { fill:color-mix(in srgb,currentColor 55%,#052d3a 45%); }
-.flag-marker .flag-side-b { fill:color-mix(in srgb,currentColor 38%,#021922 62%); }
-.flag-marker .flag-dot { fill:#f4fff9; }
-
-.flag-copy {
-    position:absolute;
-    top:5px;
-    left:42px;
-    min-width:150px;
-    max-width:220px;
-    padding:8px 11px 9px 12px;
-    border:1px solid rgba(177,230,232,.18);
-    border-left:3px solid var(--flag-accent);
-    border-radius:5px 13px 13px 5px;
-    color:#f3fbfa;
-    background:linear-gradient(135deg,rgba(3,36,48,.94),rgba(3,27,38,.88));
-    box-shadow:0 10px 24px rgba(0,0,0,.22);
-    backdrop-filter:blur(7px);
-    -webkit-backdrop-filter:blur(7px);
-    text-align:left;
-    pointer-events:none;
-}
-.flag-copy-left { left:auto; right:42px; border-left:1px solid rgba(177,230,232,.18); border-right:3px solid var(--flag-accent); border-radius:13px 5px 5px 13px; }
-#portfolioIslandHome .flag-copy [data-title],
-#portfolioIslandHome .flag-copy strong {
-    display:block !important;
-    width:auto !important;
-    margin:0 !important;
-    color:#f6fcfb !important;
-    font-size:clamp(.76rem,.88vw,.93rem) !important;
-    line-height:1.05 !important;
-    font-weight:950 !important;
-    letter-spacing:-.015em !important;
-    white-space:normal !important;
-}
-.flag-copy small {
-    display:block;
-    margin-top:4px;
-    color:rgba(211,238,239,.55);
-    font-size:.56rem;
-    line-height:1.25;
-}
-@media (hover:hover) and (pointer:fine) {
-    .island-flag:hover .flag-marker { transform:translateY(-2px); filter:drop-shadow(0 14px 17px rgba(0,0,0,.34)) brightness(1.08); }
-    .island-flag:hover .flag-copy { border-color:color-mix(in srgb,var(--flag-accent) 50%,rgba(177,230,232,.18)); }
-}
-
-.flag-profile  { left:31%; top:50%; --flag-accent:#38a9ff; }
-.flag-projects { left:50%; top:28%; --flag-accent:#55dd79; }
-.flag-skills   { left:72%; top:43%; --flag-accent:#ffb531; }
-.flag-gallery  { left:37%; top:74%; --flag-accent:#ff557b; }
-.flag-coding   { left:63%; top:72%; --flag-accent:#a77cff; }
-.flag-contact  { left:81%; top:62%; --flag-accent:#2de1e7; }
-
-/* ---------- ZOOM / MAP UI ---------- */
-.island-map-controls {
-    position:absolute;
-    z-index:55;
-    top:15px;
-    right:15px;
-    display:grid;
-    grid-template-columns:46px 46px;
-    gap:7px;
-}
-.island-zoom-btn {
-    width:46px;
-    height:46px;
-    display:grid;
-    place-items:center;
-    border:1px solid rgba(154,224,230,.22);
-    border-radius:13px;
-    color:#eafafa;
-    background:rgba(2,29,41,.86);
-    box-shadow:0 8px 22px rgba(0,0,0,.18);
-    cursor:pointer;
-    font-size:1.18rem;
-    font-weight:900;
-    line-height:1;
-}
-.island-zoom-btn:hover { background:rgba(8,52,65,.95); }
-.island-zoom-reset { grid-column:1/-1; width:99px; height:35px; font-size:.60rem; letter-spacing:.08em; text-transform:uppercase; }
-.island-zoom-readout {
-    position:absolute;
-    z-index:54;
-    right:126px;
-    top:24px;
-    min-width:50px;
-    padding:7px 8px;
-    border-radius:999px;
-    color:rgba(216,242,243,.72);
-    background:rgba(2,29,41,.68);
-    border:1px solid rgba(154,224,230,.13);
-    text-align:center;
-    font-size:.58rem;
-    font-weight:900;
-    letter-spacing:.06em;
-}
-.island-compass {
-    position:absolute;
-    z-index:44;
-    right:22px;
-    bottom:20px;
-    width:76px;
-    aspect-ratio:1;
-    opacity:.72;
-    pointer-events:none;
-}
-.island-scale {
-    position:absolute;
-    z-index:44;
-    left:20px;
-    bottom:18px;
-    color:rgba(211,238,239,.57);
-    font-size:.54rem;
-    font-weight:900;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    pointer-events:none;
-}
-.island-scale-line {
-    width:112px;
-    height:8px;
-    margin-top:5px;
-    border-left:2px solid rgba(227,248,246,.65);
-    border-right:2px solid rgba(227,248,246,.65);
-    border-bottom:2px solid rgba(227,248,246,.65);
-}
-
-/* ---------- CONTACT CARD ---------- */
-.island-contact-backdrop {
-    position:absolute;
-    z-index:100;
-    inset:0;
-    background:rgba(0,7,13,.48);
-    backdrop-filter:blur(3px);
-    -webkit-backdrop-filter:blur(3px);
-}
-.island-contact-card {
-    position:absolute;
-    z-index:110;
-    top:92px;
-    right:24px;
-    width:min(390px,calc(100% - 48px));
-    max-height:calc(100% - 116px);
-    overflow:auto;
-    padding:21px;
-    border:1px solid rgba(178,229,232,.25);
-    border-radius:20px;
-    color:#eff9f7;
-    background:linear-gradient(145deg,rgba(255,255,255,.055),transparent 34%),rgba(3,28,40,.97);
-    box-shadow:0 30px 76px rgba(0,0,0,.45);
-}
-.island-contact-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
-.island-contact-top h3 { margin:0; font-size:1.45rem; line-height:1; }
-.island-contact-top p { margin:5px 0 0; color:rgba(215,237,238,.62); font-size:.78rem; }
-.island-contact-close {
-    flex:0 0 auto; width:40px; height:40px; border-radius:50%;
-    border:1px solid rgba(194,231,232,.20); color:#eefafa; background:#042432;
-    cursor:pointer; font-size:1.3rem;
-}
-.island-contact-summary { margin:18px 0; color:rgba(224,242,242,.78); font-size:.82rem; line-height:1.55; }
-.island-contact-links { display:grid; gap:8px; }
-.island-contact-row {
-    display:flex; align-items:center; gap:12px; width:100%; padding:11px 12px;
-    border:1px solid rgba(172,224,226,.15); border-radius:12px; color:#eafafa;
-    background:rgba(14,66,76,.30); text-decoration:none; text-align:left; font:inherit; cursor:pointer;
-}
-.island-contact-icon { width:32px; height:32px; display:grid; place-items:center; border-radius:9px; color:#58e6a2; background:rgba(88,230,162,.08); font-size:.72rem; font-weight:950; }
-.island-contact-row b { display:block; font-size:.76rem; }
-.island-contact-row span span { display:block; margin-top:2px; color:rgba(213,238,239,.62); font-size:.70rem; }
-.island-contact-status { min-height:20px; margin-top:12px; color:#8ff1ba; font-size:.72rem; }
-
-/* ---------- LAPTOP / TABLET ---------- */
-@media (max-width:1100px) {
-    .island-banner-role { display:none; }
-    .flag-copy { min-width:132px; max-width:180px; padding:7px 9px 8px 10px; }
-    .flag-copy small { display:none; }
-    .flag-projects { left:49%; top:28%; }
-    .flag-skills { left:71%; top:42%; }
-    .flag-contact { left:80%; top:62%; }
-}
-
-/* ---------- PHONE ---------- */
-@media (max-width:760px) {
-    #portfolioIslandHome {
-        height:100dvh;
-        min-height:100dvh;
-        padding:7px;
-    }
-    .island-shell { gap:7px; }
-    .island-name-banner { min-height:62px; padding:9px 10px; gap:10px; border-radius:14px; }
-    .island-logo-mark { width:38px; height:38px; border-radius:10px; }
-    .island-logo-mark svg { width:24px; height:24px; }
-    .island-banner-kicker { font-size:.50rem; letter-spacing:.13em; }
-    .island-banner-name { font-size:1.16rem !important; }
-    .island-banner-action { width:38px; height:38px; padding:0; justify-content:center; font-size:0; }
-    .island-banner-action span { font-size:1rem; }
-    .island-map-stage { border-radius:17px; }
-    .island-map-note { left:10px; top:10px; padding:7px 9px; font-size:.47rem; }
-    .island-map-controls { top:9px; right:9px; grid-template-columns:42px 42px; gap:5px; }
-    .island-zoom-btn { width:42px; height:42px; border-radius:11px; }
-    .island-zoom-reset { width:89px; height:32px; }
-    .island-zoom-readout { display:none; }
-    .island-flag { width:42px; height:58px; transform:translate(-50%,-100%) scale(.92); }
-    .flag-marker { width:42px; height:58px; }
-    .flag-copy { left:36px; top:4px; min-width:102px; max-width:132px; padding:7px 8px 7px 9px; }
-    .flag-copy-left { left:auto; right:36px; }
-    #portfolioIslandHome .flag-copy [data-title], #portfolioIslandHome .flag-copy strong { font-size:.67rem !important; line-height:1.08 !important; }
-    .flag-copy small { display:none; }
-    .flag-profile { left:27%; top:51%; }
-    .flag-projects { left:49%; top:28%; }
-    .flag-skills { left:70%; top:43%; }
-    .flag-gallery { left:35%; top:74%; }
-    .flag-coding { left:62%; top:72%; }
-    .flag-contact { left:82%; top:61%; }
-    .island-compass { width:57px; right:11px; bottom:12px; }
-    .island-scale { left:12px; bottom:13px; font-size:.43rem; }
-    .island-scale-line { width:82px; }
-    .island-contact-card {
-        position:fixed;
-        z-index:10050;
-        left:7px; right:7px; top:auto; bottom:7px;
-        width:auto; max-height:min(76dvh,620px); border-radius:18px;
-    }
-    .island-contact-backdrop { position:fixed; z-index:10040; }
-}
-
-@media (max-width:430px) {
-    .flag-copy { min-width:92px; max-width:112px; }
-    #portfolioIslandHome .flag-copy [data-title], #portfolioIslandHome .flag-copy strong { font-size:.62rem !important; }
-    .flag-profile { left:25%; top:53%; }
-    .flag-projects { left:47%; top:29%; }
-    .flag-skills { left:70%; top:44%; }
-    .flag-gallery { left:33%; top:75%; }
-    .flag-coding { left:60%; top:73%; }
-    .flag-contact { left:82%; top:62%; }
-}
-
-@media (prefers-reduced-motion:reduce) {
-    #portfolioIslandHome *, #portfolioIslandHome *::before, #portfolioIslandHome *::after {
-        scroll-behavior:auto !important;
-        transition-duration:.001ms !important;
-        animation-duration:.001ms !important;
-    }
-}
-</style>
-
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V40 — ROTATABLE VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V44 — PERFORMANCE-CLEAN VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -13872,10 +12721,32 @@ Case studies keep their dedicated research layouts.
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/+esm">
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js/+esm">
 
+
+<style id="portfolio-v44-performance-overrides">
+/* V44 performance cleanup — visual design preserved, expensive live blur removed. */
+#voxelPortfolioHome .voxel-help,
+#voxelPortfolioHome .voxel-control,
+#voxelPortfolioHome .voxel-key-button {
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+#voxelPortfolioHome .voxel-help { background:rgba(3,24,36,.90) !important; }
+#voxelPortfolioHome .voxel-control,
+#voxelPortfolioHome .voxel-key-button { background:rgba(4,29,42,.94) !important; }
+#voxelCanvasWrap { contain:layout paint style; }
+#voxelPortfolioCanvas { contain:strict; }
+.expansion { contain:layout paint style; }
+.expansion.content-visible .expanded-content { contain:layout paint style; }
+.expansion-backdrop { -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+@media (max-width:800px){
+  .expansion, .flying-title, .flow-card { will-change:auto !important; }
+}
+</style>
 </head>
 
 
 <body>
+<script>document.body.classList.remove("voxel-render-paused");</script>
 
 
 
@@ -13973,7 +12844,7 @@ id="lightboxImage"
 src=""
 onerror="portfolioImageFallback(this)"
 alt="Expanded portfolio image"
->
+ decoding="async">
 
 </div>
 
@@ -14523,7 +13394,7 @@ src="./Picture2.png"
 data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture2.png"
 onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
 alt="Supervised land cover classification"
->
+ decoding="async">
 
 </div>
 
@@ -14554,7 +13425,7 @@ src="./EVI%20and%20NDVI.png"
 data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/EVI%20and%20NDVI.png"
 onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
 alt="NDVI and EVI analysis"
->
+ decoding="async">
 
 </div>
 
@@ -14585,7 +13456,7 @@ src="./Network%20Model%20Diagram.png"
 data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Network%20Model%20Diagram.png"
 onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
 alt="Spatial network modelling"
->
+ decoding="async">
 
 </div>
 
@@ -14616,7 +13487,7 @@ src="./TSS%20-%20LPP%20Wetland.png"
 data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/TSS%20-%20LPP%20Wetland.png"
 onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
 alt="TSS environmental monitoring"
->
+ decoding="async">
 
 </div>
 
@@ -14647,7 +13518,7 @@ src="./Picture56.png"
 data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture56.png"
 onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
 alt="Environmental systems visualisation"
->
+ decoding="async">
 
 </div>
 
@@ -14765,7 +13636,7 @@ src="./Picture33.png"
 data-fallback="https://raw.githubusercontent.com/Johnny1996ornot/Portfolio/main/Picture33.png"
 onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.dataset.fallback='';this.src=f;}"
 alt="Interactive Experience Timeline"
->
+ decoding="async">
 
 </div>
 
@@ -14971,7 +13842,7 @@ Interactive case study
 src="./11_Map_Consensus_5_of_5.png"
 onerror="portfolioImageFallback(this)"
 alt="Consensus conservation priority cells in Switzerland"
->
+ decoding="async">
 
 </div>
 
@@ -15020,7 +13891,7 @@ Interactive case study
 src="./06_Intervention_Priority_FINAL.png"
 onerror="portfolioImageFallback(this)"
 alt="Metro Manila intervention priority map"
->
+ decoding="async">
 
 </div>
 
@@ -15177,6 +14048,10 @@ SECTION 14 — PANEL OPEN / CLOSE JAVASCRIPT
 ========================================================= */
 
 function openPanel(panel) {
+
+    /* V44: stop the hidden WebGL homepage before constructing a full-screen section. */
+    document.body.classList.add("voxel-render-paused");
+    window.dispatchEvent(new Event("portfolio:voxel-pause"));
 
     if (activePanel) {
         return;
@@ -15486,6 +14361,9 @@ function closeActivePanel() {
         activeCaseStudy = null;
         document.body.classList.remove("solar-orbits-paused");
         document.querySelectorAll(".solar-selected").forEach(el => el.classList.remove("solar-selected"));
+        /* V44: restart the 3D homepage only after the panel has fully closed. */
+        document.body.classList.remove("voxel-render-paused");
+        window.dispatchEvent(new Event("portfolio:voxel-resume"));
     };
 
     setTimeout(finishClose, window.innerWidth <= 800 ? 290 : 330);
@@ -15519,309 +14397,7 @@ function positionCloseButton() {
 
 
 
-/* =========================================================
-V25 — COUPLED PLANET + LABEL ORBIT CONTROLLER
-- planet and section title are positioned from the SAME orbital state
-- true ellipse arc-length mapping keeps the title immediately beside its planet
-- labels reverse path direction when needed so words stay readable
-- titles themselves are clickable and open the same section as the planet
-- the Sun uses one non-duplicated inscription that rotates with the sphere
-- accumulated delta time prevents pause/resume jumps
-========================================================= */
-
-const solarHome = document.getElementById("solarPortfolioHome");
-const solarSystem = document.getElementById("portfolioSolarSystem");
-const solarPlanets = solarSystem
-    ? Array.from(solarSystem.querySelectorAll(".orbiting-planet"))
-    : [];
-const solarOrbitSvg = solarSystem
-    ? solarSystem.querySelector("#portfolioOrbitLabels")
-    : null;
-const solarSun = solarSystem
-    ? solarSystem.querySelector(".solar-sun")
-    : null;
-const sunSurfaceCopy = solarSun
-    ? solarSun.querySelector(".sun-surface-copy")
-    : null;
-const solarReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-let solarAnimationFrame = 0;
-let solarLastFrame = null;
-let solarElapsedSeconds = 0;
-let solarLayoutKey = "";
-const solarOrbitMetrics = new Map();
-
-function normaliseAngle(angle) {
-    const full = Math.PI * 2;
-    return ((angle % full) + full) % full;
-}
-
-function getOrbitGeometry(planet, width, height) {
-    return {
-        rx: width * Number(planet.dataset.rx || .30),
-        ry: height * Number(planet.dataset.ry || .25),
-        period: Math.max(16, Number(planet.dataset.period || 52)),
-        phase: Number(planet.dataset.phase || 0)
-    };
-}
-
-/* Two complete loops are drawn so a label can begin immediately after a
-   planet even when that planet is close to the path's nominal end point. */
-function setOrbitPath(path, centerX, centerY, rx, ry, reverse = false) {
-    if (!path) return;
-    const sweep = reverse ? 0 : 1;
-    const loop =
-        `M ${centerX + rx} ${centerY} ` +
-        `A ${rx} ${ry} 0 1 ${sweep} ${centerX - rx} ${centerY} ` +
-        `A ${rx} ${ry} 0 1 ${sweep} ${centerX + rx} ${centerY} ` +
-        `A ${rx} ${ry} 0 1 ${sweep} ${centerX - rx} ${centerY} ` +
-        `A ${rx} ${ry} 0 1 ${sweep} ${centerX + rx} ${centerY}`;
-    path.setAttribute("d", loop);
-}
-
-function buildEllipseArcTable(rx, ry, steps = 720) {
-    const cumulative = new Float64Array(steps + 1);
-    let prevX = rx;
-    let prevY = 0;
-    let total = 0;
-
-    for (let i = 1; i <= steps; i++) {
-        const a = (i / steps) * Math.PI * 2;
-        const x = Math.cos(a) * rx;
-        const y = Math.sin(a) * ry;
-        total += Math.hypot(x - prevX, y - prevY);
-        cumulative[i] = total;
-        prevX = x;
-        prevY = y;
-    }
-
-    return { cumulative, total, steps };
-}
-
-function arcLengthAtAngle(metric, angle) {
-    const a = normaliseAngle(angle);
-    const scaled = (a / (Math.PI * 2)) * metric.steps;
-    const i = Math.floor(scaled);
-    const frac = scaled - i;
-    const aLen = metric.cumulative[i];
-    const bLen = metric.cumulative[Math.min(i + 1, metric.steps)];
-    return aLen + (bLen - aLen) * frac;
-}
-
-function updateOrbitLabelGeometry(width, height, centerX, centerY) {
-    if (!solarOrbitSvg) return;
-
-    const key = `${Math.round(width)}x${Math.round(height)}`;
-    if (key === solarLayoutKey) return;
-    solarLayoutKey = key;
-    solarOrbitMetrics.clear();
-
-    solarOrbitSvg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-
-    solarPlanets.forEach(planet => {
-        const orbit = planet.dataset.orbit;
-        const { rx, ry } = getOrbitGeometry(planet, width, height);
-        const forward = solarOrbitSvg.querySelector(`#orbit-${orbit}-forward`);
-        const reverse = solarOrbitSvg.querySelector(`#orbit-${orbit}-reverse`);
-
-        setOrbitPath(forward, centerX, centerY, rx, ry, false);
-        setOrbitPath(reverse, centerX, centerY, rx, ry, true);
-
-        const metric = buildEllipseArcTable(rx, ry);
-        solarOrbitMetrics.set(orbit, {
-            ...metric,
-            rx,
-            ry,
-            forward,
-            reverse
-        });
-    });
-}
-
-function placeOrbitLabel(planet, angle, depth) {
-    if (!solarOrbitSvg) return;
-
-    const orbit = planet.dataset.orbit;
-    const labelText = solarOrbitSvg.querySelector(`[data-orbit-label="${orbit}"]`);
-    const textPath = labelText ? labelText.querySelector("textPath") : null;
-    const metric = solarOrbitMetrics.get(orbit);
-    if (!labelText || !textPath || !metric) return;
-
-    const a = normaliseAngle(angle);
-    const forwardLength = arcLengthAtAngle(metric, a);
-    const reverseLength = metric.total - forwardLength;
-
-    /* Forward tangent for x=rx*cos(a), y=ry*sin(a).  If the tangent points
-       left, use the reverse path. This keeps the letters upright/readable. */
-    const dx = -metric.rx * Math.sin(a);
-    const dy = metric.ry * Math.cos(a);
-    const tangentPointsRight = dx >= 0;
-
-    /* The visible sphere is smaller than the button hit area. Start the title
-       only a few pixels beyond the sphere edge so planet + title read as one
-       orbital object. */
-    const cssSize = parseFloat(getComputedStyle(planet).getPropertyValue("--planet-size")) || 34;
-    const gapPx = cssSize / 2 + 7;
-
-    textPath.setAttribute("text-anchor", "start");
-
-    if (tangentPointsRight) {
-        textPath.setAttribute("href", `#orbit-${orbit}-forward`);
-        textPath.setAttribute("startOffset", `${forwardLength + gapPx}px`);
-    } else {
-        textPath.setAttribute("href", `#orbit-${orbit}-reverse`);
-        textPath.setAttribute("startOffset", `${reverseLength + gapPx}px`);
-    }
-
-    labelText.style.opacity = depth < -0.55 ? ".72" : "1";
-}
-
-function placeSolarPlanet(planet, angle, centerX, centerY, rx, ry) {
-    const x = centerX + Math.cos(angle) * rx;
-    const y = centerY + Math.sin(angle) * ry;
-    const depth = Math.sin(angle); // negative = back half, positive = front half
-    const translateZ = depth * 52;
-    const scale = 1 + depth * .045;
-
-    planet.style.transform =
-        `translate3d(${x - centerX}px, ${y - centerY}px, ${translateZ.toFixed(2)}px) ` +
-        `translate(-50%, -50%) scale(${scale.toFixed(3)})`;
-
-    planet.style.zIndex = depth >= 0 ? "18" : "6";
-    planet.style.filter = depth >= 0
-        ? `brightness(${(1.02 + depth * .05).toFixed(3)})`
-        : `brightness(${(0.85 + (depth + 1) * .10).toFixed(3)})`;
-
-    placeOrbitLabel(planet, angle, depth);
-}
-
-function placeSunSurfaceInscription(elapsedSeconds) {
-    if (!sunSurfaceCopy || !solarSun) return;
-
-    if (solarReducedMotion.matches) {
-        sunSurfaceCopy.style.opacity = "1";
-        sunSurfaceCopy.style.visibility = "visible";
-        sunSurfaceCopy.style.transform =
-            "translate(-50%,-50%) translateX(0px) rotate(-4deg) scaleX(1)";
-        return;
-    }
-
-    const periodSeconds = 19;
-    const longitude = normaliseAngle(elapsedSeconds * (Math.PI * 2 / periodSeconds));
-    const facing = Math.cos(longitude);
-    const radius = Math.max(solarSun.offsetWidth || 260, 180) / 2;
-    const x = Math.sin(longitude) * radius * .56;
-
-    /* One DOM inscription only. On the rear hemisphere it is hidden; when it
-       returns it is still spelled normally, never mirrored or duplicated. */
-    if (facing <= 0.035) {
-        sunSurfaceCopy.style.opacity = "0";
-        sunSurfaceCopy.style.visibility = "hidden";
-        return;
-    }
-
-    const foreshorten = Math.max(.22, Math.min(1, .18 + facing * .82));
-    const fade = Math.max(0, Math.min(1, (facing - .035) / .20));
-
-    sunSurfaceCopy.style.visibility = "visible";
-    sunSurfaceCopy.style.opacity = fade.toFixed(3);
-    sunSurfaceCopy.style.transform =
-        `translate(-50%,-50%) translateX(${x.toFixed(2)}px) ` +
-        `rotate(-4deg) scaleX(${foreshorten.toFixed(3)})`;
-}
-
-function positionSolarBodies(elapsedSeconds = solarElapsedSeconds) {
-    if (!solarSystem) return;
-
-    const width = solarSystem.clientWidth;
-    const height = solarSystem.clientHeight;
-    if (!width || !height) return;
-
-    const centerX = width / 2;
-    const centerY = height / 2;
-
-    updateOrbitLabelGeometry(width, height, centerX, centerY);
-
-    solarPlanets.forEach(planet => {
-        const { rx, ry, period, phase } = getOrbitGeometry(planet, width, height);
-        const angle = phase + elapsedSeconds * (Math.PI * 2 / period);
-        placeSolarPlanet(planet, angle, centerX, centerY, rx, ry);
-    });
-
-    placeSunSurfaceInscription(elapsedSeconds);
-}
-
-function runSolarOrbit(timeMs) {
-    solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
-    if (!solarSystem) return;
-
-    const paused =
-        document.hidden ||
-        solarReducedMotion.matches ||
-        document.body.classList.contains("solar-orbits-paused") ||
-        window.innerWidth <= 860;
-
-    if (paused) {
-        solarLastFrame = timeMs;
-        return;
-    }
-
-    if (solarLastFrame == null) {
-        solarLastFrame = timeMs;
-        positionSolarBodies(solarElapsedSeconds);
-        return;
-    }
-
-    const deltaSeconds = Math.min(
-        Math.max((timeMs - solarLastFrame) / 1000, 0),
-        0.035
-    );
-
-    solarLastFrame = timeMs;
-    solarElapsedSeconds += deltaSeconds;
-    positionSolarBodies(solarElapsedSeconds);
-}
-
-if (solarSystem) {
-    positionSolarBodies(0);
-    solarAnimationFrame = requestAnimationFrame(runSolarOrbit);
-
-    /* Make the title itself a second click target for the same section. */
-    if (solarOrbitSvg) {
-        solarOrbitSvg.querySelectorAll(".orbit-path-label").forEach(label => {
-            label.addEventListener("click", event => {
-                event.preventDefault();
-                event.stopPropagation();
-                const orbit = label.dataset.orbitLabel;
-                const planet = solarPlanets.find(item => item.dataset.orbit === orbit);
-                if (planet) planet.click();
-            });
-        });
-    }
-
-    let solarResizeTimer = null;
-
-    window.addEventListener("resize", () => {
-        clearTimeout(solarResizeTimer);
-        solarResizeTimer = setTimeout(() => {
-            solarLayoutKey = "";
-            positionSolarBodies(solarElapsedSeconds);
-            solarLastFrame = performance.now();
-        }, 60);
-    }, { passive: true });
-
-    document.addEventListener("visibilitychange", () => {
-        solarLastFrame = null;
-    });
-
-    if (typeof solarReducedMotion.addEventListener === "function") {
-        solarReducedMotion.addEventListener("change", () => {
-            solarLastFrame = null;
-            positionSolarBodies(solarElapsedSeconds);
-        });
-    }
-}
-
+/* Legacy solar-system animation controller removed in V44: no active solar DOM remains. */
 
 /* =========================================================
 HOME PANEL CLICK HANDLING
@@ -15829,8 +14405,6 @@ HOME PANEL CLICK HANDLING
 
 function launchSolarPanel(panel) {
     if (activePanel) return;
-    document.body.classList.add("solar-orbits-paused");
-    panel.classList.add("solar-selected");
     openPanel(panel);
 }
 
@@ -17388,7 +15962,7 @@ src="./03_Figure_Habitat_Connectivity_Tradeoff.png"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Trade-off between habitat and connectivity benefits"
->
+ decoding="async">
 
 </div>
 
@@ -17419,7 +15993,7 @@ src="./04_Figure_Targeting_Advantage_vs_Random.png"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Ecological benefit of spatial targeting compared with random funding"
->
+ decoding="async">
 
 </div>
 
@@ -17450,7 +16024,7 @@ src="./06_Figure_Management_Availability_Effect.png"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Effect of management availability on targeting advantage"
->
+ decoding="async">
 
 </div>
 
@@ -17481,7 +16055,7 @@ src="./17_Animated_Policy_Allocation.gif"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Animated conservation policy allocation"
->
+ decoding="async">
 
 </div>
 
@@ -17512,7 +16086,7 @@ src="./09_Figure_Consensus_Strength.png"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Consensus strength of conservation priority cells"
->
+ decoding="async">
 
 </div>
 
@@ -17543,7 +16117,7 @@ src="./16_Figure_Robustness_of_Targeted_Allocation.png"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Robustness of targeted conservation allocation"
->
+ decoding="async">
 
 </div>
 
@@ -17780,7 +16354,7 @@ src="./11_Map_Consensus_5_of_5.png"
 onerror="portfolioImageFallback(this)"
 data-case-lightbox
 alt="Map of consensus conservation priority cells"
->
+ decoding="async">
 
 
 <div class="consensus-map-copy">
@@ -18371,7 +16945,7 @@ by a weather station.
 </div>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./01_Baseline_LST_RAW_COMPOSITE.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Raw baseline land-surface-temperature composite for Metro Manila">
+<img src="./01_Baseline_LST_RAW_COMPOSITE.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Raw baseline land-surface-temperature composite for Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>01 · Baseline</small><strong>Raw land-surface-temperature composite</strong></div>
 </div>
 </article>
@@ -18389,7 +16963,7 @@ creating new measured temperature observations.
 </p>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./02_LST_GapFilled_30m.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Gap-filled 30-metre land-surface-temperature surface for Metro Manila">
+<img src="./02_LST_GapFilled_30m.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Gap-filled 30-metre land-surface-temperature surface for Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>02 · Working heat layer</small><strong>Gap-filled LST at 30-metre resolution</strong></div>
 </div>
 </article>
@@ -18407,7 +16981,7 @@ a location where an intervention can realistically be investigated.
 </p>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./03_Tree_Intervention_Priority_REBUILT.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Tree intervention priority map for Metro Manila">
+<img src="./03_Tree_Intervention_Priority_REBUILT.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Tree intervention priority map for Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>03 · Tree intervention</small><strong>Spatial priority for tree-based intervention</strong></div>
 </div>
 </article>
@@ -18425,7 +16999,7 @@ more than one prioritisation perspective.
 </p>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./04_Tree_Intervention_HeatPriority_REBUILT.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Heat-priority tree intervention map for Metro Manila">
+<img src="./04_Tree_Intervention_HeatPriority_REBUILT.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Heat-priority tree intervention map for Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>04 · Thermal urgency</small><strong>Tree intervention viewed through heat priority</strong></div>
 </div>
 </article>
@@ -18443,7 +17017,7 @@ pixel-level difference as equally important.
 </p>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./05_Baseline_LST_300m_REBUILT.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="300-metre baseline land-surface-temperature surface for Metro Manila">
+<img src="./05_Baseline_LST_300m_REBUILT.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="300-metre baseline land-surface-temperature surface for Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>05 · Scale</small><strong>Broader 300-metre baseline heat context</strong></div>
 </div>
 </article>
@@ -18461,7 +17035,7 @@ land-use and implementation checks before an intervention is designed.
 </p>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./06_Intervention_Priority_FINAL.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Final tree intervention priority map for Metro Manila">
+<img src="./06_Intervention_Priority_FINAL.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Final tree intervention priority map for Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>06 · Synthesis</small><strong>Final intervention-priority surface</strong></div>
 </div>
 </article>
@@ -18484,7 +17058,7 @@ constraints would still need to be checked on the ground.
 </div>
 </div>
 <div class="urban-heat-slide-figure">
-<img src="./12_Top100_Critical_Hotspots.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Top 100 critical urban heat hotspots in Metro Manila">
+<img src="./12_Top100_Critical_Hotspots.png" onerror="portfolioImageFallback(this)" data-case-lightbox alt="Top 100 critical urban heat hotspots in Metro Manila" decoding="async">
 <div class="case-scene-caption"><small>07 · Shortlist</small><strong>Top 100 critical hotspots for closer review</strong></div>
 </div>
 </article>
@@ -21128,9 +19702,16 @@ MOBILE RESEARCH FIGURES FIX
   camera.zoom = .76;
   camera.updateProjectionMatrix();
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
   const initialMobile = window.innerWidth <= 800;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.5 : 2));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !initialMobile,
+    alpha:true,
+    powerPreference:'high-performance'
+  });
+  /* V44: 1.5× desktop / 1.25× mobile is visually crisp at this canvas size but
+     substantially cheaper than the previous 2× / 1.5× render targets. */
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.25 : 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = !initialMobile;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -21761,7 +20342,7 @@ MOBILE RESEARCH FIGURES FIX
     controls.target.z=0;
 
     applyProjection();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.5:2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.25:1.5));
     renderer.shadowMap.enabled=!mobile;
     keyLight.castShadow=!mobile;
     renderer.setSize(w,h,false);
@@ -21836,68 +20417,141 @@ MOBILE RESEARCH FIGURES FIX
   }));
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* =========================================================
+  V44 PERFORMANCE SCHEDULER
+  - 60 fps while the user is actively rotating/zooming
+  - 30 fps desktop / 24 fps mobile for ambient animation
+  - WebGL loop stops completely behind expanded portfolio sections
+  - WebGL loop also stops when the browser tab is hidden
+  ========================================================= */
   let raf=0;
-  function render(){
-    controls.update();
-    if(!reduce){
-      const now=performance.now();
-      const t=now*.00022;
-      cyanLight.position.x=Math.sin(t)*7;cyanLight.position.z=Math.cos(t)*7;
-      discoBall.rotation.y=now*.00042;
-      discoBall.rotation.x=Math.sin(now*.00022)*.10;
-      discoMat.emissiveIntensity=.38 + (Math.sin(now*.0042)+1)*.18;
-      discoGlints.forEach((s,i)=>{const p=.86+(Math.sin(now*.006+i*1.7)+1)*.48;s.scale.setScalar(p);s.rotation.z=now*.00075*(i%2?1:-1);});
-      fireflies.forEach((f,i)=>{
-        const d=f.userData.firefly;
-        const phase=now*.00125+d.phase;
-        f.position.x=d.x+Math.sin(phase*.72+i)*.16;
-        f.position.z=d.z+Math.cos(phase*.58+i*.7)*.14;
-        f.position.y=d.y+Math.sin(phase*1.15+i*.9)*.12;
-        const pulse=.35+(Math.sin(phase*3.2+i*1.4)+1)*.32;
-        d.coreMat.opacity=.55+pulse*.45;
-        d.haloMat.opacity=.035+pulse*.12;
-        f.scale.setScalar(.82+pulse*.34);
-      });
-      satellites.forEach((s,i)=>{
-        const b=s.userData.hoverBase;
-        const p=now*.0008+b.phase+i;
-        s.position.x=b.x+Math.sin(p*.82)*.18;
-        s.position.z=b.z+Math.cos(p*.68)*.15;
-        s.position.y=b.y+Math.sin(p*1.28)*.14;
-        s.rotation.y=Math.sin(p*.72)*.18;
-        s.rotation.z=Math.sin(p*.55)*.05;
-      });
-      equalizerBars.forEach((bar,i)=>{
-        const e=bar.userData.eq;
-        const pulse=.52 + (Math.sin(now*e.speed + e.phase)+1)*.44;
-        bar.scale.y=pulse;
-        bar.position.y=e.baseY + (e.baseH*pulse)/2;
-        bar.material.emissiveIntensity=.20 + pulse*.26;
-      });
-      scrollingTitleBands.forEach((band)=>{
-        band.tex.offset.x=(band.phase + now*band.speed)%1;
-      });
-      movingBoats.forEach((boat,i)=>{
-        const o=boat.userData.boatOrbit;
-        const p=now*.00055 + o.phase + i*.75;
-        boat.position.x=o.cx + Math.cos(p)*o.radiusX;
-        boat.position.z=o.cz + Math.sin(p)*o.radiusZ;
-        boat.position.y=o.y + Math.sin(p*2.1)*o.bob;
-        boat.rotation.y=-p + Math.PI/2;
-        boat.rotation.z=Math.sin(p*2.1)*.05;
-      });
-      if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
-      skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
-      sparkleMat.opacity=.13 + (Math.sin(now*.0014)+1)*.035;
-      sparklePoints.rotation.y=now*.000012;
-      dustPoints.rotation.y=-now*.000006;
-    }
-    renderer.render(scene,camera);raf=requestAnimationFrame(render);
+  let running=false;
+  let lastFrameTime=0;
+  let interactionUntil=0;
+
+  const isMobileRender = () => window.innerWidth <= 800;
+  const canRender = () =>
+    !document.hidden &&
+    !document.body.classList.contains('voxel-render-paused') &&
+    root.isConnected;
+
+  function animateScene(now){
+    if(reduce) return;
+    const t=now*.00022;
+    cyanLight.position.x=Math.sin(t)*7;cyanLight.position.z=Math.cos(t)*7;
+    discoBall.rotation.y=now*.00042;
+    discoBall.rotation.x=Math.sin(now*.00022)*.10;
+    discoMat.emissiveIntensity=.38 + (Math.sin(now*.0042)+1)*.18;
+    discoGlints.forEach((s,i)=>{const p=.86+(Math.sin(now*.006+i*1.7)+1)*.48;s.scale.setScalar(p);s.rotation.z=now*.00075*(i%2?1:-1);});
+    fireflies.forEach((f,i)=>{
+      const d=f.userData.firefly;
+      const phase=now*.00125+d.phase;
+      f.position.x=d.x+Math.sin(phase*.72+i)*.16;
+      f.position.z=d.z+Math.cos(phase*.58+i*.7)*.14;
+      f.position.y=d.y+Math.sin(phase*1.15+i*.9)*.12;
+      const pulse=.35+(Math.sin(phase*3.2+i*1.4)+1)*.32;
+      d.coreMat.opacity=.55+pulse*.45;
+      d.haloMat.opacity=.035+pulse*.12;
+      f.scale.setScalar(.82+pulse*.34);
+    });
+    satellites.forEach((s,i)=>{
+      const b=s.userData.hoverBase;
+      const p=now*.0008+b.phase+i;
+      s.position.x=b.x+Math.sin(p*.82)*.18;
+      s.position.z=b.z+Math.cos(p*.68)*.15;
+      s.position.y=b.y+Math.sin(p*1.28)*.14;
+      s.rotation.y=Math.sin(p*.72)*.18;
+      s.rotation.z=Math.sin(p*.55)*.05;
+    });
+    equalizerBars.forEach((bar,i)=>{
+      const e=bar.userData.eq;
+      const pulse=.52 + (Math.sin(now*e.speed + e.phase)+1)*.44;
+      bar.scale.y=pulse;
+      bar.position.y=e.baseY + (e.baseH*pulse)/2;
+      bar.material.emissiveIntensity=.20 + pulse*.26;
+    });
+    scrollingTitleBands.forEach((band)=>{
+      band.tex.offset.x=(band.phase + now*band.speed)%1;
+    });
+    movingBoats.forEach((boat,i)=>{
+      const o=boat.userData.boatOrbit;
+      const p=now*.00055 + o.phase + i*.75;
+      boat.position.x=o.cx + Math.cos(p)*o.radiusX;
+      boat.position.z=o.cz + Math.sin(p)*o.radiusZ;
+      boat.position.y=o.y + Math.sin(p*2.1)*o.bob;
+      boat.rotation.y=-p + Math.PI/2;
+      boat.rotation.z=Math.sin(p*2.1)*.05;
+    });
+    if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
+    skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
+    sparkleMat.opacity=.13 + (Math.sin(now*.0014)+1)*.035;
+    sparklePoints.rotation.y=now*.000012;
+    dustPoints.rotation.y=-now*.000006;
   }
-  render();
+
+  function frame(now){
+    raf=0;
+    if(!running || !canRender()) { running=false; return; }
+
+    const activeInteraction = now < interactionUntil;
+    const targetFps = activeInteraction ? (isMobileRender()?45:60) : (isMobileRender()?24:30);
+    const interval = 1000 / targetFps;
+
+    if(!lastFrameTime || now-lastFrameTime >= interval){
+      lastFrameTime=now;
+      controls.update();
+      animateScene(now);
+      renderer.render(scene,camera);
+    }
+    raf=requestAnimationFrame(frame);
+  }
+
+  function startLoop(){
+    if(running || !canRender()) return;
+    running=true;
+    lastFrameTime=0;
+    raf=requestAnimationFrame(frame);
+  }
+
+  function stopLoop(){
+    running=false;
+    if(raf) cancelAnimationFrame(raf);
+    raf=0;
+  }
+
+  function syncLoop(){
+    if(canRender()) startLoop();
+    else stopLoop();
+  }
+
+  function boostInteraction(ms=700){
+    interactionUntil=Math.max(interactionUntil,performance.now()+ms);
+    startLoop();
+  }
+
+  controls.addEventListener('start',()=>boostInteraction(1200));
+  controls.addEventListener('change',()=>boostInteraction(500));
+  controls.addEventListener('end',()=>boostInteraction(450));
+  canvas.addEventListener('pointerdown',()=>boostInteraction(1200),{passive:true});
+  canvas.addEventListener('wheel',()=>boostInteraction(700),{passive:true});
+
+  window.addEventListener('portfolio:voxel-pause',stopLoop);
+  window.addEventListener('portfolio:voxel-resume',syncLoop);
+  document.addEventListener('visibilitychange',syncLoop,{passive:true});
+
+  /* First paint happens immediately, then adaptive scheduling takes over. */
+  controls.update();
+  animateScene(performance.now());
+  renderer.render(scene,camera);
+  startLoop();
   if(loading)loading.hidden=true;
 
-  window.addEventListener('pagehide',()=>{cancelAnimationFrame(raf);ro.disconnect();renderer.dispose();},{once:true});
+  window.addEventListener('pagehide',()=>{
+    stopLoop();
+    ro.disconnect();
+    renderer.dispose();
+  },{once:true});
 })();
 </script>
 
