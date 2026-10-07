@@ -5,14 +5,14 @@
 GITHUB QUICK EDIT MAP
 =========================================================
 This is the COMPLETE single-file portfolio.
-Version: V26 responsive cartographic island-map navigation.
+Version: V27 responsive pointillist digital-island navigation with zoom/pan.
 
 HOW TO EDIT IN GITHUB:
 Use Ctrl+F / Find and search for the SECTION names below.
 
 SECTION 01  = COLORS / THEME
-SECTION 02  = HOME CARTOGRAPHIC ISLAND / MAP LAYOUT
-SECTION 03  = HOME CARTOGRAPHIC ISLAND / PINS & CONTACT
+SECTION 02  = HOME POINTILLIST DIGITAL ISLAND / MAP LAYOUT
+SECTION 03  = HOME DIGITAL ISLAND / FLAGLETS, ZOOM & CONTACT
 SECTION 04  = EXPANDED PANEL / OPEN-CLOSE ANIMATION
 SECTION 05  = COVER-FLOW CARDS / SIZE / SPACING / MOTION
 SECTION 06  = RESPONSIVE / MOBILE DESIGN
@@ -12743,446 +12743,499 @@ body.solar-orbits-paused #solarPortfolioHome { pointer-events: none; }
 
 
 
-<style id="portfolio-v26-island-home">
+<style id="portfolio-v27-island-home">
 /* =========================================================
-V26 — RESPONSIVE CARTOGRAPHIC / REMOTE-SENSING HOME
-Only the home navigation is replaced. Existing expanded portfolio
-sections and case studies remain intact.
+V27 — POINTILLIST / DIGITAL-ISLAND HOME
+The map can be zoomed with + / −, the mouse wheel, or touch pinch.
+Drag empty map space to pan. Portfolio sections remain unchanged.
 ========================================================= */
 
-html, body {
-    max-width: 100%;
-    overflow-x: hidden !important;
-}
+html, body { max-width:100%; overflow-x:hidden !important; }
 
 #portfolioIslandHome {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    height: 100vh;
-    overflow: hidden;
-    padding: clamp(12px, 1.6vw, 24px);
-    color: #effaf8;
+    position:relative;
+    width:100%;
+    height:100vh;
+    min-height:100vh;
+    overflow:hidden;
+    padding:clamp(8px,1.15vw,16px);
+    color:#edf9fa;
     background:
-        radial-gradient(circle at 72% 22%, rgba(26,122,145,.16), transparent 27%),
-        radial-gradient(circle at 18% 82%, rgba(39,118,103,.12), transparent 28%),
-        linear-gradient(145deg, #03121d 0%, #061c29 50%, #041722 100%);
-    isolation: isolate;
+        radial-gradient(circle at 64% 17%, rgba(23,145,175,.10), transparent 26%),
+        radial-gradient(circle at 15% 84%, rgba(53,183,143,.08), transparent 28%),
+        linear-gradient(145deg,#020b13 0%,#03131f 50%,#041925 100%);
+    isolation:isolate;
 }
 
 #portfolioIslandHome::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: .42;
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.31;
     background-image:
-        linear-gradient(rgba(117,181,193,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(117,181,193,.045) 1px, transparent 1px);
-    background-size: 52px 52px;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 95%);
+        radial-gradient(circle at 12% 24%, rgba(115,226,214,.45) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 72% 12%, rgba(255,255,255,.28) 0 1px, transparent 1.3px),
+        radial-gradient(circle at 37% 77%, rgba(89,225,141,.27) 0 1px, transparent 1.4px);
+    background-size:97px 97px,137px 137px,173px 173px;
 }
 
 .island-shell {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    gap: 12px;
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-rows:auto minmax(0,1fr);
+    gap:10px;
+    min-width:0;
+    min-height:0;
 }
 
+/* ---------- NAME / CONTACT BANNER ---------- */
 .island-name-banner {
-    position: relative;
-    z-index: 30;
-    width: min(100%, 820px);
-    min-height: 72px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 12px 18px;
-    border: 1px solid rgba(183,232,231,.23);
-    border-radius: 18px;
-    color: inherit;
-    background: linear-gradient(135deg, rgba(239,249,244,.10), rgba(11,50,65,.70));
-    box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.08);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    cursor: pointer;
-    text-align: left;
+    position:relative;
+    z-index:60;
+    width:100%;
+    min-height:70px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px 16px;
+    border:1px solid rgba(132,224,232,.20);
+    border-radius:17px;
+    color:inherit;
+    background:linear-gradient(135deg,rgba(10,38,51,.94),rgba(5,27,39,.88));
+    box-shadow:0 16px 42px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.045);
+    cursor:pointer;
+    text-align:left;
 }
-
 .island-name-banner:focus-visible,
-.island-pin:focus-visible,
+.island-flag:focus-visible,
+.island-zoom-btn:focus-visible,
 .island-contact-close:focus-visible,
 .island-contact-copy:focus-visible {
-    outline: 3px solid #59e18d;
-    outline-offset: 4px;
+    outline:3px solid #58e6a2;
+    outline-offset:3px;
 }
-
 .island-logo-mark {
-    flex: 0 0 auto;
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    border-radius: 14px;
-    background:
-        linear-gradient(145deg, rgba(89,225,141,.18), rgba(43,169,189,.10)),
-        #0a3342;
-    border: 1px solid rgba(89,225,141,.30);
+    flex:0 0 auto;
+    width:44px;
+    height:44px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:linear-gradient(145deg,rgba(73,226,190,.17),rgba(34,123,170,.10));
+    border:1px solid rgba(85,226,170,.26);
 }
-
-.island-logo-mark svg { width: 30px; height: 30px; }
-
-.island-banner-copy { min-width: 0; }
+.island-logo-mark svg { width:28px; height:28px; }
+.island-banner-copy { min-width:0; }
 .island-banner-kicker {
-    display: block;
-    margin-bottom: 2px;
-    color: #59e18d;
-    font-size: .68rem;
-    font-weight: 900;
-    letter-spacing: .16em;
-    text-transform: uppercase;
+    display:block;
+    margin-bottom:2px;
+    color:#58e6a2;
+    font-size:.63rem;
+    font-weight:950;
+    letter-spacing:.18em;
+    text-transform:uppercase;
 }
 .island-banner-name {
-    display: block;
-    font-size: clamp(1.3rem, 2.1vw, 2rem) !important;
-    line-height: 1;
-    font-weight: 1000;
-    letter-spacing: -.035em;
+    display:block;
+    font-size:clamp(1.35rem,2vw,1.95rem) !important;
+    line-height:1;
+    font-weight:1000;
+    letter-spacing:-.035em;
 }
 .island-banner-role {
-    display: block;
-    margin-top: 5px;
-    color: rgba(224,242,243,.72);
-    font-size: clamp(.74rem, 1vw, .92rem);
-    line-height: 1.25;
+    display:block;
+    margin-top:4px;
+    color:rgba(220,241,243,.66);
+    font-size:clamp(.70rem,.86vw,.90rem);
+    line-height:1.22;
 }
 .island-banner-action {
-    margin-left: auto;
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #a9f6c7;
-    font-size: .72rem;
-    font-weight: 900;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+    margin-left:auto;
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:8px 11px;
+    border-radius:999px;
+    color:#aaf6c7;
+    border:1px solid rgba(89,225,141,.18);
+    background:rgba(89,225,141,.055);
+    font-size:.66rem;
+    font-weight:950;
+    letter-spacing:.09em;
+    text-transform:uppercase;
 }
 
-.island-map-board {
-    position: relative;
-    min-height: 0;
-    overflow: hidden;
-    border: 1px solid rgba(161,218,224,.18);
-    border-radius: 26px;
+/* ---------- MAP STAGE ---------- */
+.island-map-stage {
+    position:relative;
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+    border:1px solid rgba(94,194,211,.18);
+    border-radius:24px;
     background:
-        radial-gradient(circle at 54% 45%, rgba(75,180,190,.16), transparent 34%),
-        linear-gradient(145deg, rgba(7,49,68,.96), rgba(3,28,41,.98));
-    box-shadow: 0 28px 70px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.05);
+        radial-gradient(circle at 50% 43%,rgba(16,113,134,.13),transparent 37%),
+        linear-gradient(145deg,#031b29 0%,#032230 52%,#021722 100%);
+    box-shadow:0 28px 70px rgba(0,0,0,.30), inset 0 1px rgba(255,255,255,.035);
+    cursor:grab;
+    touch-action:none;
+    user-select:none;
 }
+.island-map-stage.is-dragging { cursor:grabbing; }
+
+.island-world {
+    position:absolute;
+    inset:0;
+    transform-origin:50% 50%;
+    will-change:transform;
+    transition:transform .18s cubic-bezier(.22,.8,.25,1);
+}
+.island-map-stage.is-dragging .island-world,
+.island-map-stage.is-pinching .island-world { transition:none; }
 
 .island-map-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:block;
+    pointer-events:none;
 }
 
-.map-water-grid line { stroke: rgba(178,226,232,.065); stroke-width: 1; }
-.map-coast-halo { fill: none; stroke: rgba(93,224,205,.16); stroke-width: 22; }
-.map-coast { fill: url(#islandLandGradient); stroke: #d0ecd9; stroke-width: 3.2; }
-.map-contour { fill: none; stroke: rgba(18,86,70,.32); stroke-width: 1.5; }
-.map-road-main { fill: none; stroke: rgba(247,246,219,.94); stroke-width: 5; stroke-linecap: round; }
-.map-road-secondary { fill: none; stroke: rgba(247,246,219,.58); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 8 8; }
-.map-river { fill: none; stroke: rgba(80,181,226,.86); stroke-width: 6; stroke-linecap: round; }
-.map-boundary { fill: none; stroke: rgba(252,252,247,.32); stroke-width: 1.3; stroke-dasharray: 4 6; }
-.map-forest { fill: rgba(25,105,58,.74); }
-.map-agri { fill: rgba(197,190,95,.52); }
-.map-urban { fill: rgba(215,127,86,.55); }
-.map-wetland { fill: rgba(51,152,135,.52); }
-.map-mountain { fill: rgba(64,101,75,.48); stroke: rgba(215,235,219,.40); stroke-width: 1; }
-.map-swath { fill: rgba(78,194,211,.07); stroke: rgba(92,215,221,.26); stroke-width: 1.4; stroke-dasharray: 10 8; }
-.map-label { fill: rgba(222,242,244,.38); font-size: 17px; font-family: system-ui, sans-serif; font-weight: 800; letter-spacing: .18em; }
-.map-small-label { fill: rgba(225,244,246,.56); font-size: 11px; font-family: system-ui, sans-serif; font-weight: 750; letter-spacing: .12em; }
+.map-ocean-grid line { stroke:rgba(83,196,216,.085); stroke-width:1; }
+.map-coast-side { fill:#073e47; stroke:#0a5260; stroke-width:7; }
+.map-coast-shadow { fill:none; stroke:rgba(10,218,205,.15); stroke-width:30; }
+.map-coast-main { fill:url(#landBaseV27); stroke:#a8f3cc; stroke-width:4; }
+.map-contour { fill:none; stroke:rgba(8,62,53,.36); stroke-width:1.2; }
+.map-road { fill:none; stroke:rgba(236,246,213,.82); stroke-width:5; stroke-linecap:round; }
+.map-road-secondary { fill:none; stroke:rgba(231,246,214,.45); stroke-width:2.5; stroke-linecap:round; stroke-dasharray:8 9; }
+.map-river { fill:none; stroke:#39c7e5; stroke-width:6; stroke-linecap:round; }
+.map-river-thin { fill:none; stroke:#52c9df; stroke-width:3; stroke-linecap:round; opacity:.8; }
+.map-zone-outline { fill:none; stroke:rgba(222,255,241,.15); stroke-width:1.2; stroke-dasharray:5 7; }
+.map-zone-label {
+    fill:rgba(222,246,244,.52);
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:.15em;
+}
+.map-tiny-label {
+    fill:rgba(176,226,226,.43);
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.15em;
+}
+.voxel-top { fill:#71d49b; }
+.voxel-left { fill:#28765d; }
+.voxel-right { fill:#1b5e55; }
+.voxel-snow { fill:#d5f6ee; }
+.voxel-rock { fill:#587f75; }
 
-.island-map-title {
-    position: absolute;
-    z-index: 8;
-    left: clamp(18px, 2.2vw, 38px);
-    top: clamp(18px, 2.3vw, 34px);
-    pointer-events: none;
+.island-map-note {
+    position:absolute;
+    z-index:42;
+    left:18px;
+    top:17px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 11px;
+    border:1px solid rgba(139,224,227,.16);
+    border-radius:999px;
+    color:rgba(211,240,241,.72);
+    background:rgba(2,24,35,.70);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    font-size:.60rem;
+    font-weight:850;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    pointer-events:none;
 }
-.island-map-title span {
-    display: block;
-    color: #59e18d;
-    font-size: .68rem;
-    font-weight: 950;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-}
-.island-map-title strong {
-    display: block;
-    margin-top: 5px;
-    color: rgba(240,250,248,.94);
-    font-size: clamp(1.55rem, 2.6vw, 2.9rem);
-    line-height: .94;
-    letter-spacing: -.045em;
-}
-.island-map-title em {
-    display: block;
-    max-width: 420px;
-    margin-top: 8px;
-    color: rgba(215,238,240,.68);
-    font-size: .78rem;
-    line-height: 1.4;
-    font-style: normal;
-}
-
-.island-pin {
-    --pin-accent: #59e18d;
-    position: absolute;
-    z-index: 18;
-    transform: translate(-50%, -100%);
-    display: flex;
-    align-items: center;
-    min-width: 0;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    text-align: left;
-    font: inherit;
-    -webkit-tap-highlight-color: transparent;
+.island-map-note::before {
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:#58e6a2;
+    box-shadow:0 0 0 5px rgba(88,230,162,.08);
 }
 
-.island-pin::after {
-    content: "";
-    position: absolute;
-    left: 21px;
-    top: 39px;
-    width: 2px;
-    height: 17px;
-    background: linear-gradient(to bottom, var(--pin-accent), transparent);
+/* ---------- FLAGLETS ---------- */
+.island-flag {
+    --flag-accent:#58e6a2;
+    position:absolute;
+    z-index:26;
+    width:48px;
+    height:65px;
+    transform:translate(-50%,-100%);
+    border:0;
+    padding:0;
+    color:var(--flag-accent);
+    background:transparent;
+    cursor:pointer;
+    font:inherit;
+    -webkit-tap-highlight-color:transparent;
 }
+.island-flag:hover { z-index:40; }
+.flag-marker {
+    position:absolute;
+    inset:0;
+    width:48px;
+    height:65px;
+    filter:drop-shadow(0 11px 13px rgba(0,0,0,.30));
+}
+.flag-marker svg { width:100%; height:100%; overflow:visible; }
+.flag-marker .flag-cloth { fill:currentColor; }
+.flag-marker .flag-cloth-hi { fill:rgba(255,255,255,.20); }
+.flag-marker .flag-pole { stroke:#dffbfa; stroke-width:2.4; stroke-linecap:round; }
+.flag-marker .flag-top { fill:currentColor; }
+.flag-marker .flag-side-a { fill:color-mix(in srgb,currentColor 55%,#052d3a 45%); }
+.flag-marker .flag-side-b { fill:color-mix(in srgb,currentColor 38%,#021922 62%); }
+.flag-marker .flag-dot { fill:#f4fff9; }
 
-.island-pin-dot {
-    position: relative;
-    z-index: 2;
-    flex: 0 0 auto;
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border-radius: 50% 50% 50% 8px;
-    transform: rotate(-45deg);
-    border: 2px solid rgba(255,255,255,.88);
-    background: linear-gradient(145deg, color-mix(in srgb, var(--pin-accent) 86%, white 8%), color-mix(in srgb, var(--pin-accent) 72%, #052a35 28%));
-    box-shadow: 0 8px 22px rgba(0,0,0,.28), 0 0 0 5px rgba(255,255,255,.055);
+.flag-copy {
+    position:absolute;
+    top:5px;
+    left:42px;
+    min-width:150px;
+    max-width:220px;
+    padding:8px 11px 9px 12px;
+    border:1px solid rgba(177,230,232,.18);
+    border-left:3px solid var(--flag-accent);
+    border-radius:5px 13px 13px 5px;
+    color:#f3fbfa;
+    background:linear-gradient(135deg,rgba(3,36,48,.94),rgba(3,27,38,.88));
+    box-shadow:0 10px 24px rgba(0,0,0,.22);
+    backdrop-filter:blur(7px);
+    -webkit-backdrop-filter:blur(7px);
+    text-align:left;
+    pointer-events:none;
 }
-
-.island-pin-dot > span {
-    transform: rotate(45deg);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 950;
+.flag-copy-left { left:auto; right:42px; border-left:1px solid rgba(177,230,232,.18); border-right:3px solid var(--flag-accent); border-radius:13px 5px 5px 13px; }
+#portfolioIslandHome .flag-copy [data-title],
+#portfolioIslandHome .flag-copy strong {
+    display:block !important;
+    width:auto !important;
+    margin:0 !important;
+    color:#f6fcfb !important;
+    font-size:clamp(.76rem,.88vw,.93rem) !important;
+    line-height:1.05 !important;
+    font-weight:950 !important;
+    letter-spacing:-.015em !important;
+    white-space:normal !important;
 }
-
-.island-pin-label {
-    min-width: 118px;
-    max-width: 210px;
-    margin-left: -3px;
-    padding: 9px 13px 10px 15px;
-    border: 1px solid rgba(201,237,237,.20);
-    border-left: 0;
-    border-radius: 0 14px 14px 0;
-    background: rgba(4,38,50,.86);
-    box-shadow: 0 10px 24px rgba(0,0,0,.20), inset 0 1px rgba(255,255,255,.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+.flag-copy small {
+    display:block;
+    margin-top:4px;
+    color:rgba(211,238,239,.55);
+    font-size:.56rem;
+    line-height:1.25;
 }
-
-#portfolioIslandHome .island-pin-label [data-title] {
-    display: block !important;
-    width: auto !important;
-    margin: 0 !important;
-    color: #f3fbfa !important;
-    font-size: clamp(.78rem, .92vw, .96rem) !important;
-    line-height: 1.05 !important;
-    font-weight: 950 !important;
-    letter-spacing: -.015em !important;
-    white-space: normal !important;
-}
-.island-pin-label small {
-    display: block;
-    margin-top: 4px;
-    color: rgba(215,238,240,.58);
-    font-size: .59rem;
-    line-height: 1.2;
-}
-
 @media (hover:hover) and (pointer:fine) {
-    .island-pin:hover { z-index: 25; }
-    .island-pin:hover .island-pin-dot { filter: brightness(1.13); }
-    .island-pin:hover .island-pin-label { border-color: color-mix(in srgb, var(--pin-accent) 48%, transparent); }
+    .island-flag:hover .flag-marker { transform:translateY(-2px); filter:drop-shadow(0 14px 17px rgba(0,0,0,.34)) brightness(1.08); }
+    .island-flag:hover .flag-copy { border-color:color-mix(in srgb,var(--flag-accent) 50%,rgba(177,230,232,.18)); }
 }
 
-.pin-profile { left: 33%; top: 48%; --pin-accent: #3f90e8; }
-.pin-projects { left: 50%; top: 27%; --pin-accent: #48b96e; }
-.pin-skills { left: 69%; top: 42%; --pin-accent: #df9c27; }
-.pin-gallery { left: 39%; top: 73%; --pin-accent: #d7496b; }
-.pin-coding { left: 62%; top: 70%; --pin-accent: #8f6de7; }
-.pin-contact { left: 80%; top: 65%; --pin-accent: #2e9fd5; }
+.flag-profile  { left:31%; top:50%; --flag-accent:#38a9ff; }
+.flag-projects { left:50%; top:28%; --flag-accent:#55dd79; }
+.flag-skills   { left:72%; top:43%; --flag-accent:#ffb531; }
+.flag-gallery  { left:37%; top:74%; --flag-accent:#ff557b; }
+.flag-coding   { left:63%; top:72%; --flag-accent:#a77cff; }
+.flag-contact  { left:81%; top:62%; --flag-accent:#2de1e7; }
 
+/* ---------- ZOOM / MAP UI ---------- */
+.island-map-controls {
+    position:absolute;
+    z-index:55;
+    top:15px;
+    right:15px;
+    display:grid;
+    grid-template-columns:46px 46px;
+    gap:7px;
+}
+.island-zoom-btn {
+    width:46px;
+    height:46px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(154,224,230,.22);
+    border-radius:13px;
+    color:#eafafa;
+    background:rgba(2,29,41,.86);
+    box-shadow:0 8px 22px rgba(0,0,0,.18);
+    cursor:pointer;
+    font-size:1.18rem;
+    font-weight:900;
+    line-height:1;
+}
+.island-zoom-btn:hover { background:rgba(8,52,65,.95); }
+.island-zoom-reset { grid-column:1/-1; width:99px; height:35px; font-size:.60rem; letter-spacing:.08em; text-transform:uppercase; }
+.island-zoom-readout {
+    position:absolute;
+    z-index:54;
+    right:126px;
+    top:24px;
+    min-width:50px;
+    padding:7px 8px;
+    border-radius:999px;
+    color:rgba(216,242,243,.72);
+    background:rgba(2,29,41,.68);
+    border:1px solid rgba(154,224,230,.13);
+    text-align:center;
+    font-size:.58rem;
+    font-weight:900;
+    letter-spacing:.06em;
+}
 .island-compass {
-    position: absolute;
-    z-index: 8;
-    left: 26px;
-    bottom: 24px;
-    width: 92px;
-    aspect-ratio: 1;
-    opacity: .64;
-    pointer-events: none;
+    position:absolute;
+    z-index:44;
+    right:22px;
+    bottom:20px;
+    width:76px;
+    aspect-ratio:1;
+    opacity:.72;
+    pointer-events:none;
 }
 .island-scale {
-    position: absolute;
-    z-index: 8;
-    left: 138px;
-    bottom: 30px;
-    color: rgba(223,242,244,.64);
-    font-size: .58rem;
-    font-weight: 800;
-    letter-spacing: .08em;
+    position:absolute;
+    z-index:44;
+    left:20px;
+    bottom:18px;
+    color:rgba(211,238,239,.57);
+    font-size:.54rem;
+    font-weight:900;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    pointer-events:none;
 }
 .island-scale-line {
-    width: 130px;
-    height: 7px;
-    margin-top: 6px;
-    border-left: 2px solid rgba(229,245,245,.76);
-    border-right: 2px solid rgba(229,245,245,.76);
-    border-bottom: 2px solid rgba(229,245,245,.76);
+    width:112px;
+    height:8px;
+    margin-top:5px;
+    border-left:2px solid rgba(227,248,246,.65);
+    border-right:2px solid rgba(227,248,246,.65);
+    border-bottom:2px solid rgba(227,248,246,.65);
 }
 
+/* ---------- CONTACT CARD ---------- */
 .island-contact-backdrop {
-    position: absolute;
-    z-index: 80;
-    inset: 0;
-    background: rgba(0,7,13,.46);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    position:absolute;
+    z-index:100;
+    inset:0;
+    background:rgba(0,7,13,.48);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
 }
 .island-contact-card {
-    position: absolute;
-    z-index: 90;
-    top: 92px;
-    right: 24px;
-    width: min(390px, calc(100% - 48px));
-    max-height: calc(100% - 116px);
-    overflow: auto;
-    padding: 22px;
-    border: 1px solid rgba(192,231,231,.27);
-    border-radius: 22px;
-    color: #eef8f6;
-    background:
-        linear-gradient(145deg, rgba(255,255,255,.075), transparent 35%),
-        rgba(3,33,45,.96);
-    box-shadow: 0 32px 80px rgba(0,0,0,.40), inset 0 1px rgba(255,255,255,.07);
+    position:absolute;
+    z-index:110;
+    top:92px;
+    right:24px;
+    width:min(390px,calc(100% - 48px));
+    max-height:calc(100% - 116px);
+    overflow:auto;
+    padding:21px;
+    border:1px solid rgba(178,229,232,.25);
+    border-radius:20px;
+    color:#eff9f7;
+    background:linear-gradient(145deg,rgba(255,255,255,.055),transparent 34%),rgba(3,28,40,.97);
+    box-shadow:0 30px 76px rgba(0,0,0,.45);
 }
-.island-contact-card[hidden], .island-contact-backdrop[hidden] { display: none !important; }
-.island-contact-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
-.island-contact-top h3 { margin:0; font-size:1.25rem; }
-.island-contact-top p { margin:4px 0 0; color:rgba(220,240,241,.62); font-size:.76rem; }
+.island-contact-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.island-contact-top h3 { margin:0; font-size:1.45rem; line-height:1; }
+.island-contact-top p { margin:5px 0 0; color:rgba(215,237,238,.62); font-size:.78rem; }
 .island-contact-close {
-    width: 40px; height:40px; border-radius:50%; border:1px solid rgba(210,239,240,.2); background:#062c3a; color:#fff; cursor:pointer;
+    flex:0 0 auto; width:40px; height:40px; border-radius:50%;
+    border:1px solid rgba(194,231,232,.20); color:#eefafa; background:#042432;
+    cursor:pointer; font-size:1.3rem;
 }
-.island-contact-summary { margin:18px 0; color:rgba(228,244,244,.78); font-size:.88rem; line-height:1.55; }
-.island-contact-links { display:grid; gap:9px; }
+.island-contact-summary { margin:18px 0; color:rgba(224,242,242,.78); font-size:.82rem; line-height:1.55; }
+.island-contact-links { display:grid; gap:8px; }
 .island-contact-row {
-    display:flex; align-items:center; gap:11px; min-height:50px; padding:9px 11px; border:1px solid rgba(198,232,233,.15); border-radius:13px; background:rgba(255,255,255,.035); color:#eff9f8; text-decoration:none;
+    display:flex; align-items:center; gap:12px; width:100%; padding:11px 12px;
+    border:1px solid rgba(172,224,226,.15); border-radius:12px; color:#eafafa;
+    background:rgba(14,66,76,.30); text-decoration:none; text-align:left; font:inherit; cursor:pointer;
 }
-.island-contact-row b { display:block; font-size:.75rem; }
-.island-contact-row span { display:block; margin-top:1px; color:rgba(211,236,237,.65); font-size:.69rem; overflow-wrap:anywhere; }
-.island-contact-icon { flex:0 0 auto; width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:rgba(89,225,141,.10); color:#59e18d; font-weight:950; }
-.island-contact-copy { width:100%; border:0; cursor:pointer; font:inherit; text-align:left; }
-.island-contact-status { min-height:20px; margin-top:10px; color:#7df1a9; font-size:.68rem; font-weight:800; }
+.island-contact-icon { width:32px; height:32px; display:grid; place-items:center; border-radius:9px; color:#58e6a2; background:rgba(88,230,162,.08); font-size:.72rem; font-weight:950; }
+.island-contact-row b { display:block; font-size:.76rem; }
+.island-contact-row span span { display:block; margin-top:2px; color:rgba(213,238,239,.62); font-size:.70rem; }
+.island-contact-status { min-height:20px; margin-top:12px; color:#8ff1ba; font-size:.72rem; }
 
-/* Keep the contact/pin UI out of expanded portfolio panels. */
-body:has(.expansion) #portfolioIslandHome { pointer-events: none; }
-
-@media (max-width: 980px) {
-    #portfolioIslandHome { height:auto; min-height:100vh; overflow-y:auto; padding:10px; }
-    .island-shell { min-height:100vh; grid-template-rows:auto auto; }
-    .island-name-banner { width:100%; min-height:66px; }
-    .island-map-board { min-height:720px; }
-    .island-map-title strong { font-size:clamp(1.45rem, 5vw, 2.35rem); }
-    .island-pin-label { max-width:170px; }
-    .pin-profile { left:31%; top:47%; }
-    .pin-projects { left:50%; top:29%; }
-    .pin-skills { left:70%; top:42%; }
-    .pin-gallery { left:35%; top:70%; }
-    .pin-coding { left:58%; top:73%; }
-    .pin-contact { left:78%; top:64%; }
+/* ---------- LAPTOP / TABLET ---------- */
+@media (max-width:1100px) {
+    .island-banner-role { display:none; }
+    .flag-copy { min-width:132px; max-width:180px; padding:7px 9px 8px 10px; }
+    .flag-copy small { display:none; }
+    .flag-projects { left:49%; top:28%; }
+    .flag-skills { left:71%; top:42%; }
+    .flag-contact { left:80%; top:62%; }
 }
 
-@media (max-width: 700px) {
-    #portfolioIslandHome { padding:8px; }
-    .island-name-banner { border-radius:16px; padding:10px 12px; gap:10px; }
-    .island-logo-mark { width:42px; height:42px; }
-    .island-banner-kicker { font-size:.56rem; }
-    .island-banner-name { font-size:1.24rem !important; }
-    .island-banner-role { font-size:.68rem; }
-    .island-banner-action { display:none; }
-    .island-map-board { min-height:680px; border-radius:20px; }
-    .island-map-title { left:16px; top:16px; max-width:58%; }
-    .island-map-title span { font-size:.55rem; }
-    .island-map-title strong { font-size:clamp(1.25rem, 7vw, 1.9rem); }
-    .island-map-title em { display:none; }
-
-    .island-pin { transform:translate(-50%,-100%) scale(.94); transform-origin:50% 100%; }
-    .island-pin-dot { width:40px; height:40px; }
-    .island-pin::after { left:19px; top:36px; }
-    .island-pin-label { min-width:102px; max-width:138px; padding:8px 9px 9px 12px; }
-    #portfolioIslandHome .island-pin-label [data-title] { font-size:.72rem !important; }
-    .island-pin-label small { display:none; }
-
-    .pin-profile { left:29%; top:47%; }
-    .pin-projects { left:55%; top:31%; }
-    .pin-skills { left:72%; top:45%; }
-    .pin-gallery { left:31%; top:69%; }
-    .pin-coding { left:55%; top:77%; }
-    .pin-contact { left:78%; top:64%; }
-
-    .island-compass { width:68px; left:15px; bottom:18px; }
-    .island-scale { left:96px; bottom:22px; font-size:.50rem; }
+/* ---------- PHONE ---------- */
+@media (max-width:760px) {
+    #portfolioIslandHome {
+        height:100dvh;
+        min-height:100dvh;
+        padding:7px;
+    }
+    .island-shell { gap:7px; }
+    .island-name-banner { min-height:62px; padding:9px 10px; gap:10px; border-radius:14px; }
+    .island-logo-mark { width:38px; height:38px; border-radius:10px; }
+    .island-logo-mark svg { width:24px; height:24px; }
+    .island-banner-kicker { font-size:.50rem; letter-spacing:.13em; }
+    .island-banner-name { font-size:1.16rem !important; }
+    .island-banner-action { width:38px; height:38px; padding:0; justify-content:center; font-size:0; }
+    .island-banner-action span { font-size:1rem; }
+    .island-map-stage { border-radius:17px; }
+    .island-map-note { left:10px; top:10px; padding:7px 9px; font-size:.47rem; }
+    .island-map-controls { top:9px; right:9px; grid-template-columns:42px 42px; gap:5px; }
+    .island-zoom-btn { width:42px; height:42px; border-radius:11px; }
+    .island-zoom-reset { width:89px; height:32px; }
+    .island-zoom-readout { display:none; }
+    .island-flag { width:42px; height:58px; transform:translate(-50%,-100%) scale(.92); }
+    .flag-marker { width:42px; height:58px; }
+    .flag-copy { left:36px; top:4px; min-width:102px; max-width:132px; padding:7px 8px 7px 9px; }
+    .flag-copy-left { left:auto; right:36px; }
+    #portfolioIslandHome .flag-copy [data-title], #portfolioIslandHome .flag-copy strong { font-size:.67rem !important; line-height:1.08 !important; }
+    .flag-copy small { display:none; }
+    .flag-profile { left:27%; top:51%; }
+    .flag-projects { left:49%; top:28%; }
+    .flag-skills { left:70%; top:43%; }
+    .flag-gallery { left:35%; top:74%; }
+    .flag-coding { left:62%; top:72%; }
+    .flag-contact { left:82%; top:61%; }
+    .island-compass { width:57px; right:11px; bottom:12px; }
+    .island-scale { left:12px; bottom:13px; font-size:.43rem; }
     .island-scale-line { width:82px; }
-
     .island-contact-card {
         position:fixed;
         z-index:10050;
-        left:8px; right:8px; top:auto; bottom:8px;
-        width:auto; max-height:min(74vh, 620px);
-        border-radius:20px;
+        left:7px; right:7px; top:auto; bottom:7px;
+        width:auto; max-height:min(76dvh,620px); border-radius:18px;
     }
     .island-contact-backdrop { position:fixed; z-index:10040; }
 }
 
-@media (max-width: 430px) {
-    .island-map-board { min-height:625px; }
-    .island-pin { transform:translate(-50%,-100%) scale(.88); }
-    .pin-profile { left:29%; top:48%; }
-    .pin-projects { left:54%; top:32%; }
-    .pin-skills { left:70%; top:47%; }
-    .pin-gallery { left:31%; top:68%; }
-    .pin-coding { left:52%; top:78%; }
-    .pin-contact { left:77%; top:65%; }
+@media (max-width:430px) {
+    .flag-copy { min-width:92px; max-width:112px; }
+    #portfolioIslandHome .flag-copy [data-title], #portfolioIslandHome .flag-copy strong { font-size:.62rem !important; }
+    .flag-profile { left:25%; top:53%; }
+    .flag-projects { left:47%; top:29%; }
+    .flag-skills { left:70%; top:44%; }
+    .flag-gallery { left:33%; top:75%; }
+    .flag-coding { left:60%; top:73%; }
+    .flag-contact { left:82%; top:62%; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    #portfolioIslandHome *, #portfolioIslandHome *::before, #portfolioIslandHome *::after { scroll-behavior:auto !important; transition-duration:.001ms !important; animation-duration:.001ms !important; }
+@media (prefers-reduced-motion:reduce) {
+    #portfolioIslandHome *, #portfolioIslandHome *::before, #portfolioIslandHome *::after {
+        scroll-behavior:auto !important;
+        transition-duration:.001ms !important;
+        animation-duration:.001ms !important;
+    }
 }
 </style>
 </head>
@@ -13193,10 +13246,8 @@ body:has(.expansion) #portfolioIslandHome { pointer-events: none; }
 
 
 <!-- =========================================================
-SECTION 08 — HOME 3D SOLAR-SYSTEM NAVIGATION
-The Sun is the profile. Each planet and its title move as one orbital unit.
-Titles are rendered on the same orbital path immediately beside their planet.
-Planets pass in front of and behind the Sun to create orbital depth.
+SECTION 08 — HOME POINTILLIST DIGITAL-ISLAND NAVIGATION
+The homepage is a zoomable/pannable geospatial interface. Each flaglet opens an existing portfolio section.
 ========================================================= -->
 
 <main class="app island-app" id="portfolioIslandHome">
@@ -13204,9 +13255,9 @@ Planets pass in front of and behind the Sun to create orbital depth.
         <button class="island-name-banner" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard">
             <span class="island-logo-mark" aria-hidden="true">
                 <svg viewBox="0 0 48 48" role="img">
-                    <path d="M5 37 18 15l5 8 5-13 15 27H5Z" fill="#59e18d" opacity=".92"/>
-                    <path d="M13 37 23 23l6 9 5-7 9 12H13Z" fill="#bfe9db" opacity=".78"/>
-                    <path d="M9 37h31" stroke="#062c37" stroke-width="2.4"/>
+                    <path d="M5 37 18 15l5 8 5-13 15 27H5Z" fill="#58e6a2" opacity=".95"/>
+                    <path d="M13 37 23 23l6 9 5-7 9 12H13Z" fill="#79d9e2" opacity=".76"/>
+                    <path d="M9 37h31" stroke="#03131f" stroke-width="2.4"/>
                 </svg>
             </span>
             <span class="island-banner-copy">
@@ -13217,155 +13268,164 @@ Planets pass in front of and behind the Sun to create orbital depth.
             <span class="island-banner-action">Contact details <span aria-hidden="true">↗</span></span>
         </button>
 
-        <section class="island-map-board" aria-label="Interactive schematic portfolio island map">
-            <div class="island-map-title" aria-hidden="true">
-                <span>Portfolio Atlas · 2026</span>
-                <strong>JPR<br>Portfolio Island</strong>
-                <em>A schematic cartographic interface. Select a map pin to enter each portfolio section.</em>
+        <section class="island-map-stage" id="islandMapStage" aria-label="Zoomable pointillist digital portfolio island. Select a flag to enter a portfolio section.">
+            <div class="island-map-note" aria-hidden="true">Digital terrain · select a flag · drag to pan</div>
+
+            <div class="island-world" id="islandWorld">
+                <svg class="island-map-svg" viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="seaV27" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#063047"/>
+                            <stop offset=".55" stop-color="#042538"/>
+                            <stop offset="1" stop-color="#021a29"/>
+                        </linearGradient>
+                        <linearGradient id="landBaseV27" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#7dd089"/>
+                            <stop offset=".46" stop-color="#5bb177"/>
+                            <stop offset="1" stop-color="#418a69"/>
+                        </linearGradient>
+                        <pattern id="seaDotsV27" width="22" height="22" patternUnits="userSpaceOnUse">
+                            <circle cx="3" cy="4" r="1.2" fill="#30b9d8" opacity=".19"/>
+                            <circle cx="14" cy="13" r=".9" fill="#9ee8ee" opacity=".10"/>
+                        </pattern>
+                        <pattern id="landDotsV27" width="18" height="18" patternUnits="userSpaceOnUse">
+                            <circle cx="4" cy="4" r="2.1" fill="#b7ef9f" opacity=".54"/>
+                            <circle cx="13" cy="8" r="1.7" fill="#38a975" opacity=".48"/>
+                            <circle cx="8" cy="15" r="1.15" fill="#def5aa" opacity=".38"/>
+                        </pattern>
+                        <pattern id="forestDotsV27" width="14" height="14" patternUnits="userSpaceOnUse">
+                            <circle cx="4" cy="4" r="2.4" fill="#1e8b5b"/>
+                            <circle cx="10" cy="8" r="2.0" fill="#2fa66b"/>
+                            <circle cx="6" cy="12" r="1.5" fill="#0f704e"/>
+                        </pattern>
+                        <pattern id="urbanDotsV27" width="16" height="16" patternUnits="userSpaceOnUse">
+                            <rect x="2" y="2" width="4" height="4" rx=".6" fill="#e5a45a" opacity=".85"/>
+                            <rect x="9" y="7" width="5" height="5" rx=".6" fill="#d4725d" opacity=".82"/>
+                            <rect x="3" y="11" width="3" height="3" rx=".5" fill="#f1cb73" opacity=".75"/>
+                        </pattern>
+                        <pattern id="dataDotsV27" width="16" height="16" patternUnits="userSpaceOnUse">
+                            <circle cx="4" cy="5" r="2.2" fill="#58d9d7" opacity=".75"/>
+                            <circle cx="12" cy="11" r="2" fill="#8f80f4" opacity=".72"/>
+                        </pattern>
+                        <clipPath id="islandClipV27">
+                            <path d="M255 350 C220 270 285 178 390 160 C430 95 535 82 610 122 C690 78 810 107 850 176 C945 176 1030 243 1028 327 C1090 394 1037 489 944 501 C897 573 785 580 707 543 C627 596 512 567 471 513 C371 532 284 475 288 399 C267 390 257 371 255 350Z"/>
+                        </clipPath>
+                        <filter id="mapShadowV27" x="-20%" y="-20%" width="140%" height="160%">
+                            <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#001018" flood-opacity=".46"/>
+                        </filter>
+                    </defs>
+
+                    <rect width="1400" height="700" fill="url(#seaV27)"/>
+                    <rect width="1400" height="700" fill="url(#seaDotsV27)"/>
+                    <g class="map-ocean-grid">
+                        <line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="200" x2="1400" y2="200"/><line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="400" x2="1400" y2="400"/><line x1="0" y1="500" x2="1400" y2="500"/><line x1="0" y1="600" x2="1400" y2="600"/>
+                        <line x1="100" y1="0" x2="100" y2="700"/><line x1="250" y1="0" x2="250" y2="700"/><line x1="400" y1="0" x2="400" y2="700"/><line x1="550" y1="0" x2="550" y2="700"/><line x1="700" y1="0" x2="700" y2="700"/><line x1="850" y1="0" x2="850" y2="700"/><line x1="1000" y1="0" x2="1000" y2="700"/><line x1="1150" y1="0" x2="1150" y2="700"/><line x1="1300" y1="0" x2="1300" y2="700"/>
+                    </g>
+
+                    <path class="map-coast-shadow" d="M255 368 C220 288 285 196 390 178 C430 113 535 100 610 140 C690 96 810 125 850 194 C945 194 1030 261 1028 345 C1090 412 1037 507 944 519 C897 591 785 598 707 561 C627 614 512 585 471 531 C371 550 284 493 288 417 C267 408 257 389 255 368Z"/>
+                    <path class="map-coast-side" filter="url(#mapShadowV27)" d="M255 368 C220 288 285 196 390 178 C430 113 535 100 610 140 C690 96 810 125 850 194 C945 194 1030 261 1028 345 C1090 412 1037 507 944 519 C897 591 785 598 707 561 C627 614 512 585 471 531 C371 550 284 493 288 417 C267 408 257 389 255 368Z"/>
+                    <path class="map-coast-main" d="M255 350 C220 270 285 178 390 160 C430 95 535 82 610 122 C690 78 810 107 850 176 C945 176 1030 243 1028 327 C1090 394 1037 489 944 501 C897 573 785 580 707 543 C627 596 512 567 471 513 C371 532 284 475 288 399 C267 390 257 371 255 350Z"/>
+
+                    <g clip-path="url(#islandClipV27)">
+                        <rect x="205" y="55" width="900" height="560" fill="url(#landDotsV27)" opacity=".66"/>
+                        <path d="M330 150 C410 100 505 118 540 205 C500 265 400 284 318 234Z" fill="url(#forestDotsV27)" opacity=".98"/>
+                        <path d="M650 110 C755 93 866 132 900 214 C842 265 737 268 655 220Z" fill="url(#forestDotsV27)" opacity=".94"/>
+                        <path d="M720 348 C835 314 960 344 990 424 C920 493 808 501 724 445Z" fill="url(#forestDotsV27)" opacity=".86"/>
+                        <path d="M324 311 C420 271 532 292 567 374 C514 431 402 438 314 394Z" fill="#c2c86d" opacity=".60"/>
+                        <path d="M486 432 C560 394 669 402 718 471 C674 535 574 544 494 506Z" fill="#d7b361" opacity=".43"/>
+                        <path d="M822 225 C919 219 1012 272 1003 347 C945 385 859 366 811 319Z" fill="url(#urbanDotsV27)" opacity=".90"/>
+                        <path d="M606 292 C693 258 791 278 818 350 C771 405 674 410 610 366Z" fill="url(#dataDotsV27)" opacity=".62"/>
+
+                        <path class="map-contour" d="M327 350 C319 283 375 218 447 205 C497 164 577 158 625 194 C689 164 779 188 808 237 C870 242 932 286 932 341 C964 391 924 440 865 452 C825 500 751 504 701 479 C641 515 568 495 540 456 C474 466 408 431 410 386 C366 383 333 370 327 350Z"/>
+                        <path class="map-contour" d="M380 350 C372 298 416 252 475 242 C520 207 585 209 628 238 C681 212 749 231 775 270 C827 277 864 307 865 347 C887 382 856 416 813 423 C779 457 725 462 688 443 C642 470 587 455 567 427 C518 434 471 409 470 377 C433 375 387 366 380 350Z"/>
+                        <path class="map-contour" d="M456 350 C449 319 480 289 522 283 C558 258 605 260 635 283 C673 263 719 275 736 304 C769 309 793 328 795 353 C807 376 784 398 754 402 C731 423 694 426 669 413 C637 433 600 421 587 402 C553 407 520 390 521 369 C494 370 461 361 456 350Z"/>
+
+                        <path class="map-road" d="M323 379 C433 324 539 373 646 352 C747 332 812 277 919 247"/>
+                        <path class="map-road" d="M445 490 C489 428 556 383 646 352 C718 328 824 340 948 401"/>
+                        <path class="map-road-secondary" d="M359 253 C431 294 495 317 548 384 C594 443 700 476 817 466"/>
+                        <path class="map-road-secondary" d="M717 171 C700 244 691 303 646 352 C597 404 514 433 410 421"/>
+                        <path class="map-river" d="M676 157 C669 225 653 281 646 352 C639 405 611 447 578 496"/>
+                        <path class="map-river-thin" d="M646 352 C712 355 754 378 811 423"/>
+                    </g>
+
+                    <!-- tiny isometric terrain stacks -->
+                    <g transform="translate(562 206)">
+                        <polygon class="voxel-left" points="-42,-10 0,10 0,48 -42,28"/><polygon class="voxel-right" points="42,-10 0,10 0,48 42,28"/><polygon class="voxel-top" points="0,-31 42,-10 0,10 -42,-10"/>
+                        <polygon class="voxel-left" points="-29,-37 0,-23 0,10 -29,-4"/><polygon class="voxel-right" points="29,-37 0,-23 0,10 29,-4"/><polygon class="voxel-rock" points="0,-52 29,-37 0,-23 -29,-37"/>
+                        <polygon class="voxel-left" points="-15,-62 0,-54 0,-23 -15,-31"/><polygon class="voxel-right" points="15,-62 0,-54 0,-23 15,-31"/><polygon class="voxel-snow" points="0,-70 15,-62 0,-54 -15,-62"/>
+                    </g>
+                    <g transform="translate(770 222) scale(.72)">
+                        <polygon class="voxel-left" points="-42,-10 0,10 0,48 -42,28"/><polygon class="voxel-right" points="42,-10 0,10 0,48 42,28"/><polygon class="voxel-top" points="0,-31 42,-10 0,10 -42,-10"/>
+                        <polygon class="voxel-left" points="-27,-38 0,-25 0,10 -27,-3"/><polygon class="voxel-right" points="27,-38 0,-25 0,10 27,-3"/><polygon class="voxel-rock" points="0,-52 27,-38 0,-25 -27,-38"/>
+                    </g>
+                    <g transform="translate(858 418) scale(.54)">
+                        <polygon class="voxel-left" points="-42,-10 0,10 0,48 -42,28"/><polygon class="voxel-right" points="42,-10 0,10 0,48 42,28"/><polygon class="voxel-top" points="0,-31 42,-10 0,10 -42,-10"/>
+                    </g>
+
+                    <text class="map-zone-label" x="362" y="195">ECOLOGICAL RIDGE</text>
+                    <text class="map-zone-label" x="842" y="264">URBAN / GIS DISTRICT</text>
+                    <text class="map-zone-label" x="472" y="499">FIELD &amp; MODELLING LOWLANDS</text>
+                    <text class="map-tiny-label" x="1108" y="564">REMOTE SENSING OCEAN</text>
+                    <text class="map-tiny-label" x="120" y="585">POINTILLIST RASTER / VECTOR TERRAIN</text>
+                </svg>
+
+                <button class="island-flag flag-profile" type="button" data-panel="profile" aria-label="Open Profile">
+                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
+                    <span class="flag-copy"><strong class="shared-title" data-title>Profile</strong><small>Background · experience · contact</small></span>
+                </button>
+
+                <button class="island-flag flag-projects" type="button" data-panel="projects" aria-label="Open Research Projects">
+                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
+                    <span class="flag-copy"><strong class="shared-title" data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span>
+                </button>
+
+                <button class="island-flag flag-skills" type="button" data-panel="skills" aria-label="Open Technical Skills">
+                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
+                    <span class="flag-copy flag-copy-left"><strong class="shared-title" data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span>
+                </button>
+
+                <button class="island-flag flag-gallery" type="button" data-panel="gallery" aria-label="Open Maps Models and Visuals">
+                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
+                    <span class="flag-copy"><strong class="shared-title" data-title>Maps · Models · Visuals</strong><small>Selected cartographic and analytical work</small></span>
+                </button>
+
+                <button class="island-flag flag-coding" type="button" data-panel="mini" aria-label="Open Data and Coding Projects">
+                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
+                    <span class="flag-copy flag-copy-left"><strong class="shared-title" data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span>
+                </button>
+
+                <button class="island-flag flag-contact" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard" aria-label="Open Contact Details">
+                    <span class="flag-marker" aria-hidden="true"><svg viewBox="0 0 48 65"><polygon class="flag-side-a" points="8 52 24 59 24 64 8 57"/><polygon class="flag-side-b" points="40 52 24 59 24 64 40 57"/><polygon class="flag-top" points="24 45 40 52 24 59 8 52"/><path class="flag-pole" d="M24 49V11"/><path class="flag-cloth" d="M25 7H45L39 14l6 7H25Z"/><path class="flag-cloth-hi" d="M27 9h12l-3 4H27Z"/><circle class="flag-dot" cx="24" cy="48" r="2.2"/></svg></span>
+                    <span class="flag-copy flag-copy-left"><strong>Contact</strong><small>Email · phone · professional links</small></span>
+                </button>
             </div>
 
-            <svg class="island-map-svg" viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-                <defs>
-                    <linearGradient id="islandLandGradient" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0" stop-color="#b8d996"/>
-                        <stop offset=".42" stop-color="#8fc37c"/>
-                        <stop offset="1" stop-color="#5e9d6d"/>
-                    </linearGradient>
-                    <linearGradient id="seaGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#0b4057"/>
-                        <stop offset="1" stop-color="#052839"/>
-                    </linearGradient>
-                    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#00131b" flood-opacity=".40"/>
-                    </filter>
-                    <clipPath id="islandClip">
-                        <path d="M167 348 C146 268 210 185 302 161 C350 105 449 92 511 133 C588 104 690 137 713 205 C796 225 841 296 816 361 C858 426 809 496 731 511 C683 578 580 577 521 547 C446 594 343 564 318 507 C235 500 180 448 192 390 C176 380 168 364 167 348Z"/>
-                    </clipPath>
-                </defs>
-
-                <rect width="1000" height="660" fill="url(#seaGradient)"/>
-
-                <g class="map-water-grid" opacity=".75">
-                    <line x1="0" y1="110" x2="1000" y2="110"/><line x1="0" y1="220" x2="1000" y2="220"/><line x1="0" y1="330" x2="1000" y2="330"/><line x1="0" y1="440" x2="1000" y2="440"/><line x1="0" y1="550" x2="1000" y2="550"/>
-                    <line x1="120" y1="0" x2="120" y2="660"/><line x1="280" y1="0" x2="280" y2="660"/><line x1="440" y1="0" x2="440" y2="660"/><line x1="600" y1="0" x2="600" y2="660"/><line x1="760" y1="0" x2="760" y2="660"/><line x1="920" y1="0" x2="920" y2="660"/>
-                </g>
-
-                <path class="map-swath" d="M-70 470 340 -20 510 -20 90 550Z"/>
-                <path class="map-swath" d="M660 -40 1020 310 1020 440 565 5Z"/>
-                <text class="map-small-label" x="73" y="528" transform="rotate(-38 73 528)">SENTINEL / EARTH OBSERVATION SWATH</text>
-
-                <path class="map-coast-halo" d="M167 348 C146 268 210 185 302 161 C350 105 449 92 511 133 C588 104 690 137 713 205 C796 225 841 296 816 361 C858 426 809 496 731 511 C683 578 580 577 521 547 C446 594 343 564 318 507 C235 500 180 448 192 390 C176 380 168 364 167 348Z"/>
-                <path class="map-coast" filter="url(#softShadow)" d="M167 348 C146 268 210 185 302 161 C350 105 449 92 511 133 C588 104 690 137 713 205 C796 225 841 296 816 361 C858 426 809 496 731 511 C683 578 580 577 521 547 C446 594 343 564 318 507 C235 500 180 448 192 390 C176 380 168 364 167 348Z"/>
-
-                <g clip-path="url(#islandClip)">
-                    <path class="map-forest" d="M275 190 C330 120 420 128 456 190 C432 252 358 273 294 248Z"/>
-                    <path class="map-forest" d="M565 151 C647 137 723 183 728 250 C682 289 607 277 563 233Z"/>
-                    <path class="map-forest" d="M600 349 C688 315 775 347 786 420 C743 482 657 489 598 447Z"/>
-                    <path class="map-agri" d="M245 302 C319 264 403 278 425 348 C387 407 293 421 227 382Z"/>
-                    <path class="map-agri" d="M389 424 C444 387 522 394 563 444 C548 504 474 539 404 510Z"/>
-                    <path class="map-wetland" d="M517 246 C566 218 626 236 644 285 C615 328 556 337 514 306Z"/>
-                    <path class="map-urban" d="M676 267 C731 243 798 276 805 326 C772 357 716 361 674 333Z"/>
-                    <path class="map-urban" d="M303 441 C355 425 402 455 403 494 C367 521 318 513 294 483Z"/>
-
-                    <path class="map-mountain" d="M405 330 455 222 496 318Z"/>
-                    <path class="map-mountain" d="M446 337 501 186 553 330Z"/>
-                    <path class="map-mountain" d="M502 342 552 239 601 344Z"/>
-
-                    <path class="map-river" d="M500 190 C486 245 512 280 481 326 C454 363 467 407 438 452"/>
-                    <path class="map-river" d="M496 317 C557 329 584 372 623 414"/>
-
-                    <path class="map-road-main" d="M219 359 C296 332 333 333 405 347 C477 361 540 337 620 315 C692 295 747 319 794 357"/>
-                    <path class="map-road-main" d="M353 497 C390 441 423 403 483 368 C543 333 613 283 687 234"/>
-                    <path class="map-road-secondary" d="M280 205 C347 239 381 273 410 341 C430 388 483 431 548 468"/>
-                    <path class="map-road-secondary" d="M620 172 C612 224 629 274 674 331 C699 363 713 413 697 467"/>
-                    <path class="map-road-secondary" d="M242 414 C321 395 390 408 465 444 C536 477 622 493 714 471"/>
-
-                    <path class="map-contour" d="M225 334 C226 238 332 176 425 178 C553 141 690 186 754 274 C821 363 750 454 650 486 C531 537 382 514 286 454 C240 425 220 385 225 334Z"/>
-                    <path class="map-contour" d="M280 337 C279 262 354 218 429 221 C530 192 640 226 691 293 C742 363 689 424 614 448 C518 487 401 470 330 425 C294 402 275 371 280 337Z"/>
-                    <path class="map-contour" d="M345 340 C346 287 393 258 445 258 C514 239 585 261 619 306 C653 353 618 394 568 411 C503 438 426 426 380 398 C356 383 342 362 345 340Z"/>
-
-                    <path class="map-boundary" d="M332 160 C358 256 357 378 318 507"/>
-                    <path class="map-boundary" d="M511 133 C507 239 526 409 521 547"/>
-                    <path class="map-boundary" d="M713 205 C650 280 628 401 731 511"/>
-                </g>
-
-                <g opacity=".85">
-                    <circle cx="120" cy="470" r="18" fill="#6daa78" stroke="#d0ecd9"/><circle cx="145" cy="493" r="8" fill="#6daa78"/>
-                    <circle cx="851" cy="232" r="14" fill="#6daa78" stroke="#d0ecd9"/><circle cx="872" cy="251" r="6" fill="#6daa78"/>
-                    <circle cx="804" cy="550" r="22" fill="#6daa78" stroke="#d0ecd9"/>
-                </g>
-
-                <text class="map-label" x="70" y="210">SPATIAL DATA SEA</text>
-                <text class="map-label" x="725" y="575">REMOTE SENSING OCEAN</text>
-                <text class="map-small-label" x="415" y="125">ELEVATION / HABITAT RIDGE</text>
-                <text class="map-small-label" x="680" y="300">URBAN ANALYTICS DISTRICT</text>
-
-                <g transform="translate(887 92)" opacity=".72">
-                    <path d="M-18 0 17 0 M0-18 0 18" stroke="#dff5f5" stroke-width="1.5"/>
-                    <path d="m0-24 5 12-5-3-5 3Z" fill="#59e18d"/>
-                    <text class="map-small-label" x="10" y="-9">N</text>
-                </g>
-            </svg>
-
-            <button class="island-pin pin-profile" type="button" data-panel="profile" aria-label="Open profile">
-                <span class="island-pin-dot"><span>P</span></span>
-                <span class="island-pin-label"><strong class="shared-title" data-title>Profile</strong><small>Background · experience · contact</small></span>
-            </button>
-
-            <button class="island-pin pin-projects" type="button" data-panel="projects" aria-label="Open Research Projects">
-                <span class="island-pin-dot"><span>R</span></span>
-                <span class="island-pin-label"><strong class="shared-title" data-title>Research Projects</strong><small>Environmental · ecological · spatial</small></span>
-            </button>
-
-            <button class="island-pin pin-skills" type="button" data-panel="skills" aria-label="Open Technical Skills">
-                <span class="island-pin-dot"><span>S</span></span>
-                <span class="island-pin-label"><strong class="shared-title" data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span>
-            </button>
-
-            <button class="island-pin pin-gallery" type="button" data-panel="gallery" aria-label="Open Maps Models and Visuals">
-                <span class="island-pin-dot"><span>M</span></span>
-                <span class="island-pin-label"><strong class="shared-title" data-title>Maps · Models · Visuals</strong><small>Selected cartographic and analytical work</small></span>
-            </button>
-
-            <button class="island-pin pin-coding" type="button" data-panel="mini" aria-label="Open Data and Coding Projects">
-                <span class="island-pin-dot"><span>D</span></span>
-                <span class="island-pin-label"><strong class="shared-title" data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span>
-            </button>
-
-            <button class="island-pin pin-contact" type="button" data-contact-toggle aria-expanded="false" aria-controls="islandContactCard">
-                <span class="island-pin-dot"><span>@</span></span>
-                <span class="island-pin-label"><strong>Contact</strong><small>Reveal email and professional links</small></span>
-            </button>
+            <div class="island-map-controls" aria-label="Map zoom controls">
+                <button class="island-zoom-btn" type="button" data-map-zoom="in" aria-label="Zoom in">+</button>
+                <button class="island-zoom-btn" type="button" data-map-zoom="out" aria-label="Zoom out">−</button>
+                <button class="island-zoom-btn island-zoom-reset" type="button" data-map-zoom="reset">Reset view</button>
+            </div>
+            <div class="island-zoom-readout" id="islandZoomReadout" aria-live="polite">100%</div>
 
             <svg class="island-compass" viewBox="0 0 100 100" aria-hidden="true">
-                <circle cx="50" cy="50" r="43" fill="none" stroke="rgba(226,245,245,.45)" stroke-width="2"/>
-                <circle cx="50" cy="50" r="31" fill="none" stroke="rgba(226,245,245,.25)"/>
-                <path d="M50 5 58 43 50 50 42 43Z" fill="#dff5f4"/><path d="M50 95 42 57 50 50 58 57Z" fill="rgba(223,245,244,.32)"/>
-                <path d="M5 50 43 42 50 50 43 58Z" fill="rgba(223,245,244,.25)"/><path d="M95 50 57 58 50 50 57 42Z" fill="rgba(223,245,244,.25)"/>
-                <text x="50" y="11" text-anchor="middle" fill="#59e18d" font-size="9" font-weight="900">N</text>
-                <text x="50" y="98" text-anchor="middle" fill="#dff5f4" font-size="8">S</text>
-                <text x="96" y="53" text-anchor="middle" fill="#dff5f4" font-size="8">E</text>
-                <text x="4" y="53" text-anchor="middle" fill="#dff5f4" font-size="8">W</text>
+                <circle cx="50" cy="50" r="42" fill="rgba(2,24,35,.45)" stroke="rgba(207,242,240,.32)" stroke-width="2"/>
+                <path d="M50 9 58 43 50 50 42 43Z" fill="#58e6a2"/><path d="M50 91 42 57 50 50 58 57Z" fill="rgba(219,245,244,.33)"/>
+                <path d="M9 50 43 42 50 50 43 58Z" fill="rgba(219,245,244,.20)"/><path d="M91 50 57 58 50 50 57 42Z" fill="rgba(219,245,244,.20)"/>
+                <text x="50" y="10" text-anchor="middle" fill="#dff8f4" font-size="9" font-weight="900">N</text>
             </svg>
-
-            <div class="island-scale" aria-hidden="true">SCHEMATIC · NOT TO SCALE<div class="island-scale-line"></div></div>
+            <div class="island-scale" aria-hidden="true">schematic digital terrain<div class="island-scale-line"></div></div>
         </section>
     </div>
 
     <div class="island-contact-backdrop" id="islandContactBackdrop" hidden></div>
     <aside class="island-contact-card" id="islandContactCard" hidden aria-label="Contact details">
         <div class="island-contact-top">
-            <div>
-                <h3>John Paolo Ramirez</h3>
-                <p>Environmental &amp; Geospatial Data Analyst</p>
-            </div>
+            <div><h3>John Paolo Ramirez</h3><p>Environmental &amp; Geospatial Data Analyst</p></div>
             <button class="island-contact-close" type="button" aria-label="Close contact details">×</button>
         </div>
         <p class="island-contact-summary">GIS, remote sensing, environmental research, spatial modelling and data-analysis work focused on translating environmental information into usable evidence.</p>
         <div class="island-contact-links">
-            <button class="island-contact-row island-contact-copy" type="button" data-copy-email="jpaoloramirez@gmail.com">
-                <span class="island-contact-icon">@</span><span><b>Email · click to copy</b><span>jpaoloramirez@gmail.com</span></span>
-            </button>
+            <button class="island-contact-row island-contact-copy" type="button" data-copy-email="jpaoloramirez@gmail.com"><span class="island-contact-icon">@</span><span><b>Email · click to copy</b><span>jpaoloramirez@gmail.com</span></span></button>
             <a class="island-contact-row" href="tel:+639275745752"><span class="island-contact-icon">☎</span><span><b>Mobile</b><span>+63 927 574 5752</span></span></a>
             <a class="island-contact-row" href="https://github.com/Johnny1996ornot" target="_blank" rel="noopener"><span class="island-contact-icon">GH</span><span><b>GitHub</b><span>Johnny1996ornot</span></span></a>
             <a class="island-contact-row" href="https://www.linkedin.com/in/john-paolo-ramirez-a21165171/" target="_blank" rel="noopener"><span class="island-contact-icon">in</span><span><b>LinkedIn</b><span>John Paolo Ramirez</span></span></a>
@@ -20484,12 +20544,13 @@ MOBILE RESEARCH FIGURES FIX
 })();
 
 </script>
-<script id="portfolio-v26-island-home-js">
+<script id="portfolio-v27-island-home-js">
 (() => {
     const root = document.getElementById('portfolioIslandHome');
     if (!root || root.dataset.islandInit === '1') return;
     root.dataset.islandInit = '1';
 
+    /* CONTACT */
     const card = document.getElementById('islandContactCard');
     const backdrop = document.getElementById('islandContactBackdrop');
     const toggles = Array.from(root.querySelectorAll('[data-contact-toggle]'));
@@ -20502,9 +20563,7 @@ MOBILE RESEARCH FIGURES FIX
         card.hidden = !open;
         backdrop.hidden = !open;
         toggles.forEach(btn => btn.setAttribute('aria-expanded', open ? 'true' : 'false'));
-        if (open) {
-            requestAnimationFrame(() => closeBtn?.focus({preventScroll:true}));
-        }
+        if (open) requestAnimationFrame(() => closeBtn?.focus({preventScroll:true}));
     }
 
     toggles.forEach(btn => btn.addEventListener('click', event => {
@@ -20512,10 +20571,8 @@ MOBILE RESEARCH FIGURES FIX
         event.stopPropagation();
         setContact(card?.hidden !== false);
     }));
-
     closeBtn?.addEventListener('click', () => setContact(false));
     backdrop?.addEventListener('click', () => setContact(false));
-
     document.addEventListener('keydown', event => {
         if (event.key === 'Escape' && card && !card.hidden) setContact(false);
     });
@@ -20529,11 +20586,10 @@ MOBILE RESEARCH FIGURES FIX
                 copied = true;
             }
         } catch (_) {}
-
         if (!copied) {
             const field = document.createElement('textarea');
             field.value = email;
-            field.setAttribute('readonly', '');
+            field.setAttribute('readonly','');
             field.style.position = 'fixed';
             field.style.opacity = '0';
             document.body.appendChild(field);
@@ -20541,13 +20597,135 @@ MOBILE RESEARCH FIGURES FIX
             try { copied = document.execCommand('copy'); } catch (_) {}
             field.remove();
         }
-
         if (status) {
             status.textContent = copied ? 'Email copied to clipboard.' : `Email: ${email}`;
             window.clearTimeout(status._timer);
             status._timer = window.setTimeout(() => { status.textContent = ''; }, 2200);
         }
     });
+
+    /* ZOOM + PAN */
+    const stage = document.getElementById('islandMapStage');
+    const world = document.getElementById('islandWorld');
+    const readout = document.getElementById('islandZoomReadout');
+    if (!stage || !world) return;
+
+    const state = { scale:1, x:0, y:0, min:.82, max:2.55 };
+    const pointers = new Map();
+    let dragStart = null;
+    let pinchStart = null;
+
+    const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+    function boundsFor(scale=state.scale) {
+        const r = stage.getBoundingClientRect();
+        return {
+            x: Math.max(0, r.width * (scale - 1) * .52 + 46),
+            y: Math.max(0, r.height * (scale - 1) * .52 + 46)
+        };
+    }
+    function clampPan() {
+        const b = boundsFor();
+        state.x = clamp(state.x,-b.x,b.x);
+        state.y = clamp(state.y,-b.y,b.y);
+    }
+    function apply() {
+        clampPan();
+        world.style.transform = `translate3d(${state.x}px,${state.y}px,0) scale(${state.scale})`;
+        if (readout) readout.textContent = `${Math.round(state.scale*100)}%`;
+    }
+    function zoomTo(next, clientX, clientY) {
+        const prev = state.scale;
+        next = clamp(next,state.min,state.max);
+        if (Math.abs(next-prev) < .001) return;
+        const r = stage.getBoundingClientRect();
+        const fx = (clientX ?? (r.left+r.width/2)) - (r.left+r.width/2);
+        const fy = (clientY ?? (r.top+r.height/2)) - (r.top+r.height/2);
+        const ratio = next/prev;
+        state.x = fx - (fx-state.x)*ratio;
+        state.y = fy - (fy-state.y)*ratio;
+        state.scale = next;
+        apply();
+    }
+    function resetView() {
+        state.scale = window.innerWidth <= 760 ? .96 : 1;
+        state.x = 0; state.y = 0;
+        apply();
+    }
+
+    root.querySelectorAll('[data-map-zoom]').forEach(btn => {
+        btn.addEventListener('click', event => {
+            event.preventDefault();
+            const mode = btn.dataset.mapZoom;
+            if (mode === 'in') zoomTo(state.scale + .20);
+            else if (mode === 'out') zoomTo(state.scale - .20);
+            else resetView();
+        });
+    });
+
+    stage.addEventListener('wheel', event => {
+        if (event.ctrlKey) return;
+        event.preventDefault();
+        const factor = event.deltaY > 0 ? .90 : 1.10;
+        zoomTo(state.scale * factor,event.clientX,event.clientY);
+    }, {passive:false});
+
+    function pointDistance(a,b) { return Math.hypot(a.x-b.x,a.y-b.y); }
+    function midpoint(a,b) { return {x:(a.x+b.x)/2,y:(a.y+b.y)/2}; }
+
+    stage.addEventListener('pointerdown', event => {
+        if (event.target.closest('button,a,input,textarea,select')) return;
+        stage.setPointerCapture?.(event.pointerId);
+        pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+        if (pointers.size === 1) {
+            dragStart = {px:event.clientX,py:event.clientY,x:state.x,y:state.y};
+            stage.classList.add('is-dragging');
+        } else if (pointers.size === 2) {
+            const [a,b] = Array.from(pointers.values());
+            pinchStart = {distance:pointDistance(a,b),scale:state.scale,mid:midpoint(a,b)};
+            stage.classList.remove('is-dragging');
+            stage.classList.add('is-pinching');
+        }
+    });
+
+    stage.addEventListener('pointermove', event => {
+        if (!pointers.has(event.pointerId)) return;
+        pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+        if (pointers.size >= 2) {
+            const [a,b] = Array.from(pointers.values());
+            const d = pointDistance(a,b);
+            if (!pinchStart || pinchStart.distance < 1) return;
+            const mid = midpoint(a,b);
+            zoomTo(pinchStart.scale * (d/pinchStart.distance),mid.x,mid.y);
+        } else if (dragStart) {
+            state.x = dragStart.x + (event.clientX-dragStart.px);
+            state.y = dragStart.y + (event.clientY-dragStart.py);
+            apply();
+        }
+    });
+
+    function endPointer(event) {
+        pointers.delete(event.pointerId);
+        if (pointers.size === 0) {
+            dragStart = null; pinchStart = null;
+            stage.classList.remove('is-dragging','is-pinching');
+        } else if (pointers.size === 1) {
+            const p = Array.from(pointers.values())[0];
+            dragStart = {px:p.x,py:p.y,x:state.x,y:state.y};
+            pinchStart = null;
+            stage.classList.remove('is-pinching');
+            stage.classList.add('is-dragging');
+        }
+    }
+    stage.addEventListener('pointerup',endPointer);
+    stage.addEventListener('pointercancel',endPointer);
+
+    stage.addEventListener('dblclick', event => {
+        if (event.target.closest('button')) return;
+        zoomTo(state.scale < 1.5 ? 1.6 : 1,event.clientX,event.clientY);
+    });
+
+    window.addEventListener('resize',apply,{passive:true});
+    resetView();
 })();
 </script>
 </body>
