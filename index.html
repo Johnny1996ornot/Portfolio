@@ -10038,7 +10038,7 @@ Clicking a year scrolls that year group to the top of the list.
     overflow-y: auto !important;
     overflow-x: hidden !important;
     scroll-behavior: smooth !important;
-    scroll-snap-type: y proximity !important;
+    scroll-snap-type: none !important;
     overscroll-behavior-y: contain !important;
     scrollbar-gutter: stable !important;
     padding: 2px 8px 60px 0 !important;
@@ -10050,7 +10050,7 @@ Clicking a year scrolls that year group to the top of the list.
     gap: 12px !important;
     width: 100% !important;
     margin: 0 0 24px !important;
-    scroll-snap-align: start !important;
+    scroll-snap-align: none !important;
     scroll-margin-top: 4px !important;
 }
 
@@ -11589,7 +11589,7 @@ that were surviving on phones and fixes carousel geometry after the morph.
         gap: 14px !important;
         padding: 0 !important;
         margin: 0 !important;
-        scroll-snap-align: start !important;
+        scroll-snap-align: none !important;
         scroll-snap-stop: always !important;
     }
 
@@ -12090,7 +12090,7 @@ Fixes reduced-laptop sticky-scene failure and excessive blank space.
 </style>
 <style id="portfolio-v28-voxel-tower">
 /* =========================================================
-PORTFOLIO V44 — PERFORMANCE-CLEAN VOXEL / PIXEL-ART PORTFOLIO TOWER
+PORTFOLIO V45 — PERFORMANCE-CLEAN VOXEL / PIXEL-ART PORTFOLIO TOWER
 Only the home navigation is replaced. Existing expanded portfolio
 sections and case studies remain unchanged.
 ========================================================= */
@@ -12723,7 +12723,7 @@ Case studies keep their dedicated research layouts.
 
 
 <style id="portfolio-v44-performance-overrides">
-/* V44 performance cleanup — visual design preserved, expensive live blur removed. */
+/* V45 performance cleanup — visual design preserved, expensive live blur removed. */
 #voxelPortfolioHome .voxel-help,
 #voxelPortfolioHome .voxel-control,
 #voxelPortfolioHome .voxel-key-button {
@@ -14049,7 +14049,7 @@ SECTION 14 — PANEL OPEN / CLOSE JAVASCRIPT
 
 function openPanel(panel) {
 
-    /* V44: stop the hidden WebGL homepage before constructing a full-screen section. */
+    /* V45: stop the hidden WebGL homepage before constructing a full-screen section. */
     document.body.classList.add("voxel-render-paused");
     window.dispatchEvent(new Event("portfolio:voxel-pause"));
 
@@ -14361,7 +14361,7 @@ function closeActivePanel() {
         activeCaseStudy = null;
         document.body.classList.remove("solar-orbits-paused");
         document.querySelectorAll(".solar-selected").forEach(el => el.classList.remove("solar-selected"));
-        /* V44: restart the 3D homepage only after the panel has fully closed. */
+        /* V45: restart the 3D homepage only after the panel has fully closed. */
         document.body.classList.remove("voxel-render-paused");
         window.dispatchEvent(new Event("portfolio:voxel-resume"));
     };
@@ -14397,7 +14397,7 @@ function positionCloseButton() {
 
 
 
-/* Legacy solar-system animation controller removed in V44: no active solar DOM remains. */
+/* Legacy solar-system animation controller removed in V45: no active solar DOM remains. */
 
 /* =========================================================
 HOME PANEL CLICK HANDLING
@@ -17210,6 +17210,30 @@ function bindResearchYearStack() {
 
     let rafId = 0;
     let programmaticScroll = false;
+    let programmaticTimer = 0;
+    let resizeTimer = 0;
+
+    /*
+       Give the final year enough trailing room so ANY year can truly reach
+       the top of the scroll viewport. Without this, years near the bottom
+       (especially 2021 / 2017) hit maxScroll early and appear to jump back
+       to 2022.
+    */
+    function ensureResearchTailRoom() {
+
+        const lastGroup = groups[groups.length - 1];
+
+        if (!lastGroup) {
+            return;
+        }
+
+        const neededTail = Math.max(
+            60,
+            stage.clientHeight - lastGroup.offsetHeight + 18
+        );
+
+        stage.style.paddingBottom = neededTail + "px";
+    }
 
     function setActiveYear(year) {
 
@@ -17243,20 +17267,45 @@ function bindResearchYearStack() {
             return;
         }
 
+        ensureResearchTailRoom();
+
         programmaticScroll = true;
+        window.clearTimeout(programmaticTimer);
         setActiveYear(year);
 
+        const targetTop = Math.max(0, group.offsetTop - 2);
+
         stage.scrollTo({
-            top: Math.max(0, group.offsetTop - 2),
+            top: targetTop,
             behavior: smooth ? "smooth" : "auto"
         });
 
-        window.setTimeout(
-            () => {
-                programmaticScroll = false;
-            },
-            smooth ? 420 : 40
-        );
+        /* Keep the clicked year authoritative until the smooth scroll finishes. */
+        const release = () => {
+            programmaticScroll = false;
+            setActiveYear(year);
+        };
+
+        if (!smooth) {
+            programmaticTimer = window.setTimeout(release, 60);
+            return;
+        }
+
+        const started = performance.now();
+
+        const waitForTarget = () => {
+            const closeEnough = Math.abs(stage.scrollTop - targetTop) <= 3;
+            const timedOut = performance.now() - started > 950;
+
+            if (closeEnough || timedOut) {
+                release();
+                return;
+            }
+
+            requestAnimationFrame(waitForTarget);
+        };
+
+        requestAnimationFrame(waitForTarget);
     }
 
     function updateActiveFromScroll() {
@@ -17319,6 +17368,17 @@ function bindResearchYearStack() {
         scheduleUpdate,
         { passive: true }
     );
+
+    window.addEventListener(
+        "resize",
+        () => {
+            window.clearTimeout(resizeTimer);
+            resizeTimer = window.setTimeout(ensureResearchTailRoom, 120);
+        },
+        { passive: true }
+    );
+
+    ensureResearchTailRoom();
 
     scrollToYear(
         buttons[0].dataset.researchYearTarget,
@@ -19709,7 +19769,7 @@ MOBILE RESEARCH FIGURES FIX
     alpha:true,
     powerPreference:'high-performance'
   });
-  /* V44: 1.5× desktop / 1.25× mobile is visually crisp at this canvas size but
+  /* V45: 1.5× desktop / 1.25× mobile is visually crisp at this canvas size but
      substantially cheaper than the previous 2× / 1.5× render targets. */
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.25 : 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -20419,7 +20479,7 @@ MOBILE RESEARCH FIGURES FIX
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* =========================================================
-  V44 PERFORMANCE SCHEDULER
+  V45 PERFORMANCE SCHEDULER
   - 60 fps while the user is actively rotating/zooming
   - 30 fps desktop / 24 fps mobile for ambient animation
   - WebGL loop stops completely behind expanded portfolio sections
