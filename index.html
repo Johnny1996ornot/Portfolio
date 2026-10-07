@@ -21139,7 +21139,7 @@ MOBILE RESEARCH FIGURES FIX
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = .075;
-  /* V40: panning the OrbitControls target is disabled. The projection shifts instead,
+  /* V41: panning the OrbitControls target is disabled. The projection shifts instead,
      so rotating always remains centered on the 3D tower even after moving it on screen. */
   controls.enablePan = false;
   controls.screenSpacePanning = false;
@@ -21189,9 +21189,10 @@ MOBILE RESEARCH FIGURES FIX
   const scrollingTitleBands=[];
 
   function addScrollingTitleBands(parent, meta, index){
-    /* V40 — section titles live on the platform edges instead of floating beside the tower.
-       The same title continuously scrolls around all four sides like a pixel marquee. */
-    const logicalW=1536, logicalH=128;
+    /* V41 — thicker platform fascia with larger scrolling section titles.
+       The same title continuously scrolls around all four sides like a pixel marquee.
+       V41 doubles the readable fascia height while keeping the top surface fixed. */
+    const logicalW=1800, logicalH=196;
     const cnv=document.createElement('canvas');
     cnv.width=logicalW;
     cnv.height=logicalH;
@@ -21206,12 +21207,12 @@ MOBILE RESEARCH FIGURES FIX
     ctx.fillRect(0,logicalH-5,logicalW,5);
 
     const label=('   '+meta.title+'   •   ');
-    ctx.font='900 48px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.font='900 88px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
     ctx.textBaseline='middle';
     ctx.fillStyle='#f4fffd';
     ctx.shadowColor='rgba(0,0,0,.7)';
     ctx.shadowBlur=4;
-    const measured=Math.max(360,ctx.measureText(label).width);
+    const measured=Math.max(620,ctx.measureText(label).width);
     for(let x=-measured;x<logicalW+measured;x+=measured){
       ctx.fillText(label,x,logicalH/2+2);
     }
@@ -21237,16 +21238,33 @@ MOBILE RESEARCH FIGURES FIX
       toneMapped:false
     });
 
-    const bandH=.38;
-    const bandW=meta.size*.92;
-    const edge=meta.size*.5+.045;
-    const y=.03;
+    /* V41: visually double the platform edge thickness WITHOUT moving the floor top.
+       The added fascia hangs downward, so props stay in the same place and the floor below
+       remains visible because the inter-floor gaps are much larger than this skirt. */
+    const bandH=.72;
+    const bandW=meta.size*.94;
+    const edge=meta.size*.5+.075;
+    const y=-.15;
+
+    const fasciaH=.78;
+    const fasciaY=-.18;
+    const fasciaDepth=.14;
+    const fasciaColor=shade(meta.color,.28);
+    const fasciaFront=box(bandW,fasciaH,fasciaDepth,fasciaColor,{emissive:meta.color,emissiveIntensity:.025});
+    fasciaFront.position.set(0,fasciaY,edge-.03); mark(fasciaFront,meta.key); parent.add(fasciaFront);
+    const fasciaBack=box(bandW,fasciaH,fasciaDepth,fasciaColor,{emissive:meta.color,emissiveIntensity:.025});
+    fasciaBack.position.set(0,fasciaY,-edge+.03); mark(fasciaBack,meta.key); parent.add(fasciaBack);
+    const fasciaRight=box(fasciaDepth,fasciaH,bandW,fasciaColor,{emissive:meta.color,emissiveIntensity:.025});
+    fasciaRight.position.set(edge-.03,fasciaY,0); mark(fasciaRight,meta.key); parent.add(fasciaRight);
+    const fasciaLeft=box(fasciaDepth,fasciaH,bandW,fasciaColor,{emissive:meta.color,emissiveIntensity:.025});
+    fasciaLeft.position.set(-edge+.03,fasciaY,0); mark(fasciaLeft,meta.key); parent.add(fasciaLeft);
+
     const planeGeo=new THREE.PlaneGeometry(bandW,bandH);
     const placements=[
-      [0,y, edge, 0],
-      [0,y,-edge, Math.PI],
-      [ edge,y,0, Math.PI/2],
-      [-edge,y,0,-Math.PI/2]
+      [0,y, edge+.006, 0],
+      [0,y,-edge-.006, Math.PI],
+      [ edge+.006,y,0, Math.PI/2],
+      [-edge-.006,y,0,-Math.PI/2]
     ];
     const meshes=[];
     placements.forEach(([x,yy,z,ry])=>{
@@ -21254,7 +21272,7 @@ MOBILE RESEARCH FIGURES FIX
       mesh.material.map=tex;
       mesh.position.set(x,yy,z);
       mesh.rotation.y=ry;
-      mesh.renderOrder=8;
+      mesh.renderOrder=9;
       mark(mesh,meta.key);
       parent.add(mesh);
       meshes.push(mesh);
@@ -21262,7 +21280,7 @@ MOBILE RESEARCH FIGURES FIX
 
     scrollingTitleBands.push({
       tex,
-      speed:(index%2?-.000020:.000020),
+      speed:(index%2?-.000014:.000014),
       phase:index*.137,
       meshes
     });
@@ -21524,7 +21542,7 @@ MOBILE RESEARCH FIGURES FIX
       const roomLight=new THREE.PointLight(0xffd787,3.8,3.2,2); roomLight.position.set(1.25,1.30,1.10); g.add(roomLight);
     }
     if(meta.key==='skills'){
-      /* V40 — open disco/equalizer stage. The three blocking rear columns remain removed.
+      /* V41 — open disco/equalizer stage. The three blocking rear columns remain removed.
          The equalizer bars stay at floor level; the platform above the disco stage is raised instead. */
       const colors=[0x36d7ff,0x59e59f,0xffbf4e,0xa66cff,0xff6fa7];
       colors.forEach((c,i)=>{
