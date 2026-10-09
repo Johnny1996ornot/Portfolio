@@ -12855,40 +12855,165 @@ V49 — SYNCHRONISED SECTION-TITLE MORPH
 
 <style id="v50-grab-and-detached-floor">
 /* =========================================================
-V52 — DETACHED FLOOR LAYOUT + 3D GRID JOYSTICK
-- No HTML move button below the tower.
-- Tower movement is controlled by a real 3D joystick sitting on the grid.
-- Detached floors are larger, fully framed and caption-free.
+V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
+- Detached floor previews are centered on the left information rail.
 - Technical Skills stays clean with no detached floor.
-- Featured Projects uses a wider modal with a dedicated large floor preview.
+- Featured Projects keeps its large dedicated floor preview.
+- The grid joystick is a real hold-and-drag control attached visually to the net floor.
+- Dragging the joystick pans the WHOLE 3D composition left/right/up/down on screen.
+- Orbit rotation is completely disabled while the joystick is held.
 ========================================================= */
 
 /* The old screen-space grab control is intentionally disabled/removed in V52.
    The interactive control now exists as 3D geometry on the grid itself. */
 .voxel-grab-control{display:none !important;}
-.voxel-canvas-wrap.is-tower-moving #voxelPortfolioCanvas{cursor:grabbing !important;}
+.voxel-canvas-wrap.is-tower-moving #voxelPortfolioCanvas{cursor:default !important;}
+
+/* V53 — the joystick is an HTML interaction surface placed visually on the
+   bottom net/grid. Because it is NOT part of the Three.js canvas, OrbitControls
+   can never mistake a joystick drag for a rotation gesture. */
+.voxel-grid-joystick{
+  position:absolute;
+  z-index:75;
+  right:clamp(54px,7.2vw,118px);
+  bottom:clamp(28px,4.2vh,54px);
+  width:70px;
+  height:54px;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,.34));
+}
+.voxel-grid-joystick:active,
+.voxel-grid-joystick.is-dragging{cursor:grabbing;}
+.voxel-grid-joystick::before{
+  content:'';
+  position:absolute;
+  left:5px;
+  right:5px;
+  bottom:0;
+  height:18px;
+  border:2px solid rgba(88,230,194,.88);
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse at center,rgba(88,230,194,.22),rgba(4,28,42,.92) 58%,rgba(2,15,28,.96) 72%);
+  box-shadow:
+    inset 0 0 0 2px rgba(53,215,255,.10),
+    0 0 18px rgba(88,230,194,.20);
+}
+.voxel-grid-joystick::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  width:42px;
+  height:42px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(88,230,194,.08),rgba(88,230,194,0) 68%);
+  pointer-events:none;
+}
+.voxel-grid-joystick-cross{
+  position:absolute;
+  left:50%;
+  bottom:5px;
+  width:48px;
+  height:26px;
+  transform:translateX(-50%);
+  opacity:.42;
+  pointer-events:none;
+}
+.voxel-grid-joystick-cross::before,
+.voxel-grid-joystick-cross::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  background:rgba(160,255,232,.72);
+  border-radius:99px;
+  transform:translate(-50%,-50%);
+}
+.voxel-grid-joystick-cross::before{width:34px;height:1px;}
+.voxel-grid-joystick-cross::after{width:1px;height:20px;}
+.voxel-grid-joystick-stick{
+  position:absolute;
+  left:50%;
+  bottom:9px;
+  width:6px;
+  height:29px;
+  transform:translateX(-50%);
+  transform-origin:50% 100%;
+  border-radius:99px;
+  background:linear-gradient(180deg,#b9fff0,#43d9c0 72%,#168c82);
+  box-shadow:0 0 10px rgba(88,230,194,.34);
+  pointer-events:none;
+  transition:transform .11s ease;
+}
+.voxel-grid-joystick-knob{
+  position:absolute;
+  left:50%;
+  top:-10px;
+  width:20px;
+  height:20px;
+  transform:translateX(-50%);
+  border:2px solid rgba(202,255,246,.75);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 28%,#d9fff5,#58e6c2 46%,#138a7f 100%);
+  box-shadow:0 0 14px rgba(88,230,194,.45);
+}
+.voxel-grid-joystick:hover::before,
+.voxel-grid-joystick:focus-visible::before{
+  border-color:#b8fff0;
+  box-shadow:
+    inset 0 0 0 2px rgba(53,215,255,.14),
+    0 0 24px rgba(88,230,194,.34);
+}
+.voxel-grid-joystick:focus-visible{
+  outline:2px solid rgba(184,255,240,.72);
+  outline-offset:5px;
+  border-radius:50%;
+}
+.voxel-grid-joystick.is-dragging .voxel-grid-joystick-stick{
+  transition:none;
+}
+
+@media(max-width:800px){
+  .voxel-grid-joystick{
+    right:clamp(22px,6vw,42px);
+    bottom:clamp(88px,12vh,112px);
+    width:66px;
+    height:52px;
+  }
+}
 
 /* Selected-floor renderer inside regular opened sections. */
 .detached-floor-stage{
   position:absolute;
-  left:clamp(48px,3.2vw,66px);
-  top:calc(var(--rail-copy-top,300px) + 88px);
+  /* The desktop content rail is clamp(520px, 40vw, 790px).
+     Put the preview on the TRUE horizontal center of that rail instead of
+     using a fixed left offset. */
+  left:calc(clamp(520px,40vw,790px) / 2);
+  top:calc(var(--rail-copy-top,300px) + 70px);
   bottom:auto;
   width:min(31vw,455px);
-  height:clamp(210px,27vh,270px);
+  height:clamp(205px,25vh,250px);
   z-index:14;
   pointer-events:none;
   overflow:visible;
   opacity:0;
-  transform:translate3d(0,10px,0) scale(.95);
-  transform-origin:left top;
+  transform:translate3d(-50%,10px,0) scale(.95);
+  transform-origin:center top;
   transition:opacity .18s ease,transform .28s cubic-bezier(.2,.78,.22,1);
   filter:drop-shadow(0 22px 28px rgba(0,0,0,.25));
 }
 .expansion-skills .detached-floor-stage{display:none !important;}
 .expansion.content-visible .detached-floor-stage{
   opacity:1;
-  transform:translate3d(0,0,0) scale(1);
+  transform:translate3d(-50%,0,0) scale(1);
 }
 .detached-floor-stage::before{
   content:'';
@@ -12911,7 +13036,7 @@ V52 — DETACHED FLOOR LAYOUT + 3D GRID JOYSTICK
 .expansion.case-study-active .detached-floor-stage{opacity:0 !important;visibility:hidden;}
 .expansion.morph-closing .detached-floor-stage{
   opacity:0 !important;
-  transform:translate3d(0,12px,0) scale(.94) !important;
+  transform:translate3d(-50%,12px,0) scale(.94) !important;
   transition-duration:.09s !important;
 }
 
@@ -12927,7 +13052,14 @@ V52 — DETACHED FLOOR LAYOUT + 3D GRID JOYSTICK
     top:var(--detached-mobile-top,138px);
     width:auto;
     height:190px;
+    transform:translate3d(0,10px,0) scale(.95);
     transform-origin:center top;
+  }
+  .expansion.content-visible .detached-floor-stage{
+    transform:translate3d(0,0,0) scale(1);
+  }
+  .expansion.morph-closing .detached-floor-stage{
+    transform:translate3d(0,12px,0) scale(.94) !important;
   }
   .expansion-skills .detached-floor-stage{display:none !important;}
 }
@@ -13003,6 +13135,20 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
   <section class="voxel-stage" id="voxelStage" aria-label="Interactive 3D pixel-art portfolio tower. Drag to rotate, scroll or pinch to zoom, and select a layer to enter a portfolio section.">
     <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
       <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
+
+      <button
+        class="voxel-grid-joystick"
+        id="voxelGridJoystick"
+        type="button"
+        aria-label="Hold and drag to move the entire 3D platform left, right, forward, or back"
+        title="Hold and drag to move the platform"
+      >
+        <span class="voxel-grid-joystick-cross" aria-hidden="true"></span>
+        <span class="voxel-grid-joystick-stick" aria-hidden="true">
+          <span class="voxel-grid-joystick-knob"></span>
+        </span>
+      </button>
+
       <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
     </div>
 
@@ -13023,7 +13169,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · drag the grid joystick to move the tower · wheel/pinch to zoom · click a floor / scrolling title</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to rotate · hold the grid joystick to move the whole platform · wheel/pinch to zoom · click a floor / scrolling title</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -20029,7 +20175,8 @@ MOBILE RESEARCH FIGURES FIX
   const canvas = document.getElementById('voxelPortfolioCanvas');
   const wrap = document.getElementById('voxelCanvasWrap');
   const loading = document.getElementById('voxelLoading');
-  const grabButton = null; // V52: movement is handled by the 3D grid joystick.
+  const gridJoystick = document.getElementById('voxelGridJoystick');
+  const grabButton = null; // legacy screen-space grab control remains disabled.
   if (!root || !canvas || !wrap || root.dataset.voxelInit === '1') return;
   root.dataset.voxelInit = '1';
 
@@ -20810,45 +20957,11 @@ MOBILE RESEARCH FIGURES FIX
 
 
   /* =========================================================
-  V52 — 3D GRID JOYSTICK
-  A real joystick lives on the net/grid floor. Hold its knob/base and drag to
-  move the whole tower left/right and forward/back. Orbit rotation is disabled
-  only during the joystick drag, then restored on release.
+  V53 — GRID JOYSTICK
+  The actual interactive joystick is the HTML control layered over the net/grid.
+  Keeping the interaction outside the canvas prevents OrbitControls from ever
+  receiving the same hold-and-drag gesture.
   ========================================================= */
-  const joystickGroup=new THREE.Group();
-  joystickGroup.position.set(-5.6,-4.12,4.9);
-  scene.add(joystickGroup);
-
-  const joystickBaseMat=new THREE.MeshStandardMaterial({
-    color:0x062838,metalness:.28,roughness:.48,
-    emissive:0x0f6375,emissiveIntensity:.35
-  });
-  const joystickAccentMat=new THREE.MeshStandardMaterial({
-    color:0x58e6c2,metalness:.45,roughness:.28,
-    emissive:0x2acfae,emissiveIntensity:.72
-  });
-  const joystickBase=new THREE.Mesh(new THREE.CylinderGeometry(.72,.82,.15,24),joystickBaseMat);
-  joystickBase.position.y=.08;
-  joystickGroup.add(joystickBase);
-  const joystickRing=new THREE.Mesh(new THREE.TorusGeometry(.58,.045,8,28),joystickAccentMat);
-  joystickRing.rotation.x=Math.PI/2;
-  joystickRing.position.y=.17;
-  joystickGroup.add(joystickRing);
-  const joystickStem=new THREE.Mesh(new THREE.CylinderGeometry(.07,.085,.52,10),joystickAccentMat);
-  joystickStem.position.y=.43;
-  joystickGroup.add(joystickStem);
-  const joystickKnob=new THREE.Mesh(new THREE.IcosahedronGeometry(.22,1),joystickAccentMat);
-  joystickKnob.position.y=.72;
-  joystickGroup.add(joystickKnob);
-  /* Invisible larger hit target makes the joystick comfortable on phones. */
-  const joystickHit=new THREE.Mesh(
-    new THREE.CylinderGeometry(.98,.98,.72,16),
-    new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false})
-  );
-  joystickHit.position.y=.38;
-  joystickGroup.add(joystickHit);
-  const joystickTargets=[joystickBase,joystickRing,joystickStem,joystickKnob,joystickHit];
-  joystickTargets.forEach(o=>o.userData.gridJoystick=true);
 
   /* Subtle environmental dust plus a restrained sparkle layer. */
   const pts=[]; for(let i=0;i<120;i++){ const a=seeded(i*7.7)*Math.PI*2,r=6.5+seeded(i*3.3)*9.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*18-2.2,Math.sin(a)*r); }
@@ -20890,8 +21003,8 @@ MOBILE RESEARCH FIGURES FIX
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight);
     const mobile=window.innerWidth<=800;
 
-    /* V50: preserve any user-positioned X/Z tower offset across resize/orientation changes.
-       The pivot remains attached to the tower itself. */
+    /* The orbit pivot remains attached to the tower. Screen panning is handled
+       separately by viewShiftX/viewShiftY and survives resize/orientation changes. */
     controls.target.x=tower.position.x;
     controls.target.y=6.6;
     controls.target.z=tower.position.z;
@@ -20923,95 +21036,113 @@ MOBILE RESEARCH FIGURES FIX
     applyProjection();
   }
 
-  /* V50 — HOLD + DRAG MOVE MODE.
-     The tower and OrbitControls pivot move together on the ground plane, so once the
-     button is released the building still rotates around itself instead of the page. */
+  /* V53 — HOLD + DRAG SCREEN-PAN MODE.
+     This is intentionally NOT tower rotation and NOT OrbitControls panning.
+     It changes the same orthographic view-shift values used by the arrow buttons,
+     so dragging the joystick right/left/up/down visibly moves the ENTIRE 3D
+     composition in that direction on the screen. */
   let towerMoveActive=false;
   let towerMovePointer=null;
   let towerMoveLastX=0;
   let towerMoveLastY=0;
+  let joystickVisualX=0;
+  let joystickVisualY=0;
 
   function setTowerMoveMode(active,pointerId=null){
     towerMoveActive=active;
     towerMovePointer=active?pointerId:null;
     controls.enabled=!active;
     wrap.classList.toggle('is-tower-moving',active);
-    joystickAccentMat.emissiveIntensity=active?1.35:.72;
-    joystickBaseMat.emissiveIntensity=active?.62:.35;
+    gridJoystick?.classList.toggle('is-dragging',active);
+
     if(!active){
-      joystickKnob.position.x=0;
-      joystickKnob.position.z=0;
-      joystickStem.rotation.x=0;
-      joystickStem.rotation.z=0;
+      joystickVisualX=0;
+      joystickVisualY=0;
+      const stick=gridJoystick?.querySelector('.voxel-grid-joystick-stick');
+      if(stick) stick.style.transform='translateX(-50%) rotateX(0deg) rotateZ(0deg)';
     }
     boostInteraction(active?1400:500);
   }
 
-  function translateTowerOnGround(dx,dy){
+  function panWholeComposition(dx,dy){
     if(!towerMoveActive)return;
+
+    /* Convert pointer pixels to orthographic world units.
+       The signs are chosen so the content follows the user's hand:
+       drag right -> platform moves right; drag down -> platform moves down. */
     const worldPerPixel=(lastFrustum/Math.max(camera.zoom,.35))/Math.max(wrap.clientHeight,1);
-    const right=new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld,0);right.y=0;
-    if(right.lengthSq()<.00001)right.set(1,0,0); else right.normalize();
-    const forward=new THREE.Vector3();camera.getWorldDirection(forward);forward.y=0;
-    if(forward.lengthSq()<.00001)forward.set(0,0,-1); else forward.normalize();
 
-    const delta=right.multiplyScalar(dx*worldPerPixel*1.02)
-      .add(forward.multiplyScalar(-dy*worldPerPixel*1.02));
+    viewShiftX -= dx*worldPerPixel;
+    viewShiftY += dy*worldPerPixel;
 
-    const oldX=tower.position.x, oldZ=tower.position.z;
-    const nextX=THREE.MathUtils.clamp(oldX+delta.x,-5.4,6.2);
-    const nextZ=THREE.MathUtils.clamp(oldZ+delta.z,-5.0,5.0);
-    const actualX=nextX-oldX, actualZ=nextZ-oldZ;
-    tower.position.x=nextX;tower.position.z=nextZ;
-    controls.target.x+=actualX;controls.target.z+=actualZ;
+    /* Keep the composition reachable while still allowing a much larger travel
+       range than the old ground-plane clamp. */
+    const horizontalLimit=Math.max(7.5,lastFrustum*1.05);
+    const verticalLimit=Math.max(6.0,lastFrustum*.82);
+    viewShiftX=THREE.MathUtils.clamp(viewShiftX,-horizontalLimit,horizontalLimit);
+    viewShiftY=THREE.MathUtils.clamp(viewShiftY,-verticalLimit,verticalLimit);
+
+    applyProjection();
     boostInteraction(900);
   }
 
-  /* V52: joystick pointer interaction is attached to the canvas in capture phase,
-     so OrbitControls never receives the same drag while MOVE mode is active. */
-  function hitJoystickFromEvent(ev){
-    const r=canvas.getBoundingClientRect();
-    pointer.x=((ev.clientX-r.left)/r.width)*2-1;
-    pointer.y=-((ev.clientY-r.top)/r.height)*2+1;
-    raycaster.setFromCamera(pointer,camera);
-    return raycaster.intersectObjects(joystickTargets,false)[0]?.object || null;
+  function updateJoystickVisual(dx,dy){
+    const stick=gridJoystick?.querySelector('.voxel-grid-joystick-stick');
+    if(!stick)return;
+
+    joystickVisualX=THREE.MathUtils.clamp(joystickVisualX+dx,-16,16);
+    joystickVisualY=THREE.MathUtils.clamp(joystickVisualY+dy,-12,12);
+
+    const rz=THREE.MathUtils.clamp(joystickVisualX*.72,-12,12);
+    const rx=THREE.MathUtils.clamp(-joystickVisualY*.72,-10,10);
+    stick.style.transform=`translateX(-50%) translate(${joystickVisualX*.18}px,${joystickVisualY*.10}px) rotateX(${rx}deg) rotateZ(${rz}deg)`;
   }
 
-  canvas.addEventListener('pointerdown',ev=>{
-    const hit=hitJoystickFromEvent(ev);
-    if(!hit)return;
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-    towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
-    canvas.setPointerCapture?.(ev.pointerId);
-    setTowerMoveMode(true,ev.pointerId);
-  },{capture:true});
+  if(gridJoystick){
+    gridJoystick.addEventListener('pointerdown',ev=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      towerMoveLastX=ev.clientX;
+      towerMoveLastY=ev.clientY;
+      gridJoystick.setPointerCapture?.(ev.pointerId);
+      setTowerMoveMode(true,ev.pointerId);
+    });
 
-  canvas.addEventListener('pointermove',ev=>{
-    if(!towerMoveActive || ev.pointerId!==towerMovePointer)return;
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-    const dx=ev.clientX-towerMoveLastX,dy=ev.clientY-towerMoveLastY;
-    towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
-    translateTowerOnGround(dx,dy);
-    /* Small physical response in the knob, while the tower itself moves freely. */
-    joystickKnob.position.x=THREE.MathUtils.clamp(dx*.018,-.18,.18);
-    joystickKnob.position.z=THREE.MathUtils.clamp(dy*.018,-.18,.18);
-    joystickStem.rotation.z=THREE.MathUtils.clamp(-dx*.004,-.12,.12);
-    joystickStem.rotation.x=THREE.MathUtils.clamp(dy*.004,-.12,.12);
-  },{capture:true});
+    gridJoystick.addEventListener('pointermove',ev=>{
+      if(!towerMoveActive || ev.pointerId!==towerMovePointer)return;
+      ev.preventDefault();
+      ev.stopPropagation();
 
-  const finishJoystickDrag=ev=>{
-    if(!towerMoveActive || (towerMovePointer!==null && ev.pointerId!==towerMovePointer))return;
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-    try{canvas.releasePointerCapture?.(ev.pointerId);}catch(_){ }
-    setTowerMoveMode(false);
-  };
-  canvas.addEventListener('pointerup',finishJoystickDrag,{capture:true});
-  canvas.addEventListener('pointercancel',finishJoystickDrag,{capture:true});
-  canvas.addEventListener('lostpointercapture',()=>{if(towerMoveActive)setTowerMoveMode(false);});
+      const dx=ev.clientX-towerMoveLastX;
+      const dy=ev.clientY-towerMoveLastY;
+      towerMoveLastX=ev.clientX;
+      towerMoveLastY=ev.clientY;
 
+      panWholeComposition(dx,dy);
+      updateJoystickVisual(dx,dy);
+    });
+
+    const finishJoystickDrag=ev=>{
+      if(!towerMoveActive || (towerMovePointer!==null && ev.pointerId!==towerMovePointer))return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      try{gridJoystick.releasePointerCapture?.(ev.pointerId);}catch(_){ }
+      setTowerMoveMode(false);
+    };
+
+    gridJoystick.addEventListener('pointerup',finishJoystickDrag);
+    gridJoystick.addEventListener('pointercancel',finishJoystickDrag);
+    gridJoystick.addEventListener('lostpointercapture',()=>{if(towerMoveActive)setTowerMoveMode(false);});
+
+    /* Keyboard fallback: arrows on the focused joystick move the view too. */
+    gridJoystick.addEventListener('keydown',ev=>{
+      const step=34;
+      if(ev.key==='ArrowLeft'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(-step,0);setTowerMoveMode(false);}
+      if(ev.key==='ArrowRight'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(step,0);setTowerMoveMode(false);}
+      if(ev.key==='ArrowUp'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(0,-step);setTowerMoveMode(false);}
+      if(ev.key==='ArrowDown'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(0,step);setTowerMoveMode(false);}
+    });
+  }
 
   /* Shift + wheel/trackpad moves the composition vertically without moving the orbit pivot. */
   canvas.addEventListener('wheel',ev=>{
@@ -21033,11 +21164,11 @@ MOBILE RESEARCH FIGURES FIX
     if(hovered && highlightMaterials.has(hovered)) highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.22);
     canvas.style.cursor=hovered?'pointer':'grab';
   }
-  canvas.addEventListener('pointermove',ev=>{ if(ev.buttons || towerMoveActive)return; const j=hitJoystickFromEvent(ev); if(j){setHover(null);canvas.style.cursor='grab';return;} const h=hitFromEvent(ev);setHover(h?.userData?.section||null); });
+  canvas.addEventListener('pointermove',ev=>{ if(ev.buttons || towerMoveActive)return; const h=hitFromEvent(ev);setHover(h?.userData?.section||null); });
   canvas.addEventListener('pointerleave',()=>setHover(null));
-  canvas.addEventListener('pointerdown',ev=>{if(hitJoystickFromEvent(ev))return;down={x:ev.clientX,y:ev.clientY};});
+  canvas.addEventListener('pointerdown',ev=>{if(towerMoveActive)return;down={x:ev.clientX,y:ev.clientY};});
   canvas.addEventListener('pointerup',ev=>{
-    if(towerMoveActive || hitJoystickFromEvent(ev)){down=null;return;}
+    if(towerMoveActive){down=null;return;}
     if(!down)return; const moved=Math.hypot(ev.clientX-down.x,ev.clientY-down.y);down=null;if(moved>7)return;
     const h=hitFromEvent(ev);const key=h?.userData?.section;if(key)openPortfolioSection(key);
   });
@@ -21053,6 +21184,7 @@ MOBILE RESEARCH FIGURES FIX
     if(action==='reset'){
       if(towerMoveActive)setTowerMoveMode(false);
       viewShiftX=0;viewShiftY=0;
+      gridJoystick?.classList.remove('is-dragging');
       const tx=window.innerWidth<=800?0:.65;
       tower.position.set(tx,0,0);
       camera.position.set(tx+12,12.0,14);
