@@ -12234,7 +12234,42 @@ body { background:var(--v28-bg) !important; }
 }
 .voxel-control:hover { background:rgba(13,53,66,.9);border-color:rgba(88,230,162,.55); }
 .voxel-control:active { transform:scale(.96); }
+
 .voxel-control.reset { font-size:.72rem;text-transform:uppercase;letter-spacing:.08em; }
+
+/* V55 — JOYSTICK + ZOOM + RESET = ONE CONTROL CARD */
+.voxel-controls{
+  position:absolute;
+  z-index:80;
+  top:clamp(22px,2.2vw,38px);
+  left:50%;
+  right:auto;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:8px 10px 8px 12px;
+  border:1px solid rgba(104,225,218,.24);
+  border-radius:17px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),
+    rgba(2,16,29,.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 14px 34px rgba(0,0,0,.22);
+  backdrop-filter:blur(12px) saturate(120%);
+  -webkit-backdrop-filter:blur(12px) saturate(120%);
+}
+.voxel-control-divider{
+  flex:0 0 1px;
+  width:1px;
+  height:36px;
+  margin:0 2px;
+  background:rgba(104,225,218,.18);
+  border-radius:999px;
+}
+
 
 .voxel-section-key {
   position:absolute;
@@ -12855,15 +12890,14 @@ V49 — SYNCHRONISED SECTION-TITLE MORPH
 
 <style id="v50-grab-and-detached-floor">
 /* =========================================================
-V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
-- Detached floor previews are centered under the LEFT TEXT BLOCK, not the whole rail.
+V55 — OPTICALLY ALIGNED FLOORS + CENTERED CONTROL CARD
+- Contact, Maps, Data & Coding, and Research detached floors are shifted left to sit under the text.
 - Technical Skills stays clean with no detached floor.
 - Featured Projects keeps its large dedicated floor preview.
-- The grid joystick behaves like a real analog joystick: pull and hold = continuous motion.
-- Joystick direction controls the WHOLE 3D composition on screen; release = spring to center + stop.
+- Joystick, Zoom +, Zoom −, and Reset View now live together in one centered control card.
+- The joystick remains true analog: pull and hold = continuous movement; release = spring to center + stop.
 - Orbit rotation is completely disabled while the joystick is held.
-- Desktop arrow-pan buttons are removed; zoom and Reset View remain.
-- Mobile home can scroll vertically so the lower canvas/joystick remains reachable.
+- Mobile keeps vertical page scrolling and places the control card below the 3D canvas so it is reachable by scrolling.
 ========================================================= */
 
 /* The old screen-space grab control is intentionally disabled/removed in V52.
@@ -12875,13 +12909,13 @@ V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
    bottom net/grid. It behaves as a true analog control: pull the stick and hold
    it to keep the full 3D composition moving in that direction. */
 .voxel-grid-joystick{
-  position:absolute;
-  z-index:75;
-  right:clamp(54px,7.2vw,118px);
-  bottom:clamp(82px,9.5vh,118px);
+  position:relative;
+  z-index:2;
+  flex:0 0 70px;
   width:70px;
   height:54px;
   padding:0;
+  margin:0 2px 0 0;
   border:0;
   background:transparent;
   cursor:grab;
@@ -12985,8 +13019,7 @@ V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
 
 @media(max-width:800px){
   .voxel-grid-joystick{
-    right:clamp(18px,5vw,34px);
-    bottom:clamp(62px,8.5vh,88px);
+    flex-basis:66px;
     width:66px;
     height:52px;
   }
@@ -12998,39 +13031,34 @@ V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
   /* V54: this box deliberately shares the same left edge/usable width as the
      copy block above it. The voxel renderer is centered inside this box, so the
      floor is visually centered UNDER THE TEXT instead of under the whole rail. */
-  left:clamp(48px,3.2vw,66px);
+  left:var(--detached-center-x, 240px);
   top:calc(var(--rail-copy-top,300px) + 70px);
   bottom:auto;
-  width:350px;
+  width:var(--detached-copy-width, 350px);
   height:clamp(205px,25vh,250px);
   z-index:14;
   pointer-events:none;
   overflow:visible;
   opacity:0;
-  transform:translate3d(0,10px,0) scale(.95);
+  transform:translate3d(-50%,10px,0) scale(.95);
   transform-origin:center top;
   transition:opacity .18s ease,transform .28s cubic-bezier(.2,.78,.22,1);
   filter:drop-shadow(0 22px 28px rgba(0,0,0,.25));
 }
 
-/* Research, Maps and Data/Coding use the later authoritative copy geometry:
-   left = clamp(56px,4.1vw,80px), width = clamp(315px,24vw,405px). */
+/* V55: all regular detached previews use the same geometry source:
+   the rendered left-copy block. Per-section hard-coded left offsets are gone. */
 .expansion-projects .detached-floor-stage,
 .expansion-gallery .detached-floor-stage,
-.expansion-mini .detached-floor-stage{
-  left:clamp(56px,4.1vw,80px);
-  width:clamp(315px,24vw,405px);
-}
-
-/* Profile/Contact copy is narrower, so keep the floor centered on that copy. */
+.expansion-mini .detached-floor-stage,
 .expansion-profile .detached-floor-stage{
-  left:clamp(48px,3.2vw,66px);
-  width:350px;
+  left:var(--detached-center-x, 240px);
+  width:var(--detached-copy-width, 350px);
 }
 .expansion-skills .detached-floor-stage{display:none !important;}
 .expansion.content-visible .detached-floor-stage{
   opacity:1;
-  transform:translate3d(0,0,0) scale(1);
+  transform:translate3d(-50%,0,0) scale(1);
 }
 .detached-floor-stage::before{
   content:'';
@@ -13048,12 +13076,21 @@ V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
   height:100%;
   display:block;
 }
+
+/* V55 optical correction:
+   the isometric floor art has more visual mass on its right side, so its
+   mathematical bounding-box center reads too far right. Shift the preview
+   slightly left while keeping the stage itself centered on the text block. */
+.detached-floor-stage > .detached-floor-canvas{
+  transform:translateX(-7%);
+  transform-origin:center center;
+}
 /* Caption removed: the floor itself already carries its scrolling section title. */
 .detached-floor-caption{display:none !important;}
 .expansion.case-study-active .detached-floor-stage{opacity:0 !important;visibility:hidden;}
 .expansion.morph-closing .detached-floor-stage{
   opacity:0 !important;
-  transform:translate3d(0,12px,0) scale(.94) !important;
+  transform:translate3d(-50%,12px,0) scale(.94) !important;
   transition-duration:.09s !important;
 }
 
@@ -13063,25 +13100,30 @@ V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
 
 @media (max-width:800px){
   .detached-floor-stage{
-    left:12px;
-    right:12px;
+    left:var(--detached-center-x, 50%);
+    right:auto;
     bottom:auto;
     top:var(--detached-mobile-top,138px);
-    width:auto;
+    width:min(var(--detached-copy-width, 405px), calc(100% - 32px));
     height:190px;
-    transform:translate3d(0,10px,0) scale(.95);
+    transform:translate3d(-50%,10px,0) scale(.95);
     transform-origin:center top;
   }
   .expansion.content-visible .detached-floor-stage{
-    transform:translate3d(0,0,0) scale(1);
+    transform:translate3d(-50%,0,0) scale(1);
   }
   .expansion.morph-closing .detached-floor-stage{
-    transform:translate3d(0,12px,0) scale(.94) !important;
+    transform:translate3d(-50%,12px,0) scale(.94) !important;
   }
   .expansion-skills .detached-floor-stage{display:none !important;}
 }
 @media (max-width:380px){
-  .detached-floor-stage{height:172px;left:8px;right:8px;}
+  .detached-floor-stage{
+    height:172px;
+    left:var(--detached-center-x, 50%);
+    right:auto;
+    width:min(var(--detached-copy-width, 360px), calc(100% - 20px));
+  }
 }
 
 /* Featured Projects: expand the card and give the voxel floor its own large column. */
@@ -13170,8 +13212,8 @@ V54 — MOBILE PAGE SCROLL + CLEAN 3-CONTROL VIEW BAR
     touch-action:none !important;
   }
 
-  /* Zoom +, zoom −, Reset only. Put them in normal document flow below the canvas
-     instead of fixing them over the screen, so they never cover the joystick. */
+  /* V55: one centered control card comes AFTER the 3D canvas in mobile flow.
+     The user can scroll down to it; joystick and buttons are vertically level. */
   .voxel-controls{
     position:relative !important;
     order:4 !important;
@@ -13179,11 +13221,16 @@ V54 — MOBILE PAGE SCROLL + CLEAN 3-CONTROL VIEW BAR
     right:auto !important;
     bottom:auto !important;
     left:auto !important;
-    align-self:flex-end !important;
+    align-self:center !important;
     display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
     grid-template-columns:none !important;
-    gap:7px !important;
-    margin:0 2px 0 0 !important;
+    gap:8px !important;
+    width:max-content !important;
+    max-width:calc(100vw - 24px) !important;
+    margin:8px auto 14px !important;
+    padding:8px 10px !important;
     transform:none !important;
   }
   .voxel-control{
@@ -13199,6 +13246,9 @@ V54 — MOBILE PAGE SCROLL + CLEAN 3-CONTROL VIEW BAR
     padding:0 12px !important;
     justify-self:auto !important;
   }
+  .voxel-control-divider{
+    height:34px !important;
+  }
 }
 </style>
 
@@ -13212,7 +13262,7 @@ V54 — MOBILE PAGE SCROLL + CLEAN 3-CONTROL VIEW BAR
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V54)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V55)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13220,6 +13270,17 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
     <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
       <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
 
+      <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
+    </div>
+
+    <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
+      <span class="voxel-brand-kicker">Interactive Geospatial Portfolio</span>
+      <h1 data-title>John Paolo Ramirez</h1>
+      <p>Environmental &amp; Geospatial Data Analyst · GIS · Remote Sensing · Spatial Modelling</p>
+      <span class="voxel-brand-open">Open profile ↗</span>
+    </button>
+
+    <div class="voxel-controls" aria-label="3D movement, zoom, and reset controls">
       <button
         class="voxel-grid-joystick"
         id="voxelGridJoystick"
@@ -13233,23 +13294,14 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
         </span>
       </button>
 
-      <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
-    </div>
+      <span class="voxel-control-divider" aria-hidden="true"></span>
 
-    <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
-      <span class="voxel-brand-kicker">Interactive Geospatial Portfolio</span>
-      <h1 data-title>John Paolo Ramirez</h1>
-      <p>Environmental &amp; Geospatial Data Analyst · GIS · Remote Sensing · Spatial Modelling</p>
-      <span class="voxel-brand-open">Open profile ↗</span>
-    </button>
-
-    <div class="voxel-controls" aria-label="3D view controls">
       <button class="voxel-control" type="button" data-voxel-action="zoom-in" aria-label="Zoom in">+</button>
       <button class="voxel-control" type="button" data-voxel-action="zoom-out" aria-label="Zoom out">−</button>
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to rotate · pull + hold the grid joystick for continuous movement · wheel/pinch to zoom · click a floor / scrolling title</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to rotate · use the center control card to move / zoom / reset · click a floor or scrolling title</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -14668,15 +14720,41 @@ function openPanel(panel) {
         expansion.style.setProperty("--mobile-title-space", `${detachedTop + 176}px`);
     }
 
-    /* V54: desktop detached floors use the ACTUAL rendered copy block geometry.
-       This is the alignment the design needs: the floor is centered under the
-       kicker/description text block itself, never under the whole left rail. */
-    if (!mobile && key !== "skills") {
+    /* V55: align the detached floor to the REAL copy column center.
+       Use computed CSS geometry instead of offsetLeft/getBoundingClientRect so
+       the panel's opening transform cannot distort the measurement. */
+    if (key !== "skills") {
         const detachedStage = expansion.querySelector("[data-detached-floor-stage]");
         const copyBlock = expansion.querySelector(".expanded-header-row > div");
-        if (detachedStage && copyBlock) {
-            detachedStage.style.left = `${copyBlock.offsetLeft}px`;
-            detachedStage.style.width = `${copyBlock.offsetWidth}px`;
+        const headerRow = expansion.querySelector(".expanded-header-row");
+
+        if (detachedStage && copyBlock && headerRow) {
+            const copyStyle = getComputedStyle(copyBlock);
+            const headerStyle = getComputedStyle(headerRow);
+
+            let copyLeft = parseFloat(copyStyle.left);
+            let copyWidth = parseFloat(copyStyle.width);
+
+            if (!Number.isFinite(copyLeft)) {
+                copyLeft = mobile ? 20 : 56;
+            }
+            if (!Number.isFinite(copyWidth) || copyWidth <= 0) {
+                copyWidth = mobile
+                    ? Math.min(405, Math.max(280, finalWidth - 40))
+                    : Math.min(405, Math.max(315, copyBlock.offsetWidth || 350));
+            }
+
+            /* On mobile the copy sits inside header padding rather than via left:. */
+            if (mobile) {
+                const paddingLeft = parseFloat(headerStyle.paddingLeft) || 20;
+                const paddingRight = parseFloat(headerStyle.paddingRight) || 20;
+                copyLeft = paddingLeft;
+                copyWidth = Math.min(405, Math.max(260, finalWidth - paddingLeft - paddingRight));
+            }
+
+            const copyCenter = copyLeft + copyWidth / 2;
+            expansion.style.setProperty("--detached-center-x", `${copyCenter}px`);
+            expansion.style.setProperty("--detached-copy-width", `${copyWidth}px`);
         }
     }
 
