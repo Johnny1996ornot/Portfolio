@@ -12790,9 +12790,9 @@ V46 — RESEARCH YEAR NAVIGATION POLISH
 }
 </style>
 
-<style id="portfolio-v48-morph-title-sync">
+<style id="portfolio-v49-morph-title-sync">
 /* =========================================================
-V48 — SYNCHRONISED SECTION-TITLE MORPH
+V49 — SYNCHRONISED SECTION-TITLE MORPH
 - shell leads the title slightly on open
 - title fades before the shell finishes closing
 - avoids the title appearing too early / lingering too late
@@ -12816,7 +12816,7 @@ V48 — SYNCHRONISED SECTION-TITLE MORPH
     opacity: 0 !important;
     transition:
         transform .25s cubic-bezier(.22,.82,.22,1),
-        opacity .10s ease-in !important;
+        opacity .075s ease-out !important;
 }
 .expanded-content {
     transition: opacity .14s ease !important;
@@ -14332,7 +14332,7 @@ function openPanel(panel) {
         }
     });
 
-    /* V48: let the shell lead very slightly. This prevents the large section
+    /* V49: let the shell lead very slightly. This prevents the large section
        title from appearing before the panel itself has visually arrived. */
     setTimeout(() => {
         if (!flyingTitle || activePanel !== panel) return;
@@ -14395,6 +14395,13 @@ function closeActivePanel() {
     closeButton?.classList.remove("visible");
     backdrop.classList.remove("open");
 
+    /* V49: the large morph title starts disappearing immediately when Close is
+       requested. It should never remain after the panel has visually left. */
+    if (flyingTitle) {
+        flyingTitle.classList.remove("v48-title-visible");
+        flyingTitle.classList.add("v48-title-fade-out");
+    }
+
     const panelRect = panel.getBoundingClientRect();
     const titleRect = originalTitle.getBoundingClientRect();
     const panelRadius = getComputedStyle(panel).borderRadius || "28px";
@@ -14431,18 +14438,9 @@ function closeActivePanel() {
         expansion.style.borderRadius = panelRadius;
 
         if (flyingTitle) {
-            flyingTitle.classList.add("v48-title-visible");
             flyingTitle.style.transform = titleTransform;
         }
     });
-
-    /* V48: fade the large morph title during the second half of the close.
-       It no longer hangs on screen after the panel has visually returned home. */
-    setTimeout(() => {
-        if (!flyingTitle) return;
-        flyingTitle.classList.remove("v48-title-visible");
-        flyingTitle.classList.add("v48-title-fade-out");
-    }, window.innerWidth <= 800 ? 118 : 132);
 
     const finishClose = () => {
         panel.style.opacity = "";
