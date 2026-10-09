@@ -12823,6 +12823,141 @@ V49 — SYNCHRONISED SECTION-TITLE MORPH
 }
 </style>
 
+
+<style id="v50-grab-and-detached-floor">
+/* =========================================================
+V50 — HOLD-TO-MOVE TOWER + DETACHED FLOOR PREVIEW
+========================================================= */
+.voxel-grab-control{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  z-index:66;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  min-height:40px;
+  padding:9px 13px;
+  border:1px solid rgba(92,230,198,.46);
+  border-radius:10px;
+  background:rgba(2,20,32,.93);
+  color:#dffdf5;
+  font:800 .67rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.025);
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:none;
+}
+.voxel-grab-control::before{
+  content:'✥';
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  border-radius:6px;
+  background:rgba(84,230,188,.12);
+  color:#5be6a2;
+  font-size:1rem;
+}
+.voxel-grab-control:hover{border-color:rgba(92,230,198,.78);background:rgba(4,31,44,.96)}
+.voxel-grab-control.is-grabbing{
+  cursor:grabbing;
+  border-color:#66f0c2;
+  box-shadow:0 0 0 2px rgba(91,230,162,.10),0 10px 28px rgba(0,0,0,.25);
+}
+.voxel-grab-control.is-grabbing::before{content:'↔';}
+.voxel-canvas-wrap.is-tower-moving #voxelPortfolioCanvas{cursor:grabbing !important;}
+
+/* Lightweight selected-floor renderer inside an opened section. */
+.detached-floor-stage{
+  position:absolute;
+  left:clamp(28px,3.2vw,58px);
+  bottom:clamp(24px,3.4vh,46px);
+  width:min(31vw,470px);
+  height:clamp(160px,24vh,230px);
+  z-index:14;
+  pointer-events:none;
+  opacity:0;
+  transform:translate3d(0,22px,0) scale(.88);
+  transform-origin:left bottom;
+  transition:opacity .24s ease,transform .42s cubic-bezier(.2,.78,.22,1);
+  filter:drop-shadow(0 24px 28px rgba(0,0,0,.26));
+}
+.expansion.content-visible .detached-floor-stage{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1);
+}
+.detached-floor-stage::before{
+  content:'';
+  position:absolute;
+  left:8%;right:8%;bottom:5px;height:24%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(52,221,255,.18),rgba(52,221,255,0) 68%);
+  filter:blur(8px);
+  opacity:.75;
+}
+.detached-floor-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.detached-floor-caption{
+  position:absolute;
+  left:10px;
+  bottom:4px;
+  padding:5px 8px;
+  border:1px solid rgba(91,230,162,.18);
+  background:rgba(2,16,27,.72);
+  color:#8cbab4;
+  font:800 .56rem/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  opacity:.78;
+}
+.expansion.case-study-active .detached-floor-stage{opacity:0 !important;visibility:hidden;}
+.expansion.morph-closing .detached-floor-stage{opacity:0 !important;transform:translate3d(0,18px,0) scale(.92) !important;transition-duration:.10s !important;}
+
+/* With the detached floor occupying the lower-left, keep the title intentionally higher. */
+@media (min-width:801px){
+  .expansion:not(.case-study-active) .expanded-header-row{
+    align-items:flex-start !important;
+  }
+}
+
+@media (max-width:800px){
+  .voxel-grab-control{
+    bottom:9px;
+    min-height:38px;
+    padding:8px 10px;
+    font-size:.58rem;
+    max-width:calc(100% - 20px);
+    white-space:nowrap;
+  }
+  .detached-floor-stage{
+    left:16px;
+    right:16px;
+    bottom:auto;
+    top:var(--detached-mobile-top,138px);
+    width:auto;
+    height:158px;
+    transform-origin:center top;
+  }
+  .detached-floor-caption{font-size:.50rem;}
+}
+
+@media (max-width:380px){
+  .voxel-grab-control span{display:none;}
+  .voxel-grab-control{width:42px;justify-content:center;padding:7px;left:50%;}
+  .detached-floor-stage{height:145px;left:10px;right:10px;}
+}
+</style>
+
 </head>
 
 
@@ -12841,6 +12976,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
     <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
       <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
       <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
+      <button class="voxel-grab-control" type="button" data-voxel-grab aria-label="Hold and drag to move the entire 3D tower left, right, forward or backward" title="Hold and drag to move tower"><span>Hold + drag tower</span></button>
     </div>
 
     <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
@@ -12860,7 +12996,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · arrows or right/shift-drag to pan · wheel/pinch to zoom · click a floor / scrolling title</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · hold MOVE to reposition tower · wheel/pinch to zoom · click a floor / scrolling title</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -14130,10 +14266,6 @@ SECTION 14 — PANEL OPEN / CLOSE JAVASCRIPT
 
 function openPanel(panel) {
 
-    /* V46: stop the hidden WebGL homepage before constructing a full-screen section. */
-    document.body.classList.add("voxel-render-paused");
-    window.dispatchEvent(new Event("portfolio:voxel-pause"));
-
     if (activePanel) {
         return;
     }
@@ -14141,6 +14273,12 @@ function openPanel(panel) {
     activePanel = panel;
 
     const key = panel.dataset.panel;
+
+    /* V50: notify the 3D home which floor is being opened, then pause the heavy
+       homepage renderer. The selected floor is re-used in a tiny low-power preview. */
+    window.dispatchEvent(new CustomEvent("portfolio:detached-floor-select", { detail: { key } }));
+    document.body.classList.add("voxel-render-paused");
+    window.dispatchEvent(new Event("portfolio:voxel-pause"));
     const originalTitle = panel.querySelector("[data-title]");
     const panelRect = panel.getBoundingClientRect();
     const titleRect = originalTitle.getBoundingClientRect();
@@ -14171,12 +14309,7 @@ function openPanel(panel) {
     const finalTitleTop =
         mobile
         ? finalTop + 28
-        : key === "skills"
-        ? finalTop + 88
-        : Math.max(
-            finalTop + 150,
-            finalTop + finalHeight * .43 - estimatedTitleHeight / 2
-        );
+        : finalTop + (key === "profile" ? 66 : 72);
 
     const finalTitleWidth =
         mobile
@@ -14237,6 +14370,11 @@ function openPanel(panel) {
 
         <div class="expanded-title-shield"></div>
 
+        <div class="detached-floor-stage" data-detached-floor-stage data-floor-key="${key}" aria-hidden="true">
+            <canvas class="detached-floor-canvas"></canvas>
+            <div class="detached-floor-caption">Selected floor · ${content[key].kicker}</div>
+        </div>
+
         <div class="expanded-content">
             <div class="expanded-header-row">
                 <div>
@@ -14267,6 +14405,16 @@ function openPanel(panel) {
     document.body.appendChild(flyingTitle);
 
     const finalTitleRect = flyingTitle.getBoundingClientRect();
+
+    if (mobile) {
+        const detachedTop = Math.max(118, (finalTitleTop - finalTop) + finalTitleRect.height + 14);
+        expansion.style.setProperty("--detached-mobile-top", `${detachedTop}px`);
+        expansion.style.setProperty("--mobile-title-space", `${detachedTop + 176}px`);
+    }
+
+    /* V50: the miniature selected floor is rendered by the already-loaded Three.js
+       runtime. No second copy of the portfolio content is created. */
+    window.dispatchEvent(new CustomEvent("portfolio:detached-floor-open", { detail: { key } }));
 
     /* Use the title's real rendered height rather than a line-count estimate.
        This prevents descriptions from colliding with wrapped titles such as
@@ -14332,7 +14480,7 @@ function openPanel(panel) {
         }
     });
 
-    /* V49: let the shell lead very slightly. This prevents the large section
+    /* V50: let the shell lead very slightly. This prevents the large section
        title from appearing before the panel itself has visually arrived. */
     setTimeout(() => {
         if (!flyingTitle || activePanel !== panel) return;
@@ -14391,11 +14539,12 @@ function closeActivePanel() {
     expansion.classList.remove("case-study-active");
     expansion.classList.remove("content-visible");
     expansion.classList.add("morph-closing");
+    window.dispatchEvent(new CustomEvent("portfolio:detached-floor-close", { detail: { key: panel.dataset.panel } }));
 
     closeButton?.classList.remove("visible");
     backdrop.classList.remove("open");
 
-    /* V49: the large morph title starts disappearing immediately when Close is
+    /* V50: the large morph title starts disappearing immediately when Close is
        requested. It should never remain after the panel has visually left. */
     if (flyingTitle) {
         flyingTitle.classList.remove("v48-title-visible");
@@ -19849,6 +19998,7 @@ MOBILE RESEARCH FIGURES FIX
   const canvas = document.getElementById('voxelPortfolioCanvas');
   const wrap = document.getElementById('voxelCanvasWrap');
   const loading = document.getElementById('voxelLoading');
+  const grabButton = root.querySelector('[data-voxel-grab]');
   if (!root || !canvas || !wrap || root.dataset.voxelInit === '1') return;
   root.dataset.voxelInit = '1';
 
@@ -19958,6 +20108,7 @@ MOBILE RESEARCH FIGURES FIX
   const tower = new THREE.Group();
   tower.position.x = .65;
   scene.add(tower);
+  const platformGroups = new Map();
   const targets = [];
   const highlightMaterials = new Map();
 
@@ -20290,6 +20441,7 @@ MOBILE RESEARCH FIGURES FIX
 
   function createVoxelPlatform(meta,index){
     const g=new THREE.Group(); g.position.y=meta.y; tower.add(g);
+    platformGroups.set(meta.key,g);
     const n=Math.max(3,Math.round(meta.size));
     const cell=meta.size/n;
     const half=(n-1)*cell/2;
@@ -20456,6 +20608,111 @@ MOBILE RESEARCH FIGURES FIX
 
   layerMeta.forEach(createVoxelPlatform);
 
+  /* =========================================================
+  V50 — DETACHED FLOOR PREVIEW
+  Reuses the selected floor geometry in a separate low-power renderer.
+  The main tower stays paused while a section is open.
+  ========================================================= */
+  let detachedRenderer=null;
+  let detachedScene=null;
+  let detachedCamera=null;
+  let detachedFloat=null;
+  let detachedRAF=0;
+  let detachedResizeObserver=null;
+  let detachedLastFrame=0;
+  let pendingDetachedKey=null;
+
+  function stopDetachedFloor(){
+    if(detachedRAF) cancelAnimationFrame(detachedRAF);
+    detachedRAF=0;
+    detachedLastFrame=0;
+    if(detachedResizeObserver){detachedResizeObserver.disconnect();detachedResizeObserver=null;}
+    if(detachedRenderer){detachedRenderer.dispose();detachedRenderer=null;}
+    detachedScene=null;
+    detachedCamera=null;
+    detachedFloat=null;
+  }
+
+  function startDetachedFloor(key){
+    pendingDetachedKey=key;
+    const host=document.querySelector('.expansion [data-detached-floor-stage]');
+    const miniCanvas=host?.querySelector('.detached-floor-canvas');
+    const source=platformGroups.get(key);
+    if(!host || !miniCanvas || !source) return;
+
+    stopDetachedFloor();
+
+    detachedScene=new THREE.Scene();
+    detachedCamera=new THREE.OrthographicCamera(-4,4,3,-3,.1,80);
+    detachedCamera.position.set(7.2,5.5,8.0);
+    detachedCamera.lookAt(0,0,0);
+
+    detachedRenderer=new THREE.WebGLRenderer({
+      canvas:miniCanvas,
+      antialias:false,
+      alpha:true,
+      powerPreference:'low-power'
+    });
+    detachedRenderer.setClearColor(0x000000,0);
+    detachedRenderer.outputColorSpace=THREE.SRGBColorSpace;
+    detachedRenderer.shadowMap.enabled=false;
+    detachedRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<=800?1:1.1));
+
+    detachedScene.add(new THREE.HemisphereLight(0xbaf8ff,0x102033,2.35));
+    const miniKey=new THREE.DirectionalLight(0xffffff,2.7); miniKey.position.set(6,9,7); detachedScene.add(miniKey);
+    const miniFill=new THREE.PointLight(0x45dfff,9,15,2); miniFill.position.set(-4,5,3); detachedScene.add(miniFill);
+
+    detachedFloat=new THREE.Group();
+    const clone=source.clone(true);
+    clone.position.set(0,0,0);
+    clone.traverse(obj=>{ if(obj.isMesh){obj.castShadow=false;obj.receiveShadow=false;} });
+    detachedFloat.add(clone);
+    detachedScene.add(detachedFloat);
+
+    /* Center only this floor and frame it automatically. */
+    const bbox=new THREE.Box3().setFromObject(clone);
+    const center=bbox.getCenter(new THREE.Vector3());
+    clone.position.sub(center);
+    const size=bbox.getSize(new THREE.Vector3());
+    const maxDim=Math.max(size.x,size.z,size.y*1.25,2.8);
+
+    function resizeDetached(){
+      if(!detachedRenderer || !detachedCamera || !host.isConnected) return;
+      const w=Math.max(1,host.clientWidth), h=Math.max(1,host.clientHeight), aspect=w/h;
+      const halfH=maxDim*.58;
+      const halfW=halfH*aspect;
+      detachedCamera.left=-halfW;detachedCamera.right=halfW;
+      detachedCamera.top=halfH;detachedCamera.bottom=-halfH;
+      detachedCamera.updateProjectionMatrix();
+      detachedRenderer.setSize(w,h,false);
+    }
+    resizeDetached();
+    detachedResizeObserver=new ResizeObserver(resizeDetached);
+    detachedResizeObserver.observe(host);
+
+    function miniFrame(now){
+      detachedRAF=0;
+      if(!detachedRenderer || !detachedFloat || !host.isConnected) return;
+      /* 22 fps is enough for the gentle float and keeps the expanded pages light. */
+      if(!detachedLastFrame || now-detachedLastFrame>=45){
+        detachedLastFrame=now;
+        detachedFloat.position.y=Math.sin(now*.0018)*.07;
+        detachedFloat.rotation.y=.38+Math.sin(now*.00045)*.10;
+        detachedFloat.rotation.z=Math.sin(now*.00075)*.012;
+        detachedRenderer.render(detachedScene,detachedCamera);
+      }
+      detachedRAF=requestAnimationFrame(miniFrame);
+    }
+    detachedRAF=requestAnimationFrame(miniFrame);
+  }
+
+  window.addEventListener('portfolio:detached-floor-select',e=>{pendingDetachedKey=e.detail?.key||null;});
+  window.addEventListener('portfolio:detached-floor-open',e=>{
+    const key=e.detail?.key||pendingDetachedKey;
+    if(key) requestAnimationFrame(()=>startDetachedFloor(key));
+  });
+  window.addEventListener('portfolio:detached-floor-close',stopDetachedFloor);
+
   /* Glittering disco ball on the third floor, beneath Maps · Models · Visuals. */
   const discoGroup=new THREE.Group();
   discoGroup.position.set(-1.08,8.67,-1.28);
@@ -20538,18 +20795,12 @@ MOBILE RESEARCH FIGURES FIX
   function resize(){
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight);
     const mobile=window.innerWidth<=800;
-    const desiredTowerX=mobile?0:.65;
 
-    /* Keep the OrbitControls target locked to the tower itself. If responsive layout
-       changes the tower's world X, move the camera and pivot by the same delta. */
-    const dx=desiredTowerX-tower.position.x;
-    if(Math.abs(dx)>.0001){
-      tower.position.x=desiredTowerX;
-      camera.position.x+=dx;
-      controls.target.x+=dx;
-    }
+    /* V50: preserve any user-positioned X/Z tower offset across resize/orientation changes.
+       The pivot remains attached to the tower itself. */
+    controls.target.x=tower.position.x;
     controls.target.y=6.6;
-    controls.target.z=0;
+    controls.target.z=tower.position.z;
 
     applyProjection();
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.15:1.35));
@@ -20576,6 +20827,73 @@ MOBILE RESEARCH FIGURES FIX
        so all later rotations continue around the building — not the page center. */
     viewShiftX += direction>0 ? -step : step;
     applyProjection();
+  }
+
+  /* V50 — HOLD + DRAG MOVE MODE.
+     The tower and OrbitControls pivot move together on the ground plane, so once the
+     button is released the building still rotates around itself instead of the page. */
+  let towerMoveActive=false;
+  let towerMovePointer=null;
+  let towerMoveLastX=0;
+  let towerMoveLastY=0;
+
+  function setTowerMoveMode(active,pointerId=null){
+    towerMoveActive=active;
+    towerMovePointer=active?pointerId:null;
+    controls.enabled=!active;
+    wrap.classList.toggle('is-tower-moving',active);
+    grabButton?.classList.toggle('is-grabbing',active);
+    grabButton?.setAttribute('aria-pressed',active?'true':'false');
+    if(grabButton){
+      const span=grabButton.querySelector('span');
+      if(span) span.textContent=active?'Drag: left/right + front/back':'Hold + drag tower';
+    }
+    boostInteraction(active?1400:500);
+  }
+
+  function translateTowerOnGround(dx,dy){
+    if(!towerMoveActive)return;
+    const worldPerPixel=(lastFrustum/Math.max(camera.zoom,.35))/Math.max(wrap.clientHeight,1);
+    const right=new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld,0);right.y=0;
+    if(right.lengthSq()<.00001)right.set(1,0,0); else right.normalize();
+    const forward=new THREE.Vector3();camera.getWorldDirection(forward);forward.y=0;
+    if(forward.lengthSq()<.00001)forward.set(0,0,-1); else forward.normalize();
+
+    const delta=right.multiplyScalar(dx*worldPerPixel*1.02)
+      .add(forward.multiplyScalar(-dy*worldPerPixel*1.02));
+
+    const oldX=tower.position.x, oldZ=tower.position.z;
+    const nextX=THREE.MathUtils.clamp(oldX+delta.x,-5.4,6.2);
+    const nextZ=THREE.MathUtils.clamp(oldZ+delta.z,-5.0,5.0);
+    const actualX=nextX-oldX, actualZ=nextZ-oldZ;
+    tower.position.x=nextX;tower.position.z=nextZ;
+    controls.target.x+=actualX;controls.target.z+=actualZ;
+    boostInteraction(900);
+  }
+
+  if(grabButton){
+    grabButton.setAttribute('aria-pressed','false');
+    grabButton.addEventListener('pointerdown',ev=>{
+      ev.preventDefault();ev.stopPropagation();
+      towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
+      grabButton.setPointerCapture?.(ev.pointerId);
+      setTowerMoveMode(true,ev.pointerId);
+    });
+    grabButton.addEventListener('pointermove',ev=>{
+      if(!towerMoveActive || ev.pointerId!==towerMovePointer)return;
+      ev.preventDefault();
+      const dx=ev.clientX-towerMoveLastX,dy=ev.clientY-towerMoveLastY;
+      towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
+      translateTowerOnGround(dx,dy);
+    });
+    const endTowerMove=ev=>{
+      if(!towerMoveActive || (towerMovePointer!==null && ev.pointerId!==towerMovePointer))return;
+      try{grabButton.releasePointerCapture?.(ev.pointerId);}catch(_){ }
+      setTowerMoveMode(false);
+    };
+    grabButton.addEventListener('pointerup',endTowerMove);
+    grabButton.addEventListener('pointercancel',endTowerMove);
+    grabButton.addEventListener('lostpointercapture',()=>{if(towerMoveActive)setTowerMoveMode(false);});
   }
 
   /* Shift + wheel/trackpad moves the composition vertically without moving the orbit pivot. */
@@ -20615,9 +20933,10 @@ MOBILE RESEARCH FIGURES FIX
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
     if(action==='reset'){
+      if(towerMoveActive)setTowerMoveMode(false);
       viewShiftX=0;viewShiftY=0;
       const tx=window.innerWidth<=800?0:.65;
-      tower.position.x=tx;
+      tower.position.set(tx,0,0);
       camera.position.set(tx+12,12.0,14);
       camera.zoom=.76;
       controls.target.set(tx,6.6,0);
@@ -20759,6 +21078,7 @@ MOBILE RESEARCH FIGURES FIX
 
   window.addEventListener('pagehide',()=>{
     stopLoop();
+    stopDetachedFloor();
     ro.disconnect();
     renderer.dispose();
   },{once:true});
