@@ -12855,72 +12855,36 @@ V49 — SYNCHRONISED SECTION-TITLE MORPH
 
 <style id="v50-grab-and-detached-floor">
 /* =========================================================
-V51 — HOLD-TO-MOVE TOWER + ALIGNED DETACHED FLOOR PREVIEW
+V52 — DETACHED FLOOR LAYOUT + 3D GRID JOYSTICK
+- No HTML move button below the tower.
+- Tower movement is controlled by a real 3D joystick sitting on the grid.
+- Detached floors are larger, fully framed and caption-free.
+- Technical Skills stays clean with no detached floor.
+- Featured Projects uses a wider modal with a dedicated large floor preview.
 ========================================================= */
-.voxel-grab-control{
-  position:absolute;
-  left:50%;
-  bottom:20px;
-  transform:translateX(-50%);
-  z-index:66;
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  min-height:40px;
-  padding:9px 13px;
-  border:1px solid rgba(92,230,198,.46);
-  border-radius:10px;
-  background:rgba(2,20,32,.93);
-  color:#dffdf5;
-  font:800 .67rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  box-shadow:0 8px 24px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.025);
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-  touch-action:none;
-}
-.voxel-grab-control::before{
-  content:'✥';
-  display:grid;
-  place-items:center;
-  width:24px;
-  height:24px;
-  border-radius:6px;
-  background:rgba(84,230,188,.12);
-  color:#5be6a2;
-  font-size:1rem;
-}
-.voxel-grab-control:hover{border-color:rgba(92,230,198,.78);background:rgba(4,31,44,.96)}
-.voxel-grab-control.is-grabbing{
-  cursor:grabbing;
-  border-color:#66f0c2;
-  box-shadow:0 0 0 2px rgba(91,230,162,.10),0 10px 28px rgba(0,0,0,.25);
-}
-.voxel-grab-control.is-grabbing::before{content:'↔';}
+
+/* The old screen-space grab control is intentionally disabled/removed in V52.
+   The interactive control now exists as 3D geometry on the grid itself. */
+.voxel-grab-control{display:none !important;}
 .voxel-canvas-wrap.is-tower-moving #voxelPortfolioCanvas{cursor:grabbing !important;}
 
-/* Lightweight selected-floor renderer inside an opened section.
-   V51: it now sits directly under the section title/copy instead of at the
-   bottom of the panel, so it reads as part of the left-hand section rail. */
+/* Selected-floor renderer inside regular opened sections. */
 .detached-floor-stage{
   position:absolute;
   left:clamp(48px,3.2vw,66px);
-  top:calc(var(--rail-copy-top,300px) + 104px);
+  top:calc(var(--rail-copy-top,300px) + 88px);
   bottom:auto;
-  width:min(25vw,360px);
-  height:clamp(150px,20vh,198px);
+  width:min(31vw,455px);
+  height:clamp(210px,27vh,270px);
   z-index:14;
   pointer-events:none;
+  overflow:visible;
   opacity:0;
-  transform:translate3d(0,14px,0) scale(.92);
+  transform:translate3d(0,10px,0) scale(.95);
   transform-origin:left top;
-  transition:opacity .20s ease,transform .34s cubic-bezier(.2,.78,.22,1);
-  filter:drop-shadow(0 20px 24px rgba(0,0,0,.24));
+  transition:opacity .18s ease,transform .28s cubic-bezier(.2,.78,.22,1);
+  filter:drop-shadow(0 22px 28px rgba(0,0,0,.25));
 }
-/* Technical Skills already has a dense capability grid; the miniature floor
-   only competes with Project Management there, so it is intentionally absent. */
 .expansion-skills .detached-floor-stage{display:none !important;}
 .expansion.content-visible .detached-floor-stage{
   opacity:1;
@@ -12929,11 +12893,11 @@ V51 — HOLD-TO-MOVE TOWER + ALIGNED DETACHED FLOOR PREVIEW
 .detached-floor-stage::before{
   content:'';
   position:absolute;
-  left:8%;right:8%;bottom:5px;height:24%;
+  left:5%;right:5%;bottom:0;height:25%;
   border-radius:50%;
-  background:radial-gradient(ellipse at center,rgba(52,221,255,.18),rgba(52,221,255,0) 68%);
-  filter:blur(8px);
-  opacity:.75;
+  background:radial-gradient(ellipse at center,rgba(52,221,255,.18),rgba(52,221,255,0) 70%);
+  filter:blur(9px);
+  opacity:.7;
 }
 .detached-floor-canvas{
   position:absolute;
@@ -12942,55 +12906,83 @@ V51 — HOLD-TO-MOVE TOWER + ALIGNED DETACHED FLOOR PREVIEW
   height:100%;
   display:block;
 }
-.detached-floor-caption{
-  position:absolute;
-  left:10px;
-  bottom:4px;
-  padding:5px 8px;
-  border:1px solid rgba(91,230,162,.18);
-  background:rgba(2,16,27,.72);
-  color:#8cbab4;
-  font:800 .56rem/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  opacity:.78;
-}
+/* Caption removed: the floor itself already carries its scrolling section title. */
+.detached-floor-caption{display:none !important;}
 .expansion.case-study-active .detached-floor-stage{opacity:0 !important;visibility:hidden;}
-.expansion.morph-closing .detached-floor-stage{opacity:0 !important;transform:translate3d(0,18px,0) scale(.92) !important;transition-duration:.10s !important;}
+.expansion.morph-closing .detached-floor-stage{
+  opacity:0 !important;
+  transform:translate3d(0,12px,0) scale(.94) !important;
+  transition-duration:.09s !important;
+}
 
-/* With the detached floor occupying the lower-left, keep the title intentionally higher. */
 @media (min-width:801px){
-  .expansion:not(.case-study-active) .expanded-header-row{
-    align-items:flex-start !important;
-  }
+  .expansion:not(.case-study-active) .expanded-header-row{align-items:flex-start !important;}
 }
 
 @media (max-width:800px){
-  .voxel-grab-control{
-    bottom:9px;
-    min-height:38px;
-    padding:8px 10px;
-    font-size:.58rem;
-    max-width:calc(100% - 20px);
-    white-space:nowrap;
-  }
   .detached-floor-stage{
-    left:16px;
-    right:16px;
+    left:12px;
+    right:12px;
     bottom:auto;
     top:var(--detached-mobile-top,138px);
     width:auto;
-    height:158px;
+    height:190px;
     transform-origin:center top;
   }
   .expansion-skills .detached-floor-stage{display:none !important;}
-  .detached-floor-caption{font-size:.50rem;}
+}
+@media (max-width:380px){
+  .detached-floor-stage{height:172px;left:8px;right:8px;}
 }
 
-@media (max-width:380px){
-  .voxel-grab-control span{display:none;}
-  .voxel-grab-control{width:42px;justify-content:center;padding:7px;left:50%;}
-  .detached-floor-stage{height:145px;left:10px;right:10px;}
+/* Featured Projects: expand the card and give the voxel floor its own large column. */
+.voxel-featured-card{
+  width:min(95vw,1040px) !important;
+  padding:24px !important;
+}
+.voxel-featured-top{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(300px,390px) 42px !important;
+  gap:22px !important;
+  align-items:center !important;
+  margin-bottom:18px !important;
+}
+.voxel-featured-top > div:first-child{align-self:start;padding-top:5px;}
+.voxel-featured-floor-stage{
+  position:relative !important;
+  width:100% !important;
+  height:230px !important;
+  margin:0 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+  filter:drop-shadow(0 20px 22px rgba(0,0,0,.28));
+}
+.voxel-featured-floor-stage::before{
+  content:'';
+  position:absolute;
+  left:5%;right:5%;bottom:0;height:28%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(88,230,162,.20),rgba(88,230,162,0) 72%);
+  filter:blur(8px);
+}
+.voxel-featured-floor-stage .detached-floor-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.voxel-featured-floor-caption{display:none !important;}
+.voxel-featured-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+
+@media(max-width:800px){
+  .voxel-featured-card{width:min(94vw,620px) !important;max-height:90vh !important;overflow:auto !important;padding:18px !important;}
+  .voxel-featured-top{
+    grid-template-columns:minmax(0,1fr) 40px !important;
+    gap:12px !important;
+  }
+  .voxel-featured-floor-stage{
+    grid-column:1 / -1 !important;
+    grid-row:2 !important;
+    width:100% !important;
+    height:210px !important;
+  }
+  .voxel-featured-close{grid-column:2;grid-row:1;}
+  .voxel-featured-grid{grid-template-columns:1fr !important;}
 }
 </style>
 
@@ -13012,7 +13004,6 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
     <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
       <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
       <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
-      <button class="voxel-grab-control" type="button" data-voxel-grab aria-label="Hold and drag to move the entire 3D tower left, right, forward or backward" title="Hold and drag to move tower"><span>Hold + drag tower</span></button>
     </div>
 
     <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
@@ -13032,7 +13023,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · hold MOVE to reposition tower · wheel/pinch to zoom · click a floor / scrolling title</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag to rotate · drag the grid joystick to move the tower · wheel/pinch to zoom · click a floor / scrolling title</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -13050,7 +13041,6 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <div><h3>Featured spatial projects</h3><p>The lowest floor is a project hub. Choose a project to open its case study or interactive map.</p></div>
       <div class="voxel-featured-floor-stage" data-featured-floor-stage aria-hidden="true">
         <canvas class="detached-floor-canvas"></canvas>
-        <div class="voxel-featured-floor-caption">Featured floor</div>
       </div>
       <button class="voxel-featured-close" type="button" aria-label="Close featured projects">×</button>
     </div>
@@ -14413,7 +14403,6 @@ function openPanel(panel) {
         ${key !== "skills" ? `
         <div class="detached-floor-stage" data-detached-floor-stage data-floor-key="${key}" aria-hidden="true">
             <canvas class="detached-floor-canvas"></canvas>
-            <div class="detached-floor-caption">Selected floor · ${content[key].kicker}</div>
         </div>` : ""}
 
         <div class="expanded-content">
@@ -14453,7 +14442,7 @@ function openPanel(panel) {
         expansion.style.setProperty("--mobile-title-space", `${detachedTop + 176}px`);
     }
 
-    /* V51: Technical Skills intentionally has no detached miniature. */
+    /* V52: Technical Skills intentionally has no detached miniature. */
     if (key !== "skills") {
         window.dispatchEvent(new CustomEvent("portfolio:detached-floor-open", { detail: { key } }));
     }
@@ -20040,7 +20029,7 @@ MOBILE RESEARCH FIGURES FIX
   const canvas = document.getElementById('voxelPortfolioCanvas');
   const wrap = document.getElementById('voxelCanvasWrap');
   const loading = document.getElementById('voxelLoading');
-  const grabButton = root.querySelector('[data-voxel-grab]');
+  const grabButton = null; // V52: movement is handled by the 3D grid joystick.
   if (!root || !canvas || !wrap || root.dataset.voxelInit === '1') return;
   root.dataset.voxelInit = '1';
 
@@ -20666,7 +20655,7 @@ MOBILE RESEARCH FIGURES FIX
   root.dataset.voxelReady='1';
 
   /* =========================================================
-  V51 — DETACHED FLOOR PREVIEW
+  V52 — DETACHED FLOOR PREVIEW
   Reuses the selected floor geometry in a separate low-power renderer.
   The main tower stays paused while a section is open.
   ========================================================= */
@@ -20736,7 +20725,9 @@ MOBILE RESEARCH FIGURES FIX
     function resizeDetached(){
       if(!detachedRenderer || !detachedCamera || !host.isConnected) return;
       const w=Math.max(1,host.clientWidth), h=Math.max(1,host.clientHeight), aspect=w/h;
-      const halfH=maxDim*.48;
+      const featuredPreview=host.classList.contains('voxel-featured-floor-stage');
+      const framePadding=featuredPreview ? .62 : .66;
+      const halfH=maxDim*framePadding;
       const halfW=halfH*aspect;
       detachedCamera.left=-halfW;detachedCamera.right=halfW;
       detachedCamera.top=halfH;detachedCamera.bottom=-halfH;
@@ -20816,6 +20807,48 @@ MOBILE RESEARCH FIGURES FIX
 
   const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-4.33; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
   const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-4.23;scene.add(grid);
+
+
+  /* =========================================================
+  V52 — 3D GRID JOYSTICK
+  A real joystick lives on the net/grid floor. Hold its knob/base and drag to
+  move the whole tower left/right and forward/back. Orbit rotation is disabled
+  only during the joystick drag, then restored on release.
+  ========================================================= */
+  const joystickGroup=new THREE.Group();
+  joystickGroup.position.set(-5.6,-4.12,4.9);
+  scene.add(joystickGroup);
+
+  const joystickBaseMat=new THREE.MeshStandardMaterial({
+    color:0x062838,metalness:.28,roughness:.48,
+    emissive:0x0f6375,emissiveIntensity:.35
+  });
+  const joystickAccentMat=new THREE.MeshStandardMaterial({
+    color:0x58e6c2,metalness:.45,roughness:.28,
+    emissive:0x2acfae,emissiveIntensity:.72
+  });
+  const joystickBase=new THREE.Mesh(new THREE.CylinderGeometry(.72,.82,.15,24),joystickBaseMat);
+  joystickBase.position.y=.08;
+  joystickGroup.add(joystickBase);
+  const joystickRing=new THREE.Mesh(new THREE.TorusGeometry(.58,.045,8,28),joystickAccentMat);
+  joystickRing.rotation.x=Math.PI/2;
+  joystickRing.position.y=.17;
+  joystickGroup.add(joystickRing);
+  const joystickStem=new THREE.Mesh(new THREE.CylinderGeometry(.07,.085,.52,10),joystickAccentMat);
+  joystickStem.position.y=.43;
+  joystickGroup.add(joystickStem);
+  const joystickKnob=new THREE.Mesh(new THREE.IcosahedronGeometry(.22,1),joystickAccentMat);
+  joystickKnob.position.y=.72;
+  joystickGroup.add(joystickKnob);
+  /* Invisible larger hit target makes the joystick comfortable on phones. */
+  const joystickHit=new THREE.Mesh(
+    new THREE.CylinderGeometry(.98,.98,.72,16),
+    new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false})
+  );
+  joystickHit.position.y=.38;
+  joystickGroup.add(joystickHit);
+  const joystickTargets=[joystickBase,joystickRing,joystickStem,joystickKnob,joystickHit];
+  joystickTargets.forEach(o=>o.userData.gridJoystick=true);
 
   /* Subtle environmental dust plus a restrained sparkle layer. */
   const pts=[]; for(let i=0;i<120;i++){ const a=seeded(i*7.7)*Math.PI*2,r=6.5+seeded(i*3.3)*9.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*18-2.2,Math.sin(a)*r); }
@@ -20903,11 +20936,13 @@ MOBILE RESEARCH FIGURES FIX
     towerMovePointer=active?pointerId:null;
     controls.enabled=!active;
     wrap.classList.toggle('is-tower-moving',active);
-    grabButton?.classList.toggle('is-grabbing',active);
-    grabButton?.setAttribute('aria-pressed',active?'true':'false');
-    if(grabButton){
-      const span=grabButton.querySelector('span');
-      if(span) span.textContent=active?'Drag: left/right + front/back':'Hold + drag tower';
+    joystickAccentMat.emissiveIntensity=active?1.35:.72;
+    joystickBaseMat.emissiveIntensity=active?.62:.35;
+    if(!active){
+      joystickKnob.position.x=0;
+      joystickKnob.position.z=0;
+      joystickStem.rotation.x=0;
+      joystickStem.rotation.z=0;
     }
     boostInteraction(active?1400:500);
   }
@@ -20932,30 +20967,51 @@ MOBILE RESEARCH FIGURES FIX
     boostInteraction(900);
   }
 
-  if(grabButton){
-    grabButton.setAttribute('aria-pressed','false');
-    grabButton.addEventListener('pointerdown',ev=>{
-      ev.preventDefault();ev.stopPropagation();
-      towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
-      grabButton.setPointerCapture?.(ev.pointerId);
-      setTowerMoveMode(true,ev.pointerId);
-    });
-    grabButton.addEventListener('pointermove',ev=>{
-      if(!towerMoveActive || ev.pointerId!==towerMovePointer)return;
-      ev.preventDefault();
-      const dx=ev.clientX-towerMoveLastX,dy=ev.clientY-towerMoveLastY;
-      towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
-      translateTowerOnGround(dx,dy);
-    });
-    const endTowerMove=ev=>{
-      if(!towerMoveActive || (towerMovePointer!==null && ev.pointerId!==towerMovePointer))return;
-      try{grabButton.releasePointerCapture?.(ev.pointerId);}catch(_){ }
-      setTowerMoveMode(false);
-    };
-    grabButton.addEventListener('pointerup',endTowerMove);
-    grabButton.addEventListener('pointercancel',endTowerMove);
-    grabButton.addEventListener('lostpointercapture',()=>{if(towerMoveActive)setTowerMoveMode(false);});
+  /* V52: joystick pointer interaction is attached to the canvas in capture phase,
+     so OrbitControls never receives the same drag while MOVE mode is active. */
+  function hitJoystickFromEvent(ev){
+    const r=canvas.getBoundingClientRect();
+    pointer.x=((ev.clientX-r.left)/r.width)*2-1;
+    pointer.y=-((ev.clientY-r.top)/r.height)*2+1;
+    raycaster.setFromCamera(pointer,camera);
+    return raycaster.intersectObjects(joystickTargets,false)[0]?.object || null;
   }
+
+  canvas.addEventListener('pointerdown',ev=>{
+    const hit=hitJoystickFromEvent(ev);
+    if(!hit)return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
+    canvas.setPointerCapture?.(ev.pointerId);
+    setTowerMoveMode(true,ev.pointerId);
+  },{capture:true});
+
+  canvas.addEventListener('pointermove',ev=>{
+    if(!towerMoveActive || ev.pointerId!==towerMovePointer)return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    const dx=ev.clientX-towerMoveLastX,dy=ev.clientY-towerMoveLastY;
+    towerMoveLastX=ev.clientX;towerMoveLastY=ev.clientY;
+    translateTowerOnGround(dx,dy);
+    /* Small physical response in the knob, while the tower itself moves freely. */
+    joystickKnob.position.x=THREE.MathUtils.clamp(dx*.018,-.18,.18);
+    joystickKnob.position.z=THREE.MathUtils.clamp(dy*.018,-.18,.18);
+    joystickStem.rotation.z=THREE.MathUtils.clamp(-dx*.004,-.12,.12);
+    joystickStem.rotation.x=THREE.MathUtils.clamp(dy*.004,-.12,.12);
+  },{capture:true});
+
+  const finishJoystickDrag=ev=>{
+    if(!towerMoveActive || (towerMovePointer!==null && ev.pointerId!==towerMovePointer))return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    try{canvas.releasePointerCapture?.(ev.pointerId);}catch(_){ }
+    setTowerMoveMode(false);
+  };
+  canvas.addEventListener('pointerup',finishJoystickDrag,{capture:true});
+  canvas.addEventListener('pointercancel',finishJoystickDrag,{capture:true});
+  canvas.addEventListener('lostpointercapture',()=>{if(towerMoveActive)setTowerMoveMode(false);});
+
 
   /* Shift + wheel/trackpad moves the composition vertically without moving the orbit pivot. */
   canvas.addEventListener('wheel',ev=>{
@@ -20977,10 +21033,11 @@ MOBILE RESEARCH FIGURES FIX
     if(hovered && highlightMaterials.has(hovered)) highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.22);
     canvas.style.cursor=hovered?'pointer':'grab';
   }
-  canvas.addEventListener('pointermove',ev=>{ if(ev.buttons)return; const h=hitFromEvent(ev);setHover(h?.userData?.section||null); });
+  canvas.addEventListener('pointermove',ev=>{ if(ev.buttons || towerMoveActive)return; const j=hitJoystickFromEvent(ev); if(j){setHover(null);canvas.style.cursor='grab';return;} const h=hitFromEvent(ev);setHover(h?.userData?.section||null); });
   canvas.addEventListener('pointerleave',()=>setHover(null));
-  canvas.addEventListener('pointerdown',ev=>{down={x:ev.clientX,y:ev.clientY};});
+  canvas.addEventListener('pointerdown',ev=>{if(hitJoystickFromEvent(ev))return;down={x:ev.clientX,y:ev.clientY};});
   canvas.addEventListener('pointerup',ev=>{
+    if(towerMoveActive || hitJoystickFromEvent(ev)){down=null;return;}
     if(!down)return; const moved=Math.hypot(ev.clientX-down.x,ev.clientY-down.y);down=null;if(moved>7)return;
     const h=hitFromEvent(ev);const key=h?.userData?.section;if(key)openPortfolioSection(key);
   });
