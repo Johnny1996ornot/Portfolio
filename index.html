@@ -12789,6 +12789,40 @@ V46 — RESEARCH YEAR NAVIGATION POLISH
   .expansion, .flying-title, .flow-card { will-change:auto !important; }
 }
 </style>
+
+<style id="portfolio-v48-morph-title-sync">
+/* =========================================================
+V48 — SYNCHRONISED SECTION-TITLE MORPH
+- shell leads the title slightly on open
+- title fades before the shell finishes closing
+- avoids the title appearing too early / lingering too late
+========================================================= */
+.expansion {
+    transition:
+        transform .32s cubic-bezier(.22,.82,.22,1),
+        border-radius .32s cubic-bezier(.22,.82,.22,1),
+        box-shadow .32s cubic-bezier(.22,.82,.22,1) !important;
+}
+.flying-title {
+    opacity: 0 !important;
+    transition:
+        transform .27s cubic-bezier(.22,.82,.22,1),
+        opacity .12s ease-out !important;
+}
+.flying-title.v48-title-visible {
+    opacity: 1 !important;
+}
+.flying-title.v48-title-fade-out {
+    opacity: 0 !important;
+    transition:
+        transform .25s cubic-bezier(.22,.82,.22,1),
+        opacity .10s ease-in !important;
+}
+.expanded-content {
+    transition: opacity .14s ease !important;
+}
+</style>
+
 </head>
 
 
@@ -14298,17 +14332,25 @@ function openPanel(panel) {
         }
     });
 
-    /* Wait for the morph to be nearly finished before showing inner content.
-       This is what makes it read as one object transforming, rather than a card popping in. */
+    /* V48: let the shell lead very slightly. This prevents the large section
+       title from appearing before the panel itself has visually arrived. */
     setTimeout(() => {
-        if (!expansion) return;
+        if (!flyingTitle || activePanel !== panel) return;
+        flyingTitle.classList.remove("v48-title-fade-out");
+        flyingTitle.classList.add("v48-title-visible");
+    }, mobile ? 54 : 68);
+
+    /* Reveal the actual section content near the end of the morph so the title
+       and the content settle together rather than in separate beats. */
+    setTimeout(() => {
+        if (!expansion || activePanel !== panel) return;
         expansion.classList.add("content-visible");
         closeButton?.classList.add("visible");
         initialiseCoverFlows();
         bindGalleryItems();
         bindCaseStudyLaunchers();
         bindResearchYearStack();
-    }, mobile ? 360 : 330);
+    }, mobile ? 278 : 252);
 }
 
 
@@ -14389,9 +14431,18 @@ function closeActivePanel() {
         expansion.style.borderRadius = panelRadius;
 
         if (flyingTitle) {
+            flyingTitle.classList.add("v48-title-visible");
             flyingTitle.style.transform = titleTransform;
         }
     });
+
+    /* V48: fade the large morph title during the second half of the close.
+       It no longer hangs on screen after the panel has visually returned home. */
+    setTimeout(() => {
+        if (!flyingTitle) return;
+        flyingTitle.classList.remove("v48-title-visible");
+        flyingTitle.classList.add("v48-title-fade-out");
+    }, window.innerWidth <= 800 ? 118 : 132);
 
     const finishClose = () => {
         panel.style.opacity = "";
@@ -14413,7 +14464,7 @@ function closeActivePanel() {
         window.dispatchEvent(new Event("portfolio:voxel-resume"));
     };
 
-    setTimeout(finishClose, window.innerWidth <= 800 ? 290 : 330);
+    setTimeout(finishClose, window.innerWidth <= 800 ? 292 : 318);
 }
 
 
@@ -19870,7 +19921,7 @@ MOBILE RESEARCH FIGURES FIX
     alpha:true,
     powerPreference:'high-performance'
   });
-  /* V47: 1.35× desktop / 1.15× mobile is visually crisp at this canvas size but
+  /* V48: 1.35× desktop / 1.15× mobile is visually crisp at this canvas size but
      substantially cheaper than the previous 2× / 1.5× render targets. */
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.15 : 1.35));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -20580,7 +20631,7 @@ MOBILE RESEARCH FIGURES FIX
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* =========================================================
-  V47 PERFORMANCE SCHEDULER
+  V48 PERFORMANCE SCHEDULER
   - 60 fps while the user is actively rotating/zooming
   - 40 fps desktop / 30 fps mobile for ambient animation
   - WebGL loop stops completely behind expanded portfolio sections
