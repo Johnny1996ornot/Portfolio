@@ -12855,13 +12855,15 @@ V49 — SYNCHRONISED SECTION-TITLE MORPH
 
 <style id="v50-grab-and-detached-floor">
 /* =========================================================
-V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
-- Detached floor previews are centered on the left information rail.
+V54 — TEXT-ALIGNED DETACHED FLOORS + TRUE ANALOG GRID JOYSTICK
+- Detached floor previews are centered under the LEFT TEXT BLOCK, not the whole rail.
 - Technical Skills stays clean with no detached floor.
 - Featured Projects keeps its large dedicated floor preview.
-- The grid joystick is a real hold-and-drag control attached visually to the net floor.
-- Dragging the joystick pans the WHOLE 3D composition left/right/up/down on screen.
+- The grid joystick behaves like a real analog joystick: pull and hold = continuous motion.
+- Joystick direction controls the WHOLE 3D composition on screen; release = spring to center + stop.
 - Orbit rotation is completely disabled while the joystick is held.
+- Desktop arrow-pan buttons are removed; zoom and Reset View remain.
+- Mobile home can scroll vertically so the lower canvas/joystick remains reachable.
 ========================================================= */
 
 /* The old screen-space grab control is intentionally disabled/removed in V52.
@@ -12869,14 +12871,14 @@ V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
 .voxel-grab-control{display:none !important;}
 .voxel-canvas-wrap.is-tower-moving #voxelPortfolioCanvas{cursor:default !important;}
 
-/* V53 — the joystick is an HTML interaction surface placed visually on the
-   bottom net/grid. Because it is NOT part of the Three.js canvas, OrbitControls
-   can never mistake a joystick drag for a rotation gesture. */
+/* V54 — the joystick is an HTML interaction surface placed visually on the
+   bottom net/grid. It behaves as a true analog control: pull the stick and hold
+   it to keep the full 3D composition moving in that direction. */
 .voxel-grid-joystick{
   position:absolute;
   z-index:75;
   right:clamp(54px,7.2vw,118px);
-  bottom:clamp(28px,4.2vh,54px);
+  bottom:clamp(82px,9.5vh,118px);
   width:70px;
   height:54px;
   padding:0;
@@ -12983,8 +12985,8 @@ V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
 
 @media(max-width:800px){
   .voxel-grid-joystick{
-    right:clamp(22px,6vw,42px);
-    bottom:clamp(88px,12vh,112px);
+    right:clamp(18px,5vw,34px);
+    bottom:clamp(62px,8.5vh,88px);
     width:66px;
     height:52px;
   }
@@ -12993,27 +12995,42 @@ V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
 /* Selected-floor renderer inside regular opened sections. */
 .detached-floor-stage{
   position:absolute;
-  /* The desktop content rail is clamp(520px, 40vw, 790px).
-     Put the preview on the TRUE horizontal center of that rail instead of
-     using a fixed left offset. */
-  left:calc(clamp(520px,40vw,790px) / 2);
+  /* V54: this box deliberately shares the same left edge/usable width as the
+     copy block above it. The voxel renderer is centered inside this box, so the
+     floor is visually centered UNDER THE TEXT instead of under the whole rail. */
+  left:clamp(48px,3.2vw,66px);
   top:calc(var(--rail-copy-top,300px) + 70px);
   bottom:auto;
-  width:min(31vw,455px);
+  width:350px;
   height:clamp(205px,25vh,250px);
   z-index:14;
   pointer-events:none;
   overflow:visible;
   opacity:0;
-  transform:translate3d(-50%,10px,0) scale(.95);
+  transform:translate3d(0,10px,0) scale(.95);
   transform-origin:center top;
   transition:opacity .18s ease,transform .28s cubic-bezier(.2,.78,.22,1);
   filter:drop-shadow(0 22px 28px rgba(0,0,0,.25));
 }
+
+/* Research, Maps and Data/Coding use the later authoritative copy geometry:
+   left = clamp(56px,4.1vw,80px), width = clamp(315px,24vw,405px). */
+.expansion-projects .detached-floor-stage,
+.expansion-gallery .detached-floor-stage,
+.expansion-mini .detached-floor-stage{
+  left:clamp(56px,4.1vw,80px);
+  width:clamp(315px,24vw,405px);
+}
+
+/* Profile/Contact copy is narrower, so keep the floor centered on that copy. */
+.expansion-profile .detached-floor-stage{
+  left:clamp(48px,3.2vw,66px);
+  width:350px;
+}
 .expansion-skills .detached-floor-stage{display:none !important;}
 .expansion.content-visible .detached-floor-stage{
   opacity:1;
-  transform:translate3d(-50%,0,0) scale(1);
+  transform:translate3d(0,0,0) scale(1);
 }
 .detached-floor-stage::before{
   content:'';
@@ -13036,7 +13053,7 @@ V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
 .expansion.case-study-active .detached-floor-stage{opacity:0 !important;visibility:hidden;}
 .expansion.morph-closing .detached-floor-stage{
   opacity:0 !important;
-  transform:translate3d(-50%,12px,0) scale(.94) !important;
+  transform:translate3d(0,12px,0) scale(.94) !important;
   transition-duration:.09s !important;
 }
 
@@ -13116,6 +13133,73 @@ V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
   .voxel-featured-close{grid-column:2;grid-row:1;}
   .voxel-featured-grid{grid-template-columns:1fr !important;}
 }
+
+
+/* =========================================================
+V54 — MOBILE PAGE SCROLL + CLEAN 3-CONTROL VIEW BAR
+========================================================= */
+@media(max-width:800px){
+  html,
+  body{
+    height:auto !important;
+    min-height:100% !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    overscroll-behavior-y:auto !important;
+  }
+
+  .app.voxel-app{
+    height:auto !important;
+    min-height:100dvh !important;
+    overflow:visible !important;
+  }
+
+  .voxel-stage{
+    height:auto !important;
+    min-height:100dvh !important;
+    overflow:visible !important;
+    padding-bottom:28px !important;
+  }
+
+  /* Vertical swipes over the scene can scroll the page; horizontal dragging can
+     still be handled by the 3D view. The joystick itself remains touch-action:none. */
+  #voxelPortfolioCanvas{
+    touch-action:pan-y !important;
+  }
+  .voxel-grid-joystick{
+    touch-action:none !important;
+  }
+
+  /* Zoom +, zoom −, Reset only. Put them in normal document flow below the canvas
+     instead of fixing them over the screen, so they never cover the joystick. */
+  .voxel-controls{
+    position:relative !important;
+    order:4 !important;
+    top:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    left:auto !important;
+    align-self:flex-end !important;
+    display:flex !important;
+    grid-template-columns:none !important;
+    gap:7px !important;
+    margin:0 2px 0 0 !important;
+    transform:none !important;
+  }
+  .voxel-control{
+    width:42px !important;
+    min-width:42px !important;
+    height:42px !important;
+    padding:0 !important;
+  }
+  .voxel-control.reset{
+    grid-column:auto !important;
+    width:auto !important;
+    min-width:96px !important;
+    padding:0 12px !important;
+    justify-self:auto !important;
+  }
+}
 </style>
 
 </head>
@@ -13128,7 +13212,7 @@ V53 — CENTERED DETACHED FLOORS + SCREEN-PAN GRID JOYSTICK
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V40)
+SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V54)
 Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
@@ -13140,8 +13224,8 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
         class="voxel-grid-joystick"
         id="voxelGridJoystick"
         type="button"
-        aria-label="Hold and drag to move the entire 3D platform left, right, forward, or back"
-        title="Hold and drag to move the platform"
+        aria-label="Pull and hold to continuously move the entire 3D platform in that direction"
+        title="Pull and hold to continuously move the platform"
       >
         <span class="voxel-grid-joystick-cross" aria-hidden="true"></span>
         <span class="voxel-grid-joystick-stick" aria-hidden="true">
@@ -13160,16 +13244,12 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
     </button>
 
     <div class="voxel-controls" aria-label="3D view controls">
-      <button class="voxel-control" type="button" data-voxel-action="pan-left" aria-label="Move tower left" title="Move tower left">←</button>
-      <button class="voxel-control" type="button" data-voxel-action="pan-right" aria-label="Move tower right" title="Move tower right">→</button>
-      <button class="voxel-control" type="button" data-voxel-action="pan-up" aria-label="Pan upward" title="Pan upward">↑</button>
-      <button class="voxel-control" type="button" data-voxel-action="pan-down" aria-label="Pan downward" title="Pan downward">↓</button>
       <button class="voxel-control" type="button" data-voxel-action="zoom-in" aria-label="Zoom in">+</button>
       <button class="voxel-control" type="button" data-voxel-action="zoom-out" aria-label="Zoom out">−</button>
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to rotate · hold the grid joystick to move the whole platform · wheel/pinch to zoom · click a floor / scrolling title</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to rotate · pull + hold the grid joystick for continuous movement · wheel/pinch to zoom · click a floor / scrolling title</div>
 
     <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -14588,7 +14668,19 @@ function openPanel(panel) {
         expansion.style.setProperty("--mobile-title-space", `${detachedTop + 176}px`);
     }
 
-    /* V52: Technical Skills intentionally has no detached miniature. */
+    /* V54: desktop detached floors use the ACTUAL rendered copy block geometry.
+       This is the alignment the design needs: the floor is centered under the
+       kicker/description text block itself, never under the whole left rail. */
+    if (!mobile && key !== "skills") {
+        const detachedStage = expansion.querySelector("[data-detached-floor-stage]");
+        const copyBlock = expansion.querySelector(".expanded-header-row > div");
+        if (detachedStage && copyBlock) {
+            detachedStage.style.left = `${copyBlock.offsetLeft}px`;
+            detachedStage.style.width = `${copyBlock.offsetWidth}px`;
+        }
+    }
+
+    /* Technical Skills intentionally has no detached miniature. */
     if (key !== "skills") {
         window.dispatchEvent(new CustomEvent("portfolio:detached-floor-open", { detail: { key } }));
     }
@@ -21036,17 +21128,94 @@ MOBILE RESEARCH FIGURES FIX
     applyProjection();
   }
 
-  /* V53 — HOLD + DRAG SCREEN-PAN MODE.
-     This is intentionally NOT tower rotation and NOT OrbitControls panning.
-     It changes the same orthographic view-shift values used by the arrow buttons,
-     so dragging the joystick right/left/up/down visibly moves the ENTIRE 3D
-     composition in that direction on the screen. */
+  /* V54 — TRUE ANALOG JOYSTICK.
+     Pull the stick away from center and HOLD it there: the whole 3D composition
+     keeps moving continuously in that direction. Returning near center creates
+     a dead zone; releasing springs the stick back and stops movement immediately. */
   let towerMoveActive=false;
   let towerMovePointer=null;
-  let towerMoveLastX=0;
-  let towerMoveLastY=0;
-  let joystickVisualX=0;
-  let joystickVisualY=0;
+  let joystickOriginX=0;
+  let joystickOriginY=0;
+  let joystickX=0;
+  let joystickY=0;
+  let joystickMotionRAF=0;
+  let joystickMotionLast=0;
+
+  const JOYSTICK_DEADZONE=.12;
+  const JOYSTICK_MAX_X=28;
+  const JOYSTICK_MAX_Y=24;
+
+  function clampJoystickVector(rawX,rawY){
+    let nx=rawX/JOYSTICK_MAX_X;
+    let ny=rawY/JOYSTICK_MAX_Y;
+    const mag=Math.hypot(nx,ny);
+    if(mag>1){nx/=mag;ny/=mag;}
+    return {x:nx,y:ny};
+  }
+
+  function paintJoystick(){
+    const stick=gridJoystick?.querySelector('.voxel-grid-joystick-stick');
+    if(!stick)return;
+    const px=joystickX*JOYSTICK_MAX_X;
+    const py=joystickY*JOYSTICK_MAX_Y;
+    const rz=THREE.MathUtils.clamp(joystickX*17,-17,17);
+    const rx=THREE.MathUtils.clamp(-joystickY*14,-14,14);
+    stick.style.transform=`translateX(-50%) translate(${px*.22}px,${py*.10}px) rotateX(${rx}deg) rotateZ(${rz}deg)`;
+  }
+
+  function setJoystickFromPointer(clientX,clientY){
+    const v=clampJoystickVector(clientX-joystickOriginX,clientY-joystickOriginY);
+    joystickX=v.x;
+    joystickY=v.y;
+    paintJoystick();
+  }
+
+  function applyJoystickMotion(now){
+    if(!towerMoveActive){
+      joystickMotionRAF=0;
+      joystickMotionLast=0;
+      return;
+    }
+
+    if(!joystickMotionLast)joystickMotionLast=now;
+    const dt=Math.min((now-joystickMotionLast)/1000,.05);
+    joystickMotionLast=now;
+
+    const magnitude=Math.hypot(joystickX,joystickY);
+    if(magnitude>JOYSTICK_DEADZONE){
+      const strength=(magnitude-JOYSTICK_DEADZONE)/(1-JOYSTICK_DEADZONE);
+      const nx=joystickX/magnitude;
+      const ny=joystickY/magnitude;
+
+      /* Divide by zoom so perceived screen speed remains similar at different zooms. */
+      const speed=(7.2/Math.max(camera.zoom,.35))*strength;
+
+      /* Pull right -> composition moves right. Pull down -> composition moves down. */
+      viewShiftX -= nx*speed*dt;
+      viewShiftY += ny*speed*dt;
+
+      const horizontalLimit=Math.max(8.5,lastFrustum*1.10);
+      const verticalLimit=Math.max(6.8,lastFrustum*.88);
+      viewShiftX=THREE.MathUtils.clamp(viewShiftX,-horizontalLimit,horizontalLimit);
+      viewShiftY=THREE.MathUtils.clamp(viewShiftY,-verticalLimit,verticalLimit);
+      applyProjection();
+      boostInteraction(260);
+    }
+
+    joystickMotionRAF=requestAnimationFrame(applyJoystickMotion);
+  }
+
+  function startJoystickMotion(){
+    if(joystickMotionRAF)return;
+    joystickMotionLast=0;
+    joystickMotionRAF=requestAnimationFrame(applyJoystickMotion);
+  }
+
+  function stopJoystickMotion(){
+    if(joystickMotionRAF)cancelAnimationFrame(joystickMotionRAF);
+    joystickMotionRAF=0;
+    joystickMotionLast=0;
+  }
 
   function setTowerMoveMode(active,pointerId=null){
     towerMoveActive=active;
@@ -21055,55 +21224,38 @@ MOBILE RESEARCH FIGURES FIX
     wrap.classList.toggle('is-tower-moving',active);
     gridJoystick?.classList.toggle('is-dragging',active);
 
-    if(!active){
-      joystickVisualX=0;
-      joystickVisualY=0;
-      const stick=gridJoystick?.querySelector('.voxel-grid-joystick-stick');
-      if(stick) stick.style.transform='translateX(-50%) rotateX(0deg) rotateZ(0deg)';
+    if(active){
+      startJoystickMotion();
+    }else{
+      stopJoystickMotion();
+      joystickX=0;
+      joystickY=0;
+      paintJoystick();
     }
     boostInteraction(active?1400:500);
   }
 
-  function panWholeComposition(dx,dy){
-    if(!towerMoveActive)return;
-
-    /* Convert pointer pixels to orthographic world units.
-       The signs are chosen so the content follows the user's hand:
-       drag right -> platform moves right; drag down -> platform moves down. */
+  function nudgeWholeComposition(dx,dy){
     const worldPerPixel=(lastFrustum/Math.max(camera.zoom,.35))/Math.max(wrap.clientHeight,1);
-
     viewShiftX -= dx*worldPerPixel;
     viewShiftY += dy*worldPerPixel;
-
-    /* Keep the composition reachable while still allowing a much larger travel
-       range than the old ground-plane clamp. */
-    const horizontalLimit=Math.max(7.5,lastFrustum*1.05);
-    const verticalLimit=Math.max(6.0,lastFrustum*.82);
+    const horizontalLimit=Math.max(8.5,lastFrustum*1.10);
+    const verticalLimit=Math.max(6.8,lastFrustum*.88);
     viewShiftX=THREE.MathUtils.clamp(viewShiftX,-horizontalLimit,horizontalLimit);
     viewShiftY=THREE.MathUtils.clamp(viewShiftY,-verticalLimit,verticalLimit);
-
     applyProjection();
-    boostInteraction(900);
-  }
-
-  function updateJoystickVisual(dx,dy){
-    const stick=gridJoystick?.querySelector('.voxel-grid-joystick-stick');
-    if(!stick)return;
-
-    joystickVisualX=THREE.MathUtils.clamp(joystickVisualX+dx,-16,16);
-    joystickVisualY=THREE.MathUtils.clamp(joystickVisualY+dy,-12,12);
-
-    const rz=THREE.MathUtils.clamp(joystickVisualX*.72,-12,12);
-    const rx=THREE.MathUtils.clamp(-joystickVisualY*.72,-10,10);
-    stick.style.transform=`translateX(-50%) translate(${joystickVisualX*.18}px,${joystickVisualY*.10}px) rotateX(${rx}deg) rotateZ(${rz}deg)`;
+    boostInteraction(500);
   }
 
   if(gridJoystick){
     gridJoystick.addEventListener('pointerdown',ev=>{
       ev.preventDefault();
       ev.stopPropagation();
-      towerMoveLastX=ev.clientX;
-      towerMoveLastY=ev.clientY;
+      joystickOriginX=ev.clientX;
+      joystickOriginY=ev.clientY;
+      joystickX=0;
+      joystickY=0;
+      paintJoystick();
       gridJoystick.setPointerCapture?.(ev.pointerId);
       setTowerMoveMode(true,ev.pointerId);
     });
@@ -21112,14 +21264,7 @@ MOBILE RESEARCH FIGURES FIX
       if(!towerMoveActive || ev.pointerId!==towerMovePointer)return;
       ev.preventDefault();
       ev.stopPropagation();
-
-      const dx=ev.clientX-towerMoveLastX;
-      const dy=ev.clientY-towerMoveLastY;
-      towerMoveLastX=ev.clientX;
-      towerMoveLastY=ev.clientY;
-
-      panWholeComposition(dx,dy);
-      updateJoystickVisual(dx,dy);
+      setJoystickFromPointer(ev.clientX,ev.clientY);
     });
 
     const finishJoystickDrag=ev=>{
@@ -21134,13 +21279,13 @@ MOBILE RESEARCH FIGURES FIX
     gridJoystick.addEventListener('pointercancel',finishJoystickDrag);
     gridJoystick.addEventListener('lostpointercapture',()=>{if(towerMoveActive)setTowerMoveMode(false);});
 
-    /* Keyboard fallback: arrows on the focused joystick move the view too. */
+    /* Keyboard accessibility stays on the joystick itself; the visible arrow buttons are gone. */
     gridJoystick.addEventListener('keydown',ev=>{
-      const step=34;
-      if(ev.key==='ArrowLeft'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(-step,0);setTowerMoveMode(false);}
-      if(ev.key==='ArrowRight'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(step,0);setTowerMoveMode(false);}
-      if(ev.key==='ArrowUp'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(0,-step);setTowerMoveMode(false);}
-      if(ev.key==='ArrowDown'){ev.preventDefault();setTowerMoveMode(true);panWholeComposition(0,step);setTowerMoveMode(false);}
+      const step=42;
+      if(ev.key==='ArrowLeft'){ev.preventDefault();nudgeWholeComposition(-step,0);}
+      if(ev.key==='ArrowRight'){ev.preventDefault();nudgeWholeComposition(step,0);}
+      if(ev.key==='ArrowUp'){ev.preventDefault();nudgeWholeComposition(0,-step);}
+      if(ev.key==='ArrowDown'){ev.preventDefault();nudgeWholeComposition(0,step);}
     });
   }
 
@@ -21175,16 +21320,13 @@ MOBILE RESEARCH FIGURES FIX
 
   root.querySelectorAll('[data-voxel-action]').forEach(btn=>btn.addEventListener('click',()=>{
     const action=btn.dataset.voxelAction;
-    if(action==='pan-left'){moveViewHorizontal(-1);}
-    if(action==='pan-right'){moveViewHorizontal(1);}
-    if(action==='pan-up'){moveViewVertical(1);}
-    if(action==='pan-down'){moveViewVertical(-1);}
     if(action==='zoom-in'){camera.zoom=Math.min(controls.maxZoom,camera.zoom*1.18);camera.updateProjectionMatrix();}
     if(action==='zoom-out'){camera.zoom=Math.max(controls.minZoom,camera.zoom/1.18);camera.updateProjectionMatrix();}
     if(action==='reset'){
       if(towerMoveActive)setTowerMoveMode(false);
       viewShiftX=0;viewShiftY=0;
       gridJoystick?.classList.remove('is-dragging');
+      joystickX=0;joystickY=0;paintJoystick();stopJoystickMotion();
       const tx=window.innerWidth<=800?0:.65;
       tower.position.set(tx,0,0);
       camera.position.set(tx+12,12.0,14);
