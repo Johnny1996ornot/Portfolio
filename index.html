@@ -12345,6 +12345,28 @@ body { background:var(--v28-bg) !important; }
 .voxel-featured-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px;}
 .voxel-featured-top h3{margin:0;font-size:1.45rem;}
 .voxel-featured-top p{margin:5px 0 0;color:#9bb5ba;line-height:1.45;}
+.voxel-featured-floor-stage{
+  position:relative;
+  flex:0 0 220px;
+  width:220px;
+  height:122px;
+  margin:-8px 2px -10px 8px;
+  pointer-events:none;
+  filter:drop-shadow(0 16px 18px rgba(0,0,0,.28));
+}
+.voxel-featured-floor-stage::before{
+  content:'';position:absolute;left:9%;right:9%;bottom:2px;height:25%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(88,230,162,.18),rgba(88,230,162,0) 70%);
+  filter:blur(7px);
+}
+.voxel-featured-floor-stage .detached-floor-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.voxel-featured-floor-caption{
+  position:absolute;left:8px;bottom:0;padding:4px 6px;
+  border:1px solid rgba(114,233,165,.20);background:rgba(2,16,27,.70);
+  color:#78c6a0;font:800 .49rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.07em;text-transform:uppercase;
+}
 .voxel-featured-close{width:40px;height:40px;flex:0 0 40px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:#031824;color:white;font-size:1.35rem;cursor:pointer;}
 .voxel-featured-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
 .voxel-featured-link{
@@ -12358,7 +12380,14 @@ body { background:var(--v28-bg) !important; }
 .voxel-featured-link strong{font-size:.98rem;line-height:1.15;}
 .voxel-featured-link small{color:#96b2b7;font-size:.72rem;line-height:1.45;}
 .voxel-featured-arrow{margin-top:auto;color:var(--featured-accent,#58e6a2);font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
-@media(max-width:700px){.voxel-featured-grid{grid-template-columns:1fr}.voxel-featured-link{min-height:0}.voxel-featured-card{max-height:88vh;overflow:auto;padding:18px}.voxel-featured-top h3{font-size:1.2rem}}
+@media(max-width:700px){
+  .voxel-featured-grid{grid-template-columns:1fr}
+  .voxel-featured-link{min-height:0}
+  .voxel-featured-card{max-height:88vh;overflow:auto;padding:18px}
+  .voxel-featured-top{flex-wrap:wrap}
+  .voxel-featured-top h3{font-size:1.2rem}
+  .voxel-featured-floor-stage{order:3;flex:1 0 100%;width:100%;height:142px;margin:2px 0 -2px}
+}
 
 @media (max-width:1100px){
   .voxel-brand{width:min(370px,38vw)}
@@ -12826,7 +12855,7 @@ V49 — SYNCHRONISED SECTION-TITLE MORPH
 
 <style id="v50-grab-and-detached-floor">
 /* =========================================================
-V50 — HOLD-TO-MOVE TOWER + DETACHED FLOOR PREVIEW
+V51 — HOLD-TO-MOVE TOWER + ALIGNED DETACHED FLOOR PREVIEW
 ========================================================= */
 .voxel-grab-control{
   position:absolute;
@@ -12872,21 +12901,27 @@ V50 — HOLD-TO-MOVE TOWER + DETACHED FLOOR PREVIEW
 .voxel-grab-control.is-grabbing::before{content:'↔';}
 .voxel-canvas-wrap.is-tower-moving #voxelPortfolioCanvas{cursor:grabbing !important;}
 
-/* Lightweight selected-floor renderer inside an opened section. */
+/* Lightweight selected-floor renderer inside an opened section.
+   V51: it now sits directly under the section title/copy instead of at the
+   bottom of the panel, so it reads as part of the left-hand section rail. */
 .detached-floor-stage{
   position:absolute;
-  left:clamp(28px,3.2vw,58px);
-  bottom:clamp(24px,3.4vh,46px);
-  width:min(31vw,470px);
-  height:clamp(160px,24vh,230px);
+  left:clamp(48px,3.2vw,66px);
+  top:calc(var(--rail-copy-top,300px) + 104px);
+  bottom:auto;
+  width:min(25vw,360px);
+  height:clamp(150px,20vh,198px);
   z-index:14;
   pointer-events:none;
   opacity:0;
-  transform:translate3d(0,22px,0) scale(.88);
-  transform-origin:left bottom;
-  transition:opacity .24s ease,transform .42s cubic-bezier(.2,.78,.22,1);
-  filter:drop-shadow(0 24px 28px rgba(0,0,0,.26));
+  transform:translate3d(0,14px,0) scale(.92);
+  transform-origin:left top;
+  transition:opacity .20s ease,transform .34s cubic-bezier(.2,.78,.22,1);
+  filter:drop-shadow(0 20px 24px rgba(0,0,0,.24));
 }
+/* Technical Skills already has a dense capability grid; the miniature floor
+   only competes with Project Management there, so it is intentionally absent. */
+.expansion-skills .detached-floor-stage{display:none !important;}
 .expansion.content-visible .detached-floor-stage{
   opacity:1;
   transform:translate3d(0,0,0) scale(1);
@@ -12948,6 +12983,7 @@ V50 — HOLD-TO-MOVE TOWER + DETACHED FLOOR PREVIEW
     height:158px;
     transform-origin:center top;
   }
+  .expansion-skills .detached-floor-stage{display:none !important;}
   .detached-floor-caption{font-size:.50rem;}
 }
 
@@ -13012,6 +13048,10 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
   <aside class="voxel-featured-card" id="voxelFeaturedCard" hidden aria-label="Featured projects">
     <div class="voxel-featured-top">
       <div><h3>Featured spatial projects</h3><p>The lowest floor is a project hub. Choose a project to open its case study or interactive map.</p></div>
+      <div class="voxel-featured-floor-stage" data-featured-floor-stage aria-hidden="true">
+        <canvas class="detached-floor-canvas"></canvas>
+        <div class="voxel-featured-floor-caption">Featured floor</div>
+      </div>
       <button class="voxel-featured-close" type="button" aria-label="Close featured projects">×</button>
     </div>
     <div class="voxel-featured-grid">
@@ -14370,10 +14410,11 @@ function openPanel(panel) {
 
         <div class="expanded-title-shield"></div>
 
+        ${key !== "skills" ? `
         <div class="detached-floor-stage" data-detached-floor-stage data-floor-key="${key}" aria-hidden="true">
             <canvas class="detached-floor-canvas"></canvas>
             <div class="detached-floor-caption">Selected floor · ${content[key].kicker}</div>
-        </div>
+        </div>` : ""}
 
         <div class="expanded-content">
             <div class="expanded-header-row">
@@ -14406,15 +14447,16 @@ function openPanel(panel) {
 
     const finalTitleRect = flyingTitle.getBoundingClientRect();
 
-    if (mobile) {
+    if (mobile && key !== "skills") {
         const detachedTop = Math.max(118, (finalTitleTop - finalTop) + finalTitleRect.height + 14);
         expansion.style.setProperty("--detached-mobile-top", `${detachedTop}px`);
         expansion.style.setProperty("--mobile-title-space", `${detachedTop + 176}px`);
     }
 
-    /* V50: the miniature selected floor is rendered by the already-loaded Three.js
-       runtime. No second copy of the portfolio content is created. */
-    window.dispatchEvent(new CustomEvent("portfolio:detached-floor-open", { detail: { key } }));
+    /* V51: Technical Skills intentionally has no detached miniature. */
+    if (key !== "skills") {
+        window.dispatchEvent(new CustomEvent("portfolio:detached-floor-open", { detail: { key } }));
+    }
 
     /* Use the title's real rendered height rather than a line-count estimate.
        This prevents descriptions from colliding with wrapped titles such as
@@ -20011,7 +20053,21 @@ MOBILE RESEARCH FIGURES FIX
     if (!featuredCard || !featuredBackdrop) return;
     featuredCard.hidden = !open;
     featuredBackdrop.hidden = !open;
-    if (open) requestAnimationFrame(() => featuredClose?.focus({preventScroll:true}));
+    if (open) {
+      document.body.classList.add('voxel-render-paused');
+      window.dispatchEvent(new Event('portfolio:voxel-pause'));
+      requestAnimationFrame(() => {
+        featuredClose?.focus({preventScroll:true});
+        const host=featuredCard.querySelector('[data-featured-floor-stage]');
+        if(root.dataset.voxelReady==='1' && host) startDetachedFloor('featured',host);
+      });
+    } else {
+      if(root.dataset.voxelReady==='1') stopDetachedFloor();
+      if(!document.querySelector('.expansion')){
+        document.body.classList.remove('voxel-render-paused');
+        window.dispatchEvent(new Event('portfolio:voxel-resume'));
+      }
+    }
   }
   featuredToggles.forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); setFeatured(true); }));
   featuredClose?.addEventListener('click', () => setFeatured(false));
@@ -20607,9 +20663,10 @@ MOBILE RESEARCH FIGURES FIX
   }
 
   layerMeta.forEach(createVoxelPlatform);
+  root.dataset.voxelReady='1';
 
   /* =========================================================
-  V50 — DETACHED FLOOR PREVIEW
+  V51 — DETACHED FLOOR PREVIEW
   Reuses the selected floor geometry in a separate low-power renderer.
   The main tower stays paused while a section is open.
   ========================================================= */
@@ -20633,9 +20690,9 @@ MOBILE RESEARCH FIGURES FIX
     detachedFloat=null;
   }
 
-  function startDetachedFloor(key){
+  function startDetachedFloor(key, hostOverride=null){
     pendingDetachedKey=key;
-    const host=document.querySelector('.expansion [data-detached-floor-stage]');
+    const host=hostOverride || document.querySelector('.expansion [data-detached-floor-stage]');
     const miniCanvas=host?.querySelector('.detached-floor-canvas');
     const source=platformGroups.get(key);
     if(!host || !miniCanvas || !source) return;
@@ -20679,7 +20736,7 @@ MOBILE RESEARCH FIGURES FIX
     function resizeDetached(){
       if(!detachedRenderer || !detachedCamera || !host.isConnected) return;
       const w=Math.max(1,host.clientWidth), h=Math.max(1,host.clientHeight), aspect=w/h;
-      const halfH=maxDim*.58;
+      const halfH=maxDim*.48;
       const halfW=halfH*aspect;
       detachedCamera.left=-halfW;detachedCamera.right=halfW;
       detachedCamera.top=halfH;detachedCamera.bottom=-halfH;
@@ -20712,6 +20769,10 @@ MOBILE RESEARCH FIGURES FIX
     if(key) requestAnimationFrame(()=>startDetachedFloor(key));
   });
   window.addEventListener('portfolio:detached-floor-close',stopDetachedFloor);
+  if(featuredCard && !featuredCard.hidden){
+    const featuredHost=featuredCard.querySelector('[data-featured-floor-stage]');
+    if(featuredHost) requestAnimationFrame(()=>startDetachedFloor('featured',featuredHost));
+  }
 
   /* Glittering disco ball on the third floor, beneath Maps · Models · Visuals. */
   const discoGroup=new THREE.Group();
