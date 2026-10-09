@@ -19870,17 +19870,17 @@ MOBILE RESEARCH FIGURES FIX
     alpha:true,
     powerPreference:'high-performance'
   });
-  /* V46: 1.5× desktop / 1.25× mobile is visually crisp at this canvas size but
+  /* V47: 1.35× desktop / 1.15× mobile is visually crisp at this canvas size but
      substantially cheaper than the previous 2× / 1.5× render targets. */
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.25 : 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, initialMobile ? 1.15 : 1.35));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = !initialMobile;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.setClearColor(0x000000,0);
 
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
-  controls.dampingFactor = .075;
+  controls.dampingFactor = .11;
   /* V42: panning the OrbitControls target is disabled. The projection shifts instead,
      so rotating always remains centered on the 3D tower even after moving it on screen. */
   controls.enablePan = false;
@@ -20029,7 +20029,7 @@ MOBILE RESEARCH FIGURES FIX
 
     scrollingTitleBands.push({
       tex,
-      speed:(index%2?-.000011:.000011),
+      speed:(index%2?-.000016:.000016),
       phase:index*.137,
       meshes
     });
@@ -20235,7 +20235,7 @@ MOBILE RESEARCH FIGURES FIX
     /* Higher clearance above the research floor so the bedroom/study scene is easier to read. */
     {key:'skills', y:5.95, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
     {key:'gallery', y:9.10, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
-    {key:'mini', y:11.85, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
+    {key:'mini', y:12.30, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
     {key:'profile', y:14.95, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
   ];
 
@@ -20503,7 +20503,7 @@ MOBILE RESEARCH FIGURES FIX
     controls.target.z=0;
 
     applyProjection();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.25:1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.15:1.35));
     renderer.shadowMap.enabled=!mobile;
     keyLight.castShadow=!mobile;
     renderer.setSize(w,h,false);
@@ -20580,9 +20580,9 @@ MOBILE RESEARCH FIGURES FIX
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* =========================================================
-  V46 PERFORMANCE SCHEDULER
+  V47 PERFORMANCE SCHEDULER
   - 60 fps while the user is actively rotating/zooming
-  - 30 fps desktop / 24 fps mobile for ambient animation
+  - 40 fps desktop / 30 fps mobile for ambient animation
   - WebGL loop stops completely behind expanded portfolio sections
   - WebGL loop also stops when the browser tab is hidden
   ========================================================= */
@@ -20656,12 +20656,12 @@ MOBILE RESEARCH FIGURES FIX
     if(!running || !canRender()) { running=false; return; }
 
     const activeInteraction = now < interactionUntil;
-    const targetFps = activeInteraction ? (isMobileRender()?45:60) : (isMobileRender()?24:30);
+    const targetFps = activeInteraction ? (isMobileRender()?48:60) : (isMobileRender()?30:40);
     const interval = 1000 / targetFps;
 
     if(!lastFrameTime || now-lastFrameTime >= interval){
       lastFrameTime=now;
-      controls.update();
+      if(activeInteraction) controls.update();
       animateScene(now);
       renderer.render(scene,camera);
     }
