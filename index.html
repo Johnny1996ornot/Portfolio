@@ -20213,9 +20213,9 @@ This block intentionally comes LAST so old experimental overrides cannot win.
 
 
 /* =========================================================
-V61 — REVERSED NUMBER-BASED ISLAND ELEVATION
-Island 01 is now the highest, then each succeeding numbered island steps downward
-until Island 06, which is the lowest.
+V62 — REQUESTED FRONT / RIGHT / CENTER / BACK LAYOUT
+Island 01 is placed in front, 02 on the right, 03 in the middle,
+04 behind-left of 03, and 05 + 06 are placed further behind.
 ========================================================= */
 
 .voxel-canvas-wrap{
@@ -20702,9 +20702,9 @@ until Island 06, which is the lowest.
   scene.fog = new THREE.FogExp2(0x020914, 0.028);
 
   const camera = new THREE.OrthographicCamera(-10,10,10,-10,0.1,120);
-  camera.position.set(17.8,14.2,19.8);
-  camera.lookAt(1.8,1.05,.65);
-  camera.zoom = .90;
+  camera.position.set(17.8,14.4,20.0);
+  camera.lookAt(.70,1.05,.30);
+  camera.zoom = .88;
   camera.updateProjectionMatrix();
 
   const initialMobile = window.innerWidth <= 800;
@@ -20742,7 +20742,7 @@ until Island 06, which is the lowest.
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .30;
   controls.maxPolarAngle = Math.PI*.72;
-  controls.target.set(1.8,1.05,.65);
+  controls.target.set(.70,1.05,.30);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -21077,37 +21077,37 @@ until Island 06, which is the lowest.
 
   const layerMeta = [
     {
-      key:'profile', x:.90, y:1.80, z:-7.40, size:5.35,
+      key:'profile', x:.50, y:1.80, z:7.60, size:5.35,
       color:C.profile, rock:0x6d4931,
       title:'01  PROFILE', sub:'background · experience · contact',
       accent:'#ffe57b', side:-1
     },
     {
-      key:'projects', x:-7.10, y:.52, z:-2.70, size:6.35,
+      key:'projects', x:2.70, y:.52, z:-7.00, size:6.35,
       color:C.research, rock:0x44304f,
       title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial',
       accent:'#b977ff', side:-1
     },
     {
-      key:'gallery', x:0.00, y:1.16, z:0.00, size:5.90,
+      key:'gallery', x:0.00, y:1.16, z:.40, size:5.90,
       color:C.maps, rock:0x63404a,
       title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work',
       accent:'#ff7185', side:-1
     },
     {
-      key:'mini', x:7.00, y:1.48, z:-.20, size:6.10,
+      key:'mini', x:8.10, y:1.48, z:1.10, size:6.10,
       color:C.coding, rock:0x27515a,
       title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps',
       accent:'#50e9da', side:1
     },
     {
-      key:'featured', x:-6.70, y:.20, z:4.90, size:6.75,
+      key:'featured', x:-6.80, y:.20, z:-7.20, size:6.75,
       color:C.featured, rock:0x4d4b32,
       title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces',
       accent:'#72e9a5', side:1
     },
     {
-      key:'skills', x:3.20, y:.84, z:6.50, size:5.95,
+      key:'skills', x:-5.20, y:.84, z:-2.80, size:5.95,
       color:C.skills, rock:0x263e59,
       title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming',
       accent:'#42dcff', side:1
@@ -21679,10 +21679,10 @@ until Island 06, which is the lowest.
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight);
     const mobile=window.innerWidth<=800;
 
-    /* Orbit around the raised center of the island archipelago. */
+    /* Orbit around the requested front/right/center/back archipelago layout. */
     controls.target.x=islandWorld.position.x;
     controls.target.y=1.05;
-    controls.target.z=islandWorld.position.z+.65;
+    controls.target.z=islandWorld.position.z+.30;
 
     applyProjection();
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.15:1.35));
@@ -21923,11 +21923,11 @@ until Island 06, which is the lowest.
       viewShiftX=0;viewShiftY=0;
       gridJoystick?.classList.remove('is-dragging');
       joystickX=0;joystickY=0;paintJoystick();stopJoystickMotion();
-      const tx=window.innerWidth<=800?0:1.8;
+      const tx=window.innerWidth<=800?0:.70;
       islandWorld.position.set(tx,0,0);
-      camera.position.set(tx+16.0,14.2,19.8);
-      camera.zoom=.90;
-      controls.target.set(tx,1.05,.65);
+      camera.position.set(tx+17.1,14.4,20.0);
+      camera.zoom=.88;
+      controls.target.set(tx,1.05,.30);
       applyProjection();
       controls.update();
     }
