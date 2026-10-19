@@ -20213,9 +20213,9 @@ This block intentionally comes LAST so old experimental overrides cannot win.
 
 
 /* =========================================================
-V60 — NUMBER-BASED ISLAND ELEVATION
-Six separate islands keep the compact archipelago layout, but their heights are now
-staggered by portfolio number so they read as clearly separate floating objects.
+V61 — REVERSED NUMBER-BASED ISLAND ELEVATION
+Island 01 is now the highest, then each succeeding numbered island steps downward
+until Island 06, which is the lowest.
 ========================================================= */
 
 .voxel-canvas-wrap{
@@ -21077,37 +21077,37 @@ staggered by portfolio number so they read as clearly separate floating objects.
 
   const layerMeta = [
     {
-      key:'profile', x:.90, y:.20, z:-7.40, size:5.35,
+      key:'profile', x:.90, y:1.80, z:-7.40, size:5.35,
       color:C.profile, rock:0x6d4931,
       title:'01  PROFILE', sub:'background · experience · contact',
       accent:'#ffe57b', side:-1
     },
     {
-      key:'projects', x:-7.10, y:1.48, z:-2.70, size:6.35,
+      key:'projects', x:-7.10, y:.52, z:-2.70, size:6.35,
       color:C.research, rock:0x44304f,
       title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial',
       accent:'#b977ff', side:-1
     },
     {
-      key:'gallery', x:0.00, y:.84, z:0.00, size:5.90,
+      key:'gallery', x:0.00, y:1.16, z:0.00, size:5.90,
       color:C.maps, rock:0x63404a,
       title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work',
       accent:'#ff7185', side:-1
     },
     {
-      key:'mini', x:7.00, y:.52, z:-.20, size:6.10,
+      key:'mini', x:7.00, y:1.48, z:-.20, size:6.10,
       color:C.coding, rock:0x27515a,
       title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps',
       accent:'#50e9da', side:1
     },
     {
-      key:'featured', x:-6.70, y:1.80, z:4.90, size:6.75,
+      key:'featured', x:-6.70, y:.20, z:4.90, size:6.75,
       color:C.featured, rock:0x4d4b32,
       title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces',
       accent:'#72e9a5', side:1
     },
     {
-      key:'skills', x:3.20, y:1.16, z:6.50, size:5.95,
+      key:'skills', x:3.20, y:.84, z:6.50, size:5.95,
       color:C.skills, rock:0x263e59,
       title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming',
       accent:'#42dcff', side:1
