@@ -13265,15 +13265,15 @@ V54 — MOBILE PAGE SCROLL + CLEAN 3-CONTROL VIEW BAR
 
 
 <!-- =========================================================
-SECTION 08 — HOME ROTATABLE VOXEL / PIXEL-ART NAVIGATION (V56)
-Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
+SECTION 08 — FLOATING-ISLAND VOXEL ARCHIPELAGO (V58)
+Drag to orbit the archipelago, wheel/pinch to zoom, and click an island to open it.
 ========================================================= -->
 <main class="app voxel-app" id="voxelPortfolioHome">
-  <section class="voxel-stage" id="voxelStage" aria-label="Interactive 3D pixel-art portfolio tower. Drag to rotate, scroll or pinch to zoom, and select a layer to enter a portfolio section.">
+  <section class="voxel-stage" id="voxelStage" aria-label="Interactive 3D floating-island portfolio. Drag to orbit, scroll or pinch to zoom, and select an island to enter a portfolio section.">
     <div class="voxel-canvas-wrap" id="voxelCanvasWrap">
-      <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D pixel-art portfolio tower"></canvas>
+      <canvas id="voxelPortfolioCanvas" tabindex="0" aria-label="Rotatable 3D floating-island portfolio archipelago"></canvas>
 
-      <div class="voxel-loading" id="voxelLoading">Loading voxel portfolio…</div>
+      <div class="voxel-loading" id="voxelLoading">Loading floating-island portfolio…</div>
     </div>
 
     <button class="voxel-brand" type="button" data-panel="profile" aria-label="Open profile">
@@ -13304,9 +13304,9 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
       <button class="voxel-control reset" type="button" data-voxel-action="reset" aria-label="Reset 3D view">Reset view</button>
     </div>
 
-    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to rotate · use the right-side control card to move / zoom / reset · click a floor or scrolling title</div>
+    <div class="voxel-help" aria-hidden="true"><span class="voxel-help-dot"></span>Drag empty space to orbit · use the right-side control card to move / zoom / reset · click an island or scrolling title</div>
 
-    <nav class="voxel-section-key" aria-label="Portfolio sections ordered from the top floor downward">
+    <nav class="voxel-section-key" aria-label="Portfolio island navigation">
       <button class="voxel-key-button" type="button" data-panel="mini" style="--key-accent:#41e0d0"><span class="voxel-key-num">02</span><span class="voxel-key-copy"><strong data-title>Data &amp; Coding Projects</strong><small>Interactive tools · modelling · applications</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="gallery" style="--key-accent:#ff7185"><span class="voxel-key-num">03</span><span class="voxel-key-copy"><strong data-title>Maps · Models · Visuals</strong><small>Cartographic and analytical work</small></span><span class="voxel-key-arrow">↗</span></button>
       <button class="voxel-key-button" type="button" data-panel="skills" style="--key-accent:#35d7ff"><span class="voxel-key-num">04</span><span class="voxel-key-copy"><strong data-title>Technical Skills</strong><small>GIS · remote sensing · programming</small></span><span class="voxel-key-arrow">↗</span></button>
@@ -13319,7 +13319,7 @@ Drag to rotate, wheel/pinch to zoom, and click a 3D layer to open it.
   <div class="voxel-featured-backdrop" id="voxelFeaturedBackdrop" hidden></div>
   <aside class="voxel-featured-card" id="voxelFeaturedCard" hidden aria-label="Featured projects">
     <div class="voxel-featured-top">
-      <div><h3>Featured spatial projects</h3><p>The lowest floor is a project hub. Choose a project to open its case study or interactive map.</p></div>
+      <div><h3>Featured spatial projects</h3><p>The green forest island is the project hub. Choose a project to open its case study or interactive map.</p></div>
       <div class="voxel-featured-floor-stage" data-featured-floor-stage aria-hidden="true">
         <canvas class="detached-floor-canvas"></canvas>
       </div>
@@ -20210,6 +20210,49 @@ This block intentionally comes LAST so old experimental overrides cannot win.
 }
 
 
+
+
+/* =========================================================
+V58 — FLOATING-ISLAND ARCHIPELAGO HOME
+The WebGL scene is now six separate islands rather than a vertical tower.
+========================================================= */
+
+.voxel-canvas-wrap{
+  background:
+    radial-gradient(circle at 64% 42%, rgba(48,122,151,.08), transparent 30%),
+    radial-gradient(circle at 77% 72%, rgba(124,86,212,.06), transparent 26%);
+}
+
+.voxel-help{
+  max-width:min(650px,calc(100vw - 40px));
+}
+
+/* Slightly soften the nav cards so the archipelago remains the visual focus. */
+@media (min-width:801px){
+  .voxel-section-key{
+    opacity:.94;
+  }
+  .voxel-key-button{
+    backdrop-filter:blur(7px);
+    -webkit-backdrop-filter:blur(7px);
+  }
+}
+
+/* On phones, give the 3D world enough height to explore but keep the controls
+   reachable by normal page scrolling below the canvas. */
+@media (max-width:800px){
+  .voxel-canvas-wrap{
+    height:72svh !important;
+    min-height:470px !important;
+  }
+}
+@media (max-width:430px){
+  .voxel-canvas-wrap{
+    height:68svh !important;
+    min-height:430px !important;
+  }
+}
+
 </style>
 
 
@@ -20644,12 +20687,12 @@ This block intentionally comes LAST so old experimental overrides cannot win.
     ]);
     THREE = threeModule;
     ({ OrbitControls } = controlsModule);
-    if (loading) loading.textContent = 'Building voxel portfolio…';
+    if (loading) loading.textContent = 'Building floating islands…';
   } catch (err) {
     if (loading) {
       loading.hidden = false;
       loading.classList.add('voxel-load-error');
-      loading.textContent = '3D terrain could not load. The section buttons still work.';
+      loading.textContent = '3D islands could not load. The section buttons still work.';
     }
     return;
   }
@@ -20657,10 +20700,10 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x020914, 0.028);
 
-  const camera = new THREE.OrthographicCamera(-8,8,8,-8,0.1,100);
-  camera.position.set(12.65,12.0,14);
-  camera.lookAt(.65,6.6,0);
-  camera.zoom = .76;
+  const camera = new THREE.OrthographicCamera(-10,10,10,-10,0.1,120);
+  camera.position.set(17.5,13.6,19.5);
+  camera.lookAt(1.8,.55,.65);
+  camera.zoom = .92;
   camera.updateProjectionMatrix();
 
   const initialMobile = window.innerWidth <= 800;
@@ -20681,8 +20724,8 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = .11;
-  /* V42: panning the OrbitControls target is disabled. The projection shifts instead,
-     so rotating always remains centered on the 3D tower even after moving it on screen. */
+  /* The islands rotate as one world. Panning stays on the dedicated analog joystick,
+     while ordinary dragging is reserved for orbiting the archipelago. */
   controls.enablePan = false;
   controls.screenSpacePanning = false;
   controls.rotateSpeed = .68;
@@ -20696,9 +20739,9 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE || THREE.TOUCH.DOLLY_PAN;
   controls.minZoom = .46;
   controls.maxZoom = 2.25;
-  controls.minPolarAngle = .42;
-  controls.maxPolarAngle = Math.PI/2.03;
-  controls.target.set(.65,6.6,0);
+  controls.minPolarAngle = .30;
+  controls.maxPolarAngle = Math.PI*.72;
+  controls.target.set(1.8,.55,.65);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -20706,9 +20749,9 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   const cyanLight = new THREE.PointLight(0x38dcff,38,30,2); cyanLight.position.set(-6,9,5); scene.add(cyanLight);
   const magentaLight = new THREE.PointLight(0xd45cff,24,24,2); magentaLight.position.set(5,11,-5); scene.add(magentaLight);
 
-  const tower = new THREE.Group();
-  tower.position.x = .65;
-  scene.add(tower);
+  const islandWorld = new THREE.Group();
+  islandWorld.position.set(window.innerWidth<=800?0:1.8,0,0);
+  scene.add(islandWorld);
   const platformGroups = new Map();
   const targets = [];
   const highlightMaterials = new Map();
@@ -21031,37 +21074,147 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   }
 
   const layerMeta = [
-    {key:'featured', y:-1.05, size:7.4, color:C.featured, title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces', accent:'#72e9a5', side:1},
-    {key:'projects', y:2.65, size:6.2, color:C.research, title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial', accent:'#b977ff', side:-1},
-    /* Higher clearance above the research floor so the bedroom/study scene is easier to read. */
-    {key:'skills', y:5.95, size:5.45, color:C.skills, title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming', accent:'#42dcff', side:1},
-    {key:'gallery', y:9.10, size:4.75, color:C.maps, title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work', accent:'#ff7185', side:-1},
-    {key:'mini', y:12.30, size:4.05, color:C.coding, title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps', accent:'#50e9da', side:1},
-    {key:'profile', y:14.95, size:3.25, color:C.profile, title:'01  PROFILE', sub:'background · experience · contact', accent:'#ffe57b', side:-1}
+    {
+      key:'profile', x:.15, y:.58, z:-7.00, size:5.35,
+      color:C.profile, rock:0x6d4931,
+      title:'01  PROFILE', sub:'background · experience · contact',
+      accent:'#ffe57b', side:-1
+    },
+    {
+      key:'projects', x:-7.05, y:.12, z:-1.95, size:6.35,
+      color:C.research, rock:0x44304f,
+      title:'05  RESEARCH PROJECTS', sub:'environmental · ecological · spatial',
+      accent:'#b977ff', side:-1
+    },
+    {
+      key:'mini', x:7.20, y:.42, z:-.85, size:6.10,
+      color:C.coding, rock:0x27515a,
+      title:'02  DATA & CODING PROJECTS', sub:'interactive tools · modelling · apps',
+      accent:'#50e9da', side:1
+    },
+    {
+      key:'featured', x:-6.15, y:-.18, z:5.10, size:6.75,
+      color:C.featured, rock:0x4d4b32,
+      title:'06  FEATURED PROJECTS', sub:'Switzerland · urban heat · green spaces',
+      accent:'#72e9a5', side:1
+    },
+    {
+      key:'skills', x:6.40, y:.20, z:4.60, size:5.95,
+      color:C.skills, rock:0x263e59,
+      title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming',
+      accent:'#42dcff', side:1
+    },
+    {
+      key:'gallery', x:-.55, y:.52, z:8.20, size:5.90,
+      color:C.maps, rock:0x63404a,
+      title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work',
+      accent:'#ff7185', side:-1
+    }
   ];
 
   function createVoxelPlatform(meta,index){
-    const g=new THREE.Group(); g.position.y=meta.y; tower.add(g);
+    const g=new THREE.Group();
+    g.position.set(meta.x,meta.y,meta.z);
+    g.userData.baseY=meta.y;
+    g.userData.hoverLift=0;
+    g.userData.section=meta.key;
+    islandWorld.add(g);
     platformGroups.set(meta.key,g);
-    const n=Math.max(3,Math.round(meta.size));
+
+    const n=Math.max(6,Math.round(meta.size*1.08));
     const cell=meta.size/n;
     const half=(n-1)*cell/2;
     const mats=[];
+
     for(let ix=0;ix<n;ix++) for(let iz=0;iz<n;iz++){
-      const edge=Math.max(Math.abs(ix-(n-1)/2),Math.abs(iz-(n-1)/2));
-      const r=seeded(index*99+ix*17+iz*31);
-      const topHeight=.48 + (r>.80?.16:0);
-      const sideColor=shade(meta.color,.46 + r*.12);
-      const m=box(cell*.97,topHeight,cell*.97,sideColor,{emissive:meta.color,emissiveIntensity:.035});
-      m.position.set(ix*cell-half,0,iz*cell-half);
-      mark(m,meta.key); g.add(m); mats.push(m.material);
-      const top=box(cell*.91,.12,cell*.91,shade(meta.color,.78+r*.22),{emissive:meta.color,emissiveIntensity:.075});
-      top.position.set(ix*cell-half,topHeight/2+.09,iz*cell-half); mark(top,meta.key); g.add(top); mats.push(top.material);
-      if(edge>(n-1)/2-.4 && r>.45){
-        const under=box(cell*.8,.35+seeded(ix+iz+index)*.45,cell*.8,shade(meta.color,.25));
-        under.position.set(ix*cell-half,-.42,iz*cell-half); mark(under,meta.key); g.add(under);
+      const gx=ix-(n-1)/2;
+      const gz=iz-(n-1)/2;
+      const nx=Math.abs(gx)/Math.max(1,(n-1)/2);
+      const nz=Math.abs(gz)/Math.max(1,(n-1)/2);
+      const r=seeded(index*101+ix*19+iz*37);
+      const corner=nx+nz;
+
+      /* Clip only some far corners/edge cells. The result stays chunky enough for
+         readable title bands, but no longer reads as six perfect square floors. */
+      const cutCorner=(nx>.72 && nz>.72 && r>.22) || (corner>1.72 && r>.10);
+      if(cutCorner) continue;
+
+      const topHeight=.44 + (r>.78?.12:0);
+      const x=ix*cell-half;
+      const z=iz*cell-half;
+      const edge=Math.max(nx,nz);
+
+      /* Colored biome crust. */
+      const crust=box(
+        cell*.97, topHeight, cell*.97,
+        shade(meta.color,.46+r*.13),
+        {emissive:meta.color,emissiveIntensity:.032}
+      );
+      crust.position.set(x,0,z);
+      mark(crust,meta.key);
+      g.add(crust);
+      mats.push(crust.material);
+
+      const top=box(
+        cell*.91,.12,cell*.91,
+        shade(meta.color,.80+r*.23),
+        {emissive:meta.color,emissiveIntensity:.072}
+      );
+      top.position.set(x,topHeight/2+.09,z);
+      mark(top,meta.key);
+      g.add(top);
+      mats.push(top.material);
+
+      /* Rocky/earthy floating underside. Edge cells hang farther down, creating
+         the suspended-island silhouette from the new reference direction. */
+      const depth=.55 + edge*.82 + seeded(index*71+ix*11+iz*23)*.62;
+      const rock=box(
+        cell*.83,depth,cell*.83,
+        shade(meta.rock,.72+r*.18),
+        {emissive:meta.color,emissiveIntensity:.012}
+      );
+      rock.position.set(x,-topHeight/2-depth/2+.04,z);
+      mark(rock,meta.key);
+      g.add(rock);
+
+      if(edge>.66 && seeded(index*53+ix*31+iz*17)>.50){
+        const spireH=.45+seeded(index*89+ix*7+iz*41)*1.05;
+        const spire=box(
+          cell*(.46+seeded(ix+iz+index)*.22),
+          spireH,
+          cell*(.46+seeded(ix*3+iz+index)*.20),
+          shade(meta.rock,.52)
+        );
+        spire.position.set(
+          x+(seeded(ix*5+iz)-.5)*cell*.18,
+          -topHeight/2-depth-spireH/2+.10,
+          z+(seeded(iz*7+ix)-.5)*cell*.18
+        );
+        mark(spire,meta.key);
+        g.add(spire);
       }
     }
+
+    /* A few tiny floating fragments around every biome make the islands feel
+       suspended rather than laid out on an invisible board. */
+    for(let d=0;d<5;d++){
+      const a=seeded(index*31+d*9)*Math.PI*2;
+      const rr=meta.size*(.55+seeded(index*17+d*5)*.18);
+      const debris=box(
+        .18+seeded(d+index)*.24,
+        .18+seeded(d*3+index)*.38,
+        .18+seeded(d*7+index)*.24,
+        shade(meta.rock,.55)
+      );
+      debris.position.set(
+        Math.cos(a)*rr,
+        -.55-seeded(index+d*13)*1.20,
+        Math.sin(a)*rr
+      );
+      mark(debris,meta.key);
+      g.add(debris);
+    }
+
     highlightMaterials.set(meta.key,mats);
     addScrollingTitleBands(g,meta,index);
 
@@ -21082,15 +21235,29 @@ This block intentionally comes LAST so old experimental overrides cannot win.
       const forestGlow=new THREE.PointLight(0xd6ff73,2.9,5.2,2); forestGlow.position.set(-.25,1.05,.25); g.add(forestGlow);
     }
     if(meta.key==='projects'){
-      /* Research floor: compact bedroom-study scene. */
-      addBed(g,1.65,-1.05,.42);
-      addLaptopWorker(g,-.92,.10,.34);
+      /* Research island: field ecology + spatial modelling rather than a bedroom. */
+      addTree(g,-2.05,-1.45,.40);
+      addTree(g,1.95,1.48,.38);
+      addAutumnTree(g,-1.80,1.58,.42,.55);
+      addTree(g,2.10,-1.55,.36);
 
-      /* Low shelf and bedside light — kept below sight lines. */
-      const shelf=box(1.0,.46,.34,0x28485a); shelf.position.set(1.25,.72,1.25); g.add(shelf);
-      const lampBase=box(.20,.12,.20,0x476270); lampBase.position.set(1.25,1.02,1.25); g.add(lampBase);
-      const lamp=box(.28,.20,.28,0xffe8a0,{emissive:0xffd66a,emissiveIntensity:1.15}); lamp.position.set(1.25,1.20,1.25); g.add(lamp);
-      const roomLight=new THREE.PointLight(0xffd787,3.8,3.2,2); roomLight.position.set(1.25,1.30,1.10); g.add(roomLight);
+      addLaptopWorker(g,-.72,.05,.34);
+
+      /* Sampling/research markers. */
+      [[.85,-.35],[1.48,.42],[-1.32,.92],[-.15,1.55]].forEach(([x,z],i)=>{
+        const pole=box(.08,.62,.08,0xe9f8ff,{emissive:0x6fdcff,emissiveIntensity:.24});
+        pole.position.set(x,.88,z); g.add(pole);
+        const tag=box(.34,.20,.08,i%2?0xa66cff:0x61e59c,{emissive:i%2?0x6c35c6:0x287f58,emissiveIntensity:.18});
+        tag.position.set(x,.99,z); g.add(tag);
+      });
+
+      const table=box(1.22,.12,.66,0x8b6b53);
+      table.position.set(.72,.77,1.05); g.add(table);
+      const mapBoard=box(.90,.05,.52,0xd8f2ec,{emissive:0x4bd7d0,emissiveIntensity:.07});
+      mapBoard.position.set(.72,.86,1.05); g.add(mapBoard);
+
+      const researchLight=new THREE.PointLight(0xb58cff,3.2,4.5,2);
+      researchLight.position.set(.25,1.55,.35); g.add(researchLight);
     }
     if(meta.key==='skills'){
       /* V42 — open disco/equalizer stage. The three blocking rear columns remain removed.
@@ -21213,7 +21380,7 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   /* =========================================================
   V52 — DETACHED FLOOR PREVIEW
   Reuses the selected floor geometry in a separate low-power renderer.
-  The main tower stays paused while a section is open.
+  The main archipelago stays paused while a section is open.
   ========================================================= */
   let detachedRenderer=null;
   let detachedScene=null;
@@ -21323,7 +21490,7 @@ This block intentionally comes LAST so old experimental overrides cannot win.
 
   /* Glittering disco ball on the third floor, beneath Maps · Models · Visuals. */
   const discoGroup=new THREE.Group();
-  discoGroup.position.set(-1.08,8.67,-1.28);
+  discoGroup.position.set(-1.35,2.55,-1.35);
   const chainMat=new THREE.MeshStandardMaterial({color:0xa3c3cf,metalness:.9,roughness:.2});
   const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.72,8),chainMat);
   chain.position.y=-.36;
@@ -21355,14 +21522,72 @@ This block intentionally comes LAST so old experimental overrides cannot win.
     const r=.70+(i%3)*.08;
     addPixelStar(discoGroup,Math.cos(a)*r,-.92+Math.sin(a*1.7)*.28,Math.sin(a)*r,.10+(i%4)*.018,glintColors[i%glintColors.length],discoGlints);
   }
-  tower.add(discoGroup);
+  platformGroups.get('skills')?.add(discoGroup);
 
-  /* Central data beam made of translucent voxel segments. */
-  const beamMat=new THREE.MeshStandardMaterial({color:0x44e8ff,transparent:true,opacity:.22,emissive:0x33dfff,emissiveIntensity:.8,roughness:.2});
-  for(let y=.6;y<16.8;y+=.72){ const b=new THREE.Mesh(new THREE.BoxGeometry(.28,.52,.28),beamMat);b.position.y=y;tower.add(b); }
+  /* Open navigation grid sits well below the islands, leaving visible air gaps. */
+  const grid=new THREE.GridHelper(34,34,0x124e68,0x08243a);
+  grid.position.y=-3.85;
+  grid.material.transparent=true;
+  grid.material.opacity=.42;
+  scene.add(grid);
 
-  const water=box(9.2,.14,9.2,0x06395b,{emissive:0x0d6a8a,emissiveIntensity:.18}); water.position.y=-4.33; water.material.transparent=true;water.material.opacity=.48;tower.add(water);
-  const grid=new THREE.GridHelper(26,26,0x124e68,0x08243a);grid.position.y=-4.23;scene.add(grid);
+  /* Low-poly voxel clouds and mist between islands. */
+  const clouds=[];
+  const cloudGeo=new THREE.IcosahedronGeometry(1,1);
+  const cloudMat=new THREE.MeshStandardMaterial({
+    color:0xdff8ff,
+    emissive:0x315a6b,
+    emissiveIntensity:.08,
+    roughness:.92,
+    transparent:true,
+    opacity:.22,
+    depthWrite:false,
+    flatShading:true
+  });
+
+  function addCloud(x,y,z,scale=1){
+    const c=new THREE.Group();
+    c.position.set(x,y,z);
+    c.userData.cloud={x,y,z,phase:seeded(x*13+z*17)*Math.PI*2};
+    const blobs=[
+      [-.62,0,.02,.72],[0,0,.08,.95],[.72,.02,-.05,.66],
+      [-.20,.38,.03,.62],[.42,.30,.06,.54]
+    ];
+    blobs.forEach(([bx,by,bz,s])=>{
+      const m=new THREE.Mesh(cloudGeo,cloudMat.clone());
+      m.scale.set(s*1.20,s*.67,s*.82);
+      m.position.set(bx,by,bz);
+      c.add(m);
+    });
+    c.scale.setScalar(scale);
+    islandWorld.add(c);
+    clouds.push(c);
+    return c;
+  }
+
+  [
+    [-3.1,-1.6,-5.0,.72],
+    [4.1,-1.4,-4.2,.78],
+    [-.2,-1.8,-.7,.70],
+    [-3.2,-1.55,2.1,.62],
+    [3.1,-1.72,2.2,.70],
+    [.3,-1.52,5.2,.58],
+    [-9.0,-1.9,2.4,.78],
+    [9.1,-1.8,2.8,.72]
+  ].forEach(p=>addCloud(...p));
+
+  const mistGeo=new THREE.PlaneGeometry(28,22);
+  const mistMat=new THREE.MeshBasicMaterial({
+    color:0x7fd9ff,
+    transparent:true,
+    opacity:.035,
+    depthWrite:false,
+    side:THREE.DoubleSide
+  });
+  const mist=new THREE.Mesh(mistGeo,mistMat);
+  mist.rotation.x=-Math.PI/2;
+  mist.position.set(1.0,-3.25,.5);
+  islandWorld.add(mist);
 
 
   /* =========================================================
@@ -21373,7 +21598,7 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   ========================================================= */
 
   /* Subtle environmental dust plus a restrained sparkle layer. */
-  const pts=[]; for(let i=0;i<120;i++){ const a=seeded(i*7.7)*Math.PI*2,r=6.5+seeded(i*3.3)*9.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*18-2.2,Math.sin(a)*r); }
+  const pts=[]; for(let i=0;i<120;i++){ const a=seeded(i*7.7)*Math.PI*2,r=5.5+seeded(i*3.3)*10.5;pts.push(Math.cos(a)*r,seeded(i*5.1)*6.5-2.6,Math.sin(a)*r); }
   const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
   const dustMat=new THREE.PointsMaterial({color:0x71dfff,size:.035,transparent:true,opacity:.38,depthWrite:false});
   const dustPoints=new THREE.Points(pg,dustMat);
@@ -21383,7 +21608,7 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   for(let i=0;i<38;i++){
     const a=seeded(i*11.2+9)*Math.PI*2;
     const r=5.5+seeded(i*4.9+3)*9;
-    sparklePts.push(Math.cos(a)*r, seeded(i*9.7+2)*18-2.0, Math.sin(a)*r);
+    sparklePts.push(Math.cos(a)*r, seeded(i*9.7+2)*6.8-2.4, Math.sin(a)*r);
   }
   const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sparklePts,3));
   const sparkleMat=new THREE.PointsMaterial({color:0xfff4c7,size:.055,transparent:true,opacity:.15,depthWrite:false});
@@ -21392,13 +21617,13 @@ This block intentionally comes LAST so old experimental overrides cannot win.
 
   let viewShiftX = 0;
   let viewShiftY = 0;
-  let lastFrustum = 18.8;
+  let lastFrustum = 27.5;
 
   function applyProjection(){
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight), aspect=w/h;
     const mobile=window.innerWidth<=800;
     const tiny=window.innerWidth<=430;
-    const frustum=tiny?22.6:(mobile?21.4:18.8);
+    const frustum=tiny?37.0:(mobile?33.5:27.5);
     lastFrustum=frustum;
     const halfH=frustum/2, halfW=frustum*aspect/2;
     camera.left=-halfW+viewShiftX;
@@ -21412,11 +21637,10 @@ This block intentionally comes LAST so old experimental overrides cannot win.
     const w=Math.max(1,wrap.clientWidth), h=Math.max(1,wrap.clientHeight);
     const mobile=window.innerWidth<=800;
 
-    /* The orbit pivot remains attached to the tower. Screen panning is handled
-       separately by viewShiftX/viewShiftY and survives resize/orientation changes. */
-    controls.target.x=tower.position.x;
-    controls.target.y=6.6;
-    controls.target.z=tower.position.z;
+    /* Orbit around the shared center of the island archipelago. */
+    controls.target.x=islandWorld.position.x;
+    controls.target.y=.55;
+    controls.target.z=islandWorld.position.z+.65;
 
     applyProjection();
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.15:1.35));
@@ -21439,8 +21663,8 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   }
   function moveViewHorizontal(direction){
     const step=.95/Math.max(camera.zoom,.35);
-    /* Shift only the orthographic projection. The controls target stays on the tower,
-       so all later rotations continue around the building — not the page center. */
+    /* Shift only the orthographic projection. The controls target stays on the islandWorld,
+       so all later rotations continue around the island world — not the page center. */
     viewShiftX += direction>0 ? -step : step;
     applyProjection();
   }
@@ -21538,7 +21762,7 @@ This block intentionally comes LAST so old experimental overrides cannot win.
     towerMoveActive=active;
     towerMovePointer=active?pointerId:null;
     controls.enabled=!active;
-    wrap.classList.toggle('is-tower-moving',active);
+    wrap.classList.toggle('is-islandWorld-moving',active);
     gridJoystick?.classList.toggle('is-dragging',active);
 
     if(active){
@@ -21621,10 +21845,23 @@ This block intentionally comes LAST so old experimental overrides cannot win.
   }
   function setHover(key){
     if(hovered===key)return;
-    if(hovered && highlightMaterials.has(hovered)) highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.035);
+
+    if(hovered && highlightMaterials.has(hovered)){
+      highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.032);
+      const oldGroup=platformGroups.get(hovered);
+      if(oldGroup) oldGroup.userData.hoverLift=0;
+    }
+
     hovered=key;
-    if(hovered && highlightMaterials.has(hovered)) highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.22);
+
+    if(hovered && highlightMaterials.has(hovered)){
+      highlightMaterials.get(hovered).forEach(m=>m.emissiveIntensity=.20);
+      const nextGroup=platformGroups.get(hovered);
+      if(nextGroup) nextGroup.userData.hoverLift=.20;
+    }
+
     canvas.style.cursor=hovered?'pointer':'grab';
+    boostInteraction(420);
   }
   canvas.addEventListener('pointermove',ev=>{ if(ev.buttons || towerMoveActive)return; const h=hitFromEvent(ev);setHover(h?.userData?.section||null); });
   canvas.addEventListener('pointerleave',()=>setHover(null));
@@ -21644,11 +21881,11 @@ This block intentionally comes LAST so old experimental overrides cannot win.
       viewShiftX=0;viewShiftY=0;
       gridJoystick?.classList.remove('is-dragging');
       joystickX=0;joystickY=0;paintJoystick();stopJoystickMotion();
-      const tx=window.innerWidth<=800?0:.65;
-      tower.position.set(tx,0,0);
-      camera.position.set(tx+12,12.0,14);
-      camera.zoom=.76;
-      controls.target.set(tx,6.6,0);
+      const tx=window.innerWidth<=800?0:1.8;
+      islandWorld.position.set(tx,0,0);
+      camera.position.set(tx+15.7,13.6,19.5);
+      camera.zoom=.92;
+      controls.target.set(tx,.55,.65);
       applyProjection();
       controls.update();
     }
@@ -21723,6 +21960,23 @@ This block intentionally comes LAST so old experimental overrides cannot win.
     });
     if(topSun){const p=1+(Math.sin(now*.0031)+1)*.035;topSun.scale.setScalar(p);topSun.material.emissiveIntensity=1.0+(Math.sin(now*.004)+1)*.28;}
     skyStars.forEach((s,i)=>{const p=.9+(Math.sin(now*.0048+i*1.9)+1)*.22;s.scale.setScalar(p);s.rotation.z=Math.sin(now*.0015+i)*.18;});
+
+    platformGroups.forEach(group=>{
+      const baseY=group.userData.baseY ?? group.position.y;
+      const hoverLift=group.userData.hoverLift || 0;
+      group.position.y=THREE.MathUtils.lerp(group.position.y,baseY+hoverLift,.11);
+    });
+
+    clouds.forEach((c,i)=>{
+      const d=c.userData.cloud;
+      const p=now*.00034+d.phase+i*.13;
+      c.position.x=d.x+Math.sin(p)*.13;
+      c.position.z=d.z+Math.cos(p*.83)*.11;
+      c.position.y=d.y+Math.sin(p*1.45)*.08;
+      c.rotation.y=Math.sin(p*.37)*.05;
+    });
+    mist.material.opacity=.026+(Math.sin(now*.00042)+1)*.012;
+
     sparkleMat.opacity=.13 + (Math.sin(now*.0014)+1)*.035;
     sparklePoints.rotation.y=now*.000012;
     dustPoints.rotation.y=-now*.000006;
