@@ -20213,10 +20213,10 @@ This block intentionally comes LAST so old experimental overrides cannot win.
 
 
 /* =========================================================
-V63 — SWAPPED RED/BLUE ISLANDS + STRONGER HEIGHT STEPPING
-Island 01 stays in front but is now the lowest. Island 06 is now the highest.
-The former disco island uses the red/coral biome, the central water island uses
-the light-blue biome, and the island heights are spaced farther apart for clarity.
+V64 — FULL ISLAND CORNERS + RED ISLAND MOVED LEFT
+All island tops are now complete with no intentionally clipped corner tiles.
+The red Technical Skills/disco island is moved clearly to the left of the
+light-blue Maps · Models · Visuals island to remove the overlap.
 ========================================================= */
 
 .voxel-canvas-wrap{
@@ -20704,7 +20704,7 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
 
   const camera = new THREE.OrthographicCamera(-10,10,10,-10,0.1,120);
   camera.position.set(18.6,15.8,21.8);
-  camera.lookAt(.70,1.45,.10);
+  camera.lookAt(.35,1.45,.20);
   camera.zoom = .84;
   camera.updateProjectionMatrix();
 
@@ -20743,7 +20743,7 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
   controls.maxZoom = 2.25;
   controls.minPolarAngle = .30;
   controls.maxPolarAngle = Math.PI*.72;
-  controls.target.set(.70,1.45,.10);
+  controls.target.set(.35,1.45,.20);
   controls.update();
 
   scene.add(new THREE.HemisphereLight(0x8feaff,0x14223d,2.3));
@@ -21090,7 +21090,7 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
       accent:'#b977ff', side:-1
     },
     {
-      key:'gallery', x:0.00, y:1.10, z:.35, size:5.90,
+      key:'gallery', x:.65, y:1.10, z:.35, size:5.90,
       color:C.skills, rock:0x36576d,
       title:'03  MAPS · MODELS · VISUALS', sub:'cartographic · analytical work',
       accent:'#42dcff', side:-1
@@ -21108,7 +21108,7 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
       accent:'#72e9a5', side:1
     },
     {
-      key:'skills', x:-4.55, y:1.60, z:-2.20, size:5.95,
+      key:'skills', x:-6.35, y:1.60, z:1.20, size:5.95,
       color:C.maps, rock:0x5a3945,
       title:'04  TECHNICAL SKILLS', sub:'GIS · remote sensing · programming',
       accent:'#ff7185', side:1
@@ -21137,10 +21137,10 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
       const r=seeded(index*101+ix*19+iz*37);
       const corner=nx+nz;
 
-      /* Clip only some far corners/edge cells. The result stays chunky enough for
-         readable title bands, but no longer reads as six perfect square floors. */
-      const cutCorner=(nx>.72 && nz>.72 && r>.22) || (corner>1.72 && r>.10);
-      if(cutCorner) continue;
+      /* V64: keep every top cell.
+         Earlier versions intentionally removed far-corner cells to create an
+         irregular silhouette; that produced visible holes in the island corners. */
+      const cutCorner=false;
 
       const topHeight=.44 + (r>.78?.12:0);
       const x=ix*cell-half;
@@ -21683,7 +21683,7 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
     /* Orbit around the stronger stepped archipelago layout. */
     controls.target.x=islandWorld.position.x;
     controls.target.y=1.45;
-    controls.target.z=islandWorld.position.z+.10;
+    controls.target.z=islandWorld.position.z+.20;
 
     applyProjection();
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile?1.15:1.35));
@@ -21924,11 +21924,11 @@ the light-blue biome, and the island heights are spaced farther apart for clarit
       viewShiftX=0;viewShiftY=0;
       gridJoystick?.classList.remove('is-dragging');
       joystickX=0;joystickY=0;paintJoystick();stopJoystickMotion();
-      const tx=window.innerWidth<=800?0:.70;
+      const tx=window.innerWidth<=800?0:.35;
       islandWorld.position.set(tx,0,0);
-      camera.position.set(tx+17.9,15.8,21.8);
+      camera.position.set(tx+18.25,15.8,21.8);
       camera.zoom=.84;
-      controls.target.set(tx,1.45,.10);
+      controls.target.set(tx,1.45,.20);
       applyProjection();
       controls.update();
     }
